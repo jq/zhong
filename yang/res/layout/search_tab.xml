@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res/com.feebe.rings"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView 
+        android:id="@+id/search_artist"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="4dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:text="Artist"
+        android:gravity="left"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+            
+    <EditText
+        android:id="@+id/input_artist"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:scrollHorizontally="true"
+        android:autoText="false"
+        android:capitalize="none"
+        android:gravity="fill_horizontal"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/serach_title"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:text="Title"
+        android:gravity="left"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+            
+    <EditText
+        android:id="@+id/input_title"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:scrollHorizontally="true"
+        android:autoText="false"
+        android:capitalize="none"
+        android:gravity="fill_horizontal"
+        android:textAppearance="?android:attr/textAppearanceMedium" /> 
+    
+    <com.admob.android.ads.AdView  
+          android:id="@+id/ad_in_searchtab" 
+          android:visibility="visible"
+          android:layout_width="fill_parent" 
+          android:layout_height="wrap_content"
+          app:backgroundColor="#000000"
+          app:textColor="#FFFFFF"
+          app:keywords="game, job, shop, computer, girl"
+        />
+        
+    <Button
+    		android:id="@+id/search_button"
+    		android:text="Search"
+    		android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+    		/>
+</LinearLayout>
