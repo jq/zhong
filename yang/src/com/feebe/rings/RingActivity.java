@@ -33,6 +33,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -363,38 +364,52 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
       }
     }
   };
-  
+  ProgressDialog mStreaming;
   OnClickListener previewClick = new OnClickListener() {	
 		@Override
 		public void onClick(View v) {
 			// TODO play online
 			if(mp3Location.startsWith("http:")) {
-			  ProgressDialog mStreaming = new ProgressDialog(RingActivity.this);
-			  mStreaming.setTitle(R.string.mStreaming_title);
-				mStreaming.setMessage(RingActivity.this.getString(R.string.mStreaming_message));
-				mStreaming.setIndeterminate(true);
-				mStreaming.setCancelable(true);
-				mStreaming.setButton(RingActivity.this.getString(R.string.stop), new DialogInterface.OnClickListener() {			
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						mediaPreview.stop();
-					}
-				});
+			  if (mStreaming == null) {
+			    mStreaming  = new ProgressDialog(RingActivity.this);
+  			  mStreaming.setTitle(R.string.mStreaming_title);
+  				mStreaming.setMessage(RingActivity.this.getString(R.string.mStreaming_message));
+  				mStreaming.setIndeterminate(true);
+  				mStreaming.setCancelable(true);
+  				mStreaming.setButton(RingActivity.this.getString(R.string.stop), new DialogInterface.OnClickListener() {			
+  					@Override
+  					public void onClick(DialogInterface dialog, int which) {
+  						mediaPreview.stop();
+  					}
+  				});
+			  }
 				mStreaming.show();
 				if (mediaPreview == null) {
 				  mediaPreview = new MediaPlayer();
 				}
-				try {
-					mediaPreview.setDataSource(mp3Location);
-					mediaPreview.prepare();
-					mediaPreview.start();
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (IllegalStateException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}				
+				
+				new Thread(new Runnable() {
+
+          @Override
+          public void run() {
+            try {
+              mediaPreview.setDataSource(mp3Location);
+              mediaPreview.prepare();
+              mediaPreview.start();
+              mediaPreview.setOnCompletionListener(new OnCompletionListener () {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                  mStreaming.dismiss();
+                }
+              });
+            } catch (IllegalArgumentException e) {
+            } catch (IllegalStateException e) {
+            } catch (IOException e) {
+            }       
+            
+          }
+				  
+				}).start();
 				
 			}		
 		}
