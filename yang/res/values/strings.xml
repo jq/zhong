@@ -85,10 +85,9 @@
     <!--
      used in share alert_dialog
      -->
-     <string name="share_sms1">I'd like to share this ringtone to you: </string>
-     <string name="share_sms2"> from </string>
-     <string name="share_email_subject">Share a ringtone with you</string>
-     <string name="share_email_dialog_title"> from </string>
+     <string name="share_sms1">I'd like to share this ringtone to you:</string>
+     <string name="share_sms2">from</string>
+     <string name="share_sms3">Send from Feebe Ringtone of Android market://search?q=com.feebe.rings</string>
     
     <!--
      used in RingActivity dlProgress dialog

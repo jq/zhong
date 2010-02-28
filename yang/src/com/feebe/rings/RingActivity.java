@@ -132,7 +132,6 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
   	  	rating = ring.getString(Const.rating);
   	  	title = ring.getString(Const.title);
   	  	key = ring.getString(Const.key);
-      	  	
         mp3Location = ring.getString(Const.mp3);
         titleTextView.setText(title);
         artistTextView.setText(artist);
@@ -283,16 +282,26 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
                 switch(which) {
                 case 0:
                 	Intent sms = new Intent(Intent.ACTION_VIEW);
-                	sms.putExtra("sms_body", RingActivity.this.getString(R.string.share_sms1) + title + RingActivity.this.getString(R.string.share_sms2) + artist); 
+                	sms.putExtra("sms_body",
+                	    RingActivity.this.getString(R.string.share_sms1) + " " +
+                	    title+ " "  + RingActivity.this.getString(R.string.share_sms2)+ "\n" +
+                	    key.substring(0, key.length() - 7)+ "\n" +
+                	    RingActivity.this.getString(R.string.share_sms3)
+                	    ); 
                 	sms.setType("vnd.android-dir/mms-sms");
                 	startActivity(sms);
                 	break;
                 case 1:
                 	Intent mEmailIntent = new Intent(android.content.Intent.ACTION_SEND);
                 	mEmailIntent.setType("plain/text");
-                	mEmailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, RingActivity.this.getString(R.string.share_email_subject));
-                	mEmailIntent.putExtra(android.content.Intent.EXTRA_TEXT, RingActivity.this.getString(R.string.share_sms1) + title + RingActivity.this.getString(R.string.share_sms2) + artist);
-                	startActivity(Intent.createChooser(mEmailIntent, RingActivity.this.getString(R.string.share_email_dialog_title)));
+                	mEmailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, 
+                	    title);
+                	mEmailIntent.putExtra(android.content.Intent.EXTRA_TEXT, 
+                	    RingActivity.this.getString(R.string.share_sms1) + " " + title + " " + 
+                	    RingActivity.this.getString(R.string.share_sms2) + "\n" + 
+                	    key.substring(0, key.length() - 7) + "\n" +
+                      RingActivity.this.getString(R.string.share_sms3));
+                	startActivity(Intent.createChooser(mEmailIntent, artist));
                 	break;
                 case 2:
                 	Browser.sendString(RingActivity.this, RingActivity.this.getString(R.string.share_sms1) + title + RingActivity.this.getString(R.string.share_sms2) + artist);
@@ -529,7 +538,7 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
           RingActivity.this, R.string.download_failed, Toast.LENGTH_SHORT).show();
       return;
     }
-    Log.e("onDownloadFinish", file.getAbsolutePath());
+    //Log.e("onDownloadFinish", file.getAbsolutePath());
     try {
       AudioFile audioFile = AudioFileIO.read(file);
       audioFile.getTag().setTitle(title);
@@ -551,7 +560,7 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
       try {
         ring.put(Const.mp3, mCurrentFileUri.toString());
       } catch (JSONException e) {
-        e.printStackTrace();
+        //e.printStackTrace();
       }
       Util.saveFile(ring.toString(), jsonLocation);
       // TODO: reload download ring page 
