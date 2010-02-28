@@ -464,7 +464,14 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
               if (mCurrentFileUri == null) {
                 mCurrentFileUri = Uri.parse(ring.getString(Const.mp3));
               }
-              RingtoneManager.setActualDefaultRingtoneUri(RingActivity.this, ring_type, mCurrentFileUri);
+              Uri uri = null;
+              if(ring_type == RingtoneManager.TYPE_ALARM)
+              	uri = mCurrentFileUriAlarm;
+              else if(ring_type == RingtoneManager.TYPE_NOTIFICATION)
+              	uri = mCurrentFileUriNotification;
+              else
+              	uri = mCurrentFileUri;
+              RingtoneManager.setActualDefaultRingtoneUri(RingActivity.this, ring_type, uri);
             } catch (JSONException e) {
               // TODO Auto-generated catch block
               e.printStackTrace();
@@ -556,6 +563,12 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
       Uri u = saveRingtoneToLib(ring.getString(Const.title), mp3Location, file, 
           ring.getString(Const.artist), Const.FILE_KIND_RINGTONE);
       mCurrentFileUri = u;
+      Uri u_notification = saveRingtoneToLib(ring.getString(Const.title), mp3Location, file, 
+          ring.getString(Const.artist), Const.FILE_KIND_NOTIFICATION);
+      mCurrentFileUriNotification = u_notification;
+      Uri u_alarm = saveRingtoneToLib(ring.getString(Const.title), mp3Location, file, 
+          ring.getString(Const.artist), Const.FILE_KIND_ALARM);
+      mCurrentFileUriAlarm = u_alarm;
       jsonLocation = Const.jsondir + file.getName();
       try {
         ring.put(Const.mp3, mCurrentFileUri.toString());
@@ -584,6 +597,8 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
   }
   
   private Uri mCurrentFileUri;
+  private Uri mCurrentFileUriNotification;
+  private Uri mCurrentFileUriAlarm;
   private JSONObject ring;
   private String mp3Location;
   private String jsonLocation;
