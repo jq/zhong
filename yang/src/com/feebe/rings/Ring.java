@@ -42,7 +42,8 @@ public class Ring extends TabActivity implements OnTabChangeListener {
       TabCreator.createTab(this, tabHost, dl, getString(R.string.tab_download), R.drawable.tab_download);
       Intent search = new Intent(this, SearchTab.class);
       TabCreator.createTab(this, tabHost, search, getString(R.string.tab_search), R.drawable.tab_search);
-      setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);       
+      setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
+      //throw new RuntimeException("exc");
     }
     
     // Copied from DialTacts Activity

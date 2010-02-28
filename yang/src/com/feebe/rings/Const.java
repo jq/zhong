@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
+import com.feebe.lib.EndlessUrlArrayAdapter;
+
 import android.os.Environment;
 import android.widget.Toast;
 
@@ -40,7 +42,6 @@ public class Const extends com.feebe.lib.Const {
 
   public static final String SearchQuery = "http://ggapp.appspot.com/ringtone/search/?json=1&q=";
   public static final String RatingBase = "http://ggapp.appspot.com/ringtone/rate/";
-  public static final String TOPDOWNLOAD = "http://ggapp.appspot.com/ringtone/hot/topdl/";
   
   public static void init() {
     pkg = "com.feebe.rings";
@@ -55,6 +56,8 @@ public class Const extends com.feebe.lib.Const {
   	tab_label = R.id.tab_label;
   	no_result = R.string.no_result;
   	no_sd = R.string.no_sd;
+  	EndlessUrlArrayAdapter.Throbber = R.id.row_icon;
+  	EndlessUrlArrayAdapter.ThrobberImg = android.R.drawable.ic_popup_sync;
   }
 
   

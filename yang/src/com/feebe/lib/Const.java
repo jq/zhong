@@ -2,8 +2,17 @@ package com.feebe.lib;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
 import android.content.pm.PackageInfo;
@@ -11,6 +20,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Environment;
+import android.util.Log;
 import android.widget.Toast;
 
 public class Const {	
@@ -42,9 +52,6 @@ public class Const {
   public static String homedir;
   public static String cachedir;
   public static final int ver = Integer.parseInt(Build.VERSION.SDK);
-  private static String exception_base;
-  private static final String exception_url="http://ggapp.appspot.com/ringtone/bug/";
-  public static String pkg;
   public static void init() {
     File sdcardRoot = Environment.getExternalStorageDirectory();
     
@@ -76,30 +83,54 @@ public class Const {
       return;
     }
     */
+    exceptionHandler();
+  }
+  public static String pkg;
+  private static void reportCrash(Throwable ex) {
+    try {
+      HttpPost report = new HttpPost("http://ggapp.appspot.com/ringtone/bug/");
+      List<BasicNameValuePair> formparams = new ArrayList<BasicNameValuePair>();
+      formparams.add(new BasicNameValuePair("device", Build.DEVICE));
+      formparams.add(new BasicNameValuePair("model", Build.MODEL));
+      formparams.add(new BasicNameValuePair("sdk", Build.VERSION.SDK));
+
+      formparams.add(new BasicNameValuePair("version", pkg + getVersion()));
+      String data = ex.getMessage();
+      Throwable real = ex.getCause();
+      StackTraceElement[] stack = real.getStackTrace();
+      int len;
+      if (stack.length > 2) {
+        len = 2;
+      } else {
+        len = stack.length;
+      }
+      for(int i = 0; i < len; ++i) {
+        data += stack[i].toString();
+      }
+      Log.e("data", data);
+      formparams.add(new BasicNameValuePair("bug", data));
+      UrlEncodedFormEntity entity;
+   
+      entity = new UrlEncodedFormEntity(formparams, "UTF-8");
+      report.setEntity(entity);
+      HttpClient httpclient = new DefaultHttpClient();
+      httpclient.execute(report);
+      httpclient.getConnectionManager().shutdown();        
+    } catch (Exception e) {
+    }
+  }
+  
+  
+  private static void exceptionHandler() {
     Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
       @Override
       public void uncaughtException(Thread thread, Throwable ex) {
-        if (exception_base == null) {
-          StringBuilder b = new StringBuilder(128);
-          b.append("device=").append(Build.DEVICE).append("&model=")
-            .append(Build.MODEL).append("&sdk=").append(Build.VERSION.SDK).append("&version=").append(pkg).append(getVersion()).append('&');
-          exception_base = b.toString();
-        }
-        //PrintStream
-        StackTraceElement[] stack = ex.getStackTrace();
-        //ex.printStackTrace(err)
-        String data = exception_base + "bug=" + URLEncoder.encode(ex.getMessage());
-        for(int i = 0; i < stack.length; ++i) {
-          data += stack[i].toString();
-        }
-        //s
-        //+ ex.);
-        
-        Util.post(exception_url, data);
+        reportCrash(ex);
         main.finish();
       }
     });
   }
+  
   private static int getVersion() {
     PackageInfo pInfo = null;
     try {

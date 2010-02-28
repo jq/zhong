@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.feebe.lib.BaseList;
+import com.feebe.lib.EndlessUrlArrayAdapter;
 import com.feebe.lib.ImgThread;
 import com.feebe.lib.UrlArrayAdapter;
 import com.feebe.lib.Util;
@@ -41,7 +42,6 @@ public class SearchList extends BaseList {
   	new ImgThread(getListView());
     Intent i = this.getIntent();
     reloadUrl = getUrlFromIntent(i);
-    
     mAdapter = new SearchResultAdapter(this, R.layout.searchlist_row);
     return mAdapter;
   }
@@ -90,6 +90,7 @@ public class SearchList extends BaseList {
     return keyword;
   }
   
+  // this should not be null
   private String reloadUrl;
   
   @Override
@@ -101,82 +102,20 @@ public class SearchList extends BaseList {
     else {
       mAdapter.clear();
       mAdapter.reset();
-      mAdapter.notifyDataSetChanged();
     }
   }
   
-  public class SearchResultAdapter extends UrlArrayAdapter<SearchResult, SearchViewWp> {
-    private int mStatus;
-    private final static int INIT = 0;
-    private final static int LOADING = 1;
-    private final static int NOMORE = 2;
-    
+  public class SearchResultAdapter extends EndlessUrlArrayAdapter<SearchResult, SearchViewWp> {
     public SearchResultAdapter(Context context, int resource) {
-      super(context, resource);
+      super(context, resource, Const.OneWeek);
       reset();
     }
     public void reset() {
       lastCnt = 0;
-      if(reloadUrl != null) {
-        runAsyn(reloadUrl, Const.OneWeek);
+      if (Util.inCache(reloadUrl, Const.OneWeek)) {
+        runSyn(reloadUrl, Const.OneWeek);
       }
     }
-    /*
-    private View footview;
-    private View getFooterView() {
-    	if (footview == null) {
-    		footview = mInflater.inflate(
-	          R.layout.list_footer, null);
-	      TextView text = (TextView)footview.findViewById(R.id.footer_text);
-	      text.setText(R.string.footer);
-	      footview.setVisibility(View.VISIBLE);
-	      //view.bind(ListFooterView.Status.LOADING, this);
-    	}
-      return footview;    	
-    }
-*/
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-      if (shouldLoadMore(position)) {
-        // // Log.e("load", "more");
-        fetchDataFromServer();
-        mStatus = LOADING;
-      }
-      
-      return super.getView(position, convertView, parent);
-    }
-
-    private boolean shouldLoadMore(int position) {
-      return reloadUrl != null &&
-          position == this.getCount() - 10 &&  // It is the last one.
-          mStatus == INIT;
-    }
-
-    private void fetchDataFromServer() {
-      lastCnt = super.getCount();
-      String url;
-      if (reloadUrl.indexOf('?') != -1) {
-        url = reloadUrl + "&start=" +lastCnt;
-      } else {
-        url = reloadUrl + "?start=" +lastCnt;
-      }
-      
-      // // Log.e("url", url);
-      runAsyn(url, Const.OneWeek);
-    }
-
-    @Override
-    public void notifyDataSetChanged() {
-      // // Log.e("lastcnt", "" + lastCnt);
-      if (lastCnt + Const.DEFAULT_RESULT > super.getCount()) {
-      	onNoResult();
-      } else {
-        //SearchList.this.getListView().setSelection(lastCnt-1);
-        mStatus = INIT;
-      }
-      super.notifyDataSetChanged();
-    }
-    
     @Override
     public SearchResult getT(JSONObject obj) {
       try {
@@ -193,20 +132,6 @@ public class SearchList extends BaseList {
         e.printStackTrace();
       }
       return null;
-    }
-
-    @Override
-    protected void onNoResult() {
-    	/*
-    	ListView list = getListView();
-    	if (list.getFooterViewsCount() > 0) {
-    		try {
-    	    list.removeFooterView(getFooterView());
-    		} catch (Exception e) {
-    			
-    		}
-    	}*/
-      mStatus = NOMORE;
     }
 		@Override
     public SearchViewWp getWrapper(View v) {
@@ -242,6 +167,29 @@ public class SearchList extends BaseList {
 	    
     }
     
+    @Override
+    protected String getUrl(int pos) {
+      if (pos == 0) {
+        return reloadUrl;
+      }
+      lastCnt = pos;
+      String url;
+      if (reloadUrl.indexOf('?') != -1) {
+        url = reloadUrl + "&start=" +lastCnt;
+      } else {
+        url = reloadUrl + "?start=" +lastCnt;
+      }
+      return url;
+    }
+    @Override
+    protected void finishLoading() {
+      if (lastCnt + Const.DEFAULT_RESULT > super.getCount()) {
+        //Log.e("finishLoading", "cont " + super.getCount() + " last " + lastCnt);
+        keepOnAppending = false;
+      } else {
+        fetchMoreResult();
+      }
+    }
   }
 
   private int lastCnt;

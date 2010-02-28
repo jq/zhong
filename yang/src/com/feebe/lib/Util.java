@@ -71,11 +71,15 @@ public class Util {
 	}
   
   public static JSONArray getJsonArrayFromUrl(String url, long expire) {
+    Log.e("getJsonArrayFromUrl", url);
+
 	  File cache = null;
 	  String data = null;
+	  boolean inCache = false;
     if (expire > 0) {
       cache = new File(Const.cachedir, getHashcode(url));
-      if (inCache(url, expire, cache)) {
+      inCache = inCache(url, expire, cache); 
+      if (inCache) {
         data = readFile(cache);
       }
     }	  
@@ -93,7 +97,14 @@ public class Util {
           return entries;
         } 
       } catch (JSONException e) {
-        // Log.e(TAG, e.getMessage());
+        if (inCache && cache != null) {
+          Log.e("del", url + " " + data);
+          if (cache.delete()) {
+            Log.e("del", "succeed");
+            return getJsonArrayFromUrl(url, expire);
+          }
+          
+        }
       }
     }
     //Toast.makeText(Ring.main, R.string.no_result,Toast.LENGTH_SHORT).show();
@@ -132,6 +143,16 @@ public class Util {
   	return null;
   }
   
+  public static boolean inCache(String urlStr, long expire) {
+    File cache = null;
+    if (expire > 0) {
+      cache = new File(Const.cachedir, getHashcode(urlStr));
+      if (inCache(urlStr, expire, cache)) {
+        return true;
+      }
+    }
+    return false;
+  }
   
   public static boolean inCache(String urlStr, long expire, File cache) {
     if (cache.exists()) {
@@ -260,7 +281,7 @@ public class Util {
       FileOutputStream file =  new FileOutputStream(name);
       file.write(content.getBytes());
     } catch (IOException e) {
-      // Log.e("saveFile", e.getMessage() + " file "+ name.getAbsolutePath() + " cache dir " + Const.cachedir);
+      Log.e("saveFile", e.getMessage() + " file "+ name.getAbsolutePath() + " cache dir " + Const.cachedir);
     }
   }
 	
@@ -415,20 +436,19 @@ public class Util {
 	    conn.setDoOutput(true);
 	    conn.setDoInput(true);
       conn.setRequestMethod("POST");
-      conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
       conn.setReadTimeout(1000);
+      conn.connect();
 	    OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
 	    wr.write(data);
-	    //wr.flush();
-	    wr.close();
-/*
+	    wr.flush();
 	    BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 	    String line;
 	    while ((line = rd.readLine()) != null) { }
 	    wr.close();
 	    rd.close();
-	    */
-	  } catch (Exception e) { }
+	  } catch (Exception e) {
+	    
+	  }
 
 	}
 }

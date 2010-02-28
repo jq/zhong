@@ -19,9 +19,12 @@ import android.widget.TextView;
 
 public class StringList extends BaseList {
   private static final String base_url = "http://ggapp.appspot.com/category/list/?json=1";
+  private static final String TOPDOWNLOAD = "http://ggapp.appspot.com/ringtone/hot/topdl/";
+  private static final String LATEST = "http://ggapp.appspot.com/ringtone/hot/newest/";
   private static final int CATE_TYPE = 0;
   private static final int ARTIST_TYPE = 1;
   private static final int TOP_TYPE = 2;
+  private static final int Latest_TYPE = 2;
   
   @Override
   public ListAdapter getAdapter() {
@@ -37,8 +40,10 @@ public class StringList extends BaseList {
     	Search.getCate(cate.name);
     } else if (cate.type == ARTIST_TYPE) {
     	Search.getArtistRing(cate.name);
+    } else if (cate.type == Latest_TYPE){
+      Search.startSearchList(LATEST);
     } else {
-    	Search.startSearchList(Const.TOPDOWNLOAD);
+    	Search.startSearchList(TOPDOWNLOAD);
     }
   }
   
@@ -56,6 +61,8 @@ public class StringList extends BaseList {
     public StringAdapter(Context context, int resource) {
       super(context, resource);
       add(new Item("Top download", TOP_TYPE));
+      add(new Item("Latest Rings", TOP_TYPE));
+
       // add artist
       SharedPreferences s = getSharedPreferences(Const.artist, 0);
       Map<String, ?> layers = s.getAll();
