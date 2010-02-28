@@ -1,6 +1,7 @@
 package com.feebe.lib;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.widget.ImageView;
 
 public class ImgLoader {
