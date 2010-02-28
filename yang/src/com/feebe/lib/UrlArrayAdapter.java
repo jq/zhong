@@ -78,22 +78,26 @@ public abstract class UrlArrayAdapter<T, W> extends ArrayAdapter<T> {
   @SuppressWarnings("unchecked")
   @Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+    boolean newView;
 		View view = convertView;
 		W w;
     if (view != null) {
       w = (W) view.getTag();
       if (w == null) {
         view = null;
+        
       }
     }
 		if (view == null) {
       view = mInflater.inflate(mResource, parent, false);
       w = getWrapper(view);
+      newView = true;
 		} else {
+		  newView = false;
 			w = (W) view.getTag();
 		}
     T item = getItem(position);
-    applyWrapper(item, w, convertView == null);
+    applyWrapper(item, w, newView);
     return view;
 	}
 

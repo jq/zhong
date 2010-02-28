@@ -71,8 +71,6 @@ public class Util {
 	}
   
   public static JSONArray getJsonArrayFromUrl(String url, long expire) {
-    Log.e("getJsonArrayFromUrl", url);
-
 	  File cache = null;
 	  String data = null;
 	  boolean inCache = false;
