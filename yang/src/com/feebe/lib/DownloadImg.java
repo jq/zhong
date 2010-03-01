@@ -17,8 +17,13 @@ public class DownloadImg extends AsyncTask<String, Void, Bitmap> {
     @Override
     protected Bitmap doInBackground(String... params) {
       try {
-        return BitmapFactory.decodeStream(new FileInputStream(
-          Util.downloadFile(params[0], Const.OneYear)));
+        String file = Util.downloadFile(params[0], Const.OneYear);
+        if (file != null) {
+          FileInputStream stream = new FileInputStream(file);
+          if (stream != null) {
+            return BitmapFactory.decodeStream(stream);
+          }
+        }
       } catch (Exception e) {
         
       }

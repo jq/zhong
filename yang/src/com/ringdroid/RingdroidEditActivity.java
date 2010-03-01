@@ -1466,8 +1466,13 @@ public class RingdroidEditActivity extends Activity
      * Return extension including dot, like ".mp3"
      */
     private String getExtensionFromFilename(String filename) {
-        return filename.substring(filename.lastIndexOf('.'),
+      int idx = filename.lastIndexOf('.');
+      if (idx != -1) {
+        return filename.substring(idx,
                                   filename.length());
+      } else {
+        return "";
+      }
     }
 
     private String getFilenameFromUri(Uri uri) {

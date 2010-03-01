@@ -85,6 +85,31 @@ public class Const {
     */
     exceptionHandler();
   }
+  
+  public static void trimCache() {
+    new Thread(new Runnable() {
+
+      @Override
+      public void run() {
+        File dir = new File(cachedir);
+        if(dir!= null && dir.isDirectory()){
+            File[] children = dir.listFiles();
+            if (children == null) {
+                // Either dir does not exist or is not a directory
+            } else {
+                File temp;
+                for (int i = 0; i < children.length; i++) {
+                    temp = children[i];
+                    temp.delete();
+                }
+            }
+        }
+      }
+      
+    }).start();
+  }
+
+  
   public static String pkg;
   private static void reportCrash(Throwable ex) {
     try {
@@ -98,13 +123,7 @@ public class Const {
       String data = ex.getMessage();
       Throwable real = ex.getCause();
       StackTraceElement[] stack = real.getStackTrace();
-      int len;
-      if (stack.length > 2) {
-        len = 2;
-      } else {
-        len = stack.length;
-      }
-      for(int i = 0; i < len; ++i) {
+      for(int i = 0; i < stack.length; ++i) {
         data += stack[i].toString();
       }
       Log.e("data", data);

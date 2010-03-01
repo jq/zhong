@@ -63,6 +63,8 @@ public class Ring extends TabActivity implements OnTabChangeListener {
           android.R.drawable.ic_menu_search);
       menu.add(0, R.string.menu_unset_ringtone, 0, R.string.menu_unset_ringtone).setIcon(
           android.R.drawable.ic_lock_silent_mode);
+      menu.add(0, R.string.clear_cache, 0, R.string.clear_cache).setIcon(
+          android.R.drawable.ic_delete);
       if (Const.ver > 4) {
         menu.add(0, R.string.upload, 0, R.string.upload).setIcon(
           android.R.drawable.ic_menu_share);
@@ -73,6 +75,9 @@ public class Ring extends TabActivity implements OnTabChangeListener {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
       switch (item.getItemId()) {
+        case R.string.clear_cache:
+          Const.trimCache();
+          return true;
         case R.string.upload:
           TabSDKCreator.loadBrowser(this, "http://ggapp.appspot.com/mobile/upload/");
           return true;

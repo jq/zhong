@@ -13,6 +13,7 @@
     <string name="search_hint">search</string>
     
     <string name="upload">Upload</string>
+    <string name="clear_cache">Clear Cache</string>
 
     <string name="play">play</string>
     <string name="pause">pause</string>
