@@ -520,10 +520,10 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
 				isMusic = true;
 			
 		}
-	  values.put(MediaStore.Audio.Media.IS_RINGTONE,isRingtone);
-	  values.put(MediaStore.Audio.Media.IS_NOTIFICATION,isNotification);
-	  values.put(MediaStore.Audio.Media.IS_ALARM,isArarm);
-	  values.put(MediaStore.Audio.Media.IS_MUSIC,isMusic);
+		values.put(MediaStore.Audio.Media.IS_RINGTONE,isRingtone);
+		values.put(MediaStore.Audio.Media.IS_NOTIFICATION,isNotification);
+		values.put(MediaStore.Audio.Media.IS_ALARM,isArarm);
+		values.put(MediaStore.Audio.Media.IS_MUSIC,isMusic);
 		
 		// Insert it into the database
 		Uri uri = MediaStore.Audio.Media.getContentUriForPath(outPath);
