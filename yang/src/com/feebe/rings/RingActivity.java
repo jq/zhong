@@ -464,14 +464,7 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
               if (mCurrentFileUri == null) {
                 mCurrentFileUri = Uri.parse(ring.getString(Const.mp3));
               }
-              Uri uri = null;
-              if(ring_type == RingtoneManager.TYPE_ALARM)
-              	uri = mCurrentFileUriAlarm;
-              else if(ring_type == RingtoneManager.TYPE_NOTIFICATION)
-              	uri = mCurrentFileUriNotification;
-              else
-              	uri = mCurrentFileUri;
-              RingtoneManager.setActualDefaultRingtoneUri(RingActivity.this, ring_type, uri);
+              RingtoneManager.setActualDefaultRingtoneUri(RingActivity.this, ring_type, mCurrentFileUri);
             } catch (JSONException e) {
               // TODO Auto-generated catch block
               e.printStackTrace();
@@ -489,7 +482,7 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
   }
   
   private Uri saveRingtoneToLib(String title,
-      String outPath, File outFile, String artist, int fileKind) {
+      String outPath, File outFile, String artist, int[] fileKind) {
 		long length = outFile.length();
 		if (length <= 512) {
 			outFile.delete();
@@ -511,16 +504,27 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
 		
 		values.put(MediaStore.Audio.Media.ARTIST, artist);
 		//values.put(MediaStore.Audio.Media.DURATION, duration);
-		if (fileKind != Const.NO_FILE_KIND) {
-  		values.put(MediaStore.Audio.Media.IS_RINGTONE,
-  				fileKind == Const.FILE_KIND_RINGTONE);
-  		values.put(MediaStore.Audio.Media.IS_NOTIFICATION,
-  				fileKind == Const.FILE_KIND_NOTIFICATION);
-  		values.put(MediaStore.Audio.Media.IS_ALARM,
-  				fileKind == Const.FILE_KIND_ALARM);
-  		values.put(MediaStore.Audio.Media.IS_MUSIC,
-  				fileKind == Const.FILE_KIND_MUSIC);
+		boolean isRingtone = false;
+		boolean isNotification = false;
+		boolean isArarm = false;
+		boolean isMusic = false;
+		for(int i = 0; i < fileKind.length; i++)
+		{
+			if (fileKind[i] == Const.FILE_KIND_RINGTONE)
+				isRingtone = true;
+			if (fileKind[i] == Const.FILE_KIND_NOTIFICATION)
+				isNotification = true;
+			if (fileKind[i] == Const.FILE_KIND_ALARM)
+				isArarm = true;
+			if (fileKind[i] == Const.FILE_KIND_MUSIC)
+				isMusic = true;
+			
 		}
+	  values.put(MediaStore.Audio.Media.IS_RINGTONE,isRingtone);
+	  values.put(MediaStore.Audio.Media.IS_NOTIFICATION,isNotification);
+	  values.put(MediaStore.Audio.Media.IS_ALARM,isArarm);
+	  values.put(MediaStore.Audio.Media.IS_MUSIC,isMusic);
+		
 		// Insert it into the database
 		Uri uri = MediaStore.Audio.Media.getContentUriForPath(outPath);
 		final Uri newUri = getContentResolver().insert(uri, values);
@@ -560,15 +564,11 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
       mp3Location = file.getAbsolutePath();
       ring.put("filePath", mp3Location);
       // TOOD, type and duriation
+      int[] fileKinds = new int[]{Const.FILE_KIND_RINGTONE,Const.FILE_KIND_NOTIFICATION,Const.FILE_KIND_ALARM};
       Uri u = saveRingtoneToLib(ring.getString(Const.title), mp3Location, file, 
-          ring.getString(Const.artist), Const.FILE_KIND_RINGTONE);
+          ring.getString(Const.artist), fileKinds);
       mCurrentFileUri = u;
-      Uri u_notification = saveRingtoneToLib(ring.getString(Const.title), mp3Location, file, 
-          ring.getString(Const.artist), Const.FILE_KIND_NOTIFICATION);
-      mCurrentFileUriNotification = u_notification;
-      Uri u_alarm = saveRingtoneToLib(ring.getString(Const.title), mp3Location, file, 
-          ring.getString(Const.artist), Const.FILE_KIND_ALARM);
-      mCurrentFileUriAlarm = u_alarm;
+
       jsonLocation = Const.jsondir + file.getName();
       try {
         ring.put(Const.mp3, mCurrentFileUri.toString());
@@ -597,8 +597,6 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
   }
   
   private Uri mCurrentFileUri;
-  private Uri mCurrentFileUriNotification;
-  private Uri mCurrentFileUriAlarm;
   private JSONObject ring;
   private String mp3Location;
   private String jsonLocation;
