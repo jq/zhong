@@ -303,8 +303,11 @@ public class RingdroidEditActivity extends Activity
         // ringtone / other sound will stick around.
         mRecordingUri = dataIntent.getData();
         mRecordingFilename = getFilenameFromUri(mRecordingUri);
-        mFilename = mRecordingFilename;
-        loadFromFile();
+        if (mRecordingFilename != null) {
+          mFilename = mRecordingFilename;
+          loadFromFile();
+          finish();
+        }
     }
 
     /**
