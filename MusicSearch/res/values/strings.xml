@@ -3,4 +3,9 @@
     <string name="hello">Hello World, MusicSearch</string>
     <string name="app_name">MusicSearch</string>
     <string name="local_service_started">Download has started</string>
+    
+    <string name="no_result">No Result</string>
+    <string name="no_sd">Need sd card to run the program</string>
+    <string name="search_hint">Search</string>
+    
 </resources>
