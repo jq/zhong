@@ -45,7 +45,7 @@ public abstract class EndlessUrlArrayAdapter<T, W> extends UrlArrayAdapter<T, W>
    View row= mInflater.inflate(ThrobberViewRes, parent, false);
    
    ImageView child = (ImageView)row.findViewById(Throbber);
-   child.setImageResource(ThrobberImg);
+   //child.setImageResource(ThrobberImg);
    if (rotate == null) {
      rotate=new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF,
          0.5f, Animation.RELATIVE_TO_SELF,

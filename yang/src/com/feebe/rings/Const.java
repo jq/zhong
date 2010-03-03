@@ -44,7 +44,7 @@ public class Const extends com.feebe.lib.Const {
   public static final String RatingBase = "http://ggapp.appspot.com/ringtone/rate/";
   
   public static void init() {
-    pkg = "com.feebe.rings";
+    //pkg = "com.feebe.rings";
     com.feebe.lib.Const.init();
   	QWName = "Ringtone-g56rajjb";
   	QWID = "34d153f75db441cdbb776ffb70c569c5";
@@ -56,8 +56,8 @@ public class Const extends com.feebe.lib.Const {
   	tab_label = R.id.tab_label;
   	no_result = R.string.no_result;
   	no_sd = R.string.no_sd;
-  	EndlessUrlArrayAdapter.ThrobberViewRes = R.layout.searchlist_row;
-  	EndlessUrlArrayAdapter.Throbber = R.id.row_icon;
+  	EndlessUrlArrayAdapter.ThrobberViewRes = R.layout.pending_view;
+  	EndlessUrlArrayAdapter.Throbber = R.id.throbber;
   	EndlessUrlArrayAdapter.ThrobberImg = android.R.drawable.ic_popup_sync;
   }
 

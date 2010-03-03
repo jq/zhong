@@ -83,7 +83,7 @@ public class Const {
       return;
     }
     */
-    exceptionHandler();
+    //exceptionHandler();
   }
   
   public static void trimCache() {
@@ -109,7 +109,7 @@ public class Const {
     }).start();
   }
 
-  
+  /*
   public static String pkg;
   private static void reportCrash(Throwable ex) {
     try {
@@ -122,11 +122,13 @@ public class Const {
       formparams.add(new BasicNameValuePair("version", pkg + getVersion()));
       String data = ex.getMessage();
       Throwable real = ex.getCause();
+      if (real == null) {
+        return;
+      }
       StackTraceElement[] stack = real.getStackTrace();
       for(int i = 0; i < stack.length; ++i) {
         data += stack[i].toString();
       }
-      Log.e("data", data);
       formparams.add(new BasicNameValuePair("bug", data));
       UrlEncodedFormEntity entity;
    
@@ -136,6 +138,7 @@ public class Const {
       httpclient.execute(report);
       httpclient.getConnectionManager().shutdown();        
     } catch (Exception e) {
+      e.printStackTrace();
     }
   }
   
@@ -155,11 +158,12 @@ public class Const {
     try {
       pInfo =  main.getPackageManager().getPackageInfo(pkg, PackageManager.GET_META_DATA);
       return pInfo.versionCode;
-    } catch (NameNotFoundException e) {
+    } catch (Exception e) {
+      e.printStackTrace();
     }
     return 0;
   }
-
+*/
   private static void createDir(File dir) {
     if (!dir.mkdir()) {
       Toast.makeText(Const.main, no_sd,Toast.LENGTH_SHORT).show();

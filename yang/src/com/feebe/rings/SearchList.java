@@ -113,6 +113,7 @@ public class SearchList extends BaseList {
     public void reset() {
       lastCnt = 0;
       if (Util.inCache(reloadUrl, Const.OneWeek)) {
+        keepOnAppending = false;
         runSyn(reloadUrl, Const.OneWeek);
       }
     }
