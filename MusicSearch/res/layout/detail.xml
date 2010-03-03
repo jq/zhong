@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  xmlns:app="http://schemas.android.com/apk/res/com.trans.android.ringtones"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+    <LinearLayout android:id="@+id/center_text"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="2dip"
+        android:gravity="center"
+        >
+		    <ProgressBar android:id="@+android:id/progress_small"
+		        style="?android:attr/progressBarStyleSmall"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" />
+
+	        <TextView android:id="@+id/loading"
+	            android:text="Loading..."
+	            android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+	            android:padding="2dip"/>
+	 
+    </LinearLayout>	 
+
+             
+     <WebView android:id="@+id/webview"
+        android:layout_height="0px"
+        android:layout_width="fill_parent"
+        android:background="#000000"
+        android:stackFromBottom="false"
+        android:layout_weight="1"
+        android:visibility="gone"
+
+     />
+
+     <LinearLayout android:id="@+id/viewSeek"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="16dip"
+        >         
+            	    
+        <SeekBar android:id="@+id/play_seek_bar"
+        	android:layout_width="0dip"
+        	android:layout_height="wrap_content"
+        	android:max="1000"
+        	android:progress="0"
+        	android:secondaryProgress="0" 
+        	android:layout_weight="1"
+        	/>
+
+            	   	
+     </LinearLayout>   
+
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="48dip"
+            android:layout_marginTop="1dip"
+            android:background="@android:drawable/bottom_bar">
+        <Button android:id="@+id/setButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:text="Set"
+                android:minWidth="120dip"
+                android:minHeight="45dip" />
+
+        <Button android:id="@+id/previewButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Preview"
+                android:minWidth="120dip"
+                android:minHeight="45dip" />
+                
+        <Button android:id="@+id/shareButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:text="Share"
+                android:minWidth="120dip"
+                android:minHeight="45dip" />
+    </LinearLayout>
+      
+</LinearLayout>
