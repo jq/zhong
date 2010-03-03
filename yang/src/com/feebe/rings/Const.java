@@ -56,6 +56,7 @@ public class Const extends com.feebe.lib.Const {
   	tab_label = R.id.tab_label;
   	no_result = R.string.no_result;
   	no_sd = R.string.no_sd;
+  	EndlessUrlArrayAdapter.ThrobberViewRes = R.layout.searchlist_row;
   	EndlessUrlArrayAdapter.Throbber = R.id.row_icon;
   	EndlessUrlArrayAdapter.ThrobberImg = android.R.drawable.ic_popup_sync;
   }

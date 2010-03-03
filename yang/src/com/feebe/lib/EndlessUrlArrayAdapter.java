@@ -17,6 +17,7 @@ import android.widget.TextView;
 public abstract class EndlessUrlArrayAdapter<T, W> extends UrlArrayAdapter<T, W> {
   public static int Throbber;
   public static int ThrobberImg;
+  public static int ThrobberViewRes;
   private long expire_;
   public EndlessUrlArrayAdapter(Context context, int resource, long expire) {
     super(context, resource);
@@ -41,7 +42,7 @@ public abstract class EndlessUrlArrayAdapter<T, W> extends UrlArrayAdapter<T, W>
  private RotateAnimation rotate=null;
 
  protected View getPendingView(ViewGroup parent) {
-   View row= mInflater.inflate(mResource, parent, false);
+   View row= mInflater.inflate(ThrobberViewRes, parent, false);
    
    ImageView child = (ImageView)row.findViewById(Throbber);
    child.setImageResource(ThrobberImg);

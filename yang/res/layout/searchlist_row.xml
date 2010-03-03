@@ -35,11 +35,6 @@
     android:layout_toRightOf="@id/row_icon"
     android:layout_toLeftOf="@id/row_small_ratingbar"
     >
-
-     <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content">
-
       <TextView android:id="@+id/row_artist"
          android:textColor="#ff99ff"
          android:textSize="12sp"
@@ -48,16 +43,6 @@
          android:layout_height="wrap_content"
          android:layout_weight="1"
          android:singleLine="true"/>
-<!--       
-      <TextView android:id="@+id/row_album"
-         android:textColor="#ffff99"
-         android:textSize="12sp"
-         android:layout_marginLeft="12px"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_weight="1"/> -->  
-
-    </LinearLayout>
 
     <TextView android:id="@+id/row_title"
         android:textColor="#ffffff"

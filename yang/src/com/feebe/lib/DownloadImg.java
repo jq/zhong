@@ -7,8 +7,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
-import com.feebe.rings.Const;
-
 public class DownloadImg extends AsyncTask<String, Void, Bitmap> {
   private ImageView image;
   public DownloadImg(ImageView im) {
