@@ -4,7 +4,7 @@
       android:versionCode="43" android:versionName="1.6.9">
       <uses-sdk android:minSdkVersion="3" />   
     <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name=".MusicSearchHome"
+        <activity android:name="Home"
                   android:label="@string/app_name"
                   android:configChanges="keyboardHidden|orientation"
 				  android:launchMode="singleTop" android:alwaysRetainTaskState="true">
@@ -13,10 +13,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="MusicSearchHome" android:label="Search Results:"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+            <intent-filter>
+              <action android:name="android.intent.action.SEARCH" />
+              <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                       android:resource="@xml/searchable" />
+     	</activity>
         <activity android:name=".MusicSearch" android:label="Search Results:"
                   android:configChanges="keyboardHidden|orientation"
 				  >
-     	</activity>         <activity android:name=".online" android:label="MusicSearch : Bookmark">
+     	</activity>
+     	<activity android:name=".online" android:label="MusicSearch : Bookmark">
      	</activity>
         <activity android:name=".local" android:label="MusicSearch : Local"
                   android:configChanges="keyboardHidden|orientation"

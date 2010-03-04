@@ -8,4 +8,6 @@
     <string name="no_sd">Need sd card to run the program</string>
     <string name="search_hint">Search</string>
     
+    <string name="tab_hot">Hot</string>
+    
 </resources>
