@@ -127,6 +127,7 @@ public class MusicSearchHome extends Activity
         super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.home);
+		Const.init();
 		mContentView = (LinearLayout)findViewById(R.id.mainview);
         
         //new AdsView(this);

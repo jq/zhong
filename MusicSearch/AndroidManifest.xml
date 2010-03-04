@@ -81,7 +81,7 @@
                    android:value=".SearchList" />
         <!-- Provides search suggestions . -->
         <provider android:name="Search"
-                android:authorities="rings"
+                android:authorities="musicsearch"
                 android:syncable="false" />
         
     </application>
