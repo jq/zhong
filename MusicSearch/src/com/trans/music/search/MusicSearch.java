@@ -1,6 +1,7 @@
 package com.trans.music.search;
 
 import com.admob.android.ads.*;
+import com.feebe.lib.AdsView;
 
 import java.util.ArrayList;
 import java.util.List;

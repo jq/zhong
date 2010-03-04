@@ -64,6 +64,8 @@ import android.view.View;
 
 import android.view.View.OnClickListener;
 import android.media.MediaScannerConnection;
+
+import com.feebe.lib.AdsView;
 import com.trans.music.search.help;
 
 	
