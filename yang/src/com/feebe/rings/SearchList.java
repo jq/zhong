@@ -84,6 +84,7 @@ public class SearchList extends BaseList {
       keyword = Search.getSearchKeyUrl(intent.getStringExtra(SearchManager.QUERY));
       // TODO: save keyword to db
     } else if (Intent.ACTION_VIEW.equals(action)){
+      // Get from suggestions
       keyword = Search.getSearchKeyUrl(intent.getDataString());
     } else {
     	keyword = intent.getStringExtra(Const.searchurl);

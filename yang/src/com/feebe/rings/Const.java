@@ -42,7 +42,8 @@ public class Const extends com.feebe.lib.Const {
 
   public static final String SearchQuery = "http://ggapp.appspot.com/ringtone/search/?json=1&q=";
   public static final String RatingBase = "http://ggapp.appspot.com/ringtone/rate/";
-  
+  public static final String SearchBase = "http://ggapp.appspot.com/ringtone/search/?json=1&";
+
   public static void init() {
     //pkg = "com.feebe.rings";
     com.feebe.lib.Const.init();
@@ -50,7 +51,6 @@ public class Const extends com.feebe.lib.Const {
   	QWID = "34d153f75db441cdbb776ffb70c569c5";
   	AdsViewID = R.id.AdsView;
   	LAYOUT_LIST = R.layout.list;
-    SearchBase = "http://ggapp.appspot.com/ringtone/search/?json=1&";
     tab_image = R.id.tab_image;
     tabheader = R.layout.tabheader;
   	tab_label = R.id.tab_label;

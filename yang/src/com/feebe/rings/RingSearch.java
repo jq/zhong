@@ -4,10 +4,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.database.Cursor;
+import android.database.MatrixCursor;
+
 import com.feebe.lib.SearchProvider;
+import com.feebe.lib.Util;
 
 public class RingSearch extends SearchProvider {
-	protected Object[] columnValuesOfWord(JSONArray array, int i) {
+	private Object[] columnValuesOfWord(JSONArray array, int i) {
   	try{
   		JSONObject entry = array.getJSONObject(i);
       return new String[] {
@@ -20,6 +24,22 @@ public class RingSearch extends SearchProvider {
   	catch(JSONException e){
   		return null;
   	}
+  }
+
+  @Override
+  protected Cursor getSuggestions(String query, MatrixCursor cursor) {
+    
+    String queryUrl = Const.SearchBase + "count=8&q="+query;
+    JSONArray entries = Util.getJsonArrayFromUrl(queryUrl, Const.OneWeek);
+    if (entries != null) {
+      for(int i = 0; i < entries.length(); i++)
+      {
+        Object[] row = columnValuesOfWord(entries, i);
+        if (row != null)
+          cursor.addRow(row);
+      }      
+    }
+    return cursor;
   }
 
 }

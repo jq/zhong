@@ -245,7 +245,7 @@ public class Util {
       urlConn.disconnect();
       return f;
     } catch (IOException e) {
-     // // Log.e("download", e.getMessage());
+     Log.e("download", e.getMessage());
     }
     return null;
 	  

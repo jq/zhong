@@ -43,7 +43,6 @@ public class Const {
 	// other changed const var
 	public static String QWName;
 	public static String QWID;
-	public static String SearchBase;
 	public static Activity main;
     //public static Object obj;
    // public static DownloadAdapter mDownload;

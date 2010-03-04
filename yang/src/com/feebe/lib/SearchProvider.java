@@ -19,7 +19,7 @@ public abstract class SearchProvider extends ContentProvider {
     public static String AUTHORITY = "rings";
 
     private static final int SEARCH_SUGGEST = 0;
-    private static final int SHORTCUT_REFRESH = 1;
+   // private static final int SHORTCUT_REFRESH = 1;
     private static final UriMatcher sURIMatcher = buildUriMatcher();
 
     /**
@@ -72,49 +72,36 @@ public abstract class SearchProvider extends ContentProvider {
                 if (uri.getPathSegments().size() > 1) {
                     query = uri.getLastPathSegment().toLowerCase();
                     // TODO: load history saved in SearchList.java
-                    if (query.length() > 2)
-                    return getSuggestions(query, projection);
+                    if (query.length() > 2) {
+                      MatrixCursor cursor = new MatrixCursor(COLUMNS);
+
+                      return getSuggestions(query, cursor);
+                    }
                 }
                 return null;
+                /*
             case SHORTCUT_REFRESH:
                 String shortcutId = null;
                 if (uri.getPathSegments().size() > 1) {
                     shortcutId = uri.getLastPathSegment();
                 }
                 return refreshShortcut(shortcutId, projection);
+                */
             default:
                 throw new IllegalArgumentException("Unknown URL " + uri);
         }
     }
 
-    private Cursor getSuggestions(String query, String[] projection) {
-      
-        String queryUrl = Const.SearchBase + "count=8&q="+query;
-        JSONArray entries = Util.getJsonArrayFromUrl(queryUrl, Const.OneWeek);
-        MatrixCursor cursor = new MatrixCursor(COLUMNS);
-        if (entries != null) {
-	        for(int i = 0; i < entries.length(); i++)
-	        {
-	        	Object[] row = columnValuesOfWord(entries, i);
-	        	if (row != null)
-	        	  cursor.addRow(row);
-	        }      
-	      }
-        return cursor;
-    }
-    
-    protected abstract Object[] columnValuesOfWord(JSONArray array, int i);
-
-
+    protected abstract Cursor getSuggestions(String query, MatrixCursor cursor);
     /**
      * Note: this is unused as is, but if we included
      * {@link SearchManager#SUGGEST_COLUMN_SHORTCUT_ID} as a column in our results, we
      * could expect to receive refresh queries on this uri for the id provided, in which case we
      * would return a cursor with a single item representing the refreshed suggestion data.
-     */
     private Cursor refreshShortcut(String shortcutId, String[] projection) {
         return null;
     }
+     */
 
     /**
      * All queries for this provider are for the search suggestion and shortcut refresh mime type.
