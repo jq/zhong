@@ -41,9 +41,9 @@ public class StringList extends BaseList {
     } else if (cate.type == ARTIST_TYPE) {
     	Search.getArtistRing(cate.name);
     } else if (cate.type == Latest_TYPE){
-      Search.startSearchList(LATEST);
+      Search.startSearchList(LATEST, 0);
     } else {
-    	Search.startSearchList(TOPDOWNLOAD);
+    	Search.startSearchList(TOPDOWNLOAD, Const.OneDay);
     }
   }
   

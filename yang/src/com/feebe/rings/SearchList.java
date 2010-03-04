@@ -42,7 +42,8 @@ public class SearchList extends BaseList {
   	new ImgThread(getListView());
     Intent i = this.getIntent();
     reloadUrl = getUrlFromIntent(i);
-    mAdapter = new SearchResultAdapter(this, R.layout.searchlist_row);
+    long expire = i.getLongExtra(Const.expire, 0);
+    mAdapter = new SearchResultAdapter(this, R.layout.searchlist_row, expire);
     return mAdapter;
   }
 
@@ -106,15 +107,15 @@ public class SearchList extends BaseList {
   }
   
   public class SearchResultAdapter extends EndlessUrlArrayAdapter<SearchResult, SearchViewWp> {
-    public SearchResultAdapter(Context context, int resource) {
-      super(context, resource, Const.OneWeek);
+    public SearchResultAdapter(Context context, int resource, long expire) {
+      super(context, resource, expire);
       reset();
     }
     public void reset() {
       lastCnt = 0;
-      if (Util.inCache(reloadUrl, Const.OneWeek)) {
-        keepOnAppending = false;
-        runSyn(reloadUrl, Const.OneWeek);
+      if (Util.inCache(reloadUrl, expire_)) {
+        runSyn(reloadUrl, expire_);
+        finishLoading();
       }
     }
     @Override
@@ -184,8 +185,9 @@ public class SearchList extends BaseList {
     }
     @Override
     protected void finishLoading() {
+      Log.e("finishLoading", "cont " + super.getCount() + " last " + lastCnt);
+      
       if (lastCnt + Const.DEFAULT_RESULT > super.getCount()) {
-        //Log.e("finishLoading", "cont " + super.getCount() + " last " + lastCnt);
         keepOnAppending = false;
       } else {
         fetchMoreResult();

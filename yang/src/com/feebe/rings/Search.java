@@ -15,32 +15,33 @@ public class Search {
   
   public static void getCate(String cate) {
     String url = Const.SearchBase + "category=" + URLEncoder.encode(cate);
-    startSearchList(url);
+    startSearchList(url, Const.OneWeek);
   }
   
   public static void getArtistRing(String artist) {
     String url = Const.SearchBase + "artist=" + URLEncoder.encode(artist);
-    startSearchList(url);
+    startSearchList(url, Const.OneWeek);
   }
    
   public static void getArtistAndTitle(String artist, String title) {
     String url = Const.SearchBase + "artist=" + URLEncoder.encode(artist) +"&q=" +URLEncoder.encode(title);
-    startSearchList(url);
+    startSearchList(url, Const.OneWeek);
   }
   
   public static void getTitleRing(String key) {
     String url = Const.SearchBase + "&q=" +URLEncoder.encode(key);
-    startSearchList(url);
+    startSearchList(url, Const.OneWeek);
   }
 
   public static void getAuthorRing(String key) {
     String url = Const.SearchBase + "&author=" +URLEncoder.encode(key);
-    startSearchList(url);
+    startSearchList(url, Const.OneWeek);
   }
 
-  public static void startSearchList(String url) {
+  public static void startSearchList(String url, long expire) {
     Intent intent = new Intent();
     intent.putExtra(Const.searchurl, url);
+    intent.putExtra(Const.expire, expire);
     intent.setClass(Const.main, SearchList.class);
     Const.main.startActivity(intent);
   }

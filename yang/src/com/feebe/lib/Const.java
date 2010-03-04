@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 public class Const {	
 	// const same for all
+  public static final String expire = "expire";
   public static final long OneDay = 1000 * 3600 * 24;
   public static final long OneWeek = OneDay * 7;
   public static final long OneMonth = OneDay * 30;

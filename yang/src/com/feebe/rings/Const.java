@@ -58,7 +58,6 @@ public class Const extends com.feebe.lib.Const {
   	no_sd = R.string.no_sd;
   	EndlessUrlArrayAdapter.ThrobberViewRes = R.layout.pending_view;
   	EndlessUrlArrayAdapter.Throbber = R.id.throbber;
-  	EndlessUrlArrayAdapter.ThrobberImg = android.R.drawable.ic_popup_sync;
   }
 
   
