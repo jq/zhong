@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import com.feebe.lib.Util;
 
 import android.content.Intent;
+import android.util.Log;
 
 public class Search {
   private final static String TAG = "Search";
@@ -39,6 +40,7 @@ public class Search {
   }
 
   public static void startSearchList(String url, long expire) {
+    Log.e("url", url);
     Intent intent = new Intent();
     intent.putExtra(Const.searchurl, url);
     intent.putExtra(Const.expire, expire);

@@ -24,7 +24,7 @@ public class StringList extends BaseList {
   private static final int CATE_TYPE = 0;
   private static final int ARTIST_TYPE = 1;
   private static final int TOP_TYPE = 2;
-  private static final int Latest_TYPE = 2;
+  private static final int Latest_TYPE = 3;
   
   @Override
   public ListAdapter getAdapter() {
@@ -61,7 +61,7 @@ public class StringList extends BaseList {
     public StringAdapter(Context context, int resource) {
       super(context, resource);
       add(new Item("Top download", TOP_TYPE));
-      add(new Item("Latest Rings", TOP_TYPE));
+      add(new Item("Latest Rings", Latest_TYPE));
 
       // add artist
       SharedPreferences s = getSharedPreferences(Const.artist, 0);
