@@ -331,7 +331,7 @@ public class MusicSearch extends Activity
             new OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent();
-	            	intent.setClass(MusicSearch.this, Popular.class);
+	            	intent.setClass(MusicSearch.this, StringList.class);
 					startActivityForResult(intent, 1);
 	            	//startActivity(intent);
                 }
@@ -612,14 +612,10 @@ public class MusicSearch extends Activity
             public void onItemClick(AdapterView parent, View v, int position, long id) {
 
 				if(position == 0){
-	                Intent intent = new Intent(MusicSearch.this, Popular.class);
-	                startActivityForResult(intent, 1);
-					return;
-				}else if(position == 1){
 	                Intent intent = new Intent(MusicSearch.this, SingerLibrary.class);
 	                startActivityForResult(intent, 1);
 					return;
-				}else if(position == 2){
+				}else if(position == 1){
 	                Intent intent = new Intent(MusicSearch.this, ArtistList.class);
 	                startActivityForResult(intent, 1);
 					return;
@@ -1821,43 +1817,6 @@ public class MusicSearch extends Activity
 					mProgressDownload.show();
 				}
                 return true;
-            case R.id.menu_popular:
-                intent = new Intent(MusicSearch.this, Popular.class);
-                startActivityForResult(intent, 1);
-                return true;
-            /*    
-            case R.id.menu_lyric:
-                intent = new Intent();
-				if((mCurSongArtist.length() == 0 && mCurSongTitle.length() == 0) ||( mMp3Lyricindex != mSearchResultMp3index && mMp3Lyricindex != -1 )){
-					Log.e("MusicSearch", "1 lyric index : " + mMp3Lyricindex + "--" + mCurSongArtist + "--" + mCurSongTitle);
-
-					ArrayList<MP3Info> entries = mSongs;
-					if(entries.length() > 0){
-						if(mSearchResultMp3index == -1)
-							mMp3Lyricindex = 0;
-						else 
-							mMp3Lyricindex = mSearchResultMp3index;		
-						
-						try {
-		                	MP3Info mp3 = mSongs.get(mMp3Lyricindex);
-		                	mCurSongArtist = mp3.artist;
-							mCurSongTitle = mp3.name;
-
-							Log.e("MusicSearch", "lyric index : " + mMp3Lyricindex);
-		                	//Toast.makeText(MusicSearch.this, "Link: " + urlString, Toast.LENGTH_SHORT).show();
-						}catch (Exception e) {
-						    Log.e("MusicSearch", "error: " + e.getMessage(), e);
-		        	    }	
-					}
-				}
-					
-				intent.putExtra("artist", mCurSongArtist);
-				intent.putExtra("song", mCurSongTitle);
-            	intent.setClass(MusicSearch.this, Lyric.class);
-				
-                startActivity(intent);
-                return true;
-            */    
             case R.id.menu_local:
                 intent = new Intent(MusicSearch.this, local.class);
                 startActivity(intent);

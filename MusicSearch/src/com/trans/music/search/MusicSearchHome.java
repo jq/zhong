@@ -244,7 +244,7 @@ public class MusicSearchHome extends Activity
             new OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent();
-	            	intent.setClass(MusicSearchHome.this, Popular.class);
+	            	intent.setClass(MusicSearchHome.this, StringList.class);
 					startActivityForResult(intent, 1);
 	            	//startActivity(intent);
                 }
@@ -297,10 +297,6 @@ public class MusicSearchHome extends Activity
             public void onItemClick(AdapterView parent, View v, int position, long id) {
 
 				if(position == 0){
-	                Intent intent = new Intent(MusicSearchHome.this, Popular.class);
-	                startActivityForResult(intent, 1);
-					return;
-				}else if(position == 1){
 	                Intent intent = new Intent(MusicSearchHome.this, SingerLibrary.class);
 	                startActivityForResult(intent, 1);
 					return;
@@ -448,7 +444,6 @@ public class MusicSearchHome extends Activity
 	private void updatFeedList() {
 		try{
 			JSONObject popular = new JSONObject();
-			mAdapter.add("The Week's Most Popular Songs");			
 			mAdapter.add("Artist Library");
             mAdapter.add("Mobile Ringtones");
 			//mTrackAdapter.add("The Week's Most Popular Songs");		
@@ -773,11 +768,7 @@ public class MusicSearchHome extends Activity
             case R.id.menu_search:
 				mQueryWords.requestFocus();
             	break;
-            case R.id.menu_popular:
-                intent = new Intent(MusicSearchHome.this, Popular.class);
-                startActivityForResult(intent, 1);
-                return true;
- 
+  
             case R.id.menu_local:
                 intent = new Intent(MusicSearchHome.this, local.class);
                 startActivity(intent);

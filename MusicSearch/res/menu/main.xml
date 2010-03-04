@@ -8,11 +8,6 @@
         android:icon="@drawable/ic_menu_save"
          />       
 
-    <item android:id="@+id/menu_popular"
-        android:title="Popular Songs"
-        android:icon="@drawable/ic_menu_party_shuffle"
-         />    
-                  
     <item android:id="@+id/menu_local"
         android:title="Local Library"
         android:icon="@drawable/ic_menu_music_library" />
