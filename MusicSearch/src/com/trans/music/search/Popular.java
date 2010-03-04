@@ -55,65 +55,6 @@ public class Popular extends Activity {
 				//final String key = mCurTypes[position];
                 //setResult(RESULT_OK, new Intent().putExtra("keyword", key));
                 //finish();
-				if(position == 0){
-                    Intent intent = new Intent();
-	            	intent.setClass(Popular.this, YahooTop.class);
-					startActivityForResult(intent, 1);
-	            	//startActivity(intent);
-				}else if(position == 1){
-                    Intent intent = new Intent();
-	            	intent.setClass(Popular.this, SingerLibrary.class);
-					startActivityForResult(intent, 1);
-	            	//startActivity(intent);
-				}else if(position == 2){
-                    Intent intent = new Intent();
-					intent.putExtra("type", "bhot100");
-	            	intent.setClass(Popular.this, BbHotChart.class);
-					startActivityForResult(intent, 1);
-	            	//startActivity(intent);
-				}else if(position == 3){
-                    Intent intent = new Intent();
-					intent.putExtra("type", "bhiphop");
-	            	intent.setClass(Popular.this, BbHotChart.class);
-					startActivityForResult(intent, 1);
-	            	//startActivity(intent);
-				}else if(position == 4){
-                    Intent intent = new Intent();
-					intent.putExtra("type", "bcountry");
-	            	intent.setClass(Popular.this, BbHotChart.class);
-					startActivityForResult(intent, 1);
-	            	//startActivity(intent);
-				}else if(position == 5){
-                    Intent intent = new Intent();
-					intent.putExtra("type", "bmodernrock");
-	            	intent.setClass(Popular.this, BbHotChart.class);
-					startActivityForResult(intent, 1);
-	            	//startActivity(intent);
-				}else if(position == 6){
-                    Intent intent = new Intent();
-					intent.putExtra("type", "bdanceclub");
-	            	intent.setClass(Popular.this, BbHotChart.class);
-					startActivityForResult(intent, 1);
-	            	//startActivity(intent);
-				}else if(position == 7){
-                    Intent intent = new Intent();
-					intent.putExtra("type", "brap");
-	            	intent.setClass(Popular.this, BbHotChart.class);
-					startActivityForResult(intent, 1);
-	            	//startActivity(intent);
-				}else if(position == 8){
-                    Intent intent = new Intent();
-					intent.putExtra("type", "bpop");
-	            	intent.setClass(Popular.this, BbHotChart.class);
-					startActivityForResult(intent, 1);
-	            	//startActivity(intent);
-				}else if(position == 9){
-                    Intent intent = new Intent();
-					intent.putExtra("type", "bmainrock");
-	            	intent.setClass(Popular.this, BbHotChart.class);
-					startActivityForResult(intent, 1);
-	            	//startActivity(intent);
-				}
 
             }
         });

@@ -22,8 +22,12 @@ public class Home extends TabActivity implements OnTabChangeListener{
     setContentView(R.layout.tabmain);
     getTabHost().setOnTabChangedListener(this);
     TabHost tabHost = getTabHost();
-    Intent hot = new Intent(this, MusicSearchHome.class);
+    Intent hot = new Intent(this, StringList.class);
     TabCreator.createTab(this, tabHost, hot, getString(R.string.tab_hot), android.R.drawable.ic_input_get);
+    hot = new Intent(this, MusicSearchHome.class);
+    TabCreator.createTab(this, tabHost, hot, getString(R.string.tab_hot), android.R.drawable.ic_media_play);
+    
+    
     setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
   }
