@@ -22,9 +22,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.feebe.rings.HotList.HotSong;
-
-
 public abstract class UrlArrayAdapter<T, W> extends ArrayAdapter<T> {
   /**
    * Constructor

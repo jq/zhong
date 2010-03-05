@@ -9,5 +9,6 @@
     <string name="search_hint">Search</string>
     
     <string name="tab_hot">Hot</string>
+    <string name="tab_find">Find</string>
     
 </resources>

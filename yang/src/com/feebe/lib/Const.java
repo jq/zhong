@@ -55,7 +55,7 @@ public class Const {
   public static void init() {
     File sdcardRoot = Environment.getExternalStorageDirectory();
     
-    File homeDir = new File(sdcardRoot, "FeebeRings");
+    File homeDir = new File(sdcardRoot, "MusicSearch");
     File songdir = new File(homeDir, "mp3");
     File jdir = new File(homeDir, "json");
     File cache = new File(homeDir, "cache");

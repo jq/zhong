@@ -1,8 +1,10 @@
 package com.trans.music.search;
 
 import com.feebe.lib.TabCreator;
+import com.feebe.lib.Util;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,13 +26,20 @@ public class Home extends TabActivity implements OnTabChangeListener{
     TabHost tabHost = getTabHost();
     Intent hot = new Intent(this, StringList.class);
     TabCreator.createTab(this, tabHost, hot, getString(R.string.tab_hot), android.R.drawable.ic_input_get);
-    hot = new Intent(this, MusicSearchHome.class);
-    TabCreator.createTab(this, tabHost, hot, getString(R.string.tab_hot), android.R.drawable.ic_media_play);
-    
+    hot = new Intent(this, SearchTab.class);
+    TabCreator.createTab(this, tabHost, hot, getString(R.string.tab_find), android.R.drawable.ic_menu_search);
     
     setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
-
+    Util.runFeed(4, this, R.raw.feed);
   }
+  @Override
+  protected Dialog onCreateDialog(int id) {
+    if (id == Util.DOWNLOAD_APP_DIG) {
+      return Util.createDownloadDialog(this); 
+    }
+    return null;
+  }    
+
   @Override
   public void onTabChanged(String tabId) {
     Activity activity = getLocalActivityManager().getActivity(tabId);

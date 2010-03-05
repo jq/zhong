@@ -9,9 +9,10 @@ import android.widget.ListAdapter;
 import com.feebe.lib.BaseList;
 
 public class StringList extends BaseList{
-  private String[] mType_Animals = {
+  private static final String[] mType_Animals = {
       "Yahoo! Music Top Songs",
       "Artist Library ",
+      "Mobile Ringtones",
       "Hot Top Songs",
       "Hip Hop / R&B Songs",
       "Country Songs",
@@ -27,6 +28,9 @@ public class StringList extends BaseList{
     return new ArrayAdapter<String>(this,  android.R.layout.simple_list_item_1, mType_Animals);
    }
 
+  private static final String[] BbHotChartStr = {
+    "bhot100","bhiphop", "bcountry", "bmodernrock", "bdanceclub","brap","bpop","bmainrock"
+  };
   @Override
   public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
     if(position == 0){
@@ -39,53 +43,15 @@ public class StringList extends BaseList{
         intent.setClass(this, SingerLibrary.class);
       startActivityForResult(intent, 1);
         //startActivity(intent);
-      }else if(position == 2){
-            Intent intent = new Intent();
-      intent.putExtra("type", "bhot100");
-        intent.setClass(this, BbHotChart.class);
-      startActivityForResult(intent, 1);
-        //startActivity(intent);
-      }else if(position == 3){
-            Intent intent = new Intent();
-      intent.putExtra("type", "bhiphop");
-        intent.setClass(this, BbHotChart.class);
-      startActivityForResult(intent, 1);
-        //startActivity(intent);
-      }else if(position == 4){
-            Intent intent = new Intent();
-      intent.putExtra("type", "bcountry");
-        intent.setClass(this, BbHotChart.class);
-      startActivityForResult(intent, 1);
-        //startActivity(intent);
-      }else if(position == 5){
-            Intent intent = new Intent();
-      intent.putExtra("type", "bmodernrock");
-        intent.setClass(this, BbHotChart.class);
-      startActivityForResult(intent, 1);
-        //startActivity(intent);
-      }else if(position == 6){
-            Intent intent = new Intent();
-      intent.putExtra("type", "bdanceclub");
-        intent.setClass(this, BbHotChart.class);
-      startActivityForResult(intent, 1);
-        //startActivity(intent);
-      }else if(position == 7){
-            Intent intent = new Intent();
-      intent.putExtra("type", "brap");
-        intent.setClass(this, BbHotChart.class);
-      startActivityForResult(intent, 1);
-        //startActivity(intent);
-      }else if(position == 8){
-            Intent intent = new Intent();
-      intent.putExtra("type", "bpop");
-        intent.setClass(this, BbHotChart.class);
-      startActivityForResult(intent, 1);
-        //startActivity(intent);
-      }else if(position == 9){
-            Intent intent = new Intent();
-      intent.putExtra("type", "bmainrock");
-        intent.setClass(this, BbHotChart.class);
-      startActivityForResult(intent, 1);
+      } else if (position == 2) {
+        Intent intent = new Intent(this, ArtistList.class);
+        startActivityForResult(intent, 1);
+
+      }else {
+       Intent intent = new Intent();
+       intent.putExtra("type", BbHotChartStr[position - 3]);
+       intent.setClass(this, BbHotChart.class);
+       startActivityForResult(intent, 1);
         //startActivity(intent);
       }
     

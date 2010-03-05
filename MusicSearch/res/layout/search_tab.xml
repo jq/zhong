@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			  xmlns:app="http://schemas.android.com/apk/res/com.trans.music.search"
-    android:orientation="vertical"
+		xmlns:app="http://schemas.android.com/apk/res/com.feebe.rings"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:id="@+id/mainview"
-    >
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
          <LinearLayout
         	android:orientation="horizontal"
@@ -32,19 +30,4 @@
             />
             
          </LinearLayout>    
-
-         <LinearLayout android:id="@+id/AdsView" android:layout_width="fill_parent" android:layout_height="wrap_content" ></LinearLayout>
-
-            
-         <ListView android:id="@+id/search_mp3list"
-            android:layout_width="fill_parent" 
-            android:layout_height="0px"
-            android:stackFromBottom="false"
-            android:layout_weight="1"
-            />   
-	 <WebView android:id="@+id/webview"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        />
-  
 </LinearLayout>

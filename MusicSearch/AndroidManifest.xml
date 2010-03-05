@@ -13,7 +13,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="MusicSearchHome" android:label="Search Results:"
+        <activity android:name="StringList" android:label="Search Results:"
                   android:configChanges="keyboardHidden|orientation"
 				  >
             <intent-filter>
@@ -23,7 +23,12 @@
             <meta-data android:name="android.app.searchable"
                        android:resource="@xml/searchable" />
      	</activity>
-        <activity android:name="StringList" android:label="Search Results:"
+        <activity android:name="SearchTab" android:label="Search Results:"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+     	</activity>
+
+        <activity android:name="SearchList" android:label="Search Results:"
                   android:configChanges="keyboardHidden|orientation"
 				  >
      	</activity>
