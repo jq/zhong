@@ -1,11 +1,15 @@
 package com.feebe.rings;
 
+import java.util.List;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.feebe.lib.BaseList;
 import com.feebe.lib.ImgThread;
 import com.feebe.lib.UrlArrayAdapter;
+import com.feebe.lib.Util;
 
 import android.content.Context;
 import android.content.Intent;
@@ -59,14 +63,15 @@ public class HotList extends BaseList {
 		}
 				
     @Override
-    public HotSong getT(JSONObject obj) {
+    public HotSong getT(Object obj) {
       try {
-        String song = obj.getString(Const.song);
-        String artist = obj.getString(Const.artist);
+        JSONObject jobj = (JSONObject) obj;
+        String song = jobj.getString(Const.song);
+        String artist = jobj.getString(Const.artist);
         if (song != null && artist != null) {
           HotSong hotsong = new HotSong(song, artist);
           try{
-          	hotsong.image = obj.getString(Const.image);
+          	hotsong.image = jobj.getString(Const.image);
           } catch (Exception e) {
           	hotsong.image = null;
 					}         
@@ -96,6 +101,11 @@ public class HotList extends BaseList {
       }
       wp.name.setText(item.title);
       wp.artist.setText(item.artist);
+    }
+
+    @Override
+    protected List getListFromUrl(String url, long expire) {
+      return RingUtil.getJsonArrayFromUrl(url, expire);
     }
 	}
 	

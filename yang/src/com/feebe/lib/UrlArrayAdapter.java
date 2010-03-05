@@ -22,6 +22,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.feebe.rings.HotList.HotSong;
+
 
 public abstract class UrlArrayAdapter<T, W> extends ArrayAdapter<T> {
   /**
@@ -66,8 +68,6 @@ public abstract class UrlArrayAdapter<T, W> extends ArrayAdapter<T> {
     mResource = resource;
   }
   
-  public abstract T getT(JSONObject obj);
-
   public abstract W getWrapper(View v);
   
   public abstract void applyWrapper(T item, W wp, boolean newView);
@@ -105,33 +105,27 @@ public abstract class UrlArrayAdapter<T, W> extends ArrayAdapter<T> {
 	  Toast.makeText(Const.main, Const.no_result,Toast.LENGTH_SHORT).show();
   }
     
-  public boolean runJsonArray(JSONArray entries) {
-    try {
-      int len = entries.length();
-      if (len == 0) {
-        return false;
-      }
-      for(int i = 0; i < len; i++){
-        if( entries.isNull(i) )
-          break;
-        JSONObject mp3 = entries.getJSONObject(i);
-        
-        T obj = getT(mp3);
-        if (obj != null) {
-          add(obj);
-        }
-      }
-      return true;
-    } catch (JSONException e) {
+  private boolean runList(List entries) {
+    int len = entries.size();
+    if (len == 0) {
       return false;
     }
-
+    for(int i = 0; i < len; i++){
+      T obj = getT(entries.get(i));
+      if (obj != null) {
+        add(obj);
+      }
+    }
+    return true;
   }
   
+  protected abstract List getListFromUrl(final String url, final long expire);
+  protected abstract T getT(Object obj);
+  
   public boolean runSyn(final String url, final long expire) {
-    JSONArray entries = Util.getJsonArrayFromUrl(url, expire);
-    if (entries != null) {
-      return runJsonArray(entries);
+    List list = getListFromUrl(url, expire);
+    if (list != null) {
+      return runList(list);
     } else {
     	onNoResult();
     }
@@ -143,24 +137,30 @@ public abstract class UrlArrayAdapter<T, W> extends ArrayAdapter<T> {
     new AppendTask(expire).execute(url);
   }
 
-  public class AppendTask extends AsyncTask<String, Void, JSONArray> {
+  @SuppressWarnings("unchecked")
+  public class AppendTask extends AsyncTask<String, Void, List> {
     Long expire;
     AppendTask(long e) {
       expire = e;
     }
     @Override
-    protected JSONArray doInBackground(String... url) {
-      return Util.getJsonArrayFromUrl(url[0], expire);
+    protected List doInBackground(String... url) {
+      return getListFromUrl(url[0], expire);
     }
     
     @Override
-    protected void onPostExecute(JSONArray result) {
+    protected void onPostExecute(List result) {
+      onPost(result);
+    }
+    
+    protected void onPost(List result) {
       if (result != null) {
-        runJsonArray(result);
+        runList(result);
       }else {
         onNoResult();
       }
     }
+    
   }
 
  }

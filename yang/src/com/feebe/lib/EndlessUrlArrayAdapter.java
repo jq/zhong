@@ -1,5 +1,6 @@
 package com.feebe.lib;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.json.JSONArray;
@@ -107,11 +108,12 @@ class AppendTask extends UrlArrayAdapter<T,W>.AppendTask {
     super(e);
   }
 
+  @SuppressWarnings("unchecked")
   @Override
-  protected void onPostExecute(JSONArray result) {
+  protected void onPostExecute(List result) {
     // must set to false, to disable pending view.
     keepOnAppending = false;
-    super.onPostExecute(result);
+    onPost(result);
     finishLoading();
     pendingView=null;
   }

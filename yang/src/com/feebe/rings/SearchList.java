@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -120,8 +121,9 @@ public class SearchList extends BaseList {
       }
     }
     @Override
-    public SearchResult getT(JSONObject obj) {
+    public SearchResult getT(Object o) {
       try {
+        JSONObject obj = (JSONObject) o;
         String title = obj.getString(Const.title);
         String artist = obj.getString(Const.artist);
         String key = obj.getString(Const.key);
@@ -194,6 +196,11 @@ public class SearchList extends BaseList {
         fetchMoreResult();
       }
     }
+    @Override
+    protected List getListFromUrl(String url, long expire) {
+      return RingUtil.getJsonArrayFromUrl(url, expire);
+    }
+
   }
 
   private int lastCnt;

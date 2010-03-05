@@ -1,5 +1,6 @@
 package com.feebe.rings;
 
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONException;
@@ -77,8 +78,9 @@ public class StringList extends BaseList {
     }
 
     @Override
-    public Item getT(JSONObject obj) {
+    public Item getT(Object o) {
       try {
+        JSONObject obj = (JSONObject) o;
         String name = obj.getString("name");
         if (name != null && name.length() > 1) {
         	return new Item(name, CATE_TYPE);
@@ -99,7 +101,10 @@ public class StringList extends BaseList {
 		@Override
     public void applyWrapper(Item item, TextView wp, boolean newView) {
       wp.setText(item.name);
-	    
+    }
+    @Override
+    protected List getListFromUrl(String url, long expire) {
+      return RingUtil.getJsonArrayFromUrl(url, expire);
     }
   }
   private StringAdapter mAdapter;
