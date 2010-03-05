@@ -2,6 +2,7 @@ package com.feebe.rings;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -43,9 +44,18 @@ public class Ring extends TabActivity implements OnTabChangeListener {
       Intent search = new Intent(this, SearchTab.class);
       TabCreator.createTab(this, tabHost, search, getString(R.string.tab_search), R.drawable.tab_search);
       setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
+      Util.runFeed(4, this, R.raw.feed);
+      
       //throw new RuntimeException("exc");
     }
     
+    @Override
+    protected Dialog onCreateDialog(int id) {
+      if (id == Util.DOWNLOAD_APP_DIG) {
+        return Util.createDownloadDialog(this); 
+      }
+      return null;
+    }    
     // Copied from DialTacts Activity
     /** {@inheritDoc} */
     public void onTabChanged(String tabId) {

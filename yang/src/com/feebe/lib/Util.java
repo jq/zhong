@@ -23,11 +23,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -38,6 +42,11 @@ public class Util {
 
 	//urlString = "http://192.168.1.180/mp3/getfeed/";
 	private static Random generator = new Random();
+	public static void runFeed(int chance, Activity at, int resource) {
+	  if (run(chance)) {
+	    getFeeds(at, resource, urlString);
+	  }
+	}
 	public static boolean run(int chance) {
 		int t = generator.nextInt();
 		return t % chance == 0;
@@ -423,6 +432,28 @@ public class Util {
 		}
 	}
 	
+  public static Dialog createDownloadDialog(final Activity at) {
+    return new AlertDialog.Builder(at)
+     .setTitle(title)
+    .setMessage(des).setPositiveButton("Download",
+        new DialogInterface.OnClickListener() {
+          public void onClick(DialogInterface dialog,
+              int whichButton) {
+
+            Intent i = new Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(intent));
+            at.startActivity(i);
+          }
+        }).setNegativeButton("Ignore Forever",
+        new DialogInterface.OnClickListener() {
+          public void onClick(DialogInterface dialog,
+              int whichButton) {
+            at.removeDialog(DOWNLOAD_APP_DIG);
+          }
+        }).create();
+  }
+  
 	public static void post(String url, String data) {
 	  try {
 	    // Construct data 
