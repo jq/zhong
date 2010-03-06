@@ -9,6 +9,7 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.TabHost;
@@ -49,20 +50,36 @@ public class Home extends TabActivity implements OnTabChangeListener{
         activity.onWindowFocusChanged(true);
     }
   }
+
+  @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     super.onCreateOptionsMenu(menu);
-   // menu.add(0, R.string.menu_search, 0, R.string.menu_search).setIcon(
-   //     android.R.drawable.ic_menu_search);
+    // Inflate the currently selected menu XML resource.
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.m, menu);      
+      
     return true;
   }
+  
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    /*
     switch (item.getItemId()) {
+    case R.id.menu_search:
+      startSearch(this.getString(R.string.search_hint), true, null, false);
+      return true;
+    case R.id.menu_local:
+      startActivity(new Intent(this, local.class));
+      return true;
+    case R.id.menu_help:
+      startActivity(new Intent(this, help.class));
+      return true;
+
+    /*
       case R.string.clear_cache:
         Const.trimCache();
         return true;
-    }*/
+        */
+    }
     return super.onOptionsItemSelected(item);
     }
 

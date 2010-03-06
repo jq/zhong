@@ -1700,7 +1700,8 @@ public class MusicSearch extends Activity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Hold on to this
         mMenu = menu;
-        
+        super.onCreateOptionsMenu(menu);
+
         // Inflate the currently selected menu XML resource.
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);      
@@ -1710,11 +1711,7 @@ public class MusicSearch extends Activity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-    	Intent intent;
         switch (item.getItemId()) {
-            case R.id.menu_search:
-				mQueryWords.requestFocus();
-            	break;
             case R.id.menu_download:
 			    if(mDownloading == false){
                 	try{
@@ -1754,16 +1751,8 @@ public class MusicSearch extends Activity
 					mProgressDownload.show();
 				}
                 return true;
-            case R.id.menu_local:
-                intent = new Intent(MusicSearch.this, local.class);
-                startActivity(intent);
-                return true;
-            case R.id.menu_help:
-                intent = new Intent(MusicSearch.this, help.class);
-                startActivity(intent);
-                return true;
             default:
-                break;
+              super.onOptionsItemSelected(item);
         }
         
         return false;
