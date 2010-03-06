@@ -73,10 +73,10 @@
 			</replaceregexp>
 			
 			<!-- 去除includeInGlobalSearch -->
-			<replaceregexp file="temp/res/xml/searchable.xml" byline="true">
+			<!--replaceregexp file="temp/res/xml/searchable.xml" byline="true">
 			<regexp pattern="android:includeInGlobalSearch.*($)"/>
 			<substitution expression=""/>
-			</replaceregexp>
+			</replaceregexp>-->
 			
 			
 		</target>
@@ -85,10 +85,10 @@
 			<copyfile dest="temp/AndroidManifest.xml" src="AndroidManifest.xml" filtering="false"/>
 
 			<!-- 去除targetSdkVersion -->
-			<replaceregexp file="temp/AndroidManifest.xml" byline="true">
+			<!--replaceregexp file="temp/AndroidManifest.xml" byline="true">
 			<regexp pattern="android:targetSdkVersion.{4}"/>
 			<substitution expression=""/>
-			</replaceregexp>
+			</replaceregexp>-->
 
 			
 			<replaceregexp file="temp/AndroidManifest.xml" byline="true">
@@ -102,6 +102,11 @@
 			<copy todir="temp/src/com/feebe/${app_name}" filtering="false">
 				<fileset dir="src/com/feebe/rings"/>
 			</copy>
+			
+			<copy todir="temp/src/com/feebe/${app_name}" filtering="false">
+				<fileset dir="gen/com/feebe/rings"/>
+			</copy>
+			
 
 			<copy todir="temp/src/com/feebe/lib" filtering="false">
 				<fileset dir="src/com/feebe/lib"/>
@@ -121,6 +126,28 @@
 			<substitution expression="package com\.feebe\.${app_name};"/>
 			<fileset dir="temp/src/com/feebe/${app_name}"/>
 			</replaceregexp>
+			
+			<!-- 替换feebe.lib包中的所有import包名，注意此处包结构不合理 -->
+			<replaceregexp byline="true">
+			<regexp pattern="com\.feebe\.rings"/>
+			<substitution expression="com\.feebe\.${app_name}"/>
+			<fileset dir="temp/src/com/feebe/lib"/>
+			</replaceregexp>
+			
+			<!-- 替换ringdroid包中的所有import包名，注意此处包结构不合理 -->
+			<replaceregexp byline="true">
+			<regexp pattern="com\.feebe\.rings"/>
+			<substitution expression="com\.feebe\.${app_name}"/>
+			<fileset dir="temp/src/com/ringdroid"/>
+			</replaceregexp>
+			
+			<!-- 再执行一次，处理同一行中两次替换 -->
+			<replaceregexp byline="true">
+			<regexp pattern="com\.feebe\.rings"/>
+			<substitution expression="com\.feebe\.${app_name}"/>
+			<fileset dir="temp/src/com/ringdroid"/>
+			</replaceregexp>
+			
 			
 			<!-- 替换广告参数 -->
 			<replaceregexp file="temp/src/com/feebe/${app_name}/Const.java" byline="true">
@@ -171,7 +198,7 @@
                 <arg value="-S"/>
                 <arg file="temp/res"/>
                 <arg value="-I"/>
-                <arg file="${android-home}/platforms/android-1.5/android.jar"/>
+                <arg file="${android-home}/platforms/android-1.6/android.jar"/>
             </android:aapt>
 		</target>
 	
@@ -184,9 +211,9 @@
     		</antcall>
         	
         	<mkdir dir="temp/bin"/>
-            <javac encoding="ascii" target="1.5" debug="true" extdirs=""
+            <javac encoding="ascii" target="1.6" debug="false" extdirs=""
                    srcdir="temp/src" destdir="temp/bin"
-                   bootclasspath="${android-home}/platforms/android-1.5/android.jar">
+                   bootclasspath="${android-home}/platforms/android-1.6/android.jar">
             	<classpath>
                 	<fileset refid="main.jars"/>
                 </classpath>
@@ -225,7 +252,7 @@
 				<arg value="-S"/>
 				<arg file="temp/res"/>
 				<arg value="-I"/>
-				<arg file="${android-home}/platforms/android-1.5/android.jar"/>
+				<arg file="${android-home}/platforms/android-1.6/android.jar"/>
 				<arg value="-F"/>
 				<arg file="temp/bin/resources.ap_"/>
         	</android:aapt>
