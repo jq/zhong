@@ -43,8 +43,8 @@ public class SearchList extends BaseList {
   private final static String TAG = "SearchList";
   // pn= start number
   public final static int DEFAULT_RESULT = 15;
-  private final static String Search_Url = "http://221.195.40.183/m?f=ms&tn=baidump3&ct=134217728&rn=15&lm=0&word=";
-  
+  //private final static String Search_Url = "http://221.195.40.183/m?f=ms&tn=baidump3&ct=134217728&rn=15&lm=0&word=";
+  private final static String Search_Url = "http://mp3.sogou.com/music.so?pf=&as=&st=&ac=1&w=02009900&query=";
 
   @Override
   public ListAdapter getAdapter() {
@@ -153,7 +153,9 @@ public class SearchList extends BaseList {
     }
     @Override
     protected List getListFromUrl(String url, long expire) {
-      return MusicUtil.getBiduMp3(url);
+      //return MusicUtil.getBiduMp3(url);
+    	// for test sogo
+    	return MusicUtil.getSogoMp3(url);
     }
     @Override
     protected MP3Info getT(Object obj) {
