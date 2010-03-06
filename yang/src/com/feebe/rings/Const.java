@@ -45,7 +45,7 @@ public class Const extends com.feebe.lib.Const {
   public static final String SearchBase = "http://ggapp.appspot.com/ringtone/search/?json=1&";
 
   public static void init() {
-    //pkg = "com.feebe.rings";
+    pkg = "com.feebe.rings";
     com.feebe.lib.Const.init();
   	QWName = "Ringtone-g56rajjb";
   	QWID = "34d153f75db441cdbb776ffb70c569c5";

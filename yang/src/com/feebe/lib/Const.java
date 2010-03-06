@@ -109,8 +109,8 @@ public class Const {
     }).start();
   }
 
-  /*
   public static String pkg;
+  /*
   private static void reportCrash(Throwable ex) {
     try {
       HttpPost report = new HttpPost("http://ggapp.appspot.com/ringtone/bug/");
