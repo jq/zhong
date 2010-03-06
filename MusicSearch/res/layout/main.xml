@@ -19,7 +19,7 @@
                 />        
 
 		 	<ImageButton android:id="@+id/search_button"
-            	android:src="@android:drawable/ic_menu_search"
+            	android:src="@drawable/@android:drawable/ic_menu_search"
             	android:layout_width="60px"
             	android:layout_height="48px"
             	android:layout_weight="1"
@@ -42,6 +42,32 @@
             android:stackFromBottom="false"
             android:layout_weight="1"
             />   
+             
+         
+     <LinearLayout android:id="@+id/viewSeek"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="32dip"
+        >         
+          <ImageView android:id="@+id/play_stop"
+            	android:layout_width="0dip"
+            	android:layout_height="fill_parent"
+            	android:layout_weight="1"
+            	android:src="@drawable/play"
+            	/>  
+            	    
+        <SeekBar android:id="@+id/play_seek_bar"
+        	android:layout_width="0dip"
+        	android:layout_height="wrap_content"
+        	android:max="1000"
+        	android:progress="0"
+        	android:secondaryProgress="0" 
+        	android:layout_weight="9"
+        	/>
+
+            	   	
+     </LinearLayout>   
+
 	 <WebView android:id="@+id/webview"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
