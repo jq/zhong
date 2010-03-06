@@ -52,7 +52,7 @@ public class SearchList extends BaseList {
     reloadUrl = getUrlFromIntent(i);
     long expire = i.getLongExtra(Const.expire, 0);
 
-    mAdapter = new SearchResultAdapter(this, R.layout.searchlist_row);
+    mAdapter = new SearchResultAdapter(this, R.layout.searchlist_row, expire);
     
     return mAdapter;
   }
@@ -60,6 +60,7 @@ public class SearchList extends BaseList {
   @Override
   public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
     MP3Info ring = mAdapter.getItem(pos);
+    
   }
    
   @Override
@@ -99,8 +100,8 @@ public class SearchList extends BaseList {
   }
   
   public class SearchResultAdapter extends EndlessUrlArrayAdapter<MP3Info, SearchViewWp> {
-    public SearchResultAdapter(Context context, int resource) {
-      super(context, resource, Const.OneWeek);
+    public SearchResultAdapter(Context context, int resource, long expire) {
+      super(context, resource, expire);
       reset();
     }
     public void reset() {
