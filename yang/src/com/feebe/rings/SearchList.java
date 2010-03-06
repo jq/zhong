@@ -15,7 +15,6 @@ import com.feebe.lib.EndlessUrlArrayAdapter;
 import com.feebe.lib.ImgThread;
 import com.feebe.lib.UrlArrayAdapter;
 import com.feebe.lib.Util;
-import com.feebe.rings.HotList.HotSong;
 
 import android.app.SearchManager;
 import android.content.Context;
