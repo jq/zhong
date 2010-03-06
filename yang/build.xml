@@ -275,7 +275,7 @@
 				<arg value="-rf"/>
 				<arg file="temp/src"/>
 				<arg value="-rj"/>     
-				<arg file="libs"/>
+				<arg file="lib"/>
         		<arg value="-u"/>
 			</android:apk-builder>
         	
