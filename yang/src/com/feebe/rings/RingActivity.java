@@ -133,6 +133,7 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
   	  	title = ring.getString(Const.title);
   	  	key = ring.getString(Const.key);
         mp3Location = ring.getString(Const.mp3);
+        mp3Size = ring.getInt(Const.size);
         titleTextView.setText(title);
         artistTextView.setText(artist);
         detailInfo.append(download + this.getString(R.string.info_download_count));
@@ -345,7 +346,11 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
       	dlProgress = new ProgressDialog(RingActivity.this);
       	dlProgress.setTitle(R.string.dlprogress_title);
       	dlProgress.setMessage(RingActivity.this.getString(R.string.dlprogress_message));
-      	dlProgress.setIndeterminate(true);
+      	dlProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+      	dlProgress.setIndeterminate(false);
+      	dlProgress.setMax(100);
+      	dlProgress.setProgress(0);
+      	dlProgress.setSecondaryProgress(0);
       	dlProgress.setCancelable(false);
       	dlProgress.show();
       	
@@ -541,7 +546,15 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
     int lastPos = mp3Location.lastIndexOf('.');
     String extension = mp3Location.substring(lastPos);
     // Log.e("path", fullpathame);
-    new DownloadFile(this, 512).execute(mp3Location, Const.getMp3FilePath(artist, title, extension));
+
+    DownloadFile df = new DownloadFile(this, 512);
+    df.setFileSize(mp3Size);
+    df.execute(mp3Location, Const.getMp3FilePath(artist, title, extension));
+  }
+
+  @Override
+  public void onDownloadProgress(int percentage) {
+	dlProgress.setProgress(percentage);
   }
   
   @Override
@@ -635,6 +648,7 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
   String key = "";
   String myRating = "";
   String filePath = "";
+  int mp3Size;
 
 	@Override
   public void onDownloadFail() {
