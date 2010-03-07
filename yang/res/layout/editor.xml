@@ -49,20 +49,20 @@
        android:layout_width="64dip"
        android:layout_height="52dip"
        style="@android:style/MediaButton"
-       android:src="@drawable/ic_media_rew" />
+        />
 
       <ImageButton android:id="@+id/play"
        android:layout_width="71dip"
        android:layout_height="52dip"
        style="@android:style/MediaButton"
-       android:src="@drawable/ic_media_play" />
+        />
 
       <ImageButton android:id="@+id/ffwd"
        android:layout_width="64dip"
        android:layout_height="52dip"
        android:layout_marginRight="5dip"
        style="@android:style/MediaButton"
-       android:src="@drawable/ic_media_ff" />
+        />
 
       <LinearLayout style="@style/VerticalDividerLeft" />
       <LinearLayout style="@style/VerticalDividerRight" />
@@ -71,12 +71,12 @@
        android:layout_width="52dip"
        android:layout_height="52dip"
        android:layout_marginLeft="5dip"
-       android:src="@drawable/button_zoom_in" />
+        />
 
       <ImageButton android:id="@+id/zoom_out"
        android:layout_width="52dip"
        android:layout_height="52dip"
-       android:src="@drawable/button_zoom_out" />
+        />
 
     </LinearLayout>
 
@@ -152,7 +152,7 @@
         <ImageButton android:id="@+id/save"
          android:layout_width="52dip"
          android:layout_height="52dip"
-         android:src="@drawable/menu_save" />
+          />
 
       </LinearLayout>
 

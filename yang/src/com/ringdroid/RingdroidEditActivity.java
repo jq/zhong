@@ -342,7 +342,7 @@ public class RingdroidEditActivity extends Activity
         MenuItem item;
 
         item = menu.add(0, CMD_SAVE, 0, R.string.menu_save);
-        item.setIcon(R.drawable.menu_save);
+        item.setIcon(android.R.drawable.ic_menu_save);
 
         item = menu.add(0, CMD_RESET, 0, R.string.menu_reset);
         item.setIcon(R.drawable.menu_reset);
@@ -562,17 +562,28 @@ public class RingdroidEditActivity extends Activity
 
         mPlayButton = (ImageButton)findViewById(R.id.play);
         mPlayButton.setOnClickListener(mPlayListener);
+        mPlayButton.setImageResource(android.R.drawable.ic_media_play);
+        
         mRewindButton = (ImageButton)findViewById(R.id.rew);
         mRewindButton.setOnClickListener(mRewindListener);
+        mRewindButton.setImageResource(android.R.drawable.ic_media_rew);
+        
         mFfwdButton = (ImageButton)findViewById(R.id.ffwd);
         mFfwdButton.setOnClickListener(mFfwdListener);
+        mFfwdButton.setImageResource(android.R.drawable.ic_media_ff);
+        
         mZoomInButton = (ImageButton)findViewById(R.id.zoom_in);
         mZoomInButton.setOnClickListener(mZoomInListener);
+        mZoomInButton.setImageResource(R.drawable.button_zoom_in);
+        
         mZoomOutButton = (ImageButton)findViewById(R.id.zoom_out);
         mZoomOutButton.setOnClickListener(mZoomOutListener);
+        mZoomOutButton.setImageResource(R.drawable.button_zoom_out);
+        
         mSaveButton = (ImageButton)findViewById(R.id.save);
         mSaveButton.setOnClickListener(mSaveListener);
-
+        mSaveButton.setImageResource(android.R.drawable.ic_menu_save);
+        
         TextView markStartButton = (TextView) findViewById(R.id.mark_start);
         markStartButton.setOnClickListener(mMarkStartListener);
         TextView markEndButton = (TextView) findViewById(R.id.mark_end);

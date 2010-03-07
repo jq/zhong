@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.json.JSONArray;
 
+import android.R;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -43,8 +44,9 @@ public abstract class EndlessUrlArrayAdapter<T, W> extends UrlArrayAdapter<T, W>
 
  protected View getPendingView(ViewGroup parent) {
    View row= mInflater.inflate(ThrobberViewRes, parent, false);
-   
+   //((ImageView)row).setImageResource(android.R.drawable.ic_popup_sync);
    ImageView child = (ImageView)row.findViewById(Throbber);
+   child.setImageResource(android.R.drawable.ic_popup_sync);
    //child.setImageResource(ThrobberImg);
    if (rotate == null) {
      rotate=new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF,
