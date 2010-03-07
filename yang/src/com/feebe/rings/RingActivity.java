@@ -350,7 +350,6 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
       	dlProgress.setIndeterminate(false);
       	dlProgress.setMax(100);
       	dlProgress.setProgress(0);
-      	dlProgress.setSecondaryProgress(0);
       	dlProgress.setCancelable(false);
       	dlProgress.show();
       	
