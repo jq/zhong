@@ -6,14 +6,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
-import android.drm.mobile1.DrmRawContent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
 import android.os.SystemClock;
-import android.provider.Downloads;
 import android.telephony.TelephonyManager;
 import android.util.Config;
 import android.util.Log;
@@ -72,44 +70,7 @@ public class Helpers {
             int destination,
             int contentLength) throws FileNotFoundException {
 
-        /*
-         * Don't download files that we won't be able to handle
-         */
-        if (destination == Downloads.Impl.DESTINATION_EXTERNAL
-                || destination == Downloads.Impl.DESTINATION_CACHE_PARTITION_PURGEABLE) {
-            if (mimeType == null) {
-                if (Config.LOGD) {
-                    Log.d(Constants.TAG, "external download with no mime type not allowed");
-                }
-                return new DownloadFileInfo(null, null, Downloads.Impl.STATUS_NOT_ACCEPTABLE);
-            }
-            if (!DrmRawContent.DRM_MIMETYPE_MESSAGE_STRING.equalsIgnoreCase(mimeType)) {
-                // Check to see if we are allowed to download this file. Only files
-                // that can be handled by the platform can be downloaded.
-                // special case DRM files, which we should always allow downloading.
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-
-                // We can provide data as either content: or file: URIs,
-                // so allow both.  (I think it would be nice if we just did
-                // everything as content: URIs)
-                // Actually, right now the download manager's UId restrictions
-                // prevent use from using content: so it's got to be file: or
-                // nothing
-
-                PackageManager pm = context.getPackageManager();
-                intent.setDataAndType(Uri.fromParts("file", "", null), mimeType);
-                ResolveInfo ri = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
-                //Log.i(Constants.TAG, "*** FILENAME QUERY " + intent + ": " + list);
-
-                if (ri == null) {
-                    if (Config.LOGD) {
-                        Log.d(Constants.TAG, "no handler found for type " + mimeType);
-                    }
-                    return new DownloadFileInfo(null, null, Downloads.Impl.STATUS_NOT_ACCEPTABLE);
-                }
-            }
-        }
-        String filename = chooseFilename(
+         String filename = chooseFilename(
                 url, hint, contentDisposition, contentLocation, destination);
 
         // Split filename between base and extension
@@ -130,39 +91,7 @@ public class Helpers {
 
         File base = null;
         StatFs stat = null;
-        // DRM messages should be temporarily stored internally and then passed to 
-        // the DRM content provider
-        if (destination == Downloads.Impl.DESTINATION_CACHE_PARTITION
-                || destination == Downloads.Impl.DESTINATION_CACHE_PARTITION_PURGEABLE
-                || destination == Downloads.Impl.DESTINATION_CACHE_PARTITION_NOROAMING
-                || DrmRawContent.DRM_MIMETYPE_MESSAGE_STRING.equalsIgnoreCase(mimeType)) {
-            // Saving to internal storage.
-            base = Environment.getDownloadCacheDirectory();
-            stat = new StatFs(base.getPath());
-
-            /*
-             * Check whether there's enough space on the target filesystem to save the file.
-             * Put a bit of margin (in case creating the file grows the system by a few blocks).
-             */
-            int blockSize = stat.getBlockSize();
-            long bytesAvailable = blockSize * ((long) stat.getAvailableBlocks() - 4);
-            while (bytesAvailable < contentLength) {
-                // Insufficient space; try discarding purgeable files.
-                if (!discardPurgeableFiles(context, contentLength - bytesAvailable)) {
-                    // No files to purge, give up.
-                    if (Config.LOGD) {
-                        Log.d(Constants.TAG,
-                                "download aborted - not enough free space in internal storage");
-                    }
-                    return new DownloadFileInfo(null, null,
-                            Downloads.Impl.STATUS_INSUFFICIENT_SPACE_ERROR);
-                } else {
-                    // Recalculate available space and try again.
-                    stat.restat(base.getPath());
-                    bytesAvailable = blockSize * ((long) stat.getAvailableBlocks() - 4);
-                }
-            }
-        } else if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+      if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             // Saving to external storage (SD card).
             String root = Environment.getExternalStorageDirectory().getPath();
             stat = new StatFs(root);
@@ -176,8 +105,8 @@ public class Helpers {
                 if (Config.LOGD) {
                     Log.d(Constants.TAG, "download aborted - not enough free space");
                 }
-                return new DownloadFileInfo(null, null,
-                        Downloads.Impl.STATUS_INSUFFICIENT_SPACE_ERROR);
+                return new DownloadFileInfo(null, null,1);
+                       // Downloads.STATUS_INSUFFICIENT_SPACE_ERROR);
             }
 
             base = new File(root + Constants.DEFAULT_DL_SUBDIR);
@@ -188,15 +117,15 @@ public class Helpers {
                     Log.d(Constants.TAG, "download aborted - can't create base directory "
                             + base.getPath());
                 }
-                return new DownloadFileInfo(null, null, Downloads.Impl.STATUS_FILE_ERROR);
+                return new DownloadFileInfo(null, null, Downloads.STATUS_FILE_ERROR);
             }
         } else {
             // No SD card found.
             if (Config.LOGD) {
                 Log.d(Constants.TAG, "download aborted - no external storage");
             }
-            return new DownloadFileInfo(null, null,
-                    Downloads.Impl.STATUS_DEVICE_NOT_FOUND_ERROR);
+            return new DownloadFileInfo(null, null,1);
+                    //Downloads.STATUS_DEVICE_NOT_FOUND_ERROR);
         }
 
         boolean recoveryDir = Constants.RECOVERY_DIRECTORY.equalsIgnoreCase(filename + extension);
@@ -215,7 +144,7 @@ public class Helpers {
         if (fullFilename != null) {
             return new DownloadFileInfo(fullFilename, new FileOutputStream(fullFilename), 0);
         } else {
-            return new DownloadFileInfo(null, null, Downloads.Impl.STATUS_FILE_ERROR);
+            return new DownloadFileInfo(null, null, Downloads.STATUS_FILE_ERROR);
         }
     }
 
@@ -369,13 +298,6 @@ public class Helpers {
     private static String chooseUniqueFilename(int destination, String filename,
             String extension, boolean recoveryDir) {
         String fullFilename = filename + extension;
-        if (!new File(fullFilename).exists()
-                && (!recoveryDir ||
-                (destination != Downloads.Impl.DESTINATION_CACHE_PARTITION &&
-                        destination != Downloads.Impl.DESTINATION_CACHE_PARTITION_PURGEABLE &&
-                        destination != Downloads.Impl.DESTINATION_CACHE_PARTITION_NOROAMING))) {
-            return fullFilename;
-        }
         filename = filename + Constants.FILENAME_SEQUENCE_SEPARATOR;
         /*
         * This number is used to generate partially randomized filenames to avoid
@@ -407,52 +329,7 @@ public class Helpers {
         return null;
     }
 
-    /**
-     * Deletes purgeable files from the cache partition. This also deletes
-     * the matching database entries. Files are deleted in LRU order until
-     * the total byte size is greater than targetBytes.
-     */
-    public static final boolean discardPurgeableFiles(Context context, long targetBytes) {
-        Cursor cursor = context.getContentResolver().query(
-                Downloads.Impl.CONTENT_URI,
-                null,
-                "( " +
-                Downloads.Impl.COLUMN_STATUS + " = '" + Downloads.Impl.STATUS_SUCCESS + "' AND " +
-                Downloads.Impl.COLUMN_DESTINATION +
-                        " = '" + Downloads.Impl.DESTINATION_CACHE_PARTITION_PURGEABLE + "' )",
-                null,
-                Downloads.Impl.COLUMN_LAST_MODIFICATION);
-        if (cursor == null) {
-            return false;
-        }
-        long totalFreed = 0;
-        try {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast() && totalFreed < targetBytes) {
-                File file = new File(cursor.getString(cursor.getColumnIndex(Downloads.Impl._DATA)));
-                if (Constants.LOGVV) {
-                    Log.v(Constants.TAG, "purging " + file.getAbsolutePath() + " for " +
-                            file.length() + " bytes");
-                }
-                totalFreed += file.length();
-                file.delete();
-                long id = cursor.getLong(cursor.getColumnIndex(Downloads.Impl._ID));
-                context.getContentResolver().delete(
-                        ContentUris.withAppendedId(Downloads.Impl.CONTENT_URI, id), null, null);
-                cursor.moveToNext();
-            }
-        } finally {
-            cursor.close();
-        }
-        if (Constants.LOGV) {
-            if (totalFreed > 0) {
-                Log.v(Constants.TAG, "Purged files, freed " + totalFreed + " for " +
-                        targetBytes + " requested");
-            }
-        }
-        return totalFreed > 0;
-    }
-
+ 
     /**
      * Returns whether the network is available
      */
@@ -476,36 +353,6 @@ public class Helpers {
         }
         if (Constants.LOGVV) {
             Log.v(Constants.TAG, "network is not available");
-        }
-        return false;
-    }
-
-    /**
-     * Returns whether the network is roaming
-     */
-    public static boolean isNetworkRoaming(Context context) {
-        ConnectivityManager connectivity =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivity == null) {
-            Log.w(Constants.TAG, "couldn't get connectivity manager");
-        } else {
-            NetworkInfo info = connectivity.getActiveNetworkInfo();
-            if (info != null && info.getType() == ConnectivityManager.TYPE_MOBILE) {
-                if (TelephonyManager.getDefault().isNetworkRoaming()) {
-                    if (Constants.LOGVV) {
-                        Log.v(Constants.TAG, "network is roaming");
-                    }
-                    return true;
-                } else {
-                    if (Constants.LOGVV) {
-                        Log.v(Constants.TAG, "network is not roaming");
-                    }
-                }
-            } else {
-                if (Constants.LOGVV) {
-                    Log.v(Constants.TAG, "not using mobile network");
-                }
-            }
         }
         return false;
     }

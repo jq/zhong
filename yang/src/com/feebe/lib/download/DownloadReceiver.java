@@ -21,6 +21,12 @@ import java.io.File;
  */
 public class DownloadReceiver extends BroadcastReceiver {
 
+	@Override
+  public void onReceive(Context arg0, Intent arg1) {
+	  // TODO Auto-generated method stub
+	  
+  }
+/*
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             if (Constants.LOGVV) {
@@ -69,23 +75,23 @@ public class DownloadReceiver extends BroadcastReceiver {
                     intent.getData(), null, null, null, null);
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
-                    int statusColumn = cursor.getColumnIndexOrThrow(Downloads.Impl.COLUMN_STATUS);
+                    int statusColumn = cursor.getColumnIndexOrThrow(Downloads.COLUMN_STATUS);
                     int status = cursor.getInt(statusColumn);
                     int visibilityColumn =
-                            cursor.getColumnIndexOrThrow(Downloads.Impl.COLUMN_VISIBILITY);
+                            cursor.getColumnIndexOrThrow(Downloads.COLUMN_VISIBILITY);
                     int visibility = cursor.getInt(visibilityColumn);
-                    if (Downloads.Impl.isStatusCompleted(status)
-                            && visibility == Downloads.Impl.VISIBILITY_VISIBLE_NOTIFY_COMPLETED) {
+                    if (Downloads.isStatusCompleted(status)
+                            && visibility == Downloads.VISIBILITY_VISIBLE_NOTIFY_COMPLETED) {
                         ContentValues values = new ContentValues();
-                        values.put(Downloads.Impl.COLUMN_VISIBILITY,
-                                Downloads.Impl.VISIBILITY_VISIBLE);
+                        values.put(Downloads.COLUMN_VISIBILITY,
+                                Downloads.VISIBILITY_VISIBLE);
                         context.getContentResolver().update(intent.getData(), values, null, null);
                     }
 
                     if (intent.getAction().equals(Constants.ACTION_OPEN)) {
-                        int filenameColumn = cursor.getColumnIndexOrThrow(Downloads.Impl._DATA);
+                        int filenameColumn = cursor.getColumnIndexOrThrow(Downloads._DATA);
                         int mimetypeColumn =
-                                cursor.getColumnIndexOrThrow(Downloads.Impl.COLUMN_MIME_TYPE);
+                                cursor.getColumnIndexOrThrow(Downloads.COLUMN_MIME_TYPE);
                         String filename = cursor.getString(filenameColumn);
                         String mimetype = cursor.getString(mimetypeColumn);
                         Uri path = Uri.parse(filename);
@@ -107,17 +113,17 @@ public class DownloadReceiver extends BroadcastReceiver {
                         }
                     } else {
                         int packageColumn = cursor.getColumnIndexOrThrow(
-                                Downloads.Impl.COLUMN_NOTIFICATION_PACKAGE);
+                                Downloads.COLUMN_NOTIFICATION_PACKAGE);
                         int classColumn = cursor.getColumnIndexOrThrow(
-                                Downloads.Impl.COLUMN_NOTIFICATION_CLASS);
+                                Downloads.COLUMN_NOTIFICATION_CLASS);
                         String pckg = cursor.getString(packageColumn);
                         String clazz = cursor.getString(classColumn);
                         if (pckg != null && clazz != null) {
                             Intent appIntent =
-                                    new Intent(Downloads.Impl.ACTION_NOTIFICATION_CLICKED);
+                                    new Intent(Downloads.ACTION_NOTIFICATION_CLICKED);
                             appIntent.setClassName(pckg, clazz);
                             if (intent.getBooleanExtra("multiple", true)) {
-                                appIntent.setData(Downloads.Impl.CONTENT_URI);
+                                appIntent.setData(Downloads.CONTENT_URI);
                             } else {
                                 appIntent.setData(intent.getData());
                             }
@@ -140,16 +146,16 @@ public class DownloadReceiver extends BroadcastReceiver {
                     intent.getData(), null, null, null, null);
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
-                    int statusColumn = cursor.getColumnIndexOrThrow(Downloads.Impl.COLUMN_STATUS);
+                    int statusColumn = cursor.getColumnIndexOrThrow(Downloads.COLUMN_STATUS);
                     int status = cursor.getInt(statusColumn);
                     int visibilityColumn =
-                            cursor.getColumnIndexOrThrow(Downloads.Impl.COLUMN_VISIBILITY);
+                            cursor.getColumnIndexOrThrow(Downloads.COLUMN_VISIBILITY);
                     int visibility = cursor.getInt(visibilityColumn);
-                    if (Downloads.Impl.isStatusCompleted(status)
-                            && visibility == Downloads.Impl.VISIBILITY_VISIBLE_NOTIFY_COMPLETED) {
+                    if (Downloads.isStatusCompleted(status)
+                            && visibility == Downloads.VISIBILITY_VISIBLE_NOTIFY_COMPLETED) {
                         ContentValues values = new ContentValues();
-                        values.put(Downloads.Impl.COLUMN_VISIBILITY,
-                                Downloads.Impl.VISIBILITY_VISIBLE);
+                        values.put(Downloads.COLUMN_VISIBILITY,
+                                Downloads.VISIBILITY_VISIBLE);
                         context.getContentResolver().update(intent.getData(), values, null, null);
                     }
                 }
@@ -157,4 +163,5 @@ public class DownloadReceiver extends BroadcastReceiver {
             }
         }
     }
+    */
 }

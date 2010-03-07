@@ -14,6 +14,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.feebe.lib.download.DownloadProvider;
+
 import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -24,6 +26,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class Const {	
+	public static DownloadProvider downloadDb;
 	// const same for all
   public static final String expire = "expire";
   public static final long OneDay = 1000 * 3600 * 24;

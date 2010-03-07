@@ -46,7 +46,7 @@ public final class Downloads {
      * <P>Owner can Init/Read/Write</P>
      */
     public static final String COLUMN_DESCRIPTION = "description";
-
+    public static final String COLUMN_STATUS = "status";
     public static final String COLUMN_ERROR = "error";
     /*
      * Lists the states that the download manager can set on a download

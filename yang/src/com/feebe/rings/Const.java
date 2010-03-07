@@ -58,6 +58,8 @@ public class Const extends com.feebe.lib.Const {
   	no_sd = R.string.no_sd;
   	EndlessUrlArrayAdapter.ThrobberViewRes = R.layout.pending_view;
   	EndlessUrlArrayAdapter.Throbber = R.id.throbber;
+  	
+  	com.feebe.lib.download.DownloadNotification.status_bar_ongoing_event_progress_bar = R.layout.status_bar_ongoing_event_progress_bar;
   }
 
   

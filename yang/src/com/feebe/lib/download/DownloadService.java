@@ -40,7 +40,6 @@ import com.feebe.lib.Const;
 public class DownloadService extends Service {
     /** Class to handle Notification Manager updates */
     private DownloadNotification mNotifier;
-
     /**
      * The Service's view of the list of downloads. This is kept independently
      * from the content provider, and the Service only initiates downloads
@@ -86,7 +85,8 @@ public class DownloadService extends Service {
 
         mNotifier = new DownloadNotification(this);
         mNotifier.mNotificationMgr.cancelAll();
-        mNotifier.updateNotification();
+        //TODO: two cursors
+        //mNotifier.updateNotification();
 
         trimDatabase();
         removeSpuriousFiles();
@@ -167,10 +167,9 @@ public class DownloadService extends Service {
                     mPendingUpdate = false;
                 }
                 boolean networkAvailable = Helpers.isNetworkAvailable(DownloadService.this);
-                boolean networkRoaming = Helpers.isNetworkRoaming(DownloadService.this);
                 long now = System.currentTimeMillis();
 
-                Cursor cursor = getContentResolver().query(Downloads.CONTENT_URI,
+                Cursor cursor = Const.downloadDb.query(
                         null, null, null, Downloads._ID);
 
                 if (cursor == null) {
@@ -206,7 +205,7 @@ public class DownloadService extends Service {
                  * -If the cursor contains an entry that's not in the array, insert
                  *     a new entry in the array, move to next cursor row and next
                  *     array entry.
-                 */
+                 
                 while (!isAfterLast || arrayPos < mDownloads.size()) {
                     if (isAfterLast) {
                         // We're beyond the end of the cursor but there's still some
@@ -313,8 +312,9 @@ public class DownloadService extends Service {
                         }
                     }
                 }
-
-                mNotifier.updateNotification();
+                */
+                // TODO
+                //mNotifier.updateNotification();
                 cursor.close();
             }
         }
@@ -341,7 +341,7 @@ public class DownloadService extends Service {
             fileSet.add(files[i].getPath());
         }
 
-        Cursor cursor = getContentResolver().query(Downloads.CONTENT_URI,
+        Cursor cursor = Const.downloadDb.query(
                 new String[] { Downloads._DATA }, null, null, null);
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -365,10 +365,12 @@ public class DownloadService extends Service {
      * Drops old rows from the database to prevent it from growing too large
      */
     private void trimDatabase() {
-        Cursor cursor = getContentResolver().query(Downloads.CONTENT_URI,
+    	// FIX it by clean all finished download
+    	/*
+        Cursor cursor = Const.download.query(
                 new String[] { Downloads._ID },
-                Downloads.COLUMN_STATUS + " >= '200'", null,
-                Downloads.COLUMN_LAST_MODIFICATION);
+                Downloads.COLUMN_STATUS + " >= '200'", null,null);
+                //Downloads.COLUMN_LAST_MODIFICATION);
         if (cursor == null) {
             // This isn't good - if we can't do basic queries in our database, nothing's gonna work
             Log.e(Constants.TAG, "null cursor in trimDatabase");
@@ -388,12 +390,13 @@ public class DownloadService extends Service {
             }
         }
         cursor.close();
+        */
     }
 
     /**
      * Keeps a local copy of the info about a download, and initiates the
      * download if appropriate.
-     */
+     
     private void insertDownload(
             Cursor cursor, int arrayPos,
             boolean networkAvailable, boolean networkRoaming, long now) {
@@ -532,10 +535,10 @@ public class DownloadService extends Service {
             }
         }
     }
-
+*/
     /**
      * Updates the local copy of the info about a download.
-     */
+     
     private void updateDownload(
             Cursor cursor, int arrayPos,
             boolean networkAvailable, boolean networkRoaming, long now) {
@@ -613,7 +616,7 @@ public class DownloadService extends Service {
             }
         }
     }
-
+*/
     /**
      * Returns a String that holds the current value of the column,
      * optimizing for the case where the value hasn't changed.
@@ -652,8 +655,7 @@ public class DownloadService extends Service {
         DownloadInfo info = (DownloadInfo) mDownloads.get(arrayPos);
         if (info.mStatus == Downloads.STATUS_RUNNING) {
             info.mStatus = Downloads.STATUS_CANCELED;
-        } else if (info.mDestination != Downloads.DESTINATION_EXTERNAL
-                    && info.mFileName != null) {
+        } else if (info.mFileName != null) {
             new File(info.mFileName).delete();
         }
         mNotifier.mNotificationMgr.cancel(info.mId);
@@ -685,63 +687,4 @@ public class DownloadService extends Service {
         }
         return when - now;
     }
-
-    /**
-     * Returns whether there's a visible notification for this download
-     */
-    private boolean visibleNotification(int arrayPos) {
-        DownloadInfo info = (DownloadInfo) mDownloads.get(arrayPos);
-        return info.hasCompletionNotification();
-    }
-
-    /**
-     * Returns whether a file should be scanned
-     */
-    private boolean shouldScanFile(int arrayPos) {
-        DownloadInfo info = (DownloadInfo) mDownloads.get(arrayPos);
-        return !info.mMediaScanned
-                && info.mDestination == Downloads.DESTINATION_EXTERNAL
-                && Downloads.isStatusSuccess(info.mStatus)
-                && !DrmRawContent.DRM_MIMETYPE_MESSAGE_STRING.equalsIgnoreCase(info.mMimeType);
-    }
-
-    /**
-     * Returns whether we have a live connection to the Media Scanner
-     */
-    private boolean mediaScannerConnected() {
-        return mMediaScannerService != null;
-    }
-
-    /**
-     * Attempts to scan the file if necessary.
-     * Returns true if the file has been properly scanned.
-     */
-    private boolean scanFile(Cursor cursor, int arrayPos) {
-        DownloadInfo info = (DownloadInfo) mDownloads.get(arrayPos);
-        synchronized (this) {
-            if (mMediaScannerService != null) {
-                try {
-                    if (Constants.LOGV) {
-                        Log.v(Constants.TAG, "Scanning file " + info.mFileName);
-                    }
-                    mMediaScannerService.scanFile(info.mFileName, info.mMimeType);
-                    if (cursor != null) {
-                        ContentValues values = new ContentValues();
-                        values.put(Constants.MEDIA_SCANNED, 1);
-                        getContentResolver().update(ContentUris.withAppendedId(
-                                       Downloads.CONTENT_URI, cursor.getLong(
-                                               cursor.getColumnIndexOrThrow(Downloads._ID))),
-                                values, null, null);
-                    }
-                    return true;
-                } catch (RemoteException e) {
-                    if (Config.LOGD) {
-                        Log.d(Constants.TAG, "Failed to scan file " + info.mFileName);
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
 }
