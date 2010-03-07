@@ -190,33 +190,47 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
                                                   new int[] {R.id.ringListItem1});   
       listSearchOthers.setAdapter(mSearchOthers);
       listSearchOthers.setOnItemClickListener(new OnItemClickListener() {
+		
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position,
+						long id) {
+					// TODO Auto-generated method stub
+					switch(position){
+					case 0:	Search.getArtistRing(artist);
+					  return;
+					case 1:	Search.getAuthorRing(author);
+					  return;
+					case 2: Search.getCate(category);
+				    return;
+					case 3: Search.getTitleRing(title);
+			    return;
+					}
+				}
 
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
-			// TODO Auto-generated method stub
-			switch(position){
-			case 0:	Search.getArtistRing(artist);
-			  return;
-			case 1:	Search.getAuthorRing(author);
-			  return;
-			case 2: Search.getCate(category);
-		    return;
-			case 3: Search.getTitleRing(title);
-	    return;
-			}
-		}
-    	  
       });
       
+      queue = (Button)this.findViewById(R.id.queue);
+
       if (!mp3Location.startsWith("http:")) {
         initFinishDownloadButton();
+      } else {
+      	queue.setOnClickListener(new OnClickListener() {
+          @Override
+          public void onClick(View v) {
+          	// save json file
+            finish();
+            //Const.downloadDb.insert(values);
+            // TODO: start new intent to launch download queue view
+            // pass json file to the download view, so that when download finish, it will get it
+          }  
+        });
       }
   }
   
   private static final int RING_PICKER = 1;
 
   private void initFinishDownloadButton() {
+  	queue.setVisibility(View.GONE);
     dl.setText(R.string.play);
     mSet = (Button)this.findViewById(R.id.set);
     mSet.setVisibility(View.VISIBLE);
@@ -482,18 +496,7 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
   }
   
   private Uri saveRingtoneToLib(String title,
-      String outPath, File outFile, String artist, int[] fileKind) {
-		long length = outFile.length();
-		if (length <= 512) {
-			outFile.delete();
-			new AlertDialog.Builder(this)
-			.setTitle(R.string.error)
-			.setMessage(R.string.too_small_error)
-			.setPositiveButton(R.string.alert_ok_button, null)
-			.setCancelable(false)
-			.show();
-			return null;
-		}
+      String outPath, long length, String artist, int[] fileKind) {
 		String mimeType = "audio/mpeg";
 		ContentValues values = new ContentValues();
 		// Log.e("save", " title " + title + " out " + outPath + " artist " + artist);
@@ -538,7 +541,7 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
     int lastPos = mp3Location.lastIndexOf('.');
     String extension = mp3Location.substring(lastPos);
     // Log.e("path", fullpathame);
-    new DownloadFile(this).execute(mp3Location, Const.getMp3FilePath(artist, title, extension));
+    new DownloadFile(this, 512).execute(mp3Location, Const.getMp3FilePath(artist, title, extension));
   }
   
   @Override
@@ -560,12 +563,11 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
     } catch (CannotWriteException e) {
     }
     try {
-      //String json = file.substring(0, file.lastIndexOf('.') - 1);
       mp3Location = file.getAbsolutePath();
       ring.put("filePath", mp3Location);
       // TOOD, type and duriation
       int[] fileKinds = new int[]{Const.FILE_KIND_RINGTONE,Const.FILE_KIND_NOTIFICATION,Const.FILE_KIND_ALARM};
-      Uri u = saveRingtoneToLib(ring.getString(Const.title), mp3Location, file, 
+      Uri u = saveRingtoneToLib(ring.getString(Const.title), mp3Location, file.length(), 
           ring.getString(Const.artist), fileKinds);
       mCurrentFileUri = u;
 
@@ -604,6 +606,7 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
   private Button mSet;
   private Button mAssign;
   private Button dl;
+  private Button queue;
   private Button mEdit;
   private Button mShare;
   private Button mPreview;
@@ -632,5 +635,11 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
   String key = "";
   String myRating = "";
   String filePath = "";
+
+	@Override
+  public void onDownloadFail() {
+	  // TODO Auto-generated method stub
+	  
+  }
 
 }

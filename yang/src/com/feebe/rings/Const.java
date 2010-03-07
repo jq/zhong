@@ -6,6 +6,7 @@ import java.io.RandomAccessFile;
 
 import com.feebe.lib.EndlessUrlArrayAdapter;
 
+import android.content.Context;
 import android.os.Environment;
 import android.widget.Toast;
 
@@ -44,9 +45,9 @@ public class Const extends com.feebe.lib.Const {
   public static final String RatingBase = "http://ggapp.appspot.com/ringtone/rate/";
   public static final String SearchBase = "http://ggapp.appspot.com/ringtone/search/?json=1&";
 
-  public static void init() {
+  public static void init(Context c) {
     pkg = "com.feebe.rings";
-    com.feebe.lib.Const.init();
+    com.feebe.lib.Const.init(c);
   	QWName = "Ringtone-g56rajjb";
   	QWID = "34d153f75db441cdbb776ffb70c569c5";
   	AdsViewID = R.id.AdsView;

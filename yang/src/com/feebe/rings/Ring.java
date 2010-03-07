@@ -29,7 +29,7 @@ public class Ring extends TabActivity implements OnTabChangeListener {
       Const.main = this;
       super.onCreate(savedInstanceState);
       ImgThread.noImg = BitmapFactory.decodeResource(getResources(), R.drawable.ring);
-      Const.init();
+      Const.init(this);
       //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
       requestWindowFeature(Window.FEATURE_NO_TITLE);
       setContentView(R.layout.main);

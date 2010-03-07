@@ -1,30 +1,16 @@
 package com.feebe.lib.download;
 
-import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.UriMatcher;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.database.CrossProcessCursor;
 import android.database.Cursor;
-import android.database.CursorWindow;
-import android.database.CursorWrapper;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
-import android.os.Binder;
-import android.os.ParcelFileDescriptor;
-import android.os.Process;
 import android.util.Config;
 import android.util.Log;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.HashSet;
 
 
@@ -135,6 +121,9 @@ public class DownloadProvider {
         }
     }
 
+    public void insert(String url, String title, String filename) {
+    	
+    }
     /**
      * Inserts a row in the database
      */

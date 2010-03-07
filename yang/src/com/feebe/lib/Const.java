@@ -17,6 +17,7 @@ import org.apache.http.message.BasicNameValuePair;
 import com.feebe.lib.download.DownloadProvider;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -55,7 +56,9 @@ public class Const {
   public static String homedir;
   public static String cachedir;
   public static final int ver = Integer.parseInt(Build.VERSION.SDK);
-  public static void init() {
+  
+  public static void init(Context c) {
+  	downloadDb = new DownloadProvider(c);
     File sdcardRoot = Environment.getExternalStorageDirectory();
     
     File homeDir = new File(sdcardRoot, "MusicSearch");
