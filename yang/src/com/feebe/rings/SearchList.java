@@ -13,14 +13,17 @@ import org.json.JSONObject;
 import com.feebe.lib.BaseList;
 import com.feebe.lib.EndlessUrlArrayAdapter;
 import com.feebe.lib.ImgThread;
+import com.feebe.lib.SearchDBAdapter;
 import com.feebe.lib.UrlArrayAdapter;
 import com.feebe.lib.Util;
+import com.qwapi.adclient.android.db.DBHelper;
 
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -35,6 +38,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SearchList extends BaseList {
   private final static String TAG = "SearchList";
@@ -132,6 +136,13 @@ public class SearchList extends BaseList {
         String rating = obj.getString(Const.rating);
 
         if (key != null && (title != null || artist != null )) {
+          //test #11
+          if (searchDBAdapter == null) {
+        	  searchDBAdapter = new SearchDBAdapter(getContext(), Const.DBName);
+          }
+          searchDBAdapter.open();
+          searchDBAdapter.intsertHistory(title, artist, key, image, rating);
+          //test #11
           return new SearchResult(title, artist, key, image, rating);
         } 
       } catch (JSONException e) {
@@ -209,6 +220,14 @@ public class SearchList extends BaseList {
       } else {
         fetchMoreResult();
       }
+      //test #11
+      String histories = "";
+      Cursor c = searchDBAdapter.getAllHistories();
+      c.moveToFirst();
+      histories = c.getString(0);
+      //Toast.makeText(getContext(), histories, Toast.LENGTH_LONG).show();
+      searchDBAdapter.close();
+      //test #11
     }
     @Override
     protected List getListFromUrl(String url, long expire) {
@@ -216,7 +235,21 @@ public class SearchList extends BaseList {
     }
 
   }
+  
 
-  private int lastCnt;
+/* (non-Javadoc)
+ * @see android.app.Activity#onDestroy()
+ */
+@Override
+protected void onDestroy() {
+	// TODO Auto-generated method stub
+	super.onDestroy();
+	searchDBAdapter.close();
+}
+
+private int lastCnt;
   private SearchResultAdapter mAdapter;
+  
+  private SearchDBAdapter searchDBAdapter;	//test #11
+  
 }
