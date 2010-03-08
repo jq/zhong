@@ -553,17 +553,19 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
 
   @Override
   public void onDownloadProgress(int percentage) {
-	dlProgress.setProgress(percentage);
+  	dlProgress.setProgress(percentage);
   }
+  @Override
+  public void onDownloadFail() {
+    dlProgress.dismiss();
+    Toast.makeText(
+        RingActivity.this, R.string.download_failed, Toast.LENGTH_SHORT).show();
+    return;
+  }
+
   
   @Override
   public void onDownloadFinish(File file) {
-    if (file == null) {
-      dlProgress.dismiss();
-      Toast.makeText(
-          RingActivity.this, R.string.download_failed, Toast.LENGTH_SHORT).show();
-      return;
-    }
     //Log.e("onDownloadFinish", file.getAbsolutePath());
     try {
       AudioFile audioFile = AudioFileIO.read(file);
@@ -648,11 +650,4 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
   String myRating = "";
   String filePath = "";
   int mp3Size;
-
-	@Override
-  public void onDownloadFail() {
-	  // TODO Auto-generated method stub
-	  
-  }
-
 }
