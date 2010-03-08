@@ -1,14 +1,16 @@
 package com.trans.music.search;
 
+import android.content.Context;
+
 import com.feebe.lib.EndlessUrlArrayAdapter;
 
 public class Const extends com.feebe.lib.Const{
   public static final String SearchBase = "http://mp3.sogou.com/music.so?pf=mp3&ac=1&class=1&query=";
   public static final String Key = "key"; 
   
-  public static void init() {
+  public static void init(Context c) {
     no_sd = R.string.no_sd;
-    com.feebe.lib.Const.init();
+    com.feebe.lib.Const.init(c);
     QWName = "Ringtone-g56rajjb";
     QWID = "34d153f75db441cdbb776ffb70c569c5";
     AdsViewID = R.id.AdsView;

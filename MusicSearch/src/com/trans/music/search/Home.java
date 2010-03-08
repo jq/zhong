@@ -20,7 +20,7 @@ public class Home extends TabActivity implements OnTabChangeListener{
   public void onCreate(Bundle savedInstanceState) {
     Const.main = this;
     super.onCreate(savedInstanceState);
-    Const.init();
+    Const.init(this);
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     setContentView(R.layout.tabmain);
     getTabHost().setOnTabChangedListener(this);
