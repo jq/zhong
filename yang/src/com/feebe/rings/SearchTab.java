@@ -57,22 +57,7 @@ public class SearchTab extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				/*String artist = searchArtist.getText().toString();
-				String title = searchTitle.getText().toString();
-				boolean hasTitle = title.length() > 0;
-				boolean hasArtist = artist.length() > 0;
 				
-				if(hasTitle) {
-					if (hasArtist) {
-					  Search.getArtistAndTitle(artist, title);
-					} else {
-						Search.getTitleRing(title);
-					}
-				} else {
-					if (hasArtist) {
-						Search.getArtistRing(artist);
-					}
-				}*/
 				actionListener();
 			}
 		});

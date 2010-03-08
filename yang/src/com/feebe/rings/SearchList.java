@@ -16,8 +16,10 @@ import com.feebe.lib.ImgThread;
 import com.feebe.lib.UrlArrayAdapter;
 import com.feebe.lib.Util;
 
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -188,6 +190,19 @@ public class SearchList extends BaseList {
     @Override
     protected void finishLoading() {
       Log.e("finishLoading", "cont " + super.getCount() + " last " + lastCnt);
+      if(super.getCount() == 0) {
+    	  new AlertDialog.Builder(SearchList.this)
+    	  .setTitle("NotFound")
+    	  .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+    		  public void onClick(DialogInterface dialog, int whichButton) {
+    			  setResult(RESULT_OK);
+    			  finish();
+    			  SearchList.this.finish();
+    		  }})
+    	  .show();
+    	  
+    	  
+      }
       
       if (lastCnt + Const.DEFAULT_RESULT > super.getCount()) {
         keepOnAppending = false;
