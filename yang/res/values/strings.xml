@@ -93,19 +93,19 @@
      used in RingActivity dlProgress dialog
      -->
      <string name="dlprogress_title">Downloading...</string>
-     <string name="dlprogress_message">Downloading ringtone form network.\nThis window will close automatically after download is complete.</string>
+     <string name="dlprogress_message">Downloading ringtone from network.\nThis window will close automatically after download is complete.</string>
     
     <!--
      used in RingActivity mStreaming dialog
      -->
      <string name="mStreaming_title">Please wait</string>
-     <string name="mStreaming_message">Streaming audio form network...</string>
+     <string name="mStreaming_message">Streaming audio from network...</string>
     
     <!--
      used in RingActivity ring_picker dialog
      -->
      <string name="ring_picker_title">Select Ring</string>
-     <string name="ring_picker_message">Streaming audio form network...</string>
+     <string name="ring_picker_message">Streaming audio from network...</string>
       
     <!--
      AlertDialogs
@@ -175,7 +175,7 @@
     <string name="too_small_error">Can't save a file that small, try making it longer.</string>
     <string name="write_error">Error writing file</string>
     <string name="read_error">Error reading file</string>
-    <string name="download_failed">download failed</string>
+    <string name="download_failed">Download failed</string>
 
     <string name="no_space_error">Your SD card is full, there is not enough space to save this file.</string>
 
