@@ -1,0 +1,194 @@
+<<?xml version="1.0" encoding="utf-8"?>
+<<resources>
+    <string name="tab_hot">Caldo</string>
+    <string name="tab_search">Trovare</string>
+    <string name="tab_browse">Fresco</string>
+    <string name="tab_download">Chiamata</string>
+    <string name="app_name">RingTone</string>
+    
+    <string name="no_sd">Impossibile creare una directory su scheda SD</string>
+    <string name="no_result">Nessun risultato</string>
+    
+    <string name="no_sd_space">SD card esaurito lo spazio</string>
+    <string name="search_hint">ricerca</string>
+    
+    <string name="upload">Carica</string>
+    <string name="clear_cache">Svuotare la cache</string>
+
+    <string name="play">giocare</string>
+    <string name="pause">pausa</string>
+    <string name="stop">fermare</string>
+    <string name="error">Errore</string>
+    <string name="artist_name">Feebe</string>
+    <string name="network_error">Errore di rete</string>
+    <string name="retry">Riprova</string>
+    <string name="footer">Ancora</string>
+        
+    <string name="info">Info:</string>
+    <string name="about">A proposito di Ringtone:</string>
+    <string name="myreview">La mia recensione:</string>
+		
+		<string name="info_download_count"> persone scaricato</string>
+    <!--
+     imported
+     -->
+    
+    
+    <string name="button_start_record_activity">Nuovo record</string>
+
+    <string name="sdcard_readonly">Siamo spiacenti, la scheda SD è montato in sola lettura</string>
+    <string name="no_sdcard">Non può essere eseguito a meno che non si dispone di una scheda SD inserita.</string>
+    <string name="sdcard_shared">Non può essere eseguito mentre il ricevitore è montato come un dispositivo USB.</string>
+
+    <!--
+     Edit activity
+     -->
+
+    <!-- Labels next to the start and end time edit boxes -->
+    <string name="start_label">Inizio:</string>
+    <string name="end_label">Rispetto a:</string>
+
+    <string name="edit_intent">Modifica</string>
+
+    <string name="time_seconds">seconds</string>
+
+    <!-- After you save a notification or ringtone and have more options
+	 for what to do with them -->
+    <string name="what_to_do_with_ringtone">Saved! Fanno di questa suoneria predefinita o assegnare a un contatto?</string>
+    <string name="set_default_notification">Saved! Rendere tale notifica default?</string>
+
+    <string name="make_default_ringtone_button">Make Default</string>
+    <string name="choose_contact_ringtone_button">Assegna a Contatti</string>
+    <string name="do_nothing_with_ringtone_button">Chiudere</string>
+
+    <!-- Progress dialog text for loading or saving... -->
+    <string name="progress_dialog_loading">Loading...</string>
+    <string name="progress_dialog_saving">Saving...</string>
+
+    <!--
+     Menu items
+     -->
+
+    <string name="menu_save">Salvare</string>
+    <string name="menu_reset">Reset</string>
+    <string name="menu_show_all_audio">Show All Audio</string>
+    
+    <string name="menu_search">ricerca</string>
+    <string name="menu_unset_ringtone">unset ringtone</string>
+    
+    <!--
+     used in RingActivity search more listview
+     -->
+     <string name="search_more">Ricerca più</string>
+     <string name="search_more_by">Ricerca più da</string>
+     <string name="search_more_in">Ricerca più in</string>
+    
+    <!--
+     used in share alert_dialog
+     -->
+     <string name="share_sms1">Mi piacerebbe condividere questa suoneria per voi:</string>
+     <string name="share_sms2">da</string>
+     <string name="share_sms3">Send Ringtone da Feebe di Android Market://search?q=com.feebe.rings</string>
+    
+    <!--
+     used in RingActivity dlProgress dialog
+     -->
+     <string name="dlprogress_title">Downloading...</string>
+     <string name="dlprogress_message">Il download sotto forma di rete ringtone.\nQuesta finestra si chiuderà automaticamente dopo il download è completo.</string>
+    
+    <!--
+     used in RingActivity mStreaming dialog
+     -->
+     <string name="mStreaming_title">Attendere prego</string>
+     <string name="mStreaming_message">Streaming audio dalla rete...</string>
+    
+    <!--
+     used in RingActivity ring_picker dialog
+     -->
+     <string name="ring_picker_title">Seleziona Ring</string>
+     <string name="ring_picker_message">Streaming audio dalla rete...</string>
+      
+    <!--
+     AlertDialogs
+     -->
+     <string name="alertdialog_select">seleziona</string>
+     <string name="alertdialog_ok">OK</string>
+     <string name="alertdialog_cancel">Annulla</string>
+     <string name="alertdialog_share">Condividere</string>
+
+    <!--
+     Context menu items
+     -->
+
+    <string name="context_menu_edit">Modifica</string>
+    <string name="context_menu_delete">Eliminare</string>
+
+    <!--
+     File Save dialog
+     -->
+
+    <string name="file_save_title">Salva con nome:</string>
+    <string name="file_save_button_save">Salvare</string>
+    <string name="file_save_button_cancel">Annulla</string>
+
+    <string name="ringtone_type_label">Tipo + + digitare:</string>
+
+    <string name="type_music">Musica</string>
+    <string name="type_alarm">Allarme</string>
+    <string name="type_notification">Notifica</string>
+    <string name="type_ringtone">Ringtone</string>
+
+    <string name="ringtone_name_label">Nome:</string>
+
+    <!--
+     Delete confirmation dialog
+     -->
+
+    <string name="delete_ringtone">Elimina Ringtone</string>
+    <string name="delete_alarm">Elimina allarme</string>
+    <string name="delete_notification">Elimina Notifica</string>
+    <string name="delete_music">Elimina Music</string>
+    <string name="delete_audio">Elimina Audio</string>
+
+    <string name="confirm_delete_ringdroid">Sei sicuro?</string>
+
+    <string name="delete_ok_button">Eliminare</string>
+    <string name="delete_cancel_button">Annulla</string>
+
+    <string name="delete_failed">Impossibile eliminare file</string>
+
+    <!--
+     Success and error messages
+     -->
+
+    <string name="alert_title_success">Successo</string>
+    <string name="alert_title_failure">Errore</string>
+    <string name="alert_ok_button">OK</string>
+    <string name="alert_yes_button">Yes, please!</string>
+    <string name="alert_no_button">No, grazie.</string>
+
+    <string name="save_success_message">Salvato!</string>
+    <string name="default_ringtone_success_message">Suoneria predefinita Changed</string>
+    <string name="play_error">Impossibile riprodurre questo file multimediale</string>
+    <string name="no_unique_filename">In grado di trovare il nome del file unico</string>
+    <string name="delete_tmp_error">Errore durante l'eliminazione di file temporanei</string>
+    <string name="record_error">Il lancio di errore Sound Recorder</string>
+    <string name="too_small_error">Impossibile salvare un file che le piccole, provare a rendere più.</string>
+    <string name="write_error">Errore durante la scrittura di file</string>
+    <string name="read_error">Errore durante la lettura</string>
+    <string name="download_failed">download fallito</string>
+
+    <string name="no_space_error">La scheda SD è piena, non vi è spazio sufficiente per salvare questo file.</string>
+
+    <string name="bad_extension_error">Non ancora in grado di modificare i file di tipo</string>
+    <string name="no_extension_error">Non può modificare un file, se non ha ancora una estensione come .mp3 o .wav</string>
+
+    <!--
+     Choose Contact Activity
+     -->
+
+    <string name="choose_contact_title">Assegnare suonerie a cui il contatto?</string>
+    <string name="success_contact_ringtone">Correttamente assegnato alla suoneria:</string>
+
+    
+</resources>
