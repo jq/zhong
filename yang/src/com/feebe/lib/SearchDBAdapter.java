@@ -71,6 +71,9 @@ public class SearchDBAdapter {
 		db.close();
 	}
 	
+	public boolean isOpen(){
+		return db.isOpen();
+	}
 	public long intsertHistory(String title, String artist, String key, String image, String rating) {
 		ContentValues cv = new ContentValues();
 		cv.put(KeyTitle, title);
@@ -82,6 +85,16 @@ public class SearchDBAdapter {
 	}
 
 	public Cursor getAllHistories() {
-		return db.query(TableHistory, new String[] {KeyTitle, KeyArtist, KeyKey, KeyImage, KeyRating}, null, null, null, null, null);
+		return db.query(TableHistory, new String[] {KeyArtist, KeyTitle, KeyKey, KeyImage, KeyRating,"_id"}, null, null, null, null, null);
+	}
+	
+	public Cursor getHistoryByKeyTitle(String key){
+		String selection = "title like \'" + key +"%\'";
+        return db.query(TableHistory, new String[] {KeyArtist, KeyTitle, KeyKey, KeyImage, KeyRating,"_id"}, selection, null, null, null, null);
+	}
+	
+	public Cursor getHistoryByKeyArtist(String key){
+		String selection = "artist like \'" + key +"%\'";
+        return db.query(TableHistory, new String[] {KeyArtist, KeyTitle, KeyKey, KeyImage, KeyRating,"_id"}, selection, null, null, null, null);
 	}
 }

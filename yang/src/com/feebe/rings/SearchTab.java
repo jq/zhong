@@ -1,6 +1,12 @@
 package com.feebe.rings;
 
+import java.util.ArrayList;
+
+import com.feebe.lib.MyCursorAdapter;
+import com.feebe.lib.SearchDBAdapter;
+
 import android.app.Activity;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.method.KeyListener;
 import android.util.Log;
@@ -8,21 +14,32 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
 public class SearchTab extends Activity{
 	
-	private EditText searchArtist;
-	private EditText searchTitle;
+	private SearchDBAdapter searchDBAdapter;
+	private AutoCompleteTextView searchArtist;
+	private AutoCompleteTextView searchTitle;
 	private Button searchButton;
+	//private AutoCompleteTextView autoCompleteTextViewArtist;
+	//private AutoCompleteTextView autoCompleteTextViewTitle;
+	//private ArrayList<String> searchHistory;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.search_tab);
 		
-		searchArtist = (EditText) findViewById(R.id.input_artist);
+		if (searchDBAdapter == null) {
+			searchDBAdapter = new SearchDBAdapter(this.getBaseContext(),Const.DBName);
+		}
+	    searchDBAdapter.open();
+		
+		searchArtist = (AutoCompleteTextView) findViewById(R.id.input_artist);
 		searchArtist.setOnKeyListener(new OnKeyListener(){
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -35,9 +52,14 @@ public class SearchTab extends Activity{
 				return false;
 			}
 		});
-			
 		
-		searchTitle = (EditText) findViewById(R.id.input_title);
+			
+		searchArtist.setThreshold(1);
+		//ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line,history);
+		MyCursorAdapter myCursorAdapterArtist = new MyCursorAdapter(this,searchDBAdapter.getAllHistories(),0,searchDBAdapter,SearchDBAdapter.KeyArtist);
+		searchArtist.setAdapter(myCursorAdapterArtist);
+		
+		searchTitle = (AutoCompleteTextView) findViewById(R.id.input_title);
 		searchTitle.setOnKeyListener(new OnKeyListener(){
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -50,6 +72,9 @@ public class SearchTab extends Activity{
 				return false;
 			}
 		});
+		searchTitle.setThreshold(1);
+		MyCursorAdapter myCursorAdapterTitle = new MyCursorAdapter(this,searchDBAdapter.getAllHistories(),1,searchDBAdapter,SearchDBAdapter.KeyTitle);
+		searchTitle.setAdapter(myCursorAdapterTitle);
 		
 		searchButton = (Button) findViewById(R.id.search_button);
 		
@@ -81,4 +106,22 @@ public class SearchTab extends Activity{
 		}
 	}
 	
+	/*public void getHistory(){
+		 if (searchDBAdapter == null) {
+       	  searchDBAdapter = new SearchDBAdapter(this.getBaseContext(),Const.DBName);
+         }
+         searchDBAdapter.open();
+         
+         searchHistory = new ArrayList<String>();
+	     Cursor c = searchDBAdapter.getAllHistories();
+	     if(c.getCount()>0){
+	    	 c.moveToFirst();
+	    	 do{
+	    		 searchHistory.add(c.getString(0));
+	    	 }while(c.moveToNext());
+	     }
+	     
+	     //Toast.makeText(getContext(), histories, Toast.LENGTH_LONG).show();
+	     //searchDBAdapter.close();
+	}*/
 }

@@ -221,12 +221,12 @@ public class SearchList extends BaseList {
         fetchMoreResult();
       }
       //test #11
-      String histories = "";
+      /*String histories = "";
       Cursor c = searchDBAdapter.getAllHistories();
       c.moveToFirst();
       histories = c.getString(0);
       //Toast.makeText(getContext(), histories, Toast.LENGTH_LONG).show();
-      searchDBAdapter.close();
+      searchDBAdapter.close();*/
       //test #11
     }
     @Override
@@ -244,12 +244,16 @@ public class SearchList extends BaseList {
 protected void onDestroy() {
 	// TODO Auto-generated method stub
 	super.onDestroy();
-	searchDBAdapter.close();
+	/*if(searchDBAdapter.isOpen()){
+		searchDBAdapter.close();
+	}*/
 }
 
 private int lastCnt;
   private SearchResultAdapter mAdapter;
   
   private SearchDBAdapter searchDBAdapter;	//test #11
+  
+  
   
 }
