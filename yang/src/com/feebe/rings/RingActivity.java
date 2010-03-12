@@ -16,6 +16,7 @@ import com.feebe.lib.AdsView;
 import com.feebe.lib.DownloadImg;
 import com.feebe.lib.DownloadFile;
 import com.feebe.lib.Util;
+import com.feebe.lib.DownloadFile.DownloadListerner;
 
 import entagged.audioformats.AudioFile;
 import entagged.audioformats.AudioFileIO;
@@ -219,6 +220,9 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
           @Override
           public void onClick(View v) {
           	// save json file
+            Toast.makeText(
+                RingActivity.this, R.string.queue, Toast.LENGTH_SHORT).show();
+            download(null);
             finish();
             //Const.downloadDb.insert(values);
             // TODO: start new intent to launch download queue view
@@ -353,7 +357,7 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
       	dlProgress.setCancelable(false);
       	dlProgress.show();
       	
-      	download();
+      	download(RingActivity.this);
         saveArtist();
       } else if(isPaused) {
       	isPaused = false;
@@ -499,55 +503,16 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
     return null;
   }
   
-  private Uri saveRingtoneToLib(String title,
-      String outPath, long length, String artist, int[] fileKind) {
-		String mimeType = "audio/mpeg";
-		ContentValues values = new ContentValues();
-		// Log.e("save", " title " + title + " out " + outPath + " artist " + artist);
-		values.put(MediaStore.MediaColumns.DATA, outPath);
-		values.put(MediaStore.MediaColumns.TITLE, title);
-		values.put(MediaStore.MediaColumns.SIZE, length);
-		values.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);
-		
-		values.put(MediaStore.Audio.Media.ARTIST, artist);
-		//values.put(MediaStore.Audio.Media.DURATION, duration);
-		boolean isRingtone = false;
-		boolean isNotification = false;
-		boolean isArarm = false;
-		boolean isMusic = false;
-		for(int i = 0; i < fileKind.length; i++)
-		{
-			if (fileKind[i] == Const.FILE_KIND_RINGTONE)
-				isRingtone = true;
-			if (fileKind[i] == Const.FILE_KIND_NOTIFICATION)
-				isNotification = true;
-			if (fileKind[i] == Const.FILE_KIND_ALARM)
-				isArarm = true;
-			if (fileKind[i] == Const.FILE_KIND_MUSIC)
-				isMusic = true;
-			
-		}
-		values.put(MediaStore.Audio.Media.IS_RINGTONE,isRingtone);
-		values.put(MediaStore.Audio.Media.IS_NOTIFICATION,isNotification);
-		values.put(MediaStore.Audio.Media.IS_ALARM,isArarm);
-		values.put(MediaStore.Audio.Media.IS_MUSIC,isMusic);
-		
-		// Insert it into the database
-		Uri uri = MediaStore.Audio.Media.getContentUriForPath(outPath);
-		final Uri newUri = getContentResolver().insert(uri, values);
-		// Log.e("save", " ok ");
-		// TODO: do we need this?
-		setResult(RESULT_OK, new Intent().setData(newUri));
-		return newUri;
-  }
-  
-  private void download() {
+  private static int[] fileKinds = 
+    new int[]{Const.FILE_KIND_RINGTONE,Const.FILE_KIND_NOTIFICATION,Const.FILE_KIND_ALARM};
+
+  private void download(DownloadListerner listerner) {
     int lastPos = mp3Location.lastIndexOf('.');
     String extension = mp3Location.substring(lastPos);
     // Log.e("path", fullpathame);
 
-    DownloadFile df = new DownloadFile(this, 512);
-    df.setFileSize(mp3Size);
+    DownloadFile df = new RingDownloadFile(
+        listerner, 512,mp3Size, category, artist, title, this.getContentResolver(), fileKinds, ring);
     df.execute(mp3Location, Const.getMp3FilePath(artist, title, extension));
   }
 
@@ -555,6 +520,8 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
   public void onDownloadProgress(int percentage) {
   	dlProgress.setProgress(percentage);
   }
+  
+  
   @Override
   public void onDownloadFail() {
     dlProgress.dismiss();
@@ -565,45 +532,19 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
 
   
   @Override
-  public void onDownloadFinish(File file) {
+  public void onDownloadFinish(File file, Uri u) {
     //Log.e("onDownloadFinish", file.getAbsolutePath());
-    try {
-      AudioFile audioFile = AudioFileIO.read(file);
-      audioFile.getTag().setTitle(title);
-      audioFile.getTag().setArtist(artist);
-      audioFile.getTag().setGenre(category);
-      audioFile.commit();
-    } catch (CannotReadException e1) {
-    } catch (CannotWriteException e) {
-    }
-    try {
-      mp3Location = file.getAbsolutePath();
-      ring.put("filePath", mp3Location);
-      // TOOD, type and duriation
-      int[] fileKinds = new int[]{Const.FILE_KIND_RINGTONE,Const.FILE_KIND_NOTIFICATION,Const.FILE_KIND_ALARM};
-      Uri u = saveRingtoneToLib(ring.getString(Const.title), mp3Location, file.length(), 
-          ring.getString(Const.artist), fileKinds);
-      mCurrentFileUri = u;
-
-      jsonLocation = Const.jsondir + file.getName();
-      try {
-        ring.put(Const.mp3, mCurrentFileUri.toString());
-      } catch (JSONException e) {
-        //e.printStackTrace();
+    mp3Location = file.getAbsolutePath();
+    mCurrentFileUri = u;
+    jsonLocation = Const.jsondir + file.getName();
+    // TODO: reload download ring page 
+    RingActivity.this.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+          initFinishDownloadButton();
+          dlProgress.dismiss();
       }
-      Util.saveFile(ring.toString(), jsonLocation);
-      // TODO: reload download ring page 
-      RingActivity.this.runOnUiThread(new Runnable() {
-        @Override
-        public void run() {
-            initFinishDownloadButton();
-            dlProgress.dismiss();
-        }
-      });
-    } catch (Exception e) {
-      
-    }
-    
+    });
   }
 
   @Override

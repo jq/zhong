@@ -14,8 +14,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.feebe.lib.download.DownloadProvider;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -27,7 +25,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class Const {	
-	public static DownloadProvider downloadDb;
+	//public static DownloadProvider downloadDb;
 	// const same for all
   public static final String expire = "expire";
   public static final long OneDay = 1000 * 3600 * 24;
@@ -50,6 +48,12 @@ public class Const {
 	public static Activity main;
     //public static Object obj;
    // public static DownloadAdapter mDownload;
+	
+  public static final int NO_FILE_KIND = -1;
+  public static final int FILE_KIND_MUSIC = 0;
+  public static final int FILE_KIND_ALARM = 1;
+  public static final int FILE_KIND_NOTIFICATION = 2;
+  public static final int FILE_KIND_RINGTONE = 3;
 
   public static String contentDir;
   public static String jsondir;
@@ -58,7 +62,7 @@ public class Const {
   public static final int ver = Integer.parseInt(Build.VERSION.SDK);
   
   public static void init(Context c) {
-  	downloadDb = new DownloadProvider(c);
+  	//downloadDb = new DownloadProvider(c);
     File sdcardRoot = Environment.getExternalStorageDirectory();
     
     File homeDir = new File(sdcardRoot, "MusicSearch");

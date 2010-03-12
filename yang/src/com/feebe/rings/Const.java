@@ -33,12 +33,6 @@ public class Const extends com.feebe.lib.Const {
   
   public static final String searchurl = "url";
 
-  public static final int NO_FILE_KIND = -1;
-  public static final int FILE_KIND_MUSIC = 0;
-  public static final int FILE_KIND_ALARM = 1;
-  public static final int FILE_KIND_NOTIFICATION = 2;
-  public static final int FILE_KIND_RINGTONE = 3;
-
   public static final int DEFAULT_RESULT = 15;
 
   public static final String SearchQuery = "http://ggapp.appspot.com/ringtone/search/?json=1&q=";
@@ -63,7 +57,7 @@ public class Const extends com.feebe.lib.Const {
   	EndlessUrlArrayAdapter.ThrobberViewRes = R.layout.pending_view;
   	EndlessUrlArrayAdapter.Throbber = R.id.throbber;
   	
-  	com.feebe.lib.download.DownloadNotification.status_bar_ongoing_event_progress_bar = R.layout.status_bar_ongoing_event_progress_bar;
+  	//com.feebe.lib.download.DownloadNotification.status_bar_ongoing_event_progress_bar = R.layout.status_bar_ongoing_event_progress_bar;
   }
 
   

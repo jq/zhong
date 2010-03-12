@@ -26,12 +26,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -452,6 +455,41 @@ public class Util {
             at.removeDialog(DOWNLOAD_APP_DIG);
           }
         }).create();
+  }
+  
+  public static Uri saveToMediaLib(String title,
+      String outPath, long length, String artist, int[] fileKind, ContentResolver cr) {
+    String mimeType = "audio/mpeg";
+    ContentValues values = new ContentValues();
+    // Log.e("save", " title " + title + " out " + outPath + " artist " + artist);
+    values.put(MediaStore.MediaColumns.DATA, outPath);
+    values.put(MediaStore.MediaColumns.TITLE, title);
+    values.put(MediaStore.MediaColumns.SIZE, length);
+    values.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);
+    
+    values.put(MediaStore.Audio.Media.ARTIST, artist);
+    //values.put(MediaStore.Audio.Media.DURATION, duration);
+    for(int i = 0; i < fileKind.length; i++)
+    {
+      int kind = fileKind[i]; 
+      if (kind == Const.FILE_KIND_RINGTONE)
+        values.put(MediaStore.Audio.Media.IS_RINGTONE, true);
+      else if (kind == Const.FILE_KIND_NOTIFICATION)
+        values.put(MediaStore.Audio.Media.IS_NOTIFICATION, true);
+      else if (kind == Const.FILE_KIND_ALARM)
+        values.put(MediaStore.Audio.Media.IS_ALARM, true);
+      else if (kind == Const.FILE_KIND_MUSIC)
+        values.put(MediaStore.Audio.Media.IS_MUSIC,true);
+      
+    }
+    
+    // Insert it into the database
+    Uri uri = MediaStore.Audio.Media.getContentUriForPath(outPath);
+    final Uri newUri = cr.insert(uri, values);
+    // Log.e("save", " ok ");
+    // TODO: do we need this?
+    //setResult(RESULT_OK, new Intent().setData(newUri));
+    return newUri;
   }
   
 	public static void post(String url, String data) {

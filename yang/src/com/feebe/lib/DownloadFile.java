@@ -8,6 +8,13 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import entagged.audioformats.AudioFile;
+import entagged.audioformats.AudioFileIO;
+import entagged.audioformats.exceptions.CannotReadException;
+import entagged.audioformats.exceptions.CannotWriteException;
+
+import android.content.ContentResolver;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -15,20 +22,30 @@ public class DownloadFile extends AsyncTask<String, Integer, File> {
   private int fileSize;
   
   public interface DownloadListerner {
-    void onDownloadFinish(File file);
+    void onDownloadFinish(File file, Uri u);
     void onDownloadProgress(int percentage);
     void onDownloadFail();
   }
   DownloadListerner dlhander;
   private int min_size;
-  public DownloadFile(DownloadListerner listerner, int minSize) {
+
+  private String category;
+  private String artist;
+  private String title;
+  private ContentResolver cr;
+  private int[] fileKinds;
+  public DownloadFile(DownloadListerner listerner, int minSize, int filesize, 
+      String category, String artist, String title, ContentResolver cr, int[] fileKinds) {
     dlhander = listerner;
     min_size = minSize;
+    fileSize = filesize;
+    this.category = category;
+    this.artist = artist;
+    this.title = title;
+    this.cr = cr;
+    this.fileKinds = fileKinds;
   }
   
-  public void setFileSize(int size){
-	  fileSize = size;
-  }
   /*
    * p0 is url p1 is file
    * @see android.os.AsyncTask#doInBackground(Params[])
@@ -68,20 +85,38 @@ public class DownloadFile extends AsyncTask<String, Integer, File> {
   }
   
   @Override
-  protected void onProgressUpdate(Integer... progress) {         
+  protected void onProgressUpdate(Integer... progress) {
+    if (dlhander != null)
       dlhander.onDownloadProgress(progress[0]);     
-}  
+  }
+  
+  protected Uri downloadFinish(File file) {
+    try {
+      AudioFile audioFile = AudioFileIO.read(file);
+      audioFile.getTag().setTitle(title);
+      audioFile.getTag().setArtist(artist);
+      audioFile.getTag().setGenre(category);
+      audioFile.commit();
+    } catch (CannotReadException e1) {
+    } catch (CannotWriteException e) {
+    }
+
+    Uri u = Util.saveToMediaLib(title, file.getAbsolutePath(), file.length(), 
+        artist, fileKinds, cr);
+    return u;
+  }
   @Override
   protected void onPostExecute(File file) {
   	if (file != null) {
 			long length = file.length();
 			if (length <= min_size) {
 				file.delete();
-				dlhander.onDownloadFail();
+		    if (dlhander != null)	dlhander.onDownloadFail();
 			} else {
-	      dlhander.onDownloadFinish(file);
+			  Uri u = downloadFinish(file);
+		    if (dlhander != null) dlhander.onDownloadFinish(file, u);
 			}
-  	} else {
+  	} else if (dlhander != null){
   		dlhander.onDownloadFail();
   	}
   }
