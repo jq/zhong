@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 public class Const {	
 	//public static DownloadProvider downloadDb;
+  public static DbAdapter dbAdapter;
 	// const same for all
   public static final String expire = "expire";
   public static final long OneDay = 1000 * 3600 * 24;
@@ -64,7 +65,7 @@ public class Const {
   public static void init(Context c) {
   	//downloadDb = new DownloadProvider(c);
     File sdcardRoot = Environment.getExternalStorageDirectory();
-    
+    dbAdapter = new DbAdapter(c);
     File homeDir = new File(sdcardRoot, "MusicSearch");
     File songdir = new File(homeDir, "mp3");
     File jdir = new File(homeDir, "json");

@@ -2,8 +2,8 @@ package com.feebe.rings;
 
 import java.util.ArrayList;
 
-import com.feebe.lib.MyCursorAdapter;
-import com.feebe.lib.SearchDBAdapter;
+import com.feebe.lib.DbAdapter;
+import com.feebe.lib.SearchAdapter;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -21,7 +21,6 @@ import android.widget.EditText;
 
 public class SearchTab extends Activity{
 	
-	private SearchDBAdapter searchDBAdapter;
 	private AutoCompleteTextView searchArtist;
 	private AutoCompleteTextView searchTitle;
 	private Button searchButton;
@@ -33,11 +32,6 @@ public class SearchTab extends Activity{
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.search_tab);
-		
-		if (searchDBAdapter == null) {
-			searchDBAdapter = new SearchDBAdapter(this.getBaseContext(),Const.DBName);
-		}
-	    searchDBAdapter.open();
 		
 		searchArtist = (AutoCompleteTextView) findViewById(R.id.input_artist);
 		searchArtist.setOnKeyListener(new OnKeyListener(){
@@ -56,7 +50,8 @@ public class SearchTab extends Activity{
 			
 		searchArtist.setThreshold(1);
 		//ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line,history);
-		MyCursorAdapter myCursorAdapterArtist = new MyCursorAdapter(this,searchDBAdapter.getAllHistories(),0,searchDBAdapter,SearchDBAdapter.KeyArtist);
+		SearchAdapter myCursorAdapterArtist = new SearchAdapter(
+		    this, Const.dbAdapter.getHistoryByType(DbAdapter.TYPE_ARTIST), DbAdapter.TYPE_ARTIST);
 		searchArtist.setAdapter(myCursorAdapterArtist);
 		
 		searchTitle = (AutoCompleteTextView) findViewById(R.id.input_title);
@@ -73,7 +68,8 @@ public class SearchTab extends Activity{
 			}
 		});
 		searchTitle.setThreshold(1);
-		MyCursorAdapter myCursorAdapterTitle = new MyCursorAdapter(this,searchDBAdapter.getAllHistories(),1,searchDBAdapter,SearchDBAdapter.KeyTitle);
+		SearchAdapter myCursorAdapterTitle = new SearchAdapter(
+		    this, Const.dbAdapter.getHistoryByType(DbAdapter.TYPE_TITLE), DbAdapter.TYPE_TITLE);
 		searchTitle.setAdapter(myCursorAdapterTitle);
 		
 		searchButton = (Button) findViewById(R.id.search_button);

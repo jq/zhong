@@ -71,11 +71,12 @@ public abstract class SearchProvider extends ContentProvider {
                 String query = null;
                 if (uri.getPathSegments().size() > 1) {
                     query = uri.getLastPathSegment().toLowerCase();
-                    // TODO: load history saved in SearchList.java
-                    if (query.length() > 2) {
+                    int len = query.length();
+                    if (len > 3) {
                       MatrixCursor cursor = new MatrixCursor(COLUMNS);
-
                       return getSuggestions(query, cursor);
+                    } else if (len > 1) {
+                      return Const.dbAdapter.getHistoryByType(query, DbAdapter.TYPE_SEARCH);
                     }
                 }
                 return null;

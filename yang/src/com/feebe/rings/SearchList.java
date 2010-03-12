@@ -11,9 +11,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.feebe.lib.BaseList;
+import com.feebe.lib.DbAdapter;
 import com.feebe.lib.EndlessUrlArrayAdapter;
 import com.feebe.lib.ImgThread;
-import com.feebe.lib.SearchDBAdapter;
 import com.feebe.lib.UrlArrayAdapter;
 import com.feebe.lib.Util;
 import com.qwapi.adclient.android.db.DBHelper;
@@ -88,7 +88,7 @@ public class SearchList extends BaseList {
     final String action = intent.getAction();
     if (Intent.ACTION_SEARCH.equals(action)) {
       keyword = Search.getSearchKeyUrl(intent.getStringExtra(SearchManager.QUERY));
-      // TODO: save keyword to db
+      Const.dbAdapter.intsertHistory(keyword, DbAdapter.TYPE_SEARCH);
     } else if (Intent.ACTION_VIEW.equals(action)){
       // Get from suggestions
       keyword = Search.getSearchKeyUrl(intent.getDataString());
@@ -136,13 +136,6 @@ public class SearchList extends BaseList {
         String rating = obj.getString(Const.rating);
 
         if (key != null && (title != null || artist != null )) {
-          //test #11
-          if (searchDBAdapter == null) {
-        	  searchDBAdapter = new SearchDBAdapter(getContext(), Const.DBName);
-          }
-          searchDBAdapter.open();
-          searchDBAdapter.intsertHistory(title, artist, key, image, rating);
-          //test #11
           return new SearchResult(title, artist, key, image, rating);
         } 
       } catch (JSONException e) {
@@ -220,14 +213,6 @@ public class SearchList extends BaseList {
       } else {
         fetchMoreResult();
       }
-      //test #11
-      /*String histories = "";
-      Cursor c = searchDBAdapter.getAllHistories();
-      c.moveToFirst();
-      histories = c.getString(0);
-      //Toast.makeText(getContext(), histories, Toast.LENGTH_LONG).show();
-      searchDBAdapter.close();*/
-      //test #11
     }
     @Override
     protected List getListFromUrl(String url, long expire) {
@@ -244,16 +229,8 @@ public class SearchList extends BaseList {
 protected void onDestroy() {
 	// TODO Auto-generated method stub
 	super.onDestroy();
-	/*if(searchDBAdapter.isOpen()){
-		searchDBAdapter.close();
-	}*/
 }
 
-private int lastCnt;
-  private SearchResultAdapter mAdapter;
-  
-  private SearchDBAdapter searchDBAdapter;	//test #11
-  
-  
-  
+ private int lastCnt;
+ private SearchResultAdapter mAdapter;
 }
