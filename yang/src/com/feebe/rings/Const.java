@@ -42,6 +42,7 @@ public class Const extends com.feebe.lib.Const {
   public static final String TableHistory = "histories";
   
   public static void init(Context c) {
+    no_sd = R.string.no_sd;
     pkg = "com.feebe.rings";
     com.feebe.lib.Const.init(c);
   	QWName = "Ringtone-g56rajjb";
@@ -52,7 +53,6 @@ public class Const extends com.feebe.lib.Const {
     tabheader = R.layout.tabheader;
   	tab_label = R.id.tab_label;
   	no_result = R.string.no_result;
-  	no_sd = R.string.no_sd;
   	EndlessUrlArrayAdapter.ThrobberViewRes = R.layout.pending_view;
   	EndlessUrlArrayAdapter.Throbber = R.id.throbber;
   	

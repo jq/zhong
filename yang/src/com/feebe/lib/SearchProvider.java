@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 
 import org.json.JSONArray;
 
@@ -75,8 +76,16 @@ public abstract class SearchProvider extends ContentProvider {
                     if (len > 3) {
                       MatrixCursor cursor = new MatrixCursor(COLUMNS);
                       return getSuggestions(query, cursor);
-                    } else if (len > 1) {
-                      return Const.dbAdapter.getHistoryByType(query, DbAdapter.TYPE_SEARCH);
+                    } else if (len > 0) {
+                      //Log.e("search", query);
+                      Cursor c = Const.dbAdapter.getHistoryByType(query, DbAdapter.TYPE_SEARCH);
+                      Log.e(query, " " + c.getCount());
+
+                      return c;
+                    } else {
+                      Cursor c = Const.dbAdapter.getHistoryByType(DbAdapter.TYPE_SEARCH);
+                      Log.e("cur", " " + c.getCount());
+                      return c;
                     }
                 }
                 return null;

@@ -84,18 +84,20 @@ public class SearchList extends BaseList {
   }    
 
   private String getUrlFromIntent(final Intent intent) {
-    String keyword = null;
+    String url = null;
     final String action = intent.getAction();
     if (Intent.ACTION_SEARCH.equals(action)) {
-      keyword = Search.getSearchKeyUrl(intent.getStringExtra(SearchManager.QUERY));
-      Const.dbAdapter.intsertHistory(keyword, DbAdapter.TYPE_SEARCH);
+      String key = intent.getStringExtra(SearchManager.QUERY);
+      url = Search.getSearchKeyUrl(key);
+      Log.e(key, key);
+      Const.dbAdapter.intsertHistory(key, DbAdapter.TYPE_SEARCH);
     } else if (Intent.ACTION_VIEW.equals(action)){
       // Get from suggestions
-      keyword = Search.getSearchKeyUrl(intent.getDataString());
+      url = Search.getSearchKeyUrl(intent.getDataString());
     } else {
-    	keyword = intent.getStringExtra(Const.searchurl);
+      url = intent.getStringExtra(Const.searchurl);
     }
-    return keyword;
+    return url;
   }
   
   // this should not be null
