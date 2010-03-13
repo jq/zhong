@@ -115,6 +115,8 @@ public class Const {
                 }
             }
         }
+        
+        //dir.delete();
       }
       
     }).start();

@@ -92,8 +92,8 @@ public class Ring extends TabActivity implements OnTabChangeListener {
           TabSDKCreator.loadBrowser(this, "http://ggapp.appspot.com/mobile/upload/");
           return true;
         case R.string.menu_search:
-          startSearch(this.getString(R.string.search_hint), true, null, false);
-          return true;
+           startSearch(this.getString(R.string.search_hint), true, null, false);
+          return true; 
         case R.string.menu_unset_ringtone:
         	AlertDialog dialog2 = new AlertDialog.Builder(this)
         	.setIcon(android.R.drawable.ic_dialog_alert)

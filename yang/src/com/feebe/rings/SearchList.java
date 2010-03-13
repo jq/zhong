@@ -29,9 +29,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.provider.SearchRecentSuggestions;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -39,11 +42,31 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class SearchList extends BaseList {
   private final static String TAG = "SearchList";
 
   @Override
+public boolean onContextItemSelected(MenuItem item) {
+	// TODO Auto-generated method stub
+	  AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
+	  
+	  return super.onContextItemSelected(item);
+}
+
+@Override
+public void onCreateContextMenu(ContextMenu menu, View v,
+		ContextMenuInfo menuInfo) {
+	// TODO Auto-generated method stub
+	menu.setHeaderTitle("Operation");
+	
+	menu.add(0,0,0,"play");
+	
+	super.onCreateContextMenu(menu, v, menuInfo);
+}
+
+@Override
   public ListAdapter getAdapter() {
   	new ImgThread(getListView());
     Intent i = this.getIntent();

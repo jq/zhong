@@ -76,8 +76,8 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
       
       detailInfo = (TextView) findViewById(R.id.info_text);
       listSearchOthers = (ListView) findViewById(R.id.list_searchOthers);
-      
- 
+     
+
       dl = (Button)this.findViewById(R.id.download);
       mPreview = (Button)this.findViewById(R.id.preview);
       dl.setOnClickListener(dlClick);

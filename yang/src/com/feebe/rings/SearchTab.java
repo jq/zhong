@@ -47,7 +47,6 @@ public class SearchTab extends Activity{
 			}
 		});
 		
-			
 		searchArtist.setThreshold(1);
 		//ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line,history);
 		SearchAdapter myCursorAdapterArtist = new SearchAdapter(
@@ -91,12 +90,16 @@ public class SearchTab extends Activity{
 		
 		if(hasTitle) {
 			if (hasArtist) {
-			  Search.getArtistAndTitle(artist, title);
+				Const.dbAdapter.intsertHistory(artist, DbAdapter.TYPE_ARTIST);
+				Const.dbAdapter.intsertHistory(title, DbAdapter.TYPE_TITLE);
+				Search.getArtistAndTitle(artist, title);
 			} else {
+				Const.dbAdapter.intsertHistory(title, DbAdapter.TYPE_TITLE);
 				Search.getTitleRing(title);
 			}
 		} else {
 			if (hasArtist) {
+				Const.dbAdapter.intsertHistory(artist, DbAdapter.TYPE_ARTIST);
 				Search.getArtistRing(artist);
 			}
 		}
