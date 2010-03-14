@@ -1,0 +1,396 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+** Copyright 2007, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License"); 
+** you may not use this file except in compliance with the License. 
+** You may obtain a copy of the License at 
+**
+**     http://www.apache.org/licenses/LICENSE-2.0 
+**
+** Unless required by applicable law or agreed to in writing, software 
+** distributed under the License is distributed on an "AS IS" BASIS, 
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+** See the License for the specific language governing permissions and 
+** limitations under the License.
+*/
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- used in various places to indicate there is one song for a given artist or album -->
+
+    <string name="onesong">"1 canción"</string>
+    <!-- used in various places to indicate there is some number other than one songs for a given artist or album. -->
+
+    <plurals name="Nsongs">
+        <item quantity="other">"<xliff:g id="count">%d</xliff:g>canciones"</item>
+    </plurals>
+
+    <!-- shows how many songs on the album are by the selected artist, out of how many total, if those two numbers are different -->
+
+    <plurals name="Nsongscomp">
+        <item quantity="other">"<xliff:g id="count_for_artist">%2$d</xliff:g> de <xliff:g id="total_count">%1$d</xliff:g>canciones"</item>
+    </plurals>
+
+    <!-- Used in artists list view, indicates how many albums exist for a given artist. -->
+
+    <plurals name="Nalbums">
+        <!-- number of albums is one -->
+
+        <item quantity="one">"1 álbum"</item>
+        <!-- number of albums is not equal to one -->
+
+        <item quantity="other">"<xliff:g id="count">%d</xliff:g>álbumes"</item>
+    </plurals>
+    
+    <!--
+    This string is used as the format string in a String.format call,
+    and 5 additional arguments are available for printing:
+    1 - hours
+    2 - minutes
+    3 - minutes%60
+    4 - seconds
+    5 - second%60
+    -->
+
+    <skip/>
+    <!-- Do not translate. Duration format. -->
+
+    <string name="durationformat">"<xliff:g id="format">%2$d:%5$02d</xliff:g>"</string>
+
+    <!-- Menu item that takes the user back to the top level screen of the music player -->
+
+    <string name="goto_start">"Biblioteca"</string>
+    <!-- Menu item that takes the user to the "now playing" screen of the music player -->
+
+    <string name="goto_playback">"Reproducción"</string>
+    <!-- Menu item that switches the music player in to party shuffle mode -->
+
+    <string name="party_shuffle">"Sesión aleatoria"</string>
+    <!-- Menu item that switches the music player out of party shuffle mode -->
+
+    <string name="party_shuffle_off">"Desactivar sesión aleatoria"</string>
+    <!-- Menu item that deletes the currently selected item, which might be a single song, or a collection of songs.
+         The user will be prompted to confirm before deletion actually takes place -->
+
+    <string name="delete_item">"Suprimir"</string>
+    <!-- Menu item to play back all the songs in the currently showing list in shuffle mode -->
+
+    <string name="shuffle_all">"Reproducción aleatoria"</string>
+    <!-- Menu item to play back all the songs in the currently showing list in list order -->
+
+    <string name="play_all">"Reproducir todo"</string>
+
+    <!-- Delete confirmation dialog when deleting an entire artist -->
+
+<string name="delete_artist_desc">"Todas las canciones de <xliff:g id="artist">%s</xliff:g> se eliminarán de forma permanente de la tarjeta SD."</string>
+
+    <!-- Delete confirmation dialog when deleting an entire album -->
+
+<string name="delete_album_desc">"El álbum \"<xliff:g id="album">%s</xliff:g>\" completo se eliminará de forma permanente de la tarjeta SD."</string>
+
+    <!-- Delete confirmation dialog when deleting a single song -->
+
+<string name="delete_song_desc">"\"<xliff:g id="song">%s</xliff:g>\" se eliminará de forma permanente de la tarjeta SD."</string>
+
+    <!-- Delete confirmation dialog, confirmation button text -->
+
+    <string name="delete_confirm_button_text">"Aceptar"</string>
+    <!-- Toast confirming that song(s) was/were deleted. -->
+
+    <plurals name="NNNtracksdeleted">
+        <!-- delete confirmation message for 1 song -->
+
+        <item quantity="one">"Se ha eliminado 1 canción."</item>
+        <!-- delete confirmation message for 0 or more than 1 songs -->
+
+        <item quantity="other">"<xliff:g id="songs_to_delete">%d</xliff:g> canciones se han eliminado."</item>
+    </plurals>
+
+    <!-- shown in dialog while the media scanner is starting up -->
+
+    <string name="scanning">"Buscando tarjeta SD\u2026"</string>
+
+    <!-- title of the "current playlist" screen when not in party shuffle mode -->
+
+    <string name="nowplaying_title">"Reproduciendo"</string>
+    <!-- title of the "current playlist" screen when in party shuffle mode-->
+
+    <string name="partyshuffle_title">"Sesión aleatoria"</string>
+    <!-- Artist screen title -->
+
+    <string name="artists_title">"Artistas"</string>
+    <!-- Category label on Library screen -->
+
+    <string name="albums_menu">"Álbumes"</string>
+    <!-- Albums screen title -->
+
+    <string name="albums_title">"Álbumes"</string>
+    <!-- Category label on Library screen -->
+
+    <string name="tracks_menu">"Canciones"</string>
+    <!-- Songs screen title -->
+
+    <string name="tracks_title">"Canciones"</string>
+    <!-- Category label on Library screen -->
+
+    <string name="playlists_menu">"Listas de reproducción"</string>
+    <!-- Playlists screen title -->
+
+    <string name="playlists_title">"Listas de reproducción"</string>
+    <!-- Videos screen title -->
+
+    <string name="videos_title">"Vídeos"</string>
+    <!-- All media screen title -->
+
+    <string name="all_title">"Todos los medios"</string>
+    <!-- Category label on Library screen -->
+
+    <string name="browse_menu">"Artistas"</string>
+    <!-- Library screen, menu item -->
+
+    <string name="search_title">"Buscar"</string>
+    <!-- Title of screen when there are no songs, or if the SD card is busy -->
+
+    <string name="no_tracks_title">"Ninguna canción"</string>
+    <!-- Title of screen when there are no videos, or if the SD card is busy -->
+
+    <string name="no_videos_title">"Ningún vídeo"</string>
+    <!-- Title of screen when there are no playlists, or if the SD card is busy -->
+
+    <string name="no_playlists_title">"Ninguna lista de reproducción"</string>
+    <!-- Playlist context menu item to delete the selected playlist. -->
+
+    <string name="delete_playlist_menu">"Suprimir"</string>
+    <!-- Playlist context menu item to edit the selected playlist -->
+
+    <string name="edit_playlist_menu">"Editar"</string>
+    <!-- Playlist context menu item to rename the selected playlist-->
+
+    <string name="rename_playlist_menu">"Cambiar nombre"</string>
+    <!-- Transient popup message shown after deleting a playlist -->
+
+    <string name="playlist_deleted_message">"Se ha eliminado la lista de reproducción."</string>
+    <!-- Transient popup message shown after renaming a playlist -->
+
+    <string name="playlist_renamed_message">"Se ha cambiado el nombre de la lista de reproducción."</string>
+    <!-- The name of the pseudo-playlist that holds all the recently added files, shown in list view -->
+
+    <string name="recentlyadded">"Añadidas recientemente"</string>
+    <!-- The name of the pseudo-playlist that holds all the recently added files, shown in title bar of songs list -->
+
+    <string name="recentlyadded_title">"Añadidas recientemente"</string>
+    <!-- The name of the pseudo-playlist that holds all the podcasts, shown in list view -->
+
+    <string name="podcasts_listitem">"Podcasts"</string>
+    <!-- The name of the pseudo-playlist that holds all the podcasts, shown in title bar of songs list -->
+
+    <string name="podcasts_title">"Podcasts"</string>
+    <!-- Title of screen when no sd card is present -->
+
+    <string name="sdcard_missing_title">"Falta la tarjeta SD"</string>
+    <!-- label underneath icon used to indicate that no sd card is present -->
+
+    <string name="sdcard_missing_message">"Falta la tarjeta SD en el teléfono."</string>
+    <!-- label underneath icon used to indicate that the sd card is present, but currently unavailable -->
+
+    <string name="sdcard_busy_title">"Tarjeta SD no disponible"</string>
+    <!-- label underneath icon used to indicate sd card is mounted to your computer via USB -->
+
+    <string name="sdcard_busy_message">"La tarjeta SD está ocupada."</string>
+    <!-- Title of screen when there was an error accessing the sd card -->
+
+    <string name="sdcard_error_title">"Error de tarjeta SD"</string>
+    <!-- label underneath icon used to indicate there was an error accessing the sd card -->
+
+    <string name="sdcard_error_message">"Se ha producido un error al acceder a la tarjeta SD."</string>
+    <!-- Default name of artist that doesn't have a name in the metadata -->
+
+    <string name="unknown_artist_name">"Artista desconocido"</string>
+    <!-- Default name of album that doesn't have a name in the metadata -->
+
+    <string name="unknown_album_name">"Álbum desconocido"</string>
+    <!-- Toast after turning shuffle on -->
+
+    <string name="shuffle_on_notif">"La reproducción aleatoria está activada."</string>
+    <!-- Toast after turning shuffle off -->
+
+    <string name="shuffle_off_notif">"La reproducción aleatoria está desactivada."</string>
+    <!-- Toast after turning repeat off -->
+
+    <string name="repeat_off_notif">"La repetición está desactivada."</string>
+    <!-- Toast after turning single repeat on -->
+
+    <string name="repeat_current_notif">"Repitiendo canción actual."</string>
+    <!-- Toast after turning repeat all on -->
+
+    <string name="repeat_all_notif">"Repitiendo todas las canciones."</string>
+    <!-- Individual song context menu item -->
+
+    <string name="ringtone_menu">"Utilizar como tono del teléfono"</string>
+    <!-- Menu item -->
+
+    <string name="ringtone_menu_short">"Utilizar como tono"</string>
+    <!-- Toast after setting a song as phone ringtone -->
+
+    <string name="ringtone_set">"Se ha establecido \&quot;%s\&quot;  como tono."</string>
+    <!-- Context menu item -->
+
+    <string name="play_selection">"Reproducir"</string>
+    <!-- Context menu item -->
+
+    <string name="add_to_playlist">"Añadir a lista"</string>
+    <!-- Context menu item -->
+
+    <string name="queue">"Lista de reproducción actual"</string>
+    <!-- Context menu item -->
+
+    <string name="new_playlist">"Nuevo"</string>
+    <!-- Template for newly created playlist name -->
+
+<string name="new_playlist_name_template">"Nueva lista de reproducción <xliff:g id="number">%d</xliff:g>"</string>
+    <!-- Toasts after adding song(s) to playlists -->
+
+    <plurals name="NNNtrackstoplaylist">
+        <!-- message shown when one song was added -->
+
+        <item quantity="one">"1 canción añadida a la lista de reproducción."</item>
+        <!-- message shown when zero or more than one song was added -->
+
+        <item quantity="other">"%d canciones añadidas a la lista de reproducción."</item>
+    </plurals>
+    <!-- Toast after selecting an empty playlist -->
+
+    <string name="emptyplaylist">"La lista de reproducción seleccionada está vacía."</string>
+    <!-- Button name when saving a playlist -->
+
+    <string name="create_playlist_create_text">"Guardar"</string>
+    <!-- Button name when saving a playlist and the new playlist will overwrite an existing one -->
+
+    <string name="create_playlist_overwrite_text">"Sobrescribir"</string>
+    <!-- Dialog box title -->
+
+    <string name="service_start_error_title">"Problema de reproducción"</string>
+    <!-- Dialog box message -->
+
+    <string name="service_start_error_msg">"No se ha podido reproducir la canción."</string>
+    <!-- Dialog box button -->
+
+    <string name="service_start_error_button">"Aceptar"</string>
+    <!-- Time span edit options that appear when editing system playlist "Recently added" -->
+
+    <!-- Used to indicate the number of weeks the "recently added" playlist covers in a selector widget -->
+
+    <string-array name="weeklist">
+        <item>"1 semana"</item>
+        <item>"2 semanas"</item>
+        <item>"3 semanas"</item>
+        <item>"4 semanas"</item>
+        <item>"5 semanas"</item>
+        <item>"6 semanas"</item>
+        <item>"7 semanas"</item>
+        <item>"8 semanas"</item>
+        <item>"9 semanas"</item>
+        <item>"10 semanas"</item>
+        <item>"11 semanas"</item>
+        <item>"12 semanas"</item>
+    </string-array>
+    <!-- Button name in time span picker -->
+
+    <string name="weekpicker_set">"Listo"</string>
+    <!-- Title of time span picker -->
+
+    <string name="weekpicker_title">"Establecer hora"</string>
+    <!-- Do not translate. Background color for currently dragged item in playlist edit mode. -->
+
+    <color name="dragndrop_background">#e0103010</color>
+    <!-- Do not translate. Background color for albums in the artists list view. -->
+
+    <color name="expanding_child_background">#ff404040</color>
+
+    <!-- menu item to save the current list as a new playlist -->
+
+    <string name="save_as_playlist">"Guardar como lista de reproducción"</string>
+    <!-- menu item to clear the current playlist -->
+
+    <string name="clear_playlist">"Borrar lista de reproducción"</string>
+
+    <!-- Activity label. This might show up in the activity-picker -->
+
+    <string name="musicbrowserlabel">"Android Music"</string>
+    <!-- Activity label. This might show up in the activity-picker -->
+
+    <string name="musicshortcutlabel">"Lista de reproducción de Android Music"</string>
+    <!-- Activity label. This might show up in the activity-picker -->
+
+    <string name="mediaplaybacklabel">"Android Music"</string>
+    <!-- Activity label. This might show up in the activity-picker -->
+
+    <string name="videobrowserlabel">"Android Videos"</string>
+    <!-- Activity label. This might show up in the activity-picker -->
+
+    <string name="mediapickerlabel">"Android Music"</string>
+
+    <!-- Shown as a transient message whenever a file fails to play -->
+
+    <string name="playback_failed">"El reproductor no admite este tipo de archivo de audio."</string>
+
+    <!-- Text for the "cancel" button in the "delete" and "create playlist" confirmation dialogs -->
+
+    <string name="cancel">"Cancelar"</string>
+
+    <!-- context menu item to remove the selected item from the playlist -->
+
+    <string name="remove_from_playlist">"Eliminar de lista de reproducción"</string>
+
+    <!-- shown when connecting to a music stream, before it starts playing -->
+
+<string name="streamloadingtext">"Conectando con <xliff:g id="host">%s</xliff:g>..."</string>
+
+    <!-- title of contextual music search menu -->
+
+    <string name="mediasearch">"Buscar %s con:"</string>
+
+    <!-- Shown in the title bar while the list of artists is being retrieved in the background -->
+
+    <string name="working_artists">"Artistas\u2026"</string>
+    <!-- Shown in the title bar while the list of albums is being retrieved in the background -->
+
+    <string name="working_albums">"Álbumes\u2026"</string>
+    <!-- Shown in the title bar while the list of songs is being retrieved in the background -->
+
+    <string name="working_songs">"Canciones\u2026"</string>
+    <!-- Shown in the title bar while the list of playlists is being retrieved in the background -->
+
+    <string name="working_playlists">"Listas de reproducción\u2026
+ "</string>
+    
+    <!-- Shown in the music picker while loading the music database. -->
+
+    <string name="loading">"Cargando"</string>
+    <!-- Menu in music picker to sort the list by track/song name. -->
+
+    <string name="sort_by_track">"Pistas"</string>
+    <!-- Menu in music picker to sort the list by album name. -->
+
+    <string name="sort_by_album">"Álbumes"</string>
+    <!-- Menu in music picker to sort the list by artist name. -->
+
+    <string name="sort_by_artist">"Artistas"</string>
+    <!--  Title of the music picker activity. -->
+
+    <string name="music_picker_title">"Seleccionar pista musical"</string>
+
+    <!-- Title for track number in music gadget -->
+
+<string name="gadget_track">"Pista <xliff:g id="track_number">%d</xliff:g>"</string>
+
+    <!-- Toast after streamStarter activity receives PLAYBACK_COMPLETE in case of an error -->
+
+    <string name="fail_to_start_stream">"No se ha podido reproducir el flujo solicitado."</string>
+    
+    <!-- The string used to describe Music as a searchable item within system search settings. -->
+
+    <string name="search_settings_description">"Nombres de tus contactos"</string>
+</resources>
