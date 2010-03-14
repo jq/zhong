@@ -128,11 +128,11 @@
 			</replaceregexp>
 			
 			<!-- 替换feebe.lib包中的所有import包名，注意此处包结构不合理 -->
-			<replaceregexp byline="true">
+			<!--replaceregexp byline="true">
 			<regexp pattern="com\.feebe\.rings"/>
 			<substitution expression="com\.feebe\.${app_name}"/>
 			<fileset dir="temp/src/com/feebe/lib"/>
-			</replaceregexp>
+			</replaceregexp>-->
 			
 			<!-- 替换ringdroid包中的所有import包名，注意此处包结构不合理 -->
 			<replaceregexp byline="true">
