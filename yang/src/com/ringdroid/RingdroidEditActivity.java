@@ -345,7 +345,7 @@ public class RingdroidEditActivity extends Activity
         item.setIcon(android.R.drawable.ic_menu_save);
 
         item = menu.add(0, CMD_RESET, 0, R.string.menu_reset);
-        item.setIcon(R.drawable.menu_reset);
+        item.setIcon(android.R.drawable.ic_menu_manage);
 
         return true;
     }

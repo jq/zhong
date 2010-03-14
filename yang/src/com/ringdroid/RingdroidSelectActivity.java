@@ -194,12 +194,12 @@ public class RingdroidSelectActivity
                 getResources().getColor(R.drawable.type_bkgnd_ringtone));
         } else if (0 != cursor.getInt(cursor.getColumnIndexOrThrow(
                 MediaStore.Audio.Media.IS_ALARM))) {
-            view.setImageResource(R.drawable.type_alarm);
+            view.setImageResource(android.R.drawable.ic_dialog_alert);
             ((View) view.getParent()).setBackgroundColor(
                 getResources().getColor(R.drawable.type_bkgnd_alarm));
         } else if (0 != cursor.getInt(cursor.getColumnIndexOrThrow(
                 MediaStore.Audio.Media.IS_NOTIFICATION))) {
-            view.setImageResource(R.drawable.type_notification);
+            view.setImageResource(android.R.drawable.ic_notification_overlay);
             ((View) view.getParent()).setBackgroundColor(
                 getResources().getColor(R.drawable.type_bkgnd_notification));
         } else if (0 != cursor.getInt(cursor.getColumnIndexOrThrow(
@@ -238,7 +238,6 @@ public class RingdroidSelectActivity
         super.onCreateOptionsMenu(menu);
         MenuItem item;
         item = menu.add(0, CMD_SHOW_ALL, 0, R.string.menu_show_all_audio);
-        item.setIcon(R.drawable.menu_show_all_audio);
 
         return true;
     }

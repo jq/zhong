@@ -30,7 +30,39 @@
 	<string name="info_download_count"> people downloaded it</string>
 	
 	<string name="queue">Ring is in queue, will appear in ring tab after download</string>
-	
+	    
+    <!--
+     used in RingActivity search more listview
+     -->
+     <string name="search_more">Search more</string>
+     <string name="search_more_by">Search more by</string>
+     <string name="search_more_in">Search more in</string>
+    
+    <!--
+     used in share alert_dialog
+     -->
+     <string name="share_sms1">I'd like to share this ringtone to you:</string>
+     <string name="share_sms2">from</string>
+     <string name="share_sms3">Send from Feebe Ringtone of Android market://search?q=com.feebe.rings</string>
+    
+    <!--
+     used in RingActivity dlProgress dialog
+     -->
+     <string name="dlprogress_title">Downloading...</string>
+     <string name="dlprogress_message">Downloading ringtone from network.\nThis window will close automatically after download is complete.</string>
+    
+    <!--
+     used in RingActivity mStreaming dialog
+     -->
+     <string name="mStreaming_title">Please wait</string>
+     <string name="mStreaming_message">Streaming audio from network...</string>
+    
+    <!--
+     used in RingActivity ring_picker dialog
+     -->
+     <string name="ring_picker_title">Select Ring</string>
+     <string name="ring_picker_message">Streaming audio from network...</string>
+     
     <!--
      imported
      -->
@@ -77,38 +109,7 @@
     
     <string name="menu_search">search</string>
     <string name="menu_unset_ringtone">unset ringtone</string>
-    
-    <!--
-     used in RingActivity search more listview
-     -->
-     <string name="search_more">Search more</string>
-     <string name="search_more_by">Search more by</string>
-     <string name="search_more_in">Search more in</string>
-    
-    <!--
-     used in share alert_dialog
-     -->
-     <string name="share_sms1">I'd like to share this ringtone to you:</string>
-     <string name="share_sms2">from</string>
-     <string name="share_sms3">Send from Feebe Ringtone of Android market://search?q=com.feebe.rings</string>
-    
-    <!--
-     used in RingActivity dlProgress dialog
-     -->
-     <string name="dlprogress_title">Downloading...</string>
-     <string name="dlprogress_message">Downloading ringtone from network.\nThis window will close automatically after download is complete.</string>
-    
-    <!--
-     used in RingActivity mStreaming dialog
-     -->
-     <string name="mStreaming_title">Please wait</string>
-     <string name="mStreaming_message">Streaming audio from network...</string>
-    
-    <!--
-     used in RingActivity ring_picker dialog
-     -->
-     <string name="ring_picker_title">Select Ring</string>
-     <string name="ring_picker_message">Streaming audio from network...</string>
+
       
     <!--
      AlertDialogs
