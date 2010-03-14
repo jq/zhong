@@ -2,6 +2,7 @@ package com.trans.music.search;
 
 import com.feebe.lib.TabCreator;
 import com.feebe.lib.Util;
+import com.ringdroid.RingdroidSelectActivity;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -32,6 +33,8 @@ public class Home extends TabActivity implements OnTabChangeListener{
     hot = new Intent(this, MusicSearch.class);
     TabCreator.createTab(this, tabHost, hot, getString(R.string.tab_find), android.R.drawable.ic_menu_search);
     
+    hot = new Intent(this, RingdroidSelectActivity.class);
+    TabCreator.createTab(this, tabHost, hot, getString(R.string.tab_find), android.R.drawable.ic_menu_search);
     setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
     Util.runFeed(4, this, R.raw.feed);
   }
