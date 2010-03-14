@@ -19,7 +19,7 @@
 
     <ImageView android:id="@+id/row_starred"
        android:gravity="center_vertical"
-       android:src="@drawable/star"
+       android:src="@android:drawable/ic_secure"
        android:layout_marginLeft="1px"
        android:layout_marginTop="4px"
        android:layout_marginBottom="4px"
