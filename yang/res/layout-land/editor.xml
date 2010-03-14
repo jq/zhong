@@ -15,7 +15,7 @@
        android:layout_width="fill_parent"
        android:layout_height="fill_parent"
        android:scaleType="centerCrop"
-       android:src="@drawable/bkgnd" />
+        />
 
       <com.ringdroid.WaveformView android:id="@+id/waveform"
        android:layout_width="fill_parent"
