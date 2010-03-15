@@ -572,8 +572,8 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
     	  Context context = getApplicationContext();
     	  String expandedText =  "\"" + title + "\"" + getString(R.string.notification_text_finish);
     	  String expandedTitle = getString(R.string.notification_title);
-    	  Intent intent = new Intent(RingActivity.this, RingdroidSelectActivity.class);
-    	  PendingIntent launchIntent = PendingIntent.getActivity(context, 0, intent, 0);
+    	  //Intent intent = new Intent(RingActivity.this, RingdroidSelectActivity.class);
+    	  PendingIntent launchIntent = PendingIntent.getActivity(context, 0, ringActivityIntent, 0);
           notification.setLatestEventInfo(context, expandedTitle, expandedText, launchIntent);
           notification.flags |= Notification.FLAG_AUTO_CANCEL;
           NotificationManager notificationManager;
