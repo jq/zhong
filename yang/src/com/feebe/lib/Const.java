@@ -14,6 +14,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.feebe.rings.R;
+import com.feebe.rings.R.string;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -42,7 +45,14 @@ public class Const {
 	protected static int tab_image;
 	protected static int no_result;
 	protected static int no_sd;
-
+	protected static int dlprogress_message;
+	protected static int dlprogress_title;
+	
+	protected static int icon;
+	protected static int notification_title;
+	protected static int notification_text_failed;
+	protected static int notification_text_finish;
+	
 	// other changed const var
 	public static String QWName;
 	public static String QWID;

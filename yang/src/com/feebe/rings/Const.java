@@ -8,6 +8,7 @@ import com.feebe.lib.EndlessUrlArrayAdapter;
 
 import android.content.Context;
 import android.os.Environment;
+import android.webkit.WebIconDatabase.IconListener;
 import android.widget.Toast;
 
 public class Const extends com.feebe.lib.Const {
@@ -53,6 +54,13 @@ public class Const extends com.feebe.lib.Const {
     tabheader = R.layout.tabheader;
   	tab_label = R.id.tab_label;
   	no_result = R.string.no_result;
+  	dlprogress_message = R.string.dlprogress_message;
+  	dlprogress_title = R.string.dlprogress_title;
+  	icon = R.drawable.ring;
+  	notification_title = R.string.notification_title;
+  	notification_text_failed = R.string.notification_text_failed;
+  	notification_text_finish = R.string.notification_text_finish;
+  	
   	EndlessUrlArrayAdapter.ThrobberViewRes = R.layout.pending_view;
   	EndlessUrlArrayAdapter.Throbber = R.id.throbber;
   	

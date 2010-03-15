@@ -13,10 +13,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.feebe.lib.AdsView;
+import com.feebe.lib.DefaultDownloadListener;
 import com.feebe.lib.DownloadImg;
 import com.feebe.lib.DownloadFile;
 import com.feebe.lib.Util;
-import com.feebe.lib.DownloadFile.DownloadListerner;
 import com.ringdroid.RingdroidSelectActivity;
 
 import entagged.audioformats.AudioFile;
@@ -61,9 +61,46 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 
-public class RingActivity extends Activity implements DownloadFile.DownloadListerner{
+public class RingActivity extends Activity {
   private final static String TAG = "RingActivity";
 
+  private class RingDownloadListener extends DefaultDownloadListener {
+
+	public RingDownloadListener(Context context) {
+		super(context, getIntent(), title);
+	}
+
+	@Override
+	public void onDownloadFail() {
+		super.onDownloadFail();
+	    Toast.makeText(
+	        RingActivity.this, R.string.download_failed, Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void onDownloadFinish(File file, Uri u) {
+		super.onDownloadFinish(file, u);
+	    //Log.e("onDownloadFinish", file.getAbsolutePath());
+	    mp3Location = file.getAbsolutePath();
+	    mCurrentFileUri = u;
+	    jsonLocation = Const.jsondir + file.getName();
+	    // TODO: reload download ring page 
+	    RingActivity.this.runOnUiThread(new Runnable() {
+	      @Override
+	      public void run() {
+
+	    	  initFinishDownloadButton();
+	      }
+	    });
+	}
+
+	@Override
+	public void onDownloadProgress(int percentage) {
+		super.onDownloadProgress(percentage);
+	}
+  }
+  
+  
   @Override
   public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
@@ -73,8 +110,6 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
       setContentView(R.layout.ring);
       AdsView.createQWAd(this);
 
-      ringActivityIntent = getIntent();			
-      
       iconImageView = (ImageView) findViewById(R.id.row_icon);
       titleTextView = (TextView) findViewById(R.id.row_title);
       artistTextView = (TextView) findViewById(R.id.row_artist);
@@ -84,7 +119,6 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
       detailInfo = (TextView) findViewById(R.id.info_text);
       listSearchOthers = (ListView) findViewById(R.id.list_searchOthers);
      
-
       dl = (Button)this.findViewById(R.id.download);
       mPreview = (Button)this.findViewById(R.id.preview);
       dl.setOnClickListener(dlClick);
@@ -353,18 +387,9 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
     		dl.setText(R.string.play);
     		return;
     	}
-      if (mp3Location.startsWith("http:")) {
-      	dlProgress = new ProgressDialog(RingActivity.this);
-      	dlProgress.setTitle(R.string.dlprogress_title);
-      	dlProgress.setMessage(RingActivity.this.getString(R.string.dlprogress_message));
-      	dlProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-      	dlProgress.setIndeterminate(false);
-      	dlProgress.setMax(100);
-      	dlProgress.setProgress(0);
-      	dlProgress.setCancelable(false);
-      	dlProgress.show();
-      	
-      	download(RingActivity.this);
+      if (mp3Location.startsWith("http:")) {     	
+      	ringDownloadListener = new RingDownloadListener(RingActivity.this);
+      	download(ringDownloadListener);
         saveArtist();
       } else if(isPaused) {
       	isPaused = false;
@@ -513,7 +538,7 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
   private static int[] fileKinds = 
     new int[]{Const.FILE_KIND_RINGTONE,Const.FILE_KIND_NOTIFICATION,Const.FILE_KIND_ALARM};
 
-  private void download(DownloadListerner listerner) {
+  private void download(RingDownloadListener listerner) {
     int lastPos = mp3Location.lastIndexOf('.');
     String extension = mp3Location.substring(lastPos);
     // Log.e("path", fullpathame);
@@ -523,70 +548,6 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
     df.execute(mp3Location, Const.getMp3FilePath(artist, title, extension));
   }
 
-  @Override
-  public void onDownloadProgress(int percentage) {
-  	dlProgress.setProgress(percentage);
-  }
-  
-  
-  @Override
-  public void onDownloadFail() {
-	int icon = R.drawable.ring;
-	String tickerText = "\"" + title + "\"" + getString(R.string.notification_text_failed);
-	long when = System.currentTimeMillis();
-	Notification notification = new Notification(icon, tickerText, when);
-	Context context = getApplicationContext();
-	String expandedText =  "\"" + title + "\"" + getString(R.string.notification_text_failed);
-	String expandedTitle = getString(R.string.notification_title);
-	//Intent intent = new Intent(RingActivity.this, RingdroidSelectActivity.class);
-	PendingIntent launchIntent = PendingIntent.getActivity(context, 0, ringActivityIntent, 0);
-    notification.setLatestEventInfo(context, expandedTitle, expandedText, launchIntent);
-    notification.flags |= Notification.FLAG_AUTO_CANCEL;
-    NotificationManager notificationManager;
-    notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-      
-    int notificationRef = 1;
-    notificationManager.notify(notificationRef, notification);
-    
-    dlProgress.dismiss();
-    Toast.makeText(
-        RingActivity.this, R.string.download_failed, Toast.LENGTH_SHORT).show();
-    return;
-  }
-
-  
-  @Override
-  public void onDownloadFinish(File file, Uri u) {
-    //Log.e("onDownloadFinish", file.getAbsolutePath());
-    mp3Location = file.getAbsolutePath();
-    mCurrentFileUri = u;
-    jsonLocation = Const.jsondir + file.getName();
-    // TODO: reload download ring page 
-    RingActivity.this.runOnUiThread(new Runnable() {
-      @Override
-      public void run() {
-    	  int icon = R.drawable.ring;
-    	  String tickerText = "\"" + title + "\"" + getString(R.string.notification_text_finish);
-    	  long when = System.currentTimeMillis();
-    	  Notification notification = new Notification(icon, tickerText, when);
-    	  Context context = getApplicationContext();
-    	  String expandedText =  "\"" + title + "\"" + getString(R.string.notification_text_finish);
-    	  String expandedTitle = getString(R.string.notification_title);
-    	  //Intent intent = new Intent(RingActivity.this, RingdroidSelectActivity.class);
-    	  PendingIntent launchIntent = PendingIntent.getActivity(context, 0, ringActivityIntent, 0);
-          notification.setLatestEventInfo(context, expandedTitle, expandedText, launchIntent);
-          notification.flags |= Notification.FLAG_AUTO_CANCEL;
-          NotificationManager notificationManager;
-          notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-          
-          int notificationRef = 1;
-          notificationManager.notify(notificationRef, notification);
-          
-    	  initFinishDownloadButton();
-          dlProgress.dismiss();
-      }
-    });
-  }
 
   @Override
   public void onDestroy() {
@@ -614,7 +575,6 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
   private RatingBar ratingBar;
   private RatingBar largeRatingBar;
   private LinearLayout layoutMyReview; 
-  private ProgressDialog dlProgress;
   
   MediaPlayer mPlayer = new MediaPlayer();;
   MediaPlayer mediaPreview;
@@ -627,11 +587,11 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
   String author = "";
   String size = "";
   String rating = "";
-  String title = "";
+  public String title = "";
   String key = "";
   String myRating = "";
   String filePath = "";
   int mp3Size;
   
-  private Intent ringActivityIntent;		
+  RingDownloadListener ringDownloadListener;	
 }

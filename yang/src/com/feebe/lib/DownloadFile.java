@@ -21,12 +21,7 @@ import android.util.Log;
 public class DownloadFile extends AsyncTask<String, Integer, File> {
   private int fileSize;
   
-  public interface DownloadListerner {
-    void onDownloadFinish(File file, Uri u);
-    void onDownloadProgress(int percentage);
-    void onDownloadFail();
-  }
-  DownloadListerner dlhander;
+  DefaultDownloadListener dlhander;
   private int min_size;
 
   private String category;
@@ -34,7 +29,7 @@ public class DownloadFile extends AsyncTask<String, Integer, File> {
   private String title;
   private ContentResolver cr;
   private int[] fileKinds;
-  public DownloadFile(DownloadListerner listerner, int minSize, int filesize, 
+  public DownloadFile(DefaultDownloadListener listerner, int minSize, int filesize, 
       String category, String artist, String title, ContentResolver cr, int[] fileKinds) {
     dlhander = listerner;
     min_size = minSize;
@@ -44,6 +39,7 @@ public class DownloadFile extends AsyncTask<String, Integer, File> {
     this.title = title;
     this.cr = cr;
     this.fileKinds = fileKinds;
+    listerner.onStart();
   }
   
   /*
