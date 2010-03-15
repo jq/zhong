@@ -73,6 +73,8 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
       setContentView(R.layout.ring);
       AdsView.createQWAd(this);
 
+      ringActivityIntent = getIntent();			
+      
       iconImageView = (ImageView) findViewById(R.id.row_icon);
       titleTextView = (TextView) findViewById(R.id.row_title);
       artistTextView = (TextView) findViewById(R.id.row_artist);
@@ -529,6 +531,23 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
   
   @Override
   public void onDownloadFail() {
+	int icon = R.drawable.ring;
+	String tickerText = "\"" + title + "\"" + getString(R.string.notification_text_failed);
+	long when = System.currentTimeMillis();
+	Notification notification = new Notification(icon, tickerText, when);
+	Context context = getApplicationContext();
+	String expandedText =  "\"" + title + "\"" + getString(R.string.notification_text_failed);
+	String expandedTitle = getString(R.string.notification_title);
+	//Intent intent = new Intent(RingActivity.this, RingdroidSelectActivity.class);
+	PendingIntent launchIntent = PendingIntent.getActivity(context, 0, ringActivityIntent, 0);
+    notification.setLatestEventInfo(context, expandedTitle, expandedText, launchIntent);
+    notification.flags |= Notification.FLAG_AUTO_CANCEL;
+    NotificationManager notificationManager;
+    notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+      
+    int notificationRef = 1;
+    notificationManager.notify(notificationRef, notification);
+    
     dlProgress.dismiss();
     Toast.makeText(
         RingActivity.this, R.string.download_failed, Toast.LENGTH_SHORT).show();
@@ -547,11 +566,11 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
       @Override
       public void run() {
     	  int icon = R.drawable.ring;
-    	  String tickerText = getString(R.string.notification_text_finish);
+    	  String tickerText = "\"" + title + "\"" + getString(R.string.notification_text_finish);
     	  long when = System.currentTimeMillis();
     	  Notification notification = new Notification(icon, tickerText, when);
     	  Context context = getApplicationContext();
-    	  String expandedText = getString(R.string.notification_text_finish);
+    	  String expandedText =  "\"" + title + "\"" + getString(R.string.notification_text_finish);
     	  String expandedTitle = getString(R.string.notification_title);
     	  Intent intent = new Intent(RingActivity.this, RingdroidSelectActivity.class);
     	  PendingIntent launchIntent = PendingIntent.getActivity(context, 0, intent, 0);
@@ -613,4 +632,6 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
   String myRating = "";
   String filePath = "";
   int mp3Size;
+  
+  private Intent ringActivityIntent;		
 }
