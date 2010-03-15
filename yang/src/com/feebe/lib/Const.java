@@ -14,9 +14,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.feebe.rings.R;
-import com.feebe.rings.R.string;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
