@@ -30,11 +30,12 @@ public class Home extends TabActivity implements OnTabChangeListener{
     TabCreator.createTab(this, tabHost, hot, getString(R.string.tab_hot), android.R.drawable.ic_input_get);
     hot = new Intent(this, SearchTab.class);
     TabCreator.createTab(this, tabHost, hot, getString(R.string.tab_find), android.R.drawable.ic_menu_search);
-    hot = new Intent(this, MusicSearch.class);
-    TabCreator.createTab(this, tabHost, hot, getString(R.string.tab_find), android.R.drawable.ic_menu_search);
     
     hot = new Intent(this, RingdroidSelectActivity.class);
-    TabCreator.createTab(this, tabHost, hot, getString(R.string.tab_find), android.R.drawable.ic_menu_search);
+    TabCreator.createTab(this, tabHost, hot, getString(R.string.tab_lib), android.R.drawable.ic_menu_gallery);
+    hot = new Intent(this, MusicSearch.class);
+    TabCreator.createTab(this, tabHost, hot, "will be remove", android.R.drawable.ic_menu_search);
+
     setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
     Util.runFeed(4, this, R.raw.feed);
   }

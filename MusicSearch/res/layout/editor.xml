@@ -10,13 +10,6 @@
        android:layout_width="wrap_content" 
        android:layout_height="0px"
        android:layout_weight="1">
-
-      <ImageView android:id="@+id/bkgnd"
-       android:layout_width="fill_parent"
-       android:layout_height="fill_parent"
-       android:scaleType="centerCrop"
-        />
-<!-- android:src="@drawable/bkgnd" -->
       <com.ringdroid.WaveformView android:id="@+id/waveform"
        android:layout_width="fill_parent"
        android:layout_height="fill_parent" />
