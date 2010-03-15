@@ -63,6 +63,13 @@
      <string name="ring_picker_title">Select Ring</string>
      <string name="ring_picker_message">Streaming audio from network...</string>
      
+    <!-- 
+	 used in RingActivity notification when finish or failed download.
+	 -->
+	 <string name="notification_title">RingTone</string>
+	 <string name="notification_text_finish">Download finish</string>
+	 <string name="notification_text_failed">Download failed</string>
+     
     <!--
      imported
      -->
@@ -192,6 +199,7 @@
 
     <string name="choose_contact_title">Assign ringtone to which contact?</string>
     <string name="success_contact_ringtone">Successfully assigned ringtone to:</string>
+
 
     
 </resources>

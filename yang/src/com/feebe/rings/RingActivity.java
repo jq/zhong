@@ -17,6 +17,7 @@ import com.feebe.lib.DownloadImg;
 import com.feebe.lib.DownloadFile;
 import com.feebe.lib.Util;
 import com.feebe.lib.DownloadFile.DownloadListerner;
+import com.ringdroid.RingdroidSelectActivity;
 
 import entagged.audioformats.AudioFile;
 import entagged.audioformats.AudioFileIO;
@@ -26,8 +27,12 @@ import entagged.audioformats.exceptions.CannotWriteException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -541,7 +546,24 @@ public class RingActivity extends Activity implements DownloadFile.DownloadListe
     RingActivity.this.runOnUiThread(new Runnable() {
       @Override
       public void run() {
-          initFinishDownloadButton();
+    	  int icon = R.drawable.ring;
+    	  String tickerText = getString(R.string.notification_text_finish);
+    	  long when = System.currentTimeMillis();
+    	  Notification notification = new Notification(icon, tickerText, when);
+    	  Context context = getApplicationContext();
+    	  String expandedText = getString(R.string.notification_text_finish);
+    	  String expandedTitle = getString(R.string.notification_title);
+    	  Intent intent = new Intent(RingActivity.this, RingdroidSelectActivity.class);
+    	  PendingIntent launchIntent = PendingIntent.getActivity(context, 0, intent, 0);
+          notification.setLatestEventInfo(context, expandedTitle, expandedText, launchIntent);
+          notification.flags |= Notification.FLAG_AUTO_CANCEL;
+          NotificationManager notificationManager;
+          notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+          
+          int notificationRef = 1;
+          notificationManager.notify(notificationRef, notification);
+          
+    	  initFinishDownloadButton();
           dlProgress.dismiss();
       }
     });
