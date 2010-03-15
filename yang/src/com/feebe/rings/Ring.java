@@ -22,6 +22,7 @@ import com.feebe.lib.TabCreator;
 import com.feebe.lib.TabSDKCreator;
 import com.feebe.lib.Util;
 import com.ringdroid.RingdroidSelectActivity;
+import com.trans.music.search.Const;
 
 public class Ring extends TabActivity implements OnTabChangeListener {
     @Override
@@ -64,6 +65,12 @@ public class Ring extends TabActivity implements OnTabChangeListener {
         }
     }
     
+    @Override
+    protected void onDestroy() {
+      super.onDestroy();
+      Const.dbAdapter.close();
+    }
+        
   	private int choice = 0;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

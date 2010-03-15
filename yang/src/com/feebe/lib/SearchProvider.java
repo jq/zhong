@@ -79,12 +79,12 @@ public abstract class SearchProvider extends ContentProvider {
                     } else if (len > 0) {
                       //Log.e("search", query);
                       Cursor c = Const.dbAdapter.getHistoryByType(query, DbAdapter.TYPE_SEARCH);
-                      Log.e(query, " " + c.getCount());
+                      //Log.e(query, " " + c.getCount());
 
                       return c;
                     } else {
                       Cursor c = Const.dbAdapter.getHistoryByType(DbAdapter.TYPE_SEARCH);
-                      Log.e("cur", " " + c.getCount());
+                      //Log.e("cur", " " + c.getCount());
                       return c;
                     }
                 }

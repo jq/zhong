@@ -39,6 +39,13 @@ public class Home extends TabActivity implements OnTabChangeListener{
     setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
     Util.runFeed(4, this, R.raw.feed);
   }
+  
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    Const.dbAdapter.close();
+  }
+  
   @Override
   protected Dialog onCreateDialog(int id) {
     if (id == Util.DOWNLOAD_APP_DIG) {

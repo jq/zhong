@@ -1,43 +1,19 @@
 package com.trans.music.search;
 
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.feebe.lib.BaseList;
+import com.feebe.lib.DbAdapter;
 import com.feebe.lib.EndlessUrlArrayAdapter;
-import com.feebe.lib.ImgThread;
-import com.feebe.lib.UrlArrayAdapter;
 import com.feebe.lib.Util;
 
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.provider.SearchRecentSuggestions;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
 public class SearchList extends BaseList {
   private final static String TAG = "SearchList";
@@ -65,7 +41,7 @@ public class SearchList extends BaseList {
    
   @Override
   public boolean onSearchRequested() {
-    startSearch(this.getString(R.string.search_hint), true, null, false);
+    startSearch(null, true, null, false);
     return true;
   }    
 
@@ -74,7 +50,8 @@ public class SearchList extends BaseList {
     final String action = intent.getAction();
     if (Intent.ACTION_SEARCH.equals(action)) {
       url = intent.getStringExtra(SearchManager.QUERY);
-      // TODO: save keyword to db
+      Log.e("in search list", url);
+      Const.dbAdapter.intsertHistory(url, DbAdapter.TYPE_SEARCH);
     } else if (Intent.ACTION_VIEW.equals(action)){
       url = intent.getDataString();
     } else {

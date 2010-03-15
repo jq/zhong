@@ -55,6 +55,10 @@ public class DbAdapter {
 	  SearchDBHelper dbHelp = new SearchDBHelper(ctx, "db");
     db = dbHelp.getWritableDatabase();
 	};
+	
+	public void close() {
+	  db.close();
+	}
 
 	public void intsertHistory(String key, int type) {
 		ContentValues cv = new ContentValues();
