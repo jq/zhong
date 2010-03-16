@@ -167,42 +167,48 @@ public class MusicUtil {
 				
 				MP3Info mp3 = new MP3Info();
 				//获取歌曲名
-				int nameStartPos = httpresponse.indexOf("\" action=\"listen\">", matcher.start())+"\" action=\"listen\">".length()+3;
-				int nameEndPos = httpresponse.indexOf('<', nameStartPos);
-				mp3.setName(httpresponse.substring(nameStartPos, nameEndPos));
+				int nameStartPos = httpresponse.indexOf(" title=\"", matcher.start())+" title=\"".length();
+				int nameEndPos = httpresponse.indexOf('"', nameStartPos);
+				mp3.setName(httpresponse.substring(nameStartPos, nameEndPos).trim());
 				
 				//获取歌手名
-				int artistStartPos = httpresponse.indexOf("underline;\">", matcher.start())+"underline;\">".length();
-				int artistEndPos = httpresponse.indexOf("<",artistStartPos);
-				mp3.setArtist(httpresponse.substring(artistStartPos, artistEndPos));
+				int artistStartPos = httpresponse.indexOf("class=mr target=_blank>", nameEndPos)+"class=mr target=_blank>".length();
+				int artistEndPos = httpresponse.indexOf('<',artistStartPos);
+				if ((artistEndPos-artistStartPos) < 2) {
+					artistStartPos = httpresponse.indexOf("text-decoration:underline;\">", artistStartPos)+"text-decoration:underline;\">".length();
+					artistEndPos = httpresponse.indexOf('<', artistStartPos);
+				}
+				mp3.setArtist(httpresponse.substring(artistStartPos, artistEndPos).trim());
 			
 				//获取专辑名称
-				int albumStartPos = httpresponse.indexOf("target=_blank>", artistEndPos) + "target=_blank>".length();
-				int albumEndPos = httpresponse.indexOf("<", albumStartPos);
-				mp3.setAlbum(httpresponse.substring(albumStartPos, albumEndPos));
+				int albumStartPos = httpresponse.indexOf("class=mr target=_blank>", artistEndPos) + "class=mr target=_blank>".length();
+				int albumEndPos = httpresponse.indexOf('<', albumStartPos);
+				if ((albumEndPos-albumStartPos) < 2) {
+					albumStartPos = httpresponse.indexOf("text-decoration:underline;\">", albumStartPos)+"text-decoration:underline;\">".length();
+					albumEndPos = httpresponse.indexOf('<', albumStartPos);
+				}
+				mp3.setAlbum(httpresponse.substring(albumStartPos, albumEndPos).trim());
 				
 				
 				//获取文件大小
 				int sizeStartPos = httpresponse.indexOf("<td align=center>", albumEndPos)+"<td align=center>".length();
 				int sizeEndPos = httpresponse.indexOf('<', sizeStartPos);
-				mp3.setFSize(httpresponse.substring(sizeStartPos, sizeEndPos));
+				mp3.setFSize(httpresponse.substring(sizeStartPos, sizeEndPos).trim());
 				
 				//获取链接
 				int linkStartPos = httpresponse.indexOf("window.open('", sizeEndPos)+"window.open('".length();
-				int linkEndPos = httpresponse.indexOf("&ac=1&c", linkStartPos)+"&ac=1&c".length();
+				int linkEndPos = httpresponse.indexOf("&ac=", linkStartPos)+"&ac=".length();
 				String request = httpresponse.substring(linkStartPos, linkEndPos);
-				mp3.setLink(getLink(request));
+				mp3.setLink(request.trim());
 				
 				//获取连接速度
 				int spdStartPos = httpresponse.indexOf("span class=\"spd", sizeEndPos)+"span class=\"spd".length();
 				int spdEndPos = spdStartPos+1;
-				mp3.setRate(httpresponse.substring(spdStartPos, spdEndPos));
+				mp3.setRate(httpresponse.substring(spdStartPos, spdEndPos).trim());
 				
 				songs.add(mp3);
 
-              count++;
-              if(count >= 10)
-                  break;
+
 			}
 			
 /*			if((Songs!=null)&&(!Songs.isEmpty())){
