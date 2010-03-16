@@ -16,8 +16,8 @@ public class Search extends SearchProvider {
   }
   @Override
   protected Cursor getSuggestions(String query, MatrixCursor cursor) {
-    String queryUrl = Const.SearchBase + "count=8&q="+query;
-    String data = Util.download(queryUrl);
+   // String queryUrl = Const.SearchBase + "count=8&q="+query;
+   // String data = Util.download(queryUrl);
     
     /*
     if (entries != null) {

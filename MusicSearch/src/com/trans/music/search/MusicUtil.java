@@ -13,6 +13,9 @@ import java.util.regex.Pattern;
 import android.util.Log;
 
 public class MusicUtil {
+  // pn= start number, rn is the load number
+  //private final static String Search_Url = "http://221.195.40.183/m?f=ms&tn=baidump3&ct=134217728&rn=15&lm=0&word=";
+
   public static ArrayList<MP3Info> getBiduMp3(String urlStr){
     //初始化歌曲列表
     ArrayList<MP3Info> songs = new ArrayList<MP3Info>();
@@ -118,6 +121,15 @@ public class MusicUtil {
     return songs;
   }
   
+  public static final String SogouSearchBase = "http://mp3.sogou.com/music.so?pf=mp3&as=&st=&ac=1&w=02009900&query=";
+  //http://mp3.sogou.com/music.so?pf=&as=&st=&ac=1&w=02009900&query=
+  // "http://mp3.sogou.com/music.so?pf=mp3&query=";
+  public static String getSogouLinks(String key) {
+    return SogouSearchBase + key;
+  }
+  public static String getSogouLinks(String url, int page) {
+    return url + "&page=" + page;
+  }
   public static ArrayList<MP3Info> getSogoMp3(String urlStr){
 		//初始化歌曲列表
 	  ArrayList<MP3Info> songs = new ArrayList<MP3Info>();

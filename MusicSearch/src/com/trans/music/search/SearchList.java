@@ -17,15 +17,12 @@ import android.widget.ListAdapter;
 
 public class SearchList extends BaseList {
   private final static String TAG = "SearchList";
-  // pn= start number
-  public final static int DEFAULT_RESULT = 15;
-  //private final static String Search_Url = "http://221.195.40.183/m?f=ms&tn=baidump3&ct=134217728&rn=15&lm=0&word=";
-  private final static String Search_Url = "http://mp3.sogou.com/music.so?pf=&as=&st=&ac=1&w=02009900&query=";
+  public final static int DEFAULT_RESULT = 30;
 
   @Override
   public ListAdapter getAdapter() {
     Intent i = this.getIntent();
-    reloadUrl = getUrlFromIntent(i);
+    reloadUrl = getKeywordFromIntent(i);
     long expire = i.getLongExtra(Const.expire, 0);
 
     mAdapter = new SearchResultAdapter(this, R.layout.searchlist_row, expire);
@@ -45,19 +42,21 @@ public class SearchList extends BaseList {
     return true;
   }    
 
-  private String getUrlFromIntent(final Intent intent) {
-    String url = null;
+  private String getKeywordFromIntent(final Intent intent) {
+    String keyword = null;
     final String action = intent.getAction();
     if (Intent.ACTION_SEARCH.equals(action)) {
-      url = intent.getStringExtra(SearchManager.QUERY);
-      Const.dbAdapter.intsertHistory(url, DbAdapter.TYPE_SEARCH);
+      keyword = intent.getStringExtra(SearchManager.QUERY);
+      Const.dbAdapter.intsertHistory(keyword, DbAdapter.TYPE_SEARCH);
     } else if (Intent.ACTION_VIEW.equals(action)){
-      url = intent.getDataString();
+      keyword = intent.getDataString();
     } else {
-    	url = intent.getStringExtra(Const.Key);
+      keyword = intent.getStringExtra(Const.Key);
     }
-    url = Search_Url + url;
-    return url;
+    if (keyword != null) {
+      return MusicUtil.getSogouLinks(keyword);
+    }
+    return null;
   }
   
   // this should not be null
@@ -66,7 +65,7 @@ public class SearchList extends BaseList {
   @Override
   public void onNewIntent(final Intent intent) {
     super.onNewIntent(intent);
-    reloadUrl = getUrlFromIntent(intent);
+    reloadUrl = getKeywordFromIntent(intent);
     if(reloadUrl == null)
       return;
     else {
@@ -82,9 +81,8 @@ public class SearchList extends BaseList {
     }
     public void reset() {
       lastCnt = 0;
-      if (Util.inCache(reloadUrl, Const.OneWeek)) {
-                keepOnAppending = false;
-
+      if (reloadUrl != null && Util.inCache(reloadUrl, Const.OneWeek)) {
+        keepOnAppending = false;
         runSyn(reloadUrl, Const.OneWeek);
         finishLoading();
       }
@@ -110,17 +108,13 @@ public class SearchList extends BaseList {
         return reloadUrl;
       }
       lastCnt = pos;
-      String url;
-      if (reloadUrl.indexOf('?') != -1) {
-        url = reloadUrl + "&start=" +lastCnt;
-      } else {
-        url = reloadUrl + "?start=" +lastCnt;
-      }
+      int page = pos / DEFAULT_RESULT + 1;
+      String url = MusicUtil.getSogouLinks(reloadUrl, page);
       return url;
     }
     @Override
     protected void finishLoading() {
-      if (lastCnt + 15 > super.getCount()) {
+      if (lastCnt + DEFAULT_RESULT > super.getCount()) {
         //Log.e("finishLoading", "cont " + super.getCount() + " last " + lastCnt);
         keepOnAppending = false;
       } else {
@@ -131,6 +125,7 @@ public class SearchList extends BaseList {
     protected List getListFromUrl(String url, long expire) {
       //return MusicUtil.getBiduMp3(url);
     	// for test sogo
+      Log.e("sogo", url);
     	return MusicUtil.getSogoMp3(url);
     }
     @Override
