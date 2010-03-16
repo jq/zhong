@@ -50,7 +50,6 @@ public class SearchList extends BaseList {
     final String action = intent.getAction();
     if (Intent.ACTION_SEARCH.equals(action)) {
       url = intent.getStringExtra(SearchManager.QUERY);
-      Log.e("in search list", url);
       Const.dbAdapter.intsertHistory(url, DbAdapter.TYPE_SEARCH);
     } else if (Intent.ACTION_VIEW.equals(action)){
       url = intent.getDataString();

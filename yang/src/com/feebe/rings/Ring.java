@@ -22,7 +22,6 @@ import com.feebe.lib.TabCreator;
 import com.feebe.lib.TabSDKCreator;
 import com.feebe.lib.Util;
 import com.ringdroid.RingdroidSelectActivity;
-import com.trans.music.search.Const;
 
 public class Ring extends TabActivity implements OnTabChangeListener {
     @Override
