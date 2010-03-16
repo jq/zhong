@@ -66,8 +66,8 @@ public class RingActivity extends Activity {
 
   private class RingDownloadListener extends DefaultDownloadListener {
 
-	public RingDownloadListener(Context context) {
-		super(context, getIntent(), title);
+	public RingDownloadListener(Context context, Intent intent) {
+		super(context, intent, title);
 	}
 
 	@Override
@@ -79,16 +79,20 @@ public class RingActivity extends Activity {
 
 	@Override
 	public void onDownloadFinish(File file, Uri u) {
+  	    notificationIntent.putExtra("isFinish", true);
+	    notificationIntent.putExtra("mp3Location", file.getAbsolutePath());
 		super.onDownloadFinish(file, u);
 	    //Log.e("onDownloadFinish", file.getAbsolutePath());
 	    mp3Location = file.getAbsolutePath();
 	    mCurrentFileUri = u;
 	    jsonLocation = Const.jsondir + file.getName();
+	    
+
+	    
 	    // TODO: reload download ring page 
 	    RingActivity.this.runOnUiThread(new Runnable() {
 	      @Override
 	      public void run() {
-
 	    	  initFinishDownloadButton();
 	      }
 	    });
@@ -271,6 +275,14 @@ public class RingActivity extends Activity {
           }  
         });
       }
+      if (getIntent().getExtras().getBoolean("isFinish")) {
+    	mp3Location = getIntent().getExtras().getString("mp3Location");
+    	try {
+		  ring.put("filePath", mp3Location);
+		} catch (JSONException e) {
+		}
+        initFinishDownloadButton();
+      }
   }
   
   private static final int RING_PICKER = 1;
@@ -388,7 +400,8 @@ public class RingActivity extends Activity {
     		return;
     	}
       if (mp3Location.startsWith("http:")) {     	
-      	ringDownloadListener = new RingDownloadListener(RingActivity.this);
+        notificationIntent = getIntent();
+      	ringDownloadListener = new RingDownloadListener(RingActivity.this, notificationIntent);
       	download(ringDownloadListener);
         saveArtist();
       } else if(isPaused) {
@@ -593,5 +606,6 @@ public class RingActivity extends Activity {
   String filePath = "";
   int mp3Size;
   
+  private Intent notificationIntent;
   RingDownloadListener ringDownloadListener;	
 }
