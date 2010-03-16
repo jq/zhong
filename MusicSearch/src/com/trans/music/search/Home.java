@@ -40,11 +40,11 @@ public class Home extends TabActivity implements OnTabChangeListener{
     Util.runFeed(4, this, R.raw.feed);
   }
   
-  @Override
+  /*@Override
   protected void onDestroy() {
     super.onDestroy();
     Const.dbAdapter.close();
-  }
+  }*/
   
   @Override
   protected Dialog onCreateDialog(int id) {

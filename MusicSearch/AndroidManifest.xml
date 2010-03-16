@@ -138,7 +138,8 @@
                 android:authorities="musicsearch"
                 android:syncable="false" />
         
-    </application>
+    <activity android:name="MusicPage"></activity>
+</application>
 
 	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
 	<uses-permission android:name="android.permission.WAKE_LOCK" />

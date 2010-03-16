@@ -12,7 +12,7 @@ import com.feebe.lib.Util;
 public class Search extends SearchProvider {
 
   public Search() {
-    buildUriMatcher("musicsearch");
+    /*buildUriMatcher("musicsearch");*/
   }
   @Override
   protected Cursor getSuggestions(String query, MatrixCursor cursor) {
