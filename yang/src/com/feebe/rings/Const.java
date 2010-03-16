@@ -57,7 +57,7 @@ public class Const extends com.feebe.lib.Const {
   	dlprogress_message = R.string.dlprogress_message;
   	dlprogress_title = R.string.dlprogress_title;
   	icon = R.drawable.ring;
-  	notification_title = R.string.notification_title;
+  	app_name= R.string.app_name;
   	notification_text_failed = R.string.notification_text_failed;
   	notification_text_finish = R.string.notification_text_finish;
   	

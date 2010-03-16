@@ -25,6 +25,9 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -35,6 +38,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.text.StaticLayout;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -516,6 +520,22 @@ public class Util {
 	  } catch (Exception e) {
 	    
 	  }
-
+	}
+	public static void addNotification(Context _context, Intent intent, String title, int resTitle, int resText, int resExpandedTitle, int resExpandedText) {
+    	int icon = Const.icon;
+    	String tickerText ="\""+title+"\""+  _context.getString(resTitle);
+    	long when = System.currentTimeMillis();
+    	Notification notification = new Notification(icon, tickerText, when);
+    	Context context = _context.getApplicationContext();
+    	String expandedText ="\""+title+"\""+  context.getString(resExpandedText);
+    	String expandedTitle = context.getString(resExpandedTitle);
+    	//Intent intent = new Intent(RingActivity.this, RingdroidSelectActivity.class);
+    	PendingIntent launchIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        notification.setLatestEventInfo(context, expandedTitle, expandedText, launchIntent);
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+        NotificationManager notificationManager;
+        notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        int notificationRef = 1;
+        notificationManager.notify(notificationRef++, notification);
 	}
 }

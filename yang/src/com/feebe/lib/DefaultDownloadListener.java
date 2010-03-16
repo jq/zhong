@@ -34,21 +34,7 @@ public class DefaultDownloadListener {
 	}
 	
     public void onDownloadFinish(File file, Uri u) {
-  	  int icon = Const.icon;
-	  String tickerText = "\""+title+"\""+ context.getString(Const.notification_text_finish);
-	  long when = System.currentTimeMillis();
-	  Notification notification = new Notification(icon, tickerText, when);
-	  Context context = this.context.getApplicationContext();
-	  String expandedText = "\""+title+"\""+ context.getString(Const.notification_text_finish);
-	  String expandedTitle = context.getString(Const.notification_title);
-	  //Intent intent = new Intent(RingActivity.this, RingdroidSelectActivity.class);
-	  PendingIntent launchIntent = PendingIntent.getActivity(context, 0, intent, 0);
-      notification.setLatestEventInfo(context, expandedTitle, expandedText, launchIntent);
-      notification.flags |= Notification.FLAG_AUTO_CANCEL;
-      NotificationManager notificationManager;
-      notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-      int notificationRef = 1;
-      notificationManager.notify(notificationRef++, notification);
+      Util.addNotification(context, intent, title, Const.app_name, Const.notification_text_finish, Const.app_name, Const.notification_text_finish);
       dlProgress.dismiss();
     }
     
@@ -57,21 +43,7 @@ public class DefaultDownloadListener {
     }
     
     public void onDownloadFail() {
-    	int icon = Const.icon;
-    	String tickerText ="\""+title+"\""+  context.getString(Const.notification_text_failed);
-    	long when = System.currentTimeMillis();
-    	Notification notification = new Notification(icon, tickerText, when);
-    	Context context = this.context.getApplicationContext();
-    	String expandedText ="\""+title+"\""+  context.getString(Const.notification_text_failed);
-    	String expandedTitle = context.getString(Const.notification_title);
-    	//Intent intent = new Intent(RingActivity.this, RingdroidSelectActivity.class);
-    	PendingIntent launchIntent = PendingIntent.getActivity(context, 0, intent, 0);
-        notification.setLatestEventInfo(context, expandedTitle, expandedText, launchIntent);
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        NotificationManager notificationManager;
-        notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        int notificationRef = 1;
-        notificationManager.notify(notificationRef++, notification);
+    	Util.addNotification(context, intent, title, Const.app_name, Const.notification_text_failed, Const.app_name, Const.notification_text_failed);
     	dlProgress.dismiss();
     }
 }

@@ -46,7 +46,7 @@ public class Const {
 	protected static int dlprogress_title;
 	
 	protected static int icon;
-	protected static int notification_title;
+	protected static int app_name;
 	protected static int notification_text_failed;
 	protected static int notification_text_finish;
 	
