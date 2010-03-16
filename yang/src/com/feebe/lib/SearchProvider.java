@@ -1,5 +1,7 @@
 package com.feebe.lib;
 
+import static com.feebe.lib.SearchProvider.buildUriMatcher;
+import static com.feebe.lib.SearchProvider.sURIMatcher;
 import android.app.SearchManager;
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -16,12 +18,11 @@ import org.json.JSONArray;
  * Provides search suggestions for a list of words and their definitions.
  */
 public abstract class SearchProvider extends ContentProvider {
- // TODO: test if two product can have same AUTHORITY
-    public static String AUTHORITY = "rings";
+  //  public static String AUTHORITY;
 
     private static final int SEARCH_SUGGEST = 0;
    // private static final int SHORTCUT_REFRESH = 1;
-    private static final UriMatcher sURIMatcher = buildUriMatcher();
+    protected static UriMatcher sURIMatcher;
 
     /**
      * The columns we'll include in our search suggestions.  There are others that could be used
@@ -39,13 +40,14 @@ public abstract class SearchProvider extends ContentProvider {
     /**
      * Sets up a uri matcher for search suggestion and shortcut refresh queries.
      */
-    private static UriMatcher buildUriMatcher() {
-        UriMatcher matcher =  new UriMatcher(UriMatcher.NO_MATCH);
-        matcher.addURI(AUTHORITY, SearchManager.SUGGEST_URI_PATH_QUERY, SEARCH_SUGGEST);
-        matcher.addURI(AUTHORITY, SearchManager.SUGGEST_URI_PATH_QUERY + "/*", SEARCH_SUGGEST);
+    protected static void buildUriMatcher(String authority) {
+      if (sURIMatcher == null) {
+        sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+        sURIMatcher.addURI(authority, SearchManager.SUGGEST_URI_PATH_QUERY, SEARCH_SUGGEST);
+        sURIMatcher.addURI(authority, SearchManager.SUGGEST_URI_PATH_QUERY + "/*", SEARCH_SUGGEST);
        // matcher.addURI(AUTHORITY, SearchManager.SUGGEST_URI_PATH_SHORTCUT, SHORTCUT_REFRESH);
        // matcher.addURI(AUTHORITY, SearchManager.SUGGEST_URI_PATH_SHORTCUT + "/*", SHORTCUT_REFRESH);
-        return matcher;
+      }
     }
 
     @Override
@@ -82,13 +84,13 @@ public abstract class SearchProvider extends ContentProvider {
                       //Log.e(query, " " + c.getCount());
 
                       return c;
-                    } else {
-                      Cursor c = Const.dbAdapter.getHistoryByType(DbAdapter.TYPE_SEARCH);
-                      //Log.e("cur", " " + c.getCount());
-                      return c;
                     }
+                    return null;
+                } else {
+                  Cursor c = Const.dbAdapter.getHistoryByType(DbAdapter.TYPE_SEARCH);
+                  Log.e("cur", " " + c.getCount());
+                  return c;
                 }
-                return null;
                 /*
             case SHORTCUT_REFRESH:
                 String shortcutId = null;

@@ -11,6 +11,10 @@ import com.feebe.lib.SearchProvider;
 import com.feebe.lib.Util;
 
 public class RingSearch extends SearchProvider {
+  
+  public RingSearch() {
+    buildUriMatcher("rings");
+  }
 	private Object[] columnValuesOfWord(JSONArray array, int i) {
   	try{
   		JSONObject entry = array.getJSONObject(i);

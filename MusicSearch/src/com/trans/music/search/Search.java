@@ -4,12 +4,16 @@ import org.json.JSONArray;
 
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.util.Log;
 
 import com.feebe.lib.SearchProvider;
 import com.feebe.lib.Util;
 
 public class Search extends SearchProvider {
 
+  public Search() {
+    buildUriMatcher("musicsearch");
+  }
   @Override
   protected Cursor getSuggestions(String query, MatrixCursor cursor) {
     String queryUrl = Const.SearchBase + "count=8&q="+query;
@@ -25,6 +29,7 @@ public class Search extends SearchProvider {
       }      
     }
     */
+    Log.e("getSuggestions", " " + cursor.getCount());
     return cursor;
 
   }
