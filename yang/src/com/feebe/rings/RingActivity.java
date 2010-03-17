@@ -66,8 +66,8 @@ public class RingActivity extends Activity {
 
   private class RingDownloadListener extends DefaultDownloadListener {
 
-	public RingDownloadListener(Context context, Intent intent) {
-		super(context, intent, title);
+	public RingDownloadListener(Context context, Intent intent, boolean isBackground) {
+		super(context, intent, title, isBackground);
 	}
 
 	@Override
@@ -79,21 +79,19 @@ public class RingActivity extends Activity {
 
 	@Override
 	public void onDownloadFinish(File file, Uri u) {
-  	    notificationIntent.putExtra("isFinish", true);
-	    notificationIntent.putExtra("mp3Location", file.getAbsolutePath());
 		super.onDownloadFinish(file, u);
 	    //Log.e("onDownloadFinish", file.getAbsolutePath());
 	    mp3Location = file.getAbsolutePath();
 	    mCurrentFileUri = u;
 	    jsonLocation = Const.jsondir + file.getName();
 	    
-
-	    
 	    // TODO: reload download ring page 
 	    RingActivity.this.runOnUiThread(new Runnable() {
 	      @Override
 	      public void run() {
-	    	  initFinishDownloadButton();
+	    	  if (!isBackground()) {
+	    		  initFinishDownloadButton();
+	    	  }
 	      }
 	    });
 	}
@@ -267,21 +265,16 @@ public class RingActivity extends Activity {
           	// save json file
             Toast.makeText(
                 RingActivity.this, R.string.queue, Toast.LENGTH_SHORT).show();
-            download(null);
+            Intent intent = new Intent(RingActivity.this ,RingdroidSelectActivity.class);
+          	ringDownloadListener = new RingDownloadListener(RingActivity.this, intent, true);
+          	download(ringDownloadListener);
+            saveArtist();
             finish();
             //Const.downloadDb.insert(values);
             // TODO: start new intent to launch download queue view
             // pass json file to the download view, so that when download finish, it will get it
           }  
         });
-      }
-      if (getIntent().getExtras().getBoolean("isFinish")) {
-    	mp3Location = getIntent().getExtras().getString("mp3Location");
-    	try {
-		  ring.put("filePath", mp3Location);
-		} catch (JSONException e) {
-		}
-        initFinishDownloadButton();
       }
   }
   
@@ -393,15 +386,15 @@ public class RingActivity extends Activity {
   OnClickListener dlClick = new OnClickListener() {
     @Override
     public void onClick(View v) {
-    	if(mPlayer.isPlaying())	{
-    		mPlayer.pause();
-    		isPaused = true;
-    		dl.setText(R.string.play);
-    		return;
-    	}
+      if(mPlayer.isPlaying())	{
+    	mPlayer.pause();
+    	isPaused = true;
+    	dl.setText(R.string.play);
+    	return;
+      }
       if (mp3Location.startsWith("http:")) {     	
-        notificationIntent = getIntent();
-      	ringDownloadListener = new RingDownloadListener(RingActivity.this, notificationIntent);
+        Intent intetn = new Intent(RingActivity.this, RingdroidSelectActivity.class);
+      	ringDownloadListener = new RingDownloadListener(RingActivity.this, notificationIntent, false);
       	download(ringDownloadListener);
         saveArtist();
       } else if(isPaused) {
