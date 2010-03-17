@@ -39,7 +39,8 @@ public class DownloadFile extends AsyncTask<String, Integer, File> {
     this.title = title;
     this.cr = cr;
     this.fileKinds = fileKinds;
-    listerner.onStart();
+    if (listerner != null)
+      listerner.onStart();
   }
   
   /*
