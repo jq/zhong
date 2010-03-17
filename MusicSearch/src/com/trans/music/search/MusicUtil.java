@@ -127,99 +127,103 @@ public class MusicUtil {
   public static String getSogouLinks(String key) {
     return SogouSearchBase + key;
   }
+  
   public static String getSogouLinks(String url, int page) {
     return url + "&page=" + page;
   }
-  public static ArrayList<MP3Info> getSogoMp3(String urlStr){
+  
+  public static ArrayList<MP3Info> getSogoMp3(String urlStr, int limit){
 		//初始化歌曲列表
+    int cnt = 0;
 	  ArrayList<MP3Info> songs = new ArrayList<MP3Info>();
-      try {
-          
-          
-      	URL url = new URL(urlStr);
-      	HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
-      	urlConn.setRequestProperty("User-Agent", "Apache-HttpClient/UNAVAILABLE (java 1.4)");
-      	urlConn.setConnectTimeout(12000);
-      	urlConn.connect();
-      	
-      	InputStream stream = urlConn.getInputStream();
-			
-      	StringBuilder builder = new StringBuilder(8*1024);
-			
-      	char[] buff = new char[4096];
-      	//必须在此指定编码，否则后面toString会导致乱码
-      	InputStreamReader is = new InputStreamReader(stream,"gb2312");
-			
-			int len;
-			while ((len = is.read(buff, 0, 4096)) > 0) {
-				builder.append(buff, 0, len);
-			}
-			urlConn.disconnect();
-			String httpresponse = builder.toString();
-			
-			//Pattern pattern = Pattern.compile("<td class=d><a href=\"([\\s\\S]*?)\" title=\"");
-			Pattern pattern = Pattern.compile("<a pb=t class=mr style=");
-			Matcher matcher = pattern.matcher(httpresponse);
-
-			//Pattern pattern_artist = Pattern.compile("&si=.*?;;(.*?);;");
-			int count = 0;
-			while(matcher.find()) {
-				
-				MP3Info mp3 = new MP3Info();
-				//获取歌曲名
-				int nameStartPos = httpresponse.indexOf(" title=\"", matcher.start())+" title=\"".length();
-				int nameEndPos = httpresponse.indexOf('"', nameStartPos);
-				mp3.setName(httpresponse.substring(nameStartPos, nameEndPos).trim());
-				
-				//获取歌手名
-				int artistStartPos = httpresponse.indexOf("class=mr target=_blank>", nameEndPos)+"class=mr target=_blank>".length();
-				int artistEndPos = httpresponse.indexOf('<',artistStartPos);
-				if ((artistEndPos-artistStartPos) < 2) {
-					artistStartPos = httpresponse.indexOf("text-decoration:underline;\">", artistStartPos)+"text-decoration:underline;\">".length();
-					artistEndPos = httpresponse.indexOf('<', artistStartPos);
-				}
-				mp3.setArtist(httpresponse.substring(artistStartPos, artistEndPos).trim());
-			
-				//获取专辑名称
-				int albumStartPos = httpresponse.indexOf("class=mr target=_blank>", artistEndPos) + "class=mr target=_blank>".length();
-				int albumEndPos = httpresponse.indexOf('<', albumStartPos);
-				if ((albumEndPos-albumStartPos) < 2) {
-					albumStartPos = httpresponse.indexOf("text-decoration:underline;\">", albumStartPos)+"text-decoration:underline;\">".length();
-					albumEndPos = httpresponse.indexOf('<', albumStartPos);
-				}
-				mp3.setAlbum(httpresponse.substring(albumStartPos, albumEndPos).trim());
-				
-				
-				//获取文件大小
-				int sizeStartPos = httpresponse.indexOf("<td align=center>", albumEndPos)+"<td align=center>".length();
-				int sizeEndPos = httpresponse.indexOf('<', sizeStartPos);
-				mp3.setFSize(httpresponse.substring(sizeStartPos, sizeEndPos).trim());
-				
-				//获取链接
-				int linkStartPos = httpresponse.indexOf("window.open('", sizeEndPos)+"window.open('".length();
-				int linkEndPos = httpresponse.indexOf("&ac=", linkStartPos)+"&ac=".length();
-				String request = httpresponse.substring(linkStartPos, linkEndPos);
-				mp3.setLink(request.trim());
-				
-				//获取连接速度
-				int spdStartPos = httpresponse.indexOf("span class=\"spd", sizeEndPos)+"span class=\"spd".length();
-				int spdEndPos = spdStartPos+1;
-				mp3.setRate(httpresponse.substring(spdStartPos, spdEndPos).trim());
-				
-				songs.add(mp3);
-
-
-			}
-			
+    try {
+    	URL url = new URL(urlStr);
+    	HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
+    	urlConn.setRequestProperty("User-Agent", "Apache-HttpClient/UNAVAILABLE (java 1.4)");
+    	urlConn.setConnectTimeout(12000);
+    	urlConn.connect();
+    	
+    	InputStream stream = urlConn.getInputStream();
+		
+    	StringBuilder builder = new StringBuilder(8*1024);
+		
+    	char[] buff = new char[4096];
+    	//必须在此指定编码，否则后面toString会导致乱码
+    	InputStreamReader is = new InputStreamReader(stream,"gb2312");
+		
+  		int len;
+  		while ((len = is.read(buff, 0, 4096)) > 0) {
+  			builder.append(buff, 0, len);
+  		}
+  		urlConn.disconnect();
+  		String httpresponse = builder.toString();
+  		
+  		//Pattern pattern = Pattern.compile("<td class=d><a href=\"([\\s\\S]*?)\" title=\"");
+  		Pattern pattern = Pattern.compile("<a pb=t class=mr style=");
+  		Matcher matcher = pattern.matcher(httpresponse);
+  
+  		//Pattern pattern_artist = Pattern.compile("&si=.*?;;(.*?);;");
+  		int count = 0;
+  		while(matcher.find()) {
+  			
+  			MP3Info mp3 = new MP3Info();
+  			//获取歌曲名
+  			int nameStartPos = httpresponse.indexOf(" title=\"", matcher.start())+" title=\"".length();
+  			int nameEndPos = httpresponse.indexOf('"', nameStartPos);
+  			mp3.setName(httpresponse.substring(nameStartPos, nameEndPos).trim());
+  			
+  			//获取歌手名
+  			int artistStartPos = httpresponse.indexOf("class=mr target=_blank>", nameEndPos)+"class=mr target=_blank>".length();
+  			int artistEndPos = httpresponse.indexOf('<',artistStartPos);
+  			if ((artistEndPos-artistStartPos) < 2) {
+  				artistStartPos = httpresponse.indexOf("text-decoration:underline;\">", artistStartPos)+"text-decoration:underline;\">".length();
+  				artistEndPos = httpresponse.indexOf('<', artistStartPos);
+  			}
+  			mp3.setArtist(httpresponse.substring(artistStartPos, artistEndPos).trim());
+  		
+  			//获取专辑名称
+  			int albumStartPos = httpresponse.indexOf("class=mr target=_blank>", artistEndPos) + "class=mr target=_blank>".length();
+  			int albumEndPos = httpresponse.indexOf('<', albumStartPos);
+  			if ((albumEndPos-albumStartPos) < 2) {
+  				albumStartPos = httpresponse.indexOf("text-decoration:underline;\">", albumStartPos)+"text-decoration:underline;\">".length();
+  				albumEndPos = httpresponse.indexOf('<', albumStartPos);
+  			}
+  			mp3.setAlbum(httpresponse.substring(albumStartPos, albumEndPos).trim());
+  			
+  			
+  			//获取文件大小
+  			int sizeStartPos = httpresponse.indexOf("<td align=center>", albumEndPos)+"<td align=center>".length();
+  			int sizeEndPos = httpresponse.indexOf('<', sizeStartPos);
+  			mp3.setFSize(httpresponse.substring(sizeStartPos, sizeEndPos).trim());
+  			
+  			//获取链接
+  			int linkStartPos = httpresponse.indexOf("window.open('", sizeEndPos)+"window.open('".length();
+  			int linkEndPos = httpresponse.indexOf("&ac=", linkStartPos)+"&ac=".length();
+  			String request = httpresponse.substring(linkStartPos, linkEndPos);
+  			mp3.setLink(request.trim());
+  			
+  			//获取连接速度
+  			int spdStartPos = httpresponse.indexOf("span class=\"spd", sizeEndPos)+"span class=\"spd".length();
+  			int spdEndPos = spdStartPos+1;
+  			mp3.setRate(httpresponse.substring(spdStartPos, spdEndPos).trim());
+  			
+  			songs.add(mp3);
+  			cnt++;
+  			if (limit > 0 && cnt >= limit) {
+  			  break;
+  			}
+  
+  		}
+		
 /*			if((Songs!=null)&&(!Songs.isEmpty())){
 				//免费版添加提示信息，Tao版会添加下一页的link
 				MP3Info mp3Tip = new MP3Info();
 				mp3Tip.bNull = true;
 				mSongs.add(mp3Tip);
 			}*/
-      } catch (Exception e) {
-	        //ShowToastMessage("Network can not connect, please try again.");
-      	return null;
+    } catch (Exception e) {
+        //ShowToastMessage("Network can not connect, please try again.");
+    	return null;
 		}
       return songs;
   }

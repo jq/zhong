@@ -126,7 +126,7 @@ public class SearchList extends BaseList {
       //return MusicUtil.getBiduMp3(url);
     	// for test sogo
       Log.e("sogo", url);
-    	return MusicUtil.getSogoMp3(url);
+    	return MusicUtil.getSogoMp3(url, -1);
     }
     @Override
     protected MP3Info getT(Object obj) {
