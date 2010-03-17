@@ -32,8 +32,13 @@ public class SearchList extends BaseList {
 
   @Override
   public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
-    MP3Info ring = mAdapter.getItem(pos);
-    
+    MP3Info mp3 = mAdapter.getItem(pos);
+    Intent intent = new Intent(this,MusicPage.class);
+    // intent.putExtra("MP3LOC", mMp3Local);
+    intent.putExtra("MP3RATE", mp3.rate);
+    intent.putExtra("MP3SONGER", mp3.artist);
+    intent.putExtra("MP3TITLE", mp3.name);
+    startActivity(intent);
   }
    
   @Override
