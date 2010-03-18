@@ -130,7 +130,6 @@ public class SearchList extends BaseList {
     protected List getListFromUrl(String url, long expire) {
       //return MusicUtil.getBiduMp3(url);
     	// for test sogo
-      Log.e("sogo", url);
     	return MusicUtil.getSogoMp3(url, -1);
     }
     @Override

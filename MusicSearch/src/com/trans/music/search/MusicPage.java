@@ -10,22 +10,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.JSONObject;
-
-import com.trans.music.search.MusicSearch.TrackListAdapter.ViewHolder;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.media.MediaScannerConnection;
 import android.media.MediaScannerConnection.*;
 import android.net.Uri;
 import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
 import android.util.Log;
@@ -99,6 +99,12 @@ public class MusicPage extends Activity implements
     btnDownload = (Button) findViewById(R.id.download);
     btnDownload.setOnClickListener(downloadClick);
 
+    Intent serviceIntent = new Intent(this, MediaPlaybackService.class);
+    startService(serviceIntent);
+        bindService((new Intent()).setClass(this,
+                MediaPlaybackService.class), osc, 0);
+
+    
     mSeekBar = (SeekBar) findViewById(R.id.play_seek_bar);
     mSeekBar.setOnSeekBarChangeListener(this);
     mSeekBar.setMax(1000);
@@ -120,21 +126,13 @@ public class MusicPage extends Activity implements
     ArrayList<HashMap<String, String>> ringlist = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map1 = new HashMap<String, String>();
     HashMap<String, String> map2 = new HashMap<String, String>();
-    // HashMap<String, String> map3 = new HashMap<String, String>();
-    // HashMap<String, String> map4 = new HashMap<String, String>();
     map1.put("ItemTitle", this.getString(R.string.search_more) + " "
         + this.mMp3Songer);
-    // map2.put("ItemTitle", this.getString(R.string.search_more_by) + " " +
-    // author);
-    // map3.put("ItemTitle", this.getString(R.string.search_more_in) + " " +
-    // category);
     map2.put("ItemTitle", this.getString(R.string.search_more) + " "
         + this.mMp3Title);
 
     ringlist.add(map1);
     ringlist.add(map2);
-    // ringlist.add(map3);
-    // ringlist.add(map4);
     SimpleAdapter mSearchOthers = new SimpleAdapter(this, ringlist,
         R.layout.ring_list_item, new String[] { "ItemTitle" },
         new int[] { R.id.ringListItem1 });
@@ -144,8 +142,8 @@ public class MusicPage extends Activity implements
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position,
           long id) {
-        // TODO Auto-generated method stub
         switch (position) {
+        // 0 is the singer name create in before 1 is the title.
         case 0:
           Intent intent1 = new Intent();
           intent1.putExtra(Const.Key, mMp3Songer);
@@ -158,25 +156,48 @@ public class MusicPage extends Activity implements
           intent2.setClass(MusicPage.this, SearchList.class);
           startActivityForResult(intent2, 1);
           return;
-          /*
-           * case 2: Search.getCate(category); return; case 3:
-           * Search.getTitleRing(title); return;
-           */
         }
       }
 
     });
   }
+  @Override
+  protected void onDestroy() {
+  	super.onDestroy();
+    try {
+      if(mService.isPlaying() == true){
+        mService.stop();
+      }
+    } catch (Exception ex) {
+          ;
+    }
+        
+    unbindService(osc);
+  }
+  private IMediaPlaybackService mService = null;
+  private ServiceConnection osc = new ServiceConnection() {
+    public void onServiceConnected(ComponentName classname, IBinder obj) {
+        mService = IMediaPlaybackService.Stub.asInterface(obj);
+    }
+
+    public void onServiceDisconnected(ComponentName classname) {
+	    try {
+	     mService.stop();
+	    } catch (Exception ex) {
+	    }
+
+    }
+};
 
   private OnClickListener mPlayStopListener = new OnClickListener() {
     public void onClick(View v) {
       try {
         if (mPaused == false) {
-          MusicSearch.mService.pause();
+          mService.pause();
           mPlayStop.setImageResource(R.drawable.play);
           mPaused = true;
         } else {
-          MusicSearch.mService.play();
+          mService.play();
           mPlayStop.setImageResource(R.drawable.stop);
           mPaused = false;
           long next = refreshSeekBarNow();
@@ -190,7 +211,7 @@ public class MusicPage extends Activity implements
 
   private long refreshSeekBarNow() {
     try {
-      long pos = MusicSearch.mService.position();
+      long pos = mService.position();
       long remaining = 1000 - (pos % 1000);
       if ((pos >= 0) && (mSongDuration > 0)) {
 
@@ -284,17 +305,17 @@ public class MusicPage extends Activity implements
          public void run(){
              try {
                Log.e("MusicPage","into new thread");
-               MusicSearch.mService.stop();
+               mService.stop();
                Log.e("MusicPage","media service stopped");
-               MusicSearch.mService.openfile(mMp3Local);
+               mService.openfile(mMp3Local);
                Log.e("MusicPage", "media file opened");
                mHandler.sendEmptyMessage(RM_CON_DIALOG);
-               MusicSearch.mService.play();
+               mService.play();
                
                mProgressDialogIsOpen = false;
                SeekBarSetEnalbe(true);
                ButtonsSetEnalbe(true);
-               mSongDuration = MusicSearch.mService.duration();
+               mSongDuration = mService.duration();
 
                long next = refreshSeekBarNow();
                queueNextRefresh(next);
@@ -529,8 +550,8 @@ public class MusicPage extends Activity implements
           // mMp3title = mp3.name;
           // mMp3songer = mp3.artist;
           try {
-            if (MusicSearch.mService.isPlaying() == true) {
-              MusicSearch.mService.pause();
+            if (mService.isPlaying() == true) {
+              mService.pause();
               // mPlayStop.setImageResource(R.drawable.play);
               mPaused = true;
             }
@@ -626,9 +647,9 @@ public class MusicPage extends Activity implements
   public void onStopTrackingTouch(SeekBar seekBar) {
     // TODO Auto-generated method stub
     try {
-      mSongPosition = MusicSearch.mService.position();
+      mSongPosition = mService.position();
       long position = (mSongDuration * mSongProgress) / 1000;
-      MusicSearch.mService.seek(position);
+      mService.seek(position);
     } catch (Exception ex) {
       ;
     }
@@ -760,103 +781,4 @@ public class MusicPage extends Activity implements
     mScanner.connect();
 
   }
-  /*
-   * // public class TrackListAdapter extends BaseAdapter {
-   * 
-   * private ArrayList<String> mMp3Title = new ArrayList<String>(); private
-   * LayoutInflater mInflater;
-   * 
-   * public TrackListAdapter(Context c) { mContext = c; mInflater =
-   * LayoutInflater.from(c); }
-   * 
-   * public int getCount() { //return mPhotos.size(); //return
-   * mMp3entries.length(); return mSongs.size(); }
-   * 
-   * public Object getItem(int position) { return position; }
-   * 
-   * public long getItemId(int position) { return position; }
-   * 
-   * public View getView(int position, View convertView, ViewGroup parent) {
-   * ViewHolder holder;
-   * 
-   * if (convertView == null) { convertView =
-   * mInflater.inflate(R.layout.track_list_item, null);
-   * 
-   * // Creates a ViewHolder and store references to the two children views //
-   * we want to bind data to. holder = new ViewHolder();
-   * 
-   * ImageView iv = (ImageView) convertView.findViewById(R.id.icon);
-   * iv.setVisibility(View.GONE);
-   * 
-   * holder.line1 = (TextView) convertView.findViewById(R.id.line1);
-   * holder.line2 = (TextView) convertView.findViewById(R.id.line2);
-   * holder.duration = (TextView) convertView.findViewById(R.id.duration);
-   * holder.play_indicator = (ImageView)
-   * convertView.findViewById(R.id.play_indicator);
-   * 
-   * convertView.setTag(holder); } else { // Get the ViewHolder back to get fast
-   * access to the TextView // and the ImageView. holder = (ViewHolder)
-   * convertView.getTag(); }
-   * 
-   * try{ // Bind the data efficiently with the holder. MP3Info mp3 =
-   * mSongs.get(position);
-   * 
-   * if(mp3.bNull){ holder.line1.setText("# Upgrade to \"MusicSearch Pro\" #");
-   * holder.line2.setText(" Pro can get more results\n and search faster");
-   * holder.duration.setText(""); }else{
-   * 
-   * String mp3tile = mp3.name; String songer = mp3.artist; String album =
-   * mp3.album; String size = mp3.fsize;
-   * 
-   * holder.duration.setText(size);
-   * 
-   * String songinfo = new String("");
-   * 
-   * holder.line1.setText(mp3tile);
-   * 
-   * if(album.length() > 1) songinfo = songinfo + album; else songinfo =
-   * songinfo + new String("Unknown album");
-   * 
-   * songinfo = songinfo + new String("\n");
-   * 
-   * if(songer.length() > 1) songinfo = songinfo + songer; else songinfo =
-   * songinfo + new String("Unknown artist");
-   * 
-   * 
-   * holder.line2.setText(songinfo);
-   * 
-   * ImageView iv = holder.play_indicator; try{ Log.e("MusicSearch",
-   * "play_indicator: " + mSearchResultMp3index + " - " + position +
-   * " playing:  " + mService.isPlaying() ); if((mSearchResultMp3index ==
-   * position) && (mService.isPlaying() == true)){
-   * iv.setImageResource(R.drawable.indicator_ic_mp_playing_list);
-   * iv.setVisibility(View.VISIBLE); Log.e("MusicSearch",
-   * "play_indicator: true"); }else{
-   * //iv.setImageResource(R.drawable.indicator_ic_mp_playing_list);
-   * //iv.setVisibility(View.VISIBLE); iv.setVisibility(View.GONE);
-   * Log.e("MusicSearch", "play_indicator: false"); } } catch (Exception ex) { ;
-   * } } }catch(Exception e) { e.printStackTrace(); }
-   * 
-   * return convertView;
-   * 
-   * 
-   * 
-   * }
-   * 
-   * 
-   * class ViewHolder { TextView line1; TextView line2; TextView duration;
-   * TextView size; ImageView play_indicator;
-   * 
-   * }
-   * 
-   * private Context mContext;
-   * 
-   * public void clear() { mMp3Title.clear(); notifyDataSetChanged(); }
-   * 
-   * public void add(String name) {
-   * 
-   * mMp3Title.add(name); notifyDataSetChanged(); }
-   * 
-   * }
-   */
 }

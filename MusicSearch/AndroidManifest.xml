@@ -41,14 +41,6 @@
                        android:resource="@xml/searchable" />
      	</activity>
 
-        <activity android:name=".MusicSearch" android:label="Search Results:"
-                  android:configChanges="keyboardHidden|orientation"
-				  >
-            <intent-filter>
-              <action android:name="android.intent.action.SEARCH" />
-              <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-     	</activity>
      	<activity android:name=".online" android:label="MusicSearch : Bookmark">
      	</activity>
         <activity android:name=".local" android:label="MusicSearch : Local"
@@ -101,7 +93,6 @@
 				  >
      	</activity>       	
      	<service android:name="MediaPlaybackService" android:exported="true" />
-        <service android:name=".DownloadService" />
         
                <activity android:name="com.ringdroid.RingdroidSelectActivity" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">

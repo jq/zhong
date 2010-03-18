@@ -100,10 +100,9 @@ public class YahooTop extends Activity {
 					JSONObject mp3 = mFeedentries.getJSONObject(position);			
 					final String key = mp3.getString("keyword");
 
-	                Intent intent = new Intent();
-					intent.putExtra("query", key);
-					intent.putExtra("search", true);
-	            	intent.setClass(YahooTop.this, MusicSearch.class);
+	        Intent intent = new Intent();
+					intent.putExtra(Const.Key, key);
+	        intent.setClass(YahooTop.this, SearchList.class);
 					startActivity(intent);	
 
 					/*

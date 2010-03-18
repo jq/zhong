@@ -86,10 +86,9 @@ public class Artist extends Activity {
         mTopTracksList.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {    
 				if(position > 1){
-	                Intent intent = new Intent();
-					intent.putExtra("query", mTopTracks.get(position - 2));
-					intent.putExtra("search", true);
-	            	intent.setClass(Artist.this, MusicSearch.class);
+	        Intent intent = new Intent();
+					intent.putExtra(Const.Key, mTopTracks.get(position - 2));
+	        intent.setClass(Artist.this, SearchList.class);
 					startActivity(intent);	
 				}
             }

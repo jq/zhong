@@ -131,7 +131,6 @@ public class paypal extends Activity {
 						    	}catch(IOException e) {
 									e.printStackTrace();
 								} 
-								MusicSearch.mDonateFlag = 1;
 								ShowProgressDialog();
 								
 							}else

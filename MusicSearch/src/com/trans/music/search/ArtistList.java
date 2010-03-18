@@ -17,9 +17,6 @@ import android.graphics.Bitmap;
 
 import com.admob.android.ads.*;
 
-/**
- * 歌手名列表，被Feature和Category调用
- */
 public class ArtistList extends Activity {
 	
     private WebView mWebView = null;
