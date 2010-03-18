@@ -121,9 +121,9 @@ public class MusicUtil {
     return songs;
   }
   
-  public static final String SogouSearchBase = "http://mp3.sogou.com/music.so?pf=mp3&as=&st=&ac=1&w=02009900&query=";
+  //public static final String //SogouSearchBase = "http://mp3.sogou.com/music.so?pf=mp3&as=&st=&ac=1&w=02009900&query=";
   //http://mp3.sogou.com/music.so?pf=&as=&st=&ac=1&w=02009900&query=
-  // "http://mp3.sogou.com/music.so?pf=mp3&query=";
+  public static final String  SogouSearchBase = "http://mp3.sogou.com/music.so?pf=mp3&query=";
   public static String getSogouLinks(String key) {
     return SogouSearchBase + key;
   }
@@ -137,7 +137,7 @@ public class MusicUtil {
     int cnt = 0;
 	  ArrayList<MP3Info> songs = new ArrayList<MP3Info>();
     try {
-    	URL url = new URL(urlStr);
+    	URL url = new URL(urlStr.replace(' ', '+'));
     	HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
     	urlConn.setRequestProperty("User-Agent", "Apache-HttpClient/UNAVAILABLE (java 1.4)");
     	urlConn.setConnectTimeout(12000);
@@ -173,13 +173,12 @@ public class MusicUtil {
   			mp3.setName(httpresponse.substring(nameStartPos, nameEndPos).trim());
   			
   			//获取歌手名
+  			String singer = "";
   			int artistStartPos = httpresponse.indexOf("class=mr target=_blank>", nameEndPos)+"class=mr target=_blank>".length();
-  			int artistEndPos = httpresponse.indexOf('<',artistStartPos);
-  			if ((artistEndPos-artistStartPos) < 2) {
-  				artistStartPos = httpresponse.indexOf("text-decoration:underline;\">", artistStartPos)+"text-decoration:underline;\">".length();
-  				artistEndPos = httpresponse.indexOf('<', artistStartPos);
-  			}
-  			mp3.setArtist(httpresponse.substring(artistStartPos, artistEndPos).trim());
+  			int artistEndPos = httpresponse.indexOf("</a>",artistStartPos);
+  			singer = httpresponse.substring(artistStartPos, artistEndPos);
+  			singer.replaceAll("<*>", " ");
+  			mp3.setArtist(singer.trim());
   		
   			//获取专辑名称
   			int albumStartPos = httpresponse.indexOf("class=mr target=_blank>", artistEndPos) + "class=mr target=_blank>".length();
