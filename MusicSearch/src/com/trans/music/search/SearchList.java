@@ -36,22 +36,22 @@ public class SearchList extends BaseList {
   public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
     MP3Info mp3 = mAdapter.getItem(pos);
     Intent intent = new Intent(this,MusicPage.class);
-    // intent.putExtra("MP3LOC", mMp3Local);
-    String mp3Link = "";
-	try {
-	  mp3Link = MusicUtil.getLink(mp3.getLink());
-	} catch (IOException e) {
-	  // TODO Auto-generated catch block
-	  Toast.makeText(this, R.string.no_result, Toast.LENGTH_SHORT).show();
-	  return;
-	}
-	float rate = (float)((Double.parseDouble(mp3.rate)/6.0)*5.0);
-	Log.e("rate_ori:", mp3.rate);
-	intent.putExtra("MP3RATE", ((Float)rate).toString());
-    intent.putExtra("MP3LOC", mp3Link);
-    intent.putExtra("MP3TITLE", mp3.name);
-    intent.putExtra("MP3SONGER", mp3.artist);
-    startActivity(intent);
+    String mp3Link = null;
+  	try {
+  	  mp3Link = MusicUtil.getLink(mp3.getLink());
+  	} catch (IOException e) {
+  	}
+  	
+  	if (mp3Link == null) {
+      Toast.makeText(this, R.string.no_result, Toast.LENGTH_SHORT).show();
+      return;
+  	}
+  	float rate = (float)((Double.parseDouble(mp3.rate)/6.0)*5.0);
+  	Log.e("rate_ori:", mp3.rate);
+  	intent.putExtra(Const.MP3RATE, ((Float)rate).toString());
+    intent.putExtra(Const.MP3LOC, mp3Link);
+    intent.putExtra(Const.MP3TITLE, mp3.name);
+    intent.putExtra(Const.MP3SONGER, mp3.artist);
     startActivity(intent);
   }
    

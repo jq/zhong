@@ -81,10 +81,10 @@ public class MusicPage extends Activity implements
   AlertDialog mAPPDownload;
 
   private void getMediaInfo(Intent intent) {
-    mMp3Local = intent.getStringExtra("MP3LOC");
-    mMp3Title = intent.getStringExtra("MP3TITLE");
-    mMp3Songer = intent.getStringExtra("MP3SONGER");
-    mRate = Float.parseFloat(intent.getStringExtra("MP3RATE"));
+    mMp3Local = intent.getStringExtra(Const.MP3LOC);
+    mMp3Title = intent.getStringExtra(Const.MP3TITLE);
+    mMp3Songer = intent.getStringExtra(Const.MP3SONGER);
+    mRate = Float.parseFloat(intent.getStringExtra(Const.MP3RATE));
   }
 
   @Override

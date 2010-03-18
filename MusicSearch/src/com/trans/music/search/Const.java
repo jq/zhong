@@ -6,6 +6,11 @@ import com.feebe.lib.EndlessUrlArrayAdapter;
 
 public class Const extends com.feebe.lib.Const{
   public static final String Key = "key";
+  public static final String MP3LOC = "MP3LOC";
+  public static final String MP3TITLE = "MP3TITLE";
+  public static final String MP3SONGER = "MP3SONGER";
+  public static final String MP3RATE = "MP3RATE";
+  
   public static void init(Context c) {
     no_sd = R.string.no_sd;
     com.feebe.lib.Const.init(c);
