@@ -80,6 +80,7 @@ public class BbHotChart extends Activity {
 		String hottype = extras.getString("type");
 
 		mRequestUrl = urlString + hottype + "/";
+		Log.e("BbHotChart", mRequestUrl);
 		
 		try{
 			mFeedentries = new JSONArray();
