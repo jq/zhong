@@ -1,5 +1,6 @@
 package com.trans.music.search;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.feebe.lib.BaseList;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
+import android.widget.Toast;
 
 public class SearchList extends BaseList {
   private final static String TAG = "SearchList";
@@ -35,9 +37,19 @@ public class SearchList extends BaseList {
     MP3Info mp3 = mAdapter.getItem(pos);
     Intent intent = new Intent(this,MusicPage.class);
     // intent.putExtra("MP3LOC", mMp3Local);
-    intent.putExtra("MP3RATE", mp3.rate);
-    intent.putExtra("MP3SONGER", mp3.artist);
+    String mp3Link = "";
+	try {
+	  mp3Link = MusicUtil.getLink(mp3.getLink());
+	} catch (IOException e) {
+	  // TODO Auto-generated catch block
+	  Toast.makeText(this, R.string.no_result, Toast.LENGTH_SHORT).show();
+	  return;
+	}
+	intent.putExtra("MP3RATE", mp3.rate);
+    intent.putExtra("MP3LOC", mp3Link);
     intent.putExtra("MP3TITLE", mp3.name);
+    intent.putExtra("MP3SONGER", mp3.artist);
+    startActivity(intent);
     startActivity(intent);
   }
    

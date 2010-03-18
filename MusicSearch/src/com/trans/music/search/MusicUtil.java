@@ -228,7 +228,7 @@ public class MusicUtil {
       return songs;
   }
 
-	private static String getLink(String request) throws IOException {
+	public static String getLink(String request) throws IOException {
 		request = "http://mp3.sogou.com" + request;
     	URL url = new URL(request);
     	HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
