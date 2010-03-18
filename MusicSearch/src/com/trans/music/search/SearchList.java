@@ -45,7 +45,9 @@ public class SearchList extends BaseList {
 	  Toast.makeText(this, R.string.no_result, Toast.LENGTH_SHORT).show();
 	  return;
 	}
-	intent.putExtra("MP3RATE", mp3.rate);
+	float rate = (float)((Double.parseDouble(mp3.rate)/6.0)*5.0);
+	Log.e("rate_ori:", mp3.rate);
+	intent.putExtra("MP3RATE", ((Float)rate).toString());
     intent.putExtra("MP3LOC", mp3Link);
     intent.putExtra("MP3TITLE", mp3.name);
     intent.putExtra("MP3SONGER", mp3.artist);

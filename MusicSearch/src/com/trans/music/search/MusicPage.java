@@ -38,6 +38,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -62,6 +63,7 @@ public class MusicPage extends Activity implements
   String mMp3Local;
   String mMp3Songer;
   String mMp3Title;
+  float mRate;
   String m_CurDownloadFile;
   Button btnPreview;
   Button btnDownload;
@@ -82,7 +84,7 @@ public class MusicPage extends Activity implements
     mMp3Local = intent.getStringExtra("MP3LOC");
     mMp3Title = intent.getStringExtra("MP3TITLE");
     mMp3Songer = intent.getStringExtra("MP3SONGER");
-
+    mRate = Float.parseFloat(intent.getStringExtra("MP3RATE"));
   }
 
   @Override
@@ -121,7 +123,10 @@ public class MusicPage extends Activity implements
     ((TextView) findViewById(R.id.row_artist)).setText(this
         .getString(R.string.artist)
         + mMp3Songer);
-
+    RatingBar rb = ((RatingBar) findViewById(R.id.row_small_ratingbar));
+    rb.setIsIndicator(false);
+    rb.setRating(mRate);
+    
     listSearchOthers = (ListView) findViewById(R.id.list_searchOthers);
     ArrayList<HashMap<String, String>> ringlist = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map1 = new HashMap<String, String>();
