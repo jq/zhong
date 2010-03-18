@@ -8,7 +8,10 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.TabActivity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -77,7 +80,7 @@ public class Home extends TabActivity implements OnTabChangeListener{
       startSearch(this.getString(R.string.search_hint), true, null, false);
       return true;
     case R.id.menu_local:
-      startActivity(new Intent(this, local.class));
+    	loadDefaultMusicApp();
       return true;
     case R.id.menu_help:
       startActivity(new Intent(this, help.class));
@@ -92,4 +95,15 @@ public class Home extends TabActivity implements OnTabChangeListener{
     return super.onOptionsItemSelected(item);
     }
 
+  private void loadDefaultMusicApp() {
+		try {
+			Intent intent = new Intent();
+			intent.setClassName("com.android.music",
+					"com.android.music.MusicBrowserActivity");
+			startActivity(intent);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+  }
+  
 }
