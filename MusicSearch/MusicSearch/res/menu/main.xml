@@ -1,6 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_download"
-        android:title="Save to SDCard"
-        android:icon="@drawable/ic_menu_save"
-         />       
-</menu>
