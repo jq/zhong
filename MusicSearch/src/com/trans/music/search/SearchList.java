@@ -34,7 +34,12 @@ public class SearchList extends BaseList {
 
   @Override
   public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
-    MP3Info mp3 = mAdapter.getItem(pos);
+    MP3Info mp3;
+    try {
+      mp3 = mAdapter.getItem(pos);
+    } catch (Exception e) {
+      return;
+    }
     Intent intent = new Intent(this,MusicPage.class);
     String mp3Link = null;
   	try {
@@ -101,6 +106,7 @@ public class SearchList extends BaseList {
     public void reset() {
       lastCnt = 0;
       if (reloadUrl != null && Util.inCache(reloadUrl, Const.OneWeek)) {
+        // Log.e("incache", "cache?");
         keepOnAppending = false;
         runSyn(reloadUrl, Const.OneWeek);
         finishLoading();
@@ -133,12 +139,13 @@ public class SearchList extends BaseList {
     }
     @Override
     protected void finishLoading() {
+      // Log.e("finishLoading", "cont " + super.getCount() + " last " + lastCnt);
       if (lastCnt + DEFAULT_RESULT > super.getCount()) {
-        //Log.e("finishLoading", "cont " + super.getCount() + " last " + lastCnt);
         keepOnAppending = false;
       } else {
         fetchMoreResult();
       }
+      lastCnt = super.getCount();
     }
     @Override
     protected List getListFromUrl(String url, long expire) {

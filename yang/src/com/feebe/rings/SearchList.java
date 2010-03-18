@@ -78,7 +78,12 @@ public void onCreateContextMenu(ContextMenu menu, View v,
 
   @Override
   public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
-    SearchResult ring = mAdapter.getItem(pos);
+    SearchResult ring;
+    try {
+      ring = mAdapter.getItem(pos);
+    } catch (Exception e) {
+      return;
+    }
     Search.startRing(Search.getRingUrl(ring.key));
   }
   
@@ -237,6 +242,7 @@ public void onCreateContextMenu(ContextMenu menu, View v,
       } else {
         fetchMoreResult();
       }
+      lastCnt = super.getCount();
     }
     @Override
     protected List getListFromUrl(String url, long expire) {

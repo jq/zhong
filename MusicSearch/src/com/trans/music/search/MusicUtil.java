@@ -224,7 +224,8 @@ public class MusicUtil {
         //ShowToastMessage("Network can not connect, please try again.");
     	return null;
 		}
-      return songs;
+    Log.e("song size", "" + songs.size());  
+    return songs;
   }
 
 	public static String getLink(String request) throws IOException {
