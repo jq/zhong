@@ -1,0 +1,229 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res/com.feebe.rings"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  
+  <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/linearLayout1"
+	android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+  
+     
+   <RatingBar android:id="@+id/row_small_ratingbar"
+         style="?android:attr/ratingBarStyleSmall"
+         android:numStars="5"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="20dip"
+         android:layout_marginBottom="20dip"
+         android:layout_gravity="center_horizontal" 
+         android:layout_alignParentRight="true"/>
+
+
+
+</RelativeLayout>
+
+<LinearLayout
+	  xmlns:android="http://schemas.android.com/apk/res/android"
+	  android:id="@+id/detailLayout2"
+	  android:layout_width="fill_parent"
+	  android:layout_height="wrap_content"
+	  android:gravity="center_horizontal" 
+	  android:orientation="vertical"
+	  android:layout_alignParentBottom="true"
+	  android:layout_alignBottom="@layout/music_display"
+	  
+	  >
+	  <LinearLayout android:id="@+id/viewSeek"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >         
+          <ImageView android:id="@+id/play_stop"
+            	android:layout_width="0dip"
+            	android:layout_height="fill_parent"
+            	android:layout_weight="1"
+            	android:src="@drawable/play"
+            	/>  
+            	    
+        <SeekBar android:id="@+id/play_seek_bar"
+        	android:layout_width="0dip"
+        	android:layout_height="wrap_content"
+        	android:max="1000"
+        	android:progress="0"
+        	android:secondaryProgress="0" 
+        	android:layout_weight="9"
+        	/>
+     </LinearLayout>   	 
+
+     <LinearLayout
+     android:orientation="horizontal" 
+     android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        
+	  <Button android:text="Preview" 
+	    		android:id="@+id/preview" 
+	    		android:layout_width="wrap_content" 
+	    		android:layout_height="wrap_content">
+	    		</Button>
+	  
+	  <Button android:text="Download" 
+	    		android:id="@+id/download" 
+	    		android:layout_width="wrap_content" 
+	    		android:layout_height="wrap_content">
+	    		</Button>
+	  <Button android:text="Queue" 
+	    		android:id="@+id/queue" 
+	    		android:layout_width="wrap_content" 
+	    		android:layout_height="wrap_content">
+	    		</Button>
+
+		
+				/>
+ </LinearLayout>
+	  </LinearLayout>
+	  
+	  <LinearLayout 
+	  	android:id="@+id/AdsView" 
+	  	android:layout_width="fill_parent"
+	   	android:layout_height="wrap_content"
+	   	android:layout_above="@id/detailLayout2"
+	   />
+	        
+	<ScrollView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/linearLayout1"
+	    android:layout_above="@id/AdsView"
+			>
+			
+	  <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >   
+        
+	    <LinearLayout
+	    		android:id="@+id/layoutMyReview"
+	    		android:visibility="gone"
+	        android:orientation="vertical"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content">
+
+				<View
+			        android:layout_height="1dip"
+			        android:layout_width="fill_parent"
+			        android:background="#FF909090" />		        
+		        <TextView
+		            android:text="@string/myreview"
+	            	android:textSize="11sp"
+		            android:background="#0c212b"
+		            android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:textStyle="bold"
+	                />
+				<View
+			        android:layout_height="1dip"
+			        android:layout_width="fill_parent"
+			        android:background="#FF909090" />	                
+	                
+	            <RatingBar android:id="@+id/ratingBar" 
+	            		android:numStars="5"
+        				android:layout_width="wrap_content"
+        				android:layout_height="wrap_content" /> 
+
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	    		android:id="@+id/Info"
+	        android:orientation="vertical"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content">
+
+				<View
+			        android:layout_height="1dip"
+			        android:layout_width="wrap_content"
+			        android:background="#FF909090" />		        
+		        <TextView
+		            android:text="@string/info"
+		            android:background="#0c212b"
+		            android:textSize="11sp"
+		            
+		            android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:textStyle="bold"
+	                />
+				<View
+			        android:layout_height="1dip"
+			        android:layout_width="wrap_content"
+			        android:background="#FF909090" />	                
+	                
+	            <TextView android:id="@+id/info_text" 
+	            	android:textSize="12sp"
+	            	android:layout_marginLeft="12dip"
+	            	android:layout_marginTop="4dip"
+	              android:layout_marginBottom="4dip"
+        				android:layout_width="wrap_content"
+        				android:layout_height="wrap_content" /> 
+			
+				
+				<TextView android:id="@+id/row_artist"
+         android:textColor="#ff99ff"
+         android:textSize="14sp"
+         android:layout_marginLeft="1dip"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_weight="1"
+         android:singleLine="true"/>
+         
+         <TextView android:id="@+id/row_title"
+        android:textColor="#ffffff"
+        android:textSize="14sp"
+        android:layout_marginLeft="1dip"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_weight="1"
+         android:singleLine="true"/>
+					    </LinearLayout>
+	    
+		 
+	    <LinearLayout
+	        android:orientation="vertical"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        >
+		        
+				<View
+			        android:layout_height="1dip"
+			        android:layout_width="wrap_content"
+			        android:background="#FF909090" />		        
+		        <TextView 
+		        	android:id="@+id/about_ringtone"
+		            android:text="@string/about"
+	            	android:textSize="11sp"
+		            android:background="#0c212b"
+		            android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:textStyle="bold"
+	                />
+				<View
+			        android:layout_height="1dip"
+			        android:layout_width="wrap_content"
+			        android:background="#FF909090" />	
+			   <ListView android:layout_width="fill_parent"    
+		                  android:layout_height="180dip"    
+		                  android:id="@+id/list_searchOthers">  
+		        </ListView>  
+		        
+	    </LinearLayout>
+		
+
+	 </LinearLayout>
+
+
+</ScrollView>
+  </RelativeLayout>

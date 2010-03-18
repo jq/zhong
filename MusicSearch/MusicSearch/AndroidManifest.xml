@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.trans.music.search"
+      android:versionCode="43" android:versionName="1.6.9">
+      <uses-sdk android:minSdkVersion="3" />   
+    <application android:icon="@drawable/icon" android:label="@string/app_name">
+        <activity android:name="Home"
+                  android:label="@string/app_name"
+                  android:configChanges="keyboardHidden|orientation"
+				  android:launchMode="singleTop" android:alwaysRetainTaskState="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="StringList" android:label="Search Results:"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+            <intent-filter>
+              <action android:name="android.intent.action.SEARCH" />
+              <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+     	</activity>
+        <activity android:name="SearchTab" android:label="Search Results:"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+            <intent-filter>
+              <action android:name="android.intent.action.SEARCH" />
+              <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+     	</activity>
+
+        <activity android:name="SearchList" android:label="Search Results:"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+            <intent-filter>
+              <action android:name="android.intent.action.SEARCH" />
+              <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                       android:resource="@xml/searchable" />
+     	</activity>
+
+        <activity android:name=".MusicSearch" android:label="Search Results:"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+            <intent-filter>
+              <action android:name="android.intent.action.SEARCH" />
+              <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+     	</activity>
+     	<activity android:name=".online" android:label="MusicSearch : Bookmark">
+     	</activity>
+        <activity android:name=".local" android:label="MusicSearch : Local"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+     	</activity>
+        <activity android:name=".help" android:label="MusicSearch : Help">
+     	</activity>
+     	<activity android:name=".paypal" android:label="MusicSearch : Donate"
+     	          android:configChanges="keyboardHidden|orientation">
+     	</activity>
+        <activity android:name=".YahooTop" android:label="Yahoo Top Songs"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+     	</activity>          	
+        <activity android:name=".SingerLibrary" android:label="Singer Library"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+     	</activity>    
+        <activity android:name=".SLMale" android:label="Singer Library: Male Artist"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+     	</activity>    
+        <activity android:name=".SLFemale" android:label="Singer Library: Female Artist"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+     	</activity>    
+     	<activity android:name=".SLBand" android:label="Singer Library: Band"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+     	</activity>  
+     	<activity android:name=".Artist" android:label="Artist Information"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+     	</activity>      	
+     	<activity android:name=".BbHotChart" android:label="The most popular songs"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+     	</activity>       
+     	<activity android:name=".Lyric" android:label="Lyric"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+     	</activity>       		     	     	   	
+        <activity android:name=".ArtistList" android:label="Mobile Ringtones"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+     	</activity>   
+        <activity android:name=".RDetail" android:label="Ringtone Detail"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+     	</activity>       	
+     	<service android:name="MediaPlaybackService" android:exported="true" />
+        <service android:name=".DownloadService" />
+        
+               <activity android:name="com.ringdroid.RingdroidSelectActivity" android:label=""
+                  android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+                <data android:mimeType="audio/*" />
+            </intent-filter>
+                  
+        </activity>
+        <activity android:name="com.ringdroid.RingdroidEditActivity"
+                  android:configChanges="orientation|keyboardHidden">
+            <intent-filter android:label="@string/edit_intent">
+                <action android:name="android.intent.action.EDIT" />
+                <data android:mimeType="audio/*" />
+            </intent-filter>
+        </activity>
+
+	<!-- Activity for choosing a contact to assign a ringtone to. -->
+        <activity android:name="com.ringdroid.ChooseContactActivity"
+                  android:configChanges="orientation|keyboardHidden">
+        </activity>
+
+        
+        
+		<!-- The application's publisher ID assigned by AdMob -->
+        <meta-data android:value="a14a2dd1be8b781" android:name="ADMOB_PUBLISHER_ID" />
+        
+        <meta-data android:name="android.app.default_searchable"
+                   android:value=".SearchList" />
+        <!-- Provides search suggestions . -->
+        <provider android:name="Search"
+                android:authorities="musicsearch"
+                android:syncable="false" />
+        
+    <activity android:name="MusicPage"></activity>
+</application>
+
+	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.WRITE_SETTINGS" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+</manifest> 
