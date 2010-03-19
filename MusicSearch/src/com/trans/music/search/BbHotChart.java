@@ -101,6 +101,7 @@ public class BbHotChart extends Activity {
 					final String key = mp3.getString("keyword");
 					
 	        Intent intent = new Intent();
+	        Log.e("key", key);
 					intent.putExtra(Const.Key, key);
 	        intent.setClass(BbHotChart.this, SearchList.class);
 					startActivity(intent);	

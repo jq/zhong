@@ -49,12 +49,8 @@ public class MusicPage extends Activity implements
     SeekBar.OnSeekBarChangeListener {
   boolean mTrackAdapterCreated = false;
   SeekBar mSeekBar;
-  static final int SEARCHING = 1;
   static final int CONNECTING = 2;
   static final int DOWNLOAD_MP3FILE = 3;
-  static final int DOWNLOAD_PRO = 4;
-  static final int DOWNLOAD_APP = 5;
-  static final int DONATE_APP = 6;
   static final int CONNECT_ERROR = 7;
   boolean mProgressDialogIsOpen = false;
   int mSongProgress;
@@ -72,13 +68,10 @@ public class MusicPage extends Activity implements
   private static final int RM_CON_DIALOG = 2;
   private ImageView mPlayStop;
   private ListView listSearchOthers;
-  private TextView infoText;
-  private UserTask<?, ?, ?> mTask;
   ProgressDialog mProgressDialog, mProgressDialogSearch,
       mProgressDialogPrepare, mProgressDownload;
   private String SavedPath = "/sdcard/MusicSearch";
   MediaScannerConnection mScanner;
-  AlertDialog mAPPDownload;
 
   private void getMediaInfo(Intent intent) {
     mMp3Local = intent.getStringExtra(Const.MP3LOC);
@@ -274,12 +267,6 @@ public class MusicPage extends Activity implements
   private void ButtonsSetEnalbe(final boolean enable) {
     this.runOnUiThread(new Runnable() {
       public void run() {
-        /*
-         * mButtonPlayStop.setEnabled(enable);
-         * mButtonAddOnline.setEnabled(enable); if(enable == true){
-         * if(mHasSDCard == true) mButtonAddLocal.setEnabled(true); }else
-         * mButtonAddLocal.setEnabled(enable);
-         */
         mPlayStop.setEnabled(true);
         mPlayStop.setImageResource(R.drawable.stop);
 
@@ -341,14 +328,6 @@ public class MusicPage extends Activity implements
    
   protected Dialog onCreateDialog(int id) {
     switch (id) {
-    case SEARCHING: {
-      mProgressDialogSearch = new ProgressDialog(MusicPage.this);
-      mProgressDialogSearch.setMessage("Please wait while searching...");
-      mProgressDialogSearch.setIndeterminate(true);
-      mProgressDialogSearch.setCancelable(true);
-      mProgressDialogIsOpen = true;
-      return mProgressDialogSearch;
-    }
     case CONNECTING: {
       mProgressDialog = new ProgressDialog(MusicPage.this);
       mProgressDialog.setMessage("Please wait while connect...");
@@ -376,67 +355,6 @@ public class MusicPage extends Activity implements
       return mProgressDownload;
     }
 
-    case DOWNLOAD_PRO: {
-      String ver = android.os.Build.VERSION.SDK;
-      if (ver.compareTo(new String("3")) == 0) {
-        mAPPDownload = new AlertDialog.Builder(this)
-            .setIcon(R.drawable.icon)
-            .setTitle("Download MusicSearchPro")
-            .setMessage(
-                "If you want continue to use this app, you should download MusicSearchPro! Or Ignore it to search music once a day .")
-            .setPositiveButton("Download",
-                new DialogInterface.OnClickListener() {
-                  public void onClick(DialogInterface dialog, int whichButton) {
-
-                    Intent intent = new Intent(
-                        Intent.ACTION_VIEW,
-                        Uri
-                            .parse("market://search?q=pname:com.trans.music.searchpro"));
-                    startActivity(intent);
-                  }
-                }).setNegativeButton("Ignore",
-                new DialogInterface.OnClickListener() {
-                  public void onClick(DialogInterface dialog, int whichButton) {
-                    /*
-                     * Intent intent = new Intent( Intent.ACTION_VIEW,
-                     * Uri.parse(
-                     * "market://search?q=pname:com.transcoder.music.searchpro"
-                     * )); startActivity(intent);
-                     */
-
-                  }
-                }).create();
-      } else {
-        mAPPDownload = new AlertDialog.Builder(MusicPage.this)
-            .setIcon(R.drawable.icon)
-            .setTitle("Download MusicSearchPro")
-            .setMessage(
-                "If you want continue to use this app, you should download MusicSearchPro! Or Ignore it to search music once a day .")
-            .setPositiveButton("Download",
-                new DialogInterface.OnClickListener() {
-                  public void onClick(DialogInterface dialog, int whichButton) {
-
-                    Intent intent = new Intent(
-                        Intent.ACTION_VIEW,
-                        Uri
-                            .parse("market://search?q=pname:com.trans.music.searchpro"));
-                    startActivity(intent);
-                  }
-                }).setNegativeButton("Ignore",
-                new DialogInterface.OnClickListener() {
-                  public void onClick(DialogInterface dialog, int whichButton) {
-                    /*
-                     * Intent intent = new Intent( Intent.ACTION_VIEW,
-                     * Uri.parse(
-                     * "market://search?q=pname:com.transcoder.music.searchpro"
-                     * )); startActivity(intent);
-                     */
-
-                  }
-                }).create();
-      }
-      return mAPPDownload;
-    }
     case CONNECT_ERROR: {
       return new AlertDialog.Builder(MusicPage.this).setIcon(R.drawable.icon)
           .setTitle("Connect error ! ").setMessage(
@@ -448,89 +366,6 @@ public class MusicPage extends Activity implements
                 }
               }).create();
 
-    }
-      // download app
-    case DOWNLOAD_APP: {/*
-                         * try { JSONObject feed =
-                         * mFeedentries.getJSONObject(mFeedindex); final String
-                         * uriString = feed.getString("uri"); final String
-                         * descript = feed.getString("descript"); final String
-                         * name = feed.getString("name");
-                         * 
-                         * mAPPDownload = new AlertDialog.Builder(this)
-                         * .setIcon(R.drawable.icon) .setTitle("Download " +
-                         * name) .setMessage(descript)
-                         * .setPositiveButton("Download", new
-                         * DialogInterface.OnClickListener() { public void
-                         * onClick(DialogInterface dialog, int whichButton) {
-                         * 
-                         * Intent intent = new Intent( Intent.ACTION_VIEW,
-                         * Uri.parse(uriString)); startActivity(intent); }
-                         * }).setNegativeButton("Ignore", new
-                         * DialogInterface.OnClickListener() { public void
-                         * onClick(DialogInterface dialog, int whichButton) {
-                         * mAPPDownload.dismiss(); } }).create();
-                         * 
-                         * 
-                         * mAPPDownload = (AlertDialog)new
-                         * AlertDialog.Builder(this);
-                         * mAPPDownload.setIcon(R.drawable.icon);
-                         * mAPPDownload.setTitle("Download " + name);
-                         * mAPPDownload.setMessage(descript);
-                         * mAPPDownload.setCancelable(true);
-                         * mAPPDownload.setButton("Download", new
-                         * DialogInterface.OnClickListener() { public void
-                         * onClick(DialogInterface dialog, int whichButton) {
-                         * Intent intent = new Intent( Intent.ACTION_VIEW,
-                         * Uri.parse(uriString)); startActivity(intent); } });
-                         * 
-                         * return mAPPDownload; }catch (Exception e){
-                         * Log.e("Download app", "error: " + e.getMessage(), e);
-                         * }
-                         */
-    }
-      // donate app
-    case DONATE_APP: {
-      try {
-
-        mAPPDownload = new AlertDialog.Builder(MusicPage.this)
-            .setIcon(R.drawable.icon)
-            .setTitle("Donate MusicSearch")
-            .setMessage(
-                "If you want continue to use this app, you should donate it cost $7.99 or buy MusicSearch Pro cost $9.99 to get unlimited using and search more results! Or Ignore it to search music once a day .")
-            .setPositiveButton("PayPal", new DialogInterface.OnClickListener() {
-              public void onClick(DialogInterface dialog, int whichButton) {
-
-                Intent intent = new Intent(MusicPage.this, paypal.class);
-                startActivity(intent);
-                /*
-                 * String token = PaypalDonate(); //String uriString =
-                 * "https://mobile.paypal.com/wc?t=" + token; String uriString =
-                 * "https://www.sandbox.paypal.com/wc?t=" + token; Intent intent
-                 * = new Intent( Intent.ACTION_VIEW, Uri.parse(uriString));
-                 * startActivity(intent);
-                 */
-              }
-            }).setNeutralButton("Buy Pro",
-                new DialogInterface.OnClickListener() {
-                  public void onClick(DialogInterface dialog, int whichButton) {
-                    Intent intent = new Intent(
-                        Intent.ACTION_VIEW,
-                        Uri
-                            .parse("market://search?q=pname:com.trans.music.searchpro"));
-                    startActivity(intent);
-                  }
-                }).setNegativeButton("Ignore",
-                new DialogInterface.OnClickListener() {
-                  public void onClick(DialogInterface dialog, int whichButton) {
-                    mAPPDownload.dismiss();
-                  }
-                }).create();
-
-        return mAPPDownload;
-      } catch (Exception e) {
-        Log.e("Download app", "error: " + e.getMessage(), e);
-      }
     }
     }
     return null;
@@ -547,13 +382,6 @@ public class MusicPage extends Activity implements
       // if(mDlService.mDownloading == false){
       if (mDownloading == false) {
         try {
-          // if(mSongs.size() > 0){
-          // if(mSearchResultMp3index >= 0){
-          // MP3Info mp3 = mSongs.get(mSearchResultMp3index);
-          // String url = mp3.link;
-          // mMp3Local = url.replaceAll("[ ]", "%20");
-          // mMp3title = mp3.name;
-          // mMp3songer = mp3.artist;
           try {
             if (mService.isPlaying() == true) {
               mService.pause();
@@ -565,28 +393,12 @@ public class MusicPage extends Activity implements
           }
           showDialog(DOWNLOAD_MP3FILE);
           m_CurDownloadFile = mMp3Title + "[" + mMp3Songer + "]" + ".mp3";
-          mTask = new DownloadTask().execute(mMp3Local);
-          /*
-           * (new Thread() { public void run() { m_CurDownloadFile = mMp3title +
-           * "[" + mMp3songer + "]" + ".mp3"; new
-           * DownloadTask().execute(mMp3Local);
-           * //DownloadMusic(m_CurDownloadFile, mMp3Local); } }).start();
-           */
-          // }else
-          // Toast.makeText(MusicPage.this,
-          // "Please select link in search results first",
-          // Toast.LENGTH_SHORT).show();
-          // }else
-          // Toast.makeText(MusicPage.this, "Please search music first",
-          // Toast.LENGTH_SHORT).show();
+          new DownloadTask().execute(mMp3Local);
         } catch (Exception e) {
           e.printStackTrace();
         }
       } else {
         mProgressDownload.show();
-        // Toast.makeText(MusicSearch.this,
-        // "Current download not finish, please try later.",
-        // Toast.LENGTH_SHORT).show();
       }
 
     }
