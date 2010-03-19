@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.JSONObject;
+
+import com.feebe.lib.Util;
+import com.ringdroid.RingdroidSelectActivity;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -63,6 +67,7 @@ public class MusicPage extends Activity implements
   String m_CurDownloadFile;
   Button btnPreview;
   Button btnDownload;
+  Button btnQueue;
   private boolean mPaused = false, mDownloading = false;
   private static final int REFRESH = 1;
   private static final int RM_CON_DIALOG = 2;
@@ -93,7 +98,10 @@ public class MusicPage extends Activity implements
     
     btnDownload = (Button) findViewById(R.id.download);
     btnDownload.setOnClickListener(downloadClick);
-
+    
+    btnDownload = (Button) findViewById(R.id.queue);
+    btnDownload.setOnClickListener(queueClick);
+    
     Intent serviceIntent = new Intent(this, MediaPlaybackService.class);
     startService(serviceIntent);
         bindService((new Intent()).setClass(this,
@@ -393,7 +401,20 @@ public class MusicPage extends Activity implements
           }
           showDialog(DOWNLOAD_MP3FILE);
           m_CurDownloadFile = mMp3Title + "[" + mMp3Songer + "]" + ".mp3";
-          new DownloadTask().execute(mMp3Local);
+          new DownloadTask(false).execute(mMp3Local);
+          /*
+           * (new Thread() { public void run() { m_CurDownloadFile = mMp3title +
+           * "[" + mMp3songer + "]" + ".mp3"; new
+           * DownloadTask().execute(mMp3Local);
+           * //DownloadMusic(m_CurDownloadFile, mMp3Local); } }).start();
+           */
+          // }else
+          // Toast.makeText(MusicPage.this,
+          // "Please select link in search results first",
+          // Toast.LENGTH_SHORT).show();
+          // }else
+          // Toast.makeText(MusicPage.this, "Please search music first",
+          // Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
           e.printStackTrace();
         }
@@ -402,8 +423,21 @@ public class MusicPage extends Activity implements
       }
 
     }
-
   };
+  OnClickListener queueClick = new OnClickListener() {
+	
+	@Override
+	public void onClick(View v) {
+	  try {
+        m_CurDownloadFile = mMp3Title + "[" + mMp3Songer + "]" + ".mp3";
+        new DownloadTask(true).execute(mMp3Local);
+        Toast.makeText(MusicPage.this, R.string.queue_message, Toast.LENGTH_SHORT).show();
+        MusicPage.this.finish();
+	  } catch(Exception e) {
+	  }
+	}
+};
+  
 
   private void SeekBarSetSecondaryProgress(final int progress) {
     this.runOnUiThread(new Runnable() {
@@ -505,84 +539,132 @@ public class MusicPage extends Activity implements
   }
 
   private class DownloadTask extends UserTask<String, Integer, Integer> {
+	boolean isQueue;
+	  
+	public DownloadTask(boolean isQueue) {
+	  super();
+	  this.isQueue = isQueue;
+	}
+	
     public Integer doInBackground(String... urls) {
-
       URL url = null;
       HttpURLConnection urlConn = null;
 
       String urlString;
 
       urlString = urls[0];
-      DownloadSetProgress(0);
-      mDownloading = true;
-      try {
-        url = new URL(urlString);
-        urlConn = (HttpURLConnection) url.openConnection();
-        urlConn
-            .setRequestProperty(
-                "User-Agent",
-                "Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3 -Java");
+      if (!isQueue) {
+        DownloadSetProgress(0);
+        mDownloading = true;
+      
+        try {
+          url = new URL(urlString);
+          urlConn = (HttpURLConnection) url.openConnection();
+          urlConn
+              .setRequestProperty(
+                  "User-Agent",
+                  "Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3 -Java");
 
-        urlConn.connect();
+          urlConn.connect();
 
-        int downsize = urlConn.getContentLength();
-        int downed = 0;
+          int downsize = urlConn.getContentLength();
+          int downed = 0;
 
-        DownloadSetMax(downsize);
+          DownloadSetMax(downsize);
 
-        DataInputStream fileStream;
-        String fullpathname = SavedPath + "/" + m_CurDownloadFile;
-        // FileOutputStream filemp3 = openFileOutput(filename,
-        // MODE_WORLD_READABLE);
-        FileOutputStream filemp3 = new FileOutputStream(fullpathname);
+          DataInputStream fileStream;
+          String fullpathname = SavedPath + "/" + m_CurDownloadFile;
+          // FileOutputStream filemp3 = openFileOutput(filename,
+          // MODE_WORLD_READABLE);
+          FileOutputStream filemp3 = new FileOutputStream(fullpathname);
 
-        byte[] buff = new byte[64 * 1024];
-        int len;
-        fileStream = new DataInputStream(new BufferedInputStream(urlConn
-            .getInputStream()));
-        while ((len = fileStream.read(buff)) > 0) {
-          filemp3.write(buff, 0, len);
-          downed += len;
-          publishProgress((int) downed);
+          byte[] buff = new byte[64 * 1024];
+          int len;
+          fileStream = new DataInputStream(new BufferedInputStream(urlConn
+              .getInputStream()));
+          while ((len = fileStream.read(buff)) > 0) {
+            filemp3.write(buff, 0, len);
+            downed += len;
+            publishProgress((int) downed);
+          }
+
+          filemp3.close();
+          return 1;
+        } catch (IOException e) {
+          e.printStackTrace();
+          return 0;
         }
+      } else {
+    	try {
+          url = new URL(urlString);
+          urlConn = (HttpURLConnection) url.openConnection();
+          urlConn
+              .setRequestProperty(
+                  "User-Agent",
+                  "Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3 -Java");
 
-        filemp3.close();
-        return 1;
-      } catch (IOException e) {
-        e.printStackTrace();
-        return 0;
+          urlConn.connect();
+
+          int downsize = urlConn.getContentLength();
+          int downed = 0;
+
+          DataInputStream fileStream;
+          String fullpathname = SavedPath + "/" + m_CurDownloadFile;
+          // FileOutputStream filemp3 = openFileOutput(filename,
+          // MODE_WORLD_READABLE);
+          FileOutputStream filemp3 = new FileOutputStream(fullpathname);
+          byte[] buff = new byte[64 * 1024];
+          int len;
+          fileStream = new DataInputStream(new BufferedInputStream(urlConn
+              .getInputStream()));
+          while ((len = fileStream.read(buff)) > 0) {
+            filemp3.write(buff, 0, len);
+            downed += len;
+          }
+
+          filemp3.close();
+          return 1;
+        } catch (IOException e) {
+          e.printStackTrace();
+          return 0;
+        }
       }
-
     }
 
     public void onProgressUpdate(Integer... progress) {
-      mProgressDownload.setProgress(progress[0]);
+      if (!isQueue) {
+        mProgressDownload.setProgress(progress[0]);
+      } 
     }
 
     public void onPostExecute(Integer result) {
-
       if (result == 1) {
         Toast.makeText(MusicPage.this,
-            m_CurDownloadFile + " download finished", Toast.LENGTH_LONG).show();
+            m_CurDownloadFile + getString(R.string.download_finished), Toast.LENGTH_LONG).show();
         // DownloadShowMessage(m_CurDownloadFile + " download finished");
         // updateDownloadList();
         String fullpathname = SavedPath + "/" + m_CurDownloadFile;
         ScanMediafile(fullpathname);
         // showDownloadOKNotification(m_CurDownloadFile);
-
+        if (isQueue) {
+          Intent intent = new Intent(MusicPage.this ,RingdroidSelectActivity.class);
+          Util.addNotification(MusicPage.this, intent, mMp3Title, R.string.app_name, R.string.save_success_message, R.string.app_name, R.string.save_success_message);
+        }
       }
-
-      removeDialog(DOWNLOAD_MP3FILE);
-      mDownloading = false;
-      mProgressDialogIsOpen = false;
-
+      if (result == 0) {
+    	  Toast.makeText(MusicPage.this, mMp3Title+getString(R.string.download_failed), Toast.LENGTH_SHORT).show();
+      }
+      if (!isQueue) {
+    	removeDialog(DOWNLOAD_MP3FILE);
+      	mDownloading = false;
+      	mProgressDialogIsOpen = false;
+      }
     }
-
   }
 
   private void ScanMediafile(final String fullpathame) {
 
-    mScanner = new MediaScannerConnection(this,
+    mScanner = new MediaScannerConnection(getApplicationContext(),
         new MediaScannerConnectionClient() {
           public void onMediaScannerConnected() {
             mScanner.scanFile(fullpathame, null /* mimeType */);

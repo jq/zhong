@@ -22,6 +22,7 @@ public class Const extends com.feebe.lib.Const{
     tabheader = R.layout.tabheader;
     tab_label = R.id.tab_label;
     no_result = R.string.no_result;
+    icon = R.drawable.icon;
     // in res/layout/searchlist_row.xml
     EndlessUrlArrayAdapter.Throbber = R.id.throbber;
     EndlessUrlArrayAdapter.ThrobberViewRes = R.layout.pending_view;
