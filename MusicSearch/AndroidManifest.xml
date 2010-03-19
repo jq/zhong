@@ -51,11 +51,7 @@
      	</activity>
      	<activity android:name=".paypal" android:label="MusicSearch : Donate"
      	          android:configChanges="keyboardHidden|orientation">
-     	</activity>
-        <activity android:name=".YahooTop" android:label="Yahoo Top Songs"
-                  android:configChanges="keyboardHidden|orientation"
-				  >
-     	</activity>          	
+     	</activity> 	
         <activity android:name=".SingerLibrary" android:label="Singer Library"
                   android:configChanges="keyboardHidden|orientation"
 				  >
