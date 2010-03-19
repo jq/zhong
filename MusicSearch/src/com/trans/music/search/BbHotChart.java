@@ -5,6 +5,8 @@ package com.trans.music.search;
 import com.admob.android.ads.*;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -13,9 +15,11 @@ import android.widget.ListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.widget.BaseAdapter;
@@ -27,9 +31,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.webkit.WebView;
 import android.graphics.drawable.Drawable;
-
-import android.util.Log;
-
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,6 +39,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -59,6 +61,8 @@ public class BbHotChart extends Activity {
     
 	String mRequestUrl;
 	
+	String hottype;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,10 +81,9 @@ public class BbHotChart extends Activity {
         //mTypesList.setAdapter(mAdapter);
 		
 		Bundle extras = getIntent().getExtras();
-		String hottype = extras.getString("type");
+		hottype = extras.getString("type");
 
 		mRequestUrl = urlString + hottype + "/";
-		Log.e("BbHotChart", mRequestUrl);
 		
 		try{
 			mFeedentries = new JSONArray();
@@ -100,10 +103,10 @@ public class BbHotChart extends Activity {
 					JSONObject mp3 = mFeedentries.getJSONObject(position);			
 					final String key = mp3.getString("keyword");
 					
-	        Intent intent = new Intent();
+					Intent intent = new Intent();
 	        Log.e("key", key);
 					intent.putExtra(Const.Key, key);
-	        intent.setClass(BbHotChart.this, SearchList.class);
+					intent.setClass(BbHotChart.this, SearchList.class);
 					startActivity(intent);	
 					
 					/*
@@ -124,20 +127,22 @@ public class BbHotChart extends Activity {
 				} 
             }
         });
+        
+		if (hottype.equals("yahootop")) {
+			findViewById(R.id.center_text).setVisibility(View.GONE);
+			showDialog(CONNECTING);
+			(new Thread() {
+				public void run() {
+					downloadFeeds();
+					updatFeedList();
 
-
-		downloadFeeds();
-		updatFeedList();
-
-		/*
-		(new Thread() {
-			public void run() {
-				downloadFeeds();
-				updatFeedList();
-
-			}
-		}).start();
-		*/
+				}
+			}).start();
+		} else {
+			downloadFeeds();
+			updatFeedList();
+		}
+		
     }
 
 
@@ -168,19 +173,17 @@ public class BbHotChart extends Activity {
 			ViewHolder holder;
 
             if (convertView == null) {
-                convertView = mInflater.inflate(R.layout.track_list_item, null);
+                convertView = mInflater.inflate(R.layout.yahootop_list_item, null);
 				
                 // Creates a ViewHolder and store references to the two children views
                 // we want to bind data to.
                 holder = new ViewHolder();
-				
-				ImageView iv = (ImageView) convertView.findViewById(R.id.icon);
-				iv.setVisibility(View.GONE);
-				
+                
 	            holder.line1 = (TextView) convertView.findViewById(R.id.line1);
 	            holder.line2 = (TextView) convertView.findViewById(R.id.line2);
 				holder.duration = (TextView) convertView.findViewById(R.id.duration);
 				holder.play_indicator = (ImageView) convertView.findViewById(R.id.play_indicator);
+				holder.icon = (ImageView) convertView.findViewById(R.id.icon);
 				
                 convertView.setTag(holder);
             } else {
@@ -192,26 +195,28 @@ public class BbHotChart extends Activity {
 			try{
 	            // Bind the data efficiently with the holder.
 	            JSONObject mp3 = mFeedentries.getJSONObject(position);
+	            //title
 				String name = mp3.getString("Title");
-				String songer = mp3.getString("Artist");
-
-			
-			    String songinfo =  new String("");
+				holder.line1.setText(name);
 				
-	            holder.line1.setText(name);
-				
-				songinfo = songinfo + new String("\n");
-
-				if(songer.length() > 1)
-					songinfo = songinfo + songer;
-				else
-					songinfo = songinfo + new String("Unknown artist");
-
-				
-				holder.line2.setText(songinfo);
-
-
-					
+				if (!hottype.equals("yahootop")) {
+					//for none yahootop stuff, set artist for line2
+					String songer = mp3.getString("Artist");
+					if(songer != null && songer.length() > 1)
+						holder.line2.setText(songer);
+					else
+						holder.line2.setText("Unknown Artist");
+				} else {
+					//for yahootop stuff, set pubDate for line2
+					String pubDate = mp3.getString("pubDate");
+					pubDate = pubDate + "\n";
+					holder.line2.setText(pubDate);
+					//and set the relative image
+					String img = mp3.getString("img");
+					Drawable image = ImageOperations(img,"image.jpg");
+					holder.icon.setImageDrawable(image);
+					holder.icon.setPadding(1, 1, 1, 1);
+				}
 			}catch(JSONException e) {
 				e.printStackTrace();
 			} 
@@ -238,7 +243,7 @@ public class BbHotChart extends Activity {
             TextView duration;
             TextView size;
             ImageView play_indicator;
-
+            ImageView icon;
         }
 
         private Context mContext;
@@ -292,7 +297,6 @@ public class BbHotChart extends Activity {
 				builder.append(buff, 0, len);
 			}
 			String httpresponse = builder.toString();
-
 			try {
 				String json = builder.toString();
 				mFeedentries = new JSONArray(json);
@@ -310,21 +314,40 @@ public class BbHotChart extends Activity {
 
 	
 	private void updatFeedList() {
-		try{
+		if (hottype.equals("yahootop")) {
+			this.runOnUiThread(new Runnable() {
+
+				@Override
+				public void run() {
+					updateData();
+					mProgressDialog.dismiss();
+				}
+
+			});
+		} else {
 			findViewById(R.id.center_text).setVisibility(View.GONE);
-			
+			updateData();
+		}
+	}
+	
+	private void updateData() {
+		try{
 			JSONArray feedEntries2 = new JSONArray();
 			JSONArray entries = mFeedentries;
+			Log.e("test", "length is " + entries.length());
 			for(int i = 0; i < entries.length(); i++){
-				if( entries.isNull(i) )
+				if( entries.isNull(i) ){
 					break;
-			    
+				} 
 				JSONObject mp3 = entries.getJSONObject(i);
 			
 				String name = mp3.getString("Title");
-				String songer = mp3.getString("Artist");
-
-				mTrackAdapter.add(name + " [" + songer + "]");
+				if (!hottype.equals("yahootop")) {// we don't need Artist for yahoo top issue
+					String songer = mp3.getString("Artist");
+					mTrackAdapter.add(name + " [" + songer + "]");
+				} else {
+					mTrackAdapter.add(name);
+				}
 				
 				feedEntries2.put(mp3);
 			}
@@ -334,6 +357,51 @@ public class BbHotChart extends Activity {
 		} 
 	}
 
+	private Drawable ImageOperations(String url, String saveFilename) {
+		try {
+			InputStream is = (InputStream) this.fetch(url);
+			Drawable d = Drawable.createFromStream(is, saveFilename);
+			return d;
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
+	public Object fetch(String address) throws MalformedURLException,
+			IOException {
+		URL url = new URL(address);
+		Object content = url.getContent();
+		return content;
+	}
+	
+	private static final int CONNECTING = 1;
+	
+	ProgressDialog   mProgressDialog;
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+
+            case CONNECTING: {
+                mProgressDialog = new ProgressDialog(this);
+                mProgressDialog.setMessage("Please wait while connect...");
+                mProgressDialog.setIndeterminate(true);
+                mProgressDialog.setCancelable(true);
+				mProgressDialog.setButton("Close", new DialogInterface.OnClickListener() {
+	                public void onClick(DialogInterface dialog, int whichButton) {
+
+	                    /* User clicked Yes so do some stuff */
+	                }
+	            });
+                return mProgressDialog;
+            }
+
+
+        }
+        return null;
+    }
 }
 
