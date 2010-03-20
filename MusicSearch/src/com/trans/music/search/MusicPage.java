@@ -98,8 +98,8 @@ public class MusicPage extends Activity implements
     btnDownload = (Button) findViewById(R.id.download);
     btnDownload.setOnClickListener(downloadClick);
     
-    btnDownload = (Button) findViewById(R.id.queue);
-    btnDownload.setOnClickListener(queueClick);
+    btnQueue = (Button) findViewById(R.id.queue);
+    btnQueue.setOnClickListener(queueClick);
     
     Intent serviceIntent = new Intent(this, MediaPlaybackService.class);
     startService(serviceIntent);
@@ -383,7 +383,7 @@ public class MusicPage extends Activity implements
     @Override
     public void onClick(View v) {
       // TODO Auto-generated method stub
-
+      btnQueue.setVisibility(View.GONE);
       removeDialog(CONNECTING);
       mProgressDialogIsOpen = false;
       // if(mDlService.mDownloading == false){
