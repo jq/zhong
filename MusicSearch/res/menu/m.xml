@@ -3,7 +3,7 @@
         android:title="Search"
         android:icon="@drawable/ic_menu_search" />
     <item android:id="@+id/menu_local"
-        android:title="Local Library"
+        android:title="@string/downloaded_files"
         android:icon="@drawable/ic_menu_music_library" />
         
     <item android:id="@+id/menu_help"
