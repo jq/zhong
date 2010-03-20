@@ -75,7 +75,6 @@ public class MusicPage extends Activity implements
   private ListView listSearchOthers;
   ProgressDialog mProgressDialog, mProgressDialogSearch,
       mProgressDialogPrepare, mProgressDownload;
-  private String SavedPath = "/sdcard/MusicSearch";
   MediaScannerConnection mScanner;
 
   private void getMediaInfo(Intent intent) {
@@ -573,7 +572,7 @@ public class MusicPage extends Activity implements
           DownloadSetMax(downsize);
 
           DataInputStream fileStream;
-          String fullpathname = SavedPath + "/" + m_CurDownloadFile;
+          String fullpathname = Const.homedir + "/" + m_CurDownloadFile;
           // FileOutputStream filemp3 = openFileOutput(filename,
           // MODE_WORLD_READABLE);
           FileOutputStream filemp3 = new FileOutputStream(fullpathname);
@@ -609,7 +608,7 @@ public class MusicPage extends Activity implements
           int downed = 0;
 
           DataInputStream fileStream;
-          String fullpathname = SavedPath + "/" + m_CurDownloadFile;
+          String fullpathname = Const.homedir + "/" + m_CurDownloadFile;
           // FileOutputStream filemp3 = openFileOutput(filename,
           // MODE_WORLD_READABLE);
           FileOutputStream filemp3 = new FileOutputStream(fullpathname);
@@ -643,7 +642,7 @@ public class MusicPage extends Activity implements
             m_CurDownloadFile + getString(R.string.download_finished), Toast.LENGTH_LONG).show();
         // DownloadShowMessage(m_CurDownloadFile + " download finished");
         // updateDownloadList();
-        String fullpathname = SavedPath + "/" + m_CurDownloadFile;
+        String fullpathname = Const.homedir + "/" + m_CurDownloadFile;
         ScanMediafile(fullpathname);
         // showDownloadOKNotification(m_CurDownloadFile);
         if (isQueue) {

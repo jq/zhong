@@ -12,6 +12,7 @@ public class Const extends com.feebe.lib.Const{
   public static final String MP3RATE = "MP3RATE";
   
   public static void init(Context c) {
+    appname = "MusicSearch";
     no_sd = R.string.no_sd;
     com.feebe.lib.Const.init(c);
     QWName = "Ringtone-g56rajjb";

@@ -52,8 +52,6 @@ public class local extends Activity
 
     SeekBar  mSeekBar;
     
-    private String SavedPath = "/sdcard/MusicSearch";
-	private boolean mHasSDCard = false;
 	private boolean mPaused = false;
 	
 	int mLocalMp3index = -1;
@@ -66,7 +64,6 @@ public class local extends Activity
 	private static final int REFRESH = 1;
 	
 	ImageView mPlayStop;
-	private Menu mMenu;
 
 	MediaScannerConnection mScanner;
 	
@@ -95,30 +92,23 @@ public class local extends Activity
         mPlayStop.setEnabled(false);
         
         try{
-			String status = Environment.getExternalStorageState();
-			if(!status.equals(Environment.MEDIA_REMOVED)){
-				mHasSDCard = true;
-				
-				File saveddir = new File(SavedPath);
-				if(!saveddir.exists())
-					saveddir.mkdirs();
-							
-				//File[] file=(new File("/data/data/com.trans.music.search/files/")).listFiles();
-				File[] file=(new File(SavedPath)).listFiles();
-				for(int i = 0; i < file.length; i++){
-					if(file[i].isFile()){
-						String fname = file[i].getName();
-						if(fname.endsWith(".mp3"))
-							mLocalAdapter.add(fname);
-					}
-				}
-			}
-
-			//ScanMediaPath(SavedPath);
+    			String status = Environment.getExternalStorageState();
+    			File saveddir = new File(Const.homedir);
+    			if(!saveddir.exists())
+    				saveddir.mkdirs();
+    						
+    			File[] file=(new File(Const.homedir)).listFiles();
+    			for(int i = 0; i < file.length; i++){
+    				if(file[i].isFile()){
+    					String fname = file[i].getName();
+    					if(fname.endsWith(".mp3"))
+    						mLocalAdapter.add(fname);
+    				}
+    			}
 			
         }catch(Exception e) {
-			e.printStackTrace();
-		} 
+    			e.printStackTrace();
+    		} 
 
 		startService(new Intent(this, MediaPlaybackService.class));
         bindService((new Intent()).setClass(this,
@@ -128,7 +118,7 @@ public class local extends Activity
             public void onItemClick(AdapterView parent, View v, int position, long id) {         
                 final int mp3index = position;
 				mLocalMp3index = mp3index;
-				String fileLocal = SavedPath + "/" + mLocalStrings.get(mLocalMp3index);
+				String fileLocal = Const.homedir + "/" + mLocalStrings.get(mLocalMp3index);
 
 				ScanMediafile(fileLocal);
 					
@@ -295,13 +285,9 @@ public class local extends Activity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Hold on to this
-        mMenu = menu;
-        
         // Inflate the currently selected menu XML resource.
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.local, menu);      
-        
         return true;
     }
 
@@ -335,7 +321,7 @@ public class local extends Activity
             	break;
 			case R.id.menu_delete:
             	try{
-					String fileLocal = SavedPath + "/" + mLocalStrings.get(mLocalMp3index);
+					String fileLocal = Const.homedir + "/" + mLocalStrings.get(mLocalMp3index);
 					File mp3 = new File(fileLocal);
 					if(mp3.exists()){
 						mp3.delete();
@@ -361,7 +347,7 @@ public class local extends Activity
 		this.runOnUiThread(new Runnable() {
 			public void run() {
 				try{
-					File[] file=(new File(SavedPath)).listFiles();
+					File[] file=(new File(Const.homedir)).listFiles();
 					mLocalAdapter.clear();
 					for(int i = 0; i < file.length; i++){
 						if(file[i].isFile()){
@@ -377,50 +363,6 @@ public class local extends Activity
 		});
 	}
 	
-    private void ScanMediaPath(final String Path) {
-		
-		mScanner = new MediaScannerConnection(this,
-			new MediaScannerConnectionClient() {
-				public void onMediaScannerConnected() {
-
-			        try{
-						String status = Environment.getExternalStorageState();
-						if(!status.equals(Environment.MEDIA_REMOVED)){
-							mHasSDCard = true;
-							
-							File saveddir = new File(Path);
-							if(saveddir.exists()){
-
-								File[] file=(new File(Path)).listFiles();
-								for(int i = 0; i < file.length; i++){
-									if(file[i].isFile()){
-										String fname = file[i].getName();
-										if(fname.endsWith(".mp3"))
-											mScanner.scanFile(Path + "/" + fname, null /*mimeType*/);
-									}
-								}
-							}
-						}
-						
-			        }catch(Exception e) {
-						e.printStackTrace();
-					} 
-				}
-
-				public void onScanCompleted(String path, Uri uri) {
-					//String filepath = path;
-					//Uri fileuri = uri;					
-						
-					//String fname = filepath.substring(new String(SavedPath).length);
-					//mLocalAdapter.add(fname);
-					//Toast.makeText(local.this, path, Toast.LENGTH_SHORT).show();
-				}
-			
-		});
-		mScanner.connect();
-
-    }   
-
     private void ScanMediafile(final String fullpathame) {
 		
 		mScanner = new MediaScannerConnection(this,

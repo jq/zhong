@@ -63,6 +63,7 @@ public class Const {
   public static final int FILE_KIND_NOTIFICATION = 2;
   public static final int FILE_KIND_RINGTONE = 3;
 
+  protected static String appname;
   public static String contentDir;
   public static String jsondir;
   public static String homedir;
@@ -73,7 +74,7 @@ public class Const {
   	//downloadDb = new DownloadProvider(c);
     File sdcardRoot = Environment.getExternalStorageDirectory();
     dbAdapter = new DbAdapter(c);
-    File homeDir = new File(sdcardRoot, "MusicSearch");
+    File homeDir = new File(sdcardRoot, appname);
     File songdir = new File(homeDir, "mp3");
     File jdir = new File(homeDir, "json");
     File cache = new File(homeDir, "cache");

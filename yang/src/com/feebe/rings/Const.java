@@ -43,6 +43,7 @@ public class Const extends com.feebe.lib.Const {
   public static final String TableHistory = "histories";
   
   public static void init(Context c) {
+    appname = "FeebeRings";
     no_sd = R.string.no_sd;
     pkg = "com.feebe.rings";
     com.feebe.lib.Const.init(c);
