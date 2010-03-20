@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -125,7 +126,7 @@ public class MusicUtil {
   //http://mp3.sogou.com/music.so?pf=&as=&st=&ac=1&w=02009900&query=
   public static final String  SogouSearchBase = "http://mp3.sogou.com/music.so?pf=mp3&query=";
   public static String getSogouLinks(String key) {
-    return SogouSearchBase + key;
+    return SogouSearchBase + URLEncoder.encode(key);
   }
   
   public static String getSogouLinks(String url, int page) {
@@ -137,7 +138,7 @@ public class MusicUtil {
     int cnt = 0;
 	  ArrayList<MP3Info> songs = new ArrayList<MP3Info>();
     try {
-    	URL url = new URL(urlStr.replace(' ', '+'));
+    	URL url = new URL(urlStr);
     	HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
     	urlConn.setRequestProperty("User-Agent", "Apache-HttpClient/UNAVAILABLE (java 1.4)");
     	urlConn.setConnectTimeout(12000);
