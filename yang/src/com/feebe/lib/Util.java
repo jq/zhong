@@ -298,6 +298,18 @@ public class Util {
       Log.e("saveFile", e.getMessage() + " file "+ name.getAbsolutePath() + " cache dir " + Const.cachedir);
     }
   }
+  
+  public static void saveFileInThread(final String content, final String name) {
+	  Thread th = new Thread(new Runnable() {
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			saveFile(content, name);
+		}
+	});
+	th.start();
+  }
 	
 	private static boolean saveDownload(String urlStr, String name) {
     try {

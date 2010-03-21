@@ -126,7 +126,7 @@ public class MusicPage extends Activity implements
         .getString(R.string.artist)
         + mMp3Songer);
     RatingBar rb = ((RatingBar) findViewById(R.id.row_small_ratingbar));
-    rb.setIsIndicator(false);
+    rb.setIsIndicator(true);
     rb.setRating(mRate);
     
     listSearchOthers = (ListView) findViewById(R.id.list_searchOthers);
