@@ -298,7 +298,7 @@ public class BbHotChart extends Activity {
 			}
 			String httpresponse = builder.toString();
 			try {
-				String json = builder.toString();
+				String json = httpresponse;
 				mFeedentries = new JSONArray(json);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
