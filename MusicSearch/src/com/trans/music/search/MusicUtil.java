@@ -4,6 +4,7 @@ package com.trans.music.search;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -126,7 +127,15 @@ public class MusicUtil {
   //http://mp3.sogou.com/music.so?pf=&as=&st=&ac=1&w=02009900&query=
   public static final String  SogouSearchBase = "http://mp3.sogou.com/music.so?pf=mp3&query=";
   public static String getSogouLinks(String key) {
-    return SogouSearchBase + URLEncoder.encode(key);
+	String reqString = null;
+	try {
+	  reqString = URLEncoder.encode(key, "GB2312");
+	} catch (UnsupportedEncodingException e) {
+	  reqString = URLEncoder.encode(key);
+	} finally {
+	  //Log.e("search url:", SogouSearchBase + reqString);
+	  return SogouSearchBase + reqString;
+	}
   }
   
   public static String getSogouLinks(String url, int page) {
