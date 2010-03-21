@@ -76,6 +76,9 @@
                   android:configChanges="keyboardHidden|orientation"
 				  >
      	</activity>       
+     	<activity android:name=".Myfavourite" android:label="My favourite"
+     				android:configChanges="keyboardHidden|orientation">
+     	</activity>
      	<activity android:name=".Lyric" android:label="Lyric"
                   android:configChanges="keyboardHidden|orientation"
 				  >

@@ -14,6 +14,7 @@
                 android:layout_width="260px"
                 android:layout_height="50px"
                 android:layout_weight="10"
+                android:singleLine="true"
                 />        
 		<ImageButton android:id="@+id/search_button"
             	android:src="@android:drawable/ic_menu_search"

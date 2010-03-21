@@ -10,6 +10,7 @@ public class Const extends com.feebe.lib.Const{
   public static final String MP3TITLE = "MP3TITLE";
   public static final String MP3SONGER = "MP3SONGER";
   public static final String MP3RATE = "MP3RATE";
+  public static final String searchurl = "url";
   
   public static void init(Context c) {
     appname = "MusicSearch";

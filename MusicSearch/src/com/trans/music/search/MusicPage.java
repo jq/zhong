@@ -23,6 +23,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.media.MediaScannerConnection;
 import android.media.MediaScannerConnection.*;
 import android.net.Uri;
@@ -649,6 +651,7 @@ public class MusicPage extends Activity implements
           Intent intent = new Intent(MusicPage.this ,RingdroidSelectActivity.class);
           Util.addNotification(MusicPage.this, intent, mMp3Title, R.string.app_name, R.string.save_success_message, R.string.app_name, R.string.save_success_message);
         }
+        saveArtistAndTitle();
       }
       if (result == 0) {
     	  Toast.makeText(MusicPage.this, mMp3Title+getString(R.string.download_failed), Toast.LENGTH_SHORT).show();
@@ -661,6 +664,19 @@ public class MusicPage extends Activity implements
     }
   }
 
+  private void saveArtistAndTitle() {
+	  saveData(mMp3Songer, Const.MP3SONGER);
+  }
+  
+  private void saveData(String key, String item) {
+	  if (key.length() > 0) {
+		  SharedPreferences s = getSharedPreferences(item, 0);
+		  Editor e = s.edit();
+		  e.putBoolean(key, true);
+		  e.commit();
+	  }
+  }
+  
   private void ScanMediafile(final String fullpathame) {
 
     mScanner = new MediaScannerConnection(getApplicationContext(),
