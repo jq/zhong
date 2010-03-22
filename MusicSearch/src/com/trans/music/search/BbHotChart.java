@@ -3,6 +3,7 @@ package com.trans.music.search;
 
 
 import com.admob.android.ads.*;
+import com.feebe.lib.Util;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -272,31 +273,15 @@ public class BbHotChart extends Activity {
 	//private String urlString = "http://192.168.1.180/mp3/";
 	
 	private void downloadFeeds() {
-		URL url = null;
-		HttpURLConnection urlConn = null;
-		InputStream stream = null;
-		InputStreamReader is = null;
         try {
-
 			Log.e("MusicSearch BbHotChart ", "downloadFeeds mRequestUrl: " + mRequestUrl);
-			
-        	url = new URL(mRequestUrl);
-        	urlConn = (HttpURLConnection)url.openConnection();
-        	urlConn.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3 -Java");
-        	urlConn.setConnectTimeout(10000);
-        	urlConn.connect();
-        	
-        	stream = urlConn.getInputStream();
-			
-        	StringBuilder builder = new StringBuilder(64*1024);
-			
-        	char[] buff = new char[4096];
-			is = new InputStreamReader(stream);
-			int len;
-			while ((len = is.read(buff)) > 0) {
-				builder.append(buff, 0, len);
+			String httpresponse = null;
+			if (Util.inCache(mRequestUrl, Const.OneWeek)) {
+				httpresponse = Util.readFile(Const.cachedir+Util.getHashcode(mRequestUrl));
+			} else {
+				httpresponse = Util.download(mRequestUrl);
+				Util.saveFileInThread(httpresponse, Const.cachedir+Util.getHashcode(mRequestUrl));
 			}
-			String httpresponse = builder.toString();
 			try {
 				String json = httpresponse;
 				mFeedentries = new JSONArray(json);
@@ -305,8 +290,10 @@ public class BbHotChart extends Activity {
 				return;
 			}
 		
-			urlConn.disconnect();
-        } catch (IOException e) {
+			//urlConn.disconnect();
+			
+
+        } catch (Exception e) {
 	        //ShowToastMessage("get feeds error: network");
         	e.printStackTrace();
 		}

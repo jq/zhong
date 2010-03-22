@@ -21,6 +21,9 @@ import android.widget.TextView;
 import android.util.Log;
 import org.json.JSONObject;
 import org.json.JSONException;
+
+import com.feebe.lib.Util;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
@@ -126,33 +129,16 @@ public class Artist extends Activity {
 
 	
 	private void getArtistInfo(String rurl) {
-		URL url = null;
-		HttpURLConnection urlConn = null;
-		InputStream stream = null;
-		InputStreamReader is = null;
         try {
-
 			Log.e("OnlineMusic", "searchFromNetwork mRequestUrl: " + rurl);
 			
-        	url = new URL(rurl);
-        	urlConn = (HttpURLConnection)url.openConnection();
-        	urlConn.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3 -Java");
-        	urlConn.connect();
-        	
-        	stream = urlConn.getInputStream();
-			
-        	StringBuilder builder = new StringBuilder(8*1024);
-			
-        	char[] buff = new char[4096];
-			is = new InputStreamReader(stream);
-			
-			int len;
-			while ((len = is.read(buff, 0, 4096)) > 0) {
-				builder.append(buff, 0, len);
+			String httpresponse = null;
+			if (Util.inCache(rurl, Const.OneWeek)) {
+				httpresponse = Util.readFile(Const.cachedir+Util.getHashcode(rurl));
+			} else {
+				httpresponse = Util.download(rurl);
+				Util.saveFileInThread(httpresponse, Const.cachedir+Util.getHashcode(rurl));
 			}
-			urlConn.disconnect();
-			
-			String httpresponse = builder.toString();
 
 			//Log.e("OnlineMusic", "httpresponse : " + httpresponse);
 			
@@ -241,7 +227,14 @@ public class Artist extends Activity {
 	}
 
 	private void getArtistTopTracks(String rurl) {
-		String httpresponse  = NetUtils.loadString(rurl);
+		String httpresponse  = null;
+		if (Util.inCache(rurl, Const.OneWeek)) {
+			httpresponse = Util.readFile(Const.cachedir+Util.getHashcode(rurl));
+		} else {
+			httpresponse = NetUtils.loadString(rurl);
+			Util.saveFileInThread(httpresponse, Const.cachedir+Util.getHashcode(rurl));
+		}
+		
 		if(httpresponse == null || httpresponse.length() == 0)
 			return;
 		
