@@ -448,24 +448,21 @@ public class RingActivity extends Activity {
   				mStreaming.setButton(RingActivity.this.getString(R.string.stop), new DialogInterface.OnClickListener() {			
   					@Override
   					public void onClick(DialogInterface dialog, int which) {
-  						mediaPreview.stop();
+  						mPlayer.stop();
   					}
   				});
 			  }
 				mStreaming.show();
-				if (mediaPreview == null) {
-				  mediaPreview = new MediaPlayer();
-				}
 				
 				new Thread(new Runnable() {
 
           @Override
           public void run() {
             try {
-              mediaPreview.setDataSource(mp3Location);
-              mediaPreview.prepare();
-              mediaPreview.start();
-              mediaPreview.setOnCompletionListener(new OnCompletionListener () {
+            	mPlayer.setDataSource(mp3Location);
+            	mPlayer.prepare();
+            	mPlayer.start();
+            	mPlayer.setOnCompletionListener(new OnCompletionListener () {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
                   mStreaming.dismiss();
@@ -583,7 +580,7 @@ public class RingActivity extends Activity {
   private LinearLayout layoutMyReview; 
   
   MediaPlayer mPlayer = new MediaPlayer();;
-  MediaPlayer mediaPreview;
+  //MediaPlayer mediaPreview;
   
   boolean isPaused = false;
   
