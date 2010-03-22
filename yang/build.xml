@@ -92,10 +92,10 @@
 
 			
 			<replaceregexp file="temp/AndroidManifest.xml" byline="true">
-			<regexp pattern="com\.feebe\.rings"/>
-			<substitution expression="com\.feebe\.${app_name}"/>
+			<regexp pattern="rings"/>
+			<substitution expression="${app_name}"/>
 			</replaceregexp>
-
+			
 		</target>
 
 		<target name="generate-new-src">
