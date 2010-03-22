@@ -66,11 +66,11 @@
 			</replaceregexp>
 			
 			<!-- 替换应用名 -->
-			<replaceregexp byline="true">
+			<!--<replaceregexp byline="true">
 			<regexp pattern="/>RingTone"/>
 			<substitution expression="/>${app_name}"/>
 			<fileset dir="temp/res/values"/>
-			</replaceregexp>
+			</replaceregexp>-->
 			
 			<!-- 去除includeInGlobalSearch -->
 			<!--replaceregexp file="temp/res/xml/searchable.xml" byline="true">
@@ -302,13 +302,74 @@
     	<target name="package-apks" depends="clean-apks, init-all" description="Package applications.">
     		
     		<antcall target="package-apk">
-    		    <param name="app_name" value="RingTone"/>
-    		    <param name="drawable" value="app_icons\\test.png"/>
+    		    <param name="app_name" value="Ringtone1"/>
+    		    <param name="drawable" value="app_icons\\1.png"/>
+    			<param name="ads_name" value="Ringtone-g56rajjb"/>
+    			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
+    		</antcall> 
+
+    		<antcall target="package-apk">
+    		    <param name="app_name" value="Ringtone2"/>
+    		    <param name="drawable" value="app_icons\\2.png"/>
+    			<param name="ads_name" value="Ringtone-g56rajjb"/>
+    			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
+    		</antcall> 
+
+    		<antcall target="package-apk">
+    		    <param name="app_name" value="Ringtone3"/>
+    		    <param name="drawable" value="app_icons\\3.png"/>
+    			<param name="ads_name" value="Ringtone-g56rajjb"/>
+    			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
+    		</antcall> 
+
+    		<antcall target="package-apk">
+    		    <param name="app_name" value="Ringtone4"/>
+    		    <param name="drawable" value="app_icons\\4.png"/>
+    			<param name="ads_name" value="Ringtone-g56rajjb"/>
+    			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
+    		</antcall> 
+
+    		<antcall target="package-apk">
+    		    <param name="app_name" value="Ringtone5"/>
+    		    <param name="drawable" value="app_icons\\5.png"/>
+    			<param name="ads_name" value="Ringtone-g56rajjb"/>
+    			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
+    		</antcall> 
+
+    		<antcall target="package-apk">
+    		    <param name="app_name" value="Ringtone6"/>
+    		    <param name="drawable" value="app_icons\\6.png"/>
+    			<param name="ads_name" value="Ringtone-g56rajjb"/>
+    			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
+    		</antcall> 
+
+    		<antcall target="package-apk">
+    		    <param name="app_name" value="Ringtone7"/>
+    		    <param name="drawable" value="app_icons\\7.png"/>
     			<param name="ads_name" value="Ringtone-g56rajjb"/>
     			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
     		</antcall> 
     		
-			<!-- 需要生成的其他应用按上例配置  -->
+    		<antcall target="package-apk">
+    		    <param name="app_name" value="Ringtone8"/>
+    		    <param name="drawable" value="app_icons\\8.png"/>
+    			<param name="ads_name" value="Ringtone-g56rajjb"/>
+    			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
+    		</antcall> 
+
+    		<antcall target="package-apk">
+    		    <param name="app_name" value="Ringtone9"/>
+    		    <param name="drawable" value="app_icons\\9.png"/>
+    			<param name="ads_name" value="Ringtone-g56rajjb"/>
+    			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
+    		</antcall> 
+    		
+    		<antcall target="package-apk">
+    		    <param name="app_name" value="Ringtone10"/>
+    		    <param name="drawable" value="app_icons\\10.png"/>
+    			<param name="ads_name" value="Ringtone-g56rajjb"/>
+    			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
+    		</antcall> 
     		
     		
     	</target>
