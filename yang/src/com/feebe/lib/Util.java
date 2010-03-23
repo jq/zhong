@@ -370,12 +370,85 @@ public class Util {
     return null;
 	}
 	
-    public static final int DOWNLOAD_APP_DIG = 10000;
-	public static boolean getFeeds(Activity at, int resource, String urlStr) {
+  public static final int DOWNLOAD_APP_DIG = 10000;
+  
+  public static boolean getFeeds(Activity at, InputStream feeds) {
+    StringBuilder builder;
+    try {
+      InputStreamReader r = new InputStreamReader(feeds);
+      char[] buf = new char[4096];
+      int len;
+      builder = new StringBuilder(4096);
+      while ((len = r.read(buf)) > 0) {
+        builder.append(buf,0, len);
+      }
+    } catch (Exception e) {
+      return false;
+    }
+    try {
+      String json = builder.toString();
+      JSONArray entries = new JSONArray(json);
+      int len = entries.length() - 1;
+      boolean showDialog = false;
+      for(int i = 0; i < len; i++){
+        if( entries.isNull(i) )
+          break;
+          
+        JSONObject mp3 = entries.getJSONObject(i);
+      
+        String uri = mp3.getString("uri");
+          // market://search?q=pname:
+        // market://search?q= 18
+        String pkg;
+        if (uri.charAt(23) == ':') {
+            pkg = uri.substring(24);
+        } else {
+          pkg = uri.substring(18);
+        }
+        
+        if(has(pkg, at))
+          continue;
+
+        String sdkver = android.os.Build.VERSION.SDK;
+        try{
+          String ver = mp3.getString("v");
+          if(!ver.equals(sdkver))
+            continue;
+            
+        }catch(JSONException e) {
+          //e.printStackTrace();
+        }   
+        
+        
+        title = mp3.getString("name");
+        des = mp3.getString("descript");
+        intent = uri;
+        at.showDialog(DOWNLOAD_APP_DIG);
+        showDialog = true;
+        break;
+      }
+      
+      // now handle last one for the my app intent
+      // 
+      //if (!entries.isNull(len)) {
+      //  JSONObject mp3 = entries.getJSONObject(len);
+      //  finalIntent = mp3.getString("uri");
+      //}
+      return showDialog;
+    } catch (JSONException e) {
+      return false;
+    }
+  }
+  
+  public static void getFeeds(int chance, Activity at, int resource) {
+    if (run(chance))
+      getFeeds(at, at.getResources().openRawResource(resource));
+  }
+  
+  public static boolean getFeeds(Activity at, int resource, String urlStr) {
 		downloadRandom(urlStr);
 		// if we have feedsFile then read it, otherwise read from resource
 		InputStream feeds;
-		StringBuilder builder;
 		try {
 			if (run(2)) {
 			  feeds = at.openFileInput(feedsFile);
@@ -385,70 +458,7 @@ public class Util {
 		} catch (FileNotFoundException e) {
 			feeds = at.getResources().openRawResource(resource);
 		}
-		try {
-			InputStreamReader r = new InputStreamReader(feeds);
-			char[] buf = new char[4096];
-			int len;
-			builder = new StringBuilder(4096);
-			while ((len = r.read(buf)) > 0) {
-				builder.append(buf,0, len);
-			}
-		} catch (Exception e) {
-			return false;
-		}
-		try {
-			String json = builder.toString();
-			JSONArray entries = new JSONArray(json);
-			int len = entries.length() - 1;
-			boolean showDialog = false;
-			for(int i = 0; i < len; i++){
-				if( entries.isNull(i) )
-					break;
-			    
-				JSONObject mp3 = entries.getJSONObject(i);
-			
-				String uri = mp3.getString("uri");
-		    	// market://search?q=pname:
-				// market://search?q= 18
-				String pkg;
-				if (uri.charAt(23) == ':') {
-		    	  pkg = uri.substring(24);
-				} else {
-					pkg = uri.substring(18);
-				}
-				
-				if(has(pkg, at))
-					continue;
-
-				String sdkver = android.os.Build.VERSION.SDK;
-				try{
-					String ver = mp3.getString("v");
-					if(!ver.equals(sdkver))
-						continue;
-						
-				}catch(JSONException e) {
-					//e.printStackTrace();
-				} 	
-				
-				
-				title = mp3.getString("name");
-				des = mp3.getString("descript");
-				intent = uri;
-				at.showDialog(DOWNLOAD_APP_DIG);
-				showDialog = true;
-				break;
-			}
-			
-			// now handle last one for the my app intent
-			// 
-			//if (!entries.isNull(len)) {
-			//	JSONObject mp3 = entries.getJSONObject(len);
-			//	finalIntent = mp3.getString("uri");
-			//}
-			return showDialog;
-		} catch (JSONException e) {
-			return false;
-		}
+		return getFeeds(at, feeds);
 	}
 	
   public static Dialog createDownloadDialog(final Activity at) {

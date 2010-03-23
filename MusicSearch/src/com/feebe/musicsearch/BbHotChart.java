@@ -102,7 +102,7 @@ public class BbHotChart extends Activity {
             public void onItemClick(AdapterView parent, View v, int position, long id) {         
 				try{
 					JSONObject mp3 = mFeedentries.getJSONObject(position);			
-					final String key = mp3.getString("keyword");
+					final String key = mp3.getString("Title");
 					
 					Intent intent = new Intent();
 	        Log.e("key", key);
