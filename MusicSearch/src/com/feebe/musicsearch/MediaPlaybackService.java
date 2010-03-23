@@ -750,7 +750,7 @@ public class MediaPlaybackService extends Service {
                 if (! mPlayer.isInitialized() && mOpenFailedCounter != 0) {
                     // need to make sure we only shows this once
                     mOpenFailedCounter = 0;
-                    Toast.makeText(this, "playback_failed", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(this, "playback_failed", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 mOpenFailedCounter = 0;
