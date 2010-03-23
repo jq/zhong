@@ -64,6 +64,8 @@ public class MusicPage extends Activity implements
   long mSongPosition;
   long mSongDuration;
   String mMp3Local;
+  boolean mDownloadFinish = false;
+  boolean mIsPlaying = false;
   String mMp3Songer;
   String mMp3Title;
   float mRate;
@@ -381,51 +383,86 @@ public class MusicPage extends Activity implements
     return null;
   }
 
-  OnClickListener downloadClick = new OnClickListener() {
+	OnClickListener downloadClick = new OnClickListener() {
 
-    @Override
-    public void onClick(View v) {
-      // TODO Auto-generated method stub
-      btnQueue.setVisibility(View.GONE);
-      removeDialog(CONNECTING);
-      mProgressDialogIsOpen = false;
-      // if(mDlService.mDownloading == false){
-      if (mDownloading == false) {
-        try {
-          try {
-            if (mService.isPlaying() == true) {
-              mService.pause();
-              // mPlayStop.setImageResource(R.drawable.play);
-              mPaused = true;
-            }
-          } catch (Exception ex) {
-            ;
-          }
-          showDialog(DOWNLOAD_MP3FILE);
-          m_CurDownloadFile = mMp3Title + "[" + mMp3Songer + "]" + ".mp3";
-          new DownloadTask(false).execute(mMp3Local);
-          /*
-           * (new Thread() { public void run() { m_CurDownloadFile = mMp3title +
-           * "[" + mMp3songer + "]" + ".mp3"; new
-           * DownloadTask().execute(mMp3Local);
-           * //DownloadMusic(m_CurDownloadFile, mMp3Local); } }).start();
-           */
-          // }else
-          // Toast.makeText(MusicPage.this,
-          // "Please select link in search results first",
-          // Toast.LENGTH_SHORT).show();
-          // }else
-          // Toast.makeText(MusicPage.this, "Please search music first",
-          // Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      } else {
-        mProgressDownload.show();
-      }
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			btnQueue.setVisibility(View.GONE);
+			removeDialog(CONNECTING);
+			mProgressDialogIsOpen = false;
+			if (!mDownloadFinish) {
+				// if(mDlService.mDownloading == false){
+				if (mDownloading == false) {
+					try {
+						try {
+							if (mService.isPlaying() == true) {
+								mService.pause();
+								// mPlayStop.setImageResource(R.drawable.play);
+								mPaused = true;
+							}
+						} catch (Exception ex) {
+							;
+						}
+						showDialog(DOWNLOAD_MP3FILE);
+						m_CurDownloadFile = mMp3Title + "[" + mMp3Songer + "]"
+								+ ".mp3";
+						new DownloadTask(false).execute(mMp3Local);
+						/*
+						 * (new Thread() { public void run() { m_CurDownloadFile
+						 * = mMp3title + "[" + mMp3songer + "]" + ".mp3"; new
+						 * DownloadTask().execute(mMp3Local);
+						 * //DownloadMusic(m_CurDownloadFile, mMp3Local); }
+						 * }).start();
+						 */
+						// }else
+						// Toast.makeText(MusicPage.this,
+						// "Please select link in search results first",
+						// Toast.LENGTH_SHORT).show();
+						// }else
+						// Toast.makeText(MusicPage.this,
+						// "Please search music first",
+						// Toast.LENGTH_SHORT).show();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				} else {
+					mProgressDownload.show();
+				}
+			} else {
+				if (!mIsPlaying) {
+					new Thread(new Runnable() {
+						public void run() {
+							try {
+								Log.e("MusicPage", "into new thread");
+								mService.stop();
+								Log.e("MusicPage", "media service stopped");
+								mService.openfile(mMp3Local);
+								Log.e("MusicPage", "media file opened");
+								//mHandler.sendEmptyMessage(RM_CON_DIALOG);
+								mService.play();
+								
+								mProgressDialogIsOpen = false;
+								SeekBarSetEnalbe(true);
+								ButtonsSetEnalbe(true);
+								mSongDuration = mService.duration();
 
-    }
-  };
+								long next = refreshSeekBarNow();
+								queueNextRefresh(next);
+							} catch (RemoteException e) {
+								// TODO Auto-generated catch block
+								showConnectDiaglog(false);
+								showConnectErrorDiaglog(true);
+								e.printStackTrace();
+							}
+						}
+					}).start();
+				} else {
+
+				}
+			}
+		}
+	};
   OnClickListener queueClick = new OnClickListener() {
 	
 	@Override
@@ -650,6 +687,8 @@ public class MusicPage extends Activity implements
         if (isQueue) {
           Intent intent = new Intent(MusicPage.this ,RingdroidSelectActivity.class);
           Util.addNotification(MusicPage.this, intent, mMp3Title, R.string.app_name, R.string.save_success_message, R.string.app_name, R.string.save_success_message);
+        } else {
+          	btnDownload.setText(R.string.play);
         }
         saveArtistAndTitle();
       }
@@ -659,6 +698,7 @@ public class MusicPage extends Activity implements
       if (!isQueue) {
     	removeDialog(DOWNLOAD_MP3FILE);
       	mDownloading = false;
+      	mDownloadFinish = true;
       	mProgressDialogIsOpen = false;
       }
     }

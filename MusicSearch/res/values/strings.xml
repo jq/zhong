@@ -154,5 +154,10 @@
 		<string name="search_more">Search More</string>
 		<string name="search_more_by">Search More By</string>
 		<string name="search_more_in">Search More In</string>
+	<!-- 
+	  Music activity
+	 -->
+	 <string name="play">Play</string>
+	 
     
 </resources>
