@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.Toast;
 
 public class Myfavourite extends BaseList {
 
@@ -41,6 +42,8 @@ public class Myfavourite extends BaseList {
 			String temp [] = new String[artistList.size()];
 			String data []= (String[]) (artistList.toArray(temp));
 			return new ArrayAdapter<String>(this,  android.R.layout.simple_list_item_1, data);
+		} else {
+		  Toast.makeText(this, R.string.no_result, Toast.LENGTH_SHORT).show();
 		}
 		return null;
 	}
