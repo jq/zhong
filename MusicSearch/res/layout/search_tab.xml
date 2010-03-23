@@ -22,13 +22,6 @@
             	android:layout_height="48px"
             	android:layout_weight="1"
             />
-           <ImageButton android:id="@+id/popular_button"
-            	android:src="@drawable/popular"
-            	android:layout_width="60px"
-            	android:layout_height="48px"
-            	android:layout_weight="1"
-            />
-            
          </LinearLayout>    
      <com.admob.android.ads.AdView  
           android:id="@+id/ad"

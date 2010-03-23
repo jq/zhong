@@ -54,8 +54,6 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.Vector;
 
-import com.trans.music.search.IMediaPlaybackService;
-
 /**
  * Provides "background" audio playback capabilities, allowing the
  * user to switch between activities without stopping playback.
