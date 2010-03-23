@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, MusicSearch</string>
-    <string name="app_name">MusicSearch</string>
+    <string name="app_name">Music</string>
     <string name="local_service_started">Download has started</string>
     
     <string name="no_result">No Result</string>
