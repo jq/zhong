@@ -14,11 +14,11 @@ import java.util.ArrayList;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,19 +27,14 @@ import android.widget.BaseAdapter;
 import android.view.LayoutInflater;
 import android.content.Context;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.webkit.WebView;
 import android.graphics.drawable.Drawable;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
-import java.util.ArrayList;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -50,7 +45,6 @@ import java.net.URL;
 public class BbHotChart extends Activity {
 	
 	ListView mTypesList;
-	private String[] mCurTypes;
 	private AdView mAd;
 
 	JSONArray mFeedentries;
@@ -75,11 +69,6 @@ public class BbHotChart extends Activity {
         
         mAd = (AdView) findViewById(R.id.ad);	
         mAd.setVisibility(View.VISIBLE);
-        
-        //new AdsView(this);
-        
-        //mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mStrings);    
-        //mTypesList.setAdapter(mAdapter);
 		
 		Bundle extras = getIntent().getExtras();
 		hottype = extras.getString("type");
@@ -94,9 +83,6 @@ public class BbHotChart extends Activity {
 
 		mTrackAdapter = new TrackListAdapter(this);
 		mTypesList.setAdapter(mTrackAdapter);
-		
-        //mTypesList.setTextFilterEnabled(true);
-
 
         mTypesList.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {         
@@ -109,20 +95,6 @@ public class BbHotChart extends Activity {
 					intent.putExtra(Const.Key, key);
 					intent.setClass(BbHotChart.this, SearchList.class);
 					startActivity(intent);	
-					
-					/*
-					final String name = mp3.getString("Title");
-					final String songer = mp3.getString("Artist");
-										
-					Intent intent = new Intent();
-					intent.putExtra("keyword", key);
-					intent.putExtra("artist", songer);
-					intent.putExtra("song", name);
-					
-	                setResult(RESULT_OK, intent);
-	                finish();
-	                */
-
 				}catch(JSONException e) {
 					e.printStackTrace();
 				} 
@@ -158,7 +130,6 @@ public class BbHotChart extends Activity {
         }
 
         public int getCount() {
-            //return mPhotos.size();
             return mFeedentries.length();
         }
 
@@ -223,18 +194,6 @@ public class BbHotChart extends Activity {
 			} 
 			
             return convertView;
-
-			
-            // Make an ImageView to show a photo
-            //ImageView i = new ImageView(mContext);
-
-            //i.setImageResource(mPhotos.get(position));
-            //i.setAdjustViewBounds(true);
-            //i.setLayoutParams(new AbsListView.LayoutParams(LayoutParams.WRAP_CONTENT,
-            //        LayoutParams.WRAP_CONTENT));
-            // Give it a nice background
-            //i.setBackgroundResource(R.drawable.picture_frame);
-            //return i;
         }
 
 
@@ -261,16 +220,9 @@ public class BbHotChart extends Activity {
         }
 
     }
-
-
-    private String[] mType_Animals = {
-            "Yahoo! Music Top Songs"
-		};
-
-
 	private String urlString = "http://www.heiguge.com/mp3/";
-
-	//private String urlString = "http://192.168.1.180/mp3/";
+	
+	private boolean networkError = false;
 	
 	private void downloadFeeds() {
         try {
@@ -286,21 +238,16 @@ public class BbHotChart extends Activity {
 				String json = httpresponse;
 				mFeedentries = new JSONArray(json);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				return;
 			}
-		
-			//urlConn.disconnect();
-			
-
         } catch (Exception e) {
-	        //ShowToastMessage("get feeds error: network");
+	        networkError = true;
         	e.printStackTrace();
 		}
 	}
-
 	
 	private void updatFeedList() {
+
 		if (hottype.equals("yahootop")) {
 			this.runOnUiThread(new Runnable() {
 
@@ -317,7 +264,18 @@ public class BbHotChart extends Activity {
 		}
 	}
 	
+	private void showMsg(String msg) {
+		Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+	}
+	
 	private void updateData() {
+		if(networkError) {
+			showMsg(getResources().getString(R.string.network_error));
+			return ;
+		} else if (mFeedentries.length() <= 0) {
+			showMsg(getResources().getString(R.string.no_result));
+			return ;
+		}
 		try{
 			JSONArray feedEntries2 = new JSONArray();
 			JSONArray entries = mFeedentries;
@@ -338,7 +296,6 @@ public class BbHotChart extends Activity {
 				
 				feedEntries2.put(mp3);
 			}
-			//mFeedentries = feedEntries2;
 		}catch(JSONException e) {
 			e.printStackTrace();
 		} 
