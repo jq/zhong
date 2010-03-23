@@ -57,8 +57,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.trans.music.search.R;
 import com.ringdroid.soundfile.CheapSoundFile;
+import com.feebe.musicsearch.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

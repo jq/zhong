@@ -1,4 +1,4 @@
-package com.trans.music.search;
+package com.feebe.musicsearch;
 
 
 import java.io.FileInputStream;

@@ -1,8 +1,11 @@
-package com.trans.music.search;
+package com.feebe.musicsearch;
 
 import java.io.File;
 import java.util.ArrayList;
 import org.json.JSONArray;
+
+import com.feebe.musicsearch.IMediaPlaybackService;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;

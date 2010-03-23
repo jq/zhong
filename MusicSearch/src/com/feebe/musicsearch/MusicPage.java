@@ -1,4 +1,4 @@
-package com.trans.music.search;
+package com.feebe.musicsearch;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import com.feebe.lib.Util;
 import com.ringdroid.RingdroidSelectActivity;
+import com.feebe.musicsearch.IMediaPlaybackService;
 
 import android.app.Activity;
 import android.app.AlertDialog;

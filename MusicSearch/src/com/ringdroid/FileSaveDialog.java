@@ -31,8 +31,7 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.trans.music.search.R;
+import com.feebe.musicsearch.R;
 
 public class FileSaveDialog extends Dialog {
 

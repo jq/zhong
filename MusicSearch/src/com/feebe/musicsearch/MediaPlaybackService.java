@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.trans.music.search;
+package com.feebe.musicsearch;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -53,6 +53,8 @@ import android.telephony.TelephonyManager;
 import java.io.IOException;
 import java.util.Random;
 import java.util.Vector;
+
+import com.trans.music.search.IMediaPlaybackService;
 
 /**
  * Provides "background" audio playback capabilities, allowing the

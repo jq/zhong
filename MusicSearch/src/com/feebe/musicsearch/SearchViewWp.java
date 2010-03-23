@@ -1,4 +1,4 @@
-package com.trans.music.search;
+package com.feebe.musicsearch;
 
 import android.view.View;
 import android.widget.TextView;

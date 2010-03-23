@@ -49,8 +49,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import com.trans.music.search.R;
+import com.feebe.musicsearch.R;
 
 /**
  * After a ringtone has been saved, this activity lets you pick a contact

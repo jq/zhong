@@ -45,7 +45,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.feebe.lib.AdsView;
-import com.trans.music.search.R;
+import com.feebe.musicsearch.R;
 import com.ringdroid.soundfile.CheapSoundFile;
 
 import java.io.File;

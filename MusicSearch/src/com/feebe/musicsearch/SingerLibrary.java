@@ -1,8 +1,7 @@
-package com.trans.music.search;
+package com.feebe.musicsearch;
 
 
 import com.admob.android.ads.*;
-
 import android.app.Activity;
 import android.os.Bundle;
 

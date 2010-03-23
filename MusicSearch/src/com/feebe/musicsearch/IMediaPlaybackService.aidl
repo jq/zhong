@@ -15,7 +15,7 @@
 ** limitations under the License.
 */
 
-package com.trans.music.search;
+package com.feebe.musicsearch;
 
 import android.graphics.Bitmap;
 

@@ -1,4 +1,4 @@
-package com.trans.music.search;
+package com.feebe.musicsearch;
 
 
 import android.app.Activity;
@@ -54,7 +54,6 @@ import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.DataInputStream;
 import java.io.BufferedInputStream;
-
 
 /**
  * 歌手名列表，被Feature和Category调用

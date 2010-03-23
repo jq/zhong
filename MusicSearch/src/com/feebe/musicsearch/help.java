@@ -1,4 +1,4 @@
-package com.trans.music.search;
+package com.feebe.musicsearch;
 
 
 import java.util.List;
@@ -33,7 +33,7 @@ public class help extends Activity
         //mButtonMusicSearchPro = (Button) findViewById(R.id.button_musicsearchpro);
         
 		mHelpInformation = (TextView) findViewById(R.id.help);
-		mHelpInformation.setText("    Enter title or/and singer to search mp3 music. For example enter \"remember the time michael jackson\" to search. \n\n    Click link that you want to listen in search results to play music. Maybe some link is invalid, try another link. If the link can play, click Save in menu to save the selected music to SD card¡®s MusicSearch Directory.\n\n    In Local Library , you can add music to ringtone when it playing.\n\n    If you like this app, donate this app cost $7.99 or dowload MusicSearchPro cost $9.99 to get more music search results and search faster. \n\n");
+		mHelpInformation.setText("    Enter title or/and singer to search mp3 music. For example enter \"remember the time michael jackson\" to search. \n\n    Click link that you want to listen in search results to play music. Maybe some link is invalid, try another link. If the link can play, click Save in menu to save the selected music to SD cardï¿½ï¿½s MusicSearch Directory.\n\n    In Local Library , you can add music to ringtone when it playing.\n\n    If you like this app, donate this app cost $7.99 or dowload MusicSearchPro cost $9.99 to get more music search results and search faster. \n\n");
 	
 	    mButtonDonate.setOnClickListener(
 	            new OnClickListener() {
