@@ -129,15 +129,15 @@ public class Artist extends Activity {
 
 	
 	private void getArtistInfo(String rurl) {
-        try {
+    try {
 			Log.e("OnlineMusic", "searchFromNetwork mRequestUrl: " + rurl);
 			
 			String httpresponse = null;
-			if (Util.inCache(rurl, Const.OneWeek)) {
+			boolean inCache = Util.inCache(rurl, Const.OneWeek);
+			if (inCache) {
 				httpresponse = Util.readFile(Const.cachedir+Util.getHashcode(rurl));
 			} else {
 				httpresponse = Util.download(rurl);
-				Util.saveFileInThread(httpresponse, Const.cachedir+Util.getHashcode(rurl));
 			}
 
 			//Log.e("OnlineMusic", "httpresponse : " + httpresponse);
@@ -164,20 +164,11 @@ public class Artist extends Activity {
 					mSummary = str_nohtml;
 				mSummary += "...(more)";  
 				mContent = new String(str_nohtml.getBytes(), "UTF-8");
+				if (!inCache) {
+	        Util.saveFileInThread(httpresponse, Const.cachedir+Util.getHashcode(rurl));
+				}
 			}			
-			/*
-			pattern = Pattern.compile("<content>([\\s\\S]*?)</content>");
-			matcher = pattern.matcher(httpresponse);			
-			if(matcher.find()) {	
-				String str = matcher.group(1).replaceAll("<!\\[CDATA\\[", "").replaceAll("\\]\\]>", "");
-				str = str.replaceAll("\\&[a-zA-Z]{1,10};", "").replaceAll("<[^>]*>", "").replaceAll("[(/>)<]", "");
-				Log.e("OnlineMusic", "content 1: " + matcher.group(1));
-				Log.e("OnlineMusic", "content 2: " + str);
-				mContent = str;
-			}				
-			*/
-			
-        } catch (IOException e) {
+    } catch (IOException e) {
 	        ShowToastMessage("Network can not connect, please try again.");
         	e.printStackTrace();
 		}
@@ -228,11 +219,12 @@ public class Artist extends Activity {
 
 	private void getArtistTopTracks(String rurl) {
 		String httpresponse  = null;
-		if (Util.inCache(rurl, Const.OneWeek)) {
+    boolean inCache = Util.inCache(rurl, Const.OneWeek);
+
+		if (inCache) {
 			httpresponse = Util.readFile(Const.cachedir+Util.getHashcode(rurl));
 		} else {
 			httpresponse = NetUtils.loadString(rurl);
-			Util.saveFileInThread(httpresponse, Const.cachedir+Util.getHashcode(rurl));
 		}
 		
 		if(httpresponse == null || httpresponse.length() == 0)
@@ -247,7 +239,10 @@ public class Artist extends Activity {
 				mTopTracks.add( matcher.group(1));
 				rank++;
 			}
-		}		
+		}
+		if (rank > 1 && !inCache) {
+      Util.saveFileInThread(httpresponse, Const.cachedir+Util.getHashcode(rurl));
+		}
 	}
 	private void updatArtistTopTracks() {
 		this.runOnUiThread(new Runnable() {

@@ -53,9 +53,9 @@ public class Myfavourite extends BaseList {
 		String artist = artistList.get(pos);
 		Intent intent = new Intent();
 		intent.putExtra(Const.Key, artist);
-	    intent.putExtra(Const.expire, Const.OneWeek);
-	    intent.setClass(this, SearchList.class);
-	    startActivity(intent);
+	  intent.putExtra(Const.expire, Const.OneWeek);
+	  intent.setClass(this, SearchList.class);
+	  startActivity(intent);
 	}
 	
 }

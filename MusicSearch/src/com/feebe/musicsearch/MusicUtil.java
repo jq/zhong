@@ -150,7 +150,8 @@ public class MusicUtil {
 		ArrayList<MP3Info> songs = new ArrayList<MP3Info>();
 		String httpresponse = null;
 		try {
-			if (!Util.inCache(urlStr, Const.OneWeek)) {
+		  boolean inCache = Util.inCache(urlStr, Const.OneWeek);  
+			if (!inCache) {
 				URL url = new URL(urlStr);
 				HttpURLConnection urlConn = (HttpURLConnection) url
 						.openConnection();
@@ -173,7 +174,6 @@ public class MusicUtil {
 				}
 				urlConn.disconnect();
 				httpresponse = builder.toString();
-				Util.saveFileInThread(httpresponse, Const.cachedir+Util.getHashcode(urlStr));
 			} else {
 				httpresponse = Util.readFile(Const.cachedir+Util.getHashcode(urlStr));
 			}
@@ -184,7 +184,6 @@ public class MusicUtil {
 			Matcher matcher = pattern.matcher(httpresponse);
 
 			// Pattern pattern_artist = Pattern.compile("&si=.*?;;(.*?);;");
-			int count = 0;
 			while (matcher.find()) {
 
 				MP3Info mp3 = new MP3Info();
@@ -253,7 +252,9 @@ public class MusicUtil {
 				}
 
 			}
-
+			if (cnt > 0 && !inCache) {
+	       Util.saveFileInThread(httpresponse, Const.cachedir+Util.getHashcode(urlStr));
+			}
 			/*
 			 * if((Songs!=null)&&(!Songs.isEmpty())){
 			 * //免费版添加提示信息，Tao版会添加下一页的link MP3Info mp3Tip = new MP3Info();

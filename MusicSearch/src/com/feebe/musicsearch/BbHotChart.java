@@ -225,14 +225,13 @@ public class BbHotChart extends Activity {
 	private boolean networkError = false;
 	
 	private void downloadFeeds() {
-        try {
-			Log.e("MusicSearch BbHotChart ", "downloadFeeds mRequestUrl: " + mRequestUrl);
+    try {
 			String httpresponse = null;
-			if (Util.inCache(mRequestUrl, Const.OneWeek)) {
+			boolean inCache = Util.inCache(mRequestUrl, Const.OneWeek); 
+			if (inCache) {
 				httpresponse = Util.readFile(Const.cachedir+Util.getHashcode(mRequestUrl));
 			} else {
 				httpresponse = Util.download(mRequestUrl);
-				Util.saveFileInThread(httpresponse, Const.cachedir+Util.getHashcode(mRequestUrl));
 			}
 			try {
 				String json = httpresponse;
@@ -240,7 +239,10 @@ public class BbHotChart extends Activity {
 			} catch (JSONException e) {
 				return;
 			}
-        } catch (Exception e) {
+			if (!inCache && mFeedentries.length() > 0) {
+        Util.saveFileInThread(httpresponse, Const.cachedir+Util.getHashcode(mRequestUrl));
+			}
+    } catch (Exception e) {
 	        networkError = true;
         	e.printStackTrace();
 		}
