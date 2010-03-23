@@ -607,7 +607,6 @@ public class MusicPage extends Activity implements
 
           urlConn.connect();
 
-          int downsize = urlConn.getContentLength();
           int downed = 0;
 
           DataInputStream fileStream;
