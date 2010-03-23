@@ -91,7 +91,7 @@ public class BbHotChart extends Activity {
 					final String key = mp3.getString("Title");
 					
 					Intent intent = new Intent();
-	        Log.e("key", key);
+	        // Log.e("key", key);
 					intent.putExtra(Const.Key, key);
 					intent.setClass(BbHotChart.this, SearchList.class);
 					startActivity(intent);	
@@ -241,7 +241,7 @@ public class BbHotChart extends Activity {
 			}
 			if (!inCache && mFeedentries.length() > 0) {
         Util.saveFileInThread(httpresponse, Const.cachedir+Util.getHashcode(mRequestUrl));
-			}
+			} 
     } catch (Exception e) {
 	        networkError = true;
         	e.printStackTrace();
@@ -266,22 +266,22 @@ public class BbHotChart extends Activity {
 		}
 	}
 	
-	private void showMsg(String msg) {
-		Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+	private void showMsg(int msg) {
+		Toast.makeText(this, getResources().getString(msg), Toast.LENGTH_LONG).show();
 	}
 	
 	private void updateData() {
 		if(networkError) {
-			showMsg(getResources().getString(R.string.network_error));
+			showMsg(R.string.network_error);
 			return ;
 		} else if (mFeedentries.length() <= 0) {
-			showMsg(getResources().getString(R.string.no_result));
+			showMsg(R.string.no_result);
 			return ;
 		}
 		try{
 			JSONArray feedEntries2 = new JSONArray();
 			JSONArray entries = mFeedentries;
-			Log.e("test", "length is " + entries.length());
+			// Log.e("test", "length is " + entries.length());
 			for(int i = 0; i < entries.length(); i++){
 				if( entries.isNull(i) ){
 					break;
