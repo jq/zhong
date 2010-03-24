@@ -29,8 +29,6 @@ import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Locale;
 
-import com.android.music.IMediaPlaybackService;
-
 import android.app.Activity;
 import android.app.ExpandableListActivity;
 import android.content.ComponentName;

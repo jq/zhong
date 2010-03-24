@@ -55,8 +55,6 @@ import java.lang.ref.WeakReference;
 import java.util.Random;
 import java.util.Vector;
 
-import com.android.music.IMediaPlaybackService;
-
 /**
  * Provides "background" audio playback capabilities, allowing the
  * user to switch between activities without stopping playback.

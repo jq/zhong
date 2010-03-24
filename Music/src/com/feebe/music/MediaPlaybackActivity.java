@@ -17,7 +17,6 @@
 
 package com.feebe.music;
 
-import com.android.music.IMediaPlaybackService;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;

@@ -63,7 +63,6 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import java.text.Collator;
 import java.util.Arrays;
 
-import com.android.music.IMediaPlaybackService;
 public class TrackBrowserActivity extends ListActivity
         implements View.OnCreateContextMenuListener, MusicUtils.Defs, ServiceConnection
 {
