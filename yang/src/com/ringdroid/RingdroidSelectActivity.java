@@ -44,7 +44,7 @@ import android.widget.ListAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import com.feebe.lib.AdsView;
+import com.feebe.rings.AdsView;
 import com.feebe.rings.R;
 import com.feebe.rings.Search;
 import com.ringdroid.soundfile.CheapSoundFile;
@@ -112,8 +112,8 @@ public class RingdroidSelectActivity
 
         // Inflate our UI from its XML layout description.
         setContentView(R.layout.media_select);
-        AdsView.createQWAd(this);
-
+        //AdsView.createQWAd(this);
+        AdsView.createAdsenseAds(this, AdsView.CHANNEL_ID_2);
         Button recordButton = (Button) findViewById(R.id.record);
         recordButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View clickedButton) {

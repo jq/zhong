@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.ViewGroup;
 
-
 import com.qwapi.adclient.android.data.Ad;
 import com.qwapi.adclient.android.data.Status;
 import com.qwapi.adclient.android.requestparams.AdRequestParams;
@@ -48,15 +47,6 @@ public class AdsView implements AdView.AdListener{
 
 public class AdsView {
     public static boolean mShowQuattroAd = true;
-    
-    public static void createAdMobAd(Activity activity,String keywords, int adsViewId){
-    	com.admob.android.ads.AdView adView = new com.admob.android.ads.AdView(activity);
-    	adView.setBackgroundColor(0);
-    	adView.setTextColor(0xFFFFFFFF);
-    	adView.setKeywords(keywords);
-    	ViewGroup parentView = (ViewGroup)activity.findViewById(Const.AdsViewID);
-    	parentView.addView(adView);
-    }
     
     
     public static void createQWAd(Activity activity){

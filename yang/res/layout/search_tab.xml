@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
+    <LinearLayout android:id="@+id/AdsView" android:layout_width="fill_parent" android:layout_height="wrap_content" ></LinearLayout>
     <TextView 
         android:id="@+id/search_artist"
         android:layout_height="wrap_content"
@@ -53,19 +53,6 @@
         android:capitalize="none"
         android:gravity="fill_horizontal"
          /> 
-    
-    
-  		
-    <com.admob.android.ads.AdView  
-          android:id="@+id/ad_in_searchtab" 
-          android:visibility="visible"
-          android:layout_width="fill_parent" 
-          android:layout_height="wrap_content"
-          app:backgroundColor="#000000"
-          app:textColor="#FFFFFF"
-          app:keywords="game, job, shop, computer, girl"
-        />
-        
     <Button
     		android:id="@+id/search_button"
     		android:text="Search"

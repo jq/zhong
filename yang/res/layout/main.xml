@@ -25,16 +25,5 @@
             android:layout_height="0dip"
             android:layout_weight="1"
         />
-        
-        <com.admob.android.ads.AdView  
-          android:id="@+id/ad" 
-          android:visibility="gone"
-          android:layout_width="fill_parent" 
-          android:layout_height="wrap_content"
-          app:backgroundColor="#000000"
-          app:textColor="#FFFFFF"
-          app:keywords="game, job, shop, computer, girl"
-        />
-        
     </LinearLayout>
 </TabHost>
