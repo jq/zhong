@@ -4,6 +4,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="lib" path="lib/qwandroidsdk.jar"/>
-	<classpathentry kind="lib" path="/src/feebe_ring/yang/lib/GoogleAdView.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/GoogleAdView.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
