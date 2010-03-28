@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, SearchList!</string>
+    <string name="app_name">Music Bug</string>
+    <string name="search_prompt">Enter music title or artist names etc to search:</string>
+    <string name="download_failed">Music download failed</string>
+    <string name="network_error">Network error!</string>
+    <string name="retry">Retry</string>
+    <string name="waiting_for_server">Waiting for server...</string>
+    <string name="loading">Loading more data...</string>
+</resources>

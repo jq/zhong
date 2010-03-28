@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black_text_color">#ff7b797b</color>
+    <!-- 
+    <color name="post_item_color">#caffe3</color>
+    <color name="post_item_color2">#94ffc6</color>
+     -->
+	<color name="post_item_color">#f4f4f4</color>
+    <color name="post_item_color2">#e4e4e4</color>
+    <color name="transparent">#00000000</color>
+</resources>

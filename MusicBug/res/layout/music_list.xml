@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  <ListView android:id="@+id/post_list" android:layout_width="fill_parent"
+       android:layout_height="0dip" android:layout_weight="1"
+       android:divider="#ffffff"
+       android:dividerHeight="2dip"
+       android:stackFromBottom="false"  />
+  <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dip"
+        android:paddingLeft="4dip"
+        android:paddingRight="4dip"
+        android:paddingBottom="1dip"  
+        android:background="@android:drawable/bottom_bar"
+        android:orientation="horizontal">       
+  
+  <Button android:id="@+id/refresh_button"
+  android:layout_width="0dip"
+  android:layout_height="wrap_content"
+  android:text="Refresh"
+  android:layout_weight="1"/>
+  </LinearLayout>
+</LinearLayout>
