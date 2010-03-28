@@ -8,4 +8,40 @@
     <string name="retry">Retry</string>
     <string name="waiting_for_server">Waiting for server...</string>
     <string name="loading">Loading more data...</string>
+    <string name="info">Music Information</string>
+    <string name="about">About</string>
+ 	<string name="artist">Artist: </string>
+	<string name="title">Title: </string>
+	<string name="search_more">Search More</string>
+	<string name="search_more_by">Search More By</string>
+	<string name="search_more_in">Search More In</string>
+	<string name="queue_message">The song has been queued</string>
+	<string name="no_sd">No SD card found or SD card is full</string>
+    <string name="dir_create_error">Error in creating directory</string>
+    <string name="download_finished">Download finished</string>
+    <string name="saved">Saved!</string>
+    <string name="play">play</string>
+    
+    <string name="sdcard_readonly">Sorry, the SD Card is mounted as read-only</string>
+    <string name="no_sdcard">Can't run unless you have an SD Card inserted.</string>
+    <string name="sdcard_shared">Can't run while your handset is mounted as a USB device.</string>
+    
+    <string name="context_menu_edit">Edit</string>
+    <string name="context_menu_delete">Delete</string>
+    <string name="button_start_record_activity">Record New</string>
+    
+    <string name="menu_save">Save</string>
+    <string name="menu_reset">Reset</string>
+    <string name="menu_show_all_audio">Show All Audio</string>
+    
+    <string name="delete_ok_button">Delete</string>
+    <string name="delete_cancel_button">Cancel</string>
+
+    <string name="delete_failed">Unable to delete file</string>
+    <string name="alert_title_success">Success</string>
+    <string name="alert_title_failure">Error</string>
+    <string name="alert_ok_button">OK</string>
+    <string name="alert_yes_button">Yes, please!</string>
+    <string name="alert_no_button">No, thanks.</string>
+	<string name="no_result">No Result</string>    
 </resources>

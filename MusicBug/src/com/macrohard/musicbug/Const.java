@@ -19,4 +19,7 @@ public class Const {
 	public static final String MP3SONGER = "MP3SONGER";
 	public static final String MP3RATE = "MP3RATE";
 	public static final String searchurl = "url";
+	
+	public static final String APP_BASE_DIR = "musicbug";
+	
 }

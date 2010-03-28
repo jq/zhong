@@ -1,5 +1,6 @@
 package com.macrohard.musicbug;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -16,6 +17,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class Mp3ListActivity extends Activity implements ListFooterView.RetryNetworkInterface {
@@ -94,6 +97,30 @@ public class Mp3ListActivity extends Activity implements ListFooterView.RetryNet
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
+				if (mData == null || position == mData.size())
+					return;
+				
+				final MP3Info mp3 = mData.get(position);
+			    Intent intent = new Intent(Mp3ListActivity.this, MusicPage.class);
+			    String mp3Link = null;
+			  	try {
+			  	  mp3Link = SogoMp3Fetcher.getDownloadLink(mp3); 
+			  	} catch (IOException e) {
+			  		e.printStackTrace();
+			  	}
+			  	
+			  	if (mp3Link == null) {
+			      Toast.makeText(Mp3ListActivity.this, R.string.no_result, Toast.LENGTH_SHORT).show();
+			      return;
+			  	}
+			  	float rate = mp3.getRate();
+
+			  	intent.putExtra(Const.MP3RATE, ((Float)rate).toString());
+			    intent.putExtra(Const.MP3LOC, mp3Link);
+			    intent.putExtra(Const.MP3TITLE, mp3.getName());
+			    intent.putExtra(Const.MP3SONGER, mp3.getArtist());
+			    startActivity(intent);
+				
             }
         });
 
@@ -116,6 +143,33 @@ public class Mp3ListActivity extends Activity implements ListFooterView.RetryNet
 		});
 		*/
 	}
+
+	/*
+    MP3Info mp3;
+    try {
+      mp3 = mAdapter.getItem(pos);
+    } catch (Exception e) {
+      return;
+    }
+    Intent intent = new Intent(this,MusicPage.class);
+    String mp3Link = null;
+  	try {
+  	  mp3Link = MusicUtil.getLink(mp3.getLink());
+  	} catch (IOException e) {
+  	}
+  	
+  	if (mp3Link == null) {
+      Toast.makeText(this, R.string.no_result, Toast.LENGTH_SHORT).show();
+      return;
+  	}
+  	float rate = (float)((Double.parseDouble(mp3.rate)/6.0)*5.0);
+  	Log.e("rate_ori:", mp3.rate);
+  	intent.putExtra(Const.MP3RATE, ((Float)rate).toString());
+    intent.putExtra(Const.MP3LOC, mp3Link);
+    intent.putExtra(Const.MP3TITLE, mp3.name);
+    intent.putExtra(Const.MP3SONGER, mp3.artist);
+    startActivity(intent);
+    */
 
 	
 	private class FetchMp3ListTask extends AsyncTask<Void, Void, Boolean> {
