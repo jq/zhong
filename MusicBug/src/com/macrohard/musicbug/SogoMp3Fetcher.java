@@ -144,9 +144,8 @@ public class SogoMp3Fetcher implements Mp3FetcherInterface {
                 mp3.setAlbum(httpresponse.substring(albumStartPos, albumEndPos)
                         .trim());
 
-                int sizeStartPos = httpresponse.indexOf("<td align=center>",
-                        albumEndPos)
-                    + "<td align=center>".length();
+                int sizeStartPos = httpresponse.indexOf(
+                		"<td align=center>", albumEndPos) + "<td align=center>".length();
                 int sizeEndPos = httpresponse.indexOf('<', sizeStartPos);
                 
                 String sizeStr = httpresponse.substring(sizeStartPos, sizeEndPos).trim();
@@ -154,17 +153,15 @@ public class SogoMp3Fetcher implements Mp3FetcherInterface {
                 mp3.setSize(Utils.sizeFromStr(sizeStr));
 
                 int linkStartPos = httpresponse.indexOf("window.open('",
-                        sizeEndPos)
-                    + "window.open('".length();
+                        sizeEndPos) + "window.open('".length();
                 int linkEndPos = httpresponse.indexOf("&ac=", linkStartPos)
                     + "&ac=".length();
                 String request = httpresponse.substring(linkStartPos,
                         linkEndPos);
                 mp3.setLink(request.trim());
 
-                int spdStartPos = httpresponse.indexOf("span class=\"spd",
-                        sizeEndPos)
-                    + "span class=\"spd".length();
+                int spdStartPos = httpresponse.indexOf(
+                		"span class=\"spd", sizeEndPos) + "span class=\"spd".length();
                 int spdEndPos = spdStartPos + 1;
                 
                 String rateStr = httpresponse.substring(spdStartPos, spdEndPos).trim();
@@ -236,7 +233,7 @@ public class SogoMp3Fetcher implements Mp3FetcherInterface {
     			(int)mp3.getSize(),
     			"",
     			mp3.getArtist(),
-    			mp3.getName(),
+    			mp3.getTitle(),
     			mContext.getContentResolver(),
     			FILE_KINDS
     			);

@@ -8,24 +8,24 @@ import org.apache.commons.lang.StringEscapeUtils;
 import android.text.TextUtils;
 
 public class MP3Info {
-  private String mName;  
+  private String mTitle;  
   private String mArtist;  
   private String mAlbum;
   private long mSize; 
   private float mRate;    
   private String mLink;
   
-  public String getName() {
-	  return mName;
+  public String getTitle() {
+	  return mTitle;
   }
   
   public void setName(String name) {
     try {
-      mName = URLDecoder.decode(name, "gb2312");
+      mTitle = URLDecoder.decode(name, "gb2312");
     } catch (UnsupportedEncodingException e) {
     	e.printStackTrace();
     }
-    name = StringEscapeUtils.unescapeHtml(name);
+    mTitle = StringEscapeUtils.unescapeHtml(mTitle);
   }
 
   public String getArtist() {

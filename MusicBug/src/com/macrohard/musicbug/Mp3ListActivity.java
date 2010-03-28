@@ -117,7 +117,7 @@ public class Mp3ListActivity extends Activity implements ListFooterView.RetryNet
 
 			  	intent.putExtra(Const.MP3RATE, ((Float)rate).toString());
 			    intent.putExtra(Const.MP3LOC, mp3Link);
-			    intent.putExtra(Const.MP3TITLE, mp3.getName());
+			    intent.putExtra(Const.MP3TITLE, mp3.getTitle());
 			    intent.putExtra(Const.MP3SONGER, mp3.getArtist());
 			    startActivity(intent);
 				
@@ -358,11 +358,11 @@ public class Mp3ListActivity extends Activity implements ListFooterView.RetryNet
 			}
 
 			v.setBackgroundResource(
-					position % 2 == 0 ? R.color.post_item_color
-							: R.color.post_item_color2);
+					position % 2 == 0 ? R.color.mp3_item_color
+							: R.color.mp3_item_color2);
 
 			MP3Info info = (MP3Info)item;
-			((TextView)v.findViewById(R.id.title)).setText(info.getName());
+			((TextView)v.findViewById(R.id.title)).setText(info.getTitle());
 			((TextView)v.findViewById(R.id.artist)).setText(info.getArtist());
 
 			if (mHasMoreData && position == mData.size() - 1 &&

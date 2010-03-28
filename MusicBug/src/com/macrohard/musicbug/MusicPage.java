@@ -83,7 +83,7 @@ public class MusicPage extends Activity implements
       mProgressDialogPrepare, mProgressDownload;
   MediaScannerConnection mScanner;
   
-  private FilesManager mFilesManager;
+  private FileManager mFilesManager;
 
   private void getMediaInfo(Intent intent) {
     mMp3Local = intent.getStringExtra(Const.MP3LOC);
@@ -99,7 +99,7 @@ public class MusicPage extends Activity implements
     this.getMediaInfo(this.getIntent());
     setContentView(R.layout.music_display);
 
-    mFilesManager = FilesManager.getInstance(getApplication());
+    mFilesManager = FileManager.getInstance(getApplication());
     
     btnPreview = (Button) findViewById(R.id.preview);
     btnPreview.setOnClickListener(previewClick);
@@ -126,12 +126,8 @@ public class MusicPage extends Activity implements
     mPlayStop.setOnClickListener(mPlayStopListener);
     mPlayStop.setEnabled(false);
 
-    ((TextView) findViewById(R.id.row_title)).setText(this
-        .getString(R.string.title)
-        + mMp3Title);
-    ((TextView) findViewById(R.id.row_artist)).setText(this
-        .getString(R.string.artist)
-        + mMp3Songer);
+    ((TextView) findViewById(R.id.row_title)).setText(mMp3Title);
+    ((TextView) findViewById(R.id.row_artist)).setText(mMp3Songer);
     RatingBar rb = ((RatingBar) findViewById(R.id.row_small_ratingbar));
     rb.setIsIndicator(true);
     rb.setRating(mRate);

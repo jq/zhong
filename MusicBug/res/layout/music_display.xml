@@ -1,9 +1,9 @@
 <!--<?xml version="1.0" encoding="utf-8"?>-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res/com.haosoft.rings"
   android:orientation="vertical"
   android:layout_width="fill_parent"
-  android:layout_height="fill_parent"><LinearLayout
+  android:layout_height="fill_parent">
+ <LinearLayout
 	  xmlns:android="http://schemas.android.com/apk/res/android"
 	  android:id="@+id/detailLayout2"
 	  android:layout_width="fill_parent"
@@ -42,18 +42,21 @@
         android:layout_height="fill_parent">
         
 	  <Button android:text="Preview" 
-	    		android:id="@+id/preview" 
-	    		android:layout_width="wrap_content" 
-	    		android:layout_height="wrap_content">
-	    		</Button>
+	  	      android:id="@+id/preview"
+	  	      android:layout_weight="1" 
+	          android:layout_width="wrap_content" 
+	          android:layout_height="wrap_content">
+	  </Button>
 	  
 	  <Button android:text="Download" 
-	    		android:id="@+id/download" 
+	    		android:id="@+id/download"
+	    		android:layout_weight="1" 
 	    		android:layout_width="wrap_content" 
 	    		android:layout_height="wrap_content">
 	    		</Button>
 	  <Button android:text="Queue" 
 	    		android:id="@+id/queue" 
+	    		android:layout_weight="1"
 	    		android:layout_width="wrap_content" 
 	    		android:layout_height="wrap_content">
 	    		</Button>
@@ -82,42 +85,9 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        ><!--   
+        >
         
-	    <LinearLayout
-	    		android:id="@+id/layoutMyReview"
-	    		android:visibility="gone"
-	        android:orientation="vertical"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content">
-
-				<View
-			        android:layout_height="1dip"
-			        android:layout_width="fill_parent"
-			        android:background="#FF909090" />		        
-		        <TextView
-		            android:text="@string/myreview"
-	            	android:textSize="11sp"
-		            android:background="#0c212b"
-		            android:layout_width="fill_parent"
-	                android:layout_height="wrap_content"
-	                android:textStyle="bold"
-	                />
-				<View
-			        android:layout_height="1dip"
-			        android:layout_width="fill_parent"
-			        android:background="#FF909090" />	                
-	                
-	            <RatingBar android:id="@+id/ratingBar" 
-	            		android:numStars="5"
-        				android:layout_width="wrap_content"
-        				android:layout_height="wrap_content" /> 
-
-	    </LinearLayout>
-	    
-	    
-	    
-	    --><LinearLayout
+        <LinearLayout
 	    		android:id="@+id/Info"
 	        android:orientation="vertical"
 	        android:layout_width="wrap_content"
@@ -129,7 +99,6 @@
 			        android:background="#FF909090" />		        
 		        <TextView
 		            android:text="@string/info"
-		            android:background="#0c212b"
 		            android:textSize="11sp"
 		            
 		            android:layout_width="fill_parent"
@@ -140,42 +109,33 @@
          		<View
 			        android:layout_height="1dip"
 			        android:layout_width="wrap_content"
-			        android:background="#FF909090" /><!--          
-	            
-	            <TextView android:id="@+id/info_text" 
-	            	android:textSize="12sp"
-	            	android:layout_marginLeft="12dip"
-	            	android:layout_marginTop="4dip"
-	              android:layout_marginBottom="4dip"
-        				android:layout_width="wrap_content"
-        				android:layout_height="wrap_content" /> 
-			         
-         --><RelativeLayout 
+			        android:background="#FF909090" />
+			        
+			     <RelativeLayout 
 			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content">
-				
-				<TextView android:id="@+id/row_artist"
-         android:textColor="#ff99ff"
-         android:textSize="14sp"
-         android:layout_marginLeft="1dip"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_weight="1"
-         android:singleLine="true"/>
-         
-         <TextView android:id="@+id/row_title"
-        android:textColor="#ffffff"
-        android:textSize="14sp"
-        android:layout_marginLeft="1dip"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_weight="1"
-         android:layout_below="@id/row_artist"
-         android:singleLine="true"/>
-         
+			        android:layout_height="wrap_content"
+			        android:layout_margin="4dip"
+			        >
 
-			    
-			    
+	            <TextView android:id="@+id/row_title"
+    	    		android:textSize="18sp"
+        			android:layout_marginLeft="1dip"
+         			android:layout_width="wrap_content"
+         			android:layout_height="wrap_content"
+         			android:layout_weight="1"
+         			android:layout_below="@id/row_artist"
+         			android:singleLine="true"/>
+         
+				<TextView android:id="@+id/row_artist"
+         			android:textColor="#13819f"
+         			android:textStyle="bold"
+         			android:textSize="14sp"
+         			android:layout_marginLeft="1dip"
+         			android:layout_width="wrap_content"
+         			android:layout_height="wrap_content"
+         			android:layout_weight="1"
+         			android:singleLine="true"/>
+         
 			    <RatingBar android:id="@+id/row_small_ratingbar"
          			style="?android:attr/ratingBarStyleSmall"
                     android:numStars="5"
@@ -186,7 +146,7 @@
                     
                     android:layout_centerVertical="true"/>    
                 </RelativeLayout>  
-					    </LinearLayout>
+		</LinearLayout>
 	    
 		 
 	    <LinearLayout
@@ -203,7 +163,6 @@
 		        	android:id="@+id/about_ringtone"
 		            android:text="@string/about"
 	            	android:textSize="11sp"
-		            android:background="#0c212b"
 		            android:layout_width="fill_parent"
 	                android:layout_height="wrap_content"
 	                android:textStyle="bold"
@@ -212,9 +171,12 @@
 			        android:layout_height="1dip"
 			        android:layout_width="wrap_content"
 			        android:background="#FF909090" />	
-			   <ListView android:layout_width="fill_parent"    
+			    <ListView android:layout_width="fill_parent"    
 		                  android:layout_height="180dip"    
-		                  android:id="@+id/list_searchOthers" android:fadingEdge="none" android:clipToPadding="true" android:paddingLeft="0px">  
+		                  android:id="@+id/list_searchOthers"
+		                  android:fadingEdge="none"
+		                  android:clipToPadding="true"
+		                  android:paddingLeft="0px">  
 		        </ListView>  
 		        
 	    </LinearLayout>
@@ -224,4 +186,4 @@
 
 
 </ScrollView>
-  </RelativeLayout>
+</RelativeLayout>

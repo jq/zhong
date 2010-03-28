@@ -8,8 +8,8 @@ import android.os.Environment;
 import android.widget.Toast;
 
 // A singleton to manage all the necessary files.
-public class FilesManager {
-	private static FilesManager sInstance;
+public class FileManager {
+	private static FileManager sInstance;
 
 	File mHomeDir;
 	
@@ -34,9 +34,9 @@ public class FilesManager {
     	return mCacheDirPath;
     }
 	
-	public static FilesManager getInstance(Context context) {
+	public static FileManager getInstance(Context context) {
 		if (sInstance == null) {
-			sInstance = new FilesManager(context);
+			sInstance = new FileManager(context);
 		}
 		return sInstance;
 	}
@@ -49,7 +49,7 @@ public class FilesManager {
 		return dir.getAbsolutePath();
 	}
 	
-	private FilesManager(Context context) {
+	private FileManager(Context context) {
 		File sdCardRoot = Environment.getExternalStorageDirectory();
 		File mHomeDir = new File(sdCardRoot, Const.APP_BASE_DIR);
 		
