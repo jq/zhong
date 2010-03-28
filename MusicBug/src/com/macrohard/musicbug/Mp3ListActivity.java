@@ -60,11 +60,9 @@ public class Mp3ListActivity extends Activity implements ListFooterView.RetryNet
 	
 	@Override
 	public void retryNetwork() {
-		/*
-		fetchDataFromServer();
+		fetchNextMp3ListBatch();
 		mAdapter.setStatus(ListFooterView.Status.LOADING);
 		mAdapter.notifyDataSetChanged();
-		*/
 	}
 
 	private void fetchNextMp3ListBatch() {
@@ -177,11 +175,13 @@ public class Mp3ListActivity extends Activity implements ListFooterView.RetryNet
 		@Override
 		protected void onPostExecute(Boolean result) {
 			mProgressDialog.dismiss();
+			
 			if (result) {
 				mAdapter.setStatus(ListFooterView.Status.LOADED);
 				mAdapter.notifyDataSetChanged();
 			} else {
-				mHasMoreData = false;
+				mAdapter.setStatus(ListFooterView.Status.ERROR);
+				mAdapter.notifyDataSetInvalidated();
 			}
 		}
 
@@ -190,16 +190,22 @@ public class Mp3ListActivity extends Activity implements ListFooterView.RetryNet
 			ArrayList<MP3Info> mp3List;
 			try {
 				mp3List = mFetcher.getNextListBatch();
-				if (mp3List != null && mp3List.size() > 0) {
-					mData.append(mp3List);
-					return true;
+				if (mp3List == null) {
+					// Some error.
+					return false;
 				} else {
-					Debug.D("Failed to fetch more mp3!");
+					if (mp3List.size() > 0) {
+						mData.append(mp3List);
+						return true;
+					} else {
+						mHasMoreData = false;
+						return true;
+					}
 				}
 			} catch (Mp3FetcherException e) {
 				e.printStackTrace();
+				return false;
 			}
-			return false;
 		}
 	}
 

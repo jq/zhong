@@ -26,6 +26,7 @@ import android.util.Log;
 public class SogoMp3Fetcher implements Mp3FetcherInterface {
     private static final String BASE_URL = "http://mp3.sogou.com/music.so?pf=mp3&query=";
     private static final String SOGOU_MP3_URL = "http://mp3.sogou.com";
+    private static final String TAG = Debug.TAG;
     	
     private static int[] FILE_KINDS =
         new int[]{
@@ -105,7 +106,6 @@ public class SogoMp3Fetcher implements Mp3FetcherInterface {
 
             // Pattern pattern_artist = Pattern.compile("&si=.*?;;(.*?);;");
             while (matcher.find()) {
-
                 MP3Info mp3 = new MP3Info();
 
                 int nameStartPos = httpresponse.indexOf(" title=\"", matcher
@@ -187,7 +187,12 @@ public class SogoMp3Fetcher implements Mp3FetcherInterface {
         	e.printStackTrace();
             return null;
         }
-        Log.e("song size", "" + songs.size());
+        
+        Debug.D("songs = " + songs);
+        
+        if (songs != null) {
+        	Log.e(TAG, "song size: " + songs.size());
+        }
         return songs;
     }
 
@@ -246,11 +251,17 @@ public class SogoMp3Fetcher implements Mp3FetcherInterface {
     		return null;
     	}
     	ArrayList<MP3Info> songs = getListBatchByUrl(getNextUrl(), -1);
-    	if (songs == null) {
-    		mDone = true;
+    	
+    	if (songs != null) {
+    		if (songs.size() == 0) {
+    			mDone = true;
+    		} else {
+    			++mNextPage;
+    		}
     	} else {
-    		++mNextPage;
+    		// Some error occurred.
     	}
+    	
     	return songs;
     }
 

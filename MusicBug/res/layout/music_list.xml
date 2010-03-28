@@ -5,8 +5,16 @@
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
   <ListView android:id="@+id/post_list" android:layout_width="fill_parent"
-       android:layout_height="0dip" android:layout_weight="1"
+       android:layout_height="wrap_content" android:layout_weight="1"
        android:divider="#ffffff"
        android:dividerHeight="2dip"
        android:stackFromBottom="false"  />
+
+<!-- 
+  <TextView android:id="@+id/android:empty"
+          android:layout_width="fill_parent" 
+          android:layout_height="fill_parent"
+          android:text="Sorry, no results found."/>
+ -->
+
 </LinearLayout>

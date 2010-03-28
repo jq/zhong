@@ -53,6 +53,8 @@ public class FileManager {
 		File sdCardRoot = Environment.getExternalStorageDirectory();
 		File mHomeDir = new File(sdCardRoot, Const.APP_BASE_DIR);
 		
+		Debug.D("Home dir: " + mHomeDir);
+		
 		if (!mHomeDir.exists() && !mHomeDir.mkdir()) {
 			Toast.makeText(context, R.string.no_sd, Toast.LENGTH_LONG).show();
 			return;
