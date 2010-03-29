@@ -169,9 +169,11 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 	@Override
 	protected void onPause() {
 		super.onPause();
+		/*
 		if (mPlayer != null && mPlayer.isPlaying()) {
 			mPlayer.stop();
 		}
+		*/
 	}
 
 	private OnClickListener mPlayStopListener = new OnClickListener() {
