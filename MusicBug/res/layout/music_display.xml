@@ -123,7 +123,6 @@
          			android:layout_width="wrap_content"
          			android:layout_height="wrap_content"
          			android:layout_weight="1"
-         			android:layout_below="@id/row_artist"
          			android:singleLine="true"/>
          
 				<TextView android:id="@+id/row_artist"
@@ -134,6 +133,7 @@
          			android:layout_width="wrap_content"
          			android:layout_height="wrap_content"
          			android:layout_weight="1"
+         			android:layout_below="@id/row_title"
          			android:singleLine="true"/>
          
 			    <RatingBar android:id="@+id/row_small_ratingbar"

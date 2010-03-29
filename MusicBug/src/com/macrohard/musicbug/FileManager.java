@@ -51,7 +51,7 @@ public class FileManager {
 	
 	private FileManager(Context context) {
 		File sdCardRoot = Environment.getExternalStorageDirectory();
-		File mHomeDir = new File(sdCardRoot, Const.APP_BASE_DIR);
+		mHomeDir = new File(sdCardRoot, Const.APP_BASE_DIR);
 		
 		Debug.D("Home dir: " + mHomeDir);
 		

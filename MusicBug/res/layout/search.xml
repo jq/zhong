@@ -24,19 +24,18 @@
 	<LinearLayout
 	android:orientation="horizontal"
 	android:layout_width="fill_parent"
-	android:layout_height="50px"
+	android:layout_height="wrap_content"
 	>   
        	<EditText android:id="@+id/search_query_words"
-              android:layout_width="260px"
-              android:layout_height="50px"
-              android:layout_weight="10"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
               android:singleLine="true"
+              android:layout_weight = "1"
               />        
 		<ImageButton android:id="@+id/search_button"
 		          	android:src="@android:drawable/ic_menu_search"
-		          	android:layout_width="60px"
-		          	android:layout_height="48px"
-		          	android:layout_weight="1"
+		          	android:layout_width="48dip"
+		          	android:layout_height="48dip"
 		          />
        </LinearLayout>    
 </LinearLayout>

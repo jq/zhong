@@ -70,7 +70,6 @@ public class Mp3ListActivity extends Activity implements ListFooterView.RetryNet
 			new FetchMp3ListTask().execute();
 		}
 	}
-	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -99,26 +98,9 @@ public class Mp3ListActivity extends Activity implements ListFooterView.RetryNet
 					return;
 				
 				final MP3Info mp3 = mData.get(position);
-			    Intent intent = new Intent(Mp3ListActivity.this, MusicPage.class);
-			    String mp3Link = null;
-			  	try {
-			  	  mp3Link = SogoMp3Fetcher.getDownloadLink(mp3); 
-			  	} catch (IOException e) {
-			  		e.printStackTrace();
-			  	}
-			  	
-			  	if (mp3Link == null) {
-			      Toast.makeText(Mp3ListActivity.this, R.string.no_result, Toast.LENGTH_SHORT).show();
-			      return;
-			  	}
-			  	float rate = mp3.getRate();
-
-			  	intent.putExtra(Const.MP3RATE, ((Float)rate).toString());
-			    intent.putExtra(Const.MP3LOC, mp3Link);
-			    intent.putExtra(Const.MP3TITLE, mp3.getTitle());
-			    intent.putExtra(Const.MP3SONGER, mp3.getArtist());
-			    startActivity(intent);
-				
+		
+				showDialog(DIALOG_WAITING_FOR_SERVER);
+				new FetchMp3LinkTask().execute(mp3);
             }
         });
 
@@ -130,46 +112,53 @@ public class Mp3ListActivity extends Activity implements ListFooterView.RetryNet
 
 		showDialog(DIALOG_WAITING_FOR_SERVER);
 		fetchNextMp3ListBatch();
-		
-		/*
-		Button replyButton = (Button)findViewById(R.id.reply_button);
-		replyButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				// TODO:
-				finish();
-			}
-		});
-		*/
 	}
 
-	/*
-    MP3Info mp3;
-    try {
-      mp3 = mAdapter.getItem(pos);
-    } catch (Exception e) {
-      return;
-    }
-    Intent intent = new Intent(this,MusicPage.class);
-    String mp3Link = null;
-  	try {
-  	  mp3Link = MusicUtil.getLink(mp3.getLink());
-  	} catch (IOException e) {
-  	}
-  	
-  	if (mp3Link == null) {
-      Toast.makeText(this, R.string.no_result, Toast.LENGTH_SHORT).show();
-      return;
-  	}
-  	float rate = (float)((Double.parseDouble(mp3.rate)/6.0)*5.0);
-  	Log.e("rate_ori:", mp3.rate);
-  	intent.putExtra(Const.MP3RATE, ((Float)rate).toString());
-    intent.putExtra(Const.MP3LOC, mp3Link);
-    intent.putExtra(Const.MP3TITLE, mp3.name);
-    intent.putExtra(Const.MP3SONGER, mp3.artist);
-    startActivity(intent);
-    */
+	private class Mp3InfoHolder {
+		public MP3Info mp3;
+		public String downloadLink;
+	};
 
-	
+	private class FetchMp3LinkTask extends AsyncTask<MP3Info, Void, Mp3InfoHolder> {
+		protected Mp3InfoHolder doInBackground(MP3Info... mp3s) {
+			String mp3Link = null;
+			try {
+				// TODO: This is a temporary hack. Consider using the fetcher interface when it is finished.
+				mp3Link = SogoMp3Fetcher.getDownloadLink(mp3s[0]); 
+			} catch (IOException e) {
+				mp3Link = null;
+				e.printStackTrace();
+			}
+			Mp3InfoHolder holder = new Mp3InfoHolder();
+			holder.mp3 = mp3s[0];
+			holder.downloadLink = mp3Link;
+			return holder;
+		}
+
+		protected void onPostExecute(Mp3InfoHolder info) {
+			MP3Info mp3 = info.mp3;
+			String mp3Link = info.downloadLink;
+			
+			if (mp3Link == null) {
+				mProgressDialog.dismiss();
+
+				Toast.makeText(Mp3ListActivity.this, R.string.no_result, Toast.LENGTH_SHORT).show();
+				return;
+			}
+
+		  	float rate = mp3.getRate();
+
+		    Intent intent = new Intent(Mp3ListActivity.this, MusicPage.class);
+		  	intent.putExtra(Const.MP3RATE, ((Float)rate).toString());
+		    intent.putExtra(Const.MP3LOC, mp3Link);
+		    intent.putExtra(Const.MP3TITLE, mp3.getTitle());
+		    intent.putExtra(Const.MP3SONGER, mp3.getArtist());
+		    startActivity(intent);
+		    
+			mProgressDialog.dismiss();
+		}
+	}
+
 	private class FetchMp3ListTask extends AsyncTask<Void, Void, Boolean> {
 
 		@Override
