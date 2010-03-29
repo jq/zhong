@@ -38,4 +38,10 @@
 		          	android:layout_height="48dip"
 		          />
        </LinearLayout>    
+     <LinearLayout 
+	  	android:id="@+id/AdsView" 
+	  	android:layout_width="fill_parent"
+	   	android:layout_height="wrap_content"
+	   />
+       
 </LinearLayout>

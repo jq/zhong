@@ -93,10 +93,10 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		this.getMediaInfo(this.getIntent());
 		setContentView(R.layout.music_display);
+    Ads.createQWAd(this);
 
 		mFilesManager = FileManager.getInstance(getApplication());
 
@@ -165,17 +165,6 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 		});
 	}
 	
-	
-	@Override
-	protected void onPause() {
-		super.onPause();
-		/*
-		if (mPlayer != null && mPlayer.isPlaying()) {
-			mPlayer.stop();
-		}
-		*/
-	}
-
 	private OnClickListener mPlayStopListener = new OnClickListener() {
 		public void onClick(View v) {
 			try {
@@ -409,21 +398,6 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 						m_CurDownloadFile = mMp3Title + "[" + mMp3Songer + "]"
 						+ ".mp3";
 						new DownloadTask(false).execute(mMp3Location);
-						/*
-						 * (new Thread() { public void run() { m_CurDownloadFile
-						 * = mMp3title + "[" + mMp3songer + "]" + ".mp3"; new
-						 * DownloadTask().execute(mMp3Location);
-						 * //DownloadMusic(m_CurDownloadFile, mMp3Location); }
-						 * }).start();
-						 */
-						// }else
-						// Toast.makeText(MusicPage.this,
-						// "Please select link in search results first",
-						// Toast.LENGTH_SHORT).show();
-						// }else
-						// Toast.makeText(MusicPage.this,
-						// "Please search music first",
-						// Toast.LENGTH_SHORT).show();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

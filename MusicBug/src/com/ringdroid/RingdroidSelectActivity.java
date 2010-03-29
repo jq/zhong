@@ -44,6 +44,7 @@ import android.widget.ListAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
+import com.macrohard.musicbug.Ads;
 import com.macrohard.musicbug.R;
 import com.ringdroid.soundfile.CheapSoundFile;
 
@@ -110,6 +111,7 @@ public class RingdroidSelectActivity
 
         // Inflate our UI from its XML layout description.
         setContentView(R.layout.media_select);
+        Ads.createQWAd(this);
 
         Button recordButton = (Button) findViewById(R.id.record);
         recordButton.setOnClickListener(new View.OnClickListener() {
