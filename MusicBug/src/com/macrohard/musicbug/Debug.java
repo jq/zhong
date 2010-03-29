@@ -10,7 +10,7 @@ public class Debug {
 	static final int DebugDialogID = 100;
 	static String TAG = "MusicBug";
 	
-	static public final boolean DEBUG = true;
+	static public final boolean DEBUG = false;
 	
 	static public void D(String msg) {
 		if (DEBUG) {

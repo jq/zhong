@@ -66,7 +66,8 @@ public class Utils {
     
     private static int sNotificationRef = 1; 
     
-	public static void addNotification(Context _context, Intent intent, String title, int resTitle, int resText, int resExpandedTitle, int resExpandedText) {
+	public static void addNotification(Context _context, Intent intent, String title,
+			int resTitle, int resText, int resExpandedTitle, int resExpandedText) {
     	int icon = R.drawable.icon;
     	String tickerText ="\""+title+"\""+  _context.getString(resTitle);
     	long when = System.currentTimeMillis();

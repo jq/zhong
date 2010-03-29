@@ -12,7 +12,6 @@ import java.util.HashMap;
 import org.json.JSONObject;
 
 import com.ringdroid.RingdroidSelectActivity;
-import com.macrohard.musicbug.IMediaPlaybackService;
 import com.macrohard.musicbug.R;
 
 import android.app.Activity;
@@ -23,9 +22,9 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.media.MediaPlayer;
 import android.media.MediaScannerConnection;
 import android.media.MediaScannerConnection.*;
 import android.net.Uri;
@@ -82,6 +81,8 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 	MediaScannerConnection mScanner;
 
 	private FileManager mFilesManager;
+	
+	MediaPlayer mPlayer = new MediaPlayer();;
 
 	private void getMediaInfo(Intent intent) {
 		mMp3Location = intent.getStringExtra(Const.MP3LOC);
@@ -107,12 +108,6 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 
 		btnQueue = (Button) findViewById(R.id.queue);
 		btnQueue.setOnClickListener(queueClick);
-
-		Intent serviceIntent = new Intent(this, MediaPlaybackService.class);
-		startService(serviceIntent);
-		bindService((new Intent()).setClass(this,
-				MediaPlaybackService.class), osc, 0);
-
 
 		mSeekBar = (SeekBar) findViewById(R.id.play_seek_bar);
 		mSeekBar.setOnSeekBarChangeListener(this);
@@ -169,45 +164,25 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 
 		});
 	}
-
+	
+	
 	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		try {
-			if(mService.isPlaying() == true){
-				mService.stop();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+	protected void onPause() {
+		super.onPause();
+		if (mPlayer != null && mPlayer.isPlaying()) {
+			mPlayer.stop();
 		}
-
-		unbindService(osc);
 	}
-
-	private IMediaPlaybackService mService = null;
-	private ServiceConnection osc = new ServiceConnection() {
-		public void onServiceConnected(ComponentName classname, IBinder obj) {
-			mService = IMediaPlaybackService.Stub.asInterface(obj);
-		}
-
-		public void onServiceDisconnected(ComponentName classname) {
-			try {
-				mService.stop();
-			} catch (Exception ex) {
-			}
-
-		}
-	};
 
 	private OnClickListener mPlayStopListener = new OnClickListener() {
 		public void onClick(View v) {
 			try {
 				if (mPaused == false) {
-					mService.pause();
+					mPlayer.pause();
 					mPlayStop.setImageResource(R.drawable.play);
 					mPaused = true;
 				} else {
-					mService.play();
+					mPlayer.start();
 					mPlayStop.setImageResource(R.drawable.stop);
 					mPaused = false;
 					long next = refreshSeekBarNow();
@@ -221,7 +196,7 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 
 	private long refreshSeekBarNow() {
 		try {
-			long pos = mService.position();
+			long pos = mPlayer.getCurrentPosition();
 			long remaining = 1000 - (pos % 1000);
 			if ((pos >= 0) && (mSongDuration > 0)) {
 
@@ -309,24 +284,37 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 				public void run(){
 					try {
 						Log.e("MusicPage","into new thread");
-						mService.stop();
+						mPlayer.stop();
 						Log.e("MusicPage","media service stopped");
-						mService.openfile(mMp3Location);
+						mPlayer.reset();
+						mPlayer.setDataSource(mMp3Location);
+
 						Log.e("MusicPage", "media file opened");
 						mHandler.sendEmptyMessage(RM_CON_DIALOG);
-						mService.play();
+						mPlayer.prepare();
+						mPlayer.start();
 
 						mProgressDialogIsOpen = false;
 						SeekBarSetEnalbe(true);
 						ButtonsSetEnalbe(true);
-						mSongDuration = mService.duration();
+						mSongDuration = mPlayer.getDuration(); 
 
 						long next = refreshSeekBarNow();
 						queueNextRefresh(next);
-					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
+					} catch (IllegalArgumentException e) {
 						showConnectDiaglog(false);
 						showConnectErrorDiaglog(true);
+
+						e.printStackTrace();
+					} catch (IllegalStateException e) {
+						showConnectDiaglog(false);
+						showConnectErrorDiaglog(true);
+
+						e.printStackTrace();
+					} catch (IOException e) {
+						showConnectDiaglog(false);
+						showConnectErrorDiaglog(true);
+
 						e.printStackTrace();
 					}
 				}
@@ -396,13 +384,13 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 				if (mDownloading == false) {
 					try {
 						try {
-							if (mService.isPlaying() == true) {
-								mService.pause();
+							if (mPlayer.isPlaying()) {
+								mPlayer.pause();
 								// mPlayStop.setImageResource(R.drawable.play);
 								mPaused = true;
 							}
 						} catch (Exception ex) {
-							;
+							ex.printStackTrace();
 						}
 						showDialog(DOWNLOAD_MP3FILE);
 						m_CurDownloadFile = mMp3Title + "[" + mMp3Songer + "]"
@@ -435,24 +423,41 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 						public void run() {
 							try {
 								Log.e("MusicPage", "into new thread");
-								mService.stop();
+								mPlayer.stop();
 								Log.e("MusicPage", "media service stopped");
-								mService.openfile(mMp3Location);
+
+								String mp3Path = mFilesManager.getHomeDir() + m_CurDownloadFile;
+								
+								Debug.D("mp3Path = " + mp3Path);
+								
+								mPlayer.reset();
+								mPlayer.setDataSource(mp3Path);
 								Log.e("MusicPage", "media file opened");
 								//mHandler.sendEmptyMessage(RM_CON_DIALOG);
-								mService.play();
+								mPlayer.prepare();
+								mPlayer.start();
 
 								mProgressDialogIsOpen = false;
 								SeekBarSetEnalbe(true);
 								ButtonsSetEnalbe(true);
-								mSongDuration = mService.duration();
+								mSongDuration = mPlayer.getDuration();
 
 								long next = refreshSeekBarNow();
 								queueNextRefresh(next);
-							} catch (RemoteException e) {
-								// TODO Auto-generated catch block
+							} catch (IllegalArgumentException e) {
 								showConnectDiaglog(false);
 								showConnectErrorDiaglog(true);
+
+								e.printStackTrace();
+							} catch (IllegalStateException e) {
+								showConnectDiaglog(false);
+								showConnectErrorDiaglog(true);
+
+								e.printStackTrace();
+							} catch (IOException e) {
+								showConnectDiaglog(false);
+								showConnectErrorDiaglog(true);
+
 								e.printStackTrace();
 							}
 						}
@@ -539,11 +544,12 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 	public void onStopTrackingTouch(SeekBar seekBar) {
 		// TODO Auto-generated method stub
 		try {
-			mSongPosition = mService.position();
+			mSongPosition = mPlayer.getCurrentPosition(); 
+				
 			long position = (mSongDuration * mSongProgress) / 1000;
-			mService.seek(position);
+			mPlayer.seekTo((int)position);
 		} catch (Exception ex) {
-			;
+			ex.printStackTrace();
 		}
 	}
 
@@ -691,7 +697,8 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 				// showDownloadOKNotification(m_CurDownloadFile);
 				if (isQueue) {
 					Debug.D("Sending notification");
-					Intent intent = new Intent(MusicPage.this, RingdroidSelectActivity.class);
+					// Intent intent = new Intent(MusicPage.this, RingdroidSelectActivity.class);
+					Intent intent = new Intent(MusicPage.this, MusicSearch.class);
 					Utils.addNotification(MusicPage.this, intent, mMp3Title, R.string.app_name,
 							R.string.saved, R.string.app_name, R.string.saved);
 				} else {
