@@ -3,7 +3,6 @@ package com.macrohard.musicbug;
 import java.io.File;
 import java.util.ArrayList;
 
-import com.feebe.lib.DefaultDownloadListener;
 
 public interface Mp3FetcherInterface {
 	public static class Mp3FetcherException extends Exception {
@@ -24,6 +23,7 @@ public interface Mp3FetcherInterface {
 	public ArrayList<MP3Info> getNextListBatch() throws Mp3FetcherException;
 	public void resetList();
 	
+	/*
 	public void downloadMp3(MP3Info mp3, String saveFile, DefaultDownloadListener listener) throws Mp3FetcherException;
-
+	*/
 }

@@ -11,7 +11,6 @@ import java.util.HashMap;
 
 import org.json.JSONObject;
 
-import com.feebe.lib.Util;
 import com.ringdroid.RingdroidSelectActivity;
 import com.macrohard.musicbug.IMediaPlaybackService;
 import com.macrohard.musicbug.R;
@@ -63,7 +62,7 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 	int mSongProgress;
 	long mSongPosition;
 	long mSongDuration;
-	String mMp3Local;
+	String mMp3Location;
 	boolean mDownloadFinish = false;
 	boolean mIsPlaying = false;
 	String mMp3Songer;
@@ -85,7 +84,7 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 	private FileManager mFilesManager;
 
 	private void getMediaInfo(Intent intent) {
-		mMp3Local = intent.getStringExtra(Const.MP3LOC);
+		mMp3Location = intent.getStringExtra(Const.MP3LOC);
 		mMp3Title = intent.getStringExtra(Const.MP3TITLE);
 		mMp3Songer = intent.getStringExtra(Const.MP3SONGER);
 		mRate = Float.parseFloat(intent.getStringExtra(Const.MP3RATE));
@@ -312,7 +311,7 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 						Log.e("MusicPage","into new thread");
 						mService.stop();
 						Log.e("MusicPage","media service stopped");
-						mService.openfile(mMp3Local);
+						mService.openfile(mMp3Location);
 						Log.e("MusicPage", "media file opened");
 						mHandler.sendEmptyMessage(RM_CON_DIALOG);
 						mService.play();
@@ -353,7 +352,7 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 		case DOWNLOAD_MP3FILE: {
 			mProgressDownload = new ProgressDialog(MusicPage.this);
 			// mProgressDownload.setMessage("Download mp3 file : \n" +
-			// mMp3Local.substring(0, 64));
+			// mMp3Location.substring(0, 64));
 			mProgressDownload.setMessage("Download mp3 file ...");
 			mProgressDownload.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 			mProgressDownload.setMax(1000);
@@ -408,12 +407,12 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 						showDialog(DOWNLOAD_MP3FILE);
 						m_CurDownloadFile = mMp3Title + "[" + mMp3Songer + "]"
 						+ ".mp3";
-						new DownloadTask(false).execute(mMp3Local);
+						new DownloadTask(false).execute(mMp3Location);
 						/*
 						 * (new Thread() { public void run() { m_CurDownloadFile
 						 * = mMp3title + "[" + mMp3songer + "]" + ".mp3"; new
-						 * DownloadTask().execute(mMp3Local);
-						 * //DownloadMusic(m_CurDownloadFile, mMp3Local); }
+						 * DownloadTask().execute(mMp3Location);
+						 * //DownloadMusic(m_CurDownloadFile, mMp3Location); }
 						 * }).start();
 						 */
 						// }else
@@ -438,7 +437,7 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 								Log.e("MusicPage", "into new thread");
 								mService.stop();
 								Log.e("MusicPage", "media service stopped");
-								mService.openfile(mMp3Local);
+								mService.openfile(mMp3Location);
 								Log.e("MusicPage", "media file opened");
 								//mHandler.sendEmptyMessage(RM_CON_DIALOG);
 								mService.play();
@@ -471,7 +470,7 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 		public void onClick(View v) {
 			try {
 				m_CurDownloadFile = mMp3Title + "[" + mMp3Songer + "]" + ".mp3";
-				new DownloadTask(true).execute(mMp3Local);
+				new DownloadTask(true).execute(mMp3Location);
 				Toast.makeText(MusicPage.this, R.string.queue_message, Toast.LENGTH_SHORT).show();
 				MusicPage.this.finish();
 			} catch(Exception e) {
@@ -693,7 +692,7 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 				if (isQueue) {
 					Debug.D("Sending notification");
 					Intent intent = new Intent(MusicPage.this, RingdroidSelectActivity.class);
-					Util.addNotification(MusicPage.this, intent, mMp3Title, R.string.app_name,
+					Utils.addNotification(MusicPage.this, intent, mMp3Title, R.string.app_name,
 							R.string.saved, R.string.app_name, R.string.saved);
 				} else {
 					btnDownload.setText(R.string.play);
@@ -701,7 +700,7 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 				saveArtistAndTitle();
 			}
 			if (result == 0) {
-				Toast.makeText(MusicPage.this, mMp3Title+getString(R.string.download_failed), Toast.LENGTH_SHORT).show();
+				Toast.makeText(MusicPage.this, mMp3Title + getString(R.string.download_failed), Toast.LENGTH_SHORT).show();
 			}
 			if (!isQueue) {
 				removeDialog(DOWNLOAD_MP3FILE);

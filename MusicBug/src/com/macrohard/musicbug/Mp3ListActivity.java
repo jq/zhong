@@ -70,10 +70,20 @@ public class Mp3ListActivity extends Activity implements ListFooterView.RetryNet
 			new FetchMp3ListTask().execute();
 		}
 	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		showDialog(DIALOG_WAITING_FOR_SERVER);
+		fetchNextMp3ListBatch();
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		
+		Debug.D("Mp3ListActivity onCreate()");
 
 		setContentView(R.layout.music_list);
 
@@ -109,9 +119,6 @@ public class Mp3ListActivity extends Activity implements ListFooterView.RetryNet
 		if (!TextUtils.isEmpty(keyWords)) {
 			mFetcher = new SogoMp3Fetcher(this, keyWords);
 		}
-
-		showDialog(DIALOG_WAITING_FOR_SERVER);
-		fetchNextMp3ListBatch();
 	}
 
 	private class Mp3InfoHolder {
