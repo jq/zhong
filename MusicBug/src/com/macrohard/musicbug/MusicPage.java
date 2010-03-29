@@ -293,6 +293,17 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 
 						Log.e("MusicPage", "media file opened");
 						mHandler.sendEmptyMessage(RM_CON_DIALOG);
+						
+						// TODO(zyu): 
+						/*
+						 * E/MediaPlayer(10909): pause called in state 4
+						   E/MediaPlayer(10909): error (-38, 0)
+
+						 * W/System.err(10909): java.lang.IllegalStateException
+						   W/System.err(10909):    at android.media.MediaPlayer.prepare(Native Method)
+						   W/System.err(10909):    at com.macrohard.musicbug.MusicPage$3$1.run(MusicPage.java:296)
+                           W/System.err(10909):    at java.lang.Thread.run(Thread.java:1096)
+						 */
 						mPlayer.prepare();
 						mPlayer.start();
 
@@ -310,7 +321,8 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 						e.printStackTrace();
 					} catch (IllegalStateException e) {
 						showConnectDiaglog(false);
-						showConnectErrorDiaglog(true);
+						// TODO(zyu): Figure it out.
+						// showConnectErrorDiaglog(true);
 
 						e.printStackTrace();
 					} catch (IOException e) {
