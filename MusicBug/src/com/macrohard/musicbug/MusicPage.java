@@ -274,7 +274,6 @@ public class MusicPage extends Activity implements SeekBar.OnSeekBarChangeListen
 		});
 	}
 
-
 	OnClickListener previewClick = new OnClickListener() {
 
 		@Override
