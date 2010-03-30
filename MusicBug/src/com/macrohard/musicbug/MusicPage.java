@@ -85,6 +85,12 @@ public class MusicPage extends Activity {
 		setContentView(R.layout.music_display);
 		Ads.createQWAd(this);
 
+		// A hack
+		if (TextUtils.isEmpty(mMp3Location)) {
+			finish();
+			return;
+		}
+		
 		mFilesManager = FileManager.getInstance(getApplication());
 
 		btnPreview = (Button) findViewById(R.id.preview);
@@ -101,12 +107,14 @@ public class MusicPage extends Activity {
 		
 		btnStop = (Button)findViewById(R.id.stop);
 		btnStop.setOnClickListener(stopClick);
-		
+
+		/*
 		if (!TextUtils.isEmpty(mDownloadFile) && mPlayer.isPlaying()) {
 			btnDownload.setVisibility(View.GONE);
 			btnStop.setVisibility(View.VISIBLE);
 			btnPlay.setVisibility(View.GONE);
 		}
+		*/
 
 		((TextView) findViewById(R.id.row_title)).setText(mMp3Title);
 		((TextView) findViewById(R.id.row_artist)).setText(mMp3Singer);
