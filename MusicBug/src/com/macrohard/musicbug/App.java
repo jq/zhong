@@ -7,9 +7,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 
 public class App extends Application {
+	public static JTellaAdapter jta;
 
 	@Override
     public void onCreate() {
+		jta = JTellaAdapter.getInstance();	
     }
 }
 

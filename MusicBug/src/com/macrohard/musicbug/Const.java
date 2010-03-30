@@ -22,5 +22,4 @@ public class Const {
 	public static final String searchurl = "url";
 	
 	public static final String APP_BASE_DIR = "musicbug";
-	
 }
