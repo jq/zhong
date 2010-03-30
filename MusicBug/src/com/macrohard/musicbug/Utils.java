@@ -64,26 +64,22 @@ public class Utils {
     }
     
     
-    private static int sNotificationRef = 1; 
-    
-	public static void addNotification(Context _context, Intent intent, String title,
-			int resTitle, int resText, int resExpandedTitle, int resExpandedText) {
+	public static void addNotification(Context context, Intent intent, String title,
+			String resTitle, String resText, String resExpandedTitle, String resExpandedText) {
     	int icon = R.drawable.icon;
-    	String tickerText ="\""+title+"\""+  _context.getString(resTitle);
+    	String tickerText ="\"" + title + "\"" + resTitle;
     	long when = System.currentTimeMillis();
     	Notification notification = new Notification(icon, tickerText, when);
-    	Context context = _context.getApplicationContext();
-    	String expandedText ="\""+title+"\""+  context.getString(resExpandedText);
-    	String expandedTitle = context.getString(resExpandedTitle);
-    	//Intent intent = new Intent(RingActivity.this, RingdroidSelectActivity.class);
+    	String expandedText = "\"" + title + "\" " + resExpandedText;
+    	String expandedTitle = resExpandedTitle;
+
     	PendingIntent launchIntent = PendingIntent.getActivity(context, 0, intent, 0);
         notification.setLatestEventInfo(context, expandedTitle, expandedText, launchIntent);
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         NotificationManager notificationManager;
         notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         
-        // TODO(zyu): Does the following work?
-        notificationManager.notify(sNotificationRef++, notification);
+        notificationManager.notify(R.layout.music_display, notification);
 	}
 
 }

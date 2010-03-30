@@ -16,7 +16,8 @@ public class Const {
 	public static final String Key = "key";
 	public static final String MP3LOC = "MP3LOC";
 	public static final String MP3TITLE = "MP3TITLE";
-	public static final String MP3SONGER = "MP3SONGER";
+	public static final String MP3SINGER = "MP3SINGER";
+	public static final String MP3DOWNLOADFILE = "MP3DOWNLOADFILE";
 	public static final String MP3RATE = "MP3RATE";
 	public static final String searchurl = "url";
 	

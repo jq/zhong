@@ -20,6 +20,7 @@
     <string name="download_finished">Download finished</string>
     <string name="saved">Saved!</string>
     <string name="play">play</string>
+    <string name="stop">stop</string>
     
     <string name="sdcard_readonly">Sorry, the SD Card is mounted as read-only</string>
     <string name="no_sdcard">Can't run unless you have an SD Card inserted.</string>
@@ -42,5 +43,10 @@
     <string name="alert_ok_button">OK</string>
     <string name="alert_yes_button">Yes, please!</string>
     <string name="alert_no_button">No, thanks.</string>
-	<string name="no_result">No Result</string>    
+	<string name="no_result">No Result</string>
+	
+	 <string name="mStreaming_title">Please wait</string>
+     <string name="mStreaming_message">Streaming audio from network...</string>
+    
+	    
 </resources>

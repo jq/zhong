@@ -159,7 +159,7 @@ public class Mp3ListActivity extends Activity implements ListFooterView.RetryNet
 		  	intent.putExtra(Const.MP3RATE, ((Float)rate).toString());
 		    intent.putExtra(Const.MP3LOC, mp3Link);
 		    intent.putExtra(Const.MP3TITLE, mp3.getTitle());
-		    intent.putExtra(Const.MP3SONGER, mp3.getArtist());
+		    intent.putExtra(Const.MP3SINGER, mp3.getArtist());
 		    startActivity(intent);
 		    
 			mProgressDialog.dismiss();

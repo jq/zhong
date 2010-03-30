@@ -18,19 +18,8 @@
         </activity>
         
         <activity android:name=".MusicPage"
+                  android:launchMode="singleTop"
         		  android:theme="@android:style/Theme.Light"></activity>
-        
-        <activity android:name="com.ringdroid.RingdroidSelectActivity" android:label=""
-        	      android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden"
-        	      android:theme="@android:style/Theme.Light">
-            <intent-filter>
-                <action android:name="android.intent.action.GET_CONTENT" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.OPENABLE" />
-                <data android:mimeType="audio/*" />
-            </intent-filter>
-        </activity>
-                  
         
     </application>
     <uses-sdk android:minSdkVersion="4" />
