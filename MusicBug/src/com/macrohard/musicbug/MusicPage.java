@@ -108,14 +108,6 @@ public class MusicPage extends Activity {
 		btnStop = (Button)findViewById(R.id.stop);
 		btnStop.setOnClickListener(stopClick);
 
-		/*
-		if (!TextUtils.isEmpty(mDownloadFile) && mPlayer.isPlaying()) {
-			btnDownload.setVisibility(View.GONE);
-			btnStop.setVisibility(View.VISIBLE);
-			btnPlay.setVisibility(View.GONE);
-		}
-		*/
-
 		((TextView) findViewById(R.id.row_title)).setText(mMp3Title);
 		((TextView) findViewById(R.id.row_artist)).setText(mMp3Singer);
 

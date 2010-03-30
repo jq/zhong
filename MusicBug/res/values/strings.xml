@@ -7,13 +7,9 @@
     <string name="retry">Retry</string>
     <string name="waiting_for_server">Waiting for server...</string>
     <string name="loading">Loading more data...</string>
-    <string name="info">Music Information</string>
-    <string name="about">About</string>
- 	<string name="artist">Artist: </string>
-	<string name="title">Title: </string>
-	<string name="search_more">Search More</string>
-	<string name="search_more_by">Search More By</string>
-	<string name="search_more_in">Search More In</string>
+    <string name="info">Title and Artist</string>
+    <string name="about">Search</string>
+	<string name="search_more">More</string>
 	<string name="queue_message">The song has been queued</string>
 	<string name="no_sd">No SD card found or SD card is full</string>
     <string name="dir_create_error">Error in creating directory</string>
