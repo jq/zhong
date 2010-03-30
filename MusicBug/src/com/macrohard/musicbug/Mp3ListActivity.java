@@ -118,7 +118,8 @@ public class Mp3ListActivity extends Activity implements ListFooterView.RetryNet
 		String  keyWords = getIntent().getStringExtra(Const.Key);
 		if (!TextUtils.isEmpty(keyWords)) {
 			mFetcher = new SogoMp3Fetcher(this, keyWords);
-			App.jta.search(keyWords, new JTellaNode());
+			// TODO: p2p search
+			// App.jta.search(keyWords, new JTellaNode());
 		}
 	}
 

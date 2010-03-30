@@ -11,7 +11,8 @@ public class App extends Application {
 
 	@Override
     public void onCreate() {
-		jta = JTellaAdapter.getInstance();	
+		// TODO enable p2p
+		// jta = new JTellaAdapter();	
     }
 }
 

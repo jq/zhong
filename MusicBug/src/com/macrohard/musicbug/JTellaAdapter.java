@@ -43,29 +43,11 @@ public class JTellaAdapter {
     /**
      * Creates a JTella Adapter
      */
-    private JTellaAdapter() {
+    public JTellaAdapter() {
     	initialize();
     	initializeHostCache();
     }
-    
-    /**
-     * http://en.wikipedia.org/wiki/Singleton_pattern
-     * 
-     * Singleton pattern used with the JTellaAdapter, so that there's only one instance
-     * of the adapter running at any given time.
-     */
-    private static class SingletonHolder {
-    	private final static JTellaAdapter INSTANCE = new JTellaAdapter();
-    }
-    
-    /**
-     * Returns a singleton instance of the JTella adapter
-     * @return a singleton instance of the JTella adapter
-     */
-    public static JTellaAdapter getInstance() {
-    	return SingletonHolder.INSTANCE;
-    }
-        
+            
 	public GUID search(String msg, MessageReceiver id) {
 		SearchMessage search = new SearchMessage(msg, SearchMessage.GET_BY_NAME, 0);
 		GUID guid = search.getGUID();
