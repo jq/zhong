@@ -6,8 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.macrohard.musicbug.R;
 
@@ -30,14 +28,12 @@ import android.util.Log;
 
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
 
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
+
 
 public class MusicPage extends Activity {
 	boolean mTrackAdapterCreated = false;
@@ -59,7 +55,6 @@ public class MusicPage extends Activity {
 	Button btnStop;
 	private boolean mDownloading = false;
 
-	private ListView listSearchOthers;
 	ProgressDialog mProgressDialog;
 	ProgressDialog mProgressDialogSearch;
 	ProgressDialog mProgressDialogPrepare;
@@ -111,44 +106,6 @@ public class MusicPage extends Activity {
 		((TextView) findViewById(R.id.row_title)).setText(mMp3Title);
 		((TextView) findViewById(R.id.row_artist)).setText(mMp3Singer);
 
-		listSearchOthers = (ListView) findViewById(R.id.list_searchOthers);
-		ArrayList<HashMap<String, String>> ringlist = new ArrayList<HashMap<String, String>>();
-		HashMap<String, String> map1 = new HashMap<String, String>();
-		HashMap<String, String> map2 = new HashMap<String, String>();
-		map1.put("ItemTitle", this.getString(R.string.search_more) + " "
-				+ this.mMp3Singer);
-		map2.put("ItemTitle", this.getString(R.string.search_more) + " "
-				+ this.mMp3Title);
-
-		ringlist.add(map1);
-		ringlist.add(map2);
-		SimpleAdapter mSearchOthers = new SimpleAdapter(this, ringlist,
-				R.layout.ring_list_item, new String[] { "ItemTitle" },
-				new int[] { R.id.ringListItem1 });
-		listSearchOthers.setAdapter(mSearchOthers);
-		listSearchOthers.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-					long id) {
-				switch (position) {
-				// 0 is the singer name create in before 1 is the title.
-				case 0:
-					Intent intent1 = new Intent();
-					intent1.putExtra(Const.Key, mMp3Singer);
-					intent1.setClass(MusicPage.this, Mp3ListActivity.class);
-					startActivityForResult(intent1, 1);
-					return;
-				case 1:
-					Intent intent2 = new Intent();
-					intent2.putExtra(Const.Key, mMp3Title);
-					intent2.setClass(MusicPage.this, Mp3ListActivity.class);
-					startActivityForResult(intent2, 1);
-					return;
-				}
-			}
-
-		});
 	}
 
 	void showConnectDiaglog(final boolean show) {
