@@ -18,7 +18,7 @@ public class Ads {
     public static void createQWAd(Activity activity){
     	ViewGroup parentView = (ViewGroup)activity.findViewById(R.id.AdsView);
     	QWAdView adView = new QWAdView(activity,
-    			"Music-g7cvxbqc",
+    			"Music-g7gon821",
     			"a7beb24f184b4305804013cbc447f678",
     			MediaType.banner,
     			Placement.bottom,
@@ -27,7 +27,6 @@ public class Ads {
     			new QWAdEventsListener(),true);
     	parentView.addView(adView);
     }
-    
 
     private static class QWAdEventsListener implements AdEventsListener {
             	
