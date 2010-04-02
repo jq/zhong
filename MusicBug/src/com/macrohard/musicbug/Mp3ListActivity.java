@@ -1,13 +1,12 @@
 package com.macrohard.musicbug;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.macrohard.musicbug.R;
-import com.macrohard.musicbug.Mp3FetcherInterface.Mp3FetcherException;
+import com.macrohard.musicbug.IMp3Fetcher.Mp3FetcherException;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -17,7 +16,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +40,7 @@ public class Mp3ListActivity extends Activity implements ListFooterView.RetryNet
 
 	private boolean mHasMoreData = true;
 	
-	private Mp3FetcherInterface mFetcher;
+	private IMp3Fetcher mFetcher;
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
@@ -130,11 +128,9 @@ public class Mp3ListActivity extends Activity implements ListFooterView.RetryNet
 		protected Mp3InfoHolder doInBackground(MP3Info... mp3s) {
 			String mp3Link = null;
 			try {
-				// TODO: This is a temporary hack. Consider using the fetcher interface when it is finished.
-				mp3Link = SogoMp3Fetcher.getDownloadLink(mp3s[0]); 
-			} catch (IOException e) {
+				mp3Link = mFetcher.getDownloadLink(mp3s[0]); 
+			} catch (Mp3FetcherException e) {
 				mp3Link = null;
-				e.printStackTrace();
 			}
 			Mp3InfoHolder holder = new Mp3InfoHolder();
 			holder.mp3 = mp3s[0];

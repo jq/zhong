@@ -1,6 +1,5 @@
 package com.macrohard.musicbug;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,22 +16,15 @@ import android.util.Log;
 
 
 // This class is not thread safe.
-public class SogoMp3Fetcher implements Mp3FetcherInterface {
+public class SogoMp3Fetcher implements IMp3Fetcher {
 	private static final String BASE_URL = "http://mp3.sogou.com/music.so?pf=mp3&query=";
 	private static final String SOGOU_MP3_URL = "http://mp3.sogou.com";
 	private static final String TAG = Debug.TAG;
-
-	private static int[] FILE_KINDS =
-		new int[]{
-		Const.FILE_KIND_RINGTONE,
-		Const.FILE_KIND_NOTIFICATION,
-		Const.FILE_KIND_ALARM};
 
 	private String mKeyWords;
 	private final String mLink;
 	private int mNextPage;
 	private boolean mDone;
-	private Context mContext;
 
 	private String getLink(String key) {
 		String reqString = null;
@@ -50,7 +42,6 @@ public class SogoMp3Fetcher implements Mp3FetcherInterface {
 		mLink = getLink(mKeyWords);  // Base link.
 		mNextPage = 1;
 		mDone = false;
-		mContext = context;
 	}
 
 	private String getNextUrl() {
@@ -181,33 +172,37 @@ public class SogoMp3Fetcher implements Mp3FetcherInterface {
 
 
 	// Given the link to each individual mp3, get the corresponding link by which we can actually download the music.
-	// TODO: Make this method private in the future. It should only be used by downloadMp3.
-	public static String getDownloadLink(MP3Info mp3) throws IOException {
-		String request = SOGOU_MP3_URL + mp3.getLink();
-		URL url = new URL(request);
-		HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
-		urlConn.setRequestProperty("User-Agent", "Apache-HttpClient/UNAVAILABLE (java 1.4)");
-		urlConn.setConnectTimeout(12000);
-		urlConn.connect();
+	public String getDownloadLink(MP3Info mp3) throws Mp3FetcherException {
+		try {
+			String request = SOGOU_MP3_URL + mp3.getLink();
+			URL url = new URL(request);
+			HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
+			urlConn.setRequestProperty("User-Agent", "Apache-HttpClient/UNAVAILABLE (java 1.4)");
+			urlConn.setConnectTimeout(12000);
+			urlConn.connect();
 
-		InputStream stream = urlConn.getInputStream();
+			InputStream stream = urlConn.getInputStream();
 
-		StringBuilder builder = new StringBuilder(8 * 1024);
+			StringBuilder builder = new StringBuilder(8 * 1024);
 
-		char[] buff = new char[4096];
-		//必须在此指定编码，否则后面toString会导致乱码
-		InputStreamReader is = new InputStreamReader(stream,"gb2312");
+			char[] buff = new char[4096];
+			//必须在此指定编码，否则后面toString会导致乱码
+			InputStreamReader is = new InputStreamReader(stream,"gb2312");
 
-		int len;
-		while ((len = is.read(buff, 0, 4096)) > 0) {
-			builder.append(buff, 0, len);
+			int len;
+			while ((len = is.read(buff, 0, 4096)) > 0) {
+				builder.append(buff, 0, len);
+			}
+			urlConn.disconnect();
+			String httpresponse = builder.toString();
+			int linkStartPos = httpresponse.indexOf("下载歌曲\" href=\"") + "下载歌曲\" href=\"".length();
+
+			int linkEndPos = httpresponse.indexOf('>', linkStartPos)-1;
+			return httpresponse.substring(linkStartPos, linkEndPos);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new Mp3FetcherException("Failure in getting mp3 download link: " + mp3.getLink());
 		}
-		urlConn.disconnect();
-		String httpresponse = builder.toString();
-		int linkStartPos = httpresponse.indexOf("下载歌曲\" href=\"") + "下载歌曲\" href=\"".length();
-
-		int linkEndPos = httpresponse.indexOf('>', linkStartPos)-1;
-		return httpresponse.substring(linkStartPos, linkEndPos);
 	}
 
 

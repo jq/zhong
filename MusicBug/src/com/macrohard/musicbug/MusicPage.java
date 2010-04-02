@@ -30,41 +30,38 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 public class MusicPage extends Activity {
-	boolean mTrackAdapterCreated = false;
+	private static final int CONNECTING = 2;
+	private static final int DOWNLOAD_MP3FILE = 3;
+	private static final int CONNECT_ERROR = 7;
 
-	static final int CONNECTING = 2;
-	static final int DOWNLOAD_MP3FILE = 3;
-	static final int CONNECT_ERROR = 7;
-	boolean mProgressDialogIsOpen = false;
+	private String mMp3Location;
+	private String mMp3Singer;
+	private String mMp3Title;
 
-	String mMp3Location;
-	String mMp3Singer;
-	String mMp3Title;
+	private String mDownloadFile;
+	private Button btnPreview;
+	private Button btnDownload;
+	private Button btnQueue;
+	private Button btnPlay;
+	private Button btnStop;
 
-	String mDownloadFile;
-	Button btnPreview;
-	Button btnDownload;
-	Button btnQueue;
-	Button btnPlay;
-	Button btnStop;
-	private boolean mDownloading = false;
-
-	ProgressDialog mProgressDialog;
-	ProgressDialog mProgressDialogSearch;
-	ProgressDialog mProgressDialogPrepare;
-	ProgressDialog mProgressDownload;
-	ProgressDialog mStreaming;
-	MediaScannerConnection mScanner;
+	private boolean isDownloading = false;
+	private ProgressDialog mProgressDialog;
+	private ProgressDialog mProgressDownload;
+	private ProgressDialog mStreaming;
+	private MediaScannerConnection mScanner;
 
 	private FileManager mFilesManager;
 
-	MediaPlayer mPlayer = new MediaPlayer();;
+	private MediaPlayer mPlayer = new MediaPlayer();;
+	
+	private String getLocalMp3File(String title, String artist) {
+		return mMp3Title + "[" + mMp3Singer + "]" + ".mp3";
+	}
 
 	private void getMediaInfo(Intent intent) {
 		mMp3Location = intent.getStringExtra(Const.MP3LOC);
@@ -80,7 +77,7 @@ public class MusicPage extends Activity {
 		setContentView(R.layout.music_display);
 		Ads.createQWAd(this);
 
-		// A hack
+		// A hack.
 		if (TextUtils.isEmpty(mMp3Location)) {
 			finish();
 			return;
@@ -108,7 +105,7 @@ public class MusicPage extends Activity {
 
 	}
 
-	void showConnectDiaglog(final boolean show) {
+	private void showConnectDiaglog(final boolean show) {
 		this.runOnUiThread(new Runnable() {
 			public void run() {
 				if (show == true)
@@ -119,7 +116,7 @@ public class MusicPage extends Activity {
 		});
 	}
 
-	void showConnectErrorDiaglog(final boolean show) {
+	private void showConnectErrorDiaglog(final boolean show) {
 		this.runOnUiThread(new Runnable() {
 			public void run() {
 				if (show == true)
@@ -130,17 +127,17 @@ public class MusicPage extends Activity {
 		});
 	}
 
-	OnClickListener previewClick = new OnClickListener() {
+	private OnClickListener previewClick = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			if(mMp3Location.startsWith("http:")) {
 				if (mStreaming == null) {
 					mStreaming  = new ProgressDialog(MusicPage.this);
 					mStreaming.setTitle(R.string.mStreaming_title);
-					mStreaming.setMessage(MusicPage.this.getString(R.string.mStreaming_message));
+					mStreaming.setMessage(getString(R.string.mStreaming_message));
 					mStreaming.setIndeterminate(true);
 					mStreaming.setCancelable(true);
-					mStreaming.setButton(MusicPage.this.getString(R.string.stop), new DialogInterface.OnClickListener() {			
+					mStreaming.setButton(getString(R.string.stop), new DialogInterface.OnClickListener() {			
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							mPlayer.stop();
@@ -172,7 +169,6 @@ public class MusicPage extends Activity {
 					}
 
 				}).start();
-
 			}		
 		}
 
@@ -186,10 +182,9 @@ public class MusicPage extends Activity {
 			mProgressDialog.setMessage("Please wait while connect...");
 			mProgressDialog.setIndeterminate(true);
 			mProgressDialog.setCancelable(true);
-			mProgressDialogIsOpen = true;
 			return mProgressDialog;
 		}
-		// download progress
+		// Download progress
 		case DOWNLOAD_MP3FILE: {
 			mProgressDownload = new ProgressDialog(MusicPage.this);
 			mProgressDownload.setMessage("Downloading mp3 file ...");
@@ -202,7 +197,6 @@ public class MusicPage extends Activity {
 					/* User clicked Yes so do some stuff */
 				}
 			});
-			mProgressDialogIsOpen = true;
 			return mProgressDownload;
 		}
 
@@ -227,45 +221,42 @@ public class MusicPage extends Activity {
 		public void onClick(View v) {
 			btnQueue.setVisibility(View.GONE);
 			removeDialog(CONNECTING);
-			mProgressDialogIsOpen = false;
-			if (mDownloading == false) {
-				try {
-					try {
-						if (mPlayer.isPlaying()) {
-							mPlayer.pause();
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					showDialog(DOWNLOAD_MP3FILE);
-					mDownloadFile = mMp3Title + "[" + mMp3Singer + "]"
-					+ ".mp3";
-					new DownloadTask(false).execute(mMp3Location);
-				} catch (Exception e) {
-					e.printStackTrace();
+			if (isDownloading) {
+				// It is weird that we need to call show Dialog twice here? Why?
+				showDialog(DOWNLOAD_MP3FILE);
+				showDialog(DOWNLOAD_MP3FILE);
+				return;
+			}
+			isDownloading = true;
+			try {
+				if (mPlayer.isPlaying()) {
+					mPlayer.pause();
 				}
-			} else {
-				mProgressDownload.show();
+				showDialog(DOWNLOAD_MP3FILE);
+				mDownloadFile = getLocalMp3File(mMp3Title, mMp3Singer);
+				new DownloadTask(false).execute(mMp3Location);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 	};
 
-	OnClickListener queueClick = new OnClickListener() {
+	private OnClickListener queueClick = new OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
 			try {
-				mDownloadFile = mMp3Title + "[" + mMp3Singer + "]" + ".mp3";
+				mDownloadFile = getLocalMp3File(mMp3Title, mMp3Singer);
 				new DownloadTask(true).execute(mMp3Location);
 				Toast.makeText(MusicPage.this, R.string.queue_message, Toast.LENGTH_SHORT).show();
-				MusicPage.this.finish();
+				finish();
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
 		}
 	};
 	
-	OnClickListener playClick = new OnClickListener() {
+	private OnClickListener playClick = new OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
@@ -275,9 +266,9 @@ public class MusicPage extends Activity {
 				new Thread(new Runnable() {
 					public void run() {
 						try {
-							Log.e("MusicPage", "into new thread");
-							mPlayer.stop();
-							Log.e("MusicPage", "media service stopped");
+							if (mPlayer.isPlaying()) {
+								mPlayer.stop();
+							}
 
 							String mp3Path = mFilesManager.getHomeDir() + mDownloadFile;
 
@@ -298,23 +289,11 @@ public class MusicPage extends Activity {
 						    intent.putExtra(Const.MP3TITLE, mMp3Title);
 						    intent.putExtra(Const.MP3SINGER, mMp3Singer);
 						    intent.putExtra(Const.MP3DOWNLOADFILE, mDownloadFile);
-						    
-							mProgressDialogIsOpen = false;
-
 						} catch (IllegalArgumentException e) {
-							showConnectDiaglog(false);
-							showConnectErrorDiaglog(true);
-
 							e.printStackTrace();
 						} catch (IllegalStateException e) {
-							showConnectDiaglog(false);
-							showConnectErrorDiaglog(true);
-
 							e.printStackTrace();
 						} catch (IOException e) {
-							showConnectDiaglog(false);
-							showConnectErrorDiaglog(true);
-
 							e.printStackTrace();
 						}
 					}
@@ -359,89 +338,54 @@ public class MusicPage extends Activity {
 			super();
 			this.isQueue = isQueue;
 		}
+		
+		private int download(String mp3Location, String saveFile, boolean showProgress) {
+			if (showProgress) {
+				DownloadSetProgress(0);
+			}
+			try {
+				URL url = new URL(mp3Location);
+				HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
+				urlConn.setRequestProperty(
+						"User-Agent",
+				"Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3 -Java");
+
+				urlConn.connect();
+
+				int totalSize = urlConn.getContentLength();
+				int downloaded = 0;
+
+				if (showProgress)
+					DownloadSetMax(totalSize);
+
+				DataInputStream fileStream;
+				String fullpathname = mFilesManager.getHomeDir() + mDownloadFile;
+				FileOutputStream filemp3 = new FileOutputStream(fullpathname);
+
+				byte[] buff = new byte[64 * 1024];
+				int len;
+				fileStream = new DataInputStream(new BufferedInputStream(urlConn.getInputStream()));
+				while ((len = fileStream.read(buff)) > 0) {
+					filemp3.write(buff, 0, len);
+					downloaded += len;
+					if (showProgress)
+						publishProgress((int)downloaded);
+				}
+
+				filemp3.close();
+				return 1;
+			} catch (IOException e) {
+				e.printStackTrace();
+				return 0;
+			}
+		}
 
 		public Integer doInBackground(String... urls) {
-			URL url = null;
-			HttpURLConnection urlConn = null;
-
-			String urlString;
-
-			urlString = urls[0];
+			String saveFile = mFilesManager.getHomeDir() + mDownloadFile;
 			if (!isQueue) {
-				DownloadSetProgress(0);
-				mDownloading = true;
-
-				try {
-					url = new URL(urlString);
-					urlConn = (HttpURLConnection) url.openConnection();
-					urlConn
-					.setRequestProperty(
-							"User-Agent",
-					"Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3 -Java");
-
-					urlConn.connect();
-
-					int downsize = urlConn.getContentLength();
-					int downed = 0;
-
-					DownloadSetMax(downsize);
-
-					DataInputStream fileStream;
-					String fullpathname = mFilesManager.getHomeDir() + mDownloadFile;
-					// FileOutputStream filemp3 = openFileOutput(filename,
-					// MODE_WORLD_READABLE);
-					FileOutputStream filemp3 = new FileOutputStream(fullpathname);
-
-					byte[] buff = new byte[64 * 1024];
-					int len;
-					fileStream = new DataInputStream(new BufferedInputStream(urlConn
-							.getInputStream()));
-					while ((len = fileStream.read(buff)) > 0) {
-						filemp3.write(buff, 0, len);
-						downed += len;
-						publishProgress((int) downed);
-					}
-
-					filemp3.close();
-					return 1;
-				} catch (IOException e) {
-					e.printStackTrace();
-					return 0;
-				}
+				return download(urls[0], saveFile, true);
 			} else {
-				// Queued downloading.
-				try {
-					url = new URL(urlString);
-					urlConn = (HttpURLConnection) url.openConnection();
-					urlConn
-					.setRequestProperty(
-							"User-Agent",
-					"Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3 -Java");
-
-					urlConn.connect();
-
-					int downed = 0;
-
-					DataInputStream fileStream;
-					String fullpathname = mFilesManager.getHomeDir() + mDownloadFile;
-					// FileOutputStream filemp3 = openFileOutput(filename,
-					// MODE_WORLD_READABLE);
-					FileOutputStream filemp3 = new FileOutputStream(fullpathname);
-					byte[] buff = new byte[64 * 1024];
-					int len;
-					fileStream = new DataInputStream(new BufferedInputStream(urlConn
-							.getInputStream()));
-					while ((len = fileStream.read(buff)) > 0) {
-						filemp3.write(buff, 0, len);
-						downed += len;
-					}
-
-					filemp3.close();
-					return 1;
-				} catch (IOException e) {
-					e.printStackTrace();
-					return 0;
-				}
+				return download(urls[0], saveFile, false);
 			}
 		}
 
@@ -457,11 +401,9 @@ public class MusicPage extends Activity {
 
 				Toast.makeText(MusicPage.this,
 						mDownloadFile + getString(R.string.download_finished), Toast.LENGTH_LONG).show();
-				// DownloadShowMessage(mDownloadFile + " download finished");
-				// updateDownloadList();
+				
 				String fullpathname = mFilesManager.getHomeDir() + "/" + mDownloadFile;
 				ScanMediafile(fullpathname);
-				// showDownloadOKNotification(mDownloadFile);
 				if (isQueue) {
 					Debug.D("Sending notification");
 					Intent intent = new Intent(MusicPage.this, MusicSearch.class);
@@ -483,8 +425,7 @@ public class MusicPage extends Activity {
 			}
 			if (!isQueue) {
 				removeDialog(DOWNLOAD_MP3FILE);
-				mDownloading = false;
-				mProgressDialogIsOpen = false;
+				isDownloading = false;
 			}
 		}
 	}
@@ -518,6 +459,5 @@ public class MusicPage extends Activity {
 
 		});
 		mScanner.connect();
-
 	}
 }
