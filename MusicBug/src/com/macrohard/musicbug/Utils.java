@@ -64,6 +64,8 @@ public class Utils {
     }
     
     
+    private static int sNotificationId = 0;
+    
 	public static void addNotification(Context context, Intent intent, String title,
 			String resTitle, String resText, String resExpandedTitle, String resExpandedText) {
     	int icon = R.drawable.icon;
@@ -79,7 +81,7 @@ public class Utils {
         NotificationManager notificationManager;
         notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         
-        notificationManager.notify(R.layout.music_display, notification);
+        notificationManager.notify(R.layout.music_display + sNotificationId++, notification);
 	}
 
 }

@@ -193,7 +193,7 @@ public class MusicPage extends Activity {
 			mProgressDownload.setButton("Hide",
 					new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int whichButton) {
-					mProgressDownload.hide();
+					mProgressDownload.dismiss();
 					/* User clicked Yes so do some stuff */
 				}
 			});
@@ -222,8 +222,6 @@ public class MusicPage extends Activity {
 			btnQueue.setVisibility(View.GONE);
 			removeDialog(CONNECTING);
 			if (isDownloading) {
-				// It is weird that we need to call show Dialog twice here? Why?
-				showDialog(DOWNLOAD_MP3FILE);
 				showDialog(DOWNLOAD_MP3FILE);
 				return;
 			}

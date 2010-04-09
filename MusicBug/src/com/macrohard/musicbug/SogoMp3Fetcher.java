@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -80,81 +81,35 @@ public class SogoMp3Fetcher implements IMp3Fetcher {
 			urlConn.disconnect();
 			httpresponse = builder.toString();
 
-			// Pattern pattern =
-				// Pattern.compile("<td class=d><a href=\"([\\s\\S]*?)\" title=\"");
-			Pattern pattern = Pattern.compile("<a pb=t class=mr style=");
-			Matcher matcher = pattern.matcher(httpresponse);
-
-			// Pattern pattern_artist = Pattern.compile("&si=.*?;;(.*?);;");
-			while (matcher.find()) {
-				MP3Info mp3 = new MP3Info();
-
-				int nameStartPos = httpresponse.indexOf(" title=\"", matcher
-						.start())
-						+ " title=\"".length();
-				int nameEndPos = httpresponse.indexOf('"', nameStartPos);
-
-				String value = httpresponse.substring(nameStartPos, nameEndPos).trim();
-
-				mp3.setName(value);
-
-				Debug.D("Title = " + value);
-
-				String singer = "";
-				int artistStartPos = httpresponse.indexOf(
-						"class=mr target=_blank>", nameEndPos)
-						+ "class=mr target=_blank>".length();
-				int artistEndPos = httpresponse.indexOf("</a>", artistStartPos);
-				singer = httpresponse.substring(artistStartPos, artistEndPos);
-				singer.replaceAll("<*>", " ");
-
-				//Debug.D("Artist = " + singer);
-
-				mp3.setArtist(singer.trim());
-
-				int albumStartPos = httpresponse.indexOf(
-						"class=mr target=_blank>", artistEndPos)
-						+ "class=mr target=_blank>".length();
-				int albumEndPos = httpresponse.indexOf('<', albumStartPos);
-				if ((albumEndPos - albumStartPos) < 2) {
-					albumStartPos = httpresponse.indexOf(
-							"text-decoration:underline;\">", albumStartPos)
-							+ "text-decoration:underline;\">".length();
-					albumEndPos = httpresponse.indexOf('<', albumStartPos);
+			Pattern PATTERN_ROW = Pattern.compile("<tr(.*?)</tr>", Pattern.DOTALL);
+			Pattern PATTERN = Pattern.compile(
+			"<td.*?\\btitle=\"([^\"]*)\".*?" +   // 1
+			"<td.*?\\bsinger=\"([^\"]*)\".*?" +   // 2
+			"<td.*?\\btitle=\"([^\"]*)\".*?" +   // 3
+			"<td.*?</td>.*?" +  // Ignore
+			"<td.*?</td>.*?" +  // Ignore
+			"<td.*?\'(/down.so.*?)\'.*?" +  // 6
+			"<td.*?href=\"([^\"]*)\".*?" +  // 7
+			"<td.*?</td>.*?" +  // Ignore
+			"<td.*?>([^<]*)<.*?" +   // 9
+			"<td.*?>([^<]*)<" +   // 10
+			""
+			, Pattern.DOTALL);
+			
+			
+			Matcher matcherRow = PATTERN_ROW.matcher(httpresponse);
+			while (matcherRow.find()) {
+				Matcher m = PATTERN.matcher(matcherRow.group(1));
+				while (m.find()) {
+					MP3Info info = new MP3Info();
+					info.setName(m.group(1).trim());
+					info.setArtist(URLDecoder.decode(m.group(2), "gb2312").trim());
+					info.setAlbum(m.group(3).trim());
+					info.setLink(m.group(4).trim());
+					info.setSize(Utils.sizeFromStr(m.group(6).trim()));
+					
+					songs.add(info);
 				}
-				mp3.setAlbum(httpresponse.substring(albumStartPos, albumEndPos)
-						.trim());
-
-				int sizeStartPos = httpresponse.indexOf(
-						"<td align=center>", albumEndPos) + "<td align=center>".length();
-				int sizeEndPos = httpresponse.indexOf('<', sizeStartPos);
-
-				String sizeStr = httpresponse.substring(sizeStartPos, sizeEndPos).trim();
-
-				mp3.setSize(Utils.sizeFromStr(sizeStr));
-
-				int linkStartPos = httpresponse.indexOf("window.open('",
-						sizeEndPos) + "window.open('".length();
-				int linkEndPos = httpresponse.indexOf("&ac=", linkStartPos)
-				+ "&ac=".length();
-				String request = httpresponse.substring(linkStartPos,
-						linkEndPos);
-				mp3.setLink(request.trim());
-
-				int spdStartPos = httpresponse.indexOf(
-						"span class=\"spd", sizeEndPos) + "span class=\"spd".length();
-				int spdEndPos = spdStartPos + 1;
-
-				String rateStr = httpresponse.substring(spdStartPos, spdEndPos).trim();
-
-				mp3.setRate(Float.valueOf(rateStr));
-
-				songs.add(mp3);
-				cnt++;
-				if (limit > 0 && cnt >= limit) {
-					break;
-				}
-
 			}
 		} catch (Exception e) {
 			// ShowToastMessage("Network can not connect, please try again.");
