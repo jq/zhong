@@ -9,7 +9,7 @@
         <!-- Dependencies -->
 
         <fileset dir="lib" id="main.jars">
-        		<include name="admob-sdk-android.jar"/>
+        		<include name="GoogleAdView.jar"/>
         		<include name="qwandroidsdk.jar"/>
         </fileset>
         
@@ -304,15 +304,15 @@
     		<antcall target="package-apk">
     		    <param name="app_name" value="Ringtone1"/>
     		    <param name="drawable" value="app_icons\\1.png"/>
-    			<param name="ads_name" value="Ringtone-g56rajjb"/>
-    			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
+    			<param name="ads_name" value="Ringtone-g7v2ti1d"/>
+    			<param name="ads_id"   value="38b01aca2ae54e6f9a9791ddc97f0d1c"/>
     		</antcall> 
 
     		<antcall target="package-apk">
     		    <param name="app_name" value="Ringtone2"/>
     		    <param name="drawable" value="app_icons\\2.png"/>
-    			<param name="ads_name" value="Ringtone-g56rajjb"/>
-    			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
+    			<param name="ads_name" value="FreeRingtone-g7v2xfz0"/>
+    			<param name="ads_id"   value="38b01aca2ae54e6f9a9791ddc97f0d1c"/>
     		</antcall> 
 
     		<antcall target="package-apk">
@@ -322,55 +322,5 @@
     			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
     		</antcall> 
 
-    		<antcall target="package-apk">
-    		    <param name="app_name" value="Ringtone4"/>
-    		    <param name="drawable" value="app_icons\\4.png"/>
-    			<param name="ads_name" value="Ringtone-g56rajjb"/>
-    			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
-    		</antcall> 
-
-    		<antcall target="package-apk">
-    		    <param name="app_name" value="Ringtone5"/>
-    		    <param name="drawable" value="app_icons\\5.png"/>
-    			<param name="ads_name" value="Ringtone-g56rajjb"/>
-    			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
-    		</antcall> 
-
-    		<antcall target="package-apk">
-    		    <param name="app_name" value="Ringtone6"/>
-    		    <param name="drawable" value="app_icons\\6.png"/>
-    			<param name="ads_name" value="Ringtone-g56rajjb"/>
-    			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
-    		</antcall> 
-
-    		<antcall target="package-apk">
-    		    <param name="app_name" value="Ringtone7"/>
-    		    <param name="drawable" value="app_icons\\7.png"/>
-    			<param name="ads_name" value="Ringtone-g56rajjb"/>
-    			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
-    		</antcall> 
-    		
-    		<antcall target="package-apk">
-    		    <param name="app_name" value="Ringtone8"/>
-    		    <param name="drawable" value="app_icons\\8.png"/>
-    			<param name="ads_name" value="Ringtone-g56rajjb"/>
-    			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
-    		</antcall> 
-
-    		<antcall target="package-apk">
-    		    <param name="app_name" value="Ringtone9"/>
-    		    <param name="drawable" value="app_icons\\9.png"/>
-    			<param name="ads_name" value="Ringtone-g56rajjb"/>
-    			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
-    		</antcall> 
-    		
-    		<antcall target="package-apk">
-    		    <param name="app_name" value="Ringtone10"/>
-    		    <param name="drawable" value="app_icons\\10.png"/>
-    			<param name="ads_name" value="Ringtone-g56rajjb"/>
-    			<param name="ads_id"   value="34d153f75db441cdbb776ffb70c569c5"/>
-    		</antcall> 
-    		
-    		
     	</target>
 </project>
