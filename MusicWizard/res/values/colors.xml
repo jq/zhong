@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+<color name="download_finished">#00FF00</color>
+<color name="download_failed">#FF0000</color>
+<color name="download_pending">#FFFFFF</color>
+</resources>
