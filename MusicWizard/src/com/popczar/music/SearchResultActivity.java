@@ -181,8 +181,9 @@ public class SearchResultActivity extends Activity {
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
-				Toast.makeText(SearchResultActivity.this,
-						getString(R.string.music_option_prompt), Toast.LENGTH_SHORT);
+			    download(mData.get(position));
+				//Toast.makeText(SearchResultActivity.this,
+				//		getString(R.string.music_option_prompt), Toast.LENGTH_SHORT);
 			}
 		});
 		
@@ -287,23 +288,26 @@ public class SearchResultActivity extends Activity {
 			break;
 		}
 		case MENU_DOWNLOAD: {
-			if (TextUtils.isEmpty(mp3.getDownloadUrl())) {
-				showDialog(DIALOG_WAITING_FOR_SERVER);
-				new FetchMp3LinkTaskForDownload().execute(mp3);
-			} else {
-				DownloadInfo download = new DownloadInfo(mp3.getDownloadUrl(), MusicInfo.downloadPath(mp3));
-				mDownloadService.insertDownload(download);
-
-				Intent intent = new Intent(SearchResultActivity.this, DownloadActivity.class);
-				startActivity(intent);
-			}
+		    download(mp3);
 			break;
 		}
 		}
 
 		return true;
 	}
+    private void download(MusicInfo mp3) {
+        if (TextUtils.isEmpty(mp3.getDownloadUrl())) {
+            showDialog(DIALOG_WAITING_FOR_SERVER);
+            new FetchMp3LinkTaskForDownload().execute(mp3);
+        } else {
+            DownloadInfo download = new DownloadInfo(mp3.getDownloadUrl(), MusicInfo.downloadPath(mp3));
+            mDownloadService.insertDownload(download);
 
+            Intent intent = new Intent(SearchResultActivity.this, DownloadActivity.class);
+            startActivity(intent);
+        }
+        
+    }
 	
 	@Override
 	protected void onDestroy() {
