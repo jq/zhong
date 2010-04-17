@@ -76,6 +76,23 @@ public class DownloadActivity extends ListActivity {
 		getListView().setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
+				if (mData == null || position >= mData.size())
+					return;
+				DownloadInfo d = mData.get(position);
+				if (d == null) {
+					Utils.D("No bound download info.");
+					return;
+				}
+				// Default action.
+				if (d.getStatus() == DownloadInfo.STATUS_FINISHED) {
+					Intent intent = new Intent(Intent.ACTION_PICK);
+					intent.setData(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
+					startActivity(intent);
+				} else if (d.getStatus() == DownloadInfo.STATUS_FAILED) {
+				} else if (d.getStatus() == DownloadInfo.STATUS_DOWNLOADING) {
+				} else if (d.getStatus() == DownloadInfo.STATUS_PENDING) {
+				} else if (d.getStatus() == DownloadInfo.STATUS_STOPPED) {
+				}
 				Toast.makeText(DownloadActivity.this,
 						getString(R.string.music_option_prompt), Toast.LENGTH_LONG).show();
 			}
@@ -93,7 +110,7 @@ public class DownloadActivity extends ListActivity {
 					return;
 				
 				int position = ((AdapterContextMenuInfo) menuInfo).position;
-				if (position > mData.size())
+				if (position >= mData.size())
 					return;
 				
 				DownloadInfo d = mData.get(position);

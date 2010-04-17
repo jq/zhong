@@ -28,7 +28,7 @@
     <string name="resume">Resume</string>
     <string name="preview">Preview</string>
     <string name="download">Download</string>
-    <string name="music_option_prompt">Please long click the item for more options.</string>
+    <string name="music_option_prompt">View more options by long clicking the item.</string>
     <string name="streaming">Streaming music</string>
     <string name="search">Search</string>
     <string name="options">Options</string>
