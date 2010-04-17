@@ -188,6 +188,7 @@ public class SearchResultActivity extends Activity {
 	
 	@Override
 	protected void onNewIntent(Intent intent) {
+		mHasMoreData = true;
 		startQuery(intent);
 		showDialog(DIALOG_WAITING_FOR_SERVER);
 		fetchNextMp3ListBatch();
@@ -369,6 +370,10 @@ public class SearchResultActivity extends Activity {
 					mData.append(mp3List);
 				} else {
 					mHasMoreData = false;
+					if (mData.size() == 0) {
+						Toast.makeText(SearchResultActivity.this,
+								getString(R.string.no_result), Toast.LENGTH_LONG).show();
+					}
 				}
 			} else {
 				mAdapter.setStatus(ListStatusView.Status.ERROR);
