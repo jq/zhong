@@ -51,7 +51,6 @@ public class SearchResultActivity extends Activity {
 
 	private MusicInfo mCurrentMusic;
 	
-	@SuppressWarnings("unused")
 	private SearchBar mSearch;
 
 	// Shared by multiple threads.
@@ -190,6 +189,8 @@ public class SearchResultActivity extends Activity {
 	@Override
 	protected void onNewIntent(Intent intent) {
 		startQuery(intent);
+		showDialog(DIALOG_WAITING_FOR_SERVER);
+		fetchNextMp3ListBatch();
 	}
 
 	@Override
@@ -218,8 +219,10 @@ public class SearchResultActivity extends Activity {
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
-				mCurrentMusic = mData.get(position);
-				showDialog(DIALOG_MUSIC_OPTIONS);
+				if (mData != null && position < mData.size()) {
+					mCurrentMusic = mData.get(position);
+					showDialog(DIALOG_MUSIC_OPTIONS);
+				}
 			}
 		});
 		
@@ -353,16 +356,20 @@ public class SearchResultActivity extends Activity {
 		}
 	}
 
-	private class FetchMp3ListTask extends AsyncTask<Void, Void, Boolean> {
+	private class FetchMp3ListTask extends AsyncTask<Void, Void, ArrayList<MusicInfo>> {
 
 		@Override
-		protected void onPostExecute(Boolean result) {
+		protected void onPostExecute(ArrayList<MusicInfo> mp3List) {
 			if (mProgressDialog != null && mProgressDialog.isShowing())
 				dismissDialog(DIALOG_WAITING_FOR_SERVER);
 			
-			if (result) {
+			if (mp3List != null) {
 				mAdapter.setStatus(ListStatusView.Status.LOADED);
-				mAdapter.notifyDataSetChanged();
+				if (mp3List.size() > 0) {
+					mData.append(mp3List);
+				} else {
+					mHasMoreData = false;
+				}
 			} else {
 				mAdapter.setStatus(ListStatusView.Status.ERROR);
 				mAdapter.notifyDataSetInvalidated();
@@ -371,21 +378,8 @@ public class SearchResultActivity extends Activity {
 		}
 
 		@Override
-		protected Boolean doInBackground(Void... params) {
-			ArrayList<MusicInfo> mp3List;
-			mp3List = mFetcher.getMusicInfoList();
-			if (mp3List == null) {
-				// Some error.
-				return false;
-			} else {
-				if (mp3List.size() > 0) {
-					mData.append(mp3List);
-					return true;
-				} else {
-					mHasMoreData = false;
-					return true;
-				}
-			}
+		protected ArrayList<MusicInfo> doInBackground(Void... params) {
+			return mFetcher.getMusicInfoList();
 		}
 	}
 
@@ -406,6 +400,7 @@ public class SearchResultActivity extends Activity {
 			w.lock();
 			try {
 				mMp3List.clear();
+				mAdapter.notifyDataSetInvalidated();
 			} finally {
 				w.unlock();
 			}
@@ -415,6 +410,7 @@ public class SearchResultActivity extends Activity {
 			w.lock();
 			try {
 				mMp3List.add(info);
+				mAdapter.notifyDataSetChanged();
 			} finally {
 				w.unlock();
 			}
@@ -426,6 +422,7 @@ public class SearchResultActivity extends Activity {
 				for (int i = 0; i < mp3List.size(); ++i) {
 					add(mp3List.get(i));
 				}
+				mAdapter.notifyDataSetChanged();
 			} finally {
 				w.unlock();
 			}
