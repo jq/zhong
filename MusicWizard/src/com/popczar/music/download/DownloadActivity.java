@@ -3,23 +3,18 @@ package com.popczar.music.download;
 import java.io.File;
 import java.util.ArrayList;
 
-import com.popczar.music.MusicInfo;
 import com.popczar.music.R;
 import com.popczar.music.Utils;
 
-import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.provider.MediaStore;
-import android.provider.MediaStore.Audio;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,11 +23,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class DownloadActivity extends ListActivity {
 	
@@ -75,6 +73,13 @@ public class DownloadActivity extends ListActivity {
 			}
 		});
 		
+		getListView().setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View v,
+					int position, long id) {
+				Toast.makeText(DownloadActivity.this,
+						getString(R.string.music_option_prompt), Toast.LENGTH_LONG).show();
+			}
+		});
 		
 		getListView().setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
 
@@ -114,6 +119,7 @@ public class DownloadActivity extends ListActivity {
 			
 		});
 	}
+	
 	
 	private DownloadObserver mObserver = new DownloadObserver() {
 		@Override

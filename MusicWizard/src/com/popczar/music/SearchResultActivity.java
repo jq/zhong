@@ -13,6 +13,7 @@ import com.popczar.music.download.DownloadService;
 import com.popczar.music.R;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
@@ -26,29 +27,29 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.TextUtils;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class SearchResultActivity extends Activity {
 	private static final String TAG = Utils.TAG;
 	private static final int DIALOG_WAITING_FOR_SERVER = 1; 
+	private static final int DIALOG_MUSIC_OPTIONS = 2;
 	
-	private static final int MENU_PREVIEW = Menu.FIRST;
-	private static final int MENU_DOWNLOAD = Menu.FIRST + 1;
+	private static final int MUSIC_OPTION_PREVIEW = 0;
+	private static final int MUSIC_OPTION_PLAY = 1;
+
+	private MusicInfo mCurrentMusic;
 	
 	@SuppressWarnings("unused")
 	private SearchBar mSearch;
@@ -92,6 +93,45 @@ public class SearchResultActivity extends Activity {
 			}
 			return mProgressDialog;
 		}
+			
+        case DIALOG_MUSIC_OPTIONS:
+            return new AlertDialog.Builder(SearchResultActivity.this)
+                .setTitle(R.string.options)
+                .setItems(R.array.music_item_options, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    	switch(which) {
+                    	case MUSIC_OPTION_PREVIEW:
+                			if (sStreaming == null) {
+                				sStreaming  = new ProgressDialog(SearchResultActivity.this);
+                				sStreaming.setTitle(R.string.streaming);
+                				sStreaming.setMessage(getString(R.string.wait));
+                				sStreaming.setIndeterminate(true);
+                				sStreaming.setCancelable(true);
+                				sStreaming.setButton(getString(R.string.stop), new DialogInterface.OnClickListener() {			
+                					@Override
+                					public void onClick(DialogInterface dialog, int which) {
+                						sStreaming.dismiss();
+                						sStreaming = null;
+                						sPlayer.stop();
+                					}
+                				});
+                			}
+                			sStreaming.show();
+
+                			if (TextUtils.isEmpty(mCurrentMusic.getDownloadUrl())) {
+                				new FetchMp3LinkTaskForPreview().execute(mCurrentMusic);
+                				break;
+                			}
+                			playMusic(mCurrentMusic);
+
+                    		break;
+                    	case MUSIC_OPTION_PLAY:
+                    		download(mCurrentMusic);
+                    		break;
+                    	}
+                    }
+                })
+                .create();
 		}
 		return null;
 	}
@@ -166,9 +206,6 @@ public class SearchResultActivity extends Activity {
 		mSearch = new SearchBar(this);
 		
         mListView = (ListView)findViewById(R.id.result_list);
-		mListView.setTextFilterEnabled(true);
-		mListView.setFocusable(true);
-		mListView.setItemsCanFocus(true);
 		
 		mData = new Mp3ListWrapper();
 		
@@ -181,20 +218,11 @@ public class SearchResultActivity extends Activity {
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
-			    download(mData.get(position));
-				//Toast.makeText(SearchResultActivity.this,
-				//		getString(R.string.music_option_prompt), Toast.LENGTH_SHORT);
+				mCurrentMusic = mData.get(position);
+				showDialog(DIALOG_MUSIC_OPTIONS);
 			}
 		});
 		
-		mListView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
-			@Override
-			public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-				menu.add(0, MENU_PREVIEW, 0, R.string.preview);
-				menu.add(0, MENU_DOWNLOAD, 0, R.string.download);
-			}
-		});
-
 		startQuery(getIntent());
 		showDialog(DIALOG_WAITING_FOR_SERVER);
 		fetchNextMp3ListBatch();
@@ -256,45 +284,6 @@ public class SearchResultActivity extends Activity {
 		}		
 	}
 	
-	public boolean onContextItemSelected(MenuItem item) {
-		super.onContextItemSelected(item);
-		AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo)item
-				.getMenuInfo();
-		MusicInfo mp3 = mData.get(menuInfo.position);
-		switch (item.getItemId()) {
-		case MENU_PREVIEW: {
-			if (sStreaming == null) {
-				sStreaming  = new ProgressDialog(SearchResultActivity.this);
-				sStreaming.setTitle(R.string.streaming);
-				sStreaming.setMessage(getString(R.string.wait));
-				sStreaming.setIndeterminate(true);
-				sStreaming.setCancelable(true);
-				sStreaming.setButton(getString(R.string.stop), new DialogInterface.OnClickListener() {			
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						sStreaming.dismiss();
-						sStreaming = null;
-						sPlayer.stop();
-					}
-				});
-			}
-			sStreaming.show();
-
-			if (TextUtils.isEmpty(mp3.getDownloadUrl())) {
-				new FetchMp3LinkTaskForPreview().execute(mp3);
-				break;
-			}
-			playMusic(mp3);
-			break;
-		}
-		case MENU_DOWNLOAD: {
-		    download(mp3);
-			break;
-		}
-		}
-
-		return true;
-	}
     private void download(MusicInfo mp3) {
         if (TextUtils.isEmpty(mp3.getDownloadUrl())) {
             showDialog(DIALOG_WAITING_FOR_SERVER);

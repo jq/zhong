@@ -31,4 +31,5 @@
     <string name="music_option_prompt">Please long click the item for more options.</string>
     <string name="streaming">Streaming music</string>
     <string name="search">Search</string>
+    <string name="options">Options</string>
 </resources>
