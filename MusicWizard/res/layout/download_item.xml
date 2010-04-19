@@ -28,7 +28,15 @@ android:orientation="vertical">
 			android:layout_marginRight="4dip"
 		/>
 	</LinearLayout>
-	 
+
+	<TextView
+		android:id="@+id/error"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="3dip"
+		android:textStyle="bold"
+		android:visibility="gone" 
+	/>	 
 
     <ProgressBar android:id="@+id/progress"
         style="?android:attr/progressBarStyleHorizontal"

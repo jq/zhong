@@ -302,32 +302,40 @@ public class DownloadActivity extends ListActivity {
 			// Set status.
 			TextView musicStatus = (TextView)v.findViewById(R.id.music_status);
 			TextView bytesInfo = (TextView)v.findViewById(R.id.download_bytes);
+			TextView error = (TextView)v.findViewById(R.id.error);
 			if (info.getStatus() == DownloadInfo.STATUS_FINISHED) {
 				musicStatus.setText(R.string.finished);
 				musicStatus.setTextColor(getResources().getColor(R.color.download_finished));
 				bytesInfo.setVisibility(View.GONE);
+				error.setVisibility(View.GONE);
 				Utils.assertD(info.getCurrentBytes() == info.getTotalBytes());
 			} else if (info.getStatus() == DownloadInfo.STATUS_FAILED) {
 				musicStatus.setText(R.string.failed);
 				musicStatus.setTextColor(getResources().getColor(R.color.download_failed));
 				bytesInfo.setVisibility(View.GONE);
+				error.setVisibility(View.VISIBLE);
+				error.setText("Error: " + info.getError());
 			} else if (info.getStatus() == DownloadInfo.STATUS_DOWNLOADING){
 				musicStatus.setText(R.string.downloading);
 				musicStatus.setTextColor(getResources().getColor(R.color.download_pending));
 				bytesInfo.setVisibility(View.VISIBLE);
+				error.setVisibility(View.GONE);
 				bytesInfo.setText("" + percent + "%");
 			} else if (info.getStatus() == DownloadInfo.STATUS_PENDING) {
 				musicStatus.setText(R.string.pending);
 				musicStatus.setTextColor(getResources().getColor(R.color.download_pending));
 				bytesInfo.setVisibility(View.GONE);
+				error.setVisibility(View.GONE);
 			} else if (info.getStatus() == DownloadInfo.STATUS_STOPPED) {
 				musicStatus.setText(R.string.stopped);
 				musicStatus.setTextColor(getResources().getColor(R.color.download_pending));
 				bytesInfo.setVisibility(View.GONE);
+				error.setVisibility(View.GONE);
 			} else if (info.getStatus() == DownloadInfo.STATUS_STOPPING) {
 				musicStatus.setText(R.string.stopping);
 				musicStatus.setTextColor(getResources().getColor(R.color.download_pending));
 				bytesInfo.setVisibility(View.GONE);
+				error.setVisibility(View.GONE);
 			}
 			return v;
 		}

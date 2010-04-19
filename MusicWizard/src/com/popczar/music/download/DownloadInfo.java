@@ -15,6 +15,7 @@ public class DownloadInfo {
 	private int mTotalBytes;
 	private int mCurrentBytes;
 	private Thread mThread;
+	private String mError;
 	
 	public DownloadInfo(String source, String target) {
 		mSource = source;
@@ -62,5 +63,13 @@ public class DownloadInfo {
 	
 	public Thread getThread() {
 		return mThread;
+	}
+	
+	public void setError(String error) {
+		mError = error;
+	}
+	
+	public String getError() {
+		return mError;
 	}
 }

@@ -22,6 +22,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
+		if (!EulaActivity.checkEula(this)) {
+			return;
+		}
+        
         mSearch = new SearchBar(this);
         
         Button downloadsButton = (Button)findViewById(R.id.downloads_button);

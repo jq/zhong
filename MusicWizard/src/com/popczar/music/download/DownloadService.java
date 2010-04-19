@@ -281,16 +281,12 @@ public class DownloadService extends Service {
 				wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
 				wakeLock.acquire();
 				download();
-			} catch (IOException e) {
-				e.printStackTrace();
-				synchronized(mInfo) {
-					mInfo.setStatus(DownloadInfo.STATUS_FAILED);
-				}
 			} catch (Exception e) {
 				synchronized(mInfo) {
 					mInfo.setStatus(DownloadInfo.STATUS_FAILED);
 				}
 				e.printStackTrace();
+				mInfo.setError(e.getMessage());
 			} finally {
 				if (wakeLock != null) {
 					wakeLock.release();
