@@ -102,7 +102,7 @@ public class SearchResultActivity extends Activity {
 				mProgressDialog = new ProgressDialog(this);
 				mProgressDialog.setMessage(getString(R.string.wait));
 				mProgressDialog.setIndeterminate(true);
-				mProgressDialog.setCancelable(true);
+				mProgressDialog.setCancelable(false);
 			}
 			return mProgressDialog;
 		}
