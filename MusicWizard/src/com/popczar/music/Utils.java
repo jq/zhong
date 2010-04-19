@@ -17,7 +17,7 @@ public class Utils {
 	
 	static String TAG = "MusicWizard";
 	
-	static public final boolean DEBUG = true;
+	static public final boolean DEBUG = false;
 	
 	static public void D(String msg) {
 		if (DEBUG) {
