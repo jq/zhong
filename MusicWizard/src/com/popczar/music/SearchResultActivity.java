@@ -25,6 +25,7 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -52,6 +53,7 @@ public class SearchResultActivity extends Activity {
 	private MusicInfo mCurrentMusic;
 	
 	private SearchBar mSearch;
+	private Handler mHandler = new Handler();
 
 	// Shared by multiple threads.
 	private volatile Mp3ListWrapper mData;
@@ -217,6 +219,7 @@ public class SearchResultActivity extends Activity {
 				);
 		
 		mListView.setAdapter(mAdapter);
+		mListView.setTextFilterEnabled(false);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
@@ -553,11 +556,18 @@ public class SearchResultActivity extends Activity {
 			((TextView)v.findViewById(R.id.artist)).setText(info.getArtist());
 			((TextView)v.findViewById(R.id.size)).setText(info.getDisplayFileSize());
 
-			if (mHasMoreData && position == mData.size() - 1 &&
+			if (mHasMoreData &&
+				position == mData.size() - 1 &&
 				mStatus == ListStatusView.Status.LOADED) {
-				fetchNextMp3ListBatch();
-				setStatus(ListStatusView.Status.LOADING);
-				notifyDataSetChanged();
+				mHandler.post(new Runnable() {
+
+					@Override
+					public void run() {
+						fetchNextMp3ListBatch();
+						setStatus(ListStatusView.Status.LOADING);
+						notifyDataSetChanged();
+					}
+				});
 			}
 
 			return v;

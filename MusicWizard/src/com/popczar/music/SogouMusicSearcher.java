@@ -62,7 +62,10 @@ public class SogouMusicSearcher {
 					info.setAlbum(m.group(3).trim());
 					info.setUrl(SOGOU_MP3 + m.group(4).trim());
 					info.setLyricUrl(SOGOU_MP3 + m.group(5).trim());
-					info.setDisplayFileSize(m.group(6).trim());
+					String displayFileSize = m.group(6).trim();
+					if (displayFileSize.equals("未知"))
+						displayFileSize = "Unknown size";
+					info.setDisplayFileSize(displayFileSize);
 					info.setType(m.group(7).trim());
 					
 					musicList.add(info);

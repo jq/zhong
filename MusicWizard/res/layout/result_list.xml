@@ -5,10 +5,10 @@
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
   <include android:layout_height="wrap_content" layout="@layout/search"/> 
-  <ListView android:id="@+id/result_list" android:layout_width="fill_parent"
-       android:layout_height="wrap_content" android:layout_weight="1"
-       android:focusable="false"
-	   android:focusableInTouchMode="false"
-       android:stackFromBottom="false"  />
+  <ListView android:id="@+id/result_list"
+ 	  android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:stackFromBottom="false"  />
 
 </LinearLayout>
