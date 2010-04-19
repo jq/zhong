@@ -80,6 +80,18 @@ public class SearchResultActivity extends Activity {
             mDownloadService = null;
         }
     };
+    
+    
+    @Override
+    protected void onPrepareDialog(int id, Dialog dialog) {
+		switch (id) {
+		case DIALOG_MUSIC_OPTIONS: {
+			if (mCurrentMusic != null)
+				dialog.setTitle("Options for \"" + mCurrentMusic.getTitle() + "\"");
+			return;
+		}
+		}
+    }
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
@@ -104,7 +116,7 @@ public class SearchResultActivity extends Activity {
                     	case MUSIC_OPTION_PREVIEW:
                 			if (sStreaming == null) {
                 				sStreaming  = new ProgressDialog(SearchResultActivity.this);
-                				sStreaming.setTitle(R.string.streaming);
+                				sStreaming.setTitle("Streaming \"" + mCurrentMusic.getTitle() + "\"");
                 				sStreaming.setMessage(getString(R.string.wait));
                 				sStreaming.setIndeterminate(true);
                 				sStreaming.setCancelable(true);
