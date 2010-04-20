@@ -1,8 +1,15 @@
 package com.popczar.music;
 
+import com.qwapi.adclient.android.requestparams.AnimationType;
+import com.qwapi.adclient.android.requestparams.DisplayMode;
+import com.qwapi.adclient.android.requestparams.MediaType;
+import com.qwapi.adclient.android.requestparams.Placement;
+import com.qwapi.adclient.android.view.QWAdView;
+
 import java.util.Collection;
 import java.util.Iterator;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -12,6 +19,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.ViewGroup;
 
 public class Utils {
 	
@@ -108,5 +116,18 @@ public class Utils {
         
         notificationManager.notify(R.layout.search + sNotificationId++, notification);
 	}
+	
+    public static void createQWAd(Activity activity){
+        ViewGroup parentView = (ViewGroup)activity.findViewById(R.id.AdsView);
+        QWAdView adView = new QWAdView(activity,
+                "Musicmp3-g8886byb",
+                "a7beb24f184b4305804013cbc447f678",
+                MediaType.banner,
+                Placement.bottom,
+                DisplayMode.autoRotate,30,
+                AnimationType.slide,
+                new QWAdEventsListener(),true);
+        parentView.addView(adView);
+    }
 
 }

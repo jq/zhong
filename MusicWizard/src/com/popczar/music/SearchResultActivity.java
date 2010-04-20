@@ -215,7 +215,8 @@ public class SearchResultActivity extends Activity {
 		Utils.D("Mp3ListActivity onCreate()");
 
 		setContentView(R.layout.result_list);
-		
+        Utils.createQWAd(this);
+
 		bindService(new Intent(this, DownloadService.class),
 				mConnection, Context.BIND_AUTO_CREATE);
 

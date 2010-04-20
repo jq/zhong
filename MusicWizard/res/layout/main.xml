@@ -10,6 +10,7 @@
 	android:layout_height="0dip"
 	android:layout_weight="1"
 	/>
+    <include layout="@layout/ads"/> 
 	<Button android:id="@+id/downloads_button"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
