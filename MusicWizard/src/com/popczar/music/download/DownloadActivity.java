@@ -144,9 +144,11 @@ public class DownloadActivity extends ListActivity {
 			mHandler.post(new Runnable() {
 				@Override
 				public void run() {
-					mData = mDownloadService.getDownloadInfos();
-					// Utils.D("observer onChange: " + mData.size());
-					mAdapter.notifyDataSetChanged();
+					if (mDownloadService != null) {
+						mData = mDownloadService.getDownloadInfos();
+						// Utils.D("observer onChange: " + mData.size());
+						mAdapter.notifyDataSetChanged();
+					}
 				}
 			});
 		}
@@ -186,7 +188,8 @@ public class DownloadActivity extends ListActivity {
 		DownloadInfo d = mData.get(menuInfo.position);
 		switch (item.getItemId()) {
 		case MENU_CLEAR: {
-			mDownloadService.removeDownload(d);
+			if (mDownloadService != null)
+				mDownloadService.removeDownload(d);
 			break;
 		}
 		case MENU_PLAY: {
@@ -205,15 +208,19 @@ public class DownloadActivity extends ListActivity {
 			break;
 		}
 		case MENU_RESUME: {
-			d.setStatus(DownloadInfo.STATUS_PENDING);
-			mDownloadService.resumeDownload(d);
+			if (mDownloadService != null) {
+				d.setStatus(DownloadInfo.STATUS_PENDING);
+				mDownloadService.resumeDownload(d);
+			}
 			break;
 		}
 		case MENU_DELETE: {
-			mDownloadService.removeDownload(d);
-			File file = new File(d.getTarget());
-			if (file.exists()) {
-				file.delete();
+			if (mDownloadService != null) {
+				mDownloadService.removeDownload(d);
+				File file = new File(d.getTarget());
+				if (file.exists()) {
+					file.delete();
+				}
 			}
 		}
 		}

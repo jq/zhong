@@ -126,8 +126,8 @@ public class Utils {
                 Placement.bottom,
                 DisplayMode.autoRotate,30,
                 AnimationType.slide,
-                new QWAdEventsListener(),true);
+                new QWAdEventsListener(),
+                true);
         parentView.addView(adView);
     }
-
 }

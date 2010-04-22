@@ -184,6 +184,9 @@ public class DownloadService extends Service {
 		private DownloadInfo mInfo;
 
 		private void download() throws IOException {
+			if (mInfo == null)
+				return;
+			
 			URL url;
 			synchronized(mInfo) {
 				mInfo.setThread(Thread.currentThread());

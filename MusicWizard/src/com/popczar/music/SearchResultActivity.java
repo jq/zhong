@@ -21,6 +21,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.DialogInterface.OnDismissListener;
+import android.content.DialogInterface.OnKeyListener;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.AsyncTask;
@@ -28,6 +30,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -114,6 +117,8 @@ public class SearchResultActivity extends Activity {
                     public void onClick(DialogInterface dialog, int which) {
                     	switch(which) {
                     	case MUSIC_OPTION_PREVIEW:
+                    		if (mCurrentMusic == null)
+                    			return;
                 			if (sStreaming == null) {
                 				sStreaming  = new ProgressDialog(SearchResultActivity.this);
                 				sStreaming.setTitle("Streaming \"" + mCurrentMusic.getTitle() + "\"");
@@ -123,10 +128,24 @@ public class SearchResultActivity extends Activity {
                 				sStreaming.setButton(getString(R.string.stop), new DialogInterface.OnClickListener() {			
                 					@Override
                 					public void onClick(DialogInterface dialog, int which) {
-                						sStreaming.dismiss();
-                						sStreaming = null;
-                						sPlayer.stop();
+										if (sStreaming != null) {
+	                						sStreaming.dismiss();
+	                						sStreaming = null;
+										}
+                						if (sPlayer != null && sPlayer.isPlaying())
+	                						sPlayer.stop();
                 					}
+                				});
+                				sStreaming.setOnDismissListener(new OnDismissListener() {
+									@Override
+									public void onDismiss(DialogInterface d) {
+										if (sStreaming != null) {
+	                						sStreaming.dismiss();
+	                						sStreaming = null;
+										}
+                						if (sPlayer != null && sPlayer.isPlaying())
+	                						sPlayer.stop();
+									}
                 				});
                 			}
                 			sStreaming.show();
@@ -139,6 +158,8 @@ public class SearchResultActivity extends Activity {
 
                     		break;
                     	case MUSIC_OPTION_PLAY:
+                    		if (mCurrentMusic == null)
+                    			return;
                     		download(mCurrentMusic);
                     		break;
                     	}
