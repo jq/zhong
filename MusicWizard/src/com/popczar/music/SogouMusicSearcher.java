@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 
 public class SogouMusicSearcher {
 	private static final String URL_SEARCH = "http://mp3.sogou.com/music.so?pf=mp3&query=";
+	private static final String URL_SEARCH_PROXY = "http://chaowebs.appspot.com/msearch/music.so?pf=mp3&query=";
 	private static final String SOGOU_MP3 = "http://mp3.sogou.com";
 	private static final Pattern PATTERN_ROW = Pattern.compile("<tr(.*?)</tr>", Pattern.DOTALL);
 	private static final Pattern PATTERN = Pattern.compile(
@@ -33,25 +34,29 @@ public class SogouMusicSearcher {
 	private String mSearchUrl;
 	private int mPage;  // Next page to fetch.
 	
+	private static boolean sUseProxy = false;
+	
 	public SogouMusicSearcher(String query) {
 		mPage = 1;
+		String url = sUseProxy ? URL_SEARCH_PROXY : URL_SEARCH;
 		try {
-			mSearchUrl = URL_SEARCH + URLEncoder.encode(query, "gb2312");
+			mSearchUrl = url + URLEncoder.encode(query, "gb2312");
 		} catch (UnsupportedEncodingException e) {
-			mSearchUrl = URL_SEARCH + URLEncoder.encode(query);
+			mSearchUrl = url + URLEncoder.encode(query);
 		}
 	}
 	
 	private String getNextUrl() {
 		return mPage == 1 ? mSearchUrl : mSearchUrl + "&page=" + mPage;
 	}
-
-	// Returns null when something wrong happens.
-	public ArrayList<MusicInfo> getMusicInfoList() {
-		try {
-			ArrayList<MusicInfo> musicList = new ArrayList<MusicInfo>();
-			String html = NetUtils.fetchHtmlPage(getNextUrl(), "gb2312");
+	
+	
+	private ArrayList<MusicInfo> getMusicInfoListFromHtml(String html) throws UnsupportedEncodingException {
+			Utils.D("+++++++++++++++");
+			Utils.D(html);
+			Utils.D("+++++++++++++++");
 			
+			ArrayList<MusicInfo> musicList = new ArrayList<MusicInfo>();
 			Matcher matcherRow = PATTERN_ROW.matcher(html);
 			while (matcherRow.find()) {
 				Matcher m = PATTERN.matcher(matcherRow.group(1));
@@ -75,6 +80,13 @@ public class SogouMusicSearcher {
 				mPage++;
 			}
 			return musicList;
+	}
+
+	// Returns null when something wrong happens.
+	public ArrayList<MusicInfo> getMusicInfoList() {
+		try {
+			String html = NetUtils.fetchHtmlPage(getNextUrl(), "gb2312");
+			return getMusicInfoListFromHtml(html);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
