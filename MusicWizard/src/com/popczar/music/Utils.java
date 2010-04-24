@@ -22,7 +22,6 @@ import android.util.Log;
 import android.view.ViewGroup;
 
 public class Utils {
-	
 	static String TAG = "MusicWizard";
 	
 	static public final boolean DEBUG = false;

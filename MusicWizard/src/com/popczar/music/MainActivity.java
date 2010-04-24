@@ -4,6 +4,7 @@ import com.popczar.music.R;
 import com.popczar.music.download.DownloadActivity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -36,7 +37,16 @@ public class MainActivity extends Activity {
 				Intent intent = new Intent(MainActivity.this, DownloadActivity.class);
 				startActivity(intent);
 			}
-        	
         });
+        Feed.runFeed(2, this, R.raw.feed);
     }
+    
+    @Override
+    protected Dialog onCreateDialog(int id) {
+      if (id == Feed.DOWNLOAD_APP_DIG) {
+        return Feed.createDownloadDialog(this); 
+      }
+      return null;
+    }    
+    
 }
