@@ -107,7 +107,7 @@ public class Feed {
             if (run(2)) {
               feeds = at.openFileInput(feedsFile);
             } else {
-                feeds = at.getResources().openRawResource(resource);
+              feeds = at.getResources().openRawResource(resource);
             }
         } catch (FileNotFoundException e) {
             feeds = at.getResources().openRawResource(resource);

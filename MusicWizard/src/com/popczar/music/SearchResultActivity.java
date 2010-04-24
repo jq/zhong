@@ -96,6 +96,7 @@ public class SearchResultActivity extends Activity {
 		}
     }
 
+    
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		Utils.D("onCreateDialog() " + id);
@@ -105,7 +106,7 @@ public class SearchResultActivity extends Activity {
 				mProgressDialog = new ProgressDialog(this);
 				mProgressDialog.setMessage(getString(R.string.wait));
 				mProgressDialog.setIndeterminate(true);
-				mProgressDialog.setCancelable(false);
+				mProgressDialog.setCancelable(true);
 			}
 			return mProgressDialog;
 		}
@@ -370,7 +371,9 @@ public class SearchResultActivity extends Activity {
 
 			Intent intent = new Intent(SearchResultActivity.this, DownloadActivity.class);
 			startActivity(intent);
-			dismissDialog(DIALOG_WAITING_FOR_SERVER);
+			if (mProgressDialog == null && mProgressDialog.isShowing()) {
+				dismissDialog(DIALOG_WAITING_FOR_SERVER);
+			}
 		}
 	}
 	

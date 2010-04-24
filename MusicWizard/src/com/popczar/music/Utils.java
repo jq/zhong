@@ -46,6 +46,7 @@ public class Utils {
 	    }).setTitle("Debug").setMessage(msg).create().show();
 	}
 	
+	
     public static String join(Collection<String> s, String delimiter) {
         StringBuffer buffer = new StringBuffer();
         Iterator<String> iter = s.iterator();

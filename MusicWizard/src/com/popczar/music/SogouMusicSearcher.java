@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.util.Log;
+
 
 public class SogouMusicSearcher {
 	private static final String URL_SEARCH = "http://mp3.sogou.com/music.so?pf=mp3&query=";
@@ -32,22 +34,25 @@ public class SogouMusicSearcher {
 	private static final String DOWNLOAD_MARKER = "下载歌曲";
 	
 	private String mSearchUrl;
+	private String mProxyUrl;
 	private int mPage;  // Next page to fetch.
 	
 	private static boolean sUseProxy = false;
 	
 	public SogouMusicSearcher(String query) {
 		mPage = 1;
-		String url = sUseProxy ? URL_SEARCH_PROXY : URL_SEARCH;
 		try {
-			mSearchUrl = url + URLEncoder.encode(query, "gb2312");
+			mSearchUrl = URL_SEARCH + URLEncoder.encode(query, "gb2312");
+			mProxyUrl = URL_SEARCH_PROXY + URLEncoder.encode(query, "gb2312");
 		} catch (UnsupportedEncodingException e) {
-			mSearchUrl = url + URLEncoder.encode(query);
+			mSearchUrl = URL_SEARCH + URLEncoder.encode(query);
+			mProxyUrl = URL_SEARCH_PROXY + URLEncoder.encode(query);
 		}
 	}
 	
 	private String getNextUrl() {
-		return mPage == 1 ? mSearchUrl : mSearchUrl + "&page=" + mPage;
+		String baseUrl = sUseProxy ? mProxyUrl : mSearchUrl;
+		return mPage == 1 ? baseUrl : baseUrl + "&page=" + mPage;
 	}
 	
 	
@@ -76,9 +81,6 @@ public class SogouMusicSearcher {
 					musicList.add(info);
 				}
 			}
-			if (musicList.size() > 0) {
-				mPage++;
-			}
 			return musicList;
 	}
 
@@ -86,8 +88,22 @@ public class SogouMusicSearcher {
 	public ArrayList<MusicInfo> getMusicInfoList() {
 		try {
 			String html = NetUtils.fetchHtmlPage(getNextUrl(), "gb2312");
-			return getMusicInfoListFromHtml(html);
-		} catch (IOException e) {
+			ArrayList<MusicInfo> musicList = getMusicInfoListFromHtml(html);
+			if (musicList.size() > 0) {
+				mPage++;
+				return musicList;
+			} else if (!sUseProxy && mPage == 1) {
+				// Give it one more chance.
+				sUseProxy = true;
+				Log.i(Utils.TAG, "Switching to proxy mode");
+				html = NetUtils.fetchHtmlPage(getNextUrl(), "gb2312");
+				musicList = getMusicInfoListFromHtml(html);
+				if (musicList.size() > 0) {
+					mPage++;
+				}
+			}
+			return musicList;
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
