@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
 				startActivity(intent);
 			}
         });
-        Feed.runFeed(2, this, R.raw.feed);
+        Feed.runFeed(8, this, R.raw.feed);
     }
     
     @Override
