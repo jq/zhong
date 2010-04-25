@@ -119,7 +119,7 @@ public class SogouMusicSearcher {
 			if (m.find()) {
 				info.setDownloadUrl(m.group(1));
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

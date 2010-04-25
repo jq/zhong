@@ -371,8 +371,8 @@ public class SearchResultActivity extends Activity {
 
 			Intent intent = new Intent(SearchResultActivity.this, DownloadActivity.class);
 			startActivity(intent);
-			if (mProgressDialog == null && mProgressDialog.isShowing()) {
-				dismissDialog(DIALOG_WAITING_FOR_SERVER);
+			if (mProgressDialog.isShowing()) {
+				mProgressDialog.dismiss();
 			}
 		}
 	}

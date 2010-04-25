@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Iterator;
+import java.util.Map;
 
 import android.text.TextUtils;
 
@@ -17,16 +19,27 @@ public class NetUtils {
 	public static String fetchHtmlPage(String link, String coding) throws IOException {
 		URL url = new URL(link);
 		HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-		connection.setRequestProperty("User-Agent", Constants.USER_AGENT);
-		connection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-		connection.setRequestProperty("Accept-Language", "en-us,en;q=0.5");
-		connection.setRequestProperty("Accept-Charset", "ISO-8859-1,utf-8;q=0.7,*;q=0.7");
+		//connection.setRequestProperty("Accept-Encoding", "gzip");
+		connection.setRequestProperty("Accept", "application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5");
+		connection.setRequestProperty("User-Agent",
+				"Mozilla/5.0 (Linux; U; Android 1.6; en-us; sdk Build/Donut) AppleWebKit/528.5+ (KHTML, like Gecko) " +
+				"Version/3.1.2 Mobile Safari/525.20.1");
+		connection.setRequestProperty("Accept-Language", "en-us");
+		connection.setRequestProperty("Accept-Charset", "utf-8, iso-8859-1, utf-16, *;q=0.7");
 		if (sCookie != null) {
 			connection.setRequestProperty("Cookie", sCookie);
 		}
 		
 		connection.setConnectTimeout(CONNECT_TIMEOUT);
 		connection.connect();
+		
+		if (Utils.DEBUG) {
+			Utils.D("Reply headers");
+			Map replyHeaders = connection.getHeaderFields();
+			Iterator it = replyHeaders.entrySet().iterator();
+			Map.Entry pairs = (Map.Entry)it.next();
+			Utils.D(pairs.getKey() + " = " + pairs.getValue());
+		}
 		
 		String cookie = connection.getHeaderField("Set-Cookie");
 		if (!TextUtils.isEmpty(cookie)) {
