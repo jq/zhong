@@ -41,6 +41,13 @@ public class SearchBar {
         
 	}
 	
+	public String getQuery() {
+		if (mQuery != null) {
+			return mQuery.getText().toString();
+		}
+		return null;
+	}
+	
 	private void doSearch() {
 		String query = mQuery.getText().toString();
 		Utils.D("start search");

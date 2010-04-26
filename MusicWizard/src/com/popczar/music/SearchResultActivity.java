@@ -213,7 +213,10 @@ public class SearchResultActivity extends Activity {
 	}
 
 	private void startQuery(Intent intent) {
-		String  keyWords = intent.getStringExtra(Constants.QUERY);
+	    String keyWords = mSearch.getQuery();
+	    if (TextUtils.isEmpty(keyWords)) {
+	    	keyWords = intent.getStringExtra(Constants.QUERY);
+	    }
 		if (!TextUtils.isEmpty(keyWords)) {
 			if (mData != null) {
 				mData.clear();
@@ -265,10 +268,6 @@ public class SearchResultActivity extends Activity {
 			}
 		});
 		
-		startQuery(getIntent());
-		showDialog(DIALOG_WAITING_FOR_SERVER);
-		fetchNextMp3ListBatch();
-		
 		// TODO: Too hacky.
 		if (sStreaming != null) {
 			sStreaming  = new ProgressDialog(SearchResultActivity.this);
@@ -285,6 +284,16 @@ public class SearchResultActivity extends Activity {
 			});
 			sStreaming.show();
 		}
+		
+		mHandler.post(new Runnable() {
+
+			@Override
+			public void run() {
+				startQuery(getIntent());
+				showDialog(DIALOG_WAITING_FOR_SERVER);
+				fetchNextMp3ListBatch();
+			}
+		});
 	}
 	
 	

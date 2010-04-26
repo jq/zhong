@@ -86,13 +86,23 @@ public class SogouMusicSearcher {
 
 	// Returns null when something wrong happens.
 	public ArrayList<MusicInfo> getMusicInfoList() {
+		if (mPage > 0) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		try {
 			String html = NetUtils.fetchHtmlPage(getNextUrl(), "gb2312");
 			ArrayList<MusicInfo> musicList = getMusicInfoListFromHtml(html);
 			if (musicList.size() > 0) {
 				mPage++;
 				return musicList;
-			} else if (!sUseProxy && mPage == 1) {
+			}
+			/*
+			else if (!sUseProxy && mPage == 1) {
 				// Give it one more chance.
 				sUseProxy = true;
 				Log.i(Utils.TAG, "Switching to proxy mode");
@@ -102,6 +112,7 @@ public class SogouMusicSearcher {
 					mPage++;
 				}
 			}
+			*/
 			return musicList;
 		} catch (Exception e) {
 			e.printStackTrace();

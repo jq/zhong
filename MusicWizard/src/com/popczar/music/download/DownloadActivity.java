@@ -11,6 +11,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -86,9 +87,12 @@ public class DownloadActivity extends ListActivity {
 				}
 				// Default action.
 				if (d.getStatus() == DownloadInfo.STATUS_FINISHED) {
+					/*
 					Intent intent = new Intent(Intent.ACTION_PICK);
 					intent.setData(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
 					startActivity(intent);
+					*/
+					playDownloadedMusic(d);
 				} else if (d.getStatus() == DownloadInfo.STATUS_FAILED) {
 				} else if (d.getStatus() == DownloadInfo.STATUS_DOWNLOADING) {
 				} else if (d.getStatus() == DownloadInfo.STATUS_PENDING) {
@@ -98,6 +102,7 @@ public class DownloadActivity extends ListActivity {
 						getString(R.string.music_option_prompt), Toast.LENGTH_LONG).show();
 			}
 		});
+		
 		
 		getListView().setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
 
@@ -181,6 +186,17 @@ public class DownloadActivity extends ListActivity {
             mDownloadService = null;
         }
     };
+    
+    
+    private void playDownloadedMusic(DownloadInfo info) {
+    	if (info == null)
+    		return;
+    	
+    	Intent intent = new Intent(Intent.ACTION_VIEW);
+    	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    	intent.setDataAndType(Uri.parse("file://" + info.getTarget()), "audio");
+    	startActivity(intent);
+    }
 	
 	public boolean onContextItemSelected(MenuItem item) {
 		super.onContextItemSelected(item);
@@ -194,9 +210,12 @@ public class DownloadActivity extends ListActivity {
 			break;
 		}
 		case MENU_PLAY: {
+			/*
 			Intent intent = new Intent(Intent.ACTION_PICK);
 			intent.setData(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
 			startActivity(intent);
+			*/
+			playDownloadedMusic(d);
 			break;
 		}
 		case MENU_STOP: {
