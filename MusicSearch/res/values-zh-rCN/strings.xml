@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">音乐</string>
+    <string name="local_service_started">下载已开始</string>
+    
+    <string name="network_error">网络错误!</string>
+    <string name="no_result">没有结果</string>
+    <string name="no_sd">需要SD卡来运行程序</string>
+    <string name="search_hint">搜索</string>
+    
+    <string name="tab_hot">热门</string>
+    <string name="tab_find">查找</string>
+    <string name="tab_lib">标签</string>
+    <string name="tab_downlaod">音乐</string>
+    <string name="downloaded_files">下载文件</string>
+    
+     <!--
+     imported
+     -->
+    
+    
+    <string name="button_start_record_activity">录制新</string>
+
+    <string name="sdcard_readonly">对不起，SD卡是安装为只读</string>
+    <string name="no_sdcard">无法运行，除非你有一个SD卡插入.</string>
+    <string name="sdcard_shared">不能运行，而你的手机是一个USB设备安装.</string>
+
+    <!--
+     Edit activity
+     -->
+
+    <!-- Labels next to the start and end time edit boxes -->
+    <string name="start_label">启动:</string>
+    <string name="end_label">结束:</string>
+
+    <string name="edit_intent">编辑</string>
+
+    <string name="time_seconds">秒</string>
+
+    <!-- After you save a notification or ringtone and have more options
+	 for what to do with them -->
+    <string name="what_to_do_with_ringtone">已保存！设为您的默认铃声或将其分配给一个联络人?</string>
+    <string name="set_default_notification">已保存！设为您的默认通知?</string>
+
+    <string name="make_default_ringtone_button">设为默认</string>
+    <string name="choose_contact_ringtone_button">指定联系人</string>
+    <string name="do_nothing_with_ringtone_button">关闭</string>
+
+    <!-- Progress dialog text for loading or saving... -->
+    <string name="progress_dialog_loading">载入中...</string>
+    <string name="progress_dialog_saving">保存中...</string>
+
+    <!--
+     Menu items
+     -->
+
+    <string name="menu_save">保存</string>
+    <string name="menu_reset">重置</string>
+    <string name="menu_show_all_audio">显示所有音频</string>
+    
+    <string name="menu_search">搜索</string>
+    <string name="menu_unset_ringtone">未设置铃声</string>
+
+      
+    <!--
+     AlertDialogs
+     -->
+     <string name="alertdialog_select">选择</string>
+     <string name="alertdialog_ok">OK</string>
+     <string name="alertdialog_cancel">取消</string>
+     <string name="alertdialog_share">分享</string>
+
+    <!--
+     Context menu items
+     -->
+
+    <string name="context_menu_edit">编辑</string>
+    <string name="context_menu_delete">删除</string>
+
+    <!--
+     File Save dialog
+     -->
+
+    <string name="file_save_title">另存为：</string>
+    <string name="file_save_button_save">保存</string>
+    <string name="file_save_button_cancel">取消</string>
+
+    <string name="ringtone_type_label">类型：</string>
+
+    <string name="type_music">音乐</string>
+    <string name="type_alarm">警告</string>
+    <string name="type_notification">通知</string>
+    <string name="type_ringtone">铃声</string>
+
+    <string name="ringtone_name_label">名称：</string>
+
+    <!--
+     Delete confirmation dialog
+     -->
+
+    <string name="delete_ringtone">删除铃声</string>
+    <string name="delete_alarm">删除警告</string>
+    <string name="delete_notification">删除通知</string>
+    <string name="delete_music">删除音乐</string>
+    <string name="delete_audio">删除音频</string>
+
+    <string name="confirm_delete_ringdroid">确定？</string>
+
+    <string name="delete_ok_button">删除</string>
+    <string name="delete_cancel_button">取消</string>
+
+    <string name="delete_failed">无法删除文件</string>
+
+    <!--
+     Success and error messages
+     -->
+
+    <string name="alert_title_success">成功</string>
+    <string name="alert_title_failure">错误</string>
+    <string name="alert_ok_button">行</string>
+    <string name="alert_yes_button">是的，拜托！</string>
+    <string name="alert_no_button">不用了，谢谢。</string>
+
+    <string name="save_success_message">已保存！</string>
+    <string name="default_ringtone_success_message">更改默认铃声</string>
+    <string name="play_error">无法播放此媒体文件</string>
+    <string name="no_unique_filename">无法找到唯一的文件名</string>
+    <string name="delete_tmp_error">错误删除临时文件</string>
+    <string name="record_error">错误启动录音机</string>
+    <string name="too_small_error">不能保存该小文件，请稍后尝试。</string>
+    <string name="write_error">写文件错误</string>
+    <string name="read_error">读取文件时出错</string>
+    <string name="download_failed">下载失败</string>
+    <string name="queue_message">这首歌曲已被排队</string>
+    <string name="download_finished">下载完成</string>
+
+    <string name="no_space_error">你的SD卡已满，没有足够的空间来保存此文件。</string>
+
+    <string name="bad_extension_error">尚未能够编辑文件类型</string>
+    <string name="no_extension_error">不能编辑一个文件，如果它没有像延伸。MP3或的。wav</string>
+
+    <!--
+     Choose Contact Activity
+     -->
+
+    <string name="choose_contact_title">分配铃声给哪些联系人？</string>
+    <string name="success_contact_ringtone">成功分配铃声：</string>
+	
+		<string name="myreview">我的评论</string>
+		<string name="info">音乐信息</string>
+		<string name="about">关于</string>
+		<string name="artist">艺术家： </string>
+		<string name="title">标题： </string>
+		<string name="search_more">更多搜索</string>
+		<string name="search_more_by">搜索更加</string>
+		<string name="search_more_in">搜索更多在</string>
+	<!-- 
+	  Music activity
+	 -->
+	 <string name="play">游戏</string>
+	 
+    
+</resources>
