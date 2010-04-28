@@ -363,10 +363,7 @@ public class SearchResultActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         Utils.D("onDestroy()");
-        if (mProgressDialog != null) {
-            removeDialog(DIALOG_WAITING_FOR_SERVER);
-            mProgressDialog = null;
-        }
+        mProgressDialog = null;
         if (sStreaming != null && sStreaming.isShowing())
             sStreaming.dismiss();
         sStreaming = null;
