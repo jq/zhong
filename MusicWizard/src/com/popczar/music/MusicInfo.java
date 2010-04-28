@@ -105,7 +105,7 @@ public class MusicInfo {
 	}
 	
 	public static String downloadFilename(MusicInfo info) {
-		return info.getTitle() + "[" + info.getArtist() + "].mp3";
+		return (info.getTitle() + "[" + info.getArtist() + "].mp3").replaceAll("/", "").replaceAll("\\\\", "");
 	}
 	
 	public static String downloadPath(MusicInfo info) {

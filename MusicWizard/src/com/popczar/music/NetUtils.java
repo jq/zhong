@@ -1,5 +1,6 @@
 package com.popczar.music;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -34,11 +35,12 @@ public class NetUtils {
 		connection.connect();
 		
 		if (Utils.DEBUG) {
-			Utils.D("Reply headers");
+			Utils.D("Reply headers:");
 			Map replyHeaders = connection.getHeaderFields();
 			Iterator it = replyHeaders.entrySet().iterator();
 			Map.Entry pairs = (Map.Entry)it.next();
 			Utils.D(pairs.getKey() + " = " + pairs.getValue());
+			Utils.D("End reply headers");
 		}
 		
 		String cookie = connection.getHeaderField("Set-Cookie");
@@ -48,15 +50,25 @@ public class NetUtils {
 
 		StringBuilder builder = new StringBuilder(INITIAL_BUFFER_SIZE);
 
-		char[] buff = new char[BUFFER_SIZE];
+		// char[] buff = new char[BUFFER_SIZE];
 
-		InputStreamReader is = new InputStreamReader(connection.getInputStream(), coding);
+		InputStreamReader is = coding != null ? new InputStreamReader(connection.getInputStream(), coding) :
+			new InputStreamReader(connection.getInputStream());
+		
+		BufferedReader reader = new BufferedReader(is);
 
+		/*
 		int len;
-		while ((len = is.read(buff, 0, buff.length)) > 0) {
+		while ((len = reader.read(buff, 0, buff.length)) > 0) {
 			builder.append(buff, 0, len);
 		}
 		connection.disconnect();
+		return builder.toString();
+		*/
+		String line = null;
+		while ((line = reader.readLine()) != null) {
+			builder.append(line + "\n");
+		}
 		return builder.toString();
 	}
 }

@@ -19,10 +19,11 @@ public class App extends Application {
 			return sMp3Path.getAbsolutePath();
 		return null;
 	}
+	
 	public static File getBaseDir() {
 	    return sBaseDirPath;
 	}
-
+	
 	@Override
     public void onCreate() {
 		File sdCardRoot = Environment.getExternalStorageDirectory();

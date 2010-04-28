@@ -21,6 +21,9 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(this));
+        
         setContentView(R.layout.main);
         Utils.createQWAd(this);
 		if (!EulaActivity.checkEula(this)) {

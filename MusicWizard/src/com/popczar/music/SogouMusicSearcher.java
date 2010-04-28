@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 
-public class SogouMusicSearcher {
+public class SogouMusicSearcher implements IMusicSearcher {
 	private static final String URL_SEARCH = "http://mp3.sogou.com/music.so?pf=mp3&query=";
 	private static final String URL_SEARCH_PROXY = "http://chaowebs.appspot.com/msearch/music.so?pf=mp3&query=";
 	private static final String SOGOU_MP3 = "http://mp3.sogou.com";
@@ -39,7 +40,10 @@ public class SogouMusicSearcher {
 	
 	private static boolean sUseProxy = false;
 	
-	public SogouMusicSearcher(String query) {
+	public SogouMusicSearcher() {
+	}
+	
+	public void setQuery(String query) {
 		mPage = 1;
 		try {
 			mSearchUrl = URL_SEARCH + URLEncoder.encode(query, "gb2312");
@@ -85,10 +89,10 @@ public class SogouMusicSearcher {
 	}
 
 	// Returns null when something wrong happens.
-	public ArrayList<MusicInfo> getMusicInfoList() {
+	public ArrayList<MusicInfo> getNextResultList() {
 		if (mPage > 0) {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -96,6 +100,8 @@ public class SogouMusicSearcher {
 		}
 		try {
 			String html = NetUtils.fetchHtmlPage(getNextUrl(), "gb2312");
+			if (TextUtils.isEmpty(html))
+				return null;
 			ArrayList<MusicInfo> musicList = getMusicInfoListFromHtml(html);
 			if (musicList.size() > 0) {
 				mPage++;
