@@ -77,6 +77,7 @@ public class Feed {
 	private static boolean saveDownload(String urlStr, File file) {
 		try {
 			String httpresponse = download(urlStr);
+			if (httpresponse == null) return false;
 			FileOutputStream stream =  new FileOutputStream(file);
 			stream.write(httpresponse.getBytes());
 			// feeds.writeBytes(httpresponse);
