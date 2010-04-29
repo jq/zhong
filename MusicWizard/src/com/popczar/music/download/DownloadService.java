@@ -41,7 +41,7 @@ public class DownloadService extends Service {
 	private ArrayList<DownloadObserver> mObservers = new ArrayList<DownloadObserver>();
 	private ExecutorService mPool;
 	
-	private MediaScannerConnection mScanner;
+	private ArrayList<MediaScannerNotifier> mScanners = new ArrayList<MediaScannerNotifier>();
 	
 	public class LocalBinder extends Binder {
 		public DownloadService getService() {
@@ -301,20 +301,39 @@ public class DownloadService extends Service {
 		}
 	}
 	
-	private void ScanMediaFile(final String musicPath) {
-		mScanner = new MediaScannerConnection(getApplicationContext(),
-				new MediaScannerConnectionClient() {
-			public void onMediaScannerConnected() {
-				mScanner.scanFile(musicPath, "audio/mpeg");
-			}
+	
+	private class MediaScannerNotifier implements MediaScannerConnectionClient {
+		private MediaScannerConnection mConnection;
+		private String mPath;
+		private String mMimeType;
 
-			public void onScanCompleted(String path, Uri uri) {
-				if (path.equals(musicPath)) {
-					mScanner.disconnect();
+		public MediaScannerNotifier(String path, String mimeType) {
+			mPath = path;
+			mMimeType = mimeType;
+			mConnection = new MediaScannerConnection(DownloadService.this, this);
+			mConnection.connect();
+		}
+
+		public void onMediaScannerConnected() {
+			mConnection.scanFile(mPath, mMimeType);
+		}
+
+		public void onScanCompleted(String path, Uri uri) {
+			if (mPath == null)
+				return;
+			if (mPath.equals(path)) {
+				mConnection.disconnect();
+				synchronized(mScanners) {
+					mScanners.remove(this);
 				}
 			}
+		}
 
-		});
-		mScanner.connect();
+	}
+	
+	private void ScanMediaFile(String musicPath) {
+		synchronized(mScanners) {
+			mScanners.add(new MediaScannerNotifier(musicPath, "audio/mpeg"));
+		}
 	}
 }
