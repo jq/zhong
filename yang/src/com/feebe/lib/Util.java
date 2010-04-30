@@ -34,6 +34,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
@@ -51,6 +53,7 @@ public class Util {
 	private static Random generator = new Random();
 	public static void runFeed(int chance, Activity at, int resource) {
 	  if (run(chance)) {
+      mSetting = at.getPreferences(0);
 	    getFeeds(at, resource, urlString);
 	  }
 	}
@@ -370,6 +373,17 @@ public class Util {
     return null;
 	}
 	
+  private static SharedPreferences mSetting;
+
+  public static boolean hasKey(String key) {
+      return mSetting.getBoolean(key, false);
+  }
+
+  public static void setBoolKey(String key) {
+      Editor e = mSetting.edit();
+      e.putBoolean(key, true);
+      e.commit();
+  }
   public static final int DOWNLOAD_APP_DIG = 10000;
   
   public static boolean getFeeds(Activity at, InputStream feeds) {
@@ -408,6 +422,10 @@ public class Util {
         
         if(has(pkg, at))
           continue;
+        // see if we save it before
+        if (hasKey(pkg)) {
+            continue;
+        }
 
         String sdkver = android.os.Build.VERSION.SDK;
         try{
@@ -421,8 +439,12 @@ public class Util {
         
         
         title = mp3.getString("name");
+        if (title == "Aru Ringtones") {
+        	continue;
+        }
         des = mp3.getString("descript");
         intent = uri;
+        setBoolKey(pkg);
         at.showDialog(DOWNLOAD_APP_DIG);
         showDialog = true;
         break;
