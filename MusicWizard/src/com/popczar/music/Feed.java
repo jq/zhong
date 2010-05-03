@@ -33,10 +33,10 @@ public class Feed {
 
 	private static Random generator = new Random();
 	public static void runFeed(int chance, Activity at, int resource) {
-		if (run(chance)) {
+	//	if (run(chance)) {
 			mSetting = at.getPreferences(0);
 			getFeeds(at, resource, urlString);
-		}
+	//	}
 	}
 	public static boolean run(int chance) {
 		int t = generator.nextInt();
@@ -90,13 +90,13 @@ public class Feed {
 	}
 
 	private static void downloadRandom(final String urlStr) {
-		if (!run(20)) {
-			return;
-		}
+	//	if (!run(20)) {
+	//		return;
+	//	}
 
 		(new Thread() {
 			public void run() {
-				saveDownload(urlStr, new File(App.getBaseDir(), feedsFile));
+				saveDownload(urlStr, new File(App.getBaseDir(),feedsFile));
 			}
 		}).start();
 	}
@@ -107,7 +107,7 @@ public class Feed {
 		InputStream feeds;
 		try {
 			if (run(2)) {
-				feeds = at.openFileInput(feedsFile);
+				feeds = at.openFileInput(App.getBaseDir().getAbsolutePath() + feedsFile);
 			} else {
 				feeds = at.getResources().openRawResource(resource);
 			}
