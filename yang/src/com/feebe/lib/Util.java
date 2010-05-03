@@ -317,6 +317,7 @@ public class Util {
 	private static boolean saveDownload(String urlStr, String name) {
     try {
 			String httpresponse = download(urlStr);
+			if (httpresponse == null) return false;
 			FileOutputStream file =  new FileOutputStream(name);
 			file.write(httpresponse.getBytes());
 		 // feeds.writeBytes(httpresponse);
@@ -425,18 +426,7 @@ public class Util {
         // see if we save it before
         if (hasKey(pkg)) {
             continue;
-        }
-
-        String sdkver = android.os.Build.VERSION.SDK;
-        try{
-          String ver = mp3.getString("v");
-          if(!ver.equals(sdkver))
-            continue;
-            
-        }catch(JSONException e) {
-          //e.printStackTrace();
-        }   
-        
+        }        
         
         title = mp3.getString("name");
         if (title == "Aru Ringtones") {
