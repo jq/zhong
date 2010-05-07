@@ -53,6 +53,7 @@ public class SearchBar {
 		Utils.D("start search");
 
 		if (!TextUtils.isEmpty(query)) {
+			SearchResultActivity.startQuery(query);
 			SearchResultActivity.handleMp3ListIntent(mActivity, query);
 		}
 	}

@@ -52,23 +52,23 @@ public class SearchResultActivity extends Activity {
     
     private static final int MUSIC_OPTION_PREVIEW = 0;
     private static final int MUSIC_OPTION_PLAY = 1;
+    
+    private static Mp3ListWrapper sData;
+    private static FetchMp3ListTask sFetchMp3ListTask;
+    private static SearchResultActivity sSearchActivity;
+    private static IMusicSearcher sFetcher;
+    private static boolean sHasMoreData = true;
 
     private MusicInfo mCurrentMusic;
     
     private SearchBar mSearch;
     private Handler mHandler = new Handler();
 
-    // Shared by multiple threads.
-    private volatile Mp3ListWrapper mData;
-    
     private ProgressDialog mProgressDialog;
     private ListView mListView;
 
     private Mp3ListAdapter mAdapter;
 
-    private boolean mHasMoreData = true;
-    
-    private IMusicSearcher mFetcher;
     private DownloadService mDownloadService;
     
     private static ProgressDialog sStreaming;
@@ -200,52 +200,63 @@ public class SearchResultActivity extends Activity {
         
     };
     
-    private void fetchNextMp3ListBatch() {
-        if (mFetcher != null) {
-            new FetchMp3ListTask().execute();
-        }
+    private static void fetchNextMp3ListBatch() {
+        sFetchMp3ListTask = new FetchMp3ListTask();
+        sFetchMp3ListTask.execute();
     }
     
     @Override
     public void onResume() {
         super.onResume();
         Utils.D("onResume");
+        
+        if (sData != null) {
+        	// Display
+	        mAdapter = new Mp3ListAdapter(
+	            SearchResultActivity.this,
+	            R.layout.result_item);
+	        
+	        mListView.setAdapter(mAdapter);
+        } else if (sFetchMp3ListTask != null) {
+        	showDialog(DIALOG_WAITING_FOR_SERVER);
+        }
     }
 
-    private void startQuery(Intent intent) {
-        String keyWords = mSearch.getQuery();
-        if (TextUtils.isEmpty(keyWords)) {
-            keyWords = intent.getStringExtra(Constants.QUERY);
-        }
+    public void notifyDataSetInvalidated() {
+    	if (mAdapter != null)
+    		mAdapter.notifyDataSetInvalidated();
+    }
+
+    public static void startQuery(String keyWords) {
         if (!TextUtils.isEmpty(keyWords)) {
-            if (mData != null) {
-                mData.clear();
-            }
-            mFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_MERGED);
-            mFetcher.setQuery(keyWords);
-        }
+	    	sData = null;
+	    	if (sSearchActivity != null)
+	    		sSearchActivity.notifyDataSetInvalidated();
+	    	sHasMoreData = true;
+            sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_MERGED);
+            sFetcher.setQuery(keyWords);
+            fetchNextMp3ListBatch();
+    	} else {
+    		sFetchMp3ListTask = null;
+    		sFetcher = null;
+    	}
     }
     
     @Override
     protected void onNewIntent(Intent intent) {
         Utils.D("onNewIntent");
-        mData = new Mp3ListWrapper();
         if (mAdapter != null)
             mAdapter.notifyDataSetInvalidated();
         
         if (sStreaming != null && sStreaming.isShowing())
             sStreaming.dismiss();
         sStreaming = null;
-        
-        mHasMoreData = true;
-        startQuery(intent);
-        showDialog(DIALOG_WAITING_FOR_SERVER);
-        fetchNextMp3ListBatch();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sSearchActivity = this;
         
         Utils.D("Mp3ListActivity onCreate()");
         
@@ -259,20 +270,12 @@ public class SearchResultActivity extends Activity {
         
         mListView = (ListView)findViewById(R.id.result_list);
         
-        mData = new Mp3ListWrapper();
-        
-        mAdapter = new Mp3ListAdapter(
-            SearchResultActivity.this,
-            R.layout.result_item
-            );
-        
-        mListView.setAdapter(mAdapter);
         mListView.setTextFilterEnabled(false);
         mListView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                     int position, long id) {
-                if (mData != null && position < mData.size()) {
-                    mCurrentMusic = mData.get(position);
+                if (sData != null && position < sData.size()) {
+                    mCurrentMusic = sData.get(position);
                     showDialog(DIALOG_MUSIC_OPTIONS);
                 }
             }
@@ -294,16 +297,6 @@ public class SearchResultActivity extends Activity {
             });
             sStreaming.show();
         }
-        
-        mHandler.post(new Runnable() {
-
-            @Override
-            public void run() {
-                startQuery(getIntent());
-                showDialog(DIALOG_WAITING_FOR_SERVER);
-                fetchNextMp3ListBatch();
-            }
-        });
     }
     
     
@@ -373,7 +366,7 @@ public class SearchResultActivity extends Activity {
     private class FetchMp3LinkTaskForDownload extends AsyncTask<MusicInfo, Void, MusicInfo> {
         protected MusicInfo doInBackground(MusicInfo... mp3s) {
             MusicInfo mp3 = mp3s[0];
-            mFetcher.setMusicDownloadUrl(mp3);
+            sFetcher.setMusicDownloadUrl(mp3);
             return mp3;
         }
 
@@ -401,7 +394,7 @@ public class SearchResultActivity extends Activity {
     private class FetchMp3LinkTaskForPreview extends AsyncTask<MusicInfo, Void, MusicInfo> {
         protected MusicInfo doInBackground(MusicInfo... mp3s) {
             MusicInfo mp3 = mp3s[0];
-            mFetcher.setMusicDownloadUrl(mp3);
+            sFetcher.setMusicDownloadUrl(mp3);
             return mp3;
         }
 
@@ -421,36 +414,54 @@ public class SearchResultActivity extends Activity {
             playMusic(mp3);
         }
     }
+    
+    
+    private void handleSearchResult(ArrayList<MusicInfo> mp3List) {
+    	if (mProgressDialog != null && mProgressDialog.isShowing())
+    		mProgressDialog.dismiss();
 
-    private class FetchMp3ListTask extends AsyncTask<Void, Void, ArrayList<MusicInfo>> {
+    	if (mp3List != null) {
+    		if (sData == null)
+    			sData = new Mp3ListWrapper();
+    		if (mAdapter == null) {
+		        mAdapter = new Mp3ListAdapter(
+		            SearchResultActivity.this,
+		            R.layout.result_item);
+		        
+		        mListView.setAdapter(mAdapter);
+    		}
+    		mAdapter.setStatus(ListStatusView.Status.LOADED);
+    		if (mp3List.size() > 0) {
+    			sData.append(mp3List);
+    			mAdapter.notifyDataSetChanged();
+    		} else {
+    			mAdapter.notifyDataSetInvalidated();
+    			sHasMoreData = false;
+    			if (sData.size() == 0) {
+    				Toast.makeText(SearchResultActivity.this,
+    						getString(R.string.no_result), Toast.LENGTH_LONG).show();
+    			}
+    		}
+    	} else {
+    		mAdapter.setStatus(ListStatusView.Status.ERROR);
+    		mAdapter.notifyDataSetInvalidated();
+    	}
+    }
+    
+
+    private static class FetchMp3ListTask extends AsyncTask<Void, Void, ArrayList<MusicInfo>> {
 
         @Override
         protected void onPostExecute(ArrayList<MusicInfo> mp3List) {
-            if (mProgressDialog != null && mProgressDialog.isShowing())
-            	mProgressDialog.dismiss();
-            
-            if (mp3List != null) {
-                mAdapter.setStatus(ListStatusView.Status.LOADED);
-                if (mp3List.size() > 0) {
-                    mData.append(mp3List);
-                } else {
-                    mAdapter.notifyDataSetInvalidated();
-                    mHasMoreData = false;
-                    if (mData.size() == 0) {
-                        Toast.makeText(SearchResultActivity.this,
-                                getString(R.string.no_result), Toast.LENGTH_LONG).show();
-                    }
-                }
-            } else {
-                mAdapter.setStatus(ListStatusView.Status.ERROR);
-                mAdapter.notifyDataSetInvalidated();
-            }
-            
+        	sFetchMp3ListTask = null;
+        	if (sSearchActivity != null) {
+        		sSearchActivity.handleSearchResult(mp3List);
+        	}
         }
 
         @Override
         protected ArrayList<MusicInfo> doInBackground(Void... params) {
-            return mFetcher.getNextResultList();
+            return sFetcher.getNextResultList();
         }
     }
 
@@ -547,27 +558,27 @@ public class SearchResultActivity extends Activity {
             
             int footerCount = showFooter ? 1 : 0;
             
-            if (mData == null)
+            if (sData == null)
                 return footerCount;
-            return mData.size() + footerCount;
+            return sData.size() + footerCount;
         }
         
         @Override
         public Object getItem(int position) {
-            if (mData == null)
+            if (sData == null)
                 return null;
             
-            if (position < mData.size())
-                return mData.get(position);
+            if (position < sData.size())
+                return sData.get(position);
             return null;  // footer.
         }
 
         @Override
         public long getItemId(int position) {
-            if (mData == null)
+            if (sData == null)
                 return -1;
             
-            if (position < mData.size())
+            if (position < sData.size())
                 return position;
             return -1;  // footer.
         }
@@ -579,7 +590,7 @@ public class SearchResultActivity extends Activity {
 
         @Override
         public int getItemViewType(int position) {
-            if (position == mData.size()) {
+            if (position == sData.size()) {
                 return VIEW_TYPE_FOOTER;
             }
             return VIEW_TYPE_NORMAL;
@@ -588,7 +599,7 @@ public class SearchResultActivity extends Activity {
         
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            boolean isFooter = position == mData.size();
+            boolean isFooter = position == sData.size();
             
             if (isFooter) {
                 ListStatusView footerView = (ListStatusView)convertView;
@@ -607,7 +618,7 @@ public class SearchResultActivity extends Activity {
             }
             
             View v;
-            Object item = mData.get(position);
+            Object item = sData.get(position);
             if (convertView == null) {
                 v = mInflater.inflate(mResource, parent, false);
             } else {
@@ -619,11 +630,10 @@ public class SearchResultActivity extends Activity {
             ((TextView)v.findViewById(R.id.artist)).setText(info.getArtist());
             ((TextView)v.findViewById(R.id.size)).setText(info.getDisplayFileSize());
 
-            if (mHasMoreData &&
-                position == mData.size() - 1 &&
+            if (sHasMoreData &&
+                position == sData.size() - 1 &&
                 mStatus == ListStatusView.Status.LOADED) {
                 mHandler.post(new Runnable() {
-
                     @Override
                     public void run() {
                         fetchNextMp3ListBatch();
