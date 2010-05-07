@@ -72,6 +72,7 @@ public class SearchResultActivity extends Activity {
     private DownloadService mDownloadService;
     
     private static ProgressDialog sStreaming;
+    private static String sStreamingTitle;
     private static MediaPlayer sPlayer = new MediaPlayer();;
     
     private ServiceConnection mConnection = new ServiceConnection() {
@@ -122,10 +123,11 @@ public class SearchResultActivity extends Activity {
                                 return;
                             if (sStreaming == null) {
                                 sStreaming  = new ProgressDialog(SearchResultActivity.this);
-                                sStreaming.setTitle("Streaming \"" + mCurrentMusic.getTitle() + "\"");
+                                sStreamingTitle = "Streaming \"" + mCurrentMusic.getTitle() + "\"";
+                                sStreaming.setTitle(sStreamingTitle);
                                 sStreaming.setMessage(getString(R.string.wait));
                                 sStreaming.setIndeterminate(true);
-                                sStreaming.setCancelable(true);
+                                sStreaming.setCancelable(false);
                                 sStreaming.setButton(getString(R.string.stop), new DialogInterface.OnClickListener() {          
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -220,6 +222,26 @@ public class SearchResultActivity extends Activity {
         } else if (sFetchMp3ListTask != null) {
         	showDialog(DIALOG_WAITING_FOR_SERVER);
         }
+        
+        // TODO: Too hacky.
+        if (sStreaming != null) {
+            sStreaming  = new ProgressDialog(SearchResultActivity.this);
+            if (TextUtils.isEmpty(sStreamingTitle))
+	            sStreaming.setTitle(R.string.streaming);
+            else
+            	sStreaming.setTitle(sStreamingTitle);
+            sStreaming.setMessage(getString(R.string.wait));
+            sStreaming.setIndeterminate(true);
+            sStreaming.setCancelable(false);
+            sStreaming.setButton(getString(R.string.stop), new DialogInterface.OnClickListener() {          
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    sPlayer.stop();
+                    sStreaming = null;
+                }
+            });
+            sStreaming.show();
+        }
     }
 
     public void notifyDataSetInvalidated() {
@@ -247,10 +269,6 @@ public class SearchResultActivity extends Activity {
         Utils.D("onNewIntent");
         if (mAdapter != null)
             mAdapter.notifyDataSetInvalidated();
-        
-        if (sStreaming != null && sStreaming.isShowing())
-            sStreaming.dismiss();
-        sStreaming = null;
     }
 
     @Override
@@ -281,22 +299,6 @@ public class SearchResultActivity extends Activity {
             }
         });
         
-        // TODO: Too hacky.
-        if (sStreaming != null) {
-            sStreaming  = new ProgressDialog(SearchResultActivity.this);
-            sStreaming.setTitle(R.string.streaming);
-            sStreaming.setMessage(getString(R.string.wait));
-            sStreaming.setIndeterminate(true);
-            sStreaming.setCancelable(true);
-            sStreaming.setButton(getString(R.string.stop), new DialogInterface.OnClickListener() {          
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    sPlayer.stop();
-                    sStreaming = null;
-                }
-            });
-            sStreaming.show();
-        }
     }
     
     
@@ -357,9 +359,6 @@ public class SearchResultActivity extends Activity {
         super.onDestroy();
         Utils.D("onDestroy()");
         mProgressDialog = null;
-        if (sStreaming != null && sStreaming.isShowing())
-            sStreaming.dismiss();
-        sStreaming = null;
         unbindService(mConnection);
     }
         

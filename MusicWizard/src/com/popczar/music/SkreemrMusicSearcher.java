@@ -11,11 +11,11 @@ public class SkreemrMusicSearcher implements IMusicSearcher {
 	private static final String URL_SEARCH = "http://www.skreemr.com/results.jsp?q=";
 	private static final Pattern PATTERN = 
 		Pattern.compile(
-		"<SPAN CLASS=\"title\">File: <\\/SPAN>.*?" +
-		"<a href=\"(.*?)\".*?" +
-		"Song:</b> (.*?)<br><b>Artist:</b> (.*?)<br>" +
-		"<b>Album:</b> (.*?)<br>.*?" +
-		"Details: </SPAN>.*?-.*?-(.*?)mb"
+		"<a href=\"([^\"]*)\" target=\"_blank\"\\s*" +  // 1
+		"onclick=\"javascript:pageTracker._trackPageview\\(\'/clicks.*?>" + 
+		"(.*?)</a>.*?" +  // 2
+		"color: #8C8C8C\">.*?" +
+		"<td>mp3\\s*[-].*?[-].*?[-](.*?)(mb|kb)"  // 3
 		,
 		Pattern.DOTALL);
 	
@@ -75,11 +75,21 @@ public class SkreemrMusicSearcher implements IMusicSearcher {
 			Matcher m = PATTERN.matcher(html);
 			while (m.find()) {
 				MusicInfo info = new MusicInfo();
+				
 				info.setDownloadUrl(m.group(1).trim());
-				info.setTitle(m.group(2).trim());
-				info.setArtist(m.group(3).trim());
-				info.setAlbum(m.group(4).trim());
-				info.setDisplayFileSize(m.group(5).trim() + "M");
+				String[] artistAndTitle = m.group(2).trim().split("-", 2);
+				if (artistAndTitle.length == 2) {
+					info.setArtist(artistAndTitle[0].trim());
+					info.setTitle(artistAndTitle[1].trim());
+				} else {
+					info.setTitle(artistAndTitle[0].trim());
+				}
+				String size = m.group(3).trim();
+				if (m.group(4).equals("kb")) {
+					info.setDisplayFileSize(size + "K");
+				} else {
+					info.setDisplayFileSize(size + "M");
+				}
 
 				musicList.add(info);
 			}
