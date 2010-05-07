@@ -49,6 +49,7 @@ public class SearchResultActivity extends Activity {
     private static final String TAG = Utils.TAG;
     private static final int DIALOG_WAITING_FOR_SERVER = 1; 
     private static final int DIALOG_MUSIC_OPTIONS = 2;
+    private static final int DIALOG_MUSIC_STREAMING = 3;
     
     private static final int MUSIC_OPTION_PREVIEW = 0;
     private static final int MUSIC_OPTION_PLAY = 1;
@@ -71,7 +72,7 @@ public class SearchResultActivity extends Activity {
 
     private DownloadService mDownloadService;
     
-    private static ProgressDialog sStreaming;
+    private ProgressDialog mStreaming;
     private static String sStreamingTitle;
     private static MediaPlayer sPlayer = new MediaPlayer();;
     
@@ -93,6 +94,14 @@ public class SearchResultActivity extends Activity {
             if (mCurrentMusic != null)
                 dialog.setTitle("Options for \"" + mCurrentMusic.getTitle() + "\"");
             return;
+        }
+        case DIALOG_MUSIC_STREAMING: {
+        	if (mCurrentMusic != null) {
+        		sStreamingTitle = "Streaming \"" + mCurrentMusic.getTitle() + "\"";
+        	}
+        	if (!TextUtils.isEmpty(sStreamingTitle)) {
+        		dialog.setTitle(sStreamingTitle);
+        	}
         }
         }
     }
@@ -121,37 +130,12 @@ public class SearchResultActivity extends Activity {
                         case MUSIC_OPTION_PREVIEW:
                             if (mCurrentMusic == null)
                                 return;
-                            if (sStreaming == null) {
-                                sStreaming  = new ProgressDialog(SearchResultActivity.this);
-                                sStreamingTitle = "Streaming \"" + mCurrentMusic.getTitle() + "\"";
-                                sStreaming.setTitle(sStreamingTitle);
-                                sStreaming.setMessage(getString(R.string.wait));
-                                sStreaming.setIndeterminate(true);
-                                sStreaming.setCancelable(false);
-                                sStreaming.setButton(getString(R.string.stop), new DialogInterface.OnClickListener() {          
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        if (sStreaming != null) {
-                                            sStreaming.dismiss();
-                                            sStreaming = null;
-                                        }
-                                        if (sPlayer != null && sPlayer.isPlaying())
-                                            sPlayer.stop();
-                                    }
-                                });
-                                sStreaming.setOnDismissListener(new OnDismissListener() {
-                                    @Override
-                                    public void onDismiss(DialogInterface d) {
-                                        if (sStreaming != null) {
-                                            sStreaming.dismiss();
-                                            sStreaming = null;
-                                        }
-                                        if (sPlayer != null && sPlayer.isPlaying())
-                                            sPlayer.stop();
-                                    }
-                                });
-                            }
-                            sStreaming.show();
+                            mHandler.post(new Runnable() {
+								@Override
+								public void run() {
+									showDialog(DIALOG_MUSIC_STREAMING);
+								}
+                            });
 
                             if (TextUtils.isEmpty(mCurrentMusic.getDownloadUrl())) {
                                 new FetchMp3LinkTaskForPreview().execute(mCurrentMusic);
@@ -169,6 +153,27 @@ public class SearchResultActivity extends Activity {
                     }
                 })
                 .create();
+            
+        case DIALOG_MUSIC_STREAMING:
+        	if (mStreaming == null) {
+        		mStreaming  = new ProgressDialog(SearchResultActivity.this);
+        		mStreaming.setTitle("Streaming music...");
+        		mStreaming.setMessage(getString(R.string.wait));
+        		mStreaming.setIndeterminate(true);
+        		mStreaming.setCancelable(false);
+        		mStreaming.setButton(getString(R.string.stop), new DialogInterface.OnClickListener() {          
+        			@Override
+        			public void onClick(DialogInterface dialog, int which) {
+        				if (mStreaming != null) {
+        					mStreaming.dismiss();
+        					mStreaming = null;
+        				}
+        				if (sPlayer != null && sPlayer.isPlaying())
+        					sPlayer.stop();
+        			}
+        		});
+        	}
+        	return mStreaming;
         }
         return null;
     }
@@ -223,24 +228,8 @@ public class SearchResultActivity extends Activity {
         	showDialog(DIALOG_WAITING_FOR_SERVER);
         }
         
-        // TODO: Too hacky.
-        if (sStreaming != null) {
-            sStreaming  = new ProgressDialog(SearchResultActivity.this);
-            if (TextUtils.isEmpty(sStreamingTitle))
-	            sStreaming.setTitle(R.string.streaming);
-            else
-            	sStreaming.setTitle(sStreamingTitle);
-            sStreaming.setMessage(getString(R.string.wait));
-            sStreaming.setIndeterminate(true);
-            sStreaming.setCancelable(false);
-            sStreaming.setButton(getString(R.string.stop), new DialogInterface.OnClickListener() {          
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    sPlayer.stop();
-                    sStreaming = null;
-                }
-            });
-            sStreaming.show();
+        if (sPlayer != null && sPlayer.isPlaying()) {
+        	showDialog(DIALOG_MUSIC_STREAMING);
         }
     }
 
@@ -419,16 +408,17 @@ public class SearchResultActivity extends Activity {
     	if (mProgressDialog != null && mProgressDialog.isShowing())
     		mProgressDialog.dismiss();
 
+		if (mAdapter == null) {
+	        mAdapter = new Mp3ListAdapter(
+	            SearchResultActivity.this,
+	            R.layout.result_item);
+	        
+	        mListView.setAdapter(mAdapter);
+		}
+		
     	if (mp3List != null) {
     		if (sData == null)
     			sData = new Mp3ListWrapper();
-    		if (mAdapter == null) {
-		        mAdapter = new Mp3ListAdapter(
-		            SearchResultActivity.this,
-		            R.layout.result_item);
-		        
-		        mListView.setAdapter(mAdapter);
-    		}
     		mAdapter.setStatus(ListStatusView.Status.LOADED);
     		if (mp3List.size() > 0) {
     			sData.append(mp3List);
@@ -589,7 +579,7 @@ public class SearchResultActivity extends Activity {
 
         @Override
         public int getItemViewType(int position) {
-            if (position == sData.size()) {
+            if (sData == null || position == sData.size()) {
                 return VIEW_TYPE_FOOTER;
             }
             return VIEW_TYPE_NORMAL;
@@ -598,7 +588,7 @@ public class SearchResultActivity extends Activity {
         
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            boolean isFooter = position == sData.size();
+            boolean isFooter = (sData == null || position == sData.size());
             
             if (isFooter) {
                 ListStatusView footerView = (ListStatusView)convertView;
