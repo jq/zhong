@@ -74,7 +74,7 @@ public class SearchResultActivity extends Activity {
     
     private ProgressDialog mStreaming;
     private static String sStreamingTitle;
-    private static MediaPlayer sPlayer = new MediaPlayer();;
+    private static MediaPlayer sPlayer;
     
     private ServiceConnection mConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName className, IBinder service) {
@@ -168,8 +168,10 @@ public class SearchResultActivity extends Activity {
         					mStreaming.dismiss();
         					mStreaming = null;
         				}
-        				if (sPlayer != null && sPlayer.isPlaying())
-        					sPlayer.stop();
+        				if (sPlayer != null) {
+        					sPlayer.release();
+        					sPlayer = null;
+        				}
         			}
         		});
         	}
@@ -293,6 +295,8 @@ public class SearchResultActivity extends Activity {
     
     private void playMusic(MusicInfo mp3) {
         if (mp3.getDownloadUrl().startsWith("http:")) {
+        	if (sPlayer == null)
+        		sPlayer = new MediaPlayer();
             sPlayer.reset();
             try {
                 sPlayer.setDataSource(mp3.getDownloadUrl());
