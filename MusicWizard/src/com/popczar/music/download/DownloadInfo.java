@@ -7,7 +7,6 @@ public class DownloadInfo {
 	public static final int STATUS_FAILED = 2;
 	public static final int STATUS_DOWNLOADING = 3;
 	public static final int STATUS_STOPPED = 4;
-	public static final int STATUS_STOPPING = 5;
 	
 	private String mSource;
 	private String mTarget;

@@ -87,11 +87,6 @@ public class DownloadActivity extends ListActivity {
 				}
 				// Default action.
 				if (d.getStatus() == DownloadInfo.STATUS_FINISHED) {
-					/*
-					Intent intent = new Intent(Intent.ACTION_PICK);
-					intent.setData(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
-					startActivity(intent);
-					*/
 					playDownloadedMusic(d);
 				} else if (d.getStatus() == DownloadInfo.STATUS_FAILED) {
 				} else if (d.getStatus() == DownloadInfo.STATUS_DOWNLOADING) {
@@ -210,17 +205,11 @@ public class DownloadActivity extends ListActivity {
 			break;
 		}
 		case MENU_PLAY: {
-			/*
-			Intent intent = new Intent(Intent.ACTION_PICK);
-			intent.setData(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
-			startActivity(intent);
-			*/
 			playDownloadedMusic(d);
 			break;
 		}
 		case MENU_STOP: {
 			synchronized(d) {
-				//d.setStatus(DownloadInfo.STATUS_STOPPING);
 				d.setStatus(DownloadInfo.STATUS_STOPPED);
 			}
 			d.getThread().interrupt();
@@ -229,7 +218,10 @@ public class DownloadActivity extends ListActivity {
 		}
 		case MENU_RESUME: {
 			if (mDownloadService != null) {
-				d.setStatus(DownloadInfo.STATUS_PENDING);
+				synchronized(d) {
+					d.setStatus(DownloadInfo.STATUS_PENDING);
+				}
+				mAdapter.notifyDataSetChanged();
 				mDownloadService.resumeDownload(d);
 			}
 			break;
@@ -238,6 +230,11 @@ public class DownloadActivity extends ListActivity {
 			if (mDownloadService != null) {
 				mDownloadService.removeDownload(d);
 				File file = new File(d.getTarget());
+				if (file.exists()) {
+					file.delete();
+				}
+				
+				file = new File(d.getTarget() + ".tmp");
 				if (file.exists()) {
 					file.delete();
 				}
@@ -358,16 +355,9 @@ public class DownloadActivity extends ListActivity {
 				musicStatus.setTextColor(getResources().getColor(R.color.download_pending));
 				bytesInfo.setVisibility(View.GONE);
 				error.setVisibility(View.GONE);
-			} else if (info.getStatus() == DownloadInfo.STATUS_STOPPING) {
-				musicStatus.setText(R.string.stopping);
-				musicStatus.setTextColor(getResources().getColor(R.color.download_pending));
-				bytesInfo.setVisibility(View.GONE);
-				error.setVisibility(View.GONE);
 			}
 			return v;
 		}
 
     }
-
-	
 }

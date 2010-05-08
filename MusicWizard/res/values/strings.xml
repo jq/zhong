@@ -10,7 +10,7 @@
     <string name="loading">Loading...</string>
     <string name="create_app_dir_error">Failed to create app directory. Do you have a SD card?</string>
     <string name="create_mp3_dir_error">Failed to create mp3 directory.</string>
-    <string name="clear_finished">Clear finished</string>
+    <string name="clear_finished">Clear Finished</string>
     <string name="no_download_data">No downloading data</string>
     <string name="hide">Hide</string>
     <string name="finished">Finished</string>

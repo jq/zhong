@@ -1,6 +1,7 @@
 package com.popczar.music.download;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -195,76 +196,83 @@ public class DownloadService extends Service {
 			HttpURLConnection connection = (HttpURLConnection)url.openConnection();
 			connection.setRequestProperty("User-Agent", Constants.USER_AGENT);
 			
-			synchronized(mInfo) {
-				// The following code for resuming downloading does not seem to work.
-				/*
-				if (mInfo.getStatus() == DownloadInfo.STATUS_PENDING) {
-					File outFile = new File(mInfo.getTarget());
-					if (outFile.exists())
-						outFile.delete();
-					mInfo.setCurrentBytes(0);
-					mInfo.setTotalBytes(connection.getContentLength());
-				} else if (mInfo.getStatus() == DownloadInfo.STATUS_STOPPED) {
-					if (mInfo.getCurrentBytes() > 0) {
-						connection.setRequestProperty("Range", "bytes=" + mInfo.getCurrentBytes() + "-");
-					}
-				} else {
-					throw new IllegalStateException("Invalid download status: " + mInfo.getStatus());
-				}
-				*/
-				
-				File outFile = new File(mInfo.getTarget());
-				if (outFile.exists())
-					outFile.delete();
-				mInfo.setCurrentBytes(0);
-				mInfo.setTotalBytes(connection.getContentLength());
-				
-				mInfo.setStatus(DownloadInfo.STATUS_DOWNLOADING);
-			}
-			notifyChanged();
-			
-			connection.connect();
-			
-			RandomAccessFile out = new RandomAccessFile(mInfo.getTarget(), "rw");
-			out.seek(mInfo.getCurrentBytes());
-			byte[] buffer = new byte[BUFFER_SIZE];
+			RandomAccessFile outFile = null;
+			InputStream input = null;
+			String tmpFile = mInfo.getTarget() + ".tmp";
+			try {
+				outFile = new RandomAccessFile(tmpFile, "rw");
+				if (outFile.length() > 0)
+					connection.setRequestProperty("Range", "bytes=" + outFile.length() + "-");
 
-			InputStream input = connection.getInputStream();
-			int len;
-			
-			int bytesUnaccounted = 0;
-			long timeLastNotification = System.currentTimeMillis();
-			
-			while ((len = input.read(buffer)) >= 0) {
+				connection.connect();
+				try {
+					input = connection.getInputStream();
+				} catch (FileNotFoundException e) {
+					if (outFile.length() > 0) {
+						// The remote server does not support Range.
+						outFile.close();
+						new File(tmpFile).delete();
+						
+						outFile = new RandomAccessFile(tmpFile, "rw");
+						
+						connection = (HttpURLConnection)url.openConnection();
+						connection.setRequestProperty("User-Agent", Constants.USER_AGENT);
+						connection.connect();
+						input = connection.getInputStream();
+					} else {
+						throw e;
+					}
+				}
+
 				synchronized(mInfo) {
-					if (mInfo.getStatus() == DownloadInfo.STATUS_STOPPED ||
-						mInfo.getStatus() == DownloadInfo.STATUS_STOPPING) {
-						mInfo.setStatus(DownloadInfo.STATUS_STOPPED);
-						notifyChanged();
-						return;
-					}
-				}
-				out.write(buffer, 0, len);
-				bytesUnaccounted += len;
-				long now = System.currentTimeMillis();
-
-				if (bytesUnaccounted > MIN_PROGRESS_STEP &&
-					now - timeLastNotification > MIN_PROGRESS_TIME) {
-					synchronized(mInfo) {
-						mInfo.setCurrentBytes(mInfo.getCurrentBytes() + bytesUnaccounted);
-					}
-					bytesUnaccounted = 0;
-					timeLastNotification = now;
+					mInfo.setCurrentBytes((int)outFile.length());
+					mInfo.setTotalBytes((int)outFile.length() + connection.getContentLength());
+					mInfo.setStatus(DownloadInfo.STATUS_DOWNLOADING);
 					notifyChanged();
 				}
-			}
+				outFile.seek(outFile.length());
 
-			synchronized(mInfo) {
-				mInfo.setCurrentBytes(mInfo.getTotalBytes());
-				mInfo.setStatus(DownloadInfo.STATUS_FINISHED);
-				ScanMediaFile(mInfo.getTarget());
+				byte[] buffer = new byte[BUFFER_SIZE];
+				int len;
+
+				int bytesUnaccounted = 0;
+				long timeLastNotification = System.currentTimeMillis();
+
+				while ((len = input.read(buffer)) >= 0) {
+					synchronized(mInfo) {
+						if (mInfo.getStatus() == DownloadInfo.STATUS_STOPPED) {
+							return;
+						}
+					}
+					outFile.write(buffer, 0, len);
+					bytesUnaccounted += len;
+					long now = System.currentTimeMillis();
+
+					if (bytesUnaccounted > MIN_PROGRESS_STEP &&
+							now - timeLastNotification > MIN_PROGRESS_TIME) {
+						synchronized(mInfo) {
+							mInfo.setCurrentBytes(mInfo.getCurrentBytes() + bytesUnaccounted);
+						}
+						bytesUnaccounted = 0;
+						timeLastNotification = now;
+						notifyChanged();
+					}
+				}
+
+				synchronized(mInfo) {
+					mInfo.setCurrentBytes(mInfo.getTotalBytes());
+					mInfo.setStatus(DownloadInfo.STATUS_FINISHED);
+					File oldFile = new File(tmpFile);
+					if (oldFile.renameTo(new File(mInfo.getTarget()))) {
+						ScanMediaFile(mInfo.getTarget());
+					}
+				}
+			} finally {
+				if (outFile != null)
+					outFile.close();
+				if (input != null)
+					input.close();
 			}
-			out.close();
 		}
 
 
