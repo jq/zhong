@@ -82,6 +82,7 @@ public class SkreemrMusicSearcher implements IMusicSearcher {
 					info.setArtist(artistAndTitle[0].trim());
 					info.setTitle(artistAndTitle[1].trim());
 				} else {
+					info.setArtist("");
 					info.setTitle(artistAndTitle[0].trim());
 				}
 				String size = m.group(3).trim();
