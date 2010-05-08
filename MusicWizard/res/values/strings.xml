@@ -6,8 +6,10 @@
     <string name="error_network">Network connection error!</string>
     <string name="retry">Retry</string>
     <string name="wait">Please wait while we connect...</string>
+    <string name="wait_streaming">Streaming music from network...</string>
     <string name="no_download_link">Failed to get music download location</string>
     <string name="loading">Loading...</string>
+    <string name="loading_more">Loading more results...</string>
     <string name="create_app_dir_error">Failed to create app directory. Do you have a SD card?</string>
     <string name="create_mp3_dir_error">Failed to create mp3 directory.</string>
     <string name="clear_finished">Clear Finished</string>

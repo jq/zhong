@@ -15,14 +15,13 @@ import com.popczar.music.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.DialogInterface.OnDismissListener;
-import android.content.DialogInterface.OnKeyListener;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.AsyncTask;
@@ -30,7 +29,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,14 +36,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
-public class SearchResultActivity extends Activity {
+public class SearchResultActivity extends ListActivity {
     private static final String TAG = Utils.TAG;
     private static final int DIALOG_WAITING_FOR_SERVER = 1; 
     private static final int DIALOG_MUSIC_OPTIONS = 2;
@@ -55,6 +52,7 @@ public class SearchResultActivity extends Activity {
     private static final int MUSIC_OPTION_PLAY = 1;
     
     private static Mp3ListWrapper sData;
+    private static String sQuery;
     private static FetchMp3ListTask sFetchMp3ListTask;
     private static SearchResultActivity sSearchActivity;
     private static IMusicSearcher sFetcher;
@@ -66,7 +64,9 @@ public class SearchResultActivity extends Activity {
     private Handler mHandler = new Handler();
 
     private ProgressDialog mProgressDialog;
-    private ListView mListView;
+    
+    private ProgressBar mProgressBar;
+    private TextView mSearchMessage;
 
     private Mp3ListAdapter mAdapter;
 
@@ -97,7 +97,7 @@ public class SearchResultActivity extends Activity {
         }
         case DIALOG_MUSIC_STREAMING: {
         	if (mCurrentMusic != null) {
-        		sStreamingTitle = "Streaming \"" + mCurrentMusic.getTitle() + "\"";
+        		sStreamingTitle = mCurrentMusic.getTitle();
         	}
         	if (!TextUtils.isEmpty(sStreamingTitle)) {
         		dialog.setTitle(sStreamingTitle);
@@ -158,7 +158,7 @@ public class SearchResultActivity extends Activity {
         	if (mStreaming == null) {
         		mStreaming  = new ProgressDialog(SearchResultActivity.this);
         		mStreaming.setTitle("Streaming music...");
-        		mStreaming.setMessage(getString(R.string.wait));
+        		mStreaming.setMessage(getString(R.string.wait_streaming));
         		mStreaming.setIndeterminate(true);
         		mStreaming.setCancelable(false);
         		mStreaming.setButton(getString(R.string.stop), new DialogInterface.OnClickListener() {          
@@ -210,7 +210,7 @@ public class SearchResultActivity extends Activity {
     };
     
     private static void fetchNextMp3ListBatch() {
-        sFetchMp3ListTask = new FetchMp3ListTask();
+        sFetchMp3ListTask = new FetchMp3ListTask(sSearchActivity);
         sFetchMp3ListTask.execute();
     }
     
@@ -219,15 +219,22 @@ public class SearchResultActivity extends Activity {
         super.onResume();
         Utils.D("onResume");
         
+        // Hack
+        if (mProgressDialog != null && mProgressDialog.isShowing())
+        	mProgressDialog.dismiss();
+        
         if (sData != null) {
         	// Display
 	        mAdapter = new Mp3ListAdapter(
 	            SearchResultActivity.this,
 	            R.layout.result_item);
 	        
-	        mListView.setAdapter(mAdapter);
+	        setListAdapter(mAdapter);
         } else if (sFetchMp3ListTask != null) {
-        	showDialog(DIALOG_WAITING_FOR_SERVER);
+        	if (!TextUtils.isEmpty(sQuery)) {
+        		mProgressBar.setVisibility(View.VISIBLE);
+        		mSearchMessage.setText("Please wait while we search \"" + sQuery + "\"");
+        	}
         }
         
         if (sPlayer != null && sPlayer.isPlaying()) {
@@ -243,10 +250,12 @@ public class SearchResultActivity extends Activity {
     public static void startQuery(String keyWords) {
         if (!TextUtils.isEmpty(keyWords)) {
 	    	sData = null;
+	    	sQuery = keyWords;
 	    	if (sSearchActivity != null)
 	    		sSearchActivity.notifyDataSetInvalidated();
 	    	sHasMoreData = true;
             sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_MERGED);
+	    	//sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SKREEMR);
             sFetcher.setQuery(keyWords);
             fetchNextMp3ListBatch();
     	} else {
@@ -260,6 +269,14 @@ public class SearchResultActivity extends Activity {
         Utils.D("onNewIntent");
         if (mAdapter != null)
             mAdapter.notifyDataSetInvalidated();
+    }
+    
+    @Override
+    protected void onListItemClick(ListView listView, View view, int position, long id) {
+    	if (sData != null && position < sData.size()) {
+    		mCurrentMusic = sData.get(position);
+    		showDialog(DIALOG_MUSIC_OPTIONS);
+    	}
     }
 
     @Override
@@ -275,21 +292,10 @@ public class SearchResultActivity extends Activity {
         bindService(new Intent(this, DownloadService.class),
                 mConnection, Context.BIND_AUTO_CREATE);
 
+        mSearchMessage = (TextView)findViewById(R.id.search_message);
+        mProgressBar = (ProgressBar)findViewById(R.id.search_progress);
+        
         mSearch = new SearchBar(this);
-        
-        mListView = (ListView)findViewById(R.id.result_list);
-        
-        mListView.setTextFilterEnabled(false);
-        mListView.setOnItemClickListener(new OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                    int position, long id) {
-                if (sData != null && position < sData.size()) {
-                    mCurrentMusic = sData.get(position);
-                    showDialog(DIALOG_MUSIC_OPTIONS);
-                }
-            }
-        });
-        
     }
     
     
@@ -351,6 +357,9 @@ public class SearchResultActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         Utils.D("onDestroy()");
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+        	mProgressDialog.dismiss();
+        }
         mProgressDialog = null;
         unbindService(mConnection);
     }
@@ -408,16 +417,16 @@ public class SearchResultActivity extends Activity {
     }
     
     
-    private void handleSearchResult(ArrayList<MusicInfo> mp3List) {
-    	if (mProgressDialog != null && mProgressDialog.isShowing())
-    		mProgressDialog.dismiss();
-
+    private void handleSearchResult(Activity activity, ArrayList<MusicInfo> mp3List) {
+    	if (activity != this)
+    		return;
+    	
 		if (mAdapter == null) {
 	        mAdapter = new Mp3ListAdapter(
 	            SearchResultActivity.this,
 	            R.layout.result_item);
 	        
-	        mListView.setAdapter(mAdapter);
+	        setListAdapter(mAdapter);
 		}
 		
     	if (mp3List != null) {
@@ -431,8 +440,16 @@ public class SearchResultActivity extends Activity {
     			mAdapter.notifyDataSetInvalidated();
     			sHasMoreData = false;
     			if (sData.size() == 0) {
+    				/*
     				Toast.makeText(SearchResultActivity.this,
     						getString(R.string.no_result), Toast.LENGTH_LONG).show();
+    				*/
+    				mProgressBar.setVisibility(View.GONE);
+    				if (!TextUtils.isEmpty(sQuery)) {
+    					mSearchMessage.setText("Sorry, we didn't find any result for \"" + sQuery + "\"");
+    				} else {
+    					mSearchMessage.setText(getString(R.string.no_result));
+    				}
     			}
     		}
     	} else {
@@ -443,12 +460,18 @@ public class SearchResultActivity extends Activity {
     
 
     private static class FetchMp3ListTask extends AsyncTask<Void, Void, ArrayList<MusicInfo>> {
+    	
+    	private Activity mActivity;
+    	
+    	public FetchMp3ListTask(Activity activity) {
+    		mActivity = activity;
+    	}
 
         @Override
         protected void onPostExecute(ArrayList<MusicInfo> mp3List) {
         	sFetchMp3ListTask = null;
         	if (sSearchActivity != null) {
-        		sSearchActivity.handleSearchResult(mp3List);
+        		sSearchActivity.handleSearchResult(mActivity, mp3List);
         	}
         }
 
@@ -600,7 +623,7 @@ public class SearchResultActivity extends Activity {
                     footerView = (ListStatusView)mInflater.inflate(
                             R.layout.liststatus, null);
                     TextView text = (TextView)footerView.findViewById(R.id.prompt);
-                    text.setText(R.string.loading);
+                    text.setText(R.string.loading_more);
                 }
                 if (mStatus == ListStatusView.Status.LOADING) {
                     footerView.setLoadingStatus();

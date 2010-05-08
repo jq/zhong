@@ -34,6 +34,9 @@ public class MusicInfo {
 	}
 	
 	public String getTitle() {
+		if (TextUtils.isEmpty(mTitle)) {
+			return "<Unknown>";
+		}
 		return mTitle;
 	}
 	
