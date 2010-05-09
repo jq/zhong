@@ -9,6 +9,8 @@ import android.text.TextUtils;
 
 public class SkreemrMusicSearcher implements IMusicSearcher {
 	private static final String URL_SEARCH = "http://www.skreemr.com/results.jsp?q=";
+	private static final Pattern PATTERN_BLOCK =
+		Pattern.compile("<\\!-- result table begins -->(.*?)<\\!-- result table ends -->", Pattern.DOTALL);
 	private static final Pattern PATTERN = 
 		Pattern.compile(
 		"<a href=\"([^\"]*)\" target=\"_blank\"\\s*" +  // 1
@@ -68,31 +70,34 @@ public class SkreemrMusicSearcher implements IMusicSearcher {
 
 	private ArrayList<MusicInfo> getMusicInfoListFromHtml(String html) {
 			Utils.D("+++++++++++++++");
-			Utils.D(html);
-			Utils.D("+++++++++++++++");
+			Utils.printD(html);
+			Utils.D("---------------");
 			
 			ArrayList<MusicInfo> musicList = new ArrayList<MusicInfo>();
-			Matcher m = PATTERN.matcher(html);
-			while (m.find()) {
-				MusicInfo info = new MusicInfo();
-				
-				info.setDownloadUrl(m.group(1).trim());
-				String[] artistAndTitle = m.group(2).trim().split("-", 2);
-				if (artistAndTitle.length == 2) {
-					info.setArtist(artistAndTitle[0].trim());
-					info.setTitle(artistAndTitle[1].trim());
-				} else {
-					info.setArtist("");
-					info.setTitle(artistAndTitle[0].trim());
+			Matcher matcherBlock = PATTERN_BLOCK.matcher(html);
+			while (matcherBlock.find()) {
+				Matcher m = PATTERN.matcher(matcherBlock.group(1));
+				while (m.find()) {
+					MusicInfo info = new MusicInfo();
+					
+					info.setDownloadUrl(m.group(1).trim());
+					String[] artistAndTitle = m.group(2).trim().split("-", 2);
+					if (artistAndTitle.length == 2) {
+						info.setArtist(artistAndTitle[0].trim());
+						info.setTitle(artistAndTitle[1].trim());
+					} else {
+						info.setArtist("");
+						info.setTitle(artistAndTitle[0].trim());
+					}
+					String size = m.group(3).trim();
+					if (m.group(4).equals("kb")) {
+						info.setDisplayFileSize(size + "K");
+					} else {
+						info.setDisplayFileSize(size + "M");
+					}
+	
+					musicList.add(info);
 				}
-				String size = m.group(3).trim();
-				if (m.group(4).equals("kb")) {
-					info.setDisplayFileSize(size + "K");
-				} else {
-					info.setDisplayFileSize(size + "M");
-				}
-
-				musicList.add(info);
 			}
 			return musicList;
 	}

@@ -32,6 +32,12 @@ public class Utils {
 		}
 	}
 	
+	static public void printD(String msg) {
+		if (DEBUG) {
+			System.out.println(msg);
+		}
+	}
+	
 	static public void assertD(boolean b) {
 		if (DEBUG)
 			assert b;
