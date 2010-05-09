@@ -52,7 +52,7 @@ public class DownloadActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 	
 		setContentView(R.layout.download);
-        Utils.createQWAd(this);
+        //Utils.createQWAd(this);
 		bindService(new Intent(this, DownloadService.class),
 				mConnection, Context.BIND_AUTO_CREATE);
 		

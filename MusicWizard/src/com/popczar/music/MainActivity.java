@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
         Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(this));
         
         setContentView(R.layout.main);
-        Utils.createQWAd(this);
+        //Utils.createQWAd(this);
 		if (!EulaActivity.checkEula(this)) {
 			return;
 		}

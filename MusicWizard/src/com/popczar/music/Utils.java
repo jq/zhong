@@ -1,11 +1,5 @@
 package com.popczar.music;
 
-import com.qwapi.adclient.android.requestparams.AnimationType;
-import com.qwapi.adclient.android.requestparams.DisplayMode;
-import com.qwapi.adclient.android.requestparams.MediaType;
-import com.qwapi.adclient.android.requestparams.Placement;
-import com.qwapi.adclient.android.view.QWAdView;
-
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -122,7 +116,7 @@ public class Utils {
         
         notificationManager.notify(R.layout.search + sNotificationId++, notification);
 	}
-	
+	/*
     public static void createQWAd(Activity activity){
         ViewGroup parentView = (ViewGroup)activity.findViewById(R.id.AdsView);
         QWAdView adView = new QWAdView(activity,
@@ -136,4 +130,5 @@ public class Utils {
                 true);
         parentView.addView(adView);
     }
+    */
 }

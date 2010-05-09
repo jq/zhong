@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	  	android:id="@+id/AdsView" 
-	  	android:layout_width="fill_parent"
-	   	android:layout_height="wrap_content"
-	   />
+	
+   <com.admob.android.ads.AdView
+   xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.popczar.music"
+   
+       android:id="@+id/ad"
+       android:visibility="visible"
+       android:layout_width="fill_parent" 
+       android:layout_height="wrap_content"
+       app:backgroundColor="#000000"
+       app:textColor="#FFFFFF"
+       app:keywords="game, job, shopping, computer, girl, music, dating, mp3, gambling"
+     />
+	   
