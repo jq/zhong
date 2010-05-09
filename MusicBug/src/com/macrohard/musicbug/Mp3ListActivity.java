@@ -84,6 +84,7 @@ public class Mp3ListActivity extends Activity implements ListFooterView.RetryNet
 		Debug.D("Mp3ListActivity onCreate()");
 
 		setContentView(R.layout.music_list);
+        Ads.addAds(this);
 
         mListView = (ListView)findViewById(R.id.post_list);
 		mListView.setTextFilterEnabled(true);

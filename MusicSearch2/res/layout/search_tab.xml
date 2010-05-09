@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res/com.trans.music.search"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+         <LinearLayout
+        	android:orientation="horizontal"
+        	android:layout_width="fill_parent"
+        	android:layout_height="50px"
+        	>   
+         	<EditText android:id="@+id/search_query_words"
+                android:layout_width="260px"
+                android:layout_height="50px"
+                android:layout_weight="10"
+                android:singleLine="true"
+                />        
+		<ImageButton android:id="@+id/search_button"
+            	android:src="@android:drawable/ic_menu_search"
+            	android:layout_width="60px"
+            	android:layout_height="48px"
+            	android:layout_weight="1"
+            />
+         </LinearLayout>    
+     <com.admob.android.ads.AdView  
+          android:id="@+id/ad"
+          android:visibility="visible"
+          android:layout_width="fill_parent" 
+          android:layout_height="wrap_content"
+          app:backgroundColor="#000000"
+          app:textColor="#FFFFFF"
+          app:keywords="game, job, shop, computer, girl"
+        />
+</LinearLayout>

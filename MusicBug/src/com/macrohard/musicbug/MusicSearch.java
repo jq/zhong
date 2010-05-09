@@ -27,7 +27,7 @@ public class MusicSearch extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search);
-        Ads.createQWAd(this);
+        Ads.addAds(this);
         mSearchTitle = (EditText)findViewById(R.id.search_query_words);
         mSearchButton = (ImageButton)findViewById(R.id.search_button);
         

@@ -15,7 +15,7 @@ import com.qwapi.adclient.android.view.AdEventsListener;
 import com.qwapi.adclient.android.view.QWAdView;
 
 public class Ads {        
-    public static void createQWAd(Activity activity){
+    public static void addAds(Activity activity){
     	ViewGroup parentView = (ViewGroup)activity.findViewById(R.id.AdsView);
     	QWAdView adView = new QWAdView(activity,
     			"Music-g7gon821",

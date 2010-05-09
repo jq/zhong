@@ -463,7 +463,7 @@ public class Util {
 		InputStream feeds;
 		try {
 			if (run(2)) {
-			  feeds = at.openFileInput(feedsFile);
+			  feeds = at.openFileInput(Const.homedir + feedsFile);
 			} else {
 				feeds = at.getResources().openRawResource(resource);
 			}

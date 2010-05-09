@@ -54,7 +54,6 @@ public class SogoMp3Fetcher implements IMp3Fetcher {
 	private ArrayList<MP3Info> getListBatchByUrl(String urlStr, int limit) {
 		Debug.D("mp3 url = " + urlStr);
 
-		int cnt = 0;
 		ArrayList<MP3Info> songs = new ArrayList<MP3Info>();
 		String httpresponse = null;
 		try {

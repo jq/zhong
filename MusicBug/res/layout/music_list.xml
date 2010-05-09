@@ -10,11 +10,10 @@
        android:dividerHeight="2dip"
        android:stackFromBottom="false"  />
 
-<!-- 
-  <TextView android:id="@+id/android:empty"
-          android:layout_width="fill_parent" 
-          android:layout_height="fill_parent"
-          android:text="Sorry, no results found."/>
- -->
+     <LinearLayout 
+	  	android:id="@+id/AdsView" 
+	  	android:layout_width="fill_parent"
+	   	android:layout_height="wrap_content"
+	   />
 
 </LinearLayout>

@@ -75,7 +75,7 @@ public class MusicPage extends Activity {
 		super.onCreate(savedInstanceState);
 		getMediaInfo(getIntent());
 		setContentView(R.layout.music_display);
-		Ads.createQWAd(this);
+		Ads.addAds(this);
 
 		// A hack.
 		if (TextUtils.isEmpty(mMp3Location)) {

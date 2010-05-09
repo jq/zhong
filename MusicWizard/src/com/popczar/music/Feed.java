@@ -107,7 +107,7 @@ public class Feed {
 		InputStream feeds;
 		try {
 			if (run(2)) {
-				feeds = at.openFileInput(App.getBaseDir().getAbsolutePath() + feedsFile);
+				feeds = at.openFileInput(App.getBaseDir().getAbsolutePath() + "/" +feedsFile);
 			} else {
 				feeds = at.getResources().openRawResource(resource);
 			}
