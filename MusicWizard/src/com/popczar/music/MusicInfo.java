@@ -35,7 +35,7 @@ public class MusicInfo {
 	
 	public String getTitle() {
 		if (TextUtils.isEmpty(mTitle)) {
-			return "<Unknown>";
+			return "Unknown";
 		}
 		return mTitle;
 	}
@@ -46,7 +46,7 @@ public class MusicInfo {
 	
 	public String getArtist() {
 		if (TextUtils.isEmpty(mArtist)) {
-			return "<Unknown>";
+			return "Unknown";
 		}
 		return mArtist;
 	}

@@ -12,7 +12,7 @@ import android.text.TextUtils;
 
 public class NetUtils {
 	
-	private static final int CONNECT_TIMEOUT = 15000;  // 20s
+	private static final int CONNECT_TIMEOUT = 10000;  // 10s
 	private static final int INITIAL_BUFFER_SIZE = 16000;  // 16K
 	private static final int BUFFER_SIZE = 4096;
 	private static String sCookie;
@@ -27,9 +27,11 @@ public class NetUtils {
 				"Version/3.1.2 Mobile Safari/525.20.1");
 		connection.setRequestProperty("Accept-Language", "en-us");
 		connection.setRequestProperty("Accept-Charset", "utf-8, iso-8859-1, utf-16, *;q=0.7");
+		/*
 		if (sCookie != null) {
 			connection.setRequestProperty("Cookie", sCookie);
 		}
+		*/
 		
 		connection.setConnectTimeout(CONNECT_TIMEOUT);
 		connection.connect();
@@ -43,10 +45,12 @@ public class NetUtils {
 			Utils.D("End reply headers");
 		}
 		
+		/*
 		String cookie = connection.getHeaderField("Set-Cookie");
 		if (!TextUtils.isEmpty(cookie)) {
 			sCookie = cookie;
 		}
+		*/
 
 		StringBuilder builder = new StringBuilder(INITIAL_BUFFER_SIZE);
 

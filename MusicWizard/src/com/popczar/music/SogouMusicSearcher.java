@@ -85,6 +85,7 @@ public class SogouMusicSearcher implements IMusicSearcher {
 					musicList.add(info);
 				}
 			}
+			Utils.D("Exit getMusicInfoListFromHtml");
 			return musicList;
 	}
 
