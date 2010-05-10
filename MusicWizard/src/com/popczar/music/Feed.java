@@ -17,6 +17,7 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -107,7 +108,7 @@ public class Feed {
 		InputStream feeds;
 		try {
 			if (run(2)) {
-				feeds = at.openFileInput(App.getBaseDir().getAbsolutePath() + "/" +feedsFile);
+				feeds = new FileInputStream(App.getBaseDir().getAbsolutePath() + "/" +feedsFile);
 			} else {
 				feeds = at.getResources().openRawResource(resource);
 			}
