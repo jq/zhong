@@ -19,7 +19,7 @@
 
 <resources>
 
-    <string name="ringdroid_app_name">Ringdroid</string>
+    <string name="app_name">Ringdroid</string>
 
     <!--
      Main / media select activity
