@@ -257,6 +257,7 @@ public class SearchResultActivity extends ListActivity {
 				sSearchActivity.notifyDataSetInvalidated();
 			sHasMoreData = true;
             sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_MERGED);
+            //sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_BAIDU);
             //sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SOGOU);
 	    	//sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SKREEMR);
 			sFetcher.setQuery(keyWords);
@@ -324,13 +325,15 @@ public class SearchResultActivity extends ListActivity {
 				@Override
 				public void run() {
 					try {
-						sPlayer.prepare();
-						sPlayer.start();
-                        sPlayer.setOnCompletionListener(new OnCompletionListener () {
-									@Override
-									public void onCompletion(MediaPlayer mp) {
-									}
-								});
+						if (sPlayer != null) {
+							sPlayer.prepare();
+							sPlayer.start();
+							sPlayer.setOnCompletionListener(new OnCompletionListener () {
+								@Override
+								public void onCompletion(MediaPlayer mp) {
+								}
+							});
+						}
 					} catch (IllegalArgumentException e) {
 					} catch (IllegalStateException e) {
 					} catch (IOException e) {

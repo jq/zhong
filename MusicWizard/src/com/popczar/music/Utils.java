@@ -96,6 +96,10 @@ public class Utils {
     	}
     }
     
+    public static String trimTag(String s) {
+    	return s.replaceAll("\\<.*?>", "");
+    }
+    
     
     private static int sNotificationId = 0;
     

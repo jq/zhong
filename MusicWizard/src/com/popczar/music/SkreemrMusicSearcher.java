@@ -13,10 +13,10 @@ public class SkreemrMusicSearcher implements IMusicSearcher {
 		Pattern.compile("<\\!-- result table begins -->(.*?)<\\!-- result table ends -->", Pattern.DOTALL);
 	private static final Pattern PATTERN = 
 		Pattern.compile(
-		"<a href=\"([^\"]*)\" target=\"_blank\"\\s*" +  // 1
 		"onclick=\"javascript:pageTracker._trackPageview\\(\'/clicks.*?>" + 
-		"(.*?)</a>.*?" +  // 2
+		"(.*?)</a>.*?" +  // 1
 		"color: #8C8C8C\">.*?" +
+		"soundFile=(.*?)\'.*?" + // 2
 		"<td>mp3\\s*[-].*?[-].*?[-](.*?)(mb|kb)"  // 3
 		,
 		Pattern.DOTALL);
@@ -80,8 +80,7 @@ public class SkreemrMusicSearcher implements IMusicSearcher {
 				while (m.find()) {
 					MusicInfo info = new MusicInfo();
 					
-					info.setDownloadUrl(m.group(1).trim());
-					String[] artistAndTitle = m.group(2).trim().split("-", 2);
+					String[] artistAndTitle = m.group(1).trim().split("-", 2);
 					if (artistAndTitle.length == 2) {
 						info.setArtist(artistAndTitle[0].trim());
 						info.setTitle(artistAndTitle[1].trim());
@@ -89,6 +88,7 @@ public class SkreemrMusicSearcher implements IMusicSearcher {
 						info.setArtist("");
 						info.setTitle(artistAndTitle[0].trim());
 					}
+					info.setDownloadUrl(m.group(2).trim().replaceAll("%3A", ":").replaceAll("%2F", "/"));
 					String size = m.group(3).trim();
 					if (m.group(4).equals("kb")) {
 						info.setDisplayFileSize(size + "K");
