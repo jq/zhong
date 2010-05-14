@@ -4,6 +4,8 @@
         <!-- Requires ant 1.7 or better -->
 
         <taskdef uri="antlib:com.googlecode.autoandroid.ant" classpath="fixed-android-ant.jar"/>
+		<taskdef resource="proguard/ant/task.properties"
+				         classpath="proguard.jar" />
         <android:home/> <!-- Set the detected android-home property to the sdk root. -->
 
         
@@ -175,9 +177,34 @@
                 	</classpath>
 			</javac>
         </target>
+	
+		<target name="obfuscate" description="Use ProGuard to optimize.">
+			<antcall target="compile-main">
+				<param name="app_name" value="${app_name}"/>
+				<param name="drawable" value="${drawable}"/>
+			</antcall>
+			<jar basedir="temp/bin" destfile="temp/temp.jar">
+			</jar>
+			<proguard>
+				-injars temp/temp.jar
+				-outjars temp/obfuscate.jar
+				-libraryjars  ${android-home}/platforms/android-1.6/android.jar;lib/admob-sdk-android.jar
+				-dontpreverify
+				-dontskipnonpubliclibraryclasses
+				-dontusemixedcaseclassnames
+				-keep public class * extends android.app.Activity
+				-keep public class * extends android.content.BroadcastReceiver
+				-keep public class * extends android.app.Service
+			</proguard>
+			<delete file="temp/temp.jar"/>
+			<delete dir="temp/bin" failonerror="false"/>
+			<mkdir dir="temp/bin"/>
+			<unzip dest="temp/bin" src="temp/obfuscate.jar"/>
+			<delete file="obfuscate.jar"/>
+		</target>
 
         <target name="dex" description="Convert the .class files into .dex files.">
-    		<antcall target="compile-main">
+    		<antcall target="obfuscate">
     			<param name="app_name" value="${app_name}"/>
     			<param name="drawable" value="${drawable}"/>
     		</antcall>        	
