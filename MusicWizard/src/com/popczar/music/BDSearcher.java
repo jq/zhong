@@ -2,10 +2,17 @@ package com.popczar.music;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.app.Activity;
+import android.content.Context;
 import android.text.TextUtils;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class BDSearcher implements IMusicSearcher {
 	
@@ -14,7 +21,6 @@ public class BDSearcher implements IMusicSearcher {
 			"<tr>\\s*"+
 			"<td class=tdn>.*?</td>\\s*" +    
 			"<td class=d><a href=\"(.*?)\".*?target=\"_blank\">(.*?)</a></td>\\s*" +
-			//"<td>.*?<a href=.*?target=\"_blank\">(.*?)</a>.*?</td>\\s*" +
 			"<td>(.*?)</td>\\s*" +
 			"<td.*?</td>\\s*" +
 			"<td.*?</td>\\s*" +
@@ -33,6 +39,11 @@ public class BDSearcher implements IMusicSearcher {
 	
 	private int mStart = 0;
 	private String mSearchUrl;
+	
+	private volatile String mDownloadLink;
+	private volatile WebView mWebView;
+	private volatile boolean mReady;
+	private final Object mLock = new Object();
 	
 	private String getNextUrl() {
 		return mStart == 0 ? mSearchUrl : mSearchUrl + "&pn=" + mStart;
@@ -69,7 +80,7 @@ public class BDSearcher implements IMusicSearcher {
 			Matcher m = PATTERN.matcher(html);
 			while (m.find()) {
 				MusicInfo info = new MusicInfo();
-				info.setDownloadUrl(Utils.trimTag(m.group(1).trim()));
+				info.setUrl(Utils.trimTag(m.group(1).trim()));
 				info.setTitle(Utils.trimTag(m.group(2).trim()));
 				info.setDisplayFileSize(Utils.trimTag(m.group(4).trim()));
 				
@@ -91,7 +102,70 @@ public class BDSearcher implements IMusicSearcher {
 	}
 
 	@Override
-	public void setMusicDownloadUrl(MusicInfo info) {
+	public void setMusicDownloadUrl(Context context, MusicInfo info) {
+		mDownloadLink = null;
+		mReady = false;
+		
+		final Activity activity = (Activity)context;
+		
+		final String url = info.getUrl();
+		Utils.D("url: " + url);
+		
+		activity.runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				if (mWebView != null)
+					mWebView.destroy();
+				mWebView = new WebView(activity);
+				mWebView.getSettings().setJavaScriptEnabled(true);
+				mWebView.addJavascriptInterface(new MyJavaScriptInterface(), "HTMLOUT");
+				mWebView.setWebViewClient(new FetchLinkWebViewClient());
+				mWebView.loadUrl(url);
+				
+				Utils.D("loadUrl: " + url);
+			}
+		});
+		
+		synchronized(mLock) {
+			while (!mReady) {
+				try {
+					mLock.wait();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return;
+				}
+			}
+			info.setDownloadUrl(mDownloadLink);
+			return;
+		}
+	}
+	
+	
+	private class MyJavaScriptInterface {
+		@SuppressWarnings("unused")
+		public void getLink(String html) {
+			Utils.D("getLink()");
+			
+			mDownloadLink = html;
+			mReady = true;
+			synchronized(mLock) {
+				mLock.notify();
+			}
+		}
+	}
+	
+	private class FetchLinkWebViewClient extends WebViewClient {
+		public FetchLinkWebViewClient() {
+			super();
+		}
+		
+		@Override
+		public void onPageFinished(WebView view, String url) {
+			Utils.D("onPageFinished()");
+			view.loadUrl("javascript:window.HTMLOUT.getLink(document.getElementById(\'urla\').href);");
+		}
 	}
 
 	@Override

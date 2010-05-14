@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 public class SkreemrMusicSearcher implements IMusicSearcher {
@@ -103,7 +104,7 @@ public class SkreemrMusicSearcher implements IMusicSearcher {
 	}
 
 	@Override
-	public void setMusicDownloadUrl(MusicInfo info) {
+	public void setMusicDownloadUrl(Context context, MusicInfo info) {
 		// TODO Auto-generated method stub
 		
 	}

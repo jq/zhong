@@ -373,7 +373,7 @@ public class SearchResultActivity extends ListActivity {
     private class FetchMp3LinkTaskForDownload extends AsyncTask<MusicInfo, Void, MusicInfo> {
 		protected MusicInfo doInBackground(MusicInfo... mp3s) {
 			MusicInfo mp3 = mp3s[0];
-			sFetcher.setMusicDownloadUrl(mp3);
+			sFetcher.setMusicDownloadUrl(SearchResultActivity.this, mp3);
 			return mp3;
 		}
 
@@ -401,7 +401,7 @@ public class SearchResultActivity extends ListActivity {
     private class FetchMp3LinkTaskForPreview extends AsyncTask<MusicInfo, Void, MusicInfo> {
 		protected MusicInfo doInBackground(MusicInfo... mp3s) {
 			MusicInfo mp3 = mp3s[0];
-			sFetcher.setMusicDownloadUrl(mp3);
+			sFetcher.setMusicDownloadUrl(SearchResultActivity.this, mp3);
 			return mp3;
 		}
 

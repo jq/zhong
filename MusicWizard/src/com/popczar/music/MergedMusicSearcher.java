@@ -2,6 +2,7 @@ package com.popczar.music;
 
 import java.util.ArrayList;
 
+import android.content.Context;
 import android.util.Log;
 
 public class MergedMusicSearcher implements IMusicSearcher {
@@ -41,12 +42,12 @@ public class MergedMusicSearcher implements IMusicSearcher {
 	}
 
 	@Override
-	public void setMusicDownloadUrl(MusicInfo info) {
+	public void setMusicDownloadUrl(Context context, MusicInfo info) {
 		if (!mBackupMode) {
-			mSogou.setMusicDownloadUrl(info);
+			mSogou.setMusicDownloadUrl(context, info);
 			return;
 		}
-		mSkreemr.setMusicDownloadUrl(info);
+		mSkreemr.setMusicDownloadUrl(context, info);
 	}
 
 	@Override

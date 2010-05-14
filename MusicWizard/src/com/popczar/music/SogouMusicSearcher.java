@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -128,7 +129,8 @@ public class SogouMusicSearcher implements IMusicSearcher {
 	}
 
 	
-	public void setMusicDownloadUrl(MusicInfo info) {
+	@Override
+	public void setMusicDownloadUrl(Context context, MusicInfo info) {
 		try {
 			String html = NetUtils.fetchHtmlPage(info.getUrl(), "gb2312");
 			
