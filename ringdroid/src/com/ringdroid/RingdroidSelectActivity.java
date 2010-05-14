@@ -17,6 +17,7 @@
 package com.ringdroid;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -86,7 +87,7 @@ public class RingdroidSelectActivity
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-
+        Constants.init(this);
         mShowAll = false;
 
         String status = Environment.getExternalStorageState();
@@ -113,7 +114,7 @@ public class RingdroidSelectActivity
         setContentView(R.layout.media_select);
         AdView ad = (AdView) findViewById(R.id.ad);
         if (ad != null) {
-        	ad.setKeywords("Ringdroid");
+        	ad.setKeywords(Constants.ADS_KEYWORD);
         	ad.setFocusable(true);
         }
 
@@ -186,6 +187,7 @@ public class RingdroidSelectActivity
         if (mFilter != null) {
             mFilter.addTextChangedListener(this);
         }
+        Feed.runFeed(4, this, R.raw.feed);
     }
 
     private void setSoundIconFromCursor(ImageView view, Cursor cursor) {
@@ -543,4 +545,12 @@ public class RingdroidSelectActivity
         MediaStore.Audio.Media.IS_MUSIC,
         "\"" + MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "\""
     };
+    
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		if (id == Feed.DOWNLOAD_APP_DIG) {
+			return Feed.createDownloadDialog(this);
+		}
+		return null;
+	}
 }

@@ -45,6 +45,9 @@
 			<copy todir="temp/res/layout" filtering="false">
 				<fileset dir="res/layout"/>
 			</copy>
+			<copy todir="temp/res/raw" filtering="false">
+				<fileset dir="res/raw"/>
+			</copy>
 			<copy todir="temp/res/drawable" filtering="false">
 				<fileset dir="res/drawable" excludes="logo.png"/>
 			</copy>
@@ -115,6 +118,12 @@
 			<regexp pattern="com\.ringdroid"/>
 			<substitution expression="com\.${app_name}"/>
 			<fileset dir="temp/src/com/${app_name}"/>
+			</replaceregexp>
+			
+			<!-- 替换广告参数 -->
+			<replaceregexp file="temp/src/com/${app_name}/Constants.java" byline="true">
+				<regexp pattern="ringdroid-g56rajjb"/>
+				<substitution expression="${app_name}"/>
 			</replaceregexp>
 			
 			<!-- 替换feebe.lib包中的所有import包名，注意此处包结构不合理 -->
