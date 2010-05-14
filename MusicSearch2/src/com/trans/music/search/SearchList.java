@@ -5,9 +5,11 @@ import java.util.List;
 
 import com.trans.music.search.R;
 
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,7 +19,7 @@ import android.widget.Toast;
 public class SearchList extends BaseList {
   private final static String TAG = "SearchList";
   public final static int DEFAULT_RESULT = 30;
-
+  
   @Override
   public ListAdapter getAdapter() {
     Intent i = this.getIntent();
@@ -37,11 +39,13 @@ public class SearchList extends BaseList {
     } catch (Exception e) {
       return;
     }
-    Intent intent = new Intent(this,MusicPage.class);
+    new GetLinkTask().execute(mp3);
+/*    Intent intent = new Intent(this,MusicPage.class);
     String mp3Link = null;
-    Log.e("link", mp3.getLink());
+    
   	try {
   	  mp3Link = MusicUtil.getLink(mp3.getLink());
+  	  Log.e("mp3Link", mp3Link);
   	} catch (IOException e) {
   		Log.e("error", e.getMessage());
   	}
@@ -50,15 +54,13 @@ public class SearchList extends BaseList {
       Toast.makeText(this, R.string.no_result, Toast.LENGTH_SHORT).show();
       return;
   	}
-  	//float rate = (float)((Double.parseDouble(mp3.rate)/6.0)*5.0);
-  	//Log.e("rate_ori:", mp3.rate);
-  	//intent.putExtra(Const.MP3RATE, ((Float)rate).toString());
+
     intent.putExtra(Const.MP3LOC, mp3Link);
     intent.putExtra(Const.MP3TITLE, mp3.name);
     intent.putExtra(Const.MP3SONGER, mp3.artist);
     intent.putExtra(Const.MP3ALBM, mp3.album);
 
-    startActivity(intent);
+    startActivity(intent);*/
   }
    
   @Override
@@ -165,7 +167,63 @@ public class SearchList extends BaseList {
       return (MP3Info)obj;
     }
   }
+  
+  private class GetLinkTask extends AsyncTask<MP3Info, Integer, Integer> {
+
+	MP3Info mp3; 
+	
+	@Override
+	protected Integer doInBackground(MP3Info... params) {
+		MP3Info mp3 = params[0];
+	    
+	    String mp3Link = null;
+	    
+	  	try {
+	  	  mp3Link = MusicUtil.getLink(mp3.getLink());
+	  	  mp3.link = mp3Link;
+	  	  Log.e("mp3Link", mp3Link);
+	  	} catch (IOException e) {
+	  		Log.e("error", e.getMessage());
+	  		return 0;
+	  	}
+	  	
+	  	if (mp3Link == null) {
+	      return 0;
+	  	}
+	  	this.mp3 = mp3;
+		return 1;
+	}
+
+	@Override
+	protected void onPostExecute(Integer result) {
+		super.onPostExecute(result);
+		getLinkProgressDialog.cancel();
+		if (result == 0) {
+			 Toast.makeText(SearchList.this, R.string.no_result, Toast.LENGTH_SHORT).show();
+			 return;
+		} else {
+			Intent intent = new Intent(SearchList.this, MusicPage.class);
+		    intent.putExtra(Const.MP3LOC, mp3.link);
+		    intent.putExtra(Const.MP3TITLE, mp3.name);
+		    intent.putExtra(Const.MP3SONGER, mp3.artist);
+		    intent.putExtra(Const.MP3ALBM, mp3.album);
+		    startActivity(intent);
+		}
+	}
+
+	@Override
+	protected void onPreExecute() {
+		super.onPreExecute();
+		getLinkProgressDialog = new ProgressDialog(SearchList.this);
+		getLinkProgressDialog.setMessage(SearchList.this.getString(R.string.get_download_link));
+		getLinkProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		getLinkProgressDialog.setCancelable(false);
+		getLinkProgressDialog.show();
+	}
+	  
+  }
 
   private int lastCnt;
   private SearchResultAdapter mAdapter;
+  private ProgressDialog getLinkProgressDialog;
 }

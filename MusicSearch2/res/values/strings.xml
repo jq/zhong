@@ -159,5 +159,10 @@
 	 -->
 	 <string name="play">Play</string>
 	 
+	 
+	 <!-- 
+	 	getLinkProgressDialog
+	  -->
+	  <string name="get_download_link">Get download link, Please wait...</string>
     
 </resources>

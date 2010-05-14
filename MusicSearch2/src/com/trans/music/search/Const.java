@@ -88,7 +88,7 @@ public class Const  {
       return;
     }
     */
-    exceptionHandler();
+    //exceptionHandler();    //by hy
   }
   
   public static void trimCache() {

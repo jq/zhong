@@ -2,6 +2,7 @@ package com.trans.music.search;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -30,6 +31,7 @@ import android.media.MediaScannerConnection;
 import android.media.MediaScannerConnection.*;
 import android.net.Uri;
 import android.opengl.Visibility;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -398,7 +400,7 @@ public class MusicPage extends Activity implements
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			btnQueue.setVisibility(View.GONE);
+			btnQueue.setEnabled(false);
 			removeDialog(CONNECTING);
 			mProgressDialogIsOpen = false;
 			if (!mDownloadFinish) {
@@ -588,7 +590,7 @@ public class MusicPage extends Activity implements
     });
   }
 
-  private class DownloadTask extends UserTask<String, Integer, Integer> {
+  private class DownloadTask extends AsyncTask<String, Integer, Integer> {
 	boolean isQueue;
 	  
 	public DownloadTask(boolean isQueue) {
@@ -606,10 +608,12 @@ public class MusicPage extends Activity implements
       if (!isQueue) {
         DownloadSetProgress(0);
         mDownloading = true;
-      
+        String fullpathname = Const.homedir + m_CurDownloadFile;
         try {
           url = new URL(urlString);
           urlConn = (HttpURLConnection) url.openConnection();
+          urlConn.setConnectTimeout(10000);
+          urlConn.setReadTimeout(20000);
           urlConn
               .setRequestProperty(
                   "User-Agent",
@@ -623,7 +627,7 @@ public class MusicPage extends Activity implements
           DownloadSetMax(downsize);
 
           DataInputStream fileStream;
-          String fullpathname = Const.homedir + m_CurDownloadFile;
+         
           // FileOutputStream filemp3 = openFileOutput(filename,
           // MODE_WORLD_READABLE);
           FileOutputStream filemp3 = new FileOutputStream(fullpathname);
@@ -641,24 +645,27 @@ public class MusicPage extends Activity implements
           filemp3.close();
           return 1;
         } catch (IOException e) {
-          e.printStackTrace();
+          File file = new File(fullpathname);
+          file.delete();
           return 0;
         }
       } else {
+    	String fullpathname = Const.homedir + "/" + m_CurDownloadFile;
     	try {
           url = new URL(urlString);
           urlConn = (HttpURLConnection) url.openConnection();
           urlConn
-              .setRequestProperty(
+              .setRequestProperty( 
                   "User-Agent",
                   "Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3 -Java");
-
+          urlConn.setConnectTimeout(10000);
+          urlConn.setReadTimeout(20000);
           urlConn.connect();
 
           int downed = 0;
 
           DataInputStream fileStream;
-          String fullpathname = Const.homedir + "/" + m_CurDownloadFile;
+          
           // FileOutputStream filemp3 = openFileOutput(filename,
           // MODE_WORLD_READABLE);
           FileOutputStream filemp3 = new FileOutputStream(fullpathname);
@@ -674,7 +681,8 @@ public class MusicPage extends Activity implements
           filemp3.close();
           return 1;
         } catch (IOException e) {
-          e.printStackTrace();
+          File file = new File(fullpathname);
+          file.delete();
           return 0;
         }
       }
@@ -696,17 +704,21 @@ public class MusicPage extends Activity implements
         ScanMediafile(fullpathname);
         // showDownloadOKNotification(m_CurDownloadFile);
         if (isQueue) {
-          Intent intent = new Intent(MusicPage.this ,RingdroidSelectActivity.class);
+          Intent intent = new Intent(MusicPage.this ,local.class);
           Util.addNotification(MusicPage.this, intent, mMp3Title, R.string.app_name, R.string.save_success_message, R.string.app_name, R.string.save_success_message);
         } else {
           	btnDownload.setText(R.string.play);
         }
         saveArtistAndTitle();
       }
-      if (result == 0) {
+      if (result==0 && !isQueue) {
+    	  removeDialog(DOWNLOAD_MP3FILE);
     	  Toast.makeText(MusicPage.this, mMp3Title+getString(R.string.download_failed), Toast.LENGTH_SHORT).show();
+    	  mDownloading = false;
+          mDownloadFinish = false;
+          mProgressDialogIsOpen = false;
       }
-      if (!isQueue) {
+      if (!isQueue && result==1) {
     	removeDialog(DOWNLOAD_MP3FILE);
       	mDownloading = false;
       	mDownloadFinish = true;

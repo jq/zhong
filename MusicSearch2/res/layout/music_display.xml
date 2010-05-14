@@ -44,38 +44,41 @@
 	  <Button android:text="Preview" 
 	    		android:id="@+id/preview" 
 	    		android:layout_width="wrap_content" 
-	    		android:layout_height="wrap_content">
-	    		</Button>
+	    		android:layout_height="wrap_content"
+	    		android:layout_weight="1.0">
+	   </Button>
 	  
 	  <Button android:text="Download" 
 	    		android:id="@+id/download" 
 	    		android:layout_width="wrap_content" 
-	    		android:layout_height="wrap_content">
-	    		</Button>
+	    		android:layout_height="wrap_content"
+	    		android:layout_weight="1.0">
+	  </Button>
 	  <Button android:text="Queue" 
 	    		android:id="@+id/queue" 
 	    		android:layout_width="wrap_content" 
-	    		android:layout_height="wrap_content">
-	    		</Button>
+	    		android:layout_height="wrap_content"
+	    		android:layout_weight="1.0">
+	  </Button>
 
 		
 				/>
  </LinearLayout>
 	  </LinearLayout>
 	  
-	  <LinearLayout 
-	  	android:id="@+id/AdsView" 
-	  	android:layout_width="fill_parent"
-	   	android:layout_height="wrap_content"
-	   	android:layout_above="@id/detailLayout2"
-	   />
+	      <com.admob.android.ads.AdView 
+          android:id="@+id/ad" 
+          android:visibility="gone"
+          android:layout_width="fill_parent" 
+          android:layout_height="wrap_content"
+        />      
 	        
 	<ScrollView
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 
 			android:layout_alignParentTop="true"
-	    android:layout_above="@id/AdsView"
+	    android:layout_above="@id/ad"
 			>
 			
 	  <LinearLayout
