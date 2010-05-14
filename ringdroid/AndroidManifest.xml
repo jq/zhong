@@ -69,7 +69,7 @@
                   android:configChanges="orientation|keyboardHidden">
         </activity>
 	<!-- The application's publisher ID assigned by AdMob -->
-        <meta-data android:value="a14a4a93f1e4c68" android:name="ADMOB_PUBLISHER_ID" />
+        <meta-data android:value="a14bec9ee3954d4" android:name="ADMOB_PUBLISHER_ID" />
     </application>
 
 </manifest>
