@@ -84,8 +84,8 @@
 
 			
 			<replaceregexp file="temp/AndroidManifest.xml" byline="true">
-			<regexp pattern="ringdroid"/>
-			<substitution expression="${app_name}"/>
+			<regexp pattern="com\.ringdroid"/>
+			<substitution expression="com\.${app_name}"/>
 			</replaceregexp>
 			
 		</target>
@@ -195,6 +195,12 @@
 				-keep public class * extends android.app.Activity
 				-keep public class * extends android.content.BroadcastReceiver
 				-keep public class * extends android.app.Service
+				-keep public class com.${app_name}.WaveformView {
+				  	public WaveformView(android.content.Context, android.util.AttributeSet);
+				}
+				-keep public class com.${app_name}.MarkerView {
+				  	public MarkerView(android.content.Context, android.util.AttributeSet);
+				}
 			</proguard>
 			<delete file="temp/temp.jar"/>
 			<delete dir="temp/bin" failonerror="false"/>
