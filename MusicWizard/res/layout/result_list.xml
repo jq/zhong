@@ -30,7 +30,7 @@
       <TextView android:id="@+id/search_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/loading"
+                android:text="@string/please_retry_query"
                 android:gravity="center_vertical"
                 android:textSize="18dip"/>
 

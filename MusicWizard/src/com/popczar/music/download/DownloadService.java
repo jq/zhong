@@ -205,6 +205,15 @@ public class DownloadService extends Service {
 					connection.setRequestProperty("Range", "bytes=" + outFile.length() + "-");
 
 				connection.connect();
+				
+				if (connection.getResponseCode() != 200) {
+					synchronized(mInfo) {
+						mInfo.setStatus(DownloadInfo.STATUS_FAILED);
+					}
+					mInfo.setError("Connection error: " + connection.getResponseMessage());
+					return;
+				}
+				
 				try {
 					input = connection.getInputStream();
 				} catch (FileNotFoundException e) {

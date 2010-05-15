@@ -38,4 +38,6 @@
     <string name="eula_title">End User License Agreement</string>
     <string name="eula_accept">Accept</string>
     <string name="eula_refuse">Decline</string>
+    <string name="no_playing_activity">No activity found to handle mp3 files. You may want to start music player manually.</string>
+    <string name="please_retry_query">Please retry you query</string>
 </resources>

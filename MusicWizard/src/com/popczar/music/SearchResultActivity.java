@@ -49,7 +49,7 @@ public class SearchResultActivity extends ListActivity {
 	private static final int DIALOG_MUSIC_STREAMING = 3;
 
 	private static final int MUSIC_OPTION_PREVIEW = 0;
-	private static final int MUSIC_OPTION_PLAY = 1;
+	private static final int MUSIC_OPTION_DOWNLOAD = 1;
 
 	private static Mp3ListWrapper sData;
 	private static String sQuery;
@@ -144,7 +144,7 @@ public class SearchResultActivity extends ListActivity {
 								playMusic(mCurrentMusic);
 
 								break;
-							case MUSIC_OPTION_PLAY:
+							case MUSIC_OPTION_DOWNLOAD:
 								if (mCurrentMusic == null)
 									return;
 								download(mCurrentMusic);
@@ -225,13 +225,15 @@ public class SearchResultActivity extends ListActivity {
 		if (mProgressDialog != null && mProgressDialog.isShowing())
 			mProgressDialog.dismiss();
 
-		if (sData != null) {
-			// Display
-	        mAdapter = new Mp3ListAdapter(
-	            SearchResultActivity.this,
-					R.layout.result_item);
+		// Display
+		mAdapter = new Mp3ListAdapter(
+				SearchResultActivity.this,
+				R.layout.result_item);
 
-			setListAdapter(mAdapter);
+		setListAdapter(mAdapter);
+		
+		if (sData != null) {
+			
 		} else if (sFetchMp3ListTask != null) {
 			if (!TextUtils.isEmpty(sQuery)) {
 				mProgressBar.setVisibility(View.VISIBLE);
@@ -440,7 +442,7 @@ public class SearchResultActivity extends ListActivity {
 				sData.append(mp3List);
 				mAdapter.notifyDataSetChanged();
 			} else {
-				mAdapter.notifyDataSetInvalidated();
+				mAdapter.notifyDataSetChanged();
 				sHasMoreData = false;
 				if (sData.size() == 0) {
 					/*

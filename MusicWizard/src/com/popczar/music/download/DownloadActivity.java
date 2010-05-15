@@ -187,10 +187,16 @@ public class DownloadActivity extends ListActivity {
     	if (info == null)
     		return;
     	
-    	Intent intent = new Intent(Intent.ACTION_VIEW);
-    	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    	intent.setDataAndType(Uri.parse("file://" + info.getTarget()), "audio");
-    	startActivity(intent);
+    	try {
+    		Intent intent = new Intent(Intent.ACTION_VIEW);
+    		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    		intent.setDataAndType(Uri.parse("file://" + info.getTarget()), "audio");
+    		startActivity(intent);
+    	} catch (android.content.ActivityNotFoundException e) {
+    		e.printStackTrace();
+			Toast.makeText(DownloadActivity.this,
+					getString(R.string.no_playing_activity), Toast.LENGTH_LONG).show();
+    	}
     }
 	
 	public boolean onContextItemSelected(MenuItem item) {
