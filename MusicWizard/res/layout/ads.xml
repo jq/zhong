@@ -10,6 +10,6 @@
        android:layout_height="wrap_content"
        app:backgroundColor="#000000"
        app:textColor="#FFFFFF"
-       app:keywords="music, mp3, social, phone, game, job, shopping, computer, girl, dating, gambling"
+       app:keywords="game, job, shop, medicine, social, dating, travel, jobs, car, insurance, sex, digital, camera, phone, clothing, computer, girl, music, mp3"
      />
 	   
