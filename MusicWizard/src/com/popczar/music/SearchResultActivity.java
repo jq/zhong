@@ -370,14 +370,6 @@ public class SearchResultActivity extends ListActivity {
 
 						});
 						sPlayer = player;
-						if (mStreaming != null && !mStreaming.isShowing()) {
-							runOnUiThread(new Runnable() {
-								@Override
-								public void run() {
-									showDialog(DIALOG_MUSIC_STREAMING);
-								}
-							});
-						}
 					} catch (IllegalArgumentException e) {
 						onPlayError();
 						e.printStackTrace();
