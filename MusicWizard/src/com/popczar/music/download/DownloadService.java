@@ -206,11 +206,13 @@ public class DownloadService extends Service {
 
 				connection.connect();
 				
-				if (connection.getResponseCode() != 200) {
+				if (connection.getResponseCode() < 200 ||
+					connection.getResponseCode() >= 300) {
 					synchronized(mInfo) {
 						mInfo.setStatus(DownloadInfo.STATUS_FAILED);
 					}
-					mInfo.setError("Connection error: " + connection.getResponseMessage());
+					mInfo.setError("Connection error (" +
+							connection.getResponseCode() + "): " + connection.getResponseMessage());
 					return;
 				}
 				
@@ -269,6 +271,11 @@ public class DownloadService extends Service {
 				}
 
 				synchronized(mInfo) {
+					if (mInfo.getCurrentBytes() < 100) {
+						mInfo.setStatus(DownloadInfo.STATUS_FAILED);
+						mInfo.setError("Incomplete file");
+						return;
+					}
 					mInfo.setCurrentBytes(mInfo.getTotalBytes());
 					mInfo.setStatus(DownloadInfo.STATUS_FINISHED);
 					File oldFile = new File(tmpFile);

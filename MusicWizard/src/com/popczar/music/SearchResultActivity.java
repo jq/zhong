@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
+import android.media.MediaPlayer.OnErrorListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -74,8 +75,9 @@ public class SearchResultActivity extends ListActivity {
 
 	private ProgressDialog mStreaming;
 	private static String sStreamingTitle;
-	private static MediaPlayer sPlayer;
-
+	
+	private static volatile MediaPlayer sPlayer;
+	private static Thread sPreviewThread;
 	private ServiceConnection mConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
 			mDownloadService = ((DownloadService.LocalBinder) service).getService();
@@ -137,8 +139,8 @@ public class SearchResultActivity extends ListActivity {
 									}
 								});
 
-                            if (TextUtils.isEmpty(mCurrentMusic.getDownloadUrl())) {
-                                new FetchMp3LinkTaskForPreview().execute(mCurrentMusic);
+								if (TextUtils.isEmpty(mCurrentMusic.getDownloadUrl())) {
+									new FetchMp3LinkTaskForPreview().execute(mCurrentMusic);
 									break;
 								}
 								playMusic(mCurrentMusic);
@@ -164,16 +166,21 @@ public class SearchResultActivity extends ListActivity {
         		mStreaming.setButton(getString(R.string.stop), new DialogInterface.OnClickListener() {          
 							@Override
         			public void onClick(DialogInterface dialog, int which) {
-								if (mStreaming != null) {
-									mStreaming.dismiss();
-									mStreaming = null;
-								}
-								if (sPlayer != null) {
-									sPlayer.release();
-									sPlayer = null;
-								}
+						if (mStreaming != null) {
+							mStreaming.dismiss();
+						}
+
+						new Thread(new Runnable() {
+							@Override
+							public void run() {
+								MediaPlayer player = sPlayer;
+								sPlayer = null;
+								if (player != null)
+									player.release();
 							}
-						});
+						}).start();
+					}
+				});
 			}
 			return mStreaming;
 		}
@@ -215,7 +222,7 @@ public class SearchResultActivity extends ListActivity {
 		sFetchMp3ListTask = new FetchMp3ListTask();
 		sFetchMp3ListTask.execute();
 	}
-
+	
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -241,7 +248,7 @@ public class SearchResultActivity extends ListActivity {
 			}
 		}
 
-		if (sPlayer != null && sPlayer.isPlaying()) {
+		if (sPlayer != null) {
 			showDialog(DIALOG_MUSIC_STREAMING);
 		}
 	}
@@ -303,47 +310,87 @@ public class SearchResultActivity extends ListActivity {
 
 		mSearch = new SearchBar(this);
 	}
+	
+	
+	private void onPlayError() {
+		MediaPlayer player = sPlayer;
+		sPlayer = null;
+		if (player != null)
+			player.release();
+		
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				if (mStreaming != null) {
+					mStreaming.dismiss();
+				}
+				Toast.makeText(getApplication(), "Streaming error", Toast.LENGTH_LONG).show();
+			}
+		});
+	}
 
     
-	private void playMusic(MusicInfo mp3) {
+	private void playMusic(final MusicInfo mp3) {
 		if (mp3.getDownloadUrl().startsWith("http:")) {
-			if (sPlayer == null)
-				sPlayer = new MediaPlayer();
-			sPlayer.reset();
-			try {
-				sPlayer.setDataSource(mp3.getDownloadUrl());
-			} catch (IllegalArgumentException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IllegalStateException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			new Thread(new Runnable() {
-
+			sPreviewThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
+					MediaPlayer player = sPlayer;
+					sPlayer = null;
 					try {
-						if (sPlayer != null) {
-							sPlayer.prepare();
-							sPlayer.start();
-							sPlayer.setOnCompletionListener(new OnCompletionListener () {
+						if (player != null) {
+							player.release();
+						}
+						
+						player = new MediaPlayer();
+						player.reset();
+						player.setDataSource(mp3.getDownloadUrl());
+						player.prepare();
+						player.start();
+						player.setOnCompletionListener(new OnCompletionListener () {
+							@Override
+							public void onCompletion(MediaPlayer mp) {
+								sPlayer = null;
+								runOnUiThread(new Runnable() {
+									@Override
+									public void run() {
+										if (mStreaming != null) {
+											mStreaming.dismiss();
+										}
+									}
+								});
+							}
+						});
+						player.setOnErrorListener(new OnErrorListener() {
+							@Override
+							public boolean onError(MediaPlayer mp, int what, int extra) {
+								onPlayError();
+								return true;
+							}
+
+						});
+						sPlayer = player;
+						if (mStreaming != null && !mStreaming.isShowing()) {
+							runOnUiThread(new Runnable() {
 								@Override
-								public void onCompletion(MediaPlayer mp) {
+								public void run() {
+									showDialog(DIALOG_MUSIC_STREAMING);
 								}
 							});
 						}
 					} catch (IllegalArgumentException e) {
+						onPlayError();
+						e.printStackTrace();
 					} catch (IllegalStateException e) {
+						onPlayError();
+						e.printStackTrace();
 					} catch (IOException e) {
+						onPlayError();
+						e.printStackTrace();
 					}
-
 				}
-
-			}).start();
+			});
+			sPreviewThread.start();
 		}
 	}
 
