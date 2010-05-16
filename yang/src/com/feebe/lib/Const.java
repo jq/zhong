@@ -35,7 +35,7 @@ public class Const {
   public static final long OneYear = OneDay * 365;
 
   // resources
-	protected static int AdsViewID;
+//	protected static int AdsViewID;
 	protected static int LAYOUT_LIST;
 	protected static int tabheader;
 	protected static int tab_label;

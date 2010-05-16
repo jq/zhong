@@ -16,7 +16,6 @@ import com.feebe.lib.EndlessUrlArrayAdapter;
 import com.feebe.lib.ImgThread;
 import com.feebe.lib.UrlArrayAdapter;
 import com.feebe.lib.Util;
-import com.qwapi.adclient.android.db.DBHelper;
 
 import android.app.AlertDialog;
 import android.app.SearchManager;

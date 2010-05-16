@@ -32,7 +32,7 @@ public class SearchTab extends Activity{
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.search_tab);
-		AdsView.createAdsenseAds(this, AdsView.CHANNEL_ID);
+//		AdsView.createAdsenseAds(this, AdsView.CHANNEL_ID);
 		searchArtist = (AutoCompleteTextView) findViewById(R.id.input_artist);
 		searchArtist.setOnKeyListener(new OnKeyListener(){
 			@Override
