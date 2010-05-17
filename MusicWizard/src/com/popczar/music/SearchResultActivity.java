@@ -169,14 +169,14 @@ public class SearchResultActivity extends ListActivity {
 						if (mStreaming != null) {
 							mStreaming.dismiss();
 						}
-
+						
 						new Thread(new Runnable() {
 							@Override
 							public void run() {
 								MediaPlayer player = sPlayer;
-								sPlayer = null;
 								if (player != null)
 									player.release();
+								sPlayer = null;
 							}
 						}).start();
 					}
@@ -335,17 +335,18 @@ public class SearchResultActivity extends ListActivity {
 			sPreviewThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
-					MediaPlayer player = sPlayer;
-					sPlayer = null;
 					try {
+						MediaPlayer player = sPlayer;
 						if (player != null) {
 							player.release();
 						}
 						
-						player = new MediaPlayer();
+						sPlayer = new MediaPlayer();
+						player = sPlayer;
 						player.reset();
 						player.setDataSource(mp3.getDownloadUrl());
 						player.prepare();
+						
 						player.start();
 						player.setOnCompletionListener(new OnCompletionListener () {
 							@Override
@@ -369,16 +370,22 @@ public class SearchResultActivity extends ListActivity {
 							}
 
 						});
-						sPlayer = player;
+						
+						if (sPlayer == null) {
+							// Someone requested us to stop.
+							player.release();
+						}
 					} catch (IllegalArgumentException e) {
 						onPlayError();
 						e.printStackTrace();
 					} catch (IllegalStateException e) {
-						onPlayError();
+						//onPlayError();
 						e.printStackTrace();
 					} catch (IOException e) {
 						onPlayError();
 						e.printStackTrace();
+					} finally {
+						sPreviewThread = null;
 					}
 				}
 			});

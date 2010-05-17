@@ -131,7 +131,10 @@ public class Feed {
 				new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog,
 					int whichButton) {
-
+				if (intent == null) {
+					at.removeDialog(DOWNLOAD_APP_DIG);
+					return;
+				}
 				Intent i = new Intent(
 						Intent.ACTION_VIEW,
 						Uri.parse(intent));
