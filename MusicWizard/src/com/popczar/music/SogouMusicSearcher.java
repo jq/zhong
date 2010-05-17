@@ -101,7 +101,7 @@ public class SogouMusicSearcher implements IMusicSearcher {
 			}
 		}
 		try {
-			String html = NetUtils.fetchHtmlPage(getNextUrl(), "gb2312");
+			String html = NetUtils.fetchHtmlPage(MusicSearcherFactory.ID_SOGOU, getNextUrl(), "gb2312");
 			if (TextUtils.isEmpty(html))
 				return null;
 			ArrayList<MusicInfo> musicList = getMusicInfoListFromHtml(html);
@@ -132,7 +132,8 @@ public class SogouMusicSearcher implements IMusicSearcher {
 	@Override
 	public void setMusicDownloadUrl(Context context, MusicInfo info) {
 		try {
-			String html = NetUtils.fetchHtmlPage(info.getUrl(), "gb2312");
+			String html = NetUtils.fetchHtmlPage(
+					MusicSearcherFactory.ID_SOGOU, info.getUrl(), "gb2312");
 			
 			int start = html.indexOf(DOWNLOAD_MARKER) + DOWNLOAD_MARKER.length();
 			Matcher m = PATTERN_DOWNLOAD_URL.matcher(html.substring(start));

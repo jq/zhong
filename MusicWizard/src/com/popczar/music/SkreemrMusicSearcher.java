@@ -48,7 +48,7 @@ public class SkreemrMusicSearcher implements IMusicSearcher {
 			
 			Utils.D("URL = " + url);
 			
-			String html = NetUtils.fetchHtmlPage(url, "UTF-8");
+			String html = NetUtils.fetchHtmlPage(MusicSearcherFactory.ID_SKREEMR, url, "UTF-8");
 			if (TextUtils.isEmpty(html))
 				return null;
 			ArrayList<MusicInfo> musicList = getMusicInfoListFromHtml(html);

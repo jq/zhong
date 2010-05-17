@@ -56,7 +56,7 @@ public class BDSearcher implements IMusicSearcher {
 			
 			Utils.D("URL = " + url);
 			
-			String html = NetUtils.fetchHtmlPage(url, "gb2312");
+			String html = NetUtils.fetchHtmlPage(MusicSearcherFactory.ID_BAIDU, url, "gb2312");
 			if (TextUtils.isEmpty(html))
 				return null;
 			ArrayList<MusicInfo> musicList = getMusicInfoListFromHtml(html);
