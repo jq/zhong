@@ -217,7 +217,7 @@ public class SearchList extends BaseList {
 		getLinkProgressDialog = new ProgressDialog(SearchList.this);
 		getLinkProgressDialog.setMessage(SearchList.this.getString(R.string.get_download_link));
 		getLinkProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-		getLinkProgressDialog.setCancelable(false);
+		getLinkProgressDialog.setCancelable(true);
 		getLinkProgressDialog.show();
 	}
 	  
