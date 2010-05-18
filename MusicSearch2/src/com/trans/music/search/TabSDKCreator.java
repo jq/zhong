@@ -13,7 +13,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 public class TabSDKCreator {
-	  public static void createCustomerTab(Context c, TabHost tabHost, Intent intent,  String tabName, int resourceId) {
+/*	  public static void createCustomerTab(Context c, TabHost tabHost, Intent intent,  String tabName, int resourceId) {
 	      LayoutInflater factory = LayoutInflater.from(c);
 	      View tabHeader = factory.inflate(R.layout.tabheader, null);
 	      TextView textView = (TextView) tabHeader.findViewById(R.id.tab_label);
@@ -40,7 +40,7 @@ public class TabSDKCreator {
 	        // ignore the error. If no application can handle the URL,
 	        // eg about:blank, assume the browser can handle it.
 	    }
-	  }
+	  }*/
 	  
 
 }

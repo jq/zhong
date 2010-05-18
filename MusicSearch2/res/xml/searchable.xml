@@ -7,7 +7,7 @@
     android:inputType="textUri"
     android:imeOptions="actionGo"
     
-    android:includeInGlobalSearch="true"
+
     
     android:searchSuggestAuthority="feebemusicsearch"
     android:searchSuggestIntentAction="android.intent.action.VIEW"
