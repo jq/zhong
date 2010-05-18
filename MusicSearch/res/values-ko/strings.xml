@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">음악</string>
+    <string name="local_service_started">다운로드 시작</string>
+    
+    <string name="network_error">네트워크 오류!</string>
+    <string name="no_result">결과 없음</string>
+    <string name="no_sd">필요가 카드를 프로그램을 실행합니다 사우 스다코타</string>
+    <string name="search_hint">수색</string>
+    
+    <string name="tab_hot">뜨거운</string>
+    <string name="tab_find">발견</string>
+    <string name="tab_lib">lib</string>
+    <string name="tab_downlaod">음악</string>
+    <string name="downloaded_files">다운로드 파일</string>
+    
+     <!--
+     imported
+     -->
+    
+    
+    <string name="button_start_record_activity">새로운 기록</string>
+
+    <string name="sdcard_readonly">죄송합니다, SD 카드가 같이 탑재 읽기 전용</string>
+    <string name="no_sdcard">수는 SD 카드를 삽입하지 않는 한 실행할 수 없습니다.</string>
+    <string name="sdcard_shared">실행할 수없는 휴대 전화는 USB 장치로 탑재되는 동안.</string>
+
+    <!--
+     Edit activity
+     -->
+
+    <!-- Labels next to the start and end time edit boxes -->
+    <string name="start_label">시작 :</string>
+    <string name="end_label">끝 :</string>
+
+    <string name="edit_intent">편집</string>
+
+    <string name="time_seconds">초</string>
+
+    <!-- After you save a notification or ringtone and have more options
+	 for what to do with them -->
+    <string name="what_to_do_with_ringtone">저장된! 이 기본 벨소리를 확인하거나 연락을 지정?</string>
+    <string name="set_default_notification">저장된! 이 기본 알림을 가로지른다고?</string>
+
+    <string name="make_default_ringtone_button">기본 만들기</string>
+    <string name="choose_contact_ringtone_button">할당 연락처</string>
+    <string name="do_nothing_with_ringtone_button">가까운</string>
+
+    <!-- Progress dialog text for loading or saving... -->
+    <string name="progress_dialog_loading">로드 중입니다 ...</string>
+    <string name="progress_dialog_saving">저장 중 ...</string>
+
+    <!--
+     Menu items
+     -->
+
+    <string name="menu_save">저장</string>
+    <string name="menu_reset">재설정</string>
+    <string name="menu_show_all_audio">모두보기 오디오</string>
+    
+    <string name="menu_search">수색</string>
+    <string name="menu_unset_ringtone">해제의 벨소리</string>
+
+      
+    <!--
+     AlertDialogs
+     -->
+     <string name="alertdialog_select">선택</string>
+     <string name="alertdialog_ok">확인</string>
+     <string name="alertdialog_cancel">취소</string>
+     <string name="alertdialog_share">공유</string>
+
+    <!--
+     Context menu items
+     -->
+
+    <string name="context_menu_edit">편집</string>
+    <string name="context_menu_delete">삭제</string>
+
+    <!--
+     File Save dialog
+     -->
+
+    <string name="file_save_title">다른 이름으로 저장 :</string>
+    <string name="file_save_button_save">저장</string>
+    <string name="file_save_button_cancel">취소</string>
+
+    <string name="ringtone_type_label">종류 :</string>
+
+    <string name="type_music">음악</string>
+    <string name="type_alarm">경보</string>
+    <string name="type_notification">알림</string>
+    <string name="type_ringtone">벨소리</string>
+
+    <string name="ringtone_name_label">이름 :</string>
+
+    <!--
+     Delete confirmation dialog
+     -->
+
+    <string name="delete_ringtone">삭제 벨소리</string>
+    <string name="delete_alarm">삭제 알람</string>
+    <string name="delete_notification">삭제 알림</string>
+    <string name="delete_music">삭제 뮤직</string>
+    <string name="delete_audio">오디오 삭제</string>
+
+    <string name="confirm_delete_ringdroid">당신은 확실한가요?</string>
+
+    <string name="delete_ok_button">삭제</string>
+    <string name="delete_cancel_button">취소</string>
+
+    <string name="delete_failed">파일을 삭제할 수 없습니다</string>
+
+    <!--
+     Success and error messages
+     -->
+
+    <string name="alert_title_success">성공</string>
+    <string name="alert_title_failure">오류</string>
+    <string name="alert_ok_button">확인</string>
+    <string name="alert_yes_button">그래, 제발!</string>
+    <string name="alert_no_button">아니, 됐어.</string>
+
+    <string name="save_success_message">Saved!</string>
+    <string name="default_ringtone_success_message">변경된 기본 벨소리</string>
+    <string name="play_error">이 미디어를 재생할 수 없습니다 파일</string>
+    <string name="no_unique_filename">고유한 파일 이름을 찾을 수 없습니다</string>
+    <string name="delete_tmp_error">임시 파일 삭제 오류</string>
+    <string name="record_error">오류 출시 녹음기</string>
+    <string name="too_small_error">수없는 그 작은, 그것은 더 이상 제작하려고하면 파일을 저장합니다.</string>
+    <string name="write_error">오류 파일을 작성</string>
+    <string name="read_error">오류 파일을 읽는 중</string>
+    <string name="download_failed">다운로드 실패</string>
+    <string name="queue_message">그 노래가 대기열되었습니다</string>
+    <string name="download_finished">다운로드 완료</string>
+
+    <string name="no_space_error">당신의 SD 카드가 가득 찬 경우에는 충분한 공간이 파일을 저장하는 것입니다.</string>
+
+    <string name="bad_extension_error">아직 형식의 파일을 편집할 수</string>
+    <string name="no_extension_error">파일을 수정할 수 없습니다 그것은 같은 확장명이없는 경우.있는 mp3 또는. wav 파일</string>
+
+    <!--
+     Choose Contact Activity
+     -->
+
+    <string name="choose_contact_title">할당 벨소리 문의?</string>
+    <string name="success_contact_ringtone">성공적으로 벨소리를 할당 :</string>
+	
+		<string name="myreview">내 검토</string>
+		<string name="info">음악 정보</string>
+		<string name="about">약</string>
+		<string name="artist">아티스트 :</string>
+		<string name="title">제목 :</string>
+		<string name="search_more">추가 검색</string>
+		<string name="search_more_by">추가 검색으로</string>
+		<string name="search_more_in">검색을 더</string>
+	<!-- 
+	  Music activity
+	 -->
+	 <string name="play">놀이</string>
+	 
+    
+</resources>

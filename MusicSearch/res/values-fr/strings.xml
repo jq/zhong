@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Musique</string>
+    <string name="local_service_started">Télécharger a commencé</string>
+    
+    <string name="network_error">Erreur de réseau!</string>
+    <string name="no_result">Aucun résultat</string>
+    <string name="no_sd">Besoin de carte SD pour exécuter le programme</string>
+    <string name="search_hint">Recherche</string>
+    
+    <string name="tab_hot">Chaud</string>
+    <string name="tab_find">Trouver</string>
+    <string name="tab_lib">Lib</string>
+    <string name="tab_downlaod">Musique</string>
+    <string name="downloaded_files">Télécharger des fichiers</string>
+    
+     <!--
+     imported
+     -->
+    
+    
+    <string name="button_start_record_activity">Nouveau record</string>
+
+    <string name="sdcard_readonly">Désolé, la carte SD est monté en lecture seule</string>
+    <string name="no_sdcard">Impossible d'exécuter sauf si vous avez une carte SD insérée.</string>
+    <string name="sdcard_shared">Impossible d'exécuter tout votre appareil est monté comme un périphérique USB.</string>
+
+    <!--
+     Edit activity
+     -->
+
+    <!-- Labels next to the start and end time edit boxes -->
+    <string name="start_label">Début:</string>
+    <string name="end_label">Fin:</string>
+
+    <string name="edit_intent">Éditer</string>
+
+    <string name="time_seconds">seconde</string>
+
+    <!-- After you save a notification or ringtone and have more options
+	 for what to do with them -->
+    <string name="what_to_do_with_ringtone">Sauvé! Faire de cette sonnerie par défaut ou de l'attribuer à un contact?</string>
+    <string name="set_default_notification">Sauvé! Faire de cette notification par défaut?</string>
+
+    <string name="make_default_ringtone_button">Utiliser par défaut</string>
+    <string name="choose_contact_ringtone_button">Assigner à un contact</string>
+    <string name="do_nothing_with_ringtone_button">Fermer</string>
+
+    <!-- Progress dialog text for loading or saving... -->
+    <string name="progress_dialog_loading">Chargement en cours ...</string>
+    <string name="progress_dialog_saving">Enregistrement ...</string>
+
+    <!--
+     Menu items
+     -->
+
+    <string name="menu_save">Sauver</string>
+    <string name="menu_reset">Remise</string>
+    <string name="menu_show_all_audio">Tous les Audio</string>
+    
+    <string name="menu_search">recherche</string>
+    <string name="menu_unset_ringtone">Sonnerie unset</string>
+
+      
+    <!--
+     AlertDialogs
+     -->
+     <string name="alertdialog_select">sélectionner</string>
+     <string name="alertdialog_ok">OK</string>
+     <string name="alertdialog_cancel">Annuler</string>
+     <string name="alertdialog_share">Part</string>
+
+    <!--
+     Context menu items
+     -->
+
+    <string name="context_menu_edit">Éditer</string>
+    <string name="context_menu_delete">Effacer</string>
+
+    <!--
+     File Save dialog
+     -->
+
+    <string name="file_save_title">Enregistrer en tant que:</string>
+    <string name="file_save_button_save">Sauver</string>
+    <string name="file_save_button_cancel">Annuler</string>
+
+    <string name="ringtone_type_label">Type:</string>
+
+    <string name="type_music">Musique</string>
+    <string name="type_alarm">Alarme</string>
+    <string name="type_notification">Notification</string>
+    <string name="type_ringtone">Ringtone</string>
+
+    <string name="ringtone_name_label">Nom:</string>
+
+    <!--
+     Delete confirmation dialog
+     -->
+
+    <string name="delete_ringtone">Supprimer Ringtone</string>
+    <string name="delete_alarm">Supprimer alarme</string>
+    <string name="delete_notification">Supprimer Notification</string>
+    <string name="delete_music">Supprimer Musique</string>
+    <string name="delete_audio">Supprimer Audio</string>
+
+    <string name="confirm_delete_ringdroid">Etes-vous sûr?</string>
+
+    <string name="delete_ok_button">Effacer</string>
+    <string name="delete_cancel_button">Annuler</string>
+
+    <string name="delete_failed">Impossible de supprimer le fichier</string>
+
+    <!--
+     Success and error messages
+     -->
+
+    <string name="alert_title_success">Succès</string>
+    <string name="alert_title_failure">Erreur</string>
+    <string name="alert_ok_button">OK</string>
+    <string name="alert_yes_button">Oui, s'il vous plaît!</string>
+    <string name="alert_no_button">Non, Merci.</string>
+
+    <string name="save_success_message">Saved!</string>
+    <string name="default_ringtone_success_message">Changement de sonnerie par défaut</string>
+    <string name="play_error">Impossible de lire ce fichier multimédia</string>
+    <string name="no_unique_filename">Impossible de trouver le nom de fichier unique</string>
+    <string name="delete_tmp_error">Erreur de suppression des fichiers temporaires</string>
+    <string name="record_error">Erreur de lancement Sound Recorder</string>
+    <string name="too_small_error">Impossible d'enregistrer un fichier que les petites, essayez de faire plus longtemps.</string>
+    <string name="write_error">Erreur d'écriture du fichier</string>
+    <string name="read_error">Erreur de lecture de fichier</string>
+    <string name="download_failed">Le téléchargement a échoué</string>
+    <string name="queue_message">La chanson a été mis en attente</string>
+    <string name="download_finished">Téléchargement terminé</string>
+
+    <string name="no_space_error">Votre carte SD est pleine, il n'y a pas assez d'espace pour enregistrer ce fichier.</string>
+
+    <string name="bad_extension_error">Pas encore en mesure d'éditer des fichiers de type</string>
+    <string name="no_extension_error">Impossible de modifier un fichier si elle n'a pas une extension comme. Mp3 ou. Wav</string>
+
+    <!--
+     Choose Contact Activity
+     -->
+
+    <string name="choose_contact_title">Attribuer sonnerie dans laquelle le contact?</string>
+    <string name="success_contact_ringtone">Succès attribué à la sonnerie:</string>
+	
+		<string name="myreview">Mon examen</string>
+		<string name="info">Musique de l'information</string>
+		<string name="about">Sur</string>
+		<string name="artist">Artiste: </string>
+		<string name="title">Titre:</string>
+		<string name="search_more">Recherche Plus</string>
+		<string name="search_more_by">Recherche Plus par</string>
+		<string name="search_more_in">Recherche plus</string>
+	<!-- 
+	  Music activity
+	 -->
+	 <string name="play">Jouer</string>
+	 
+    
+</resources>

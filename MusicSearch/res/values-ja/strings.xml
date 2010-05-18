@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">音楽</string>
+    <string name="local_service_started">ダウンロードが開始された</string>
+    
+    <string name="network_error">ネットワークエラー！</string>
+    <string name="no_result">いいえ検索結果</string>
+    <string name="no_sd">必要な場合はカードをプログラムを実行するにSD</string>
+    <string name="search_hint">検索</string>
+    
+    <string name="tab_hot">ホット</string>
+    <string name="tab_find">検索</string>
+    <string name="tab_lib">リブ</string>
+    <string name="tab_downlaod">音楽</string>
+    <string name="downloaded_files">ファイルのダウンロード</string>
+    
+     <!--
+     imported
+     -->
+    
+    
+    <string name="button_start_record_activity">レコード新</string>
+
+    <string name="sdcard_readonly">申し訳ありませんが、SDカードのようにマウントされて読み取り専用</string>
+    <string name="no_sdcard">あなたはSDカードを挿入していない限り実行されません。</string>
+    <string name="sdcard_shared">を実行できることあなたの携帯電話は、USBデバイスとしてマウントされている。</string>
+
+    <!--
+     Edit activity
+     -->
+
+    <!-- Labels next to the start and end time edit boxes -->
+    <string name="start_label">開始：</string>
+    <string name="end_label">終了：</string>
+
+    <string name="edit_intent">[編集]</string>
+
+    <string name="time_seconds">秒</string>
+
+    <!-- After you save a notification or ringtone and have more options
+	 for what to do with them -->
+    <string name="what_to_do_with_ringtone">保存された！これはあなたのデフォルトの着信音を確認または連絡先に割り当てることが？</string>
+    <string name="set_default_notification">保存された！これはあなたのデフォルトの通知をする？</string>
+
+    <string name="make_default_ringtone_button">デフォルトを作る</string>
+    <string name="choose_contact_ringtone_button">を割り当てますお問い合わせに</string>
+    <string name="do_nothing_with_ringtone_button">クローズ</string>
+
+    <!-- Progress dialog text for loading or saving... -->
+    <string name="progress_dialog_loading">ロード中...</string>
+    <string name="progress_dialog_saving">保存...</string>
+
+    <!--
+     Menu items
+     -->
+
+    <string name="menu_save">保存</string>
+    <string name="menu_reset">リセット</string>
+    <string name="menu_show_all_audio">すべて表示オーディオ</string>
+    
+    <string name="menu_search">検索</string>
+    <string name="menu_unset_ringtone">未設定の着信音</string>
+
+      
+    <!--
+     AlertDialogs
+     -->
+     <string name="alertdialog_select">選択</string>
+     <string name="alertdialog_ok">OK</string>
+     <string name="alertdialog_cancel">キャンセル</string>
+     <string name="alertdialog_share">シェア</string>
+
+    <!--
+     Context menu items
+     -->
+
+    <string name="context_menu_edit">[編集]</string>
+    <string name="context_menu_delete">デリート</string>
+
+    <!--
+     File Save dialog
+     -->
+
+    <string name="file_save_title">別名で保存：</string>
+    <string name="file_save_button_save">保存</string>
+    <string name="file_save_button_cancel">キャンセル</string>
+
+    <string name="ringtone_type_label">タイプ：</string>
+
+    <string name="type_music">音楽</string>
+    <string name="type_alarm">アラーム</string>
+    <string name="type_notification">通知</string>
+    <string name="type_ringtone">着メロ</string>
+
+    <string name="ringtone_name_label">名前：</string>
+
+    <!--
+     Delete confirmation dialog
+     -->
+
+    <string name="delete_ringtone">削除着メロ</string>
+    <string name="delete_alarm">削除アラーム</string>
+    <string name="delete_notification">削除通知</string>
+    <string name="delete_music">削除ミュージック</string>
+    <string name="delete_audio">削除オーディオ</string>
+
+    <string name="confirm_delete_ringdroid">本当に？</string>
+
+    <string name="delete_ok_button">削除</string>
+    <string name="delete_cancel_button">キャンセル</string>
+
+    <string name="delete_failed">ファイルを削除することができません</string>
+
+    <!--
+     Success and error messages
+     -->
+
+    <string name="alert_title_success">サクセス</string>
+    <string name="alert_title_failure">エラー</string>
+    <string name="alert_ok_button">OK</string>
+    <string name="alert_yes_button">はい、お願いします！</string>
+    <string name="alert_no_button">いいえ、感謝します。</string>
+
+    <string name="save_success_message">保存された！</string>
+    <string name="default_ringtone_success_message">変更のデフォルトの着信音</string>
+    <string name="play_error">このメディアを再生することができませんファイル</string>
+    <string name="no_unique_filename">一意のファイル名を見つけることができません。</string>
+    <string name="delete_tmp_error">エラー削除、一時ファイル</string>
+    <string name="record_error">エラー起動サウンドレコーダー</string>
+    <string name="too_small_error">することはできませんが小さく、それは長く作ってファイルを保存します。</string>
+    <string name="write_error">エラーがファイルを書き込む</string>
+    <string name="read_error">エラーファイルの読み込み</string>
+    <string name="download_failed">ダウンロードに失敗しました</string>
+    <string name="queue_message">この曲はキューされている</string>
+    <string name="download_finished">ダウンロードが終了</string>
+
+    <string name="no_space_error">あなたのSDカードがいっぱいになる、そこに十分なスペースこのファイルを保存することです。</string>
+
+    <string name="bad_extension_error">まだ種類のファイルを編集することが</string>
+    <string name="no_extension_error">ファイルを編集することはできませんそれはのような拡張を持っていない場合。mp3または。wavファイル</string>
+
+    <!--
+     Choose Contact Activity
+     -->
+
+    <string name="choose_contact_title">に割り当てます着メロ連絡先？</string>
+    <string name="success_contact_ringtone">正常に着信音を割り当てる：</string>
+	
+		<string name="myreview">マイレビュー</string>
+		<string name="info">音楽情報</string>
+		<string name="about">ほど</string>
+		<string name="artist">アーティスト： </string>
+		<string name="title">タイトル：</string>
+		<string name="search_more">詳細検索</string>
+		<string name="search_more_by">詳細検索で</string>
+		<string name="search_more_in">詳細検索</string>
+	<!-- 
+	  Music activity
+	 -->
+	 <string name="play">遊び</string>
+	 
+    
+</resources>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Musik</string>
+    <string name="local_service_started">Download hat begonnen</string>
+    
+    <string name="network_error">Network error!</string>
+    <string name="no_result">Kein Ergebnis</string>
+    <string name="no_sd">Brauchen SD-Karte um das Programm auszuführen</string>
+    <string name="search_hint">Suche</string>
+    
+    <string name="tab_hot">Heiß</string>
+    <string name="tab_find">Finden</string>
+    <string name="tab_lib">Lib</string>
+    <string name="tab_downlaod">Musik</string>
+    <string name="downloaded_files">Download-Dateien</string>
+    
+     <!--
+     imported
+     -->
+    
+    
+    <string name="button_start_record_activity">New Record</string>
+
+    <string name="sdcard_readonly">Sorry, ist die SD Card als read-only</string>
+    <string name="no_sdcard">Kann nicht ausgeführt, wenn Sie eine SD-Card eingelegt haben.</string>
+    <string name="sdcard_shared">Kann nicht laufen, während Ihr Mobilteil wie ein USB-Gerät montiert ist.</string>
+
+    <!--
+     Edit activity
+     -->
+
+    <!-- Labels next to the start and end time edit boxes -->
+    <string name="start_label">Start:</string>
+    <string name="end_label">End:</string>
+
+    <string name="edit_intent">Bearbeiten</string>
+
+    <string name="time_seconds">Sekunden</string>
+
+    <!-- After you save a notification or ringtone and have more options
+	 for what to do with them -->
+    <string name="what_to_do_with_ringtone">Saved! Make this your default Klingelton oder weisen Sie es zu einem Kontakt?</string>
+    <string name="set_default_notification">Saved! Make this your default Benachrichtigung?</string>
+
+    <string name="make_default_ringtone_button">Als Standard</string>
+    <string name="choose_contact_ringtone_button">Weisen Sie auf Kontakt</string>
+    <string name="do_nothing_with_ringtone_button">Schließen</string>
+
+    <!-- Progress dialog text for loading or saving... -->
+    <string name="progress_dialog_loading">Loading ...</string>
+    <string name="progress_dialog_saving">Speichern ...</string>
+
+    <!--
+     Menu items
+     -->
+
+    <string name="menu_save">Sparen</string>
+    <string name="menu_reset">Reset</string>
+    <string name="menu_show_all_audio">Alle Audio</string>
+    
+    <string name="menu_search">Suche</string>
+    <string name="menu_unset_ringtone">unset ringtone</string>
+
+      
+    <!--
+     AlertDialogs
+     -->
+     <string name="alertdialog_select">wählen</string>
+     <string name="alertdialog_ok">OK</string>
+     <string name="alertdialog_cancel">Stornieren</string>
+     <string name="alertdialog_share">Anteil</string>
+
+    <!--
+     Context menu items
+     -->
+
+    <string name="context_menu_edit">Bearbeiten</string>
+    <string name="context_menu_delete">Löschen</string>
+
+    <!--
+     File Save dialog
+     -->
+
+    <string name="file_save_title">Save As:</string>
+    <string name="file_save_button_save">Sparen</string>
+    <string name="file_save_button_cancel">Stornieren</string>
+
+    <string name="ringtone_type_label">Typ:</string>
+
+    <string name="type_music">Musik</string>
+    <string name="type_alarm">Alarm</string>
+    <string name="type_notification">Anmeldung</string>
+    <string name="type_ringtone">Ringtone</string>
+
+    <string name="ringtone_name_label">Name:</string>
+
+    <!--
+     Delete confirmation dialog
+     -->
+
+    <string name="delete_ringtone">Löschen Ringtone</string>
+    <string name="delete_alarm">Löschen Alarm</string>
+    <string name="delete_notification">Delete Notification</string>
+    <string name="delete_music">Musik löschen</string>
+    <string name="delete_audio">Löschen Audio</string>
+
+    <string name="confirm_delete_ringdroid">Sind Sie sicher?</string>
+
+    <string name="delete_ok_button">Löschen</string>
+    <string name="delete_cancel_button">Stornieren</string>
+
+    <string name="delete_failed">Kann Datei löschen</string>
+
+    <!--
+     Success and error messages
+     -->
+
+    <string name="alert_title_success">Erfolg</string>
+    <string name="alert_title_failure">Fehler</string>
+    <string name="alert_ok_button">OK</string>
+    <string name="alert_yes_button">Ja, bitte!</string>
+    <string name="alert_no_button">Nein, danke</string>
+
+    <string name="save_success_message">Saved!</string>
+    <string name="default_ringtone_success_message">Geändert Standard-Klingelton</string>
+    <string name="play_error">Kann diese Datei Medien spielen</string>
+    <string name="no_unique_filename">Kann eindeutigen Dateinamen zu finden</string>
+    <string name="delete_tmp_error">Fehler beim Löschen von temporären Dateien</string>
+    <string name="record_error">Error Start Sound Recorder</string>
+    <string name="too_small_error">Kann nicht eine Datei zu speichern, dass kleine, so dass es länger versuchen.</string>
+    <string name="write_error">Fehler beim Schreiben der Datei</string>
+    <string name="read_error">Fehler beim Lesen der Datei</string>
+    <string name="download_failed">Download fehlgeschlagen</string>
+    <string name="queue_message">Das Lied wurde in der Warteschlange</string>
+    <string name="download_finished">Download fertig</string>
+
+    <string name="no_space_error">Ihre SD-Karte voll ist, gibt es nicht genug Platz, um diese Datei zu speichern.</string>
+
+    <string name="bad_extension_error">Noch nicht in der Lage, Dateien des Typs bearbeiten</string>
+    <string name="no_extension_error">Kann nicht eine Datei bearbeiten, wenn sie nicht über eine Erweiterung wie. Mp3 oder. Wav</string>
+
+    <!--
+     Choose Contact Activity
+     -->
+
+    <string name="choose_contact_title">Klingelton zuweisen, denen in Kontakt treten?</string>
+    <string name="success_contact_ringtone">Erfolgreich zugeordnet Klingelton auf:</string>
+	
+		<string name="myreview">Mein Review</string>
+		<string name="info">Music Information</string>
+		<string name="about">Über</string>
+		<string name="artist">Künstler:</string>
+		<string name="title">Titel:</string>
+		<string name="search_more">Weitere Suche</string>
+		<string name="search_more_by">Suche Mehr von</string>
+		<string name="search_more_in">In Search More</string>
+	<!-- 
+	  Music activity
+	 -->
+	 <string name="play">Spielen</string>
+	 
+    
+</resources>

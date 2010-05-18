@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Музыка</string>
+    <string name="local_service_started">Загрузка началась</string>
+    
+    <string name="network_error">Ошибка в сети!</string>
+    <string name="no_result">Нет результатов</string>
+    <string name="no_sd">Нужна SD Card для запуска программы</string>
+    <string name="search_hint">Поиск</string>
+    
+    <string name="tab_hot">Жарко</string>
+    <string name="tab_find">Находить</string>
+    <string name="tab_lib">Lib</string>
+    <string name="tab_downlaod">Музыка</string>
+    <string name="downloaded_files">Скачать файлы</string>
+    
+     <!--
+     imported
+     -->
+    
+    
+    <string name="button_start_record_activity">Новый рекорд</string>
+
+    <string name="sdcard_readonly">К сожалению, SD Card монтируется только для чтения</string>
+    <string name="no_sdcard">Не удается запустить, если у вас есть SD карта вставлена.</string>
+    <string name="sdcard_shared">Не удается запустить в то время как мобильный телефон устанавливается в качестве устройства USB.</string>
+
+    <!--
+     Edit activity
+     -->
+
+    <!-- Labels next to the start and end time edit boxes -->
+    <string name="start_label">Начало:</string>
+    <string name="end_label">Конец:</string>
+
+    <string name="edit_intent">Редактировать</string>
+
+    <string name="time_seconds">секунды</string>
+
+    <!-- After you save a notification or ringtone and have more options
+	 for what to do with them -->
+    <string name="what_to_do_with_ringtone">Сохранено! Сделать это по умолчанию вашу мелодию или назначить его на контакт?</string>
+    <string name="set_default_notification">Сохранено! Сделать это по умолчанию Ваша заявка?</string>
+
+    <string name="make_default_ringtone_button">Не являться в суд</string>
+    <string name="choose_contact_ringtone_button">Присвоить контакту</string>
+    <string name="do_nothing_with_ringtone_button">Близко</string>
+
+    <!-- Progress dialog text for loading or saving... -->
+    <string name="progress_dialog_loading">Загрузка ...</string>
+    <string name="progress_dialog_saving">Сохранение ...</string>
+
+    <!--
+     Menu items
+     -->
+
+    <string name="menu_save">Экономить</string>
+    <string name="menu_reset">Сброс</string>
+    <string name="menu_show_all_audio">Показать все аудио</string>
+    
+    <string name="menu_search">поиск</string>
+    <string name="menu_unset_ringtone">отключенном рингтон</string>
+
+      
+    <!--
+     AlertDialogs
+     -->
+     <string name="alertdialog_select">выбирать</string>
+     <string name="alertdialog_ok">OK</string>
+     <string name="alertdialog_cancel">Отменить</string>
+     <string name="alertdialog_share">Доля</string>
+
+    <!--
+     Context menu items
+     -->
+
+    <string name="context_menu_edit">Редактировать</string>
+    <string name="context_menu_delete">Удалять</string>
+
+    <!--
+     File Save dialog
+     -->
+
+    <string name="file_save_title">Сохранить как:</string>
+    <string name="file_save_button_save">Экономить</string>
+    <string name="file_save_button_cancel">Отменить</string>
+
+    <string name="ringtone_type_label">Тип:</string>
+
+    <string name="type_music">Музыка</string>
+    <string name="type_alarm">Сигнал тревоги</string>
+    <string name="type_notification">Уведомление</string>
+    <string name="type_ringtone">Мелодия</string>
+
+    <string name="ringtone_name_label">Название:</string>
+
+    <!--
+     Delete confirmation dialog
+     -->
+
+    <string name="delete_ringtone">Удалить Мелодия</string>
+    <string name="delete_alarm">Удалить сигнализации</string>
+    <string name="delete_notification">Удалить уведомления</string>
+    <string name="delete_music">Удалить Музыка</string>
+    <string name="delete_audio">Удалить Аудио</string>
+
+    <string name="confirm_delete_ringdroid">Вы уверены?</string>
+
+    <string name="delete_ok_button">Удалять</string>
+    <string name="delete_cancel_button">Отменить</string>
+
+    <string name="delete_failed">Не удается удалить файл</string>
+
+    <!--
+     Success and error messages
+     -->
+
+    <string name="alert_title_success">Успех</string>
+    <string name="alert_title_failure">Ошибка</string>
+    <string name="alert_ok_button">OK</string>
+    <string name="alert_yes_button">Да, пожалуйста!</string>
+    <string name="alert_no_button">Нет, спасибо.</string>
+
+    <string name="save_success_message">Сохранено!</string>
+    <string name="default_ringtone_success_message">Изменен умолчанию рингтон</string>
+    <string name="play_error">Не удается воспроизвести этот файл мультимедиа</string>
+    <string name="no_unique_filename">Не удалось найти уникальное имя файла</string>
+    <string name="delete_tmp_error">Ошибка при удалении временных файлов</string>
+    <string name="record_error">Ошибка запуска Sound Recorder</string>
+    <string name="too_small_error">Не удается сохранить файл, небольшой, попытайтесь сделать ее подлиннее.</string>
+    <string name="write_error">Ошибка записи в файл</string>
+    <string name="read_error">Ошибка при чтении файла</string>
+    <string name="download_failed">Сбой при загрузке</string>
+    <string name="queue_message">Песня была очередь</string>
+    <string name="download_finished">Скачать готовые</string>
+
+    <string name="no_space_error">Ваш SD карты полностью, не хватает места для сохранения этого файла.</string>
+
+    <string name="bad_extension_error">Пока не можете редактировать файлы типа</string>
+    <string name="no_extension_error">Не могу редактировать файл, если он не имеет, как расширение. mp3 или. WAV</string>
+
+    <!--
+     Choose Contact Activity
+     -->
+
+    <string name="choose_contact_title">Назначение рингтон на какой контакт?</string>
+    <string name="success_contact_ringtone">Успешно назначен рингтон на:</string>
+	
+		<string name="myreview">Мой обзор</string>
+		<string name="info">Музыка информации</string>
+		<string name="about">О</string>
+		<string name="artist">Исполнитель: </string>
+		<string name="title">Название:</string>
+		<string name="search_more">Поиск Подробнее </string>
+		<string name="search_more_by">Дополнительный поиск по</string>
+		<string name="search_more_in">Поиск Больше В</string>
+	<!-- 
+	  Music activity
+	 -->
+	 <string name="play">Играть</string>
+	 
+    
+</resources>
