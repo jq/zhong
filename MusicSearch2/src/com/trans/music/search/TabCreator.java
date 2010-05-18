@@ -13,12 +13,12 @@ import android.widget.TextView;
 public class TabCreator {
   
   public static void createTab(Activity act, TabHost tabHost, Intent intent,  String tabName, int resourceId) {
-/*    if (Const.ver > 3) {
+    if (Const.ver > 3) {
     	TabSDKCreator.createCustomerTab(act, tabHost, intent, tabName, resourceId);
-    } else {*/
+    } else {
      tabHost.addTab(tabHost.newTabSpec(tabName).setIndicator(tabName,
          act.getResources().getDrawable(resourceId)).setContent(intent));
-//    }
+    }
  }
   
 }
