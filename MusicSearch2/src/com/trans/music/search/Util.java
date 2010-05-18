@@ -331,7 +331,7 @@ public class Util {
 	
     public static String title;
     public static String des;
-    public static String intent;
+    public static Uri intent;
     public static String finalIntent = "market://search?q=pub:mobileworld";
     
 	public static boolean has(String n1, Context ct) {
@@ -435,7 +435,7 @@ public class Util {
         }
 
         des = mp3.getString("descript");
-        intent = uri;
+        intent = Uri.parse(uri);
         at.showDialog(DOWNLOAD_APP_DIG);
         showDialog = true;
         break;
@@ -448,7 +448,7 @@ public class Util {
       //  finalIntent = mp3.getString("uri");
       //}
       return showDialog;
-    } catch (JSONException e) {
+    } catch (Exception e) {
       return false;
     }
   }
@@ -475,6 +475,7 @@ public class Util {
 	}
 	
   public static Dialog createDownloadDialog(final Activity at) {
+	  if (intent == null) return null;
     return new AlertDialog.Builder(at)
      .setTitle(title)
     .setMessage(des).setPositiveButton("Download",
@@ -484,7 +485,7 @@ public class Util {
 
             Intent i = new Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse(intent));
+                intent);
             at.startActivity(i);
           }
         }).setNegativeButton("Ignore Forever",
