@@ -87,6 +87,7 @@ public static void setStingKey(String key, String value) {
 		ArrayList<MP3Info> songs = new ArrayList<MP3Info>();
 		String httpresponse = null;
 		try {
+			Log.e("query url:", urlStr);
 			URL url = new URL(urlStr);
 			HttpURLConnection urlConn = (HttpURLConnection) url
 			.openConnection();
@@ -192,15 +193,15 @@ public static void setStingKey(String key, String value) {
 
 			char[] buff = new char[4096];
 			//必须在此指定编码，否则后面toString会导致乱码
-			InputStreamReader is = new InputStreamReader(stream,"gb2312");
-
+			InputStreamReader is = new InputStreamReader(stream);
+			
 			int len;
 			while ((len = is.read(buff, 0, 4096)) > 0) {
 				builder.append(buff, 0, len);
 			}
 			urlConn.disconnect();
 			String httpresponse = builder.toString();
-			int linkStartPos = httpresponse.indexOf("下载歌曲\" href=\"") + "下载歌曲\" href=\"".length();
+			int linkStartPos = httpresponse.indexOf("\" href=\"") + "\" href=\"".length();
 
 			int linkEndPos = httpresponse.indexOf('>', linkStartPos)-1;
 			return httpresponse.substring(linkStartPos, linkEndPos);
