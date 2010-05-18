@@ -613,7 +613,6 @@ public class MusicPage extends Activity implements
           url = new URL(urlString);
           urlConn = (HttpURLConnection) url.openConnection();
           urlConn.setConnectTimeout(10000);
-          urlConn.setReadTimeout(20000);
           urlConn
               .setRequestProperty(
                   "User-Agent",
@@ -659,7 +658,6 @@ public class MusicPage extends Activity implements
                   "User-Agent",
                   "Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3 -Java");
           urlConn.setConnectTimeout(10000);
-          urlConn.setReadTimeout(20000);
           urlConn.connect();
 
           int downed = 0;

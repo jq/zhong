@@ -91,7 +91,7 @@ public static void setStingKey(String key, String value) {
 			HttpURLConnection urlConn = (HttpURLConnection) url
 			.openConnection();
 			setConnectionString(urlConn);
-			urlConn.setConnectTimeout(12000);
+			urlConn.setConnectTimeout(20000);
 			urlConn.connect();
 
 			String cookie = urlConn.getHeaderField("Set-Cookie");
@@ -183,7 +183,7 @@ public static void setStingKey(String key, String value) {
 			URL url = new URL(request);
 			HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
 			setConnectionString(urlConn);
-			urlConn.setConnectTimeout(4000);
+			urlConn.setConnectTimeout(20000);
 			urlConn.connect();
 
 			InputStream stream = urlConn.getInputStream();
