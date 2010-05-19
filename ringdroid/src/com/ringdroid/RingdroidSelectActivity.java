@@ -46,7 +46,6 @@ import android.widget.ListAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import com.admob.android.ads.AdView;
 import com.ringdroid.soundfile.CheapSoundFile;
 
 import java.io.File;
@@ -112,11 +111,6 @@ public class RingdroidSelectActivity
 
         // Inflate our UI from its XML layout description.
         setContentView(R.layout.media_select);
-        AdView ad = (AdView) findViewById(R.id.ad);
-        if (ad != null) {
-        	ad.setKeywords(Constants.ADS_KEYWORD);
-        	ad.setFocusable(true);
-        }
 
         Button recordButton = (Button) findViewById(R.id.record);
         recordButton.setOnClickListener(new View.OnClickListener() {

@@ -329,7 +329,8 @@
     		</antcall> 
     		<antcall target="package-apk">
     		    <param name="package_name" value="Ringdroid7"/>
-    		    <param name="drawable" value="app_icons\\7.png"/>
+    		    <param name="drawable" value="app_ic
+    		    	ons\\7.png"/>
     			<param name="app_name" value="editor ringtones"/>
     		</antcall> 
     		<antcall target="package-apk">
