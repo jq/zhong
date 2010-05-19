@@ -360,6 +360,14 @@ public class RingdroidSelectActivity
             // Log.e("Ringdroid", "Couldn't start editor");
         }
     }
+    /*    
+	private boolean isOurDownload() {
+		Cursor c = mAdapter.getCursor();
+		int dataIndex = c.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+		String filename = c.getString(dataIndex);
+		return filename.startsWith(com.feebe.rings.Const.contentDir);
+	}*/
+     
     private void startRingdroidEditor() {
         Cursor c = mAdapter.getCursor();
         int dataIndex = c.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
