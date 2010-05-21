@@ -87,6 +87,7 @@ public class RingdroidSelectActivity
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         Constants.init(this);
+        Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(this));
         mShowAll = false;
 
         String status = Environment.getExternalStorageState();
