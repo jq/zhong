@@ -228,7 +228,7 @@ public class RingdroidSelectActivity
         }
 
         setResult(RESULT_OK, dataIntent);
-        finish();
+        //finish();
     }
 
     @Override
