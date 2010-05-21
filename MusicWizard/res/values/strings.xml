@@ -40,4 +40,6 @@
     <string name="eula_refuse">Decline</string>
     <string name="no_playing_activity">No activity found to handle mp3 files. You may want to start music player manually.</string>
     <string name="please_retry_query">Please retry you query</string>
+    <string name="ret">Return</string>
+    <string name="no_downloaded_files">No downloaded files found</string>
 </resources>

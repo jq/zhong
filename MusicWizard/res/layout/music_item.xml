@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:orientation="horizontal"
+>
+
+<ImageView
+android:layout_width="16dip"
+android:layout_height="16dip"
+android:src="@drawable/music10"
+android:layout_marginLeft="4dip"
+android:layout_marginTop="6dip"
+/>
+
+
+<TextView
+android:id="@+id/filename"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:textSize="18sp"
+android:textColor="#eeeeee"
+android:layout_weight="1"
+android:paddingTop="2dip"
+android:paddingLeft="6dip"
+android:paddingBottom="4dip"
+/>
+
+</LinearLayout>

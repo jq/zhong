@@ -260,8 +260,8 @@ public class SearchResultActivity extends ListActivity {
 
 	public static void startQuery(String keyWords) {
 		if (!TextUtils.isEmpty(keyWords)) {
-			sData = null;
 			sQuery = keyWords;
+			sData = null;
 			if (sSearchActivity != null)
 				sSearchActivity.notifyDataSetInvalidated();
 			sHasMoreData = true;
@@ -484,11 +484,10 @@ public class SearchResultActivity extends ListActivity {
 			if (sData == null)
 				sData = new Mp3ListWrapper();
 			mAdapter.setStatus(ListStatusView.Status.LOADED);
+            mAdapter.notifyDataSetChanged();
 			if (mp3List.size() > 0) {
 				sData.append(mp3List);
-				mAdapter.notifyDataSetChanged();
 			} else {
-				mAdapter.notifyDataSetChanged();
 				sHasMoreData = false;
 				if (sData.size() == 0) {
 					/*
@@ -505,7 +504,7 @@ public class SearchResultActivity extends ListActivity {
 			}
 		} else {
 			mAdapter.setStatus(ListStatusView.Status.ERROR);
-			mAdapter.notifyDataSetInvalidated();
+			mAdapter.notifyDataSetChanged();
 		}
 	}
 

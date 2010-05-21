@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	private SearchBar mSearch;
@@ -32,12 +33,23 @@ public class MainActivity extends Activity {
         
         mSearch = new SearchBar(this);
         
-        Button downloadsButton = (Button)findViewById(R.id.downloads_button);
-        downloadsButton.setOnClickListener(new OnClickListener() {
+        TextView downloads = (TextView)findViewById(R.id.downloads);
+        downloads.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(MainActivity.this, DownloadActivity.class);
+				startActivity(intent);
+			}
+        });
+        
+        TextView viewMusic = (TextView)findViewById(R.id.music_library);
+        viewMusic.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				ViewDownloadedActivity.listFiles();
+				Intent intent = new Intent(MainActivity.this, ViewDownloadedActivity.class);
 				startActivity(intent);
 			}
         });
