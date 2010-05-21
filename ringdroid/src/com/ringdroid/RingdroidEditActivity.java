@@ -254,17 +254,17 @@ public class RingdroidEditActivity extends Activity
         }
         mPlayer = null;
 
-        if (mRecordingFilename != null) {
-            try {
-                if (!new File(mRecordingFilename).delete()) {
-                    showFinalAlert(new Exception(), R.string.delete_tmp_error);
-                }
-
-                getContentResolver().delete(mRecordingUri, null, null);
-            } catch (SecurityException e) {
-                showFinalAlert(e, R.string.delete_tmp_error);
-            }
-        }
+//        if (mRecordingFilename != null) {
+//            try {
+//                if (!new File(mRecordingFilename).delete()) {
+//                    showFinalAlert(new Exception(), R.string.delete_tmp_error);
+//                }
+//
+//                getContentResolver().delete(mRecordingUri, null, null);
+//            } catch (SecurityException e) {
+//                showFinalAlert(e, R.string.delete_tmp_error);
+//            }
+//        }
 
         super.onDestroy();
     }
