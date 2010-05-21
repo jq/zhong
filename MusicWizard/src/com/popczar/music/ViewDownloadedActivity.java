@@ -135,7 +135,8 @@ public class ViewDownloadedActivity extends ListActivity {
 		@Override
 		protected File[] doInBackground(Void... params) {
 			File[] files = BASE_DIR.listFiles(mFilter);
-			Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
+			if (files != null)
+				Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
 			return files;
 		}
 	}
