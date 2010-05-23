@@ -81,12 +81,12 @@ public class BDSearcher implements IMusicSearcher {
 			while (m.find()) {
 				MusicInfo info = new MusicInfo();
 				info.setUrl(Utils.trimTag(m.group(1).trim()));
-				info.setTitle(Utils.trimTag(m.group(2).trim()));
+				info.setTitle(Utils.trimTag(m.group(2).trim()).replaceAll("&#39;", "'"));
 				info.setDisplayFileSize(Utils.trimTag(m.group(4).trim()));
 				
 				Matcher m2 = PATTERN_ARTIST.matcher(m.group(3));
 				if (m2.find()) {
-					info.setArtist(Utils.trimTag(m2.group(1).trim()));
+					info.setArtist(Utils.trimTag(m2.group(1).trim()).replaceAll("&#39;", "'"));
 				}
 				
 				/*

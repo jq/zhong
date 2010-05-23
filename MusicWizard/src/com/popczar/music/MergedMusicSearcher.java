@@ -9,12 +9,13 @@ public class MergedMusicSearcher implements IMusicSearcher {
 	
 	private boolean mBackupMode = false;
 	private IMusicSearcher mSogou;
-	private IMusicSearcher mSkreemr;
+	private IMusicSearcher mSecondSearcher;
 	private int mPage;
 	
 	public MergedMusicSearcher() {
 		mSogou = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SOGOU);
-		mSkreemr = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SKREEMR);
+		//mSecondSearcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SKREEMR);
+		mSecondSearcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_BAIDU);
 	}
 	
 
@@ -35,7 +36,7 @@ public class MergedMusicSearcher implements IMusicSearcher {
 		}
 		
 		if (mBackupMode) {
-			return mSkreemr.getNextResultList();
+			return mSecondSearcher.getNextResultList();
 		}
 		// Will not reach here.
 		return new ArrayList<MusicInfo>();
@@ -47,13 +48,13 @@ public class MergedMusicSearcher implements IMusicSearcher {
 			mSogou.setMusicDownloadUrl(context, info);
 			return;
 		}
-		mSkreemr.setMusicDownloadUrl(context, info);
+		mSecondSearcher.setMusicDownloadUrl(context, info);
 	}
 
 	@Override
 	public void setQuery(String query) {
 		mSogou.setQuery(query);
-		mSkreemr.setQuery(query);
+		mSecondSearcher.setQuery(query);
 		mPage = 1;
 	}
 

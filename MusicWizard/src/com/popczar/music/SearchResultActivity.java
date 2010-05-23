@@ -12,7 +12,6 @@ import com.popczar.music.download.DownloadService;
 
 import com.popczar.music.R;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
@@ -61,6 +60,7 @@ public class SearchResultActivity extends ListActivity {
 
 	private MusicInfo mCurrentMusic;
 
+	@SuppressWarnings("unused")
 	private SearchBar mSearch;
 	private Handler mHandler = new Handler();
 
@@ -265,8 +265,8 @@ public class SearchResultActivity extends ListActivity {
 			if (sSearchActivity != null)
 				sSearchActivity.notifyDataSetInvalidated();
 			sHasMoreData = true;
-            sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_MERGED);
-            //sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_BAIDU);
+            //sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_MERGED);
+            sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_BAIDU);
             //sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SOGOU);
 	    	//sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SKREEMR);
 			sFetcher.setQuery(keyWords);
@@ -490,10 +490,6 @@ public class SearchResultActivity extends ListActivity {
 			} else {
 				sHasMoreData = false;
 				if (sData.size() == 0) {
-					/*
-    				Toast.makeText(SearchResultActivity.this,
-    						getString(R.string.no_result), Toast.LENGTH_LONG).show();
-					 */
 					mProgressBar.setVisibility(View.GONE);
 					if (!TextUtils.isEmpty(sQuery)) {
     					mSearchMessage.setText("Sorry, we didn't find any result for \"" + sQuery + "\"");

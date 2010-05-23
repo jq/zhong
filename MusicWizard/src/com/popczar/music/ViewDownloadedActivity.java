@@ -106,6 +106,7 @@ public class ViewDownloadedActivity extends ListActivity {
 		}
 		
 		if (files == null || files.length == 0) {
+			mAdapter.notifyDataSetInvalidated();
 			mProgress.setVisibility(View.GONE);
 			mMessage.setText(getString(R.string.no_downloaded_files));
 		} else {
