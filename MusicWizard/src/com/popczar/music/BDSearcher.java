@@ -8,6 +8,8 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
@@ -81,12 +83,12 @@ public class BDSearcher implements IMusicSearcher {
 			while (m.find()) {
 				MusicInfo info = new MusicInfo();
 				info.setUrl(Utils.trimTag(m.group(1).trim()));
-				info.setTitle(Utils.trimTag(m.group(2).trim()).replaceAll("&#39;", "'"));
+				info.setTitle(StringEscapeUtils.unescapeHtml(Utils.trimTag(m.group(2).trim())));
 				info.setDisplayFileSize(Utils.trimTag(m.group(4).trim()));
 				
 				Matcher m2 = PATTERN_ARTIST.matcher(m.group(3));
 				if (m2.find()) {
-					info.setArtist(Utils.trimTag(m2.group(1).trim()).replaceAll("&#39;", "'"));
+					info.setArtist(StringEscapeUtils.unescapeHtml(Utils.trimTag(m2.group(1).trim())));
 				}
 				
 				/*

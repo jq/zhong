@@ -265,8 +265,8 @@ public class SearchResultActivity extends ListActivity {
 			if (sSearchActivity != null)
 				sSearchActivity.notifyDataSetInvalidated();
 			sHasMoreData = true;
-            //sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_MERGED);
-            sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_BAIDU);
+            sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_MERGED);
+            //sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_BAIDU);
             //sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SOGOU);
 	    	//sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SKREEMR);
 			sFetcher.setQuery(keyWords);
