@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.MergeCursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Contacts;
@@ -36,7 +37,6 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView;
@@ -73,7 +73,8 @@ public class ChooseContactActivity
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        setTitle(R.string.choose_contact_title);
 
         Intent intent = getIntent();
         mRingtoneUri = intent.getData();
@@ -82,6 +83,7 @@ public class ChooseContactActivity
         setContentView(R.layout.choose_contact);
 
         try {
+ 
             mAdapter = new SimpleCursorAdapter(
                 this,
                 // Use a template that displays a text view
@@ -90,9 +92,9 @@ public class ChooseContactActivity
                 createCursor(""),
                 // Map from database columns...
                 new String[] {
-                    People.CUSTOM_RINGTONE,
-                    People.STARRED,
-                    People.DISPLAY_NAME },
+                	People.CUSTOM_RINGTONE,
+                	People.STARRED,
+                	People.DISPLAY_NAME },
                 // To widget ids in the row layout...
                 new int[] {
                     R.id.row_ringtone,
@@ -125,7 +127,7 @@ public class ChooseContactActivity
                         return false;
                     }
                 });
-
+        	
             setListAdapter(mAdapter);
 
             // On click, assign ringtone to contact
@@ -140,7 +142,7 @@ public class ChooseContactActivity
 
         } catch (SecurityException e) {
             // No permission to retrieve contacts?
-            // Log.e("Ringdroid", e.toString());
+            Log.e("Ringdroid", e.toString());
         }
 
         mFilter = (TextView) findViewById(R.id.search_filter);
@@ -156,10 +158,16 @@ public class ChooseContactActivity
 
         dataIndex = c.getColumnIndexOrThrow(People.DISPLAY_NAME);
         String displayName = c.getString(dataIndex);
-
-        Uri uri = Uri.withAppendedPath(People.CONTENT_URI, contactId);
-
+        Uri uri = null;
+        if (Integer.parseInt(Build.VERSION.SDK) >= 5) {
+        	uri = GenContactUri.getContextUri(contactId);
+        } else {
+        	uri = Uri.withAppendedPath(People.CONTENT_URI, contactId);
+        } 
+        Log.e("SDK version: ", Build.VERSION.SDK);
+        Log.e("assign contact uri: ", uri.toString());
         ContentValues values = new ContentValues();
+        //values.put(People.CUSTOM_RINGTONE, mRingtoneUri.toString());
         values.put(People.CUSTOM_RINGTONE, mRingtoneUri.toString());
         getContentResolver().update(uri, values, null, null);
 
@@ -170,7 +178,7 @@ public class ChooseContactActivity
 
         Toast.makeText(this, message, Toast.LENGTH_SHORT)
             .show();
-        finish();
+//        finish();
         return;
     }
 
@@ -184,18 +192,18 @@ public class ChooseContactActivity
         Cursor cursor = managedQuery(
             People.CONTENT_URI,
             new String[] {
-                People._ID,
-                People.CUSTOM_RINGTONE,
-                People.DISPLAY_NAME,
-                People.LAST_TIME_CONTACTED,
-                People.NAME,
-                People.STARRED,
-                People.TIMES_CONTACTED },
+            	People._ID,
+            	People.CUSTOM_RINGTONE,
+            	People.DISPLAY_NAME,
+            	People.LAST_TIME_CONTACTED,
+            //	People.NAME,
+            	People.STARRED,
+            	People.TIMES_CONTACTED },
             selection,
             null,
             "STARRED DESC, TIMES_CONTACTED DESC, LAST_TIME_CONTACTED DESC");
 
-        // Log.i("Ringdroid", cursor.getCount() + " contacts");
+        Log.i("Ringdroid", cursor.getCount() + " contacts");
 
         return cursor;
     }

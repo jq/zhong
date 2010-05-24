@@ -9,7 +9,7 @@
     <string name="no_sd">Impossible de créer le répertoire sur carte SD</string>
     <string name="no_result">Pas de résultat</string>
     
-    <string name="no_sd_space">carte SD de manquer d'espace</string>
+    <string name="no_sd_space">carte SD de manquer d\'espace</string>
     <string name="search_hint">recherche</string>
     
     <string name="upload">Upload</string>
@@ -54,7 +54,7 @@
 
     <!-- After you save a notification or ringtone and have more options
 	 for what to do with them -->
-    <string name="what_to_do_with_ringtone">Saved! Faire cette sonnerie par défaut ou l'affecter à un contact?</string>
+    <string name="what_to_do_with_ringtone">Saved! Faire cette sonnerie par défaut ou l\'affecter à un contact?</string>
     <string name="set_default_notification">Saved! Faire de cette notification, votre défaut?</string>
 
     <string name="make_default_ringtone_button">Utiliser par défaut</string>
@@ -86,7 +86,7 @@
     <!--
      used in share alert_dialog
      -->
-     <string name="share_sms1">J'aimerais partager cette sonnerie à vous:</string>
+     <string name="share_sms1">J\'aimerais partager cette sonnerie à vous:</string>
      <string name="share_sms2">à partir de</string>
      <string name="share_sms3">Envoyez à partir Feebe sonnerie de Android Market://search?q=com.feebe.rings</string>
     
@@ -99,7 +99,7 @@
     <!--
      used in RingActivity mStreaming dialog
      -->
-     <string name="mStreaming_title">S'il vous pla?t patienter</string>
+     <string name="mStreaming_title">S\'il vous pla?t patienter</string>
      <string name="mStreaming_message">Streaming réseau sous forme audio...</string>
     
     <!--
@@ -145,7 +145,7 @@
      -->
 
     <string name="delete_ringtone">Supprimer Ringtone</string>
-    <string name="delete_alarm">Supprimer l'alarme</string>
+    <string name="delete_alarm">Supprimer l\'alarme</string>
     <string name="delete_notification">Supprimer Notification</string>
     <string name="delete_music">Supprimer Musique</string>
     <string name="delete_audio">Supprimer audio</string>
@@ -164,7 +164,7 @@
     <string name="alert_title_success">Réussi</string>
     <string name="alert_title_failure">Error</string>
     <string name="alert_ok_button">OK</string>
-    <string name="alert_yes_button">Oui, s'il vous pla?t!</string>
+    <string name="alert_yes_button">Oui, s\'il vous pla?t!</string>
     <string name="alert_no_button">Non, merci.</string>
 
     <string name="save_success_message">Saved!</string>
@@ -173,15 +173,15 @@
     <string name="no_unique_filename">Impossible de trouver le nom de fichier unique</string>
     <string name="delete_tmp_error">Erreur de suppression de fichiers temporaires</string>
     <string name="record_error">Erreur lors du lancement Sound Recorder</string>
-    <string name="too_small_error">Impossible d'enregistrer un fichier que les petites, essayez de faire plus longtemps.</string>
-    <string name="write_error">Erreur d'écriture du fichier</string>
+    <string name="too_small_error">Impossible d\'enregistrer un fichier que les petites, essayez de faire plus longtemps.</string>
+    <string name="write_error">Erreur d\'écriture du fichier</string>
     <string name="read_error">Erreur de lecture de fichier</string>
     <string name="download_failed">Le téléchargement a échoué</string>
 
-    <string name="no_space_error">Votre carte SD est pleine, il n'y a pas assez d'espace pour enregistrer ce fichier.</string>
+    <string name="no_space_error">Votre carte SD est pleine, il n\'y a pas assez d\'espace pour enregistrer ce fichier.</string>
 
     <string name="bad_extension_error">Pas encore en mesure de modifier les fichiers de type</string>
-    <string name="no_extension_error">Impossible de modifier un fichier s'il n'a pas une extension du type .mp3 or .wav</string>
+    <string name="no_extension_error">Impossible de modifier un fichier s\'il n\'a pas une extension du type .mp3 or .wav</string>
 
     <!--
      Choose Contact Activity

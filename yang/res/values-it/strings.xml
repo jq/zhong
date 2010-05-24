@@ -171,7 +171,7 @@
     <string name="default_ringtone_success_message">Suoneria predefinita Changed</string>
     <string name="play_error">Impossibile riprodurre questo file multimediale</string>
     <string name="no_unique_filename">In grado di trovare il nome del file unico</string>
-    <string name="delete_tmp_error">Errore durante l'eliminazione di file temporanei</string>
+    <string name="delete_tmp_error">Errore durante l\'eliminazione di file temporanei</string>
     <string name="record_error">Il lancio di errore Sound Recorder</string>
     <string name="too_small_error">Impossibile salvare un file che le piccole, provare a rendere più.</string>
     <string name="write_error">Errore durante la scrittura di file</string>
