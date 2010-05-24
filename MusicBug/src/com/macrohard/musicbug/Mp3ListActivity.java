@@ -100,18 +100,18 @@ public class Mp3ListActivity extends Activity implements ListFooterView.RetryNet
 		
 		mListView.setAdapter(mAdapter);
 		mListView.setSelection(0);
-    mListView.setOnItemClickListener(new OnItemClickListener() {
-      public void onItemClick(AdapterView<?> parent, View v,
-        int position, long id) {
-        if (mData == null || position == mData.size())
-      return;
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View v,
+					int position, long id) {
+				if (mData == null || position == mData.size())
+					return;
 
-    final MP3Info mp3 = mData.get(position);
+				final MP3Info mp3 = mData.get(position);
 
-    showDialog(DIALOG_WAITING_FOR_SERVER);
-    new FetchMp3LinkTask().execute(mp3);
-      }
-    });
+				showDialog(DIALOG_WAITING_FOR_SERVER);
+				new FetchMp3LinkTask().execute(mp3);
+			}
+		});
 
 
 		String  keyWords = getIntent().getStringExtra(Const.Key);
