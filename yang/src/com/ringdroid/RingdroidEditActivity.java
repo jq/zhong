@@ -363,7 +363,7 @@ public class RingdroidEditActivity extends Activity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case CMD_SAVE:
-        	if (mSoundFile.getSampleRate() <= 32) {
+        	if (mSoundFile.getAvgBitrateKbps() <= 32) {
         		AlertDialog.Builder builder = new AlertDialog.Builder(RingdroidEditActivity.this);
         		builder.setMessage(R.string.rate_low)
         		       .setCancelable(false)
@@ -1524,7 +1524,7 @@ public class RingdroidEditActivity extends Activity
 
     private OnClickListener mSaveListener = new OnClickListener() {
             public void onClick(View sender) {
-            	if (mSoundFile.getSampleRate() <= 32) {
+            	if (mSoundFile.getAvgBitrateKbps() <= 32) {
             		AlertDialog.Builder builder = new AlertDialog.Builder(RingdroidEditActivity.this);
             		builder.setMessage(R.string.rate_low)
             		       .setCancelable(false)
