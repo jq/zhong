@@ -18,7 +18,7 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res/com.ringdroid"
+				xmlns:app="http://schemas.android.com/apk/res/com.ringdroid"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
@@ -60,14 +60,9 @@
      android:layout_weight="1">
      <requestFocus />
   </ListView>
-  
-  <com.admob.android.ads.AdView 
-          android:id="@+id/ad" 
-          android:layout_width="fill_parent" 
-          android:layout_height="wrap_content"
-          app:keywords="ringdroid"
-          isGoneWithoutAd="true"
-        />
-  
-
+	  <LinearLayout 
+ 	  	android:id="@+id/AdsView" 
+ 	  	android:layout_width="fill_parent"
+ 	   	android:layout_height="wrap_content"
+ 	   />
 </LinearLayout>

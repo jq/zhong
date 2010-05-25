@@ -17,14 +17,12 @@
 package com.ringdroid;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.MergeCursor;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -86,8 +84,7 @@ public class RingdroidSelectActivity
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        Constants.init(this);
-        Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(this));
+
         mShowAll = false;
 
         String status = Environment.getExternalStorageState();
@@ -105,14 +102,14 @@ public class RingdroidSelectActivity
         }
 
         Intent intent = getIntent();
-		if (intent.getAction() != null) {
-			mWasGetContentIntent = intent.getAction().equals(
-					Intent.ACTION_GET_CONTENT);
-		}
+        if (intent.getAction() != null) {
+        	mWasGetContentIntent = intent.getAction().equals(
+        			Intent.ACTION_GET_CONTENT);
+        }
 
         // Inflate our UI from its XML layout description.
         setContentView(R.layout.media_select);
-
+        //AdsView.createAdsenseAds(this, AdsView.CHANNEL_ID_2);
         Button recordButton = (Button) findViewById(R.id.record);
         recordButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View clickedButton) {
@@ -182,7 +179,6 @@ public class RingdroidSelectActivity
         if (mFilter != null) {
             mFilter.addTextChangedListener(this);
         }
-        Feed.runFeed(4, this, R.raw.feed);
     }
 
     private void setSoundIconFromCursor(ImageView view, Cursor cursor) {
@@ -237,19 +233,19 @@ public class RingdroidSelectActivity
         super.onCreateOptionsMenu(menu);
         MenuItem item;
 
-        item = menu.add(0, CMD_ABOUT, 0, R.string.menu_about);
-        item.setIcon(R.drawable.menu_about);
+ //       item = menu.add(0, CMD_ABOUT, 0, R.string.menu_about);
+ //       item.setIcon(R.drawable.menu_about);
 
         item = menu.add(0, CMD_SHOW_ALL, 0, R.string.menu_show_all_audio);
         item.setIcon(R.drawable.menu_show_all_audio);
-
+        
         return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        menu.findItem(CMD_ABOUT).setVisible(true);
+        //menu.findItem(CMD_ABOUT).setVisible(true);
         menu.findItem(CMD_SHOW_ALL).setVisible(true);
         menu.findItem(CMD_SHOW_ALL).setEnabled(!mShowAll);
         return true;
@@ -451,7 +447,7 @@ public class RingdroidSelectActivity
             EXTERNAL_COLUMNS,
             selection,
             selectionArgs,
-            MediaStore.Audio.Media.DEFAULT_SORT_ORDER);
+            MediaStore.Audio.Media.DATE_ADDED + " DESC");
     }
 
     Cursor createCursor(String filter) {
@@ -540,12 +536,4 @@ public class RingdroidSelectActivity
         MediaStore.Audio.Media.IS_MUSIC,
         "\"" + MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "\""
     };
-    
-	@Override
-	protected Dialog onCreateDialog(int id) {
-		if (id == Feed.DOWNLOAD_APP_DIG) {
-			return Feed.createDownloadDialog(this);
-		}
-		return null;
-	}
 }

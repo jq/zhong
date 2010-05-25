@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!-- Used in RingActivity/share -->
+    <string-array name="select_share_methods">
+        <item>SMS</item>
+        <item>Email</item>
+        <item>Others</item>
+    </string-array>
+    
+  <!-- Used in Ring/menu_unsetRingtone -->
+    <string-array name="select_unset_ringtone">
+        <item>Set phone to viberate</item>
+        <item>Set phone to silent</item>
+
+    </string-array>
+  
+  <!-- Ringtypes -->
+    <string-array name="ring_types">
+        <item>Ringtone</item>
+        <item>Notification</item>
+        <item>Alarm</item>
+
+    </string-array> 
+    <!-- SetRingOption --> 
+      <!-- Ringtypes -->
+    <string-array name="set_ring_option">
+        <item>Set as default Ringtone</item>
+        <item>Set as Notification</item>
+        <item>Set as Alarm</item>
+        <item>Assign to contact</item>
+
+    </string-array>  
+</resources>
