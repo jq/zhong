@@ -21,6 +21,14 @@
         <item>Play</item>
         <item>Download</item>
     </string-array>
-    
+        <!-- SetRingOption --> 
+      <!-- Ringtypes -->
+    <string-array name="set_ring_option">
+        <item>Set as default Ringtone</item>
+        <item>Set as Notification</item>
+        <item>Set as Alarm</item>
+        <item>Assign to contact</item>
+
+    </string-array>  
     
 </resources>

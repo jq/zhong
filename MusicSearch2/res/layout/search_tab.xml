@@ -23,13 +23,16 @@
             	android:layout_weight="1"
             />
          </LinearLayout>    
-     <com.admob.android.ads.AdView  
-          android:id="@+id/ad"
+        <com.admob.android.ads.AdView  
+          android:id="@+id/ad" 
           android:visibility="visible"
           android:layout_width="fill_parent" 
           android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
           app:backgroundColor="#000000"
           app:textColor="#FFFFFF"
-          app:keywords="game, job, shop, computer, girl"
+          app:keywords="game, job, shop, medicine, social, dating,
+travel, jobs, car, insurance, sex, digital, camera, phone, clothing,
+computer, girl, music"
         />
 </LinearLayout>

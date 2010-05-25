@@ -18,7 +18,7 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:app="http://schemas.android.com/apk/res/com.feebe.rings"
+			xmlns:app="http://schemas.android.com/apk/res/com.trans.music.search"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
@@ -30,7 +30,7 @@
     android:gravity="center_vertical">
 
     <ImageView
-     android:src="@android:drawable/ic_menu_search"
+     android:src="@drawable/search"
      android:layout_marginLeft="8px"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content" />
@@ -60,11 +60,16 @@
       android:layout_weight="1">
       <requestFocus />
     </ListView>
-    
-    <com.admob.android.ads.AdView 
-          android:id="@+id/ad" 
-          android:visibility="gone"
+   <com.admob.android.ads.AdView  
+          android:id="@+id/ad_in_editor" 
+          android:visibility="visible"
           android:layout_width="fill_parent" 
           android:layout_height="wrap_content"
-        />      
+          android:layout_alignParentBottom="true"
+          app:backgroundColor="#000000"
+          app:textColor="#FFFFFF"
+          app:keywords="game, job, shop, medicine, social, dating,
+travel, jobs, car, insurance, sex, digital, camera, phone, clothing,
+computer, girl, music"
+        />
 </LinearLayout>

@@ -25,8 +25,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.trans.music.search.R;
 import com.ringdroid.soundfile.CheapSoundFile;
+import com.trans.music.search.R;
 
 import java.util.Map;
 
@@ -50,6 +50,7 @@ public class WaveformView extends View {
         public void waveformTouchEnd();
         public void waveformDraw();
     };
+
     // Colors
     private Paint mGridPaint;
     private Paint mSelectedLinePaint;

@@ -5,12 +5,18 @@
       		android:layout_height="fill_parent"
 			>
 
-        <com.admob.android.ads.AdView 
+          <com.admob.android.ads.AdView  
           android:id="@+id/ads" 
-          android:visibility="gone"
+          android:visibility="visible"
           android:layout_width="fill_parent" 
           android:layout_height="wrap_content"
-        />        
+          android:layout_alignParentBottom="true"
+          app:backgroundColor="#000000"
+          app:textColor="#FFFFFF"
+          app:keywords="game, job, shop, medicine, social, dating,
+travel, jobs, car, insurance, sex, digital, camera, phone, clothing,
+computer, girl, music"
+        />      
         
       <ListView android:id="@android:id/list"
             android:layout_width="fill_parent"
