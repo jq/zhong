@@ -40,7 +40,7 @@ public class SearchTab extends Activity{
 				// TODO Auto-generated method stub
 				if((event.getAction()==KeyEvent.ACTION_DOWN)&&
 						(keyCode==KeyEvent.KEYCODE_ENTER)){
-					actionListener();
+					searchTitle.requestFocus();
 					return true;
 				}
 				return false;
