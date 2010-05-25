@@ -464,7 +464,11 @@ public class RingActivity extends Activity {
             	mPlayer.setOnCompletionListener(new OnCompletionListener () {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
+                  try { 
                   mStreaming.dismiss();
+                  } catch (Exception e) {
+                	  
+                  }
                 }
               });
             } catch (IllegalArgumentException e) {
