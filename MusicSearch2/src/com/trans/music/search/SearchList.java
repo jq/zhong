@@ -74,6 +74,9 @@ public class SearchList extends BaseList {
     final String action = intent.getAction();
     if (Intent.ACTION_SEARCH.equals(action)) {
       keyword = intent.getStringExtra(SearchManager.QUERY);
+      if (Const.dbAdapter == null) {
+    	  Const.dbAdapter = new DbAdapter(this);
+      }
       Const.dbAdapter.intsertHistory(keyword, DbAdapter.TYPE_SEARCH);
     } else if (Intent.ACTION_VIEW.equals(action)){
       keyword = intent.getDataString();
