@@ -14,6 +14,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.feebe.rings.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -36,19 +38,19 @@ public class Const {
 
   // resources
 //	protected static int AdsViewID;
-	protected static int LAYOUT_LIST;
-	protected static int tabheader;
-	protected static int tab_label;
-	protected static int tab_image;
-	protected static int no_result;
+	protected static int LAYOUT_LIST = R.layout.list;
+	protected static int tabheader = R.layout.tabheader;
+	protected static int tab_label = R.id.tab_label;
+	protected static int tab_image= R.id.tab_image;;
+	protected static int no_result = R.string.no_result;
 	protected static int no_sd;
-	protected static int dlprogress_message;
-	protected static int dlprogress_title;
+	protected static int dlprogress_message= R.string.dlprogress_message;
+	protected static int dlprogress_title = R.string.dlprogress_title;
 	
-	protected static int icon;
-	protected static int app_name;
-	protected static int notification_text_failed;
-	protected static int notification_text_finish;
+	protected static int icon = R.drawable.ring;
+	protected static int app_name= R.string.app_name;
+	protected static int notification_text_failed= R.string.notification_text_failed;;
+	protected static int notification_text_finish = R.string.notification_text_finish;
 	
 	// other changed const var
 	public static String QWName;

@@ -50,17 +50,6 @@ public class Const extends com.feebe.lib.Const {
   	QWName = "Ringtone-g56rajjb";
   	QWID = "34d153f75db441cdbb776ffb70c569c5";
 //  	AdsViewID = R.id.AdsView;
-  	LAYOUT_LIST = R.layout.list;
-    tab_image = R.id.tab_image;
-    tabheader = R.layout.tabheader;
-  	tab_label = R.id.tab_label;
-  	no_result = R.string.no_result;
-  	dlprogress_message = R.string.dlprogress_message;
-  	dlprogress_title = R.string.dlprogress_title;
-  	icon = R.drawable.ring;
-  	app_name= R.string.app_name;
-  	notification_text_failed = R.string.notification_text_failed;
-  	notification_text_finish = R.string.notification_text_finish;
   	
   	EndlessUrlArrayAdapter.ThrobberViewRes = R.layout.pending_view;
   	EndlessUrlArrayAdapter.Throbber = R.id.throbber;
