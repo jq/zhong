@@ -183,7 +183,7 @@ public class SearchList extends BaseList {
 		MP3Info mp3 = params[0];
 	    
 	    String mp3Link = null;
-	    
+	    if (!mp3.getLink().startsWith("http://")) {
 	  	try {
 	  	  mp3Link = MusicUtil.getLink(mp3.getLink());
 	  	  mp3.link = mp3Link;
@@ -198,6 +198,10 @@ public class SearchList extends BaseList {
 	  	}
 	  	this.mp3 = mp3;
 		return 1;
+	    } else {
+	    	this.mp3 = mp3;
+	    	return 1;
+	    }
 	}
 
 	@Override

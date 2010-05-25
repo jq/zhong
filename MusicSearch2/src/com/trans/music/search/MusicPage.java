@@ -405,6 +405,8 @@ public class MusicPage extends Activity implements
 			mProgressDialogIsOpen = false;
 			if (!mDownloadFinish) {
 				// if(mDlService.mDownloading == false){
+				Log.e("mDownloading: ", ""+mDownloading);
+				Log.e("misPlaying: ", ""+mIsPlaying);
 				if (mDownloading == false) {
 					try {
 						try {

@@ -181,6 +181,7 @@ public static void setStingKey(String key, String value) {
 	// Given the link to each individual mp3, get the corresponding link by which we can actually download the music.
 	public static String getLink(String req)  throws IOException{
 			String request = "http://mp3.sogou.com" +req;
+			Log.e("get download link: ", request);
 			URL url = new URL(request);
 			HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
 			setConnectionString(urlConn);

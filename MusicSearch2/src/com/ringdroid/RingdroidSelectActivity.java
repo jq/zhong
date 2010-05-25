@@ -43,6 +43,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+
 import com.ringdroid.soundfile.CheapSoundFile;
 import com.trans.music.search.R;
 
@@ -109,7 +110,6 @@ public class RingdroidSelectActivity
 
         // Inflate our UI from its XML layout description.
         setContentView(R.layout.media_select);
-//        AdsView.createAdsenseAds(this, AdsView.CHANNEL_ID_2);
         Button recordButton = (Button) findViewById(R.id.record);
         recordButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View clickedButton) {
@@ -404,7 +404,7 @@ public class RingdroidSelectActivity
             intent.putExtra("was_get_content_intent",
                             mWasGetContentIntent);
             intent.setClassName(
-                "com.trans.music.search",
+            		"com.trans.music.search",
                 "com.ringdroid.RingdroidEditActivity");
             startActivityForResult(intent, REQUEST_CODE_EDIT);
         } catch (Exception e) {
@@ -422,7 +422,7 @@ public class RingdroidSelectActivity
             intent.putExtra("was_get_content_intent",
                             mWasGetContentIntent);
             intent.setClassName(
-                "com.trans.music.search",
+            	"com.trans.music.search",
                 "com.ringdroid.RingdroidEditActivity");
             startActivityForResult(intent, REQUEST_CODE_EDIT);
         } catch (Exception e) {
@@ -447,7 +447,7 @@ public class RingdroidSelectActivity
             EXTERNAL_COLUMNS,
             selection,
             selectionArgs,
-            MediaStore.Audio.Media.DEFAULT_SORT_ORDER);
+            MediaStore.Audio.Media.DATE_ADDED + " DESC");
     }
 
     Cursor createCursor(String filter) {

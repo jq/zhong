@@ -4,7 +4,7 @@
     <string name="local_service_started">Download has started</string>
     
     <string name="network_error">Network error!</string>
-    <string name="no_result">No Result</string>
+    <string name="no_result">No Result, Please retry later</string>
     <string name="no_sd">Need sd card to run the program</string>
     <string name="search_hint">Search</string>
     
@@ -130,7 +130,7 @@
     <string name="too_small_error">Can\'t save a file that small, try making it longer.</string>
     <string name="write_error">Error writing file</string>
     <string name="read_error">Error reading file</string>
-    <string name="download_failed">Download failed</string>
+    <string name="download_failed">Download failed, Please retry later.</string>
     <string name="queue_message">The song has been queued</string>
     <string name="download_finished">Download finished</string>
 
