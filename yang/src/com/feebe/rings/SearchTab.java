@@ -49,6 +49,7 @@ public class SearchTab extends Activity{
 		
 		searchArtist.setThreshold(1);
 		//ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line,history);
+		Const.dbAdapter = new DbAdapter(this);
 		SearchAdapter myCursorAdapterArtist = new SearchAdapter(
 		    this, Const.dbAdapter.getHistoryByType(DbAdapter.TYPE_ARTIST), DbAdapter.TYPE_ARTIST);
 		searchArtist.setAdapter(myCursorAdapterArtist);

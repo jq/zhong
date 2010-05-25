@@ -7,7 +7,7 @@
     <string name="app_name">RingTone</string>
     
     <string name="no_sd">Can not create directory on sd card</string>
-    <string name="no_result">No result</string>
+    <string name="no_result">No result, Please retry later.</string>
     
     <string name="no_sd_space">sd card run out of space</string>
     <string name="search_hint">search</string>
@@ -67,7 +67,7 @@
 	 used in RingActivity notification when finish or failed download.
 	 -->
 	 <string name="notification_text_finish">Download finish</string>
-	 <string name="notification_text_failed">Download failed</string>
+	 <string name="notification_text_failed">Download failed. Please retry later.</string>
      
     <!--
      imported
@@ -185,7 +185,7 @@
     <string name="too_small_error">Can not save a file that small, try making it longer.</string>
     <string name="write_error">Error writing file</string>
     <string name="read_error">Error reading file</string>
-    <string name="download_failed">Download failed</string>
+    <string name="download_failed">Download failed, Please retry later.</string>
 
     <string name="no_space_error">Your SD card is full, there is not enough space to save this file.</string>
 

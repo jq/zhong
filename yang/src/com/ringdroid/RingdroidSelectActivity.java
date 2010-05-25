@@ -481,7 +481,7 @@ public class RingdroidSelectActivity
             EXTERNAL_COLUMNS,
             selection,
             selectionArgs,
-            MediaStore.Audio.Media.DEFAULT_SORT_ORDER);
+            MediaStore.Audio.Media.DATE_ADDED + " DESC");
     }
 
     Cursor createCursor(String filter) {
