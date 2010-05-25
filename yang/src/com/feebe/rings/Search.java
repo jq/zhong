@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import com.feebe.lib.Util;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 
@@ -52,10 +53,13 @@ public class Search {
   	return keyIDUrl + key + "?json=1";
   }
   public static void startRing(String key) {
+	  startRing(Const.main, key);
+  }
+  public static void startRing(Activity at, String key) {
     Intent intent = new Intent();
-    intent.setClass(Const.main, RingActivity.class);
+    intent.setClass(at, RingActivity.class);
     intent.putExtra(Const.searchurl, key);
-    Const.main.startActivity(intent);
+    at.startActivity(intent);
   }
   
   public static JSONObject getRingJson(String src) {

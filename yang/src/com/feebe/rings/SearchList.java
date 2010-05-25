@@ -38,10 +38,6 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.RatingBar;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class SearchList extends BaseList {
@@ -50,16 +46,22 @@ public class SearchList extends BaseList {
   @Override
   public void onCreate(Bundle savedInstanceState) {
 	  Const.init(this);
+	  //android.util.Log.e("init", "" + Const.main != null);
 	  super.onCreate(savedInstanceState);
   }  
-
+/*
   @Override
-public boolean onContextItemSelected(MenuItem item) {
+  public void onNewIntent(final Intent intent) {
+	  
+  }
+ */ 
+  @Override
+  public boolean onContextItemSelected(MenuItem item) {
 	// TODO Auto-generated method stub
 	  AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
 	  
 	  return super.onContextItemSelected(item);
-}
+  }
 
 @Override
 public void onCreateContextMenu(ContextMenu menu, View v,
@@ -90,7 +92,7 @@ public void onCreateContextMenu(ContextMenu menu, View v,
     } catch (Exception e) {
       return;
     }
-    Search.startRing(Search.getRingUrl(ring.key));
+    Search.startRing(this, Search.getRingUrl(ring.key));
   }
   
   public static class SearchResult{

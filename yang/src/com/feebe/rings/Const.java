@@ -44,7 +44,7 @@ public class Const extends com.feebe.lib.Const {
   public static final String TableHistory = "histories";
   
   public static void init(Activity c) {
-	if (main == null) return;
+	if (main != null) return;
 
     appname = "FeebeRings";
     no_sd = R.string.no_sd;
@@ -53,9 +53,6 @@ public class Const extends com.feebe.lib.Const {
   	QWName = "Ringtone-g56rajjb";
   	QWID = "34d153f75db441cdbb776ffb70c569c5";
 //  	AdsViewID = R.id.AdsView;
-  	
-  	EndlessUrlArrayAdapter.ThrobberViewRes = R.layout.pending_view;
-  	EndlessUrlArrayAdapter.Throbber = R.id.throbber;
   	
   	//com.feebe.lib.download.DownloadNotification.status_bar_ongoing_event_progress_bar = R.layout.status_bar_ongoing_event_progress_bar;
   }

@@ -66,7 +66,8 @@ public class Ring extends TabActivity implements OnTabChangeListener {
     @Override
     protected void onDestroy() {
       super.onDestroy();
-      Const.dbAdapter.close();
+      if (Const.dbAdapter != null)
+        Const.dbAdapter.close();
     }
         
   	private int choice = 0;

@@ -55,7 +55,7 @@ public class Const {
 	// other changed const var
 	public static String QWName;
 	public static String QWID;
-	public static Activity main;
+	public static Activity main = null;
     //public static Object obj;
    // public static DownloadAdapter mDownload;
 	
@@ -73,7 +73,6 @@ public class Const {
   public static final int ver = Integer.parseInt(Build.VERSION.SDK);
   
   public static void init(Activity c) {
-	if (main == null) return;
 	main = c;
   	//downloadDb = new DownloadProvider(c);
     File sdcardRoot = Environment.getExternalStorageDirectory();
