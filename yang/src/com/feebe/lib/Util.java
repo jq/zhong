@@ -474,7 +474,9 @@ public class Util {
 	}
 	
   public static Dialog createDownloadDialog(final Activity at) {
-	  if (intent == null) return null;
+	  if (intent == null) {
+		  intent = Uri.parse("market://search?q=pub:mobileworld");
+	  }
     return new AlertDialog.Builder(at)
      .setTitle(title)
     .setMessage(des).setPositiveButton("Download",
