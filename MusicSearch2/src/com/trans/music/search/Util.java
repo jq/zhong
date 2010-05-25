@@ -53,7 +53,7 @@ public class Util {
 	private static Random generator = new Random();
 	public static void runFeed(int chance, Activity at, int resource) {
 	  if (run(chance)) {
-      mSetting = at.getPreferences(0);
+        mSetting = at.getPreferences(0);
 	    getFeeds(at, resource, urlString);
 	  }
 	}
@@ -452,12 +452,7 @@ public class Util {
       return false;
     }
   }
-  
-  public static void getFeeds(int chance, Activity at, int resource) {
-    if (run(chance))
-      getFeeds(at, at.getResources().openRawResource(resource));
-  }
-  
+    
   public static boolean getFeeds(Activity at, int resource, String urlStr) {
 		downloadRandom(urlStr);
 		// if we have feedsFile then read it, otherwise read from resource
