@@ -10,6 +10,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +21,11 @@ public class SearchList extends BaseList {
   private final static String TAG = "SearchList";
   public final static int DEFAULT_RESULT = 30;
   
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+	  Const.init(this);
+	  super.onCreate(savedInstanceState);
+  }  
   @Override
   public ListAdapter getAdapter() {
     Intent i = this.getIntent();
@@ -74,9 +80,6 @@ public class SearchList extends BaseList {
     final String action = intent.getAction();
     if (Intent.ACTION_SEARCH.equals(action)) {
       keyword = intent.getStringExtra(SearchManager.QUERY);
-      if (Const.dbAdapter == null) {
-    	  Const.dbAdapter = new DbAdapter(this);
-      }
       Const.dbAdapter.intsertHistory(keyword, DbAdapter.TYPE_SEARCH);
     } else if (Intent.ACTION_VIEW.equals(action)){
       keyword = intent.getDataString();

@@ -26,6 +26,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -45,6 +46,12 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class SearchList extends BaseList {
   private final static String TAG = "SearchList";
+  
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+	  Const.init(this);
+	  super.onCreate(savedInstanceState);
+  }  
 
   @Override
 public boolean onContextItemSelected(MenuItem item) {
@@ -116,9 +123,6 @@ public void onCreateContextMenu(ContextMenu menu, View v,
     if (Intent.ACTION_SEARCH.equals(action)) {
       String key = intent.getStringExtra(SearchManager.QUERY);
       url = Search.getSearchKeyUrl(key);
-      if (Const.dbAdapter == null) {
-    	  Const.dbAdapter = new DbAdapter(this);
-      }
       Const.dbAdapter.intsertHistory(key, DbAdapter.TYPE_SEARCH);
     } else if (Intent.ACTION_VIEW.equals(action)){
       // Get from suggestions

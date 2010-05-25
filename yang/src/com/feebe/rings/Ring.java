@@ -26,7 +26,6 @@ import com.ringdroid.RingdroidSelectActivity;
 public class Ring extends TabActivity implements OnTabChangeListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
-      Const.main = this;
       super.onCreate(savedInstanceState);
       ImgThread.noImg = BitmapFactory.decodeResource(getResources(), R.drawable.ring);
       Const.init(this);

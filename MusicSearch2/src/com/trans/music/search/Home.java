@@ -21,7 +21,6 @@ import android.widget.TabHost.OnTabChangeListener;
 public class Home extends TabActivity implements OnTabChangeListener{
   @Override
   public void onCreate(Bundle savedInstanceState) {
-    Const.main = this;
     super.onCreate(savedInstanceState);
     Const.init(this);
     requestWindowFeature(Window.FEATURE_NO_TITLE);

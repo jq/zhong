@@ -6,6 +6,7 @@ import java.io.RandomAccessFile;
 
 import com.feebe.lib.EndlessUrlArrayAdapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
 import android.webkit.WebIconDatabase.IconListener;
@@ -42,7 +43,9 @@ public class Const extends com.feebe.lib.Const {
 
   public static final String TableHistory = "histories";
   
-  public static void init(Context c) {
+  public static void init(Activity c) {
+	if (main == null) return;
+
     appname = "FeebeRings";
     no_sd = R.string.no_sd;
     pkg = "com.feebe.rings";

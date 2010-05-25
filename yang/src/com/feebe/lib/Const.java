@@ -72,7 +72,9 @@ public class Const {
   public static String cachedir;
   public static final int ver = Integer.parseInt(Build.VERSION.SDK);
   
-  public static void init(Context c) {
+  public static void init(Activity c) {
+	if (main == null) return;
+	main = c;
   	//downloadDb = new DownloadProvider(c);
     File sdcardRoot = Environment.getExternalStorageDirectory();
     dbAdapter = new DbAdapter(c);
