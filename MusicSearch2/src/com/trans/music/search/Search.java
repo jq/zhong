@@ -12,7 +12,7 @@ import android.util.Log;
 public class Search extends SearchProvider {
 
   public Search() {
-    buildUriMatcher("musicsearch");
+    buildUriMatcher("feebemusicsearch");
   }
   @Override
   protected Cursor getSuggestions(String query, MatrixCursor cursor) {
