@@ -100,6 +100,9 @@ protected void fetchMoreResult() {
 @Override
 protected void onNoResult(){
   keepOnAppending = false;
+  // since we have no more result, we are not going to show the extra pending 
+  // so it maybe a change, 
+  this.notifyDataSetChanged();
   super.onNoResult();
 }
 /**
