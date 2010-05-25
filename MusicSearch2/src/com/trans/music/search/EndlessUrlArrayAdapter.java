@@ -98,6 +98,7 @@ protected void fetchMoreResult() {
 @Override
 protected void onNoResult(){
   keepOnAppending = false;
+  this.notifyDataSetChanged();
   super.onNoResult();
 }
 /**
