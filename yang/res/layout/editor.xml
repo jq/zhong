@@ -186,6 +186,8 @@
           android:layout_alignParentBottom="true"
           app:backgroundColor="#000000"
           app:textColor="#FFFFFF"
-          app:keywords="game, job, shop, computer, girl"
+          app:keywords="game, job, shop, medicine, social, dating,
+travel, jobs, car, insurance, sex, digital, camera, phone, clothing,
+computer, girl, music"
         />
 </LinearLayout>

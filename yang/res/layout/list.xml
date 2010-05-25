@@ -13,7 +13,9 @@
           app:backgroundColor="#000000"
           app:textColor="#FFFFFF"
           android:layout_alignParentBottom="true"
-       app:keywords="game, job, shop, medicine, social, dating, travel, jobs, car, insurance, sex, digital, camera, phone, clothing, computer, girl, music"
+       app:keywords="game, job, shop, medicine, social, dating,
+travel, jobs, car, insurance, sex, digital, camera, phone, clothing,
+computer, girl, music"
         />
         
       <ListView android:id="@android:id/list"

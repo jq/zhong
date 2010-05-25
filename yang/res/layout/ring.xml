@@ -144,7 +144,9 @@
           android:layout_above="@id/detailLayout2"
           app:backgroundColor="#000000"
           app:textColor="#FFFFFF"
-       app:keywords="game, job, shop, medicine, social, dating, travel, jobs, car, insurance, sex, digital, camera, phone, clothing, computer, girl, music"
+       app:keywords="game, job, shop, medicine, social, dating,
+travel, jobs, car, insurance, sex, digital, camera, phone, clothing,
+computer, girl, music"
         />
 	        
 	<ScrollView
