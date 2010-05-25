@@ -223,17 +223,8 @@ public void onCreateContextMenu(ContextMenu menu, View v,
     protected void finishLoading() {
       Log.e("finishLoading", "cont " + super.getCount() + " last " + lastCnt);
       if(super.getCount() == 0) {
-    	  new AlertDialog.Builder(SearchList.this)
-    	  .setTitle("NotFound")
-    	  .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-    		  public void onClick(DialogInterface dialog, int whichButton) {
-    			  setResult(RESULT_OK);
-    			  finish();
-    			  SearchList.this.finish();
-    		  }})
-    	  .show();
-    	  
-    	  
+    	this.onNoResult();  
+    	SearchList.this.finish();
       }
       
       if (lastCnt + Const.DEFAULT_RESULT > super.getCount()) {
