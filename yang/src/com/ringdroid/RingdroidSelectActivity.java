@@ -46,6 +46,7 @@ import android.widget.TextView;
 
 import com.feebe.rings.AdsView;
 import com.feebe.rings.R;
+import com.feebe.rings.Search;
 import com.ringdroid.soundfile.CheapSoundFile;
 
 import java.io.File;
@@ -240,7 +241,7 @@ public class RingdroidSelectActivity
 
         item = menu.add(0, CMD_SHOW_ALL, 0, R.string.menu_show_all_audio);
         item.setIcon(R.drawable.menu_show_all_audio);
-
+        
         return true;
     }
 
@@ -430,7 +431,38 @@ public class RingdroidSelectActivity
         } catch (Exception e) {
             Log.e("Ringdroid", "Couldn't start editor");
         }
+    }/*
+    private void startRingdroidEditor() {
+        Cursor c = mAdapter.getCursor();
+        int dataIndex = c.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+        String filename = c.getString(dataIndex);
+        try {
+          Log.e("file", filename);
+          if (filename.startsWith(com.feebe.rings.Const.contentDir)) {
+          	String jsonFile = com.feebe.rings.Const.jsondir +filename.substring(com.feebe.rings.Const.contentDir.length());
+          	File file = new File(jsonFile);
+          	if (file.exists()) {
+          	  Search.startRing(jsonFile);
+          	  return;
+          	}
+          } 
+        } catch (Exception e) {
+            Log.e("Ringdroid", e.getMessage());
+        }
+        startPureEditor(filename);
     }
+    
+    private void startPureEditor(String filename) {
+      Intent intent = new Intent(Intent.ACTION_EDIT,
+          Uri.parse(filename));
+      intent.putExtra("was_get_content_intent",
+          mWasGetContentIntent);
+      intent.setClassName(
+          "com.feebe.rings",
+          "com.ringdroid.RingdroidEditActivity");
+      startActivityForResult(intent, REQUEST_CODE_EDIT);
+      
+    }*/
 
     private Cursor getInternalAudioCursor(String selection,
                                           String[] selectionArgs) {

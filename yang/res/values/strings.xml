@@ -214,6 +214,7 @@
     <string name="error_server_prompt">Okay to send anonymous data about this error to Ringdroid.com so we can try to fix this problem in the future?</string>
     <string name="confirm_delete_non_ringdroid"
     >Are you sure?  This file was not created using Ringdroid!</string>
-    <string name="rate_low">The bitrate of this music is too low. It may be distorted after edited. Will you edit it anyway?</string>
-    
+    <string name="rate_low">The bitrate of this music is too low. It may be distorted after edited. It is recommended you to use the whole music by click "Use All" button.</string>
+    <string name="use_all">Use all</string>
+    <string name="edit">Edit</string>
 </resources>

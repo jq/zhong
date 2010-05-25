@@ -18,6 +18,7 @@ package com.ringdroid;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -56,7 +57,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.feebe.rings.Const;
 import com.feebe.rings.R;
+import com.feebe.rings.RingActivity;
 import com.ringdroid.soundfile.CheapSoundFile;
 
 import java.io.ByteArrayOutputStream;
@@ -79,6 +82,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.json.JSONException;
 
 /**
  * The activity for the Ringdroid main editor window.  Keeps track of
@@ -153,6 +157,10 @@ public class RingdroidEditActivity extends Activity
     private static final int CMD_SAVE = 1;
     private static final int CMD_RESET = 2;
     private static final int CMD_ABOUT = 3;
+    private static final int CMD_USE_ALL = 4;
+    
+    // Dialog ID
+    private static final int DIALOG_USE_ALL = 1;
 
     // Result codes
     private static final int REQUEST_CODE_RECORD = 1;
@@ -346,6 +354,9 @@ public class RingdroidEditActivity extends Activity
 
         //item = menu.add(0, CMD_ABOUT, 0, R.string.menu_about);
         //item.setIcon(R.drawable.menu_about);
+        
+        item = menu.add(0, CMD_USE_ALL, 0, R.string.use_all);
+        item.setIcon(R.drawable.ic_menu_chat_dashboard);
 
         return true;
     }
@@ -355,6 +366,7 @@ public class RingdroidEditActivity extends Activity
         super.onPrepareOptionsMenu(menu);
         menu.findItem(CMD_SAVE).setVisible(true);
         menu.findItem(CMD_RESET).setVisible(true);
+        menu.findItem(CMD_USE_ALL).setVisible(true);
         //menu.findItem(CMD_ABOUT).setVisible(true);
         return true;
     }
@@ -364,20 +376,31 @@ public class RingdroidEditActivity extends Activity
         switch (item.getItemId()) {
         case CMD_SAVE:
         	if (mSoundFile.getAvgBitrateKbps() <= 32) {
-        		AlertDialog.Builder builder = new AlertDialog.Builder(RingdroidEditActivity.this);
-        		builder.setMessage(R.string.rate_low)
-        		       .setCancelable(false)
-        		       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-        		           public void onClick(DialogInterface dialog, int id) {
-        		                onSave();
-        		           }
-        		       })
-        		       .setNegativeButton("No", new DialogInterface.OnClickListener() {
-        		           public void onClick(DialogInterface dialog, int id) {
-        		           }
-        		       });
-        		AlertDialog alert = builder.create();
-        		alert.show();
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				builder.setMessage(R.string.rate_low).setCancelable(false)
+						.setPositiveButton(R.string.use_all,
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										showDialog(DIALOG_USE_ALL);
+									}
+								}).setNeutralButton(R.string.edit,
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										onSave();
+									}
+								}).setNegativeButton(
+								R.string.alertdialog_cancel,
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+
+									}
+								});
+				AlertDialog alert = builder.create();
+				alert.show();
         	} else {
         		onSave();
         	}
@@ -390,6 +413,9 @@ public class RingdroidEditActivity extends Activity
         case CMD_ABOUT:
             onAbout(this);
             return true;
+        case CMD_USE_ALL:
+        	onUseAll();
+        	return true;
         default:
             return false;
         }
@@ -560,6 +586,9 @@ public class RingdroidEditActivity extends Activity
             }, 100);
     }
 
+    
+    
+    
     //
     // Static About dialog method, also called from RingdroidSelectActivity
     //
@@ -1516,8 +1545,56 @@ public class RingdroidEditActivity extends Activity
             this, getResources(), mTitle, message);
         dlog.show();
     }
+    
+    private void onUseAll() {
+    	showDialog(DIALOG_USE_ALL);
+    }
 
-    private void enableZoomButtons() {
+    private int ring_button_type;
+    @Override
+	protected Dialog onCreateDialog(int id) {
+		if (id == DIALOG_USE_ALL) {
+			return new AlertDialog.Builder(this)
+		      .setIcon(android.R.drawable.ic_dialog_alert)
+		      .setTitle(R.string.ring_picker_title)
+		      .setSingleChoiceItems(R.array.set_ring_option, 0, new DialogInterface.OnClickListener() {
+		          public void onClick(DialogInterface dialog, int whichButton) {
+		            ring_button_type = whichButton;
+		          }
+		      })
+		      .setPositiveButton(R.string.alert_ok_button, new DialogInterface.OnClickListener() {
+		          public void onClick(DialogInterface dialog, int whichButton) {
+		            int ring_type = 0;
+		            if (ring_button_type == 3) {
+		                Intent intent = new Intent();
+		                Uri currentFileUri = Uri.parse(mFilename);
+		        	    intent.setData(currentFileUri);
+		        	    intent.setClass(RingdroidEditActivity.this, com.ringdroid.ChooseContactActivity.class);
+		        	    RingdroidEditActivity.this.startActivity(intent);
+		            	return;
+		            } else if (ring_button_type == 0) {
+		            	ring_type = RingtoneManager.TYPE_RINGTONE;
+		            } else if (ring_button_type == 1) {
+		            	ring_type = RingtoneManager.TYPE_NOTIFICATION;
+		            } else if (ring_button_type ==2){
+		            	ring_type = RingtoneManager.TYPE_ALARM;
+		            }
+		            //u = Const.mp3dir + ring.getString(Const.mp3);
+		            Log.e("mFilename in RingdroidEditActivity: ", mFilename);
+		            Uri currentFileUri = Uri.parse(mFilename);
+		            RingtoneManager.setActualDefaultRingtoneUri(RingdroidEditActivity.this, ring_type, currentFileUri);
+		          }
+		      })
+		      .setNegativeButton(R.string.alertdialog_cancel, new DialogInterface.OnClickListener() {
+		          public void onClick(DialogInterface dialog, int whichButton) {
+		          }
+		      })
+		     .create();   
+		}
+		return super.onCreateDialog(id);
+	}
+
+	private void enableZoomButtons() {
         mZoomInButton.setEnabled(mWaveformView.canZoomIn());
         mZoomOutButton.setEnabled(mWaveformView.canZoomOut());
     }
@@ -1525,20 +1602,31 @@ public class RingdroidEditActivity extends Activity
     private OnClickListener mSaveListener = new OnClickListener() {
             public void onClick(View sender) {
             	if (mSoundFile.getAvgBitrateKbps() <= 32) {
-            		AlertDialog.Builder builder = new AlertDialog.Builder(RingdroidEditActivity.this);
-            		builder.setMessage(R.string.rate_low)
-            		       .setCancelable(false)
-            		       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            		           public void onClick(DialogInterface dialog, int id) {
-            		                onSave();
-            		           }
-            		       })
-            		       .setNegativeButton("No", new DialogInterface.OnClickListener() {
-            		           public void onClick(DialogInterface dialog, int id) {
-            		           }
-            		       });
-            		AlertDialog alert = builder.create();
-            		alert.show();
+    				AlertDialog.Builder builder = new AlertDialog.Builder(RingdroidEditActivity.this);
+    				builder.setMessage(R.string.rate_low).setCancelable(false)
+    						.setPositiveButton(R.string.use_all,
+    								new DialogInterface.OnClickListener() {
+    									public void onClick(DialogInterface dialog,
+    											int id) {
+    										showDialog(DIALOG_USE_ALL);
+    									}
+    								}).setNeutralButton(R.string.edit,
+    								new DialogInterface.OnClickListener() {
+    									@Override
+    									public void onClick(DialogInterface dialog,
+    											int which) {
+    										onSave();
+    									}
+    								}).setNegativeButton(
+    								R.string.alertdialog_cancel,
+    								new DialogInterface.OnClickListener() {
+    									public void onClick(DialogInterface dialog,
+    											int id) {
+
+    									}
+    								});
+    				AlertDialog alert = builder.create();
+    				alert.show();
             	} else {
             		onSave();
             	}
