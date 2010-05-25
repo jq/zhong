@@ -66,7 +66,9 @@ public class DbAdapter {
 		cv.put(TYPE, type);
 		db.insert(TableHistory, null, cv);
 	}
-  private static final String[] projection_key = new String[] {"_id", SearchManager.SUGGEST_COLUMN_TEXT_1};
+  private static final String[] projection_key = new String[] {"_id", SearchManager.SUGGEST_COLUMN_TEXT_1, 
+	  SearchManager.SUGGEST_COLUMN_TEXT_1 + " AS \"" + SearchManager.SUGGEST_COLUMN_INTENT_DATA + "\""
+  };
 	
 	public Cursor getHistoryByType(String key, int type){
 		String selection = "type = " + type + " and " + SearchManager.SUGGEST_COLUMN_TEXT_1 + " like \'" + key +"%\'";
