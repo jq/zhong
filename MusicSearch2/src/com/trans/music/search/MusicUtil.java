@@ -60,7 +60,9 @@ public static void setStingKey(String key, String value) {
 		urlConn.setRequestProperty("Keep-Alive", "300");
 		urlConn.setRequestProperty("Connection", "keep-alive");
   	if (sCookie == null) {
-  		sCookie = mSetting.getString("cookie", null);
+  		if (mSetting != null) {
+  			sCookie = mSetting.getString("cookie", null);
+  		}
   	}
   	if (sCookie != null) {
   		urlConn.setRequestProperty("Cookie", sCookie);

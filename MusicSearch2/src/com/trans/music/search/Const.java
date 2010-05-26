@@ -91,7 +91,7 @@ public class Const  {
     }
     */
     //exceptionHandler();    //by hy
-    Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(c));
+    //Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(c));
   }
   
   public static void trimCache() {
