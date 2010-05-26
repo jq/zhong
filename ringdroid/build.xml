@@ -168,7 +168,7 @@
                 <arg value="-S"/>
                 <arg file="temp/res"/>
                 <arg value="-I"/>
-                <arg file="${android-home}/platforms/android-1.6/android.jar"/>
+                <arg file="${android-home}/platforms/android-7/android.jar"/>
             </android:aapt>
 		</target>
 	
@@ -182,7 +182,7 @@
         	<mkdir dir="temp/bin"/>
             <javac encoding="ascii" target="1.6" debug="false" extdirs=""
                    srcdir="temp/src" destdir="temp/bin"
-                   bootclasspath="${android-home}/platforms/android-1.6/android.jar">
+                   bootclasspath="${android-home}/platforms/android-7/android.jar">
                    <classpath>
                 		<fileset refid="main.jars"/>
                 	</classpath>
@@ -200,7 +200,7 @@
 			<proguard>
 				-injars temp/temp.jar
 				-outjars temp/obfuscate.jar
-				-libraryjars  ${android-home}/platforms/android-1.6/android.jar;lib/admob-sdk-android.jar
+				-libraryjars  ${android-home}/platforms/android-7/android.jar;lib/admob-sdk-android.jar
 				-dontpreverify
 				-dontskipnonpubliclibraryclasses
 				-dontusemixedcaseclassnames
@@ -213,6 +213,7 @@
 				-keep public class com.${package_name}.MarkerView {
 				  	public MarkerView(android.content.Context, android.util.AttributeSet);
 				}
+				
 			</proguard>
 			<delete file="temp/temp.jar"/>
 			<delete dir="temp/bin" failonerror="false"/>
@@ -222,7 +223,7 @@
 		</target>
 
         <target name="dex" description="Convert the .class files into .dex files.">
-    		<antcall target="obfuscate">
+    		<antcall target="compile-main">
     			<param name="package_name" value="${package_name}"/>
     			<param name="drawable" value="${drawable}"/>
     			<param name="app_name" value="${app_name}"/>
@@ -251,7 +252,7 @@
 				<arg value="-S"/>
 				<arg file="temp/res"/>
 				<arg value="-I"/>
-				<arg file="${android-home}/platforms/android-1.6/android.jar"/>
+				<arg file="${android-home}/platforms/android-7/android.jar"/>
 				<arg value="-F"/>
 				<arg file="temp/bin/resources.ap_"/>
         	</android:aapt>
@@ -329,8 +330,7 @@
     		</antcall> 
     		<antcall target="package-apk">
     		    <param name="package_name" value="Ringdroid7"/>
-    		    <param name="drawable" value="app_ic
-    		    	ons\\7.png"/>
+    		    <param name="drawable" value="app_icons\\7.png"/>
     			<param name="app_name" value="editor ringtones"/>
     		</antcall> 
     		<antcall target="package-apk">

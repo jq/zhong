@@ -63,9 +63,6 @@ public class ChooseContactActivity
     private SimpleCursorAdapter mAdapter;
     private Uri mRingtoneUri;
 
-    public ChooseContactActivity() {
-    }
-
     /**
      * Called when the activity is first created.
      */
