@@ -44,7 +44,11 @@ public class DefaultDownloadListener {
 					Const.notification_text_finish, Const.app_name,
 					Const.notification_text_finish);
 		} else {
-			dlProgress.dismiss();
+			try {
+				dlProgress.dismiss();
+			} catch (Exception e) {
+				// a simple catch and do nothing.
+			}
 		}
 	}
 
