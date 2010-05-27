@@ -133,11 +133,9 @@ public class Artist extends Activity {
 			Log.e("OnlineMusic", "searchFromNetwork mRequestUrl: " + rurl);
 			
 			String httpresponse = null;
-			boolean inCache = Util.inCache(rurl, Const.OneWeek);
-			if (inCache) {
-				httpresponse = Util.readFile(Const.cachedir+Util.getHashcode(rurl));
-			} else {
-				httpresponse = Util.download(rurl);
+			httpresponse = Util.downloadAndCache(rurl, Const.OneWeek);
+			if (httpresponse==null || httpresponse.length()>0) {
+				return;
 			}
 
 			//Log.e("OnlineMusic", "httpresponse : " + httpresponse);
@@ -164,9 +162,6 @@ public class Artist extends Activity {
 					mSummary = str_nohtml;
 				mSummary += "...(more)";  
 				mContent = new String(str_nohtml.getBytes(), "UTF-8");
-				if (!inCache) {
-	        Util.saveFileInThread(httpresponse, Const.cachedir+Util.getHashcode(rurl));
-				}
 			}			
     } catch (IOException e) {
 	        ShowToastMessage("Network can not connect, please try again.");
