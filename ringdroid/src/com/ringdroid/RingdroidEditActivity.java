@@ -1546,6 +1546,7 @@ public class RingdroidEditActivity extends Activity implements
 							RingtoneManager.setActualDefaultRingtoneUri(
 									RingdroidEditActivity.this, ring_type,
 									currentFileUri);
+							Toast.makeText(RingdroidEditActivity.this, "Set "+getResources().getStringArray(R.array.set_ring_option)[ring_button_type], Toast.LENGTH_SHORT).show();
 						}
 					}).setNegativeButton(R.string.alertdialog_cancel,
 					new DialogInterface.OnClickListener() {
