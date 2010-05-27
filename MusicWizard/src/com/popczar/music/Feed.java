@@ -31,9 +31,15 @@ import java.util.Random;
 public class Feed {
 	private static final String urlString = "http://chaowebs.appspot.com/feeds/music_wizard_feed.txt";
 	private static final String feedsFile = "feeds";
+	private static boolean feedsRun = false;
 
 	private static Random generator = new Random();
 	public static void runFeed(int chance, Activity at, int resource) {
+		if (feedsRun)
+			return;
+		
+		feedsRun = true;
+		
 		if (run(chance)) {
 			mSetting = at.getPreferences(0);
 			getFeeds(at, resource, urlString);

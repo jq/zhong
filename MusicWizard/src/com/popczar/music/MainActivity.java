@@ -53,6 +53,11 @@ public class MainActivity extends Activity {
 				startActivity(intent);
 			}
         });
+    }
+    
+    @Override
+    protected void onResume() {
+    	super.onResume();
         Feed.runFeed(8, this, R.raw.feed);
     }
     
