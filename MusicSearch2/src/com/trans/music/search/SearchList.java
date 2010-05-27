@@ -155,6 +155,10 @@ public class SearchList extends BaseList {
     @Override
     protected void finishLoading() {
       // Log.e("finishLoading", "cont " + super.getCount() + " last " + lastCnt);
+      if (super.getCount() == 0) {
+    	  this.onNoResult();
+    	  SearchList.this.finish();
+      }
       if (lastCnt + DEFAULT_RESULT > super.getCount()) {
         keepOnAppending = false;
       } else {
