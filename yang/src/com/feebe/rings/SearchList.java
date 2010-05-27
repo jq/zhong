@@ -125,7 +125,12 @@ public void onCreateContextMenu(ContextMenu menu, View v,
     if (Intent.ACTION_SEARCH.equals(action)) {
       String key = intent.getStringExtra(SearchManager.QUERY);
       url = Search.getSearchKeyUrl(key);
-      Const.dbAdapter.intsertHistory(key, DbAdapter.TYPE_SEARCH);
+      try {
+    	  Const.dbAdapter.intsertHistory(key, DbAdapter.TYPE_SEARCH);
+      } catch (Exception e) {
+    	  Const.dbAdapter = new DbAdapter(this);
+    	  Const.dbAdapter.intsertHistory(key, DbAdapter.TYPE_SEARCH);
+      }
     } else if (Intent.ACTION_VIEW.equals(action)){
       // Get from suggestions
       url = Search.getSearchKeyUrl(intent.getDataString());
