@@ -1191,7 +1191,7 @@ public class RingdroidEditActivity extends Activity implements
 					mProgressDialog.dismiss();
 
 					CharSequence errorMessage;
-					if (e.getMessage().equals("No space left on device")) {
+					if (e.getMessage()!=null && e.getMessage().equals("No space left on device")) {
 						errorMessage = getResources().getText(
 								R.string.no_space_error);
 						e = null;
