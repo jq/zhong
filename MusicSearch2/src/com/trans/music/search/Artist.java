@@ -53,6 +53,9 @@ public class Artist extends Activity {
 
 	ArrayList<String> mTopTracks = new ArrayList<String>();
 	
+	boolean hasInfo = true;
+	boolean hasTracks = true;
+	
 	//Button removeButton;
 	
     @Override
@@ -97,7 +100,6 @@ public class Artist extends Activity {
             }
         });
 
-					
 		// get artist info
 		(new Thread() {
 			public void run() {
@@ -134,7 +136,8 @@ public class Artist extends Activity {
 			
 			String httpresponse = null;
 			httpresponse = Util.downloadAndCache(rurl, Const.OneWeek);
-			if (httpresponse==null || httpresponse.length()>0) {
+			if (httpresponse==null || httpresponse.length()==0) {
+				hasInfo = false;
 				return;
 			}
 
@@ -164,6 +167,7 @@ public class Artist extends Activity {
 				mContent = new String(str_nohtml.getBytes(), "UTF-8");
 			}			
     } catch (IOException e) {
+    		hasInfo = false;
 	        ShowToastMessage("Network can not connect, please try again.");
         	e.printStackTrace();
 		}
@@ -203,7 +207,12 @@ public class Artist extends Activity {
 					
 					findViewById(R.id.center_processbar).setVisibility(View.GONE);
 					mImage.setImageBitmap(mArtistImage);
+					Log.e("mImage==null? ", ""+(mImage==null));
 					mTopTracksList.setVisibility(View.VISIBLE);
+					if (!hasInfo && !hasTracks) {
+						Toast.makeText(Artist.this, R.string.no_result, Toast.LENGTH_SHORT).show();
+						finish();
+					}
 				}catch(Exception e) {
 					e.printStackTrace();
 				} 
@@ -222,15 +231,27 @@ public class Artist extends Activity {
 			httpresponse = NetUtils.loadString(rurl);
 		}
 		
-		if(httpresponse == null || httpresponse.length() == 0)
+		if(httpresponse == null || httpresponse.length() == 0) {
+			hasTracks = false;
 			return;
+		}
 		
 		Pattern pattern = Pattern.compile("<name>([\\s\\S]*?)</name>");
 		Matcher matcher = pattern.matcher(httpresponse);
 		int rank = 1;
 		while(matcher.find()) {		 
 			if(!matcher.group(1).toUpperCase().equals(mArtistName.toUpperCase())){
-				mTopTracksStrings.add(rank + ". " + matcher.group(1));
+				final String trackItem = rank + ". " + matcher.group(1);
+				this.runOnUiThread(new Runnable() {
+					public void run() {			
+						try{
+							mTopTracksStrings.add(trackItem);
+							mTopTracksAdapter.notifyDataSetChanged();
+						}catch(Exception e) {
+							
+						} 
+					}
+				});
 				mTopTracks.add( matcher.group(1));
 				rank++;
 			}
@@ -243,10 +264,15 @@ public class Artist extends Activity {
 		this.runOnUiThread(new Runnable() {
 			public void run() {			
 				try{
+					findViewById(R.id.center_processbar).setVisibility(View.GONE);
+					mTopTracksList.setVisibility(View.VISIBLE);
 					mTopTracksAdapter.notifyDataSetChanged();
-					
+					if (!hasInfo && !hasTracks) {
+						Toast.makeText(Artist.this, R.string.no_result, Toast.LENGTH_SHORT).show();
+						finish();
+					}
 				}catch(Exception e) {
-					e.printStackTrace();
+					
 				} 
 			}
 		});

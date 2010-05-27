@@ -45,6 +45,9 @@ public class MusicUtil {
   public static SharedPreferences mSetting;
 
 public static void setStingKey(String key, String value) {
+	if (mSetting == null) {
+		return;
+	}
     Editor e = mSetting.edit();
     e.putString(key, value);
     e.commit();
