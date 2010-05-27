@@ -43,6 +43,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.feebe.rings.AdsView;
 import com.feebe.rings.R;
@@ -312,6 +313,10 @@ public class RingdroidSelectActivity
             getResources().getText(R.string.artist_name);
 
         CharSequence message;
+        if (artist == null) {
+        	Toast.makeText(this, R.string.delete_failed, Toast.LENGTH_SHORT).show();
+        	return;
+        }
         if (artist.equals(ringdroidArtist)) {
             message = getResources().getText(
                 R.string.confirm_delete_ringdroid);
