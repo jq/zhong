@@ -88,7 +88,7 @@ public class SearchTab extends Activity{
 		String title = searchTitle.getText().toString();
 		boolean hasTitle = title.length() > 0;
 		boolean hasArtist = artist.length() > 0;
-		
+		Const.dbAdapter = new DbAdapter(SearchTab.this);
 		if(hasTitle) {
 			if (hasArtist) {
 				Const.dbAdapter.intsertHistory(artist, DbAdapter.TYPE_ARTIST);
