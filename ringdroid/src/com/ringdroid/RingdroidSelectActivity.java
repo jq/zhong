@@ -43,6 +43,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ringdroid.soundfile.CheapSoundFile;
 
@@ -307,7 +308,10 @@ public class RingdroidSelectActivity
             MediaStore.Audio.Media.ARTIST));
         CharSequence ringdroidArtist =
             getResources().getText(R.string.artist_name);
-
+        if (artist == null) {
+        	Toast.makeText(this, R.string.delete_failed, Toast.LENGTH_SHORT).show();
+        	return;
+        }
         CharSequence message;
         if (artist.equals(ringdroidArtist)) {
             message = getResources().getText(
