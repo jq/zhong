@@ -127,11 +127,13 @@ public class Feed {
 	public static String title;
 	public static String des;
 	public static Uri intent;
-	//public static String finalIntent = "market://search?q=pub:mobileworld";
+	public static String finalIntent = "market://search?q=pub:mobileworld";
 	public static final int DOWNLOAD_APP_DIG = 10000;
 
 	public static Dialog createDownloadDialog(final Activity at) {
-		if (intent == null) return null;
+	  if (intent == null) {
+		  intent = Uri.parse(finalIntent);
+	  }
 		return new AlertDialog.Builder(at)
 		.setTitle(title)
 		.setMessage(des).setPositiveButton("Download",
