@@ -1,7 +1,6 @@
 package com.trans.music.search;
 
 import com.trans.music.search.R;
-import com.feebe.lib.Util;
 import com.ringdroid.RingdroidSelectActivity;
 
 import android.app.Activity;
@@ -45,6 +44,7 @@ public class Home extends TabActivity implements OnTabChangeListener{
 
   @Override
   public void onResume() {
+	  super.onResume();
       Util.runFeed(10, this, R.raw.feed);
   }
   

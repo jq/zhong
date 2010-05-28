@@ -48,7 +48,8 @@ public class Ring extends TabActivity implements OnTabChangeListener {
     
     @Override
     public void onResume() {
-        Util.runFeed(4, this, R.raw.feed);
+    	super.onResume();
+        Util.runFeed(10, this, R.raw.feed);
     }
     
     @Override
