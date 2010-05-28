@@ -15,6 +15,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -172,6 +173,7 @@ public class Feed {
 		}
 		try {
 			String json = builder.toString();
+			if (RingdroidSelectActivity.LOG_ENABLED) {Log.e(RingdroidSelectActivity.LOG_TAG, json);}
 			JSONArray entries = new JSONArray(json);
 			int len = entries.length();
 			boolean showDialog = false;

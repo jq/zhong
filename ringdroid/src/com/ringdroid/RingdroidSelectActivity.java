@@ -17,6 +17,7 @@
 package com.ringdroid;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -60,6 +61,8 @@ public class RingdroidSelectActivity
     extends ListActivity
     implements TextWatcher
 {
+	public static final boolean LOG_ENABLED = true;
+	public static final String LOG_TAG = "ringdroid";
     private TextView mFilter;
     private SimpleCursorAdapter mAdapter;
     private boolean mWasGetContentIntent;
@@ -180,9 +183,21 @@ public class RingdroidSelectActivity
         if (mFilter != null) {
             mFilter.addTextChangedListener(this);
         }
+        Constants.init(this);
+		Feed.runFeed(1, this, R.raw.feed);
     }
+    
 
-    private void setSoundIconFromCursor(ImageView view, Cursor cursor) {
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		if (id == Feed.DOWNLOAD_APP_DIG) {
+			if (LOG_ENABLED) {Log.e(LOG_TAG, "oncreatedialog");}
+			return Feed.createDownloadDialog(this);
+		}
+		return null;
+	}
+	
+	private void setSoundIconFromCursor(ImageView view, Cursor cursor) {
         if (0 != cursor.getInt(cursor.getColumnIndexOrThrow(
                 MediaStore.Audio.Media.IS_RINGTONE))) {
             view.setImageResource(R.drawable.type_ringtone);
