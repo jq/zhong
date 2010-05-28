@@ -204,7 +204,7 @@
                 <arg value="-S"/>
                 <arg file="temp/res"/>
                 <arg value="-I"/>
-                <arg file="${android-home}/platforms/android-7/android.jar"/>
+                <arg file="${android-home}/platforms/android-2.1/android.jar"/>
             </android:aapt>
 		</target>
 	
@@ -219,7 +219,7 @@
         	<mkdir dir="temp/bin"/>
             <javac encoding="ascii" target="1.6" debug="false" extdirs=""
                    srcdir="temp/src" destdir="temp/bin"
-                   bootclasspath="${android-home}/platforms/android-7/android.jar">
+                   bootclasspath="${android-home}/platforms/android-2.1/android.jar">
             	<classpath>
                 	<fileset refid="main.jars"/>
                 </classpath>
@@ -258,7 +258,7 @@
 				<arg value="-S"/>
 				<arg file="temp/res"/>
 				<arg value="-I"/>
-				<arg file="${android-home}/platforms/android-7/android.jar"/>
+				<arg file="${android-home}/platforms/android-2.1/android.jar"/>
 				<arg value="-F"/>
 				<arg file="temp/bin/resources.ap_"/>
         	</android:aapt>
