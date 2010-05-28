@@ -16,7 +16,6 @@ public class SkreemrMusicSearcher implements IMusicSearcher {
 		Pattern.compile(
 		"onclick=\"javascript:pageTracker._trackPageview\\(\'/clicks.*?>" + 
 		"(.*?)</a>.*?" +  // 1
-		"color: #8C8C8C\">.*?" +
 		"soundFile=(.*?)\'.*?" + // 2
 		"<td>mp3\\s*[-].*?[-].*?[-](.*?)(mb|kb)"  // 3
 		,
