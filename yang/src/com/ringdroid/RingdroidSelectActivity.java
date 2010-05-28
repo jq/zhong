@@ -420,7 +420,7 @@ public class RingdroidSelectActivity
         }
     }
 
-    private void startRingdroidEditor() {
+    /*private void startRingdroidEditor() {
         Cursor c = mAdapter.getCursor();
         int dataIndex = c.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
         String filename = c.getString(dataIndex);
@@ -436,7 +436,7 @@ public class RingdroidSelectActivity
         } catch (Exception e) {
             Log.e("Ringdroid", "Couldn't start editor");
         }
-    }/*
+    }*/
     private void startRingdroidEditor() {
         Cursor c = mAdapter.getCursor();
         int dataIndex = c.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
@@ -452,7 +452,6 @@ public class RingdroidSelectActivity
           	}
           } 
         } catch (Exception e) {
-            Log.e("Ringdroid", e.getMessage());
         }
         startPureEditor(filename);
     }
@@ -467,7 +466,7 @@ public class RingdroidSelectActivity
           "com.ringdroid.RingdroidEditActivity");
       startActivityForResult(intent, REQUEST_CODE_EDIT);
       
-    }*/
+    }
 
     private Cursor getInternalAudioCursor(String selection,
                                           String[] selectionArgs) {
