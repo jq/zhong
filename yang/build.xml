@@ -186,7 +186,7 @@
     		</antcall>			
 		</target>
 	
-		<target name="res-src" depends="generate-new-prj">
+		<target name="res-src">
     		<antcall target="generate-new-prj">
     			<param name="app_name" value="${app_name}"/>
     			<param name="drawable" value="${drawable}"/>
