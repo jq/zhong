@@ -10,7 +10,7 @@
 
         <fileset dir="lib" id="main.jars">
         		<include name="GoogleAdView.jar"/>
-        		<include name="qwandroidsdk.jar"/>
+        		<include name="admob-sdk-android.jar"/>
         </fileset>
         
         <!-- Rules -->

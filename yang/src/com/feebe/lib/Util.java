@@ -35,6 +35,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -488,6 +489,7 @@ public class Util {
                 Intent.ACTION_VIEW,
                 intent);
             at.startActivity(i);
+            at.removeDialog(DOWNLOAD_APP_DIG);
           }
         }).setNegativeButton("Ignore Forever",
         new DialogInterface.OnClickListener() {
@@ -495,7 +497,14 @@ public class Util {
               int whichButton) {
             at.removeDialog(DOWNLOAD_APP_DIG);
           }
-        }).create();
+        }).setOnCancelListener(new OnCancelListener() {
+			
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
+				at.removeDialog(DOWNLOAD_APP_DIG);
+			}
+		}).create();
   }
   
   public static Uri saveToMediaLib(String title,
