@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -137,11 +138,19 @@ public class Feed {
 						Intent.ACTION_VIEW,
 						Uri.parse(intent));
 				at.startActivity(i);
+				at.removeDialog(DOWNLOAD_APP_DIG);
 			}
 		}).setNegativeButton("Ignore Forever",
 				new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog,
 					int whichButton) {
+				at.removeDialog(DOWNLOAD_APP_DIG);
+			}
+		}).setOnCancelListener(new OnCancelListener() {
+			
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				// TODO Auto-generated method stub
 				at.removeDialog(DOWNLOAD_APP_DIG);
 			}
 		}).create();
