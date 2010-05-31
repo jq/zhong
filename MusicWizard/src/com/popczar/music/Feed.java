@@ -15,6 +15,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -131,19 +132,21 @@ public class Feed {
 	public static final int DOWNLOAD_APP_DIG = 10000;
 
 	public static Dialog createDownloadDialog(final Activity at) {
-	  if (intent == null) {
-		  intent = Uri.parse(finalIntent);
-	  }
 		return new AlertDialog.Builder(at)
 		.setTitle(title)
 		.setMessage(des).setPositiveButton("Download",
 				new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog,
 					int whichButton) {
-				Intent i = new Intent(
-						Intent.ACTION_VIEW,
-						intent);
-				at.startActivity(i);
+				try {
+					Intent i = new Intent(
+							Intent.ACTION_VIEW,
+							intent);
+					at.startActivity(i);
+				} catch (android.content.ActivityNotFoundException e) {
+					e.printStackTrace();
+					Toast.makeText(at, "No activity found", Toast.LENGTH_LONG).show();
+				}
 			}
 		}).setNegativeButton("Ignore Forever",
 				new DialogInterface.OnClickListener() {
@@ -219,8 +222,10 @@ public class Feed {
 				des = mp3.getString("descript");
 				intent = Uri.parse(uri);
 				setBoolKey(pkg);
-				at.showDialog(DOWNLOAD_APP_DIG);
-				showDialog = true;
+				if (intent != null) {
+					at.showDialog(DOWNLOAD_APP_DIG);
+					showDialog = true;
+				}
 				break;
 			}
 
