@@ -18,7 +18,8 @@ public class MP3Info{
   {
     try {
       name = URLDecoder.decode(n, "gb2312");
-    } catch (UnsupportedEncodingException e) {
+    } catch (Exception e) {
+    	name = n;
     }
     name = StringEscapeUtils.unescapeHtml(name);
   }
