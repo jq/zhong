@@ -55,7 +55,7 @@ public class SearchResultActivity extends ListActivity {
 	private static String sQuery;
 	private static FetchMp3ListTask sFetchMp3ListTask;
 	private static SearchResultActivity sSearchActivity;
-	private static IMusicSearcher sFetcher;
+	private static volatile IMusicSearcher sFetcher;
 	private static boolean sHasMoreData = true;
 
 	private MusicInfo mCurrentMusic;
@@ -205,8 +205,8 @@ public class SearchResultActivity extends ListActivity {
 		}
 		return false;
 	}
+	
 	private OnClickListener mRetryListener = new OnClickListener() {
-
 		@Override
 		public void onClick(View v) {
 			fetchNextMp3ListBatch();
@@ -239,12 +239,14 @@ public class SearchResultActivity extends ListActivity {
 
 		setListAdapter(mAdapter);
 		
-		if (sData != null) {
-			
-		} else if (sFetchMp3ListTask != null) {
-			if (!TextUtils.isEmpty(sQuery)) {
-				mProgressBar.setVisibility(View.VISIBLE);
-        		mSearchMessage.setText("Please wait while we search \"" + sQuery + "\"");
+		if (sData == null) {
+			if (sFetchMp3ListTask != null) {
+				if (!TextUtils.isEmpty(sQuery)) {
+					mProgressBar.setVisibility(View.VISIBLE);
+					mSearchMessage.setText("Please wait while we search \"" + sQuery + "\"");
+				}
+			} else {
+				mProgressBar.setVisibility(View.GONE);
 			}
 		}
 
@@ -416,6 +418,7 @@ public class SearchResultActivity extends ListActivity {
 		}
 		mProgressDialog = null;
 		unbindService(mConnection);
+		sSearchActivity = null;
 	}
 
     private class FetchMp3LinkTaskForDownload extends AsyncTask<MusicInfo, Void, MusicInfo> {
@@ -483,8 +486,7 @@ public class SearchResultActivity extends ListActivity {
 		if (mp3List != null) {
 			if (sData == null)
 				sData = new Mp3ListWrapper();
-			mAdapter.setStatus(ListStatusView.Status.LOADED);
-            mAdapter.notifyDataSetChanged();
+			
 			if (mp3List.size() > 0) {
 				sData.append(mp3List);
 			} else {
@@ -498,6 +500,8 @@ public class SearchResultActivity extends ListActivity {
 					}
 				}
 			}
+			mAdapter.setStatus(ListStatusView.Status.LOADED);
+            mAdapter.notifyDataSetChanged();
 		} else {
 			mAdapter.setStatus(ListStatusView.Status.ERROR);
 			mAdapter.notifyDataSetChanged();
