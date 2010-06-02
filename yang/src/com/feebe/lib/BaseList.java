@@ -21,10 +21,6 @@ public abstract class BaseList extends ListActivity implements OnItemClickListen
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(Const.LAYOUT_LIST); 
-        AdManager.setTestDevices( new String[] {                 
-        	     AdManager.TEST_EMULATOR,             // Android emulator
-        	     "E83D20734F72FB3108F104ABC0FFC738",  // My T-Mobile G1 Test Phone
-        	     } ); 
         AdView admob = (AdView)findViewById(com.feebe.rings.R.id.adMob);
         if (admob != null){
             admob.setGoneWithoutAd(true);
