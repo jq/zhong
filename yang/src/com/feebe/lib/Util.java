@@ -430,7 +430,7 @@ public class Util {
         }        
         
         title = mp3.getString("name");
-        if (title == "Aru Ringtones") {
+        if (title.contains("Ringtones")) {
         	continue;
         }
         des = mp3.getString("descript");
