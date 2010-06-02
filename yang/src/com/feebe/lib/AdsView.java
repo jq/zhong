@@ -1,12 +1,22 @@
 package com.feebe.lib;
 
+import com.qwapi.adclient.android.data.Ad;
+import com.qwapi.adclient.android.data.Status;
+import com.qwapi.adclient.android.requestparams.AdRequestParams;
+import com.qwapi.adclient.android.requestparams.AnimationType;
+import com.qwapi.adclient.android.requestparams.DisplayMode;
+import com.qwapi.adclient.android.requestparams.MediaType;
+import com.qwapi.adclient.android.requestparams.Placement;
+import com.qwapi.adclient.android.view.AdEventsListener;
+import com.qwapi.adclient.android.view.QWAdView;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.ViewGroup;
 
-/*
 
-public class AdsView implements AdView.AdListener{
+
+/*public class AdsView implements AdView.AdListener{
     private AdView mAd;
 
     public boolean show = false;
@@ -31,16 +41,16 @@ public class AdsView implements AdView.AdListener{
       }
     }
     
-}
+}*/
 
-*/
+
 
 
 public class AdsView {
     public static boolean mShowQuattroAd = true;
     
     
-/*    public static void createQWAd(Activity activity){
+    public static void createQWAd(Activity activity){
     	if(!mShowQuattroAd)
     		return;
     	ViewGroup parentView = (ViewGroup)activity.findViewById(Const.AdsViewID);
@@ -86,7 +96,7 @@ public class AdsView {
     	public void onDisplayAd(Context ctx,Ad ad) {
     		//Log.i("Snake","onDisplayAd for Ad: " + ad.getAdType() + " : " + ad.getId());
     	}
-    }*/
+    }
     
 }
 

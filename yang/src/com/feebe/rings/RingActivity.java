@@ -109,7 +109,7 @@ public class RingActivity extends Activity {
 
       requestWindowFeature(Window.FEATURE_NO_TITLE);
       setContentView(R.layout.ring);
-//      AdsView.createQWAd(this);
+      AdsView.createQWAd(this);
 
       iconImageView = (ImageView) findViewById(R.id.row_icon);
       titleTextView = (TextView) findViewById(R.id.row_title);

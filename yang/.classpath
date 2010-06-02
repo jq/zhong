@@ -5,5 +5,6 @@
 	<classpathentry kind="lib" path="lib/admob-sdk-android.jar"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="lib" path="lib/GoogleAdView.jar"/>
+	<classpathentry kind="lib" path="lib/qwandroidsdk.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

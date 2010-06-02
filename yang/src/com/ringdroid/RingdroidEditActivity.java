@@ -58,6 +58,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.feebe.rings.AdsView;
 import com.feebe.rings.Const;
 import com.feebe.rings.R;
 import com.feebe.rings.RingActivity;
@@ -598,7 +599,7 @@ public class RingdroidEditActivity extends Activity implements
 	private void loadGui() {
 		// Inflate our UI from its XML layout description.
 		setContentView(R.layout.editor);
-
+		AdsView.createQWAd(this);
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		mDensity = metrics.density;

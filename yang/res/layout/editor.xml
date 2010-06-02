@@ -176,7 +176,7 @@
       <LinearLayout style="@style/VerticalDividerLeft" />
       <LinearLayout style="@style/VerticalDividerRight" />
 
-   </LinearLayout>
+   </LinearLayout><!--
 
    <com.admob.android.ads.AdView  
           android:id="@+id/ad_in_editor" 
@@ -190,4 +190,11 @@
 travel, jobs, car, insurance, sex, digital, camera, phone, clothing,
 computer, girl, music"
         />
+-->
+     <LinearLayout 
+	  	android:id="@+id/AdsView" 
+	  	android:layout_width="fill_parent"
+	   	android:layout_height="wrap_content"
+	   	android:layout_alignParentBottom="true"
+	   />
 </LinearLayout>

@@ -3,7 +3,7 @@
 							   xmlns:app="http://schemas.android.com/apk/res/com.feebe.rings"
 			android:layout_width="fill_parent" 
       android:layout_height="fill_parent"
-			>
+			><!--
 
 	     <com.admob.android.ads.AdView  
           android:id="@+id/ad"
@@ -18,10 +18,17 @@ travel, jobs, car, insurance, sex, digital, camera, phone, clothing,
 computer, girl, music"
         />
         
+      -->
+       <LinearLayout 
+	  	android:id="@+id/AdsView" 
+	  	android:layout_width="fill_parent"
+	   	android:layout_height="wrap_content"
+	   	android:layout_alignParentBottom="true"
+	   />
       <ListView android:id="@android:id/list"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/ad"
+            android:layout_above="@id/AdsView"
             android:layout_alignTop="@layout/list"
             android:layout_alignParentTop="true"
             android:stackFromBottom="false"

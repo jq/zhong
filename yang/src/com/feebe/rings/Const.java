@@ -52,7 +52,7 @@ public class Const extends com.feebe.lib.Const {
     com.feebe.lib.Const.init(c);
   	QWName = "Ringtone-g56rajjb";
   	QWID = "34d153f75db441cdbb776ffb70c569c5";
-//  	AdsViewID = R.id.AdsView;
+  	AdsViewID = R.id.AdsView;
   	
   	//com.feebe.lib.download.DownloadNotification.status_bar_ongoing_event_progress_bar = R.layout.status_bar_ongoing_event_progress_bar;
   }
