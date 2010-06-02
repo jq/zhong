@@ -12,10 +12,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.admob.android.ads.AdView;
+import com.feebe.lib.AdListener;
 import com.feebe.lib.DefaultDownloadListener;
 import com.feebe.lib.DownloadImg;
 import com.feebe.lib.DownloadFile;
 import com.feebe.lib.Util;
+import com.qwapi.adclient.android.view.QWAdView;
 import com.ringdroid.RingdroidSelectActivity;
 
 import entagged.audioformats.AudioFile;
@@ -109,7 +112,14 @@ public class RingActivity extends Activity {
 
       requestWindowFeature(Window.FEATURE_NO_TITLE);
       setContentView(R.layout.ring);
-      AdsView.createQWAd(this);
+      AdView admob = (AdView)findViewById(com.feebe.rings.R.id.adMob);
+      if (admob != null){
+          admob.setGoneWithoutAd(true);
+      }      
+      QWAdView qwAdView = (QWAdView)findViewById(com.feebe.rings.R.id.QWAd);
+      AdListener adListener = new AdListener(this);
+      qwAdView.setAdEventsListener(adListener,
+          false);
 
       iconImageView = (ImageView) findViewById(R.id.row_icon);
       titleTextView = (TextView) findViewById(R.id.row_title);
