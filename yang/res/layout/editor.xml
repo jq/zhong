@@ -19,6 +19,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			  xmlns:app="http://schemas.android.com/apk/res/com.feebe.rings"
+			  xmlns:qwad="http://schemas.android.com/apk/res/com.feebe.rings"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
@@ -190,11 +191,33 @@
 travel, jobs, car, insurance, sex, digital, camera, phone, clothing,
 computer, girl, music"
         />
--->
+--><!--
      <LinearLayout 
 	  	android:id="@+id/AdsView" 
 	  	android:layout_width="fill_parent"
 	   	android:layout_height="wrap_content"
 	   	android:layout_alignParentBottom="true"
 	   />
+-->
+	<FrameLayout android:id="@+id/AdsView" 
+	android:layout_width="fill_parent"
+    android:layout_height="wrap_content" android:gravity="top"
+    android:layout_alignParentBottom="true">
+ 
+    <com.admob.android.ads.AdView
+        android:id="@+id/adMob" 
+        android:layout_width="fill_parent"
+		android:layout_alignParentTop="true"
+		android:layout_height="wrap_content" />
+ 
+    <com.qwapi.adclient.android.view.QWAdView
+    android:id="@+id/QWAd"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    qwad:siteId="Ringtone-g56rajjb"
+    qwad:publisherId="34d153f75db441cdbb776ffb70c569c5"
+    qwad:mediaType="banner"
+    qwad:testMode="false" 
+ />
+</FrameLayout>
 </LinearLayout>
