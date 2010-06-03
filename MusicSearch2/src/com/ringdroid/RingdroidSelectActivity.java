@@ -45,7 +45,10 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.admob.android.ads.AdView;
+import com.qwapi.adclient.android.view.QWAdView;
 import com.ringdroid.soundfile.CheapSoundFile;
+import com.trans.music.search.AdListener;
 import com.trans.music.search.R;
 
 import java.io.File;
@@ -111,6 +114,14 @@ public class RingdroidSelectActivity
 
         // Inflate our UI from its XML layout description.
         setContentView(R.layout.media_select);
+        AdView admob = (AdView)findViewById(R.id.adMob);
+        if (admob != null){
+            admob.setGoneWithoutAd(true);
+        }      
+        QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
+        AdListener adListener = new AdListener(this);
+        qwAdView.setAdEventsListener(adListener,
+            false);
         Button recordButton = (Button) findViewById(R.id.record);
         recordButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View clickedButton) {

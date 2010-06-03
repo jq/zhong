@@ -19,6 +19,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 				xmlns:app="http://schemas.android.com/apk/res/com.trans.music.search"
+				xmlns:qwad="http://schemas.android.com/apk/res/com.trans.music.search"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
@@ -180,16 +181,37 @@
       </LinearLayout>
 
    </LinearLayout>
-   <com.admob.android.ads.AdView  
-          android:id="@+id/ad_in_editor" 
-          android:visibility="visible"
-          android:layout_width="fill_parent" 
-          android:layout_height="wrap_content"
-          android:layout_alignParentBottom="true"
-          app:backgroundColor="#000000"
-          app:textColor="#FFFFFF"
-          app:keywords="game, job, shop, medicine, social, dating,
-travel, jobs, car, insurance, sex, digital, camera, phone, clothing,
-computer, girl, music"
-        />
+   	<FrameLayout android:id="@+id/AdsView" 
+	android:layout_width="fill_parent"
+    android:layout_height="wrap_content" android:gravity="top"
+    android:layout_alignParentBottom="true">
+ 
+    <com.admob.android.ads.AdView
+        android:id="@+id/adMob" 
+        android:layout_width="fill_parent"
+		android:layout_alignParentTop="true" 
+		android:layout_height="wrap_content" />
+ 
+	<FrameLayout android:id="@+id/AdsView" 
+	android:layout_width="fill_parent"
+    android:layout_height="wrap_content" android:gravity="top"
+    android:layout_alignParentBottom="true">
+ 
+    <com.admob.android.ads.AdView
+        android:id="@+id/adMob" 
+        android:layout_width="fill_parent"
+		android:layout_alignParentTop="true" 
+		android:layout_height="wrap_content" />
+ 
+    <com.qwapi.adclient.android.view.QWAdView
+    android:id="@+id/QWAd"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    qwad:siteId="MusicSearch-g4qbie2h"
+    qwad:publisherId="79055569649a445d90cb15a3568f7db1"
+    qwad:mediaType="banner"
+    qwad:testMode="false" 
+ />
+</FrameLayout>  
+</FrameLayout>  
 </LinearLayout>

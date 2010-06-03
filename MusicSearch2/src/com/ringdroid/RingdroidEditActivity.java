@@ -58,7 +58,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.admob.android.ads.AdView;
+import com.qwapi.adclient.android.view.QWAdView;
 import com.ringdroid.soundfile.CheapSoundFile;
+import com.trans.music.search.AdListener;
 import com.trans.music.search.R;
 
 import java.io.ByteArrayOutputStream;
@@ -596,7 +599,14 @@ public class RingdroidEditActivity extends Activity implements
 	private void loadGui() {
 		// Inflate our UI from its XML layout description.
 		setContentView(R.layout.editor);
-
+        AdView admob = (AdView)findViewById(R.id.adMob);
+        if (admob != null){
+            admob.setGoneWithoutAd(true);
+        }      
+        QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
+        AdListener adListener = new AdListener(this);
+        qwAdView.setAdEventsListener(adListener,
+            false);
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		mDensity = metrics.density;

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import org.json.JSONArray;
 
+import com.admob.android.ads.AdView;
+import com.qwapi.adclient.android.view.QWAdView;
 import com.trans.music.search.R;
 
 import android.app.Activity;
@@ -79,7 +81,14 @@ public class local extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.local);
-
+        AdView admob = (AdView)findViewById(R.id.adMob);
+        if (admob != null){
+            admob.setGoneWithoutAd(true);
+        }      
+        QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
+        AdListener adListener = new AdListener(this);
+        qwAdView.setAdEventsListener(adListener,
+            false);
 		
         // Local Playlist UI
         mLocalList = (ListView) findViewById(R.id.local_playlist);
@@ -106,6 +115,7 @@ public class local extends Activity {
             if(mPlayer.isPlaying()) {
               mPlayer.reset();
             }
+            mPlayer.reset();
    				  String fileLocal = Const.homedir + mLocalStrings.get(mLocalMp3index);
     				Toast.makeText(local.this, "Playing:  " + fileLocal, Toast.LENGTH_SHORT).show();
     				try {
