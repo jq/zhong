@@ -46,27 +46,6 @@ public class SearchList extends BaseList {
       return;
     }
     new GetLinkTask().execute(mp3);
-/*    Intent intent = new Intent(this,MusicPage.class);
-    String mp3Link = null;
-    
-  	try {
-  	  mp3Link = MusicUtil.getLink(mp3.getLink());
-  	  Log.e("mp3Link", mp3Link);
-  	} catch (IOException e) {
-  		Log.e("error", e.getMessage());
-  	}
-  	
-  	if (mp3Link == null) {
-      Toast.makeText(this, R.string.no_result, Toast.LENGTH_SHORT).show();
-      return;
-  	}
-
-    intent.putExtra(Const.MP3LOC, mp3Link);
-    intent.putExtra(Const.MP3TITLE, mp3.name);
-    intent.putExtra(Const.MP3SONGER, mp3.artist);
-    intent.putExtra(Const.MP3ALBM, mp3.album);
-
-    startActivity(intent);*/
   }
    
   @Override
@@ -159,8 +138,10 @@ public class SearchList extends BaseList {
     	  this.onNoResult();
     	  SearchList.this.finish();
       }
+      
       if (lastCnt + DEFAULT_RESULT > super.getCount()) {
         keepOnAppending = false;
+        notifyDataSetChanged();
       } else {
         fetchMoreResult();
       }

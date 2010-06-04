@@ -243,6 +243,7 @@ public void onCreateContextMenu(ContextMenu menu, View v,
       
       if (lastCnt + Const.DEFAULT_RESULT > super.getCount()) {
         keepOnAppending = false;
+        notifyDataSetChanged();
       } else {
         fetchMoreResult();
       }
