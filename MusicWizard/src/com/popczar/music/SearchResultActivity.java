@@ -6,11 +6,14 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import com.admob.android.ads.AdView;
 import com.popczar.music.download.DownloadActivity;
 import com.popczar.music.download.DownloadInfo;
 import com.popczar.music.download.DownloadService;
 
 import com.popczar.music.R;
+import com.qwapi.adclient.android.view.QWAdView;
+
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -302,6 +305,15 @@ public class SearchResultActivity extends ListActivity {
 		Utils.D("Mp3ListActivity onCreate()");
 
 		setContentView(R.layout.result_list);
+
+        AdView admob = (AdView)findViewById(R.id.adMob);
+        if (admob != null){
+            admob.setGoneWithoutAd(true);
+        }      
+        QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
+        AdListener adListener = new AdListener(this);
+        qwAdView.setAdEventsListener(adListener,
+            false);
 		//Utils.createQWAd(this);
 
         bindService(new Intent(this, DownloadService.class),

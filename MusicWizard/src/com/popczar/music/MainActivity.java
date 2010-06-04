@@ -1,7 +1,10 @@
 package com.popczar.music;
 
+import com.admob.android.ads.AdManager;
+import com.admob.android.ads.AdView;
 import com.popczar.music.R;
 import com.popczar.music.download.DownloadActivity;
+import com.qwapi.adclient.android.view.QWAdView;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -25,7 +28,15 @@ public class MainActivity extends Activity {
         
         Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(this));
         
-        setContentView(R.layout.main);
+        setContentView(R.layout.main); 
+        AdView admob = (AdView)findViewById(R.id.adMob);
+        if (admob != null){
+            admob.setGoneWithoutAd(true);
+        }      
+        QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
+        AdListener adListener = new AdListener(this);
+        qwAdView.setAdEventsListener(adListener,
+            false);
         //Utils.createQWAd(this);
 		if (!EulaActivity.checkEula(this)) {
 			return;

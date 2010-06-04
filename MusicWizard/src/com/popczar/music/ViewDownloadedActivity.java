@@ -6,6 +6,10 @@ import java.util.Arrays;
 
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 
+import com.admob.android.ads.AdView;
+import com.qwapi.adclient.android.view.QWAdView;
+
+
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -82,7 +86,15 @@ public class ViewDownloadedActivity extends ListActivity {
 		
 		sActivity = this;
 		setContentView(R.layout.music_list);
-		
+
+        AdView admob = (AdView)findViewById(R.id.adMob);
+        if (admob != null){
+            admob.setGoneWithoutAd(true);
+        }      
+        QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
+        AdListener adListener = new AdListener(this);
+        qwAdView.setAdEventsListener(adListener,
+            false);
 		mProgress = (ProgressBar)findViewById(R.id.list_progress);
 		mMessage = (TextView)findViewById(R.id.list_message);
 		
