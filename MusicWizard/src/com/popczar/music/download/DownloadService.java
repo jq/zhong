@@ -13,6 +13,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.popczar.music.Constants;
+import com.popczar.music.MediaScannerHelper;
 import com.popczar.music.Utils;
 
 
@@ -42,7 +43,7 @@ public class DownloadService extends Service {
 	private ArrayList<DownloadObserver> mObservers = new ArrayList<DownloadObserver>();
 	private ExecutorService mPool;
 	
-	private ArrayList<MediaScannerNotifier> mScanners = new ArrayList<MediaScannerNotifier>();
+	private MediaScannerHelper mScanner = new MediaScannerHelper();
 	
 	public class LocalBinder extends Binder {
 		public DownloadService getService() {
@@ -280,7 +281,7 @@ public class DownloadService extends Service {
 					mInfo.setStatus(DownloadInfo.STATUS_FINISHED);
 					File oldFile = new File(tmpFile);
 					if (oldFile.renameTo(new File(mInfo.getTarget()))) {
-						ScanMediaFile(mInfo.getTarget());
+						mScanner.ScanMediaFile(DownloadService.this, mInfo.getTarget());
 					}
 				}
 			} finally {
@@ -322,42 +323,6 @@ public class DownloadService extends Service {
 				notifyChanged();
 				Utils.D("task finished: " + mInfo);
 			}
-		}
-	}
-	
-	
-	private class MediaScannerNotifier implements MediaScannerConnectionClient {
-		private MediaScannerConnection mConnection;
-		private String mPath;
-		private String mMimeType;
-
-		public MediaScannerNotifier(String path, String mimeType) {
-			mPath = path;
-			mMimeType = mimeType;
-			mConnection = new MediaScannerConnection(DownloadService.this, this);
-			mConnection.connect();
-		}
-
-		public void onMediaScannerConnected() {
-			mConnection.scanFile(mPath, mMimeType);
-		}
-
-		public void onScanCompleted(String path, Uri uri) {
-			if (mPath == null)
-				return;
-			if (mPath.equals(path)) {
-				mConnection.disconnect();
-				synchronized(mScanners) {
-					mScanners.remove(this);
-				}
-			}
-		}
-
-	}
-	
-	private void ScanMediaFile(String musicPath) {
-		synchronized(mScanners) {
-			mScanners.add(new MediaScannerNotifier(musicPath, "audio/mpeg"));
 		}
 	}
 }

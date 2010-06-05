@@ -4,4 +4,9 @@
         <item>Preview</item>
         <item>Download</item>
     </string-array>
+    
+    <string-array name="music_library_item_options">
+        <item>Play</item>
+        <item>Delete</item>
+    </string-array>
 </resources>

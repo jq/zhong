@@ -6,16 +6,22 @@ import java.util.Arrays;
 
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import com.admob.android.ads.AdView;
 import com.qwapi.adclient.android.view.QWAdView;
-
-
 import android.app.ListActivity;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,15 +35,25 @@ import android.widget.Toast;
 
 public class ViewDownloadedActivity extends ListActivity {
 	
+	private static final int DIALOG_LIBRARY_ITEM_OPTIONS = 1;
+	private static final int DIALOG_DELETE_CONFIRMATION = 2;
+	
+	private static final int MUSIC_OPTION_PLAY = 0;
+	private static final int MUSIC_OPTION_DELETE = 1;
+	
 	private static File[] sFiles;
 	private static ViewDownloadedActivity sActivity;
 	private static ListDownloadedFilesTask sTask;
+	
+	private File mCurrentFile;
 	
 	private FileListAdapter mAdapter;
 	private ProgressBar mProgress;
 	private TextView mMessage;
 	
 	private static File BASE_DIR = new File("/sdcard/music_wizard/mp3");
+	
+	private MediaScannerHelper mScanner = new MediaScannerHelper();
 	
 	public static void listFiles() {
 		if (sTask != null)
@@ -49,17 +65,104 @@ public class ViewDownloadedActivity extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView listView, View view, int position, long id) {
 		if (sFiles != null && position < sFiles.length) {
-			try {
-				Intent intent = new Intent(Intent.ACTION_VIEW);
-				//intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				intent.setDataAndType(Uri.parse("file://" + sFiles[position].getAbsolutePath()), "audio");
-				startActivity(intent);
-			} catch (android.content.ActivityNotFoundException e) {
-				e.printStackTrace();
-				Toast.makeText(ViewDownloadedActivity.this,
-						getString(R.string.no_playing_activity), Toast.LENGTH_LONG).show();
-			}
+			mCurrentFile = sFiles[position];
+			showDialog(DIALOG_LIBRARY_ITEM_OPTIONS);
 		}
+	}
+	
+	@Override
+	protected void onPrepareDialog(int id, Dialog dialog) {
+		switch (id) {
+		case DIALOG_DELETE_CONFIRMATION: {
+			if (mCurrentFile != null)
+				dialog.setTitle("Are you sure to delete " + mCurrentFile.getName() + "?");
+			return;
+		}
+		}
+	}
+	
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case DIALOG_LIBRARY_ITEM_OPTIONS:
+            return new AlertDialog.Builder(this)
+                .setTitle(R.string.options)
+                .setItems(R.array.music_library_item_options, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							if (mCurrentFile == null)
+								return;
+							
+							switch (which) {
+							case MUSIC_OPTION_PLAY:
+								try {
+									Intent intent = new Intent(Intent.ACTION_VIEW);
+									//intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+									intent.setDataAndType(Uri.parse("file://" + mCurrentFile.getAbsolutePath()), "audio");
+									startActivity(intent);
+								} catch (android.content.ActivityNotFoundException e) {
+									e.printStackTrace();
+									Toast.makeText(ViewDownloadedActivity.this,
+											getString(R.string.no_playing_activity), Toast.LENGTH_LONG).show();
+								}
+								break;
+							case MUSIC_OPTION_DELETE:
+								showDialog(DIALOG_DELETE_CONFIRMATION);
+								break;
+							}
+						}
+                })
+                .create();
+            
+			
+		case DIALOG_DELETE_CONFIRMATION:
+            return new AlertDialog.Builder(ViewDownloadedActivity.this)
+            .setIcon(R.drawable.alert_dialog_icon)
+            .setTitle(R.string.delete_confirmation)
+            .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                	if (mCurrentFile != null) {
+                		mCurrentFile.delete();
+                		listFiles();
+                		
+                		// Delete from db. This may take long.
+                		Uri musics = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                		ContentResolver cr = getContentResolver();
+                		int n = 0;
+                		if (!mCurrentFile.getAbsolutePath().startsWith("/mnt")) {
+	                		cr.delete(musics, MediaStore.MediaColumns.DATA + "=?", new String[] { "/mnt" + mCurrentFile.getAbsolutePath() });
+                		}
+                		if (n == 0) {
+                			cr.delete(musics, MediaStore.MediaColumns.DATA + "=?", new String[] { mCurrentFile.getAbsolutePath() });
+                		}
+                		
+                		// Debug
+                		/*
+                		Cursor c = managedQuery(musics,
+                				                new String[] { MediaStore.MediaColumns.DATA },
+                				                null,
+                				                null,
+                				                null);
+                		
+            			System.out.println("+++++++++++++++++++++++");
+                		if (c.moveToFirst()) {
+                			System.out.println(c.getString(0));
+                			while (c.moveToNext()) {
+	                			System.out.println(c.getString(0));
+                			}
+                		}
+            			System.out.println("+++++++++++++++++++++++");
+            			*/
+                	}
+                }
+            })
+            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                	// Do nothing.
+                }
+            })
+            .create();
+		}
+		return null;
 	}
 	
 	@Override
