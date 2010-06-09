@@ -1,36 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-				xmlns:qwad="http://schemas.android.com/apk/res/com.trans.music.search"
+<LinearLayout 
+	android:id="@+id/l1"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:qwad="http://schemas.android.com/apk/res/com.trans.music.search"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
-	           	         
-        <ListView android:id="@+id/local_playlist"
-            android:layout_width="fill_parent" 
-            android:layout_height="0dip" 
-            android:stackFromBottom="false"
-            android:layout_weight="1"
-            />   
-            	<FrameLayout android:id="@+id/AdsView" 
-	android:layout_width="fill_parent"
-    android:layout_height="wrap_content" android:gravity="top"
-    android:layout_alignParentBottom="true">
+    android:layout_height="fill_parent">
+	<LinearLayout
+    	android:layout_width="fill_parent"
+    	android:layout_height="40dip"
+    	android:orientation="vertical"
+    	android:background="#000099">
+    	<TextView
+			android:id="@+id/txtCurMusic"
+			android:layout_alignParentLeft="true"
+			android:layout_width="wrap_content"
+			android:layout_height="20dip"
+			android:singleLine="true"
+			android:ellipsize="marquee"
+			android:textSize="16dip"
+		></TextView>
+		<TextView
+			android:id="@+id/txtPlayMode"
+			android:layout_width="wrap_content"
+			android:layout_height="20dip"
+			android:layout_alignParentRight="true"
+			android:textSize="16dip"
+		></TextView>
+	</LinearLayout>
+   	<ListView android:id="@+id/local_playlist"
+        android:layout_width="fill_parent" 
+        android:layout_height="0dip" 
+        android:stackFromBottom="false"
+        android:layout_weight="1"/>   
+    
+    <!--<MediaController
+    	android:id="@+id/mediaController"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:visibility="visible"
+    ></MediaController>
+    -->
+
+    <View
+		android:id="@+id/anchorView"
+		android:layout_width="fill_parent"
+		android:layout_height="1dip"
+	></View><!--
+    
+    <FrameLayout android:id="@+id/AdsView" 
+		android:layout_width="fill_parent"
+    	android:layout_height="wrap_content" android:gravity="top"
+    	android:layout_alignParentBottom="true">
  
-    <com.admob.android.ads.AdView
-        android:id="@+id/adMob" 
-        android:layout_width="fill_parent"
-		android:layout_alignParentTop="true" 
-		android:layout_height="wrap_content" />
+    	<com.admob.android.ads.AdView
+        	android:id="@+id/adMob" 
+        	android:layout_width="fill_parent"
+			android:layout_alignParentTop="true" 
+			android:layout_height="wrap_content" />
  
-    <com.qwapi.adclient.android.view.QWAdView
-    android:id="@+id/QWAd"
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    qwad:siteId="MusicSearch-g4qbie2h"
-    qwad:publisherId="79055569649a445d90cb15a3568f7db1"
-    qwad:mediaType="banner"
-    qwad:testMode="false" 
- />
-</FrameLayout>    
-</LinearLayout>
+    	<com.qwapi.adclient.android.view.QWAdView
+	    	android:id="@+id/QWAd"
+    		android:layout_width="fill_parent" 
+    		android:layout_height="wrap_content" 
+    		qwad:siteId="MusicSearch-g4qbie2h"
+    		qwad:publisherId="79055569649a445d90cb15a3568f7db1"
+    		qwad:mediaType="banner"
+    		qwad:testMode="true"/>
+	</FrameLayout>    
+
+--></LinearLayout>

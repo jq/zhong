@@ -28,7 +28,10 @@
         <item>Set as Notification</item>
         <item>Set as Alarm</item>
         <item>Assign to contact</item>
-
     </string-array>  
-    
+    <string-array name="play_mode">
+    	<item>Repeat all musics</item>
+    	<item>Shuffling play</item>
+    	<item>Repeat single music</item>
+    </string-array>
 </resources>
