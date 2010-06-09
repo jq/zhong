@@ -193,13 +193,13 @@ public class local extends Activity {
 		mController.setEnabled(true);
 		mController.setAnchorView(anchorView);
 
-/*		AdView admob = (AdView) findViewById(R.id.adMob);
+		AdView admob = (AdView) findViewById(R.id.adMob);
 		if (admob != null) {
 			admob.setGoneWithoutAd(true);
 		}
 		QWAdView qwAdView = (QWAdView) findViewById(R.id.QWAd);
 		AdListener adListener = new AdListener(this);
-		qwAdView.setAdEventsListener(adListener, false);*/
+		qwAdView.setAdEventsListener(adListener, false);
 
 		// Local Playlist UI
 		mLocalList = (ListView) findViewById(R.id.local_playlist);
