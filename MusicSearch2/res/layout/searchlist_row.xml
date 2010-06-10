@@ -10,18 +10,10 @@
     android:layout_marginRight="12px"
     >
 
-     <LinearLayout
+     <RelativeLayout
       android:layout_width="fill_parent"
-      android:layout_height="wrap_content">
-
-      <TextView android:id="@+id/row_artist"
-         android:textColor="#ff99ff"
-         android:textSize="12sp"
-         android:layout_marginLeft="1px"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_weight="1"
-         android:singleLine="true"/>
+      android:layout_height="wrap_content"
+      android:layout_marginRight="5dip">
       
       <TextView android:id="@+id/row_album"
          android:textColor="#ffff99"
@@ -29,13 +21,42 @@
          android:layout_marginLeft="12px"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:layout_weight="1"/>   
+         android:layout_alignParentRight="true"
+         android:layout_weight="1"
+         android:maxWidth="150dip"
+         android:singleLine="true"
+         android:ellipsize="marquee"/>
+         
+      <TextView android:id="@+id/row_artist"
+         android:textColor="#ff99ff"
+         android:textSize="12sp"
+         android:layout_marginLeft="1px"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_toLeftOf="@id/row_album"
+         android:layout_weight="1"
+         android:singleLine="true"
+         android:ellipsize="marquee"/>   
 
-    </LinearLayout>
+    </RelativeLayout>
 
-     <LinearLayout
+     <RelativeLayout
       android:layout_width="fill_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      android:layout_marginRight="5dip">
+      <TextView android:id="@+id/song_size"
+         android:textColor="#ffff99"
+         android:textSize="12sp"
+         android:layout_marginLeft="12px"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentRight="true"
+         android:layout_weight="1"
+         android:layout_centerVertical="true"
+         android:singleLine="true"
+         android:ellipsize="marquee"/>   
+      
     <TextView android:id="@+id/row_title"
         android:textColor="#ffffff"
         android:textSize="18sp"
@@ -45,18 +66,15 @@
         android:shadowRadius="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/song_size"
+        android:layout_alignParentLeft="true"
         android:layout_weight="1"
-        android:singleLine="true"/>
+        android:singleLine="true"
+        android:ellipsize="marquee"/>
         
-      <TextView android:id="@+id/song_size"
-         android:textColor="#ffff99"
-         android:textSize="12sp"
-         android:layout_marginLeft="12px"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_weight="1"/>   
 
-    </LinearLayout>
+
+    </RelativeLayout>
 
  </LinearLayout>
  
