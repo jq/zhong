@@ -188,4 +188,9 @@
     <string name="current_music">Current music</string>
     <string name="select_play_mode">Select play mode.</string>
     <string name="play_mode_set_to">Play mode set to</string>
+    <string name="have_no_valide_music">You have no available music file.</string>
+    <string name="select_opration">Select an operation.</string>
+    <string name="delete_warning">Are you sure to delete</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

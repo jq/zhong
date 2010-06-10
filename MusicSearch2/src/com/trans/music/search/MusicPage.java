@@ -740,12 +740,12 @@ public class MusicPage extends Activity implements
     }
 
     public void onPostExecute(Integer result) {
+    	String fullpathname = Const.homedir + m_CurDownloadFile;
       if (result == 1) {
         Toast.makeText(MusicPage.this,
             m_CurDownloadFile + getString(R.string.download_finished), Toast.LENGTH_LONG).show();
         // DownloadShowMessage(m_CurDownloadFile + " download finished");
         // updateDownloadList();
-        String fullpathname = Const.homedir + m_CurDownloadFile;
         mMp3Local = fullpathname;
         ScanMediafile(fullpathname);
         // showDownloadOKNotification(m_CurDownloadFile);
@@ -769,6 +769,13 @@ public class MusicPage extends Activity implements
       	mDownloading = false;
       	mDownloadFinish = true;
       	mProgressDialogIsOpen = false;
+      }
+      if (result == 0) {
+    	try {
+    	  File brokenFile = new File(fullpathname);
+    	  brokenFile.delete();
+    	} catch (Exception e) {
+		}
       }
     }
   }

@@ -28,6 +28,7 @@ import android.widget.AdapterView;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -73,6 +74,10 @@ public class local extends Activity {
 	private static final int Mode_Single_Repeat = 2;
 	private static final int Seek_Interval = 500;
 	private static final int Seekbar_Max = 100;
+
+	private static final int Music_Play = 0;
+	private static final int Music_Edit = 1;
+	private static final int Music_Delete = 2;
 
 	private int mSongProgress;
 	private int mPlayMode = 0;
@@ -172,7 +177,10 @@ public class local extends Activity {
 	protected void onResume() {
 		super.onResume();
 		updateDownloadList();
-		txtCurMusic.setText(getString(R.string.current_music)+":  "+mLocalStrings.get(mLocalMp3index));
+		try {
+			txtCurMusic.setText(getString(R.string.current_music)+":  "+mLocalStrings.get(mLocalMp3index));
+		} catch (Exception e) {
+		}
 	}
 
 	@Override
@@ -209,8 +217,44 @@ public class local extends Activity {
 		mLocalList.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView parent, View v, int position,
 					long id) {
-				mLocalMp3index = position;
-				playSong();
+				final int position_final = position;
+				AlertDialog.Builder builder = new AlertDialog.Builder(local.this);
+				builder.setTitle(R.string.select_opration);
+				builder.setItems(R.array.local_music_option, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				        switch (item) {
+						case Music_Play:
+							mLocalMp3index = position_final;
+							playSong();
+							break;
+						case Music_Edit:
+					        startRingdroidEditor(position_final);
+							break;
+						case Music_Delete:
+							AlertDialog.Builder builder = new AlertDialog.Builder(local.this);
+							builder.setMessage(getString(R.string.delete_warning)+":  "+mLocalStrings.get(position_final)+"?")
+							       .setCancelable(false)
+							       .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+							           public void onClick(DialogInterface dialog, int id) {
+							        	   deleteMusicFile(position_final);
+							        	   updateDownloadList();
+							           }
+							       })
+							       .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+							           public void onClick(DialogInterface dialog, int id) {
+							                dialog.cancel();
+							           }
+							       });
+							AlertDialog alert = builder.create();
+							alert.show();
+							break;
+						default:
+							break;
+						}
+				    }
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
 			}
 		});
 		mPlayer.setOnCompletionListener(new OnCompletionListener() {
@@ -222,9 +266,8 @@ public class local extends Activity {
 		mPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
 			@Override
 			public boolean onError(MediaPlayer mp, int what, int extra) {
-				Log.e("in OnError: ", "");
 				if (mPlayMode != Mode_Single_Repeat) {
-					playNext();
+						playNext();
 				} else {
 					Toast.makeText(local.this, R.string.play_error, Toast.LENGTH_SHORT).show();
 				}
@@ -411,7 +454,9 @@ public class local extends Activity {
 	
 	private void playSong() {
 		boolean isSucc = false;
+		int retryCount = 0;
 		do {
+			retryCount++;
 			mPlayer.reset();
 			txtCurMusic.setText(getString(R.string.current_music)+": "+mLocalStrings.get(mLocalMp3index));
 			String fileLocal = Const.homedir
@@ -430,7 +475,10 @@ public class local extends Activity {
 					mLocalMp3index = getNextIndex(mLocalMp3index);
 				}
 			}
-		} while(!isSucc && mPlayMode!=Mode_Single_Repeat);
+		} while(!isSucc && mPlayMode!=Mode_Single_Repeat && retryCount<=mLocalStrings.size());
+		if (retryCount > mLocalStrings.size()) {
+			Toast.makeText(local.this, R.string.have_no_valide_music, Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	private OnClickListener mPlayPrevClickListener = new OnClickListener() {
@@ -456,4 +504,26 @@ public class local extends Activity {
 		mLocalMp3index = getNextIndex(mLocalMp3index);
 		playSong();
 	}
+	
+    private void startRingdroidEditor(int index) {
+    	String fileLocal = Const.homedir + mLocalStrings.get(index);
+        try {
+            Intent intent = new Intent(Intent.ACTION_EDIT,
+                                       Uri.parse(fileLocal));
+            intent.putExtra("was_get_content_intent",
+                            false);
+            intent.setClassName(
+            	"com.trans.music.search",
+                "com.ringdroid.RingdroidEditActivity");
+            startActivity(intent);
+        } catch (Exception e) {
+            Log.e("Ringdroid", "Couldn't start editor");
+        }
+    }
+    
+    private void deleteMusicFile(int index) {
+    	String fileLocal = Const.homedir + mLocalStrings.get(index);
+    	File deleteFile = new File(fileLocal);
+    	deleteFile.delete();
+    }
 }
