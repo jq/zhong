@@ -255,6 +255,16 @@ public class local extends Activity {
 	}
 
 	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		try {
+			mPlayer.stop();
+			mPlayer.release();
+		} catch (Exception e) {
+		}
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the currently selected menu XML resource.
 		MenuInflater inflater = getMenuInflater();
@@ -407,6 +417,7 @@ public class local extends Activity {
 			String fileLocal = Const.homedir
 					+ mLocalStrings.get(mLocalMp3index);
 			try {
+				Log.e("DataSource: ", fileLocal);
 				mPlayer.setDataSource(fileLocal);
 				mPlayer.prepare();
 				mPlayer.start();

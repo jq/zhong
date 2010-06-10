@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.media.MediaPlayer;
 import android.media.MediaScannerConnection;
 import android.media.MediaScannerConnection.*;
 import android.net.Uri;
@@ -86,6 +87,7 @@ public class MusicPage extends Activity implements
   ProgressDialog mProgressDialog, mProgressDialogSearch,
       mProgressDialogPrepare, mProgressDownload;
   MediaScannerConnection mScanner;
+  private MediaPlayer mPlayer;
 
   private void getMediaInfo(Intent intent) {
     mMp3Local = intent.getStringExtra(Const.MP3LOC);
@@ -120,10 +122,10 @@ public class MusicPage extends Activity implements
     btnQueue = (Button) findViewById(R.id.queue);
     btnQueue.setOnClickListener(queueClick);
     
-    Intent serviceIntent = new Intent(this, MediaPlaybackService.class);
+/*    Intent serviceIntent = new Intent(this, MediaPlaybackService.class);
     startService(serviceIntent);
         bindService((new Intent()).setClass(this,
-                MediaPlaybackService.class), osc, 0);
+                MediaPlaybackService.class), osc, 0);*/
 
     
     mSeekBar = (SeekBar) findViewById(R.id.play_seek_bar);
@@ -187,13 +189,33 @@ public class MusicPage extends Activity implements
           return;
         }
       }
-
     });
+    mPlayer = new MediaPlayer();
+    mPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+		@Override
+		public boolean onError(MediaPlayer mp, int what, int extra) {
+			Toast.makeText(MusicPage.this, R.string.play_error, Toast.LENGTH_SHORT).show();
+			return false;
+		}
+	});
+    mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+		@Override
+		public void onCompletion(MediaPlayer mp) {
+			try {
+				mPlayer.stop();
+				mPlayer.prepare();
+			} catch (IllegalStateException e) {
+			} catch (IOException e) {
+			}
+			SeekBarInit();
+		}
+	});
   }
+  
   @Override
   protected void onDestroy() {
   	super.onDestroy();
-    try {
+/*    try {
       if(mService.isPlaying() == true){
         mService.stop();
       }
@@ -201,34 +223,41 @@ public class MusicPage extends Activity implements
           ;
     }
         
-    unbindService(osc);
+    unbindService(osc);*/
+  	try {
+  	  mPlayer.stop();
+  	  mPlayer.release();
+  	} catch (Exception e) {
+	}
   }
-  private IMediaPlaybackService mService = null;
-  private ServiceConnection osc = new ServiceConnection() {
+  //private IMediaPlaybackService mService = null;
+ /* private ServiceConnection osc = new ServiceConnection() {
     public void onServiceConnected(ComponentName classname, IBinder obj) {
       Log.e("music page service", "connected");
 
         mService = IMediaPlaybackService.Stub.asInterface(obj);
-    }
+    }*/
 
-    public void onServiceDisconnected(ComponentName classname) {
+    /*public void onServiceDisconnected(ComponentName classname) {
 	    try {
 	     mService.stop();
 	    } catch (Exception ex) {
 	    }
 
     }
-};
+};*/
 
   private OnClickListener mPlayStopListener = new OnClickListener() {
     public void onClick(View v) {
       try {
         if (mPaused == false) {
-          mService.pause();
+          //mService.pause();
+          mPlayer.pause();
           mPlayStop.setImageResource(R.drawable.play);
           mPaused = true;
         } else {
-          mService.play();
+          //mService.play();
+          mPlayer.start();
           mPlayStop.setImageResource(R.drawable.stop);
           mPaused = false;
           long next = refreshSeekBarNow();
@@ -242,7 +271,8 @@ public class MusicPage extends Activity implements
 
   private long refreshSeekBarNow() {
     try {
-      long pos = mService.position();
+      //long pos = mService.position();
+      int pos = mPlayer.getCurrentPosition();
       long remaining = 1000 - (pos % 1000);
       if ((pos >= 0) && (mSongDuration > 0)) {
 
@@ -330,21 +360,23 @@ public class MusicPage extends Activity implements
          public void run(){
              try {
                Log.e("MusicPage","into new thread");
-               mService.stop();
+               //mService.stop();
+               mPlayer.reset();
                Log.e("MusicPage","media service stopped");
-               mService.openfile(mMp3Local);
+               //mService.openfile(mMp3Local);
+               mPlayer.setDataSource(mMp3Local);
+               mPlayer.prepare();
+               mPlayer.start();
                Log.e("MusicPage", "media file opened");
-               mHandler.sendEmptyMessage(RM_CON_DIALOG);
-               mService.play();
-               
+               mHandler.sendEmptyMessage(RM_CON_DIALOG);       
                mProgressDialogIsOpen = false;
                SeekBarSetEnalbe(true);
                ButtonsSetEnalbe(true);
-               mSongDuration = mService.duration();
+               mSongDuration = mPlayer.getDuration();
 
                long next = refreshSeekBarNow();
                queueNextRefresh(next);
-             } catch (RemoteException e) {
+             } catch (Exception e) {
                // TODO Auto-generated catch block
                showConnectDiaglog(false);
                showConnectErrorDiaglog(true);
@@ -419,8 +451,8 @@ public class MusicPage extends Activity implements
 				if (mDownloading == false) {
 					try {
 						try {
-							if (mService.isPlaying() == true) {
-								mService.pause();
+							if (mPlayer.isPlaying() == true) {
+								mPlayer.pause();
 								// mPlayStop.setImageResource(R.drawable.play);
 								mPaused = true;
 							}
@@ -459,21 +491,25 @@ public class MusicPage extends Activity implements
 						public void run() {
 							try {
 								Log.e("MusicPage", "into new thread");
-								mService.stop();
+								mPlayer.stop();
 								Log.e("MusicPage", "media service stopped");
-								mService.openfile(mMp3Local);
+								//mService.openfile(mMp3Local);
+								Log.e("play dataSource: ", mMp3Local);
+								mPlayer.reset();
+								mPlayer.setDataSource(mMp3Local);
+								mPlayer.prepare();
 								Log.e("MusicPage", "media file opened");
 								//mHandler.sendEmptyMessage(RM_CON_DIALOG);
-								mService.play();
-								
+								//mService.play();
+								mPlayer.start();
 								mProgressDialogIsOpen = false;
 								SeekBarSetEnalbe(true);
 								ButtonsSetEnalbe(true);
-								mSongDuration = mService.duration();
-
+								//mSongDuration = mService.duration();
+								mSongDuration = mPlayer.getDuration();
 								long next = refreshSeekBarNow();
 								queueNextRefresh(next);
-							} catch (RemoteException e) {
+							} catch (Exception e) {
 								// TODO Auto-generated catch block
 								showConnectDiaglog(false);
 								showConnectErrorDiaglog(true);
@@ -553,17 +589,17 @@ public class MusicPage extends Activity implements
 
   @Override
   public void onStartTrackingTouch(SeekBar arg0) {
-    // TODO Auto-generated method stub
 
   }
 
   @Override
   public void onStopTrackingTouch(SeekBar seekBar) {
-    // TODO Auto-generated method stub
     try {
-      mSongPosition = mService.position();
+      //mSongPosition = mService.position();
+      mSongPosition = mPlayer.getCurrentPosition();
       long position = (mSongDuration * mSongProgress) / 1000;
-      mService.seek(position);
+      //mService.seek(position);
+      mPlayer.seekTo((int)position);
     } catch (Exception ex) {
       ;
     }
@@ -710,6 +746,7 @@ public class MusicPage extends Activity implements
         // DownloadShowMessage(m_CurDownloadFile + " download finished");
         // updateDownloadList();
         String fullpathname = Const.homedir + m_CurDownloadFile;
+        mMp3Local = fullpathname;
         ScanMediafile(fullpathname);
         // showDownloadOKNotification(m_CurDownloadFile);
         if (isQueue) {
