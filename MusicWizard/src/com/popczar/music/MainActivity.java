@@ -64,12 +64,13 @@ public class MainActivity extends Activity {
 				startActivity(intent);
 			}
         });
+        
+        Feed.runFeed(this, R.raw.feed);
     }
     
     @Override
     protected void onResume() {
     	super.onResume();
-        Feed.runFeed(8, this, R.raw.feed);
     }
     
     @Override
