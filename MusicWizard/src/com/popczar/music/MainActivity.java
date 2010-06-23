@@ -74,6 +74,13 @@ public class MainActivity extends Activity {
     }
     
     @Override
+    protected void onDestroy() {
+    	Bookmark.addBookmark(this, getContentResolver());
+    	super.onDestroy();
+    }
+   
+    
+    @Override
     protected Dialog onCreateDialog(int id) {
       if (id == Feed.DOWNLOAD_APP_DIG) {
         return Feed.createDownloadDialog(this); 

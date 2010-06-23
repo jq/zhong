@@ -89,7 +89,7 @@ public class Feed {
     }
     
     
-    private static boolean shouldRun(int chance) {
+    public static boolean shouldRun(int chance) {
         int t = generator.nextInt();
         return t % chance == 0;
     }
