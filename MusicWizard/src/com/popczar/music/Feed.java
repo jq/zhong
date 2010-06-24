@@ -51,7 +51,7 @@ public class Feed {
     	
 	    // Show feeds 1/8 of the time.
         if (shouldRun(8)) {
-        	sFeedAlreadyRun = true;
+	    	sFeedAlreadyRun = true;
             sSetting = at.getPreferences(0);
             return getFeeds(at, resource, urlString);
         }
@@ -208,7 +208,7 @@ public class Feed {
             	return false;
             boolean showDialog = false;
             for (int i = 0; i < len; i++) {
-                if( entries.isNull(i) )
+                if (entries.isNull(i))
                     break;
 
                 JSONObject mp3 = entries.getJSONObject(i);

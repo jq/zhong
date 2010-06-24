@@ -47,4 +47,14 @@ public class VersionUtils {
 		return name;
 	}
 
+	public static int getVersionCode(Context context) {
+		int code = 0;
+		try {
+			PackageInfo pi = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+			code = pi.versionCode;
+		} catch (PackageManager.NameNotFoundException e) {
+			Log.e(TAG, "Package name not found", e);
+		};
+		return code;
+	}
 }

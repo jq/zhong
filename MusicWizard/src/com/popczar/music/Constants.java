@@ -8,4 +8,11 @@ public class Constants {
 	
 	public static final String LAUNCH_ACTIVITY_PACKAGE = "launch_activity_package";
 	public static final String LAUNCH_ACTIVITY_CLASS = "launch_activity_class";
+	
+	public static final String PREFS_UPDATE = "update";
+	
+	public static final String UPDATE_URL = "url";
+	public static final String UPDATE_VERSION = "version";
+	public static final String UPDATE_MESSAGE = "message";
+	public static final String UPDATE_SEQ = "seq";
 }

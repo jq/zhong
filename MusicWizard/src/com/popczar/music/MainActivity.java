@@ -4,14 +4,24 @@ import com.admob.android.ads.AdManager;
 import com.admob.android.ads.AdView;
 import com.popczar.music.R;
 import com.popczar.music.download.DownloadActivity;
+import com.popczar.music.updater.AppUpdater;
+import com.popczar.music.updater.UpdateInfo;
 import com.qwapi.adclient.android.view.QWAdView;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
@@ -21,16 +31,20 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	private SearchBar mSearch;
+	
+	private static Activity sActivity;
+	private static boolean sFeedsAndUpdateChecked = false;
 		
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sActivity = this;
         
         Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(this));
         
         setContentView(R.layout.main); 
         AdView admob = (AdView)findViewById(R.id.adMob);
-        if (admob != null){
+        if (admob != null) {
             admob.setGoneWithoutAd(true);
         }      
         QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
@@ -65,7 +79,7 @@ public class MainActivity extends Activity {
 			}
         });
         
-        Feed.runFeed(this, R.raw.feed);
+        checkFeedsAndUpdate();
     }
     
     @Override
@@ -73,12 +87,6 @@ public class MainActivity extends Activity {
     	super.onResume();
     }
     
-    @Override
-    protected void onDestroy() {
-    	Bookmark.addBookmark(this, getContentResolver());
-    	super.onDestroy();
-    }
-   
     
     @Override
     protected Dialog onCreateDialog(int id) {
@@ -88,4 +96,146 @@ public class MainActivity extends Activity {
       return null;
     }    
     
+    @Override
+    protected void onDestroy() {
+    	super.onDestroy();
+    	sActivity = null;
+    	Bookmark.addBookmark(this, getContentResolver());
+    }
+    
+    private void checkFeedsAndUpdate() {
+    	if (sFeedsAndUpdateChecked)
+    		return;
+    	
+    	sFeedsAndUpdateChecked = true;
+        if (!Feed.runFeed(this, R.raw.feed)) {
+            // Check update only when feed is not shown. We don't want to annoy users too much.
+        	checkUpdate();
+        }
+    }
+    
+    private void checkUpdate() {
+    	Utils.D("Checking update");
+    	new CheckUpdateTask().execute();
+    }
+    
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.share_app:
+        	String url = AppUpdater.getNewUpdateUrl(this);
+        	if (TextUtils.isEmpty(url)) {
+        		url = "market://search?q=pname:" + getPackageName();
+        	}
+        	StringBuilder sb = new StringBuilder();
+        	final String prefix = "market://search?q=";
+        	
+        	if (url.startsWith(prefix)) {
+        		sb.append("<html><body>");
+        		sb.append("Hi,<br><br>I recently found a cool music search app on Android based smartphones and I strongly recommend it. Just search the following in Android Market:<br><br>");
+        		sb.append(url.substring(prefix.length(), url.length()));
+        		sb.append("<br><br>Cheers,<br><br>");
+        		sb.append("</body></html>");
+        	} else {
+        		sb.append("<html><body>");
+        		sb.append("Hi,<br><br>I recently found a cool music search app on Android based smartphones and I strongly recommend it. Just use the following link to download:<br><br>");
+        		sb.append("<a href=\"" + url + "\">" + url + "</a>");
+        		sb.append("<br><br>Cheers,<br><br>");
+        		sb.append("</body></html>");
+        	}
+        	
+        	Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        	sendIntent.setType("text/html");
+        	sendIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(sb.toString()));
+        	sendIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_email_subject));
+        	sendIntent.setType("message/rfc822");
+        	startActivity(Intent.createChooser(
+        			sendIntent, "Choose an email application:"));
+        	return true;
+        	
+        case R.id.about:
+        	new AlertDialog.Builder(this)
+        	.setTitle(R.string.about)
+            .setIcon(R.drawable.ic_dialog_info)
+        	.setMessage(VersionUtils.getApplicationName(this) + " v" +
+        			VersionUtils.getVersionNumber(this)).setPositiveButton("Update",
+        			new DialogInterface.OnClickListener() {
+        		@Override
+        		public void onClick(DialogInterface dialog,
+        				int whichButton) {
+        			String url = AppUpdater.getNewUpdateUrl(getApplication());
+        			
+        			if (url != null) {
+        				// Start the new activity
+        				try {
+        					Uri uri = Uri.parse(url);
+        					Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        					startActivity(intent);
+        				} catch (Exception ex) {
+        					ex.printStackTrace();
+        				}
+        			} else {
+        				Utils.Info(MainActivity.this, "You app is update to date");
+        			}
+        		}
+        	}).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        		@Override
+        		public void onClick(DialogInterface dialog, int which) {
+        		}
+        	}).create().show();
+        	return true;
+        }
+        
+        return false;
+    }
+    
+    private class CheckUpdateTask extends AsyncTask<Void, Void, UpdateInfo> {
+		@Override
+		protected UpdateInfo doInBackground(Void... params) {
+			return AppUpdater.checkUpdate(getApplication());
+		}
+		
+		@Override
+		protected void onPostExecute(final UpdateInfo update) {
+			if (update == null)
+				return;
+			
+			if (sActivity == null)
+				return;
+			
+			new AlertDialog.Builder(sActivity)
+			.setIcon(R.drawable.alert_dialog_icon)
+			.setTitle(R.string.updater_dialog_title)
+			.setMessage(update.getMessage()).setPositiveButton("Download",
+					new DialogInterface.OnClickListener() {
+        		@Override
+        		public void onClick(DialogInterface dialog,
+        				int whichButton) {
+			        // Start the new activity
+			        try {
+			        	Uri uri = Uri.parse(update.getUrl());
+			        	Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+			        	startActivity(intent);
+			        } catch (Exception ex) {
+			        	ex.printStackTrace();
+			        }
+        		}
+        	}).setNegativeButton("Cancel",
+        			new DialogInterface.OnClickListener() {
+        		@Override
+        		public void onClick(DialogInterface dialog,
+        				int whichButton) {
+        		}
+        	}).create().show();
+		}
+    }
 }

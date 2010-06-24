@@ -42,8 +42,10 @@ public class NetUtils {
 		connection.setRequestProperty("Keep-Alive", "300");
 		connection.setRequestProperty("Connection", "keep-alive");
 		
-		if (sCookie.get(id) != null) {
-			connection.setRequestProperty("Cookie", sCookie.get(id));
+		if (id != -1) {
+			if (sCookie.get(id) != null) {
+				connection.setRequestProperty("Cookie", sCookie.get(id));
+			}
 		}
 		
 		
@@ -60,8 +62,11 @@ public class NetUtils {
 		}
 		
 		String cookie = connection.getHeaderField("Set-Cookie");
-		if (!TextUtils.isEmpty(cookie)) {
-			sCookie.put(id, cookie);
+		
+		if (id != -1) {
+			if (!TextUtils.isEmpty(cookie)) {
+				sCookie.put(id, cookie);
+			}
 		}
 
 		StringBuilder builder = new StringBuilder(INITIAL_BUFFER_SIZE);
