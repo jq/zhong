@@ -18,7 +18,8 @@ import android.webkit.WebViewClient;
 
 public class BDSearcher implements IMusicSearcher {
 	
-	private static final String BASE_URL = "http://221.195.40.105:10008/m?f=ms&tn=baidump3&ct=134217728&lf=&rn=&lm=0&word=";
+	//private static final String BASE_URL = "http://221.195.40.105:10008/m?f=ms&tn=baidump3&ct=134217728&lf=&rn=&lm=0&word=";
+	private static final String BASE_URL = "http://221.195.40.183/m?f=ms&tn=baidump3&ct=134217728&lf=&rn=&lm=0&word=";
 	private static final Pattern PATTERN = Pattern.compile(
 			"<tr>\\s*"+
 			"<td class=tdn>.*?</td>\\s*" +    

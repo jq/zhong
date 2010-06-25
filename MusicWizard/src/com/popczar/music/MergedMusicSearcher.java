@@ -14,8 +14,8 @@ public class MergedMusicSearcher implements IMusicSearcher {
 	
 	public MergedMusicSearcher() {
 		mSogou = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SOGOU);
-		//mSecondSearcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SKREEMR);
-		mSecondSearcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_BAIDU);
+		mSecondSearcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SKREEMR);
+		//mSecondSearcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_BAIDU);
 	}
 	
 
