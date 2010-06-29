@@ -28,6 +28,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.MergeCursor;
 import android.media.AudioManager;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -1767,7 +1768,8 @@ public class RingdroidEditActivity extends Activity implements
 	
     Cursor createCursor() {
         String selection;
-        selection = MediaStore.Audio.Media.DATA+"='"+mFilename+"'";
+        // Fix ringdroid bug:
+        selection = MediaStore.Audio.Media.DATA+"='"+DatabaseUtils.sqlEscapeString(mFilename)+"'";
         Cursor c = new MergeCursor(new Cursor[] {
             getExternalAudioCursor(selection, null),
             getInternalAudioCursor(selection, null)});

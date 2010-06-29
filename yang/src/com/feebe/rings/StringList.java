@@ -74,7 +74,7 @@ public class StringList extends BaseList {
 	        this.add(new Item(id, ARTIST_TYPE));
 	      }
       }
-      runSyn(base_url, Const.OneWeek);
+      runAsyn(base_url, Const.OneWeek);
     }
 
     @Override

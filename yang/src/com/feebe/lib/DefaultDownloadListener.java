@@ -60,7 +60,9 @@ public class DefaultDownloadListener {
 
 	public void onDownloadFail() {
 		if (!isBackground) {
-			dlProgress.dismiss();
+			try {
+			  dlProgress.dismiss();
+			} catch (Exception e) {}
 		}
 	}
 	
