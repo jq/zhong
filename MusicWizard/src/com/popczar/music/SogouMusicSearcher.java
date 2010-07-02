@@ -23,12 +23,11 @@ public class SogouMusicSearcher implements IMusicSearcher {
 			"<td.*?\\bsinger=\"([^\"]*)\".*?" +   // 2
 			"<td.*?\\btitle=\"([^\"]*)\".*?" +   // 3
 			"<td.*?</td>.*?" +  // Ignore
+			"<td.*?\'(/down.so.*?)\'.*?" +  // 4
+			"<td.*?href=\"([^\"]*)\".*?" +  // 5
 			"<td.*?</td>.*?" +  // Ignore
-			"<td.*?\'(/down.so.*?)\'.*?" +  // 6
-			"<td.*?href=\"([^\"]*)\".*?" +  // 7
-			"<td.*?</td>.*?" +  // Ignore
-			"<td.*?>([^<]*)<.*?" +   // 9
-			"<td.*?>([^<]*)<" +   // 10
+			"<td.*?>([^<]*)<.*?" +   // 6
+			"<td.*?>([^<]*)<" +   // 7
 			""
 			, Pattern.DOTALL);
 	
