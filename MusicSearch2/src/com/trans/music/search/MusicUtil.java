@@ -19,6 +19,21 @@ import android.text.TextUtils;
 import android.util.Log;
 
 public class MusicUtil {
+	static Pattern PATTERN_ROW = Pattern.compile("<tr(.*?)</tr>", Pattern.DOTALL);
+	static Pattern PATTERN = Pattern.compile(
+			"<td.*?\\btitle=\"([^\"]*)\".*?" +   // 1
+			"<td.*?\\bsinger=\"([^\"]*)\".*?" +   // 2
+			"<td.*?\\btitle=\"([^\"]*)\".*?" +   // 3
+			"<td.*?</td>.*?" +  // Ignore
+			"<td.*?\'(/down.so.*?)\'.*?" +  // 4
+			"<td.*?href=\"([^\"]*)\".*?" +  // 5
+			"<td.*?</td>.*?" +  // Ignore
+			"<td.*?>([^<]*)<.*?" +   // 6
+			"<td.*?>([^<]*)<" +   // 7
+			""
+			, Pattern.DOTALL);
+	
+	
   
   //public static final String //SogouSearchBase = "http://mp3.sogou.com/music.so?pf=mp3&as=&st=&ac=1&w=02009900&query=";
   //http://mp3.sogou.com/music.so?pf=&as=&st=&ac=1&w=02009900&query=
@@ -120,22 +135,6 @@ public static void setStingKey(String key, String value) {
 			urlConn.disconnect();
 			httpresponse = builder.toString();
 
-			Pattern PATTERN_ROW = Pattern.compile("<tr(.*?)</tr>", Pattern.DOTALL);
-			Pattern PATTERN = Pattern.compile(
-			"<td.*?\\btitle=\"([^\"]*)\".*?" +   // 1
-			"<td.*?\\bsinger=\"([^\"]*)\".*?" +   // 2
-			"<td.*?\\btitle=\"([^\"]*)\".*?" +   // 3
-			"<td.*?</td>.*?" +  // Ignore
-			"<td.*?</td>.*?" +  // Ignore
-			"<td.*?\'(/down.so.*?)\'.*?" +  // 6
-			"<td.*?href=\"([^\"]*)\".*?" +  // 7
-			"<td.*?</td>.*?" +  // Ignore
-			"<td.*?>([^<]*)<.*?" +   // 9
-			"<td.*?>([^<]*)<" +   // 10
-			""
-			, Pattern.DOTALL);
-			
-			
 			Matcher matcherRow = PATTERN_ROW.matcher(httpresponse);
 			while (matcherRow.find()) {
 				Matcher m = PATTERN.matcher(matcherRow.group(1));
