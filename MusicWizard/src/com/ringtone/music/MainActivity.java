@@ -1,11 +1,11 @@
-package com.popczar.music;
+package com.ringtone.music;
 
 import com.admob.android.ads.AdManager;
 import com.admob.android.ads.AdView;
-import com.popczar.music.R;
-import com.popczar.music.download.DownloadActivity;
-import com.popczar.music.updater.AppUpdater;
-import com.popczar.music.updater.UpdateInfo;
+import com.ringtone.music.R;
+import com.ringtone.music.download.DownloadActivity;
+import com.ringtone.music.updater.AppUpdater;
+import com.ringtone.music.updater.UpdateInfo;
 import com.qwapi.adclient.android.view.QWAdView;
 
 import android.app.Activity;

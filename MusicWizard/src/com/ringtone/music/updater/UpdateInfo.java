@@ -1,9 +1,9 @@
-package com.popczar.music.updater;
+package com.ringtone.music.updater;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.popczar.music.Constants;
+import com.ringtone.music.Constants;
 
 import android.text.TextUtils;
 

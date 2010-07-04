@@ -1,4 +1,4 @@
-package com.popczar.music;
+package com.ringtone.music;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;

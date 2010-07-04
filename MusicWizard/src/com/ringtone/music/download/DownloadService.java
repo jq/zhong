@@ -1,4 +1,4 @@
-package com.popczar.music.download;
+package com.ringtone.music.download;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.popczar.music.Constants;
-import com.popczar.music.MediaScannerHelper;
-import com.popczar.music.Utils;
+import com.ringtone.music.Constants;
+import com.ringtone.music.MediaScannerHelper;
+import com.ringtone.music.Utils;
 
 
 import android.app.Service;

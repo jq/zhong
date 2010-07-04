@@ -1,4 +1,4 @@
-package com.popczar.music;
+package com.ringtone.music;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,11 +7,11 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.admob.android.ads.AdView;
-import com.popczar.music.download.DownloadActivity;
-import com.popczar.music.download.DownloadInfo;
-import com.popczar.music.download.DownloadService;
+import com.ringtone.music.download.DownloadActivity;
+import com.ringtone.music.download.DownloadInfo;
+import com.ringtone.music.download.DownloadService;
 
-import com.popczar.music.R;
+import com.ringtone.music.R;
 import com.qwapi.adclient.android.view.QWAdView;
 
 

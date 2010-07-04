@@ -1,6 +1,6 @@
-package com.popczar.music;
+package com.ringtone.music;
 
-import com.popczar.music.R;
+import com.ringtone.music.R;
 
 import android.content.Context;
 import android.util.AttributeSet;

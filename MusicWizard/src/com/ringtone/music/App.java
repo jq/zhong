@@ -1,8 +1,8 @@
-package com.popczar.music;
+package com.ringtone.music;
 
 import java.io.File;
 
-import com.popczar.music.download.DownloadService;
+import com.ringtone.music.download.DownloadService;
 
 import android.app.Application;
 import android.content.Intent;

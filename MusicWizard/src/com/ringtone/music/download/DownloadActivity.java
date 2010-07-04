@@ -1,12 +1,12 @@
-package com.popczar.music.download;
+package com.ringtone.music.download;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import com.admob.android.ads.AdView;
-import com.popczar.music.AdListener;
-import com.popczar.music.R;
-import com.popczar.music.Utils;
+import com.ringtone.music.AdListener;
+import com.ringtone.music.R;
+import com.ringtone.music.Utils;
 import com.qwapi.adclient.android.view.QWAdView;
 
 import android.app.ListActivity;

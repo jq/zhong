@@ -1,13 +1,13 @@
-package com.popczar.music.updater;
+package com.ringtone.music.updater;
 
 import java.io.IOException;
 
 import org.json.JSONException;
 
-import com.popczar.music.Constants;
-import com.popczar.music.NetUtils;
-import com.popczar.music.Utils;
-import com.popczar.music.VersionUtils;
+import com.ringtone.music.Constants;
+import com.ringtone.music.NetUtils;
+import com.ringtone.music.Utils;
+import com.ringtone.music.VersionUtils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
