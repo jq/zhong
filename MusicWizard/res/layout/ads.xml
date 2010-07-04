@@ -12,7 +12,8 @@
         android:id="@+id/adMob" 
         android:layout_width="fill_parent"
 		android:layout_alignParentTop="true" 
-		android:layout_height="wrap_content" />
+		android:layout_height="wrap_content"
+		 />
  
     <com.qwapi.adclient.android.view.QWAdView
     android:id="@+id/QWAd"

@@ -27,6 +27,41 @@
        	<meta-data android:value="true" android:name="ADMOB_ALLOW_LOCATION_FOR_ADS" />
         -->
         
+        
+                <!-- Main activity that's launched when the user opens Ringdroid. -->
+        <activity android:name="com.ringdroid.RingdroidSelectActivity"
+                  android:label="@string/main_activity_label">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+                <data android:mimeType="audio/*" />
+            </intent-filter>
+
+        </activity>
+
+	<!-- Activity for actually editing a particular audio file.
+             Controls viewing the waveform, setting the start and end
+             positions, playback, and triggering saving of the output
+             file. -->
+        <activity android:name="com.ringdroid.RingdroidEditActivity"
+                  android:configChanges="orientation|keyboardHidden">
+            <intent-filter android:label="@string/edit_intent">
+                <action android:name="android.intent.action.EDIT" />
+                <data android:mimeType="audio/*" />
+            </intent-filter>
+        </activity>
+
+	<!-- Activity for choosing a contact to assign a ringtone to. -->
+        <activity android:name="com.ringdroid.ChooseContactActivity"
+                  android:configChanges="orientation|keyboardHidden">
+        </activity>
     </application>
     <uses-sdk android:minSdkVersion="4" />
 

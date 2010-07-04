@@ -2,6 +2,7 @@ package com.ringtone.music;
 
 import com.admob.android.ads.AdManager;
 import com.admob.android.ads.AdView;
+import com.ringdroid.RingdroidSelectActivity;
 import com.ringtone.music.R;
 import com.ringtone.music.download.DownloadActivity;
 import com.ringtone.music.updater.AppUpdater;
@@ -131,6 +132,10 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+        case R.id.ringtone:
+        	Intent i = new Intent(this, RingdroidSelectActivity.class);
+        	this.startActivity(i);
+        	break;
         case R.id.share_app:
         	String url = AppUpdater.getNewUpdateUrl(this);
         	if (TextUtils.isEmpty(url)) {
