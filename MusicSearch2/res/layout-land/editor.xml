@@ -181,16 +181,6 @@
       </LinearLayout>
 
    </LinearLayout>
-   	<FrameLayout android:id="@+id/AdsView" 
-	android:layout_width="fill_parent"
-    android:layout_height="wrap_content" android:gravity="top"
-    android:layout_alignParentBottom="true">
- 
-    <com.admob.android.ads.AdView
-        android:id="@+id/adMob" 
-        android:layout_width="fill_parent"
-		android:layout_alignParentTop="true" 
-		android:layout_height="wrap_content" />
  
 	<FrameLayout android:id="@+id/AdsView" 
 	android:layout_width="fill_parent"
@@ -212,6 +202,5 @@
     qwad:mediaType="banner"
     qwad:testMode="false" 
  />
-</FrameLayout>  
 </FrameLayout>  
 </LinearLayout>

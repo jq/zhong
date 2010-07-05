@@ -57,6 +57,7 @@
                   
         </activity>
         <activity android:name="com.ringdroid.RingdroidEditActivity"
+           			android:launchMode="singleTop" 
                   android:configChanges="orientation|keyboardHidden">
             <intent-filter android:label="@string/edit_intent">
                 <action android:name="android.intent.action.EDIT" />

@@ -19,19 +19,19 @@
 
 <resources>
 
-    <string name="app_name">Ringdroid</string>
+    <string name="app_name">ringtone</string>
 
     <!--
      Main / media select activity
      -->
 
-    <string name="main_activity_label">ringdroidg56rajjb</string>
+    <string name="main_activity_label">ringtone</string>
 
     <string name="button_start_record_activity">Record New</string>
 
-    <string name="sdcard_readonly">Sorry, the SD Card is mounted as read-only and Ringdroid requires it to be writable.</string>
-    <string name="no_sdcard">Sorry, ringdroid can not run unless you have an SD Card inserted.</string>
-    <string name="sdcard_shared">Sorry, ringdroid can not run while your handset is mounted as a USB device.</string>
+    <string name="sdcard_readonly">Sorry, the SD Card is mounted as read-only and ringtone requires it to be writable.</string>
+    <string name="no_sdcard">Sorry, ringtone can not run unless you have an SD Card inserted.</string>
+    <string name="sdcard_shared">Sorry, ringtone can not run while your handset is mounted as a USB device.</string>
 
     <!--
      Edit activity
@@ -91,7 +91,7 @@
 
     <string name="ringtone_name_label">Name:</string>
 
-    <string name="artist_name">Ringdroid</string>
+    <string name="artist_name">ringtone</string>
 
     <!--
      Delete confirmation dialog
@@ -103,9 +103,9 @@
     <string name="delete_music">Delete Music</string>
     <string name="delete_audio">Delete Audio</string>
 
-    <string name="confirm_delete_ringdroid">Are you sure?</string>
-    <string name="confirm_delete_non_ringdroid"
-    >Are you sure?  This file was not created using Ringdroid!</string>
+    <string name="confirm_delete_ringtone">Are you sure?</string>
+    <string name="confirm_delete_non_ringtone"
+    >Are you sure?  This file was not created using ringtone!</string>
 
     <string name="delete_ok_button">Delete</string>
     <string name="delete_cancel_button">Cancel</string>
@@ -134,8 +134,8 @@
 
     <string name="no_space_error">Your SD card is full, there is not enough space to save this file.</string>
 
-    <string name="bad_extension_error">Sorry, Ringdroid is not yet able to edit files of type</string>
-    <string name="no_extension_error">Sorry, Ringdroid can not edit a file if it does not have an extension like .mp3 or .wav</string>
+    <string name="bad_extension_error">Sorry, ringtone is not yet able to edit files of type</string>
+    <string name="no_extension_error">Sorry, ringtone can not edit a file if it does not have an extension like .mp3 or .wav</string>
 
     <!--
      Choose Contact Activity
@@ -148,19 +148,19 @@
      Sending information to server
      -->
     <string name="server_title">Share your data!</string>
-    <string name="server_prompt">Okay to send anonymous data about the ringtones and other sounds you create to Ringdroid.com so we can collect statistics?</string>
+    <string name="server_prompt">Okay to send anonymous data about the ringtones and other sounds you create to ringtone.com so we can collect statistics?</string>
     <string name="server_yes">OK to send</string>
     <string name="server_later">Ask later</string>
     <string name="server_never">Never</string>
 
-    <string name="error_server_prompt">Okay to send anonymous data about this error to Ringdroid.com so we can try to fix this problem in the future?</string>
+    <string name="error_server_prompt">Okay to send anonymous data about this error to ringtone.com so we can try to fix this problem in the future?</string>
 
     <!--
      About
      -->
 
-    <string name="about_title">About Ringdroid</string>
-    <string name="about_text"><![CDATA[Use Ringdroid to edit MP3, WAV, AAC, and AMR audio files and create ringtones, alarms, and notifications from them.\n\nTip: copy audio files to your SD card using a USB cable, or get MP3s using the Amazon MP3 application.\n\nTip: long-press on an audio file from the main screen to delete it.  More below...\n\nTip: tap anywhere on the waveform to start playing at that position.\n\nTip: while playing, tap the word Start or End to quickly set the start and end markers to the current playback time.\n\nTip: Use the jog wheel for more precise adjustments.\n\nVersion 2.3\n\nDeveloper: Dominic Mazzoni\nGraphics: Joseph Wain\nSupport and evangelizing: Eugene Koh\n\nRingdroid is free software, distributed under the Apache 2.0 license.  Source code is on code.google.com\n]]></string>
+    <string name="about_title">About ringtone</string>
+    <string name="about_text"><![CDATA[Use ringtone to edit MP3, WAV, AAC, and AMR audio files and create ringtones, alarms, and notifications from them.\n\nTip: copy audio files to your SD card using a USB cable, or get MP3s using the Amazon MP3 application.\n\nTip: long-press on an audio file from the main screen to delete it.  More below...\n\nTip: tap anywhere on the waveform to start playing at that position.\n\nTip: while playing, tap the word Start or End to quickly set the start and end markers to the current playback time.\n\nTip: Use the jog wheel for more precise adjustments.\n\nVersion 2.3\n\nDeveloper: Dominic Mazzoni\nGraphics: Joseph Wain\nSupport and evangelizing: Eugene Koh\n\nringtone is free software, distributed under the Apache 2.0 license.  Source code is on code.google.com\n]]></string>
     <string name="edit">Edit</string>
         <string name="rate_low">The bitrate of this music is too low. It may be distorted after edited. It is recommended you to use the whole music by click "Use All" button.</string>
     <string name="use_all">Use all</string>

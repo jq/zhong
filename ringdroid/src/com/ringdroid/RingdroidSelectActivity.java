@@ -423,7 +423,7 @@ public class RingdroidSelectActivity
             intent.putExtra("was_get_content_intent",
                             mWasGetContentIntent);
             intent.setClassName(
-                "com.ringdroid",
+                this,
                 "com.ringdroid.RingdroidEditActivity");
             startActivityForResult(intent, REQUEST_CODE_EDIT);
         } catch (Exception e) {
@@ -441,7 +441,7 @@ public class RingdroidSelectActivity
             intent.putExtra("was_get_content_intent",
                             mWasGetContentIntent);
             intent.setClassName(
-                "com.ringdroid",
+                this,
                 "com.ringdroid.RingdroidEditActivity");
             startActivityForResult(intent, REQUEST_CODE_EDIT);
         } catch (Exception e) {
