@@ -26,6 +26,7 @@ MIDDLEWARE_CLASSES = (
     #'appstats.recording.AppStatsDjangoMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.http.ConditionalGetMiddleware',
+    'appinfo.middleware.AddUserToRequestMiddleware'
 )
 ROOT_URLCONF = 'urls'
 TEMPLATE_CONTEXT_PROCESSORS = (
