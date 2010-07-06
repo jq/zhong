@@ -135,8 +135,10 @@
     <string name="delete_audio">Delete Audio</string>
 
     <string name="confirm_delete_ringtone">Are you sure?</string>
-    <string name="confirm_delete_non_ringtone"
-    >Are you sure?  This file was not created using ringtone!</string>
+    <string name="confirm_delete_non_ringtone">Are you sure?  This file was not created using ringtone!</string>
+    
+    <string name="confirm_delete_ringdroid">Are you sure?</string>
+    <string name="confirm_delete_non_ringdroid">Are you sure?  This file was not created using ringtone!</string>
 
     <string name="delete_ok_button">Delete</string>
     <string name="delete_cancel_button">Cancel</string>

@@ -321,10 +321,10 @@ public class RingdroidSelectActivity
         CharSequence message;
         if (artist.equals(ringdroidArtist)) {
             message = getResources().getText(
-                R.string.confirm_delete_ringdroid);
+                R.string.confirm_delete_ringtone);
         } else {
             message = getResources().getText(
-                R.string.confirm_delete_non_ringdroid);
+                R.string.confirm_delete_non_ringtone);
         }
 
         CharSequence title;
