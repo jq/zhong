@@ -738,7 +738,6 @@ public class RingdroidEditActivity extends Activity implements
 							listener);
 
 					if (mSoundFile == null) {
-						mProgressDialog.dismiss();
 						String name = mFile.getName().toLowerCase();
 						String[] components = name.split("\\.");
 						String err;
@@ -753,6 +752,7 @@ public class RingdroidEditActivity extends Activity implements
 						final String finalErr = err;
 						Runnable runnable = new Runnable() {
 							public void run() {
+                                mProgressDialog.dismiss();
 								handleFatalError("UnsupportedExtension",
 										finalErr, new Exception());
 							}
@@ -761,12 +761,12 @@ public class RingdroidEditActivity extends Activity implements
 						return;
 					}
 				} catch (final Exception e) {
-					mProgressDialog.dismiss();
 					e.printStackTrace();
-					mInfo.setText(e.toString());
 
 					Runnable runnable = new Runnable() {
 						public void run() {
+							mProgressDialog.dismiss();
+							mInfo.setText(e.toString());
 							handleFatalError("ReadError", getResources()
 									.getText(R.string.read_error), e);
 						}
@@ -774,7 +774,14 @@ public class RingdroidEditActivity extends Activity implements
 					mHandler.post(runnable);
 					return;
 				}
-				mProgressDialog.dismiss();
+				mHandler.post(new Runnable() {
+
+					@Override
+					public void run() {
+						mProgressDialog.dismiss();
+					}
+					
+				});
 				if (mLoadingKeepGoing) {
 					Runnable runnable = new Runnable() {
 						public void run() {
