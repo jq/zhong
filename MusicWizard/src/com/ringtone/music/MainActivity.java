@@ -80,6 +80,16 @@ public class MainActivity extends Activity {
 			}
         });
         
+        TextView ringtone = (TextView)findViewById(R.id.ringtone);
+        ringtone.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+	        	Intent i = new Intent(MainActivity.this, RingdroidSelectActivity.class);
+	        	startActivity(i);
+			}
+        });
+        
         checkFeedsAndUpdate();
     }
     
