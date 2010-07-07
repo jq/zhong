@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+	
+	<FrameLayout android:id="@+id/ads" 
+	   xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.fungame.music"
+    xmlns:qwad="http://schemas.android.com/apk/res/com.fungame.music"
+	android:layout_width="fill_parent"
+    android:layout_height="wrap_content" android:gravity="top"
+    android:layout_alignParentBottom="true">
+ 
+    <com.admob.android.ads.AdView
+        android:id="@+id/adMob" 
+        android:layout_width="fill_parent"
+		android:layout_alignParentTop="true" 
+		android:layout_height="wrap_content"
+		 />
+ 
+    <com.qwapi.adclient.android.view.QWAdView
+    android:id="@+id/QWAd"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    qwad:siteId="Musicmp3-g8886byb"
+    qwad:publisherId="a7beb24f184b4305804013cbc447f678"
+    qwad:mediaType="banner"
+    qwad:testMode="false" 
+ />
+</FrameLayout>    
+	
+   <!--<com.admob.android.ads.AdView
+   xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.popczar.music"
+    xmlns:qwad="http://schemas.android.com/apk/res/com.popczar.music"
+   
+       android:id="@+id/ad"
+       android:visibility="visible"
+       android:layout_width="fill_parent" 
+       android:layout_height="wrap_content"
+       app:backgroundColor="#000000"
+       app:textColor="#FFFFFF"
+       app:keywords="game, job, shop, medicine, social, dating, travel, jobs, car, insurance, sex, digital, camera, phone, clothing, computer, girl, music, mp3"
+     
+     
+     />
+	   -->

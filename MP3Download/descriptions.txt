@@ -1,0 +1,7 @@
+Mp3 music search and download. Millions of free mp3 music from public search
+engines. Works best with built-in music player. 
+
+v1.17:
+- Added share functionality and update notification
+v1.17.1:
+- Fixed connection issue.

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+	<include layout="@layout/search"/>
+	
+    <include layout="@layout/ads"/>
+    
+
+   <LinearLayout android:scrollbars="none"
+               android:layout_width="fill_parent" android:layout_height="wrap_content"
+               android:layout_weight="1"
+   />
+    
+    <LinearLayout android:orientation="horizontal" android:id="@+id/main_navbar" android:background="@drawable/navbg2" android:layout_width="fill_parent" android:layout_height="48.0dip"
+    android:visibility="visible">
+        <ImageView android:id="@+id/ringtone" android:layout_width="46.0dip" android:layout_height="46.0dip" android:layout_marginTop="1.0dip" android:src="@drawable/b_search_on" android:layout_weight="1.0" />
+        <ImageView android:id="@+id/downloads" android:layout_width="46.0dip" android:layout_height="46.0dip" android:layout_marginTop="1.0dip" android:src="@drawable/b_download_on" android:layout_weight="1.0" />
+        <ImageView android:id="@+id/music_library" android:layout_width="46.0dip" android:layout_height="46.0dip" android:layout_marginTop="1.0dip" android:src="@drawable/b_library_on" android:layout_weight="1.0" />
+    </LinearLayout>	        
+</LinearLayout>

@@ -1,0 +1,17 @@
+
+Update appname and package.
+--This line, and those below, will be ignored--
+
+M    AndroidManifest.xml
+A  + src/com/ringtone
+A  + src/com/ringtone/music/MainActivity.java
+A  + src/com/ringtone/music/BDSearcher.java
+A  + src/com/ringtone/music/Feed.java
+A  + src/com/ringtone/music/VersionUtils.java
+A  + src/com/ringtone/music/NetUtils.java
+A  + src/com/ringtone/music/SogouMusicSearcher.java
+A  + src/com/ringtone/music/Constants.java
+A  + src/com/ringtone/music/MergedMusicSearcher.java
+A  + src/com/ringtone/music/updater
+D    src/com/popczar
+M    res/values/strings.xml

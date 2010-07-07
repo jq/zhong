@@ -1,0 +1,1934 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<meta charset="utf-8"> 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+  
+ 
+  
+  
+ 
+ 
+  
+  
+ 
+  
+  
+ 
+ 
+ 
+ 
+<title>gaga - SkreemR Mp3 Search</title> 
+<meta name="description"
+  content="Audio search results for: gaga"> 
+<script src="script/art.js"          type="text/javascript"></script> 
+<script src="script/facebook_add.js" type="text/javascript"></script> 
+<script src="script/playa.js"        type="text/javascript"></script> 
+<script src="audio/audio-player.js"  type="text/javascript"></script> 
+<meta name="keywords"
+  content="gaga, mp3 search, mp3 search engine, mp3, mp3 download, mp3s, music
+search, audio search, music search engines"> 
+<link rel="shortcut icon" href="http://skreemr.org/favicon.ico"> 
+<LINK HREF="styles/styles.css" REL="stylesheet" TYPE="text/css"> 
+ 
+<script type="text/javascript"> 
+        <!--
+        function checkform ()
+        {
+          if (document.searchForm.q.value == '') {
+            document.searchForm.q.focus();
+            return false;
+          }
+          return true;
+        }
+      
+        function checkform2 ()
+        {
+          if (document.searchForm2.q.value == '') {
+            document.searchForm2.q.focus();
+            return false;
+          }
+          return true;
+        }
+        
+        //-->
+        </script> 
+</head> 
+<body> 
+<script type="text/javascript" src="script/wz_tooltip.js"></script> 
+<script type="text/javascript" src="script/tip_balloon.js"></script> 
+<script type="text/javascript" src="script/tip_centerwindow.js"></script> 
+<script type="text/javascript" src="script/tip_followscroll.js"></script> 
+ 
+<br> 
+<form method="get" name="searchForm" action="results.jsp" onSubmit="return
+checkform()"> 
+<table style="margin-left: 0px; margin-right: auto; padding: 8px;
+border-spacing: 8px;"> 
+  <tr> 
+    <td><a href="index.jsp"><img height="92" width="285"
+      src="images/skreemr_small2.jpg" alt="skreemr logo" /></a></td> 
+    <td style="vertical-align: middle; "><input size="50" type="text" name="q"
+      class="sbox" value="gaga"><input 
+      type="submit" value="Search" class="lsb" /><br><h5 class="index"><a
+href="advanced_search.jsp">Advanced
+    Search</a></h5></td> 
+    <td></td> 
+  </tr> 
+</table> 
+</form> 
+ 
+ 
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+ 
+  
+ 
+  
+  
+ 
+  <BR style="clear:left;" /> 
+  <hr> 
+  
+  
+    <table> 
+      <tr> 
+        <td style="padding: 3px;"> 
+        <DIV CLASS="results"> 
+        <p class="counter">Showing results
+                <b>1 -  
+      10
+     </b>out of <b>633</b>&nbsp;for&nbsp;<b><i>gaga</i></b></p> 
+        </DIV> 
+        </td> 
+      </tr> 
+      <tr> 
+      <td style="padding-left: 25px;"> 
+<script type="text/javascript"><!--
+google_ad_client = "pub-7838996662104338";
+/* 728x90, created 5/12/10 */
+google_ad_slot = "5264746467";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script> 
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> 
+</script></td> 
+      </tr> 
+    </table> 
+ 
+    
+    
+ 
+ 
+ 
+<script src="script/skreemr-basic.js" type="text/javascript"></script> 
+<script src="script/niftycube/niftycube.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+  window.onload = function() {
+    Nifty("ul.sharemenuitem");
+  }
+</script> 
+ 
+<table style="border-bottom-width: thin; border-bottom-style: none;
+border-top-style: none; border-left-color: #000000; border-top-color: #000000;
+border-right-color: #000000; border-left-style: none; border-right-width:
+thin; border-right-style: none; border-left-width: thin; border-bottom-color:
+#000000; border-top-width: thin"> 
+  <tr> 
+  
+    <td style="width: 25px"> 
+    </td> 
+    <td> 
+      <!-- result table begins --> 
+      
+     <table style="background-color:#f8f8f8; padding-top: 5px; width: 800px;
+border-bottom-width: thin; border-bottom-style: none; border-top-style: none;
+border-left-color: #000000; border-top-color: #000000; border-right-color:
+#000000; border-left-style: none; border-right-width: thin;
+border-right-style: none; border-left-width: thin; border-bottom-color:
+#000000; border-top-width: thin"> 
+    
+        <tr> 
+          
+                    
+                    
+                    
+        
+            
+          
+          <td  style="width: 100px; padding-top: 5px; vertical-align: top;
+margin-left: 0px; margin-right: auto;" rowspan="6"><iframe
+src="http://www.facebook.com/plugins/like.php?href=http://skreemr.org/link.jsp?id=6259455655586A16&amp;artist=Lady%20Gaga%20Feat.%20Colby%20O\&#039;Donis&amp;title=Just%20Dance%20(Main)&amp;layout=button_count&amp;show_faces=false"
+style="border:none; overflow:hidden; width:80px; height:20px;
+vertical-align:top;"></iframe> 
+          
+          
+          
+          <br><br> 
+      
+          
+          
+              
+          <a
+href="http://twitter.com/home?status=Listening%20to%20Lady%20Gaga%20Feat.%20Colby%20O&#039;Donis%20-%20Just%20Dance%20(Main)%20via%20%23SkreemR%20http://skreemr.org/link.jsp?id=6259455655586A16&amp;amp;artist=Lady%20Gaga%20Feat.%20Colby%20O\&#039;Donis&amp;amp;title=Just%20Dance%20(Main)"
+title="Click to send this page to Twitter!" target="_blank"
+onmouseover="Tip('Tweet about it!', BALLOON, true, ABOVE, true, OFFSETX,
+0)"><img src="images/tweet.gif" alt="tweet this song"></a><br><br> 
+                <!-- AddThis Button BEGIN --> <a 
+                class="addthis_button"
+                href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4be1d4943d092a8b&amp;url=http://skreemr.org/link.jsp?id=6259455655586A16&amp;artist=Lady%20Gaga%20Feat.%20Colby%20O\&#039;Donis&amp;title=Just%20Dance%20(Main)"><img 
+                src="en.gif"
+                width="83" height="16" alt="Bookmark and Shacript"
+                src="http://s7.addthis.com/js/250/addthis_widgipt> 
+              <!-- AddThis Button END --><br><br> 
+              <a 
+  86A16&amp;artist=Lady%20Gaga%20Feat.%20Colby%20O\&#039;Donis&a
+style="text-decoration: none;"
+                onclick="javascr0586');"
+                onmouseover="Tip('Link to this result!', BALLO
+                style="vertical-align: bottom" />&nbsp;link it
+</a><brsp?id=6259455655586A16&amp;artist=Lady%20Gaga%20Feat.%20Colby%2
+style="text-decoration: none;"
+            onclick="javascript:pageT0586');"
+            onmouseover="Tip('Embed this mp3 on a web page!', BALLOON, true,
+ABOVE, true, OFFSETX, 0)"> 
+          <img src="images/play_icon.gif" 
+            style="vertical-align: bottom" />&nbsp;&nbsp;embed it </a> 
+              
+                </td> 
+                <TD style="border-left: 1px solid #8C8C8C; padding: 5px;"
+rowspan="6"> 
+          <td> 
+          
+              
+              
+              
+             
+          <h2><a
+href="link.jsp?id=6259455655586A16&amp;artist=Lady%20Gaga%20Feat.%20Colby%20O\&#039;Donis&amp;title=Just%20Dance%20(Main)" 
+            onclick="javascript:pageTracker._trackPageview('/clicks/Lady Gaga
+Feat. Colby O&#039;Donis - Just Dance (Main)');">Lady Gaga Feat. Colby O'Donis
+- Just Dance (Main)</a></h2> 
+          </td> 
+        </tr> 
+  
+        <tr> 
+          <!--  Don't show the player for mp3s that it cannot play --> 
+          
+ 
+              
+              
+              
+              
+ 
+              <td> 
+              
+              
+              
+                <div> 
+              <object 
+                onclick="javascript:pageTracker._trackPageview('/player/Lady
+Gaga Feat. Colby O&#039;Donis - Just Dance (Main)')"
+                type="application/x-shockwave-flash" data="audio/player.swf"
+                id='audioplayer1' height="24"
+                width="290"> 
+                <param name="movie" value="audio/player.swf"> 
+                <param name="FlashVars"
+                  value='playerID=1&amp;bg=0xCDDFF3&amp;leftbg=0x357DCE&amp;lefticon=0xF2F2F2&amp;rightbg=0xF06A51&amp;rightbghover=0xAF2910&amp;righticon=0xF2F2F2&amp;righticonhover=0xFFFFFF&amp;text=0x357DCE&amp;slider=0x357DCE&amp;track=0xFFFFFF&amp;border=0xFFFFFF&amp;titles=Lady
+Gaga Feat. Colby O&#039;Donis - Just Dance
+(Main)&amp;loader=0xAF2910&amp;soundFile=http%3A%2F%2Fsite.rraurl.com%2Fmedia%2Fmusica%2Fbbc09%2Flady_gaga-just-dance.mp3'> 
+                <param name="quality" value="high"> 
+                <param name="menu" value="true"> 
+                <param name="wmode" value="transparent"> 
+              </object></div> 
+              
+              </td> 
+            
+        </tr> 
+              
+        <tr style="padding-top: 10px; padding-bottom: 10px; font-family:
+Verdana, Arial, Sans-Serif; font-weight: bold"> 
+          <td>mp3 -    204 kbps - 00:04:04 sec -  5.9 mb&nbsp;<br> 
+          <p class="album">Artist&nbsp;&nbsp;: <a
+href="advanced_results.jsp?advanced=true&song=&album=&genre=&bitrate=0&length=00%3A00%3A00&artist=Lady
+Gaga Feat. Colby O'Donis">Lady Gaga Feat. Colby O'Donis</a><br> 
+              Album : <a
+href="advanced_results.jsp?advanced=true&song=&genre=&bitrate=0&length=00%3A00%3A00&artist=Lady
+Gaga Feat. Colby O'Donis&album=Just Dance">Just Dance</a><br> 
+                        <div>Download MP3: <a 
+        href="http://www.amazon.com/gp/search?ie=UTF8&keywords=Lady Gaga Feat.
+Colby
+O&#039;Donis&tag=skreemrcom-20&index=digital-music&linkCode=ur2&camp=1789&creative=9325"
+        onclick="javascript:urchinTracker ('/amazon/'); "
+        class="snap_noshots" target="_blank"
+        onmouseover="Tip('Find music by this artist at Amazon.com', BALLOON,
+true, ABOVE, true, OFFSETX, 0);">Amazon</a> 
+      <img 
+        src="http://www.assoc-amazon.com/e/ir?t=skreemrcom-20&amp;l=ur2&amp;o=1"
+        width="1" height="1" border="0" alt=""
+        style="border: none !important; margin: 0px !important;" /> 
+                                   &nbsp;&nbsp;&nbsp;</div></p> 
+          
+          </td> 
+        </tr> 
+        
+        <!-- dark row ends --> 
+        <!-- light row begins --> 
+        <tr style="font-family: Verdana, Arial, Sans-Serif; font-weight: bold;
+padding-left: 10px; padding-right: 10px; padding-top: 4px; padding-bottom:
+4px"> 
+          <td> 
+          <div>Found at: <a href='http://site.rraurl.com' target="_blank"
+            onclick="javascript:pageTracker._trackPageview('/host/12730586');
+">site.rraurl.com</a></div> 
+          </td> 
+        </tr> 
+        <tr> 
+          <td>&nbsp;<br> 
+      <a class="ringtone"
+href="http://www.ringtonematcher.com/co/ringtonematcher/02/noc.asp?sid=SKREros&amp;artist=Lady%20Gaga%20Feat.%20Colby%20O\&#039;Donis&amp;song=Just%20Dance%20(Main)"
+target="_blank"><img src="images/phone_left.gif" style="vertical-align:
+bottom" /><span class="ringtext">&nbsp;&nbsp; Send &ldquo;Lady Gaga Feat.
+Colby O&#039;Donis - Just Dance (Main)&rdquo; Ringtone to Your Cell
+&nbsp;&nbsp;</span><img src="images/phone_right.gif" style="vertical-align:
+bottom" /></a> 
+    <br>&nbsp;<br></td> 
+        </tr> 
+ 
+      </table> 
+      <br> 
+      <!-- result table ends --> 
+    
+      <!-- result table begins --> 
+      
+     <table style="background-color:#ffffff; padding-top: 5px; width: 800px;
+border-bottom-width: thin; border-bottom-style: none; border-top-style: none;
+border-left-color: #000000; border-top-color: #000000; border-right-color:
+#000000; border-left-style: none; border-right-width: thin;
+border-right-style: none; border-left-width: thin; border-bottom-color:
+#000000; border-top-width: thin"> 
+    
+        <tr> 
+          
+                    
+                    
+                    
+        
+            
+          
+          <td  style="width: 100px; padding-top: 5px; vertical-align: top;
+margin-left: 0px; margin-right: auto;" rowspan="6"><iframe
+src="http://www.facebook.com/plugins/like.php?href=http://skreemr.org/link.jsp?id=62534155555A6218&amp;artist=Lady%20Gaga&amp;title=Monster&amp;layout=button_count&amp;show_faces=false"
+style="border:none; overflow:hidden; width:80px; height:20px;
+vertical-align:top;"></iframe> 
+          
+          
+          
+          <br><br> 
+      
+          
+          
+              
+          <a
+href="http://twitter.com/home?status=Listening%20to%20Lady%20Gaga%20-%20Monster%20via%20%23SkreemR%20http://skreemr.org/link.jsp?id=62534155555A6218&amp;amp;artist=Lady%20Gaga&amp;amp;title=Monster"
+title="Click to send this page to Twitter!" target="_blank"
+onmouseover="Tip('Tweet about it!', BALLOON, true, ABOVE, true, OFFSETX,
+0)"><img src="images/tweet.gif" alt="tweet this song"></a><br><br> 
+                <!-- AddThis Button BEGIN --> <a 
+                class="addthis_button"
+                href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4be1d4943d092a8b&amp;url=http://skreemr.org/link.jsp?id=62534155555A6218&amp;artist=Lady%20Gaga&amp;title=Monster"><img 
+                src="http://s7.addthis.com/static/btn/sm-share-en.gif"
+                width="83" height="16" alt="Bookmark and Share"
+                style="border: 0" /></a><script type="text/javascript"
+                src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4be1d4943d092a8b"></script> 
+              <!-- AddThis Button END --><br><br> 
+              <a 
+                href="link.jsp?id=62534155555A6218&amp;artist=Lady%20Gaga&amp;title=Monster"
+                style="text-decoration: none;"
+                onclick="javascript:pageTracker._trackPageview('/share/link/18300708');"
+                onmouseover="Tip('Link to this result!', BALLOON, true, ABOVE,
+true, OFFSETX, 0)"> 
+              <img src="images/link.gif" 
+                style="vertical-align: bottom" />&nbsp;link it </a><br><br> 
+                <a
+href="embed.jsp?id=62534155555A6218&amp;artist=Lady%20Gaga&amp;title=Monster"
+            style="text-decoration: none;"
+            onclick="javascript:pageTracker._trackPageview('/share/embed/18300708');"
+            onmouseover="Tip('Embed this mp3 on a web page!', BALLOON, true,
+ABOVE, true, OFFSETX, 0)"> 
+          <img src="images/play_icon.gif" 
+            style="vertical-align: bottom" />&nbsp;&nbsp;embed it </a> 
+              
+                </td> 
+                <TD style="border-left: 1px solid #8C8C8C; padding: 5px;"
+rowspan="6"> 
+          <td> 
+          
+              
+              
+              
+             
+          <h2><a
+href="link.jsp?id=62534155555A6218&amp;artist=Lady%20Gaga&amp;title=Monster" 
+            onclick="javascript:pageTracker._trackPageview('/clicks/Lady Gaga
+- Monster');">Lady Gaga - Monster</a></h2> 
+          </td> 
+        </tr> 
+  
+        <tr> 
+          <!--  Don't show the player for mp3s that it cannot play --> 
+          
+ 
+              
+              
+              
+              
+ 
+              <td> 
+              
+              
+              
+                <div> 
+              <object 
+                onclick="javascript:pageTracker._trackPageview('/player/Lady
+Gaga - Monster')"
+                type="application/x-shockwave-flash" data="audio/player.swf"
+                id='audioplayer2' height="24"
+                width="290"> 
+                <param name="movie" value="audio/player.swf"> 
+                <param name="FlashVars"
+                  value='playerID=2&amp;bg=0xCDDFF3&amp;leftbg=0x357DCE&amp;lefticon=0xF2F2F2&amp;rightbg=0xF06A51&amp;rightbghover=0xAF2910&amp;righticon=0xF2F2F2&amp;righticonhover=0xFFFFFF&amp;text=0x357DCE&amp;slider=0x357DCE&amp;track=0xFFFFFF&amp;border=0xFFFFFF&amp;titles=Lady
+Gaga -
+Monster&amp;loader=0xAF2910&amp;soundFile=http%3A%2F%2Fwww.minneapolisfuckingrocks.com%2Fconanmix%2Fladygaga_monster.mp3'> 
+                <param name="quality" value="high"> 
+                <param name="menu" value="true"> 
+                <param name="wmode" value="transparent"> 
+              </object></div> 
+              
+              </td> 
+            
+        </tr> 
+              
+        <tr style="padding-top: 10px; padding-bottom: 10px; font-family:
+Verdana, Arial, Sans-Serif; font-weight: bold"> 
+          <td>mp3 -    211 kbps - 00:04:11 sec -  6.3 mb&nbsp;<br> 
+          <p class="album">Artist&nbsp;&nbsp;: <a
+href="advanced_results.jsp?advanced=true&song=&album=&genre=&bitrate=0&length=00%3A00%3A00&artist=Lady
+Gaga">Lady Gaga</a><br> 
+              Album : <a
+href="advanced_results.jsp?advanced=true&song=&genre=&bitrate=0&length=00%3A00%3A00&artist=Lady
+Gaga&album=The Fame Monster (Deluxe Edition)">The Fame Monster (Deluxe
+Edition)</a><br> 
+                        <div>Download MP3: <a 
+        href="http://www.amazon.com/gp/search?ie=UTF8&keywords=Lady
+Gaga&tag=skreemrcom-20&index=digital-music&linkCode=ur2&camp=1789&creative=9325"
+        onclick="javascript:urchinTracker ('/amazon/'); "
+        class="snap_noshots" target="_blank"
+        onmouseover="Tip('Find music by this artist at Amazon.com', BALLOON,
+true, ABOVE, true, OFFSETX, 0);">Amazon</a> 
+      <img 
+        src="http://www.assoc-amazon.com/e/ir?t=skreemrcom-20&amp;l=ur2&amp;o=1"
+        width="1" height="1" border="0" alt=""
+        style="border: none !important; margin: 0px !important;" /> 
+                                   &nbsp;&nbsp;&nbsp;</div></p> 
+          
+          </td> 
+        </tr> 
+        
+        <!-- dark row ends --> 
+        <!-- light row begins --> 
+        <tr style="font-family: Verdana, Arial, Sans-Serif; font-weight: bold;
+padding-left: 10px; padding-right: 10px; padding-top: 4px; padding-bottom:
+4px"> 
+          <td> 
+          <div>Found at: <a href='http://music.minneapolisfuckingrocks.com'
+target="_blank"
+            onclick="javascript:pageTracker._trackPageview('/host/18300708');
+">music.minneapolisfuckingrocks.com</a></div> 
+          </td> 
+        </tr> 
+        <tr> 
+          <td>&nbsp;<br> 
+      <a class="ringtone"
+href="http://www.ringtonematcher.com/co/ringtonematcher/02/noc.asp?sid=SKREros&amp;artist=Lady%20Gaga&amp;song=Monster"
+target="_blank"><img src="images/phone_left.gif" style="vertical-align:
+bottom" /><span class="ringtext">&nbsp;&nbsp; Send &ldquo;Lady Gaga -
+Monster&rdquo; Ringtone to Your Cell &nbsp;&nbsp;</span><img
+src="images/phone_right.gif" style="vertical-align: bottom" /></a> 
+    <br>&nbsp;<br></td> 
+        </tr> 
+ 
+      </table> 
+      <br> 
+      <!-- result table ends --> 
+    
+      <!-- result table begins --> 
+      
+     <table style="background-color:#f8f8f8; padding-top: 5px; width: 800px;
+border-bottom-width: thin; border-bottom-style: none; border-top-style: none;
+border-left-color: #000000; border-top-color: #000000; border-right-color:
+#000000; border-left-style: none; border-right-width: thin;
+border-right-style: none; border-left-width: thin; border-bottom-color:
+#000000; border-top-width: thin"> 
+    
+        <tr> 
+          
+                    
+                    
+                    
+        
+            
+          
+          <td  style="width: 100px; padding-top: 5px; vertical-align: top;
+margin-left: 0px; margin-right: auto;" rowspan="6"><iframe
+src="http://www.facebook.com/plugins/like.php?href=http://skreemr.org/link.jsp?id=6253415C555E6B19&amp;artist=Lady%20Gaga%20feat.%20Michael%20Bolton&amp;title=Murder%20My%20Heart%20(Feat.%20Michael%20Bolton)&amp;layout=button_count&amp;show_faces=false"
+style="border:none; overflow:hidden; width:80px; height:20px;
+vertical-align:top;"></iframe> 
+          
+          
+          
+          <br><br> 
+      
+          
+          
+              
+          <a
+href="http://twitter.com/home?status=Listening%20to%20Lady%20Gaga%20feat.%20Michael%20Bolton%20-%20Murder%20My%20Heart%20(Feat.%20Michael%20Bolton)%20via%20%23SkreemR%20http://skreemr.org/link.jsp?id=6253415C555E6B19&amp;amp;artist=Lady%20Gaga%20feat.%20Michael%20Bolton&amp;amp;title=Murder%20My%20Heart%20(Feat.%20Michael%20Bolton)"
+title="Click to send this page to Twitter!" target="_blank"
+onmouseover="Tip('Tweet about it!', BALLOON, true, ABOVE, true, OFFSETX,
+0)"><img src="images/tweet.gif" alt="tweet this song"></a><br><br> 
+                <!-- AddThis Button BEGIN --> <a 
+                class="addthis_button"
+                href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4be1d4943d092a8b&amp;url=http://skreemr.org/link.jsp?id=6253415C555E6B19&amp;artist=Lady%20Gaga%20feat.%20Michael%20Bolton&amp;title=Murder%20My%20Heart%20(Feat.%20Michael%20Bolton)"><img 
+                src="http://s7.addthis.com/static/btn/sm-share-en.gif"
+                width="83" height="16" alt="Bookmark and Share"
+                style="border: 0" /></a><script type="text/javascript"
+                src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4be1d4943d092a8b"></script> 
+              <!-- AddThis Button END --><br><br> 
+              <a 
+                href="link.jsp?id=6253415C555E6B19&amp;artist=Lady%20Gaga%20feat.%20Michael%20Bolton&amp;title=Murder%20My%20Heart%20(Feat.%20Michael%20Bolton)"
+                style="text-decoration: none;"
+                onclick="javascript:pageTracker._trackPageview('/share/link/18390399');"
+                onmouseover="Tip('Link to this result!', BALLOON, true, ABOVE,
+true, OFFSETX, 0)"> 
+              <img src="images/link.gif" 
+                style="vertical-align: bottom" />&nbsp;link it </a><br><br> 
+                <a
+href="embed.jsp?id=6253415C555E6B19&amp;artist=Lady%20Gaga%20feat.%20Michael%20Bolton&amp;title=Murder%20My%20Heart%20(Feat.%20Michael%20Bolton)"
+            style="text-decoration: none;"
+            onclick="javascript:pageTracker._trackPageview('/share/embed/18390399');"
+            onmouseover="Tip('Embed this mp3 on a web page!', BALLOON, true,
+ABOVE, true, OFFSETX, 0)"> 
+          <img src="images/play_icon.gif" 
+            style="vertical-align: bottom" />&nbsp;&nbsp;embed it </a> 
+              
+                </td> 
+                <TD style="border-left: 1px solid #8C8C8C; padding: 5px;"
+rowspan="6"> 
+          <td> 
+          
+              
+              
+              
+             
+          <h2><a
+href="link.jsp?id=6253415C555E6B19&amp;artist=Lady%20Gaga%20feat.%20Michael%20Bolton&amp;title=Murder%20My%20Heart%20(Feat.%20Michael%20Bolton)" 
+            onclick="javascript:pageTracker._trackPageview('/clicks/Lady Gaga
+feat. Michael Bolton - Murder My Heart (Feat. Michael Bolton)');">Lady Gaga
+feat. Michael Bolton - Murder My Heart (Feat. Michael Bolton)</a></h2> 
+          </td> 
+        </tr> 
+  
+        <tr> 
+          <!--  Don't show the player for mp3s that it cannot play --> 
+          
+ 
+              
+              
+              
+              
+ 
+              <td> 
+              
+              
+              
+                <div> 
+              <object 
+                onclick="javascript:pageTracker._trackPageview('/player/Lady
+Gaga feat. Michael Bolton - Murder My Heart (Fe)"
+                type="application/x-shockwave-flash" data="audio/play4"
+                width="290"> 
+                <param name="movie"
+value="audiplayerID=3&amp;bg=0xCDDFF3&amp;leftbg=0x357DCE&amp;lefticon=0xF2ghticon=0xF2F2F2&amp;righticonhover=0xFFFFFF&amp;text=0x357DCE&r=0xFFFFFF&amp;titles=Lady
+Gaga feat. Michael Bolton - Murder
+Mp;soundFile=http%3A%2F%2Fwww.freemp3fan.com%2Fget.php%3F4sharedart__Feat_Micha.mp3'> 
+                <param name="quality" value="higname="wmode"
+value="transparent"> 
+              </object></div> 
+              
+              </td> 
+            
+        </tr> 
+              
+        <tr style="padding-top: 10px; padding-bottom: 10px; font-family:
+Verdana, Ariaold"> 
+          <td>mp3 -    320 kbps - 00:04:06 sec -  9.4
+mb&nbspref="advanced_results.jsp?advanced=true&song=&album=&genre=&bitlton</a><br> 
+              Album : <a
+href="advanced_results.jsp?true&song=&genre=&bitrate=0&length=00%3A00%3A00&artist=Lady
+Gag/www.amazon.com/gp/search?ie=UTF8&keywords=Lady Gaga feat. Michnoshots"
+target="_blank"
+        onmouseover="Tip('Find music by this artist at Amazon.com', BALLOON,
+true, ABOVE, true, OFFSETX, 0);">Amazon</a> 
+      <img 
+        src="http://www.assoc-amazon.com/e/ir?t=skreemrcom-20&amp;l=ur2&amp;o=1"
+        width="1" height="1" border="0" alt=""
+        style="border: none !important; margin: 0px !important;" /> 
+                                   &nbsp;&nbsp;&nbsp;</div></p> 
+          
+          </td> 
+        </tr> 
+        
+        <!-- dark row ends --> 
+        <!-- light row begins --> 
+        <tr style="font-family: Verdana, Arial, Sans-Serif; font-weight: bold;
+padding-left: 10px; padding-right: 10px; padding-top: 4px; padding-bottom:
+4px"> 
+          <td> 
+          <div>Found at: <a
+href='http://www.freemp3fan.com/search/mp3/1/michael-bolton-murder.html'
+target="_blank"
+            onclick="javascript:pageTracker._trackPageview('/host/18390399');
+">www.freemp3fan.com</a></div> 
+          </td> 
+        </tr> 
+        <tr> 
+          <td>&nbsp;<br> 
+      <a class="ringtone"
+href="http://www.ringtonematcher.com/co/ringtonematcher/02/noc.asp?sid=SKREros&amp;artist=Lady%20Gaga%20feat.%20Michael%20Bolton&amp;song=Murder%20My%20Heart%20(Feat.%20Michael%20Bolton)"
+target="_blank"><img src="images/phone_left.gif" style="vertical-align:
+bottom" /><span class="ringtext">&nbsp;&nbsp; Send &ldquo;Lady Gaga feat.
+Michael Bolton - Murder My Heart (Feat. Michael Bolton)&rdquo; Ringtone to
+Your Cell &nbsp;&nbsp;</span><img src="images/phone_right.gif"
+style="vertical-align: bottom" /></a> 
+    <br>&nbsp;<br></td> 
+        </tr> 
+ 
+      </table> 
+      <br> 
+      <!-- result table ends --> 
+    
+      <!-- result table begins --> 
+      
+     <table style="background-color:#ffffff; padding-top: 5px; width: 800px;
+border-bottom-width: thin; border-bottom-style: none; border-top-style: none;
+border-left-color: #000000; border-top-color: #000000; border-right-color:
+#000000; border-left-style: none; border-right-width: thin;
+border-right-style: none; border-left-width: thin; border-bottom-color:
+#000000; border-top-width: thin"> 
+    
+        <tr> 
+          
+                    
+                    
+                    
+        
+            
+          
+          <td  style="width: 100px; padding-top: 5px; vertical-align: top;
+margin-left: 0px; margin-right: auto;" rowspan="6"><iframe
+src="http://www.facebook.com/plugins/like.php?href=http://skreemr.org/link.jsp?id=625C4B525C5A6B17&amp;artist=Lady%20GaGa&amp;title=Paparazzi&amp;layout=button_count&amp;show_faces=false"
+style="border:none; overflow:hidden; width:80px; height:20px;
+vertical-align:top;"></iframe> 
+          
+          
+          
+          <br><br> 
+      
+          
+          
+              
+          <a
+href="http://twitter.com/home?status=Listening%20to%20Lady%20GaGa%20-%20Paparazzi%20via%20%23SkreemR%20http://skreemr.org/link.jsp?id=625C4B525C5A6B17&amp;amp;artist=Lady%20GaGa&amp;amp;title=Paparazzi"
+title="Click to send this page to Twitter!" target="_blank"
+onmouseover="Tip('Tweet about it!', BALLOON, true, ABOVE, true, OFFSETX,
+0)"><img src="images/tweet.gif" alt="tweet this song"></a><br><br> 
+                <!-- AddThis Button BEGIN --> <a 
+                class="addthis_button"
+                href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4be1d4943d092a8b&amp;url=http://skreemr.org/link.jsp?id=625C4B525C5A6B17&amp;artist=Lady%20GaGa&amp;title=Paparazzi"><img 
+                src="http://s7.addthis.com/static/btn/sm-share-en.gif"
+                width="83" height="16" alt="Bookmark and Share"
+                style="border: 0" /></a><script type="text/javascript"
+                src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4be1d4943d092a8b"></script> 
+              <!-- AddThis Button END --><br><br> 
+              <a 
+                href="link.jsp?id=625C4B525C5A6B17&amp;artist=Lady%20GaGa&amp;title=Paparazzi"
+                style="text-decoration: none;"
+                onclick="javascript:pageTracker._trackPageview('/share/link/17979797');"
+                onmouseover="Tip('Link to this result!', BALLOON, true, ABOVE,
+true, OFFSETX, 0)"> 
+              <img src="images/link.gif" 
+                style="vertical-align: bottom" />&nbsp;link it </a><br><br> 
+                <a
+href="embed.jsp?id=625C4B525C5A6B17&amp;artist=Lady%20GaGa&amp;title=Paparazzi"
+            style="text-decoration: none;"
+            onclick="javascript:pageTracker._trackPageview('/share/embed/17979797');"
+            onmouseover="Tip('Embed this mp3 on a web page!', BALLOON, true,
+ABOVE, true, OFFSETX, 0)"> 
+          <img src="images/play_icon.gif" 
+            style="vertical-align: bottom" />&nbsp;&nbsp;embed it </a> 
+              
+                </td> 
+                <TD style="border-left: 1px solid #8C8C8C; padding: 5px;"
+rowspan="6"> 
+          <td> 
+          
+              
+              
+              
+             
+          <h2><a
+href="link.jsp?id=625C4B525C5A6B17&amp;artist=Lady%20GaGa&amp;title=Paparazzi" 
+            onclick="javascript:pageTracker._trackPageview('/clicks/Lady GaGa
+- Paparazzi');">Lady GaGa - Paparazzi</a></h2> 
+          </td> 
+        </tr> 
+  
+        <tr> 
+          <!--  Don't show the player for mp3s that it cannot play --> 
+          
+ 
+              
+              
+              
+              
+ 
+              <td> 
+              
+              
+              
+                <div> 
+              <object 
+                onclick="javascript:pageTracker._trackPageview('/player/Lady
+GaGa - Paparazzi')"
+                type="application/x-shockwave-flash" data="audio/player.swf"
+                id='audioplayer4' height="24"
+                width="290"> 
+                <param name="movie" value="audio/player.swf"> 
+                <param name="FlashVars"
+                  value='playerID=4&amp;bg=0xCDDFF3&amp;leftbg=0x357DCE&amp;lefticon=0xF2F2F2&amp;rightbg=0xF06A51&amp;rightbghover=0xAF2910&amp;righticon=0xF2F2F2&amp;righticonhover=0xFFFFFF&amp;text=0x357DCE&amp;slider=0x357DCE&amp;track=0xFFFFFF&amp;border=0xFFFFFF&amp;titles=Lady
+GaGa -
+Paparazzi&amp;loader=0xAF2910&amp;soundFile=http%3A%2F%2Fshare.auditory.ru%2F2010%2FGeorgy.Grachev%2FConcert%2FLady_Gaga__-_Paparazzi.mp3'> 
+                <param name="quality" value="high"> 
+                <param name="menu" value="true"> 
+                <param name="wmode" value="transparent"> 
+              </object></div> 
+              
+              </td> 
+            
+        </tr> 
+              
+        <tr style="padding-top: 10px; padding-bottom: 10px; font-family:
+Verdana, Arial, Sans-Serif; font-weight: bold"> 
+          <td>mp3 -    202 kbps - 00:03:29 sec -  5.0 mb&nbsp;<br> 
+          <p class="album">Artist&nbsp;&nbsp;: <a
+href="advanced_results.jsp?advanced=true&song=&album=&genre=&bitrate=0&length=00%3A00%3A00&artist=Lady
+GaGa">Lady GaGa</a><br> 
+              Album : <a
+href="advanced_results.jsp?advanced=true&song=&genre=&bitrate=0&length=00%3A00%3A00&artist=Lady
+GaGa&album=The Fame">The Fame</a><br> 
+                        <div>Download MP3: <a 
+        href="http://www.amazon.com/gp/search?ie=UTF8&keywords=Lady
+GaGa&tag=skreemrcom-20&index=digital-music&linkCode=ur2&camp=1789&creative=9325"
+        onclick="javascript:urchinTracker ('/amazon/'); "
+        class="snap_noshots" target="_blank"
+        onmouseover="Tip('Find music by this artist at Amazon.com', BALLOON,
+true, ABOVE, true, OFFSETX, 0);">Amazon</a> 
+      <img 
+        src="http://www.assoc-amazon.com/e/ir?t=skreemrcom-20&amp;l=ur2&amp;o=1"
+        width="1" height="1" border="0" alt=""
+        style="border: none !important; margin: 0px !important;" /> 
+                                   &nbsp;&nbsp;&nbsp;</div></p> 
+          
+          </td> 
+        </tr> 
+        
+        <!-- dark row ends --> 
+        <!-- light row begins --> 
+        <tr style="font-family: Verdana, Arial, Sans-Serif; font-weight: bold;
+padding-left: 10px; padding-right: 10px; padding-top: 4px; padding-bottom:
+4px"> 
+          <td> 
+          <div>Found at: <a href='http://share.auditory.ru' target="_blank"
+            onclick="javascript:pageTracker._trackPageview('/host/17979797');
+">share.auditory.ru</a></div> 
+          </td> 
+        </tr> 
+        <tr> 
+          <td>&nbsp;<br> 
+      <a class="ringtone"
+href="http://www.ringtonematcher.com/co/ringtonematcher/02/noc.asp?sid=SKREros&amp;artist=Lady%20GaGa&amp;song=Paparazzi"
+target="_blank"><img src="images/phone_left.gif" style="vertical-align:
+bottom" /><span class="ringtext">&nbsp;&nbsp; Send &ldquo;Lady GaGa -
+Paparazzi&rdquo; Ringtone to Your Cell &nbsp;&nbsp;</span><img
+src="images/phone_right.gif" style="vertical-align: bottom" /></a> 
+    <br>&nbsp;<br></td> 
+        </tr> 
+ 
+      </table> 
+      <br> 
+      <!-- result table ends --> 
+    
+      <!-- result table begins --> 
+      
+     <table style="background-color:#f8f8f8; padding-top: 5px; width: 800px;
+border-bottom-width: thin; border-bottom-style: none; border-top-style: none;
+border-left-color: #000000; border-top-color: #000000; border-right-color:
+#000000; border-left-style: none; border-right-width: thin;
+border-right-style: none; border-left-width: thin; border-bottom-color:
+#000000; border-top-width: thin"> 
+    
+        <tr> 
+          
+                    
+                    
+                    
+        
+            
+          
+          <td  style="width: 100px; padding-top: 5px; vertical-align: top;
+margin-left: 0px; margin-right: auto;" rowspan="6"><iframe
+src="http://www.facebook.com/plugins/like.php?href=http://skreemr.org/link.jsp?id=6253415D54546715&amp;artist=Lady%20Gaga&amp;title=Paparazzi%20(Mathias%20Mental%20Remix)&amp;layout=button_count&amp;show_faces=false"
+style="border:none; overflow:hidden; width:80px; height:20px;
+vertical-align:top;"></iframe> 
+          
+          
+          
+          <br><br> 
+      
+          
+          
+              
+          <a
+href="http://twitter.com/home?status=Listening%20to%20Lady%20Gaga%20-%20Paparazzi%20(Mathias%20Mental%20Remix)%20via%20%23SkreemR%20http://skreemr.org/link.jsp?id=6253415D54546715&amp;amp;artist=Lady%20Gaga&amp;amp;title=Paparazzi%20(Mathias%20Mental%20Remix)"
+title="Click to send this page to Twitter!" target="_blank"
+onmouseover="Tip('Tweet about it!', BALLOON, true, ABOVE, true, OFFSETX,
+0)"><img src="images/tweet.gif" alt="tweet this song"></a><br><br> 
+                <!-- AddThis Button BEGIN --> <a 
+                class="addthis_button"
+                href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4be1d4943d092a8b&amp;url=http://skreemr.org/link.jsp?id=6253415D54546715&amp;artist=Lady%20Gaga&amp;title=Paparazzi%20(Mathias%20Mental%20Remix)"><img 
+                src="http://s7.addthis.com/static/btn/sm-share-en.gif"
+                width="83" height="16" alt="Bookmark and Share"
+                style="border: 0" /></a><script type="text/javascript"
+                src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4be1d4943d092a8b"></script> 
+              <!-- AddThis Button END --><br><br> 
+              <a 
+                href="link.jsp?id=6253415D54546715&amp;artist=Lady%20Gaga&amp;title=Paparazzi%20(Mathias%20Mental%20Remix)"
+                style="text-decoration: none;"
+                onclick="javascript:pageTracker._trackPageview('/share/link/18381955');"
+                onmouseover="Tip('Link to this result!', BALLOON, true, ABOVE,
+true, OFFSETX, 0)"> 
+              <img src="images/link.gif" 
+                style="vertical-align: bottom" />&nbsp;link it </a><br><br> 
+                <a
+href="embed.jsp?id=6253415D54546715&amp;artist=Lady%20Gaga&amp;title=Paparazzi%20(Mathias%20Mental%20Remix)"
+            style="text-decoration: none;"
+            onclick="javascript:pageTracker._trackPageview('/share/embed/18381955');"
+            onmouseover="Tip('Embed this mp3 on a web page!', BALLOON, true,
+ABOVE, true, OFFSETX, 0)"> 
+          <img src="images/play_icon.gif" 
+            style="vertical-align: bottom" />&nbsp;&nbsp;embed it </a> 
+              
+                </td> 
+                <TD style="border-left: 1px solid #8C8C8C; padding: 5px;"
+rowspan="6"> 
+          <td> 
+          
+              
+              
+              
+             
+          <h2><a
+href="link.jsp?id=6253415D54546715&amp;artist=Lady%20Gaga&amp;title=Paparazzi%20(Mathias%20Mental%20Remix)" 
+            onclick="javascript:pageTracker._trackPageview('/clicks/Lady Gaga
+- Paparazzi (Mathias Mental Remix)');">Lady Gaga - Paparazzi (Mathias Mental
+  Remix)</a></h2> 
+          </td> 
+        </tr> 
+  
+        <tr> 
+          <!--  Don't show the player for mp3s that it cannot play --> 
+          
+ 
+              
+              
+              
+              
+ 
+              <td> 
+              
+              
+              
+                <div> 
+              <object 
+                onclick="javascript:pageTracker._trackPageview('/player/Lady
+Gaga - Paparazzi (Mathias Mental Remix)')"
+                type="application/x-shockwave-flash" data="audio/player.swf"
+                id='audioplayer5' height="24"
+                width="290"> 
+                <param name="movie" value="audio/player.swf"> 
+                <param name="FlashVars"
+                  value='playerID=5&amp;bg=0xCDDFF3&amp;leftbg=0x357DCE&amp;lefticon=0xF2F2F2&amp;rightbg=0xF06A51&amp;rightbghover=0xAF2910&amp;righticon=0xF2F2F2&amp;righticonhover=0xFFFFFF&amp;text=0x357DCE&amp;slider=0x357DCE&amp;track=0xFFFFFF&amp;border=0xFFFFFF&amp;titles=Lady
+Gaga - Paparazzi (Mathias Mental
+Remix)&amp;loader=0xAF2910&amp;soundFile=http%3A%2F%2Fferalpartykids.com%2Faudio%2FLady%2520Gaga-Paparazzi%2520%28Mathias%2520Mental%2520Remix%29.mp3'> 
+                <param name="quality" value="high"> 
+                <param name="menu" value="true"> 
+                <param name="wmode" value="transparent"> 
+              </object></div> 
+              
+              </td> 
+            
+        </tr> 
+              
+        <tr style="padding-top: 10px; padding-bottom: 10px; font-family:
+Verdana, Arial, Sans-Serif; font-weight: bold"> 
+          <td>mp3 -    320 kbps - 00:04:08 sec -  9.4 mb&nbsp;<br> 
+          <p class="album">Artist&nbsp;&nbsp;: <a
+href="advanced_results.jsp?advanced=true&song=&album=&genre=&bitrate=0&length=00%3A00%3A00&artist=Lady
+Gaga">Lady Gaga</a><br> 
+              Album : <a
+href="advanced_results.jsp?advanced=true&song=&genre=&bitrate=0&length=00%3A00%3A00&artist=Lady
+Gaga&album=Mathias Mental Remix">Mathias Mental Remix</a><br> 
+                        <div>Download MP3: <a 
+        href="http://www.amazon.com/gp/search?ie=UTF8&keywords=Lady
+Gaga&tag=skreemrcom-20&index=digital-music&linkCode=ur2&camp=1789&creative=9325"
+        onclick="javascript:urchinTracker ('/amazon/'); "
+        class="snap_noshots" target="_blank"
+        onmouseover="Tip('Find music by this artist at Amazon.com', BALLOON,
+true, ABOVE, true, OFFSETX, 0);">Amazon</a> 
+      <img 
+        src="http://www.assoc-amazon.com/e/ir?t=skreemrcom-20&amp;l=ur2&amp;o=1"
+        width="1" height="1" border="0" alt=""
+        style="border: none !important; margin: 0px !important;" /> 
+                                   &nbsp;&nbsp;&nbsp;</div></p> 
+          
+          </td> 
+        </tr> 
+        
+        <!-- dark row ends --> 
+        <!-- light row begins --> 
+        <tr style="font-family: Verdana, Arial, Sans-Serif; font-weight: bold;
+padding-left: 10px; padding-right: 10px; padding-top: 4px; padding-bottom:
+4px"> 
+          <td> 
+          <div>Found at: <a href='http://feralpartykids.com/' target="_blank"
+            onclick="javascript:pageTracker._trackPageview('/host/18381955');
+">feralpartykids.com</a></div> 
+          </td> 
+        </tr> 
+        <tr> 
+          <td>&nbsp;<br> 
+      <a class="ringtone"
+href="http://www.ringtonematcher.com/co/ringtonematcher/02/noc.asp?sid=SKREros&amp;artist=Lady%20Gaga&amp;song=Paparazzi%20(Mathias%20Mental%20Remix)"
+target="_blank"><img src="images/phone_left.gif" style="vertical-align:
+bottom" /><span class="ringtext">&nbsp;&nbsp; Send &ldquo;Lady Gaga -
+Paparazzi (Mathias Mental Remix)&rdquo; Ringtone to Your Cell
+&nbsp;&nbsp;</span><img src="images/phone_right.gif" style="vertical-align:
+bottom" /></a> 
+    <br>&nbsp;<br></td> 
+        </tr> 
+ 
+      </table> 
+      <br> 
+      <!-- result table ends --> 
+    
+      <!-- result table begins --> 
+      
+     <table style="background-color:#ffffff; padding-top: 5px; width: 800px;
+border-bottom-width: thin; border-bottom-style: none; border-top-style: none;
+border-left-color: #000000; border-top-color: #000000; border-right-color:
+#000000; border-left-style: none; border-right-width: thin;
+border-right-style: none; border-left-width: thin; border-bottom-color:
+#000000; border-top-width: thin"> 
+    
+        <tr> 
+          
+                    
+                    
+                    
+        
+            
+          
+          <td  style="width: 100px; padding-top: 5px; vertical-align: top;
+margin-left: 0px; margin-right: auto;" rowspan="6"><iframe
+src="http://www.facebook.com/plugins/like.php?href=http://skreemr.org/link.jsp?id=6253415D54546716&amp;artist=Lady%20Gaga%20Feat.%20Beyonce&amp;title=Telephone%20(Inside%20Out%20Boy\&#039;s%20\&#039;Highstreet%20Honey%20wants%20Pop\&#039;%20Mix)&amp;layout=button_count&amp;show_faces=false"
+style="border:none; overflow:hidden; width:80px; height:20px;
+vertical-align:top;"></iframe> 
+          
+          
+          
+          <br><br> 
+      
+          
+          
+              
+          <a
+href="http://twitter.com/home?status=Listening%20to%20Lady%20Gaga%20Feat.%20Beyonce%20-%20Telephone%20(Inside%20Out%20Boy&#039;s%20&#039;Highstreet%20Honey%20wants%20Pop&#039;%20Mix)%20via%20%23SkreemR%20http://skreemr.org/link.jsp?id=6253415D54546716&amp;amp;artist=Lady%20Gaga%20Feat.%20Beyonce&amp;amp;title=Telephone%20(Inside%20Out%20Boy\&#039;s%20\&#039;Highstreet%20Honey%20wants%20Pop\&#039;%20Mix)"
+title="Click to send this page to Twitter!" target="_blank"
+onmouseover="Tip('Tweet about it!', BALLOON, true, ABOVE, true, OFFSETX,
+0)"><img src="images/tweet.gif" alt="tweet this song"></a><br><br> 
+                <!-- AddThis Button BEGIN --> <a 
+                class="addthis_button"
+                href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4be1d4943d092a8b&amp;url=http://skreemr.org/link.jsp?id=6253415D54546716&amp;artist=Lady%20Gaga%20Feat.%20Beyonce&amp;title=Telephone%20(Inside%20Out%20Boy\&#039;s%20\&#039;Highstreet%20Honey%20wants%20Pop\&#039;%20Mix)"><img 
+                src="http://s7.addthis.com/static/btn/sm-share-en.gif"
+                width="83" height="16" alt="Bookmark and Share"
+                style="border: 0" /></a><script type="text/javascript"
+                src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4be1d4943d092a8b"></script> 
+              <!-- AddThis Button END --><br><br> 
+              <a 
+                href="link.jsp?id=6253415D54546716&amp;artist=Lady%20Gaga%20Feat.%20Beyonce&amp;title=Telephone%20(Inside%20Out%20Boy\&#039;s%20\&#039;Highstreet%20Honey%20wants%20Pop\&#039;%20Mix)"
+                style="text-decoration: none;"
+                onclick="javascript:pageTracker._trackPageview('/share/link/18381956');"
+                onmouseover="Tip('Link to this result!', BALLOON, true, ABOVE,
+true, OFFSETX, 0)"> 
+              <img src="images/link.gif" 
+                style="vertical-align: %20Pop\&#039;%20Mix)"
+            style="text-decoration: none;"
+          Embed this mp3 on a web page!', BALLOON, true, ABOVE, true, OFFS
+style="vertical-align: bottom" />&nbsp;&nbsp;embed it </a>ding: 5px;"
+rowspan="6"> 
+          <td> 
+          
+              
+              
+        Beyonce&amp;title=Telephone%20(Inside%20Out%20Boy\&#039;s%20\&#0Mix)" 
+            onclick="javascript:pageTracker._trackPageview('/&#039;s
+&#039;Highstreet Honey wants Pop&#039; Mix)');">Lady Gaoney wants Pop'
+Mix)</a></h2> 
+          </td> 
+        </tr> 
+  
+        <trs that it cannot play --> 
+          
+ 
+              
+              
+              
+                      <div> 
+              <object 
+                onclick="javascript:pageTracker._trackPageview('/player/Lady
+Gaga Feat. Beyonce - Telephone (Inside Out Boy&#039;s &#039;Highstreet Honey
+wants Pop&#039; Mix)')"
+                type="application/x-shockwave-flash" data="audio/player.swf"
+                id='audioplayer6' height="24"
+                width="290"> 
+                <param name="movie" value="audio/player.swf"> 
+                <param name="FlashVars"
+                  value='playerID=6&amp;bg=0xCDDFF3&amp;leftbg=0x357DCE&amp;lefticon=0xF2F2F2&amp;rightbg=0xF06A51&amp;rightbghover=0xAF2910&amp;righticon=0xF2F2F2&amp;righticonhover=0xFFFFFF&amp;text=0x357DCE&amp;slider=0x357DCE&amp;track=0xFFFFFF&amp;border=0xFFFFFF&amp;titles=Lady
+Gaga Feat. Beyonce - Telephone (Inside Out Boy&#039;s &#039;Highstreet Honey
+wants Pop&#039;
+Mix)&amp;loader=0xAF2910&amp;soundFile=http%3A%2F%2Fferalpartykids.com%2Faudio%2FLady%2520Gaga-Telephone%2520%28Inside%2520Out%2520Boys%2520Highstreet%2520Honey%2520wants%2520Pop%2520Mix%29.mp3'> 
+                <param name="quality" value="high"> 
+                <param name="menu" value="true"> 
+                <param name="wmode" value="transparent"> 
+              </object></div> 
+              
+              </td> 
+            
+        </tr> 
+              
+        <tr style="padding-top: 10px; padding-bottom: 10px; font-family:
+Verdana, Arial, Sans-Serif; font-weight: bold"> 
+          <td>mp3 -    320 kbps - 00:04:06 sec -  9.4 mb&nbsp;<br> 
+          <p class="album">Artist&nbsp;&nbsp;: <a
+href="advanced_results.jsp?advanced=true&song=&album=&genre=&bitrate=0&length=00%3A00%3A00&artist=Lady
+Gaga Feat. Beyonce">Lady Gaga Feat. Beyonce</a><br> 
+              Album : <a
+href="advanced_results.jsp?advanced=true&song=&genre=&bitrate=0&length=00%3A00%3A00&artist=Lady
+Gaga Feat.
+Beyonce&album=www.myspace.com/insideoutboyy">www.myspace.com/insideoutboyy</a><br> 
+                        <div>Download MP3: <a 
+        href="http://www.amazon.com/gp/search?ie=UTF8&keywords=Lady Gaga Feat.
+Beyonce&tag=skreemrcom-20&index=digital-music&linkCode=ur2&camp=1789&creative=9325"
+        onclick="javascript:urchinTracker ('/amazon/'); "
+        class="snap_noshots" target="_blank"
+        onmouseover="Tip('Find music by this artist at Amazon.com', BALLOON,
+true, ABOVE, true, OFFSETX, 0);">Amazon</a> 
+      <img 
+        src="http://www.assoc-amazon.com/e/ir?t=skreemrcom-20&amp;l=ur2&amp;o=1"
+        width="1" height="1" border="0" alt=""
+        style="border: none !important; margin: 0px !important;" /> 
+                                   &nbsp;&nbsp;&nbsp;</div></p> 
+          
+          </td> 
+        </tr> 
+        
+        <!-- dark row ends --> 
+        <!-- light row begins --> 
+        <tr style="font-family: Verdana, Arial, Sans-Serif; font-weight: bold;
+padding-left: 10px; padding-right: 10px; padding-top: 4px; padding-bottom:
+4px"> 
+          <td> 
+          <div>Found at: <a href='http://feralpartykids.com/' target="_blank"
+            onclick="javascript:pageTracker._trackPageview('/host/18381956');
+">feralpartykids.com</a></div> 
+          </td> 
+        </tr> 
+        <tr> 
+          <td>&nbsp;<br> 
+      <a class="ringtone"
+href="http://www.ringtonematcher.com/co/ringtonematcher/02/noc.asp?sid=SKREros&amp;artist=Lady%20Gaga%20Feat.%20Beyonce&amp;song=Telephone%20(Inside%20Out%20Boy\&#039;s%20\&#039;Highstreet%20Honey%20wants%20Pop\&#039;%20Mix)"
+target="_blank"><img src="images/phone_left.gif" style="vertical-align:
+bottom" /><span class="ringtext">&nbsp;&nbsp; Send &ldquo;Lady Gaga Feat.
+Beyonce - Telephone (Inside Out Boy&#039;s &#039;Highstreet Honey wants
+Pop&#039; Mix)&rdquo; Ringtone to Your Cell &nbsp;&nbsp;</span><img
+src="images/phone_right.gif" style="vertical-align: bottom" /></a> 
+    <br>&nbsp;<br></td> 
+        </tr> 
+ 
+      </table> 
+      <br> 
+      <!-- result table ends --> 
+    
+      <!-- result table begins --> 
+      
+     <table style="background-color:#f8f8f8; padding-top: 5px; width: 800px;
+border-bottom-width: thin; border-bottom-style: none; border-top-style: none;
+border-left-color: #000000; border-top-color: #000000; border-right-color:
+#000000; border-left-style: none; border-right-width: thin;
+border-right-style: none; border-left-width: thin; border-bottom-color:
+#000000; border-top-width: thin"> 
+    
+        <tr> 
+          
+                    
+                    
+                    
+        
+            
+          
+          <td  style="width: 100px; padding-top: 5px; vertical-align: top;
+margin-left: 0px; margin-right: auto;" rowspan="6"><iframe
+src="http://www.facebook.com/plugins/like.php?href=http://skreemr.org/link.jsp?id=625C4650565F6319&amp;artist=Half%20Mast/Hat&amp;title=Poker%20Faces%20(Lady%20Gaga%20vs.%20Christopher%20Walken%20vs.%20Cartman)&amp;layout=button_count&amp;show_faces=false"
+style="border:none; overflow:hidden; width:80px; height:20px;
+vertical-align:top;"></iframe> 
+          
+          
+          
+          <br><br> 
+      
+          
+          
+              
+          <a
+href="http://twitter.com/home?status=Listening%20to%20Half%20Mast/Hat%20-%20Poker%20Faces%20(Lady%20Gaga%20vs.%20Christopher%20Walken%20vs.%20Cartman)%20via%20%23SkreemR%20http://skreemr.org/link.jsp?id=625C4650565F6319&amp;amp;artist=Half%20Mast/Hat&amp;amp;title=Poker%20Faces%20(Lady%20Gaga%20vs.%20Christopher%20Walken%20vs.%20Cartman)"
+title="Click to send this page to Twitter!" target="_blank"
+onmouseover="Tip('Tweet about it!', BALLOON, true, ABOVE, true, OFFSETX,
+0)"><img src="images/tweet.gif" alt="tweet this song"></a><br><br> 
+                <!-- AddThis Button BEGIN --> <a 
+                class="addthis_button"
+                href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4be1d4943d092a8b&amp;url=http://skreemr.org/link.jsp?id=625C4650565F6319&amp;artist=Half%20Mast/Hat&amp;title=Poker%20Faces%20(Lady%20Gaga%20vs.%20Christopher%20Walken%20vs.%20Cartman)"><img 
+                src="http://s7.addthis.com/static/btn/sm-share-en.gif"
+                width="83" height="16" alt="Bookmark and Share"
+                style="border: 0" /></a><script type="text/javascript"
+                src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4be1d4943d092a8b"></script> 
+              <!-- AddThis Button END --><br><br> 
+              <a 
+                href="link.jsp?id=625C4650565F6319&amp;artist=Half%20Mast/Hat&amp;title=Poker%20Faces%20(Lady%20Gaga%20vs.%20Christopher%20Walken%20vs.%20Cartman)"
+                style="text-decoration: none;"
+                onclick="javascript:pageTracker._trackPageview('/share/link/17453219');"
+                onmouseover="Tip('Link to this result!', BALLOON, true, ABOVE,
+true, OFFSETX, 0)"> 
+              <img src="images/link.gif" 
+                style="vertical-align: bottom" />&nbsp;link it </a><br><br> 
+                <a
+href="embed.jsp?id=625C4650565F6319&amp;artist=Half%20Mast/Hat&amp;title=Poker%20Faces%20(Lady%20Gaga%20vs.%20Christopher%20Walken%20vs.%20Cartman)"
+            style="text-decoration: none;"
+            onclick="javascript:pageTracker._trackPageview('/share/embed/17453219');"
+            onmouseover="Tip('Embed this mp3 on a web page!', BALLOON, true,
+ABOVE, true, OFFSETX, 0)"> 
+          <img src="images/play_icon.gif" 
+            style="vertical-align: bottom" />&nbsp;&nbsp;embed it </a> 
+              
+                </td> 
+                <TD style="border-left: 1px solid #8C8C8C; padding: 5px;"
+rowspan="6"> 
+          <td> 
+          
+              
+              
+              
+             
+          <h2><a
+href="link.jsp?id=625C4650565F6319&amp;artist=Half%20Mast/Hat&amp;title=Poker%20Faces%20(Lady%20Gaga%20vs.%20Christopher%20Walken%20vs.%20Cartman)" 
+            onclick="javascript:pageTracker._trackPageview('/clicks/Half
+Mast/Hat - Poker Faces (Lady Gaga vs. Christopher Walken vs. Cartman)');">Half
+Mast/Hat - Poker Faces (Lady Gaga vs. Christopher Walken vs. Cartman)</a></h2> 
+          </td> 
+        </tr> 
+  
+        <tr> 
+          <!--  Don't show the player for mp3s that it cannot play --> 
+          
+ 
+              
+              
+              
+              
+ 
+              <td> 
+              
+              
+              
+                <div> 
+              <object 
+                onclick="javascript:pageTracker._trackPageview('/player/Half
+Mast/Hat - Poker Faces (Lady Gaga vs. Christopher Walken vs. Cartman)')"
+                type="application/x-shockwave-flash" data="audio/player.swf"
+                id='audioplayer7' height="24"
+                width="290"> 
+                <param name="movie" value="audio/player.swf"> 
+                <param name="FlashVars"
+                  value='playerID=7&amp;bg=0xCDDFF3&amp;leftbg=0x357DCE&amp;lefticon=0xF2F2F2&amp;rightbg=0xF06A51&amp;rightbghover=0xAF2910&amp;righticon=0xF2F2F2&amp;righticonhover=0xFFFFFF&amp;text=0x357DCE&amp;slider=0x357DCE&amp;track=0xFFFFFF&amp;border=0xFFFFFF&amp;titles=Half
+Mast/Hat - Poker Faces (Lady Gaga vs. Christopher Walken vs.
+Cartman)&amp;loader=0xAF2910&amp;soundFile=http%3A%2F%2Fkickpunchblock.com%2Fvideos%2Fpokerfaces.mp3'> 
+                <param name="quality" value="high"> 
+                <param name="menu" value="true"> 
+                <param name="wmode" value="transparent"> 
+              </object></div> 
+              
+              </td> 
+            
+        </tr> 
+              
+        <tr style="padding-top: 10px; padding-bottom: 10px; font-family:
+Verdana, Arial, Sans-Serif; font-weight: bold"> 
+          <td>mp3 -    233 kbps - 00:03:35 sec -  6.0 mb&nbsp;<br> 
+          <p class="album">Artist&nbsp;&nbsp;: <a
+href="advanced_results.jsp?advanced=true&song=&album=&genre=&bitrate=0&length=00%3A00%3A00&artist=Half
+Mast/Hat">Half Mast/Hat</a><br> 
+              Album : <a
+href="advanced_results.jsp?advanced=true&song=&genre=&bitrate=0&length=00%3A00%3A00&artist=Half
+Mast/Hat&album=Music of the Über Heavy Variety">Music of the Über Heavy
+Variety</a><br> 
+                        <div>Download MP3: <a 
+        href="http://www.amazon.com/gp/search?ie=UTF8&keywords=Half
+Mast/Hat&tag=skreemrcom-20&index=digital-music&linkCode=ur2&camp=1789&creative=9325"
+        onclick="javascript:urchinTracker ('/amazon/'); "
+        class="snap_noshots" target="_blank"
+        onmouseover="Tip('Find music by this artist at Amazon.com', BALLOON,
+true, ABOVE, true, OFFSETX, 0);">Amazon</a> 
+      <img 
+        src="http://www.assoc-amazon.com/e/ir?t=skreemrcom-20&amp;l=ur2&amp;o=1"
+        width="1" height="1" border="0" alt=""
+        style="border: none !important; margin: 0px !important;" /> 
+                                   &nbsp;&nbsp;&nbsp;</div></p> 
+          
+          </td> 
+        </tr> 
+        
+        <!-- dark row ends --> 
+        <!-- light row begins --> 
+        <tr style="font-family: Verdana, Arial, Sans-Serif; font-weight: bold;
+padding-left: 10px; padding-right: 10px; padding-top: 4px; padding-bottom:
+4px"> 
+          <td> 
+          <div>Found at: <a href='http://www.bootieusa.com' target="_blank"
+            onclick="javascript:pageTracker._trackPageview('/host/17453219');
+">www.bootieusa.com</a></div> 
+          </td> 
+        </tr> 
+        <tr> 
+          <td>&nbsp;<br> 
+      <a class="ringtone"
+href="http://www.ringtonematcher.com/co/ringtonematcher/02/noc.asp?sid=SKREros&amp;artist=Half%20Mast/Hat&amp;song=Poker%20Faces%20(Lady%20Gaga%20vs.%20Christopher%20Walken%20vs.%20Cartman)"
+target="_blank"><img src="images/phone_left.gif" style="vertical-align:
+bottom" /><span class="ringtext">&nbsp;&nbsp; Send &ldquo;Half Mast/Hat -
+Poker Faces (Lady Gaga vs. Christopher Walken vs. Cartman)&rdquo; Ringtone to
+Your Cell &nbsp;&nbsp;</span><img src="images/phone_right.gif"
+style="vertical-align: bottom" /></a> 
+    <br>&nbsp;<br></td> 
+        </tr> 
+ 
+      </table> 
+      <br> 
+      <!-- result table ends --> 
+    
+      <!-- result table begins --> 
+      
+     <table style="background-color:#ffffff; padding-top: 5px; width: 800px;
+border-bottom-width: thin; border-bottom-style: none; border-top-style: none;
+border-left-color: #000000; border-top-color: #000000; border-right-color:
+#000000; border-left-style: none; border-right-width: thin;
+border-right-style: none; border-left-width: thin; border-bottom-color:
+#000000; border-top-width: thin"> 
+    
+        <tr> 
+          
+                    
+                    
+                    
+        
+            
+          
+          <td  style="width: 100px; padding-top: 5px; vertical-align: top;
+margin-left: 0px; margin-right: auto;" rowspan="6"><iframe
+src="http://www.facebook.com/plugins/like.php?href=http://skreemr.org/link.jsp?id=62534051555C6217&amp;artist=A%20Plus%20D&amp;title=Don\&#039;t%20You%20Want%20My%20Bad%20Romance%20(Lady%20Gaga%20VS%20Human%20League)&amp;layout=button_count&amp;show_faces=false"
+style="border:none; overflow:hidden; width:80px; height:20px;
+vertical-align:top;"></iframe> 
+          
+          
+          
+          <br><br> 
+      
+          
+          
+              
+          <a
+href="http://twitter.com/home?status=Listening%20to%20A%20Plus%20D%20-%20Don&#039;t%20You%20Want%20My%20Bad%20Romance%20(Lady%20Gaga%20VS%20Human%20League)%20via%20%23SkreemR%20http://skreemr.org/link.jsp?id=62534051555C6217&amp;amp;artist=A%20Plus%20D&amp;amp;title=Don\&#039;t%20You%20Want%20My%20Bad%20Romance%20(Lady%20Gaga%20VS%20Human%20League)"
+title="Click to send this page to Twitter!" target="_blank"
+onmouseover="Tip('Tweet about it!', BALLOON, true, ABOVE, true, OFFSETX,
+0)"><img src="images/tweet.gif" alt="tweet this song"></a><br><br> 
+                <!-- AddThis Button BEGIN --> <a 
+                class="addthis_button"
+                href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4be1d4943d092a8b&amp;url=http://skreemr.org/link.jsp?id=62534051555C6217&amp;artist=A%20Plus%20D&amp;title=Don\&#039;t%20You%20Want%20My%20Bad%20Romance%20(Lady%20Gaga%20VS%20Human%20League)"><img 
+                src="http://s7.addthis.com/static/btn/sm-share-en.gif"
+                width="83" height="16" alt="Bookmark and Share"
+                style="border: 0" /></a><script type="text/javascript"
+                src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4be1d4943d092a8b"></script> 
+              <!-- AddThis Button END --><br><br> 
+              <a 
+                href="link.jsp?id=62534051555C6217&amp;artist=A%20Plus%20D&amp;title=Don\&#039;t%20You%20Want%20My%20Bad%20Romance%20(Lady%20Gaga%20VS%20Human%20League)"
+                style="text-decoration: none;"
+                onclick="javascript:pageTracker._trackPageview('/share/link/18240107');"
+                onmouseover="Tip('Link to this result!', BALLOON, true, ABOVE,
+true, OFFSETX, 0)"> 
+              <img src="images/link.gif" 
+                style="vertical-align: bottom" />&nbsp;link it </a><br><br> 
+                <a
+href="embed.jsp?id=62534051555C6217&amp;artist=A%20Plus%20D&amp;title=Don\&#039;t%20You%20Want%20My%20Bad%20Romance%20(Lady%20Gaga%20VS%20Human%20League)"
+            style="text-decoration: none;"
+            onclick="javascript:pageTracker._trackPageview('/share/embed/18240107');"
+            onmouseover="Tip('Embed this mp3 on a web page!', BALLOON, true,
+ABOVE, true, OFFSETX, 0)"> 
+          <img src="images/play_icon.gif" 
+            style="vertical-align: bottom" />&nbsp;&nbsp;embed it </a> 
+              
+                </td> 
+                <TD style="border-left: 1px solid #8C8C8C; padding: 5px;"
+rowspan="6"> 
+          <td> 
+          
+              
+              
+              
+             
+          <h2><a
+href="link.jsp?id=62534051555C6217&amp;artist=A%20Plus%20D&amp;title=Don\&#039;t%20You%20Want%20My%20Bad%20Romance%20(Lady%20Gaga%20VS%20Human%20League)" 
+            onclick="javascript:pageTracker._trackPageview('/clicks/A Plus D -
+Don&#039;t You Want My Bad Romance (Lady Gaga VS Human League)');">A Plus D -
+Don't You Want My Bad Romance (Lady Gaga VS Human League)</a></h2> 
+          </td> 
+        </tr> 
+  
+        <tr> 
+          <!--  Don't show the player for mp3s that it cannot play --> 
+          
+ 
+              
+              
+              
+              
+ 
+              <td> 
+              
+              
+              
+                <div> 
+              <object 
+                onclick="javascript:pageTracker._trackPageview('/player/A Plus
+D - Don&#039;t You Want My Bad Romance (Lady Gaga VS Human League)')"
+                type="application/x-shockwave-flash" data="audio/player.swf"
+                id='audioplayer8' height="24"
+                width="290"> 
+                <param name="movie" value="audio/player.swf"> 
+                <param name="FlashVars"
+                  value='playerID=8&amp;bg=0xCDDFF3&amp;leftbg=0x357DCE&amp;lefticon=0xF2F2F2&amp;rightbg=0xF06A51&amp;rightbghover=0xAF2910&amp;righticon=0xF2F2F2&amp;righticonhover=0xFFFFFF&amp;text=0x357DCE&amp;slider=0x357DCE&amp;track=0xFFFFFF&amp;border=0xFFFFFF&amp;titles=A
+Plus D - Don&#039;t You Want My Bad Romance (Lady Gaga VS Human
+League)&amp;loader=0xAF2910&amp;soundFile=http%3A%2F%2Fwww.polaroidallaradio.it%2Faudio%2Fa_plus_d_-_dont_you_want_my_ba_dromance.mp3'> 
+                <param name="quality" value="high"> 
+                <param name="menu" value="true"> 
+                <param name="wmode" value="transparent"> 
+              </object></div> 
+              
+              </td> 
+            
+        </tr> 
+              
+        <tr style="padding-top: 10px; padding-bottom: 10px; font-family:
+Verdana, Arial, Sans-Serif; font-weight: bold"> 
+          <td>mp3 -    295 kbps - 00:05:01 sec -  10.6 mb&nbsp;<br> 
+          <p class="album">Artist&nbsp;&nbsp;: <a
+href="advanced_results.jsp?advanced=true&song=&album=&genre=&bitrate=0&length=00%3A00%3A00&artist=A
+Plus D">A Plus D</a><br> 
+              Album : <a
+href="advanced_results.jsp?advanced=true&song=&genre=&bitrate=0&length=00%3A00%3A00&artist=A
+Plus D&album=/www.aplusd.net">/www.aplusd.net</a><br> 
+                        <div>Download MP3: <a 
+        href="http://www.amazon.com/gp/search?ie=UTF8&keywords=A Plus
+D&tag=skreemrcom-20&index=digital-music&linkCode=ur2&camp=1789&creative=9325"
+        onclick="javascript:urchinTracker ('/amazon/'); "
+        class="snap_noshots" target="_blank"
+        onmouseover="Tip('Find music by this artist at Amazon.com', BALLOON,
+true, ABOVE, true, OFFSETX, 0);">Amazon</a> 
+      <img 
+        src="http://www.assoc-amazon.com/e/ir?t=skreemrcom-20&amp;l=ur2&amp;o=1"
+        width="1" height="1" border="0" alt=""
+        style="border: none !important; margin: 0px !important;" /> 
+                                   &nbsp;&nbsp;&nbsp;</div></p> 
+          
+          </td> 
+        </tr> 
+        
+        <!-- dark row ends --> 
+        <!-- light row begins --> 
+        <tr style="font-family: Verdana, Arial, Sans-Serif; font-weight: bold;
+padding-left: 10px; padding-right: 10px; padding-top: 4px; padding-bottom:
+4px"> 
+          <td> 
+          <div>Found at: <a href='http://polaroid.blogspot.com'
+target="_blank"
+            onclick="javascript:pageTracker._trackPageview('/host/18240107');
+">polaroid.blogspot.com</a></div> 
+          </td> 
+        </tr> 
+        <tr> 
+          <td>&nbsp;<br> 
+      <a class="ringtone"
+href="http://www.ringtonematcher.com/co/ringtonematcher/02/noc.asp?sid=SKREros&amp;artist=A%20Plus%20D&amp;song=Don\&#039;t%20You%20Want%20My%20Bad%20Romance%20(Lady%20Gaga%20VS%20Human%20League)"
+target="_blank"><img src="images/phone_left.gif" style="vertical-align:
+bottom" /><span class="ringtext">&nbsp;&nbsp; Send &ldquo;A Plus D -
+Don&#039;t You Want My Bad Romance (Lady Gaga VS Human League)&rdquo; Ringtone
+to Your Cell &nbsp;&nbsp;</span><img src="images/phone_right.gif"
+style="vertical-align: bottom" /></a> 
+    <br>&nbsp;<br></td> 
+        </tr> 
+ 
+      </table> 
+      <br> 
+      <!-- result table ends --> 
+    
+      <!-- result table begins --> 
+      
+     <table style="background-color:#f8f8f8; padding-top: 5px; width: 800px;
+border-bottom-width: thin; border-bottom-style: none; border-top-style: none;
+border-left-color: #000000; border-top-color: #000000; border-right-color:
+#000000; border-left-style: none; border-right-width: thin;
+border-right-style: none; border-left-width: thin; border-bottom-color:
+#000000; border-top-width: thin"> 
+    
+        <padding-top: 5px; vertical-align: top; margin-left: 0px;
+marginr.org/link.jsp?id=625D415D5D5A6A15&amp;artist=Orba%20Squara&ampLady%20GaGa%20cover)&amp;layout=button_count&amp;show_faces=fal
+vertical-align:top;"></iframe> 
+          
+          
+          
+          <br><brcom/home?status=Listening%20to%20Orba%20Squara%20-%20Poker%20Fahttp://skreemr.org/link.jsp?id=625D415D5D5A6A15&amp;amp;artist=y%20GaGa%20cover)"
+title="Click to send this page to Twitter!" SETX, 0)"><img
+src="images/tweet.gif" alt="tweet this song"></amg 
+                src="http://s7.addthis.com/static/btn/sm-share-en.gif"
+                width="83" height="16" alt="Bookmark and Share"
+                style="border: 0" /></a><script type="text/javascript"
+                src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4be1d4943d092a8b"></script> 
+              <!-- AddThis Button END --><br><br> 
+              <a 
+                href="link.jsp?id=625D415D5D5A6A15&amp;artist=Orba%20Squara&amp;title=Poker%20Face%20(Lady%20GaGa%20cover)"
+                style="text-decoration: none;"
+                onclick="javascript:pageTracker._trackPageview('/share/link/16388785');"
+                onmouseover="Tip('Link to this result!', BALLOON, true, ABOVE,
+true, OFFSETX, 0)"> 
+              <img src="images/link.gif" 
+                style="vertical-align: bottom" />&nbsp;link it </a><br><br> 
+                <a
+href="embed.jsp?id=625D415D5D5A6A15&amp;artist=Orba%20Squara&amp;title=Poker%20Face%20(Lady%20GaGa%20cover)"
+            style="text-decoration: none;"
+            onclick="javascript:pageTracker._trackPageview('/share/embed/16388785');"
+            onmouseover="Tip('Embed this mp3 on a web page!', BALLOON, true,
+ABOVE, true, OFFSETX, 0)"> 
+          <img src="images/play_icon.gif" 
+            style="vertical-align: bottom" />&nbsp;&nbsp;embed it </a> 
+              
+                </td> 
+                <TD style="border-left: 1px solid #8C8C8C; padding: 5px;"
+rowspan="6"> 
+          <td> 
+          
+              
+              
+              
+             
+          <h2><a
+href="link.jsp?id=625D415D5D5A6A15&amp;artist=Orba%20Squara&amp;title=Poker%20Face%20(Lady%20GaGa%20cover)" 
+            onclick="javascript:pageTracker._trackPageview('/clicks/Orba
+Squara - Poker Face (Lady GaGa cover)');">Orba Squara - Poker Face (Lady GaGa
+cover)</a></h2> 
+          </td> 
+        </tr> 
+  
+        <tr> 
+          <!--  Don't show the player for mp3s that it cannot play --> 
+          
+ 
+              
+              
+              
+              
+ 
+              <td> 
+              
+              
+              
+                <div> 
+              <object 
+                onclick="javascript:pageTracker._trackPageview('/player/Orba
+Squara - Poker Face (Lady GaGa cover)')"
+                type="application/x-shockwave-flash" data="audio/player.swf"
+                id='audioplayer9' height="24"
+                width="290"> 
+                <param name="movie" value="audio/player.swf"> 
+                <param name="FlashVars"
+                  value='playerID=9&amp;bg=0xCDDFF3&amp;leftbg=0x357DCE&amp;lefticon=0xF2F2F2&amp;rightbg=0xF06A51&amp;rightbghover=0xAF2910&amp;righticon=0xF2F2F2&amp;righticonhover=0xFFFFFF&amp;text=0x357DCE&amp;slider=0x357DCE&amp;track=0xFFFFFF&amp;border=0xFFFFFF&amp;titles=Orba
+Squara - Poker Face (Lady GaGa
+cover)&amp;loader=0xAF2910&amp;soundFile=http%3A%2F%2Fcovermesongs.com%2FMP3s%2F071309BadLyrics%2FPokerFace.mp3'> 
+                <param name="quality" value="high"> 
+                <param name="menu" value="true"> 
+                <param name="wmode" value="transparent"> 
+              </object></div> 
+              
+              </td> 
+            
+        </tr> 
+              
+        <tr style="padding-top: 10px; padding-bottom: 10px; font-family:
+Verdana, Arial, Sans-Serif; font-weight: bold"> 
+          <td>mp3 -    270 kbps - 00:03:31 sec -  6.8 mb&nbsp;<br> 
+          <p class="album">Artist&nbsp;&nbsp;: <a
+href="advanced_results.jsp?advanced=true&song=&album=&genre=&bitrate=0&length=00%3A00%3A00&artist=Orba
+Squara">Orba Squara</a><br> 
+              Album : <a
+href="advanced_results.jsp?advanced=true&song=&genre=&bitrate=0&length=00%3A00%3A00&artist=Orba
+Squara&album=Poker Face - Single">Poker Face - Single</a><br> 
+                        <div>Download MP3: <a 
+        href="http://www.amazon.com/gp/search?ie=UTF8&keywords=Orba
+Squara&tag=skreemrcom-20&index=digital-music&linkCode=ur2&camp=1789&creative=9325"
+        onclick="javascript:urchinTracker ('/amazon/'); "
+        class="snap_noshots" target="_blank"
+        onmouseover="Tip('Find music by this artist at Amazon.com', BALLOON,
+true, ABOVE, true, OFFSETX, 0);">Amazon</a> 
+      <img 
+        src="http://www.assoc-amazon.com/e/ir?t=skreemrcom-20&amp;l=ur2&amp;o=1"
+        width="1" height="1" border="0" alt=""
+        style="border: none !important; margin: 0px !important;" /> 
+                                   &nbsp;&nbsp;&nbsp;</div></p> 
+          
+          </td> 
+        </tr> 
+        
+        <!-- dark row ends --> 
+        <!-- light row begins --> 
+        <tr style="font-family: Verdana, Arial, Sans-Serif; font-weight: bold;
+padding-left: 10px; padding-right: 10px; padding-top: 4px; padding-bottom:
+4px"> 
+          <td> 
+          <div>Found at: <a href='http://covermesongs.blogspot.com'
+target="_blank"
+            onclick="javascript:pageTracker._trackPageview('/host/16388785');
+">covermesongs.blogspot.com</a></div> 
+          </td> 
+        </tr> 
+        <tr> 
+          <td>&nbsp;<br> 
+      <a class="ringtone"
+href="http://www.ringtonematcher.com/co/ringtonematcher/02/noc.asp?sid=SKREros&amp;artist=Orba%20Squara&amp;song=Poker%20Face%20(Lady%20GaGa%20cover)"
+target="_blank"><img src="images/phone_left.gif" style="vertical-align:
+bottom" /><span class="ringtext">&nbsp;&nbsp; Send &ldquo;Orba Squara - Poker
+Face (Lady GaGa cover)&rdquo; Ringtone to Your Cell &nbsp;&nbsp;</span><img
+src="images/phone_right.gif" style="vertical-align: bottom" /></a> 
+    <br>&nbsp;<br></td> 
+        </tr> 
+ 
+      </table> 
+      <br> 
+      <!-- result table ends --> 
+    
+      <!-- result table begins --> 
+      
+     <table style="background-color:#ffffff; padding-top: 5px; width: 800px;
+border-bottom-width: thin; border-bottom-style: none; border-top-style: none;
+border-left-color: #000000; border-top-color: #000000; border-right-color:
+#000000; border-left-style: none; border-right-width: thin;
+border-right-style: none; border-left-width: thin; border-bottom-color:
+#000000; border-top-width: thin"> 
+    
+        <tr> 
+          
+                    
+                    
+                    
+        
+            
+          
+          <td  style="width: 100px; padding-top: 5px; vertical-align: top;
+margin-left: 0px; margin-right: auto;" rowspan="6"><iframe
+src="http://www.facebook.com/plugins/like.php?href=http://skreemr.org/link.jsp?id=625D415D5D556B18&amp;artist=Leftover%20Cuties&amp;title=Poker%20Face%20(Lady%20GaGa%20cover)&amp;layout=button_count&amp;show_faces=false"
+style="border:none; overflow:hidden; width:80px; height:20px;
+vertical-align:top;"></iframe> 
+          
+          
+          
+          <br><br> 
+      
+          
+          
+              
+          <a
+href="http://twitter.com/home?status=Listening%20to%20Leftover%20Cuties%20-%20Poker%20Face%20(Lady%20GaGa%20cover)%20via%20%23SkreemR%20http://skreemr.org/link.jsp?id=625D415D5D556B18&amp;amp;artist=Leftover%20Cuties&amp;amp;title=Poker%20Face%20(Lady%20GaGa%20cover)"
+title="Click to send this page to Twitter!" target="_blank"
+onmouseover="Tip('Tweet about it!', BALLOON, true, ABOVE, true, OFFSETX,
+0)"><img src="images/tweet.gif" alt="tweet this song"></a><br><br> 
+                <!-- AddThis Button BEGIN --> <a 
+                class="addthis_button"
+                href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4be1d4943d092a8b&amp;url=http://skreemr.org/link.jsp?id=625D415D5D556B18&amp;artist=Leftover%20Cuties&amp;title=Poker%20Face%20(Lady%20GaGa%20cover)"><img 
+                src="http://s7.addthis.com/static/btn/sm-share-en.gif"
+                width="83" height="16" alt="Bookmark and Share"
+                style="border: 0" /></a><script type="text/javascript"
+                src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4be1d4943d092a8b"></script> 
+              <!-- AddThis Button END --><br><br> 
+              <a 
+                href="link.jsp?id=625D415D5D556B18&amp;artist=Leftover%20Cuties&amp;title=Poker%20Face%20(Lady%20GaGa%20cover)"
+                style="text-decoration: none;"
+                onclick="javascript:pageTracker._trackPageview('/share/link/16388898');"
+                onmouseover="Tip('Link to this result!', BALLOON, true, ABOVE,
+true, OFFSETX, 0)"> 
+              <img src="images/link.gif" 
+                style="vertical-align: bottom" />&nbsp;link it </a><br><br> 
+                <a
+href="embed.jsp?id=625D415D5D556B18&amp;artist=Leftover%20Cuties&amp;title=Poker%20Face%20(Lady%20GaGa%20cover)"
+            style="text-decoration: none;"
+            onclick="javascript:pageTracker._trackPageview('/share/embed/16388898');"
+            onmouseover="Tip('Embed this mp3 on a web page!', BALLOON, true,
+ABOVE, true, OFFSETX, 0)"> 
+          <img src="images/play_icon.gif" 
+            style="vertical-align: bottom" />&nbsp;&nbsp;embed it </a> 
+              
+                </td> 
+                <TD style="border-left: 1px solid #8C8C8C; padding: 5px;"
+rowspan="6"> 
+          <td> 
+          
+              
+              
+              
+             
+          <h2><a
+href="link.jsp?id=625D415D5D556B18&amp;artist=Leftover%20Cuties&amp;title=Poker%20Face%20(Lady%20GaGa%20cover)" 
+            onclick="javascript:pageTracker._trackPageview('/clicks/Leftover
+Cuties - Poker Face (Lady GaGa cover)');">Leftover Cuties - Poker Face (Lady
+GaGa cover)</a></h2> 
+          </td> 
+        </tr> 
+  
+        <tr> 
+          <!--  Don't show the player for mp3s that it cannot play --> 
+          
+ 
+              
+              
+              
+              
+ 
+              <td> 
+              
+              
+              
+                <div> 
+              <object 
+                onclick="javascript:pageTracker._trackPageview('/player/Leftover
+Cuties - Poker Face (Lady GaGa cover)')"
+                type="application/x-shockwave-flash" data="audio/player.swf"
+                id='audioplayer10' height="24"
+                width="290"> 
+                <param name="movie" value="audio/player.swf"> 
+                <param name="FlashVars"
+                  value='playerID=10&amp;bg=0xCDDFF3&amp;leftbg=0x357DCE&amp;lefticon=0xF2F2F2&amp;rightbg=0xF06A51&amp;rightbghover=0xAF2910&amp;righticon=0xF2F2F2&amp;righticonhover=0xFFFFFF&amp;text=0x357DCE&amp;slider=0x357DCE&amp;track=0xFFFFFF&amp;border=0xFFFFFF&amp;titles=Leftover
+Cuties - Poker Face (Lady GaGa
+cover)&amp;loader=0xAF2910&amp;soundFile=http%3A%2F%2Fcovermesongs.com%2FMP3s%2FCoverNews0909%2FPokerFace.mp3'> 
+                <param name="quality" value="high"> 
+                <param name="menu" value="true"> 
+                <param name="wmode" value="transparent"> 
+              </object></div> 
+              
+              </td> 
+            
+        </tr> 
+              
+        <tr style="padding-top: 10px; padding-bottom: 10px; font-family:
+Verdana, Arial, Sans-Serif; font-weight: bold"> 
+          <td>mp3 -    200 kbps - 00:03:11 sec -  4.5 mb&nbsp;<br> 
+          <p class="album">Artist&nbsp;&nbsp;: <a
+href="advanced_results.jsp?advanced=true&song=&album=&genre=&bitrate=0&length=00%3A00%3A00&artist=Leftover
+Cuties">Leftover Cuties</a><br> 
+              Album : <a
+href="advanced_results.jsp?advanced=true&song=&genre=&bitrate=0&length=00%3A00%3A00&artist=Leftover
+Cuties&album=Miscellaneous Covers">Miscellaneous Covers</a><br> 
+                        <div>Download MP3: <a 
+        href="http://www.amazon.com/gp/search?ie=UTF8&keywords=Leftover
+Cuties&tag=skreemrcom-20&index=digital-music&linkCode=ur2&camp=1789&creative=9325"
+        onclick="javascript:urchinTracker ('/amazon/'); "
+        class="snap_noshots" target="_blank"
+        onmouseover="Tip('Find music by this artist at Amazon.com', BALLOON,
+true, ABOVE, true, OFFSETX, 0);">Amazon</a> 
+      <img 
+        src="http://www.assoc-amazon.com/e/ir?t=skreemrcom-20&amp;l=ur2&amp;o=1"
+        width="1" height="1" border="0" alt=""
+        style="border: none !important; margin: 0px !important;" /> 
+                                   &nbsp;&nbsp;&nbsp;</div></p> 
+          
+          </td> 
+        </tr> 
+        
+        <!-- dark row ends --> 
+        <!-- light row begins --> 
+        <tr style="font-family: Verdana, Arial, Sans-Serif; font-weight: bold;
+padding-left: 10px; padding-right: 10px; padding-top: 4px; padding-bottom:
+4px"> 
+          <td> 
+          <div>Found at: <a href='http://covermesongs.blogspot.com'
+target="_blank"
+            onclick="javascript:pageTracker._trackPageview('/host/16388898');
+">covermesongs.blogspot.com</a></div> 
+          </td> 
+        </tr> 
+        <tr> 
+          <td>&nbsp;<br> 
+      <a class="ringtone"
+href="http://www.ringtonematcher.com/co/ringtonematcher/02/noc.asp?sid=SKREros&amp;artist=Leftover%20Cuties&amp;song=Poker%20Face%20(Lady%20GaGa%20cover)"
+target="_blank"><img src="images/phone_left.gif" style="vertical-align:
+bottom" /><span class="ringtext">&nbsp;&nbsp; Send &ldquo;Leftover Cuties -
+Poker Face (Lady GaGa cover)&rdquo; Ringtone to Your Cell
+&nbsp;&nbsp;</span><img src="images/phone_right.gif" style="vertical-align:
+bottom" /></a> 
+    <br>&nbsp;<br></td> 
+        </tr> 
+ 
+      </table> 
+      <br> 
+      <!-- result table ends --> 
+    
+    </td> 
+    <td style="vertical-align: top; "> 
+    <p>&nbsp;</p> 
+    </td> 
+    <td style="vertical-align: top; padding: 10px;"> 
+    <!-- ads here  --> 
+ 
+ 
+<script type="text/javascript"><!--
+google_ad_client = "pub-7838996662104338";
+/* 160x600, created 5/13/10 */
+google_ad_slot = "9134679306";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script> 
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> 
+</script> 
+<br> 
+<p>&nbsp;</p> 
+  
+ 
+ 
+ 
+<!--  end ads --> 
+    </td> 
+  </tr> 
+</table> 
+ 
+ 
+ 
+    
+<p style="padding-left: 30px;"> 
+<script type="text/javascript"><!--
+google_ad_client = "pub-7838996662104338";
+/* 728x15, created 5/14/10 */
+google_ad_slot = "7551557095";
+google_ad_width = 728;
+google_ad_height = 15;
+//-->
+</script> 
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> 
+</script></p>   
+      <DIV CLASS="previousnext"> 
+     <TABLE style="border-collapse: collapse;"> 
+      <TR> 
+        
+        
+          <TD style="padding:0; width: 83px;"><IMG
+SRC="images/btn-prev-blank.gif" ALT=""
+            WIDTH="83" HEIGHT="22"></TD> 
+        
+        <TD CLASS="tekst" style="padding:0;">Showing results <b>1-  
+          10
+         </b>out of <b>633</b></TD> 
+        
+          <TD style="padding:0; width: 70px;"><a
+href='?q=gaga&amp;l=10&amp;s=10'><IMG 
+            SRC="images/btn-next.gif" ALT="next" WIDTH="70"
+HEIGHT="22"></a></TD> 
+        
+        
+      </TR> 
+    </TABLE> 
+    </DIV> 
+    
+    <BR style="clear:left;" /> 
+ 
+    <p>&nbsp;</p> 
+    <form method="get" name="searchForm2" action="results.jsp"
+      onSubmit="return checkform2(); "> 
+    <table style="width: 1198px; margin-left: 0px; margin-right: auto; "> 
+      <tr> 
+        <td style="width: 287px"></td> 
+        <td style="width: 661px"><input size="50" type="text" name="q"
+          class="sbox2" value="gaga"><input 
+          type="submit" value="Search" class="lsb2" /></td> 
+        <td style="margin-left: 0px; margin-right: auto; "></td> 
+      </tr> 
+    </table> 
+    </form> 
+  
+ 
+<script src="http://js-kit.com/ratings.js"></script> 
+<script src="script/clicks.js" type="text/javascript"></script> 
+<script src="script/download.js" type="text/javascript"></script> 
+<BR style="clear:left;" /> 
+<BR style="clear:left;" /> 
+<BR style="clear:left;" /> 
+ 
+<table style="width: 766px; margin-left: 0px; margin-right: auto;"> 
+  <tr> 
+    <td style="width: 345px"></td> 
+    <td style="width: 372px"> 
+      <p class="index"><a href="index.jsp">home</a> 
+      &nbsp;&nbsp;|&nbsp;&nbsp;<a href="about.jsp">about</a> 
+      &nbsp;&nbsp;|&nbsp;&nbsp;<a href="faq.jsp">FAQ</a> 
+      &nbsp;&nbsp;|&nbsp;&nbsp;<a href="suggest.jsp">suggest</a> 
+      &nbsp;&nbsp;|&nbsp;&nbsp;<a href="tools.jsp">tools</a> 
+      &nbsp;&nbsp;|&nbsp;&nbsp;<a href="licensing.jsp">API</a> 
+      <br> 
+      <br> 
+      <a href="privacy.jsp">privacy</a> &nbsp;&nbsp;|&nbsp;&nbsp;<a 
+        href="copyright.jsp">copyright</a> &nbsp;&nbsp;|&nbsp;&nbsp;<a 
+        href="terms.jsp">terms</a> &nbsp;&nbsp;|&nbsp;&nbsp;<a 
+        href="contact.jsp">contact</a></p> 
+      <h3 class="index">&copy; 2010 SkreemR Search Inc.</h3> 
+      <p class="index"><b>The World's Greatest Mp3 Search Engine.</b></p> 
+      <p class="index">Canadian Hosting provided by: <a 
+        href="http://www.netelligent.ca/">Netelligent Hosting</a></p> 
+    </td> 
+    <td style="margin-left: 0px; margin-right: auto;"></td> 
+  </tr> 
+</table> 
+ 
+<!-- Start Quantcast tag --> 
+<script type="text/javascript"
+src="http://edge.quantserve.com/quant.js"></script> 
+<script type="text/javascript"> 
+  _qacct = "p-fbG-8FArrZZcg";
+  quantserve();
+</script> 
+<noscript><a href="http://www.quantcast.com/p-fbG-8FArrZZcg"
+target="_blank"><img
+src="http://pixel.quantserve.com/pixel/p-fbG-8FArrZZcg.gif" style="display:
+none;" height="1" width="1" alt="Quantcast" /></a></noscript> 
+<!-- End Quantcast tag --> 
+ 
+<!-- Start GA tag --> 
+<script type="text/javascript"> 
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." :
+"http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script> 
+<script type="text/javascript"> 
+  var pageTracker = _gat._getTracker("UA-1634331-1");
+  pageTracker._initData();
+  pageTracker._trackPageview();
+</script> 
+<!-- End GA tag --> 
+ 
+ 
+<br> 
+ 
+</body> 
+</html> 
