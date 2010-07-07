@@ -1770,10 +1770,12 @@ public class RingdroidEditActivity extends Activity implements
     Cursor createCursor() {
         String selection;
         // Fix ringdroid bug:
-        selection = MediaStore.Audio.Media.DATA+"='"+DatabaseUtils.sqlEscapeString(mFilename)+"'";
+        selection = MediaStore.Audio.Media.DATA + "=?";//+"='"+DatabaseUtils.sqlEscapeString(mFilename)+"'";
+        String[] selectionArgs = new String[1];
+        selectionArgs[0] = DatabaseUtils.sqlEscapeString(mFilename);
         Cursor c = new MergeCursor(new Cursor[] {
-            getExternalAudioCursor(selection, null),
-            getInternalAudioCursor(selection, null)});
+            getExternalAudioCursor(selection, selectionArgs),
+            getInternalAudioCursor(selection, selectionArgs)});
         startManagingCursor(c);
         return c;
     }
