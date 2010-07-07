@@ -366,6 +366,8 @@ public class RingdroidEditActivity extends Activity implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case CMD_SAVE:
+            if (mSoundFile == null)
+                return false;
 			if (mSoundFile.getAvgBitrateKbps() <= 32) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
 				builder.setMessage(R.string.rate_low).setCancelable(false)
@@ -1574,6 +1576,8 @@ public class RingdroidEditActivity extends Activity implements
 
 	private OnClickListener mSaveListener = new OnClickListener() {
 		public void onClick(View sender) {
+            if (mSoundFile == null)
+                return;
 			if (mSoundFile.getAvgBitrateKbps() <= 32) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						RingdroidEditActivity.this);
