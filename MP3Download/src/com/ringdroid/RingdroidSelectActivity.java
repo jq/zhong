@@ -156,11 +156,13 @@ public class RingdroidSelectActivity
         } catch (SecurityException e) {
             // No permission to retrieve audio?
             Log.e("Ringdroid", e.toString());
+            throw e;
 
             // todo error 1
         } catch (IllegalArgumentException e) {
             // No permission to retrieve audio?
             Log.e("Ringdroid", e.toString());
+            throw e;
 
             // todo error 2
         }
