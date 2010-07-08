@@ -1531,26 +1531,27 @@ public class RingdroidEditActivity extends Activity implements
 							// u = Const.mp3dir + ring.getString(Const.mp3);
 							Uri currentFileUri = null;
 							if (!mFilename.startsWith("content:")) {
-								Cursor c = createCursor();
+						        String selection;
+						        selection = MediaStore.Audio.Media.DATA + "=?";//+"='"+DatabaseUtils.sqlEscapeString(mFilename)+"'";
+						        String[] selectionArgs = new String[1];
+						        selectionArgs[0] = mFilename;
+
+						        Uri head = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+						        Cursor c = 
+						            getExternalAudioCursor(selection, selectionArgs);
+						        if (c == null || c.getCount() == 0) {
+						        	head = MediaStore.Audio.Media.INTERNAL_CONTENT_URI;
+						           c = getInternalAudioCursor(selection, selectionArgs);
+						        }
+						        startManagingCursor(c);
+						        if (c == null || c.getCount() == 0) return;
 								c.moveToFirst();
-								int uriIndex = c
-										.getColumnIndex("\""
-												+ MediaStore.Audio.Media.INTERNAL_CONTENT_URI
-												+ "\"");
-								if (uriIndex == -1) {
-									uriIndex = c
-											.getColumnIndex("\""
-													+ MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-													+ "\"");
-								}
-								String itemUri = c.getString(uriIndex)
+								String itemUri = head.toString()
 										+ "/"
 										+ c
 												.getString(c
 														.getColumnIndexOrThrow(MediaStore.Audio.Media._ID));
 								currentFileUri = Uri.parse(itemUri);
-								Log.e("mFilename in RingdroidEditActivity: ",
-										currentFileUri.toString());
 							} else {
 								currentFileUri = Uri.parse(mFilename);
 							}
@@ -1766,19 +1767,6 @@ public class RingdroidEditActivity extends Activity implements
 
 		return uniqueId;
 	}
-	
-    Cursor createCursor() {
-        String selection;
-        // Fix ringdroid bug:
-        selection = MediaStore.Audio.Media.DATA + "=?";//+"='"+DatabaseUtils.sqlEscapeString(mFilename)+"'";
-        String[] selectionArgs = new String[1];
-        selectionArgs[0] = DatabaseUtils.sqlEscapeString(mFilename);
-        Cursor c = new MergeCursor(new Cursor[] {
-            getExternalAudioCursor(selection, selectionArgs),
-            getInternalAudioCursor(selection, selectionArgs)});
-        startManagingCursor(c);
-        return c;
-    }
 
 	private Cursor getInternalAudioCursor(String selection,
 			String[] selectionArgs) {
@@ -1800,8 +1788,7 @@ public class RingdroidEditActivity extends Activity implements
 			MediaStore.Audio.Media.ALBUM, MediaStore.Audio.Media.IS_RINGTONE,
 			MediaStore.Audio.Media.IS_ALARM,
 			MediaStore.Audio.Media.IS_NOTIFICATION,
-			MediaStore.Audio.Media.IS_MUSIC,
-			"\"" + MediaStore.Audio.Media.INTERNAL_CONTENT_URI + "\"" };
+			MediaStore.Audio.Media.IS_MUSIC };
 
 	private static final String[] EXTERNAL_COLUMNS = new String[] {
 			MediaStore.Audio.Media._ID, MediaStore.Audio.Media.DATA,
@@ -1809,6 +1796,5 @@ public class RingdroidEditActivity extends Activity implements
 			MediaStore.Audio.Media.ALBUM, MediaStore.Audio.Media.IS_RINGTONE,
 			MediaStore.Audio.Media.IS_ALARM,
 			MediaStore.Audio.Media.IS_NOTIFICATION,
-			MediaStore.Audio.Media.IS_MUSIC,
-			"\"" + MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "\"" };
+			MediaStore.Audio.Media.IS_MUSIC};
 }
