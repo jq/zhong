@@ -12,6 +12,8 @@ public class MergedMusicSearcher implements IMusicSearcher {
 	private IMusicSearcher mSecondSearcher;
 	private int mPage;
 	
+	private static int sNumQueries = 0;
+	
 	public MergedMusicSearcher() {
 		mSogou = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SOGOU);
 		mSecondSearcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SKREEMR);
@@ -21,11 +23,16 @@ public class MergedMusicSearcher implements IMusicSearcher {
 
 	@Override
 	public ArrayList<MusicInfo> getNextResultList() {
+		sNumQueries++;
 		if (!mBackupMode) {
 			ArrayList<MusicInfo> infos = mSogou.getNextResultList();
-			if (infos == null)
+			if (infos == null)  // Error
 				return null;
 			if (infos.size() == 0 && mPage == 1) {
+				if (sNumQueries <= 2)  { // Retry 
+					Log.i(Utils.TAG, "Retry " + sNumQueries);
+					return getNextResultList();
+				}
 				mBackupMode = true;
 				Log.i(Utils.TAG, "Switching to backup mode");
 				// fall through
