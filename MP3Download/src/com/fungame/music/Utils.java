@@ -18,7 +18,7 @@ import android.util.Log;
 import android.view.ViewGroup;
 
 public class Utils {
-	static String TAG = "MusicWizard";
+	static String TAG = "MP3Download";
 	
 	static public final boolean DEBUG = false;
 	
