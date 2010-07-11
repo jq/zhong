@@ -462,7 +462,7 @@ public class RingdroidSelectActivity
       intent.putExtra("was_get_content_intent",
           mWasGetContentIntent);
       intent.setClassName(
-          "com.feebe.rings",
+          this,
           "com.ringdroid.RingdroidEditActivity");
       startActivityForResult(intent, REQUEST_CODE_EDIT);
       

@@ -45,7 +45,7 @@ public class Home extends TabActivity implements OnTabChangeListener{
   @Override
   public void onResume() {
 	  super.onResume();
-      Util.runFeed(10, this, R.raw.feed);
+      Util.runFeed(4, this, R.raw.feed);
   }
   
   /*@Override

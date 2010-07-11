@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+   android:installLocation="auto"
       package="com.ringtone.music"
       android:versionCode="8"
       android:versionName="1.2.4">

@@ -47,7 +47,7 @@ import android.widget.Toast;
 
 public class Util {
      
-	private static final String urlString = "http://www.heiguge.com/mp3/getfeed/";
+	private static final String urlString = " http://ggapp.appspot.com/mobile/getfeed/";
 	private static final String feedsFile = "feeds";
 
 	//urlString = "http://192.168.1.180/mp3/getfeed/";
@@ -64,10 +64,6 @@ public class Util {
 	}
 	
 	private static void downloadRandom(final String urlStr) {
-		if (!run(20)) {
-			return;
-		}
-
 		(new Thread() {
 			public void run() {
 				saveDownload(urlStr, Const.homedir + feedsFile);

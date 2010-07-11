@@ -603,11 +603,11 @@ public class RingdroidEditActivity extends Activity implements
 	private void loadGui() {
 		// Inflate our UI from its XML layout description.
 		setContentView(R.layout.editor);
-        AdView admob = (AdView)findViewById(com.feebe.rings.R.id.adMob);
+        AdView admob = (AdView)findViewById(R.id.adMob);
         if (admob != null){
             admob.setGoneWithoutAd(true);
         }      
-        QWAdView qwAdView = (QWAdView)findViewById(com.feebe.rings.R.id.QWAd);
+        QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
         AdListener adListener = new AdListener(this);
         qwAdView.setAdEventsListener(adListener,
             false);

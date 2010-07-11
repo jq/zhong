@@ -369,6 +369,8 @@ public class RingdroidEditActivity extends Activity implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case CMD_SAVE:
+            if (mSoundFile == null)
+                return false;
 			if (mSoundFile.getAvgBitrateKbps() <= 32) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
 				builder.setMessage(R.string.rate_low).setCancelable(false)
@@ -748,7 +750,6 @@ public class RingdroidEditActivity extends Activity implements
 							listener);
 
 					if (mSoundFile == null) {
-						mProgressDialog.dismiss();
 						String name = mFile.getName().toLowerCase();
 						String[] components = name.split("\\.");
 						String err;
@@ -763,6 +764,7 @@ public class RingdroidEditActivity extends Activity implements
 						final String finalErr = err;
 						Runnable runnable = new Runnable() {
 							public void run() {
+                                mProgressDialog.dismiss();
 								handleFatalError("UnsupportedExtension",
 										finalErr, new Exception());
 							}
@@ -771,12 +773,12 @@ public class RingdroidEditActivity extends Activity implements
 						return;
 					}
 				} catch (final Exception e) {
-					mProgressDialog.dismiss();
 					e.printStackTrace();
-					mInfo.setText(e.toString());
 
 					Runnable runnable = new Runnable() {
 						public void run() {
+							mProgressDialog.dismiss();
+							mInfo.setText(e.toString());
 							handleFatalError("ReadError", getResources()
 									.getText(R.string.read_error), e);
 						}
@@ -784,7 +786,14 @@ public class RingdroidEditActivity extends Activity implements
 					mHandler.post(runnable);
 					return;
 				}
-				mProgressDialog.dismiss();
+				mHandler.post(new Runnable() {
+
+					@Override
+					public void run() {
+						mProgressDialog.dismiss();
+					}
+					
+				});
 				if (mLoadingKeepGoing) {
 					Runnable runnable = new Runnable() {
 						public void run() {
@@ -1362,7 +1371,7 @@ public class RingdroidEditActivity extends Activity implements
 	private void chooseContactForRingtone(Uri uri) {
 		try {
 			Intent intent = new Intent(Intent.ACTION_EDIT, uri);
-			intent.setClassName("com.trans.music.search",
+			intent.setClassName(this,
 					"com.ringdroid.ChooseContactActivity");
 			startActivityForResult(intent, REQUEST_CODE_CHOOSE_CONTACT);
 		} catch (Exception e) {
@@ -1578,6 +1587,8 @@ public class RingdroidEditActivity extends Activity implements
 
 	private OnClickListener mSaveListener = new OnClickListener() {
 		public void onClick(View sender) {
+            if (mSoundFile == null)
+                return;
 			if (mSoundFile.getAvgBitrateKbps() <= 32) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						RingdroidEditActivity.this);
