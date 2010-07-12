@@ -1,13 +1,10 @@
 package com.fungame.music;
 
-import com.admob.android.ads.AdManager;
-import com.admob.android.ads.AdView;
 import com.fungame.music.download.DownloadActivity;
 import com.fungame.music.updater.AppUpdater;
 import com.fungame.music.updater.UpdateInfo;
 import com.ringdroid.RingdroidSelectActivity;
 import com.fungame.music.R;
-import com.qwapi.adclient.android.view.QWAdView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -42,18 +39,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         sActivity = this;
         
-        setContentView(R.layout.main); 
+        setContentView(R.layout.main);
+        Utils.addAds(this);
         Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(this));
         
-        AdView admob = (AdView)findViewById(R.id.adMob);
-        if (admob != null) {
-            admob.setGoneWithoutAd(true);
-        }      
-        QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
-        AdListener adListener = new AdListener(this);
-        qwAdView.setAdEventsListener(adListener,
-            false);
-        //Utils.createQWAd(this);
 		if (!EulaActivity.checkEula(this)) {
 			return;
 		}

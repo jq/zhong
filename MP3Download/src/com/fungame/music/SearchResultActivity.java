@@ -6,14 +6,11 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import com.admob.android.ads.AdView;
 import com.fungame.music.download.DownloadActivity;
 import com.fungame.music.download.DownloadInfo;
 import com.fungame.music.download.DownloadService;
 
 import com.fungame.music.R;
-import com.qwapi.adclient.android.view.QWAdView;
-
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -40,6 +37,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -305,16 +303,7 @@ public class SearchResultActivity extends ListActivity {
 		Utils.D("Mp3ListActivity onCreate()");
 
 		setContentView(R.layout.result_list);
-
-        AdView admob = (AdView)findViewById(R.id.adMob);
-        if (admob != null){
-            admob.setGoneWithoutAd(true);
-        }      
-        QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
-        AdListener adListener = new AdListener(this);
-        qwAdView.setAdEventsListener(adListener,
-            false);
-		//Utils.createQWAd(this);
+        Utils.addAds(this);
 
         bindService(new Intent(this, DownloadService.class),
                 mConnection, Context.BIND_AUTO_CREATE);

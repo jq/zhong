@@ -8,9 +8,7 @@ import org.apache.commons.io.comparator.LastModifiedFileComparator;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import com.admob.android.ads.AdView;
 import com.fungame.music.R;
-import com.qwapi.adclient.android.view.QWAdView;
 import android.app.ListActivity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -29,6 +27,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -190,15 +189,7 @@ public class ViewDownloadedActivity extends ListActivity {
 		
 		sActivity = this;
 		setContentView(R.layout.music_list);
-
-        AdView admob = (AdView)findViewById(R.id.adMob);
-        if (admob != null){
-            admob.setGoneWithoutAd(true);
-        }      
-        QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
-        AdListener adListener = new AdListener(this);
-        qwAdView.setAdEventsListener(adListener,
-            false);
+        Utils.addAds(this);
 		mProgress = (ProgressBar)findViewById(R.id.list_progress);
 		mMessage = (TextView)findViewById(R.id.list_message);
 		

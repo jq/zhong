@@ -61,6 +61,7 @@ import android.widget.Toast;
 
 import com.ringdroid.soundfile.CheapSoundFile;
 import com.fungame.music.R;
+import com.fungame.music.Utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -601,6 +602,7 @@ public class RingdroidEditActivity extends Activity implements
 	private void loadGui() {
 		// Inflate our UI from its XML layout description.
 		setContentView(R.layout.editor);
+        Utils.addAds(this);
 
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);

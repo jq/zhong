@@ -3,6 +3,7 @@ package com.fungame.music;
 import java.util.Collection;
 import java.util.Iterator;
 
+import com.adwhirl.AdWhirlLayout;
 import com.fungame.music.R;
 
 import android.app.Activity;
@@ -13,9 +14,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class Utils {
 	static String TAG = "MP3Download";
@@ -104,7 +108,13 @@ public class Utils {
     
     
     private static int sNotificationId = 0;
-    
+    public static void addAds(Activity act) {
+    	AdWhirlLayout adWhirlLayout = new AdWhirlLayout(act, "e383f83acfec4f34b591486a93c4da96");
+    	RelativeLayout.LayoutParams adWhirlLayoutParams = new RelativeLayout.LayoutParams(320, 52);
+    	LinearLayout layout = (LinearLayout) act.findViewById(R.id.layout_ad);
+    	layout.addView(adWhirlLayout, adWhirlLayoutParams);
+
+    }
 	public static void addNotification(Context context, Intent intent, String title,
 			String resTitle, String resText, String resExpandedTitle, String resExpandedText) {
     	int icon = R.drawable.icon;
@@ -122,19 +132,4 @@ public class Utils {
         
         notificationManager.notify(R.layout.search + sNotificationId++, notification);
 	}
-	/*
-    public static void createQWAd(Activity activity){
-        ViewGroup parentView = (ViewGroup)activity.findViewById(R.id.AdsView);
-        QWAdView adView = new QWAdView(activity,
-                "Musicmp3-g8886byb",
-                "a7beb24f184b4305804013cbc447f678",
-                MediaType.banner,
-                Placement.bottom,
-                DisplayMode.autoRotate,30,
-                AnimationType.slide,
-                new QWAdEventsListener(),
-                true);
-        parentView.addView(adView);
-    }
-    */
 }

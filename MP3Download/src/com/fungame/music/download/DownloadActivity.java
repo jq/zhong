@@ -3,11 +3,8 @@ package com.fungame.music.download;
 import java.io.File;
 import java.util.ArrayList;
 
-import com.admob.android.ads.AdView;
-import com.fungame.music.AdListener;
 import com.fungame.music.Utils;
 import com.fungame.music.R;
-import com.qwapi.adclient.android.view.QWAdView;
 
 import android.app.ListActivity;
 import android.content.ComponentName;
@@ -30,6 +27,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,15 +53,7 @@ public class DownloadActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 	
 		setContentView(R.layout.download);
-        AdView admob = (AdView)findViewById(R.id.adMob);
-        if (admob != null){
-            admob.setGoneWithoutAd(true);
-        }      
-        QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
-        AdListener adListener = new AdListener(this);
-        qwAdView.setAdEventsListener(adListener,
-            false);
-        //Utils.createQWAd(this);
+        Utils.addAds(this);
 		bindService(new Intent(this, DownloadService.class),
 				mConnection, Context.BIND_AUTO_CREATE);
 		
