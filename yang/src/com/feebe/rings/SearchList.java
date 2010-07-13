@@ -10,14 +10,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.admob.android.ads.AdView;
+import com.feebe.lib.AdListener;
 import com.feebe.lib.BaseList;
 import com.feebe.lib.DbAdapter;
 import com.feebe.lib.EndlessUrlArrayAdapter;
 import com.feebe.lib.ImgThread;
 import com.feebe.lib.UrlArrayAdapter;
 import com.feebe.lib.Util;
+import com.qwapi.adclient.android.view.QWAdView;
 
 import android.app.AlertDialog;
+import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -33,6 +37,7 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
@@ -40,10 +45,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class SearchList extends BaseList {
+public class SearchList extends ListActivity implements OnItemClickListener {
   private final static String TAG = "SearchList";
   private int currentPage = 0;
   
@@ -51,20 +58,36 @@ public class SearchList extends BaseList {
   public void onCreate(Bundle savedInstanceState) {
 	  Const.init(this);
 	  //android.util.Log.e("init", "" + Const.main != null);
+	  
 	  super.onCreate(savedInstanceState);
-	  setContentView(R.layout.searchlist);
-	  Button btnPre = (Button) findViewById(R.id.btn_pre);
-	  Button btnNext = (Button) findViewById(R.id.btn_next);
-	  btnPre.setFocusable(false);
-	  btnNext.setFocusable(false);
-	  btnPre.setOnClickListener(new OnClickListener() {
+	  
+	  requestWindowFeature(Window.FEATURE_NO_TITLE);
+    setContentView(R.layout.list); 
+    AdView admob = (AdView)findViewById(com.feebe.rings.R.id.adMob);
+    if (admob != null){
+        admob.setGoneWithoutAd(true);
+    }      
+    QWAdView qwAdView = (QWAdView)findViewById(com.feebe.rings.R.id.QWAd);
+    AdListener adListener = new AdListener(this);
+    qwAdView.setAdEventsListener(adListener,false);
+    final ListView list = getListView();
+    SearchListFooterView footer = new SearchListFooterView(this);
+    list.addFooterView(footer);
+    setListAdapter(getAdapter());
+    list.setDividerHeight(1);
+    list.setFocusable(true);
+    // list.setOnCreateContextMenuListener(this);
+    list.setTextFilterEnabled(true);
+    list.setOnItemClickListener(this);
+    
+    Button btnPre = footer.getBtnPre();
+    Button btnNext = footer.getBtnNext();
+    btnPre.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				if(currentPage <= 0) {
+				if(currentPage <= 0)
 					Toast.makeText(getApplicationContext(), "No pre page", Toast.LENGTH_LONG).show();
-				}
 				else {
 					currentPage--;
 					mAdapter.clear();
@@ -73,24 +96,23 @@ public class SearchList extends BaseList {
 				}
 			}
 		});
-	  btnNext.setOnClickListener(new OnClickListener() {
+    btnNext.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-					currentPage++;
-					if(mAdapter.getListFromUrl(reloadUrl, Const.OneWeek) == null)	{
-						currentPage--;
-						Toast.makeText(getApplicationContext(), "No next page", Toast.LENGTH_LONG).show();
-					}
-					else {
-						mAdapter.clear();
-						mAdapter.reset();
-						mAdapter.notifyDataSetChanged();
-					}
+				currentPage++;
+				if(mAdapter.getListFromUrl(reloadUrl, Const.OneWeek) == null) {
+					currentPage--;
+					Toast.makeText(getApplicationContext(), "No next page", Toast.LENGTH_LONG).show();
+				}
+				else {
+					mAdapter.clear();
+					mAdapter.reset();
+					mAdapter.notifyDataSetChanged();
+				}
 			}
 		});
-	  
+	 
   }  
 /*
   @Override
@@ -117,8 +139,7 @@ public void onCreateContextMenu(ContextMenu menu, View v,
 	super.onCreateContextMenu(menu, v, menuInfo);
 }
 
-@Override
-  public ListAdapter getAdapter() {
+public ListAdapter getAdapter() {
   	new ImgThread(getListView());
     Intent i = this.getIntent();
     reloadUrl = getUrlFromIntent(i);
