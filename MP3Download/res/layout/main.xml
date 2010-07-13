@@ -16,8 +16,8 @@
     
     <LinearLayout android:orientation="horizontal" android:id="@+id/main_navbar" android:background="@drawable/navbg2" android:layout_width="fill_parent" android:layout_height="48.0dip"
     android:visibility="visible">
-        <ImageView android:id="@+id/ringtone" android:layout_width="46.0dip" android:layout_height="46.0dip" android:layout_marginTop="1.0dip" android:src="@drawable/b_search_on" android:layout_weight="1.0" />
-        <ImageView android:id="@+id/downloads" android:layout_width="46.0dip" android:layout_height="46.0dip" android:layout_marginTop="1.0dip" android:src="@drawable/b_download_on" android:layout_weight="1.0" />
-        <ImageView android:id="@+id/music_library" android:layout_width="46.0dip" android:layout_height="46.0dip" android:layout_marginTop="1.0dip" android:src="@drawable/b_library_on" android:layout_weight="1.0" />
+        <ImageView android:id="@+id/ringtone" android:layout_width="46.0dip" android:layout_height="46.0dip" android:layout_marginTop="1.0dip" android:src="@drawable/ringtone" android:layout_weight="1.0" />
+        <ImageView android:id="@+id/downloads" android:layout_width="46.0dip" android:layout_height="46.0dip" android:layout_marginTop="1.0dip" android:src="@drawable/download" android:layout_weight="1.0" />
+        <ImageView android:id="@+id/music_library" android:layout_width="46.0dip" android:layout_height="46.0dip" android:layout_marginTop="1.0dip" android:src="@drawable/library" android:layout_weight="1.0" />
     </LinearLayout>	        
 </LinearLayout>

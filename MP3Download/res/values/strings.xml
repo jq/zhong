@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="app_name">MP3 Download</string>
+    <string name="app_name">MP3 Downloader</string>
     <string name="go">Go</string>
     <string name="error_network">Network connection error!</string>
     <string name="retry">Retry</string>
