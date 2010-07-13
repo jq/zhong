@@ -21,7 +21,9 @@ import com.feebe.lib.Util;
 import com.qwapi.adclient.android.view.QWAdView;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -31,6 +33,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.SearchRecentSuggestions;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -52,8 +55,10 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class SearchList extends ListActivity implements OnItemClickListener {
   private final static String TAG = "SearchList";
+	private static final int PROGRESS_DIALOG = 0;
   private int currentPage = 0;
-  
+  private ProgressDialog waitDialog;
+  final Handler uiHandler = new Handler();
   @Override
   public void onCreate(Bundle savedInstanceState) {
 	  Const.init(this);
@@ -82,8 +87,7 @@ public class SearchList extends ListActivity implements OnItemClickListener {
     
     Button btnPre = footer.getBtnPre();
     Button btnNext = footer.getBtnNext();
-    btnPre.setOnClickListener(new OnClickListener() {
-			
+    btnPre.setOnClickListener(new OnClickListener() {	
 			@Override
 			public void onClick(View v) {
 				if(currentPage <= 0)
@@ -96,20 +100,42 @@ public class SearchList extends ListActivity implements OnItemClickListener {
 				}
 			}
 		});
-    btnNext.setOnClickListener(new OnClickListener() {
-			
+    btnNext.setOnClickListener(new OnClickListener() {		
 			@Override
 			public void onClick(View v) {
 				currentPage++;
-				if(mAdapter.getListFromUrl(reloadUrl, Const.OneWeek) == null) {
-					currentPage--;
-					Toast.makeText(getApplicationContext(), "No next page", Toast.LENGTH_LONG).show();
-				}
-				else {
-					mAdapter.clear();
-					mAdapter.reset();
-					mAdapter.notifyDataSetChanged();
-				}
+				showDialog(PROGRESS_DIALOG);
+				new Thread(
+					new Runnable() {
+						public void run() {
+							if(mAdapter.getListFromUrl(reloadUrl, Const.OneWeek) == null) {
+								currentPage--;
+								waitDialog.dismiss();
+								uiHandler.post(new Runnable() {
+									@Override
+									public void run() {
+										Toast.makeText(getApplicationContext(), "No next page", Toast.LENGTH_LONG).show();
+									}
+								});
+								
+							}
+							else {
+								uiHandler.post(new Runnable() {							
+									@Override
+									public void run() {
+										mAdapter.clear();
+										mAdapter.reset();
+										mAdapter.notifyDataSetChanged();
+									}
+								});
+								waitDialog.dismiss();
+							}				
+							
+						}
+					}
+				).start();
+				
+				
 			}
 		});
 	 
@@ -297,6 +323,19 @@ public ListAdapter getAdapter() {
       return RingUtil.getJsonArrayFromUrl(getUrl(currentPage), expire);
     }
 
+  }
+  
+  protected Dialog onCreateDialog(int id) { 
+  	switch(id) {
+  		case PROGRESS_DIALOG:
+  			waitDialog = new ProgressDialog(SearchList.this);
+  			waitDialog.setTitle("Please wait");
+  			waitDialog.setMessage("Getting ringtone");
+  			waitDialog.setIndeterminate(true);
+  			return waitDialog;
+  		default:
+  			return null;
+  	}
   }
   
 
