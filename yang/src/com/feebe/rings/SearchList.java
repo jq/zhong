@@ -35,19 +35,62 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class SearchList extends BaseList {
   private final static String TAG = "SearchList";
+  private int currentPage = 0;
   
   @Override
   public void onCreate(Bundle savedInstanceState) {
 	  Const.init(this);
 	  //android.util.Log.e("init", "" + Const.main != null);
 	  super.onCreate(savedInstanceState);
+	  setContentView(R.layout.searchlist);
+	  Button btnPre = (Button) findViewById(R.id.btn_pre);
+	  Button btnNext = (Button) findViewById(R.id.btn_next);
+	  btnPre.setFocusable(false);
+	  btnNext.setFocusable(false);
+	  btnPre.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(currentPage <= 0) {
+					Toast.makeText(getApplicationContext(), "No pre page", Toast.LENGTH_LONG).show();
+				}
+				else {
+					currentPage--;
+					mAdapter.clear();
+					mAdapter.reset();
+					mAdapter.notifyDataSetChanged();
+				}
+			}
+		});
+	  btnNext.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+					currentPage++;
+					if(mAdapter.getListFromUrl(reloadUrl, Const.OneWeek) == null)	{
+						currentPage--;
+						Toast.makeText(getApplicationContext(), "No next page", Toast.LENGTH_LONG).show();
+					}
+					else {
+						mAdapter.clear();
+						mAdapter.reset();
+						mAdapter.notifyDataSetChanged();
+					}
+			}
+		});
+	  
   }  
 /*
   @Override
@@ -80,7 +123,7 @@ public void onCreateContextMenu(ContextMenu menu, View v,
     Intent i = this.getIntent();
     reloadUrl = getUrlFromIntent(i);
     long expire = i.getLongExtra(Const.expire, 0);
-    mAdapter = new SearchResultAdapter(this, R.layout.searchlist_row, expire);
+    mAdapter = new SearchResultAdapter(this, R.layout.searchlist_row);
     return mAdapter;
   }
 
@@ -155,17 +198,13 @@ public void onCreateContextMenu(ContextMenu menu, View v,
     }
   }
   
-  public class SearchResultAdapter extends EndlessUrlArrayAdapter<SearchResult, SearchViewWp> {
-    public SearchResultAdapter(Context context, int resource, long expire) {
-      super(context, resource, expire);
+  public class SearchResultAdapter extends UrlArrayAdapter<SearchResult, SearchViewWp> {
+    public SearchResultAdapter(Context context, int resource) {
+      super(context, resource);
       reset();
     }
-    public void reset() {
-      lastCnt = 0;
-      if (Util.inCache(reloadUrl, expire_)) {
-        runSyn(reloadUrl, expire_);
-        finishLoading();
-      }
+    public void reset() {      
+    	runSyn(reloadUrl, Const.OneWeek);
     }
     @Override
     public SearchResult getT(Object o) {
@@ -219,39 +258,22 @@ public void onCreateContextMenu(ContextMenu menu, View v,
 	    
     }
     
-    @Override
-    protected String getUrl(int pos) {
-      if (pos == 0) {
+    protected String getUrl(int page) {
+      if (page == 0) {
         return reloadUrl;
       }
-      lastCnt = pos;
       String url;
       if (reloadUrl.indexOf('?') != -1) {
-        url = reloadUrl + "&start=" +lastCnt;
+        url = reloadUrl + "&start=" +page*15;
       } else {
-        url = reloadUrl + "?start=" +lastCnt;
+        url = reloadUrl + "?start=" +page*15;
       }
       return url;
     }
-    @Override
-    protected void finishLoading() {
-      Log.e("finishLoading", "cont " + super.getCount() + " last " + lastCnt);
-      if(super.getCount() == 0) {
-    	this.onNoResult();  
-    	SearchList.this.finish();
-      }
-      
-      if (lastCnt + Const.DEFAULT_RESULT > super.getCount()) {
-        keepOnAppending = false;
-        notifyDataSetChanged();
-      } else {
-        fetchMoreResult();
-      }
-      lastCnt = super.getCount();
-    }
+
     @Override
     protected List getListFromUrl(String url, long expire) {
-      return RingUtil.getJsonArrayFromUrl(url, expire);
+      return RingUtil.getJsonArrayFromUrl(getUrl(currentPage), expire);
     }
 
   }
@@ -266,6 +288,6 @@ protected void onDestroy() {
 	super.onDestroy();
 }
 
- private int lastCnt;
+// private int lastCnt;
  private SearchResultAdapter mAdapter;
 }
