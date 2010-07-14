@@ -114,7 +114,7 @@ public class RingdroidSelectActivity
 
         // Inflate our UI from its XML layout description.
         setContentView(R.layout.media_select);
-        //AdsView.createAdsenseAds(this, AdsView.CHANNEL_ID_2);
+		com.fungame.music.Utils.addAds(this);
         Button recordButton = (Button) findViewById(R.id.record);
         recordButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View clickedButton) {

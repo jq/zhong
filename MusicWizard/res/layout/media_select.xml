@@ -60,5 +60,5 @@
      android:layout_weight="1">
      <requestFocus />
   </ListView>
-    <include layout_height="wrap_content" layout="@layout/ads"/>          
+    <include layout_height="wrap_content" layout="@layout/adsw"/>          
 </LinearLayout>

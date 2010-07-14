@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 import com.admob.android.ads.AdView;
-import com.ringtone.music.AdListener;
 import com.ringtone.music.R;
 import com.ringtone.music.Utils;
 import com.qwapi.adclient.android.view.QWAdView;
@@ -55,15 +54,7 @@ public class DownloadActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 	
 		setContentView(R.layout.download);
-        AdView admob = (AdView)findViewById(R.id.adMob);
-        if (admob != null){
-            admob.setGoneWithoutAd(true);
-        }      
-        QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
-        AdListener adListener = new AdListener(this);
-        qwAdView.setAdEventsListener(adListener,
-            false);
-        //Utils.createQWAd(this);
+		Utils.addAds(this);
 		bindService(new Intent(this, DownloadService.class),
 				mConnection, Context.BIND_AUTO_CREATE);
 		

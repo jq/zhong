@@ -5,7 +5,7 @@
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
   <include android:layout_height="wrap_content" layout="@layout/search"/> 
-  <include layout="@layout/ads"/> 
+  <include layout="@layout/adsw"/> 
   <ListView android:id="@id/android:list"
  	  android:layout_width="fill_parent"
       android:layout_height="wrap_content"

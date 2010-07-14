@@ -48,6 +48,7 @@ import android.widget.Toast;
 
 import com.ringdroid.soundfile.CheapSoundFile;
 import com.ringtone.music.R;
+import com.ringtone.music.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -114,6 +115,8 @@ public class RingdroidSelectActivity
 
         // Inflate our UI from its XML layout description.
         setContentView(R.layout.media_select);
+		Utils.addAds(this);
+
         //AdsView.createAdsenseAds(this, AdsView.CHANNEL_ID_2);
         Button recordButton = (Button) findViewById(R.id.record);
         recordButton.setOnClickListener(new View.OnClickListener() {

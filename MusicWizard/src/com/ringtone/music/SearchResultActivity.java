@@ -305,16 +305,7 @@ public class SearchResultActivity extends ListActivity {
 		Utils.D("Mp3ListActivity onCreate()");
 
 		setContentView(R.layout.result_list);
-
-        AdView admob = (AdView)findViewById(R.id.adMob);
-        if (admob != null){
-            admob.setGoneWithoutAd(true);
-        }      
-        QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
-        AdListener adListener = new AdListener(this);
-        qwAdView.setAdEventsListener(adListener,
-            false);
-		//Utils.createQWAd(this);
+		Utils.addAds(this);
 
         bindService(new Intent(this, DownloadService.class),
                 mConnection, Context.BIND_AUTO_CREATE);

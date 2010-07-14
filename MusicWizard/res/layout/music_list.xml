@@ -35,7 +35,7 @@
 
     </LinearLayout>
 
-  <include layout="@layout/ads"/>
+  <include layout="@layout/adsw"/>
   <Button android:id="@+id/return_button"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"

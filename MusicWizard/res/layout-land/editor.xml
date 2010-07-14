@@ -174,5 +174,5 @@
       </LinearLayout>
 
    </LinearLayout>
-    <include layout_height="wrap_content" layout="@layout/ads"/>          
+    <include layout_height="wrap_content" layout="@layout/adsw"/>          
 </LinearLayout>

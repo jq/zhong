@@ -44,15 +44,8 @@ public class MainActivity extends Activity {
         Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(this));
         
         setContentView(R.layout.main); 
-        AdView admob = (AdView)findViewById(R.id.adMob);
-        if (admob != null) {
-            admob.setGoneWithoutAd(true);
-        }      
-        QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
-        AdListener adListener = new AdListener(this);
-        qwAdView.setAdEventsListener(adListener,
-            false);
-        //Utils.createQWAd(this);
+		Utils.addAds(this);
+
 		if (!EulaActivity.checkEula(this)) {
 			return;
 		}

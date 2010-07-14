@@ -6,7 +6,7 @@
 
 	<include layout="@layout/search"/>
 	
-    <include layout="@layout/ads"/>
+    <include layout="@layout/adsw"/>
 
 	<TextView android:textSize="12.0sp"
 	          android:background="#cccccc"

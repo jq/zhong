@@ -189,15 +189,7 @@ public class ViewDownloadedActivity extends ListActivity {
 		
 		sActivity = this;
 		setContentView(R.layout.music_list);
-
-        AdView admob = (AdView)findViewById(R.id.adMob);
-        if (admob != null){
-            admob.setGoneWithoutAd(true);
-        }      
-        QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
-        AdListener adListener = new AdListener(this);
-        qwAdView.setAdEventsListener(adListener,
-            false);
+		Utils.addAds(this);
 		mProgress = (ProgressBar)findViewById(R.id.list_progress);
 		mMessage = (TextView)findViewById(R.id.list_message);
 		
