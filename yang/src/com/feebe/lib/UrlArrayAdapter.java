@@ -103,12 +103,81 @@ public abstract class UrlArrayAdapter<T, W> extends ArrayAdapter<T> {
   }
     
   private boolean runList(List entries) {
-    int len = entries.size();
+  	//combine the same
+  	List newList = new ArrayList(entries.size());
+  	for(int i = 0; i < entries.size(); i++) {
+  		JSONObject first = (JSONObject) (entries.get(i));
+  		String firstTitle = null;
+  		String firstArtist = null;
+  		int firstRating = -1;
+  		String otherTitle = null;
+  		String otherArtist = null;
+  		int otherRating = -1;
+  		try {
+  			if(first.has("song")) {
+  				firstTitle = first.getString("song");
+  			}
+  			if(first.has("title")) {
+  				firstTitle = first.getString("title");
+  			}
+  			if(first.has("artist"))
+  				firstArtist = first.getString("artist");
+  			if(first.has("rating"))
+  				firstRating = Integer.parseInt(first.getString("rating"));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}	
+			if(newList.size() == 0) {
+				newList.add(first);
+			}
+			else {
+				boolean in = false;
+				for(int j = 0; j < newList.size(); j++){
+					JSONObject other = (JSONObject) newList.get(j);
+					try {
+	  				if(other.has("song"))
+	  					otherTitle = other.getString("song");
+	  				if(other.has("title"))
+	  					otherTitle = other.getString("title");
+	  				if(other.has("artist"))
+	  					otherArtist = other.getString("artist");
+	  				if(other.has("rating"))
+	  					otherRating = Integer.parseInt(other.getString("rating"));
+	  			} catch (JSONException e) {
+	  				e.printStackTrace();
+	  			}
+	  			if(firstTitle!=null && firstArtist!=null && otherTitle!=null && otherArtist!=null) {
+	  				if(firstTitle.equals(otherTitle) && firstArtist.equals(otherArtist)) {
+	  					in = true;
+	  					if(firstRating > otherRating) {
+	  						//remove the one with low rating
+	  						newList.remove(other);
+	  						in = false;
+	  					}
+	  				}
+	  			}
+				}
+				if(!in)
+					newList.add(first);
+			}
+  	}
+  	
+  	if(newList.size() < 10) {
+  		for(int i = 0; i < entries.size(); i++) {
+  			JSONObject o = (JSONObject) (entries.get(i));
+  			if(!newList.contains(o))
+  				newList.add(o);
+  			if(newList.size() > 9)
+  				break;
+  		}
+  	}
+  	
+    int len = newList.size();
     if (len == 0) {
       return false;
     }
     for(int i = 0; i < len; i++){
-      T obj = getT(entries.get(i));
+      T obj = getT(newList.get(i));
       if (obj != null) {
         add(obj);
       }
