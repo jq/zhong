@@ -11,19 +11,19 @@
   					android:layout_height="wrap_content"
   					android:layout_alignParentBottom="true"
   					>
-  					<Button
+  					<ImageButton
   								android:id="@+id/btn_pre"
   								android:layout_width="wrap_content"
   								android:layout_height="wrap_content"
   								android:layout_alignParentLeft="true"
-  								android:text="pre"
+  								android:src="@drawable/btn_pre"
   					/>
-  					<Button
+  					<ImageButton
   								android:id="@+id/btn_next"
   								android:layout_width="wrap_content"
   								android:layout_height="wrap_content"
   								android:layout_alignParentRight="true"
-  								android:text="next"
+  								android:src="@drawable/btn_next"
   					/>
   </RelativeLayout>
   

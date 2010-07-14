@@ -5,14 +5,15 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 public class SearchListFooterView extends RelativeLayout{
 
 	private static final String TAG = "SearchListFooterView"; 
 	private Context context;
-	private Button btn_pre;
-	private Button btn_next;
+	private ImageButton btn_pre;
+	private ImageButton btn_next;
 	
 	public SearchListFooterView(Context context) {
 		super(context);
@@ -28,14 +29,14 @@ public class SearchListFooterView extends RelativeLayout{
 		this.context = context;
 		View view = LayoutInflater.from(context).inflate(R.layout.list_footer, null);
 		addView(view);
-		btn_pre = (Button) findViewById(R.id.btn_pre);
-		btn_next = (Button) findViewById(R.id.btn_next);
+		btn_pre = (ImageButton) findViewById(R.id.btn_pre);
+		btn_next = (ImageButton) findViewById(R.id.btn_next);
 	}
 	
-	public Button getBtnPre() {
+	public ImageButton getBtnPre() {
 		return btn_pre;
 	}
-	public Button getBtnNext() {
+	public ImageButton getBtnNext() {
 		return btn_next;
 	}
 }

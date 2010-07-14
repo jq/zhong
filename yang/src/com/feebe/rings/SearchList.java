@@ -46,6 +46,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -85,8 +86,8 @@ public class SearchList extends ListActivity implements OnItemClickListener {
     list.setTextFilterEnabled(true);
     list.setOnItemClickListener(this);
     
-    Button btnPre = footer.getBtnPre();
-    Button btnNext = footer.getBtnNext();
+    ImageButton btnPre = footer.getBtnPre();
+    ImageButton btnNext = footer.getBtnNext();
     btnPre.setOnClickListener(new OnClickListener() {	
 			@Override
 			public void onClick(View v) {
