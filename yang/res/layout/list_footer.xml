@@ -5,27 +5,29 @@
   android:layout_width="fill_parent"
   android:layout_height="wrap_content">
   
-  <RelativeLayout
+  <LinearLayout
   					android:id="@+id/pageupdown"
   					android:layout_width="fill_parent"
-  					android:layout_height="wrap_content"
+  					android:layout_height="54px"
   					android:layout_alignParentBottom="true"
   					>
   					<ImageButton
   								android:id="@+id/btn_pre"
-  								android:layout_width="wrap_content"
   								android:layout_height="wrap_content"
+  								android:layout_width="wrap_content"
   								android:layout_alignParentLeft="true"
   								android:src="@drawable/btn_pre"
+  								android:layout_weight="1"
   					/>
   					<ImageButton
   								android:id="@+id/btn_next"
-  								android:layout_width="wrap_content"
   								android:layout_height="wrap_content"
+  								android:layout_width="wrap_content"
   								android:layout_alignParentRight="true"
   								android:src="@drawable/btn_next"
+  								android:layout_weight="1"
   					/>
-  </RelativeLayout>
+  </LinearLayout>
   
   <FrameLayout android:id="@+id/AdsView" 
 		android:layout_width="fill_parent"
