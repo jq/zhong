@@ -126,13 +126,13 @@ public abstract class UrlArrayAdapter<T, W> extends ArrayAdapter<T> {
 			  e.printStackTrace();
 			}
 			if(newListHt.size() == 0) {
-				newListHt.put(artist+"@"+title, jObject);
+				newListHt.put(artist+title, jObject);
 			}
 			else {
 				boolean in = false;
-				if(newListHt.containsKey(artist+"@"+title)) {
+				if(newListHt.containsKey(artist+title)) {
 				  in = true;
-				  JSONObject oldjObject = (JSONObject) newListHt.get(artist+"@"+title);
+				  JSONObject oldjObject = (JSONObject) newListHt.get(artist+title);
 				  int oldRating = -1;
                   try {
                     oldRating = Integer.parseInt(oldjObject.getString("rating"));
@@ -143,12 +143,12 @@ public abstract class UrlArrayAdapter<T, W> extends ArrayAdapter<T> {
                   } 
 				  if(rating > oldRating) {
 				    //remove the one with low rating
-				    newListHt.remove(artist+"@"+title);
+				    newListHt.remove(artist+title);
 				    in = false;
 				  }
 				}
 				if(!in)
-				  newListHt.put(artist+"@"+title, jObject);
+				  newListHt.put(artist+title, jObject);
 			}
   	}
   	//add elements in hash table to newList
