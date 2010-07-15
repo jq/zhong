@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Comparator;
 import java.util.Collections;
@@ -107,52 +108,53 @@ public abstract class UrlArrayAdapter<T, W> extends ArrayAdapter<T> {
   	//combine the same
   	List newList = new ArrayList(entries.size());
   	Hashtable newListHt= new Hashtable();
-  	ArrayList<String> artistTitleArray = new ArrayList<String>();
   	for(int i = 0; i < entries.size(); i++) {
-  		JSONObject first = (JSONObject) (entries.get(i));
-  		String firstTitle = null;
-  		String firstArtist = null;
-  		int firstRating = -1;
+  		JSONObject jObject = (JSONObject) (entries.get(i));
+  		String title = null;
+  		String artist = null;
+  		int rating = -1;
   		try {
-  			if(first.has("song"))
-  			  firstTitle = first.getString("song");
-  			if(first.has("title"))
-  			  firstTitle = first.getString("title");
-  			if(first.has("artist"))
-  			  firstArtist = first.getString("artist");
-  			if(first.has("rating"))
-  			  firstRating = Integer.parseInt(first.getString("rating"));
+  			if(jObject.has("song"))
+  			  title = jObject.getString("song");
+  			if(jObject.has("title"))
+  			  title = jObject.getString("title");
+  			if(jObject.has("artist"))
+  			  artist = jObject.getString("artist");
+  			if(jObject.has("rating"))
+  			  rating = Integer.parseInt(jObject.getString("rating"));
 			} catch (JSONException e) {
 			  e.printStackTrace();
 			}
-			artistTitleArray.add(i, firstArtist+"@"+firstTitle);
 			if(newListHt.size() == 0) {
-				newListHt.put(firstArtist+"@"+firstTitle, i+"@"+firstRating);
+				newListHt.put(artist+"@"+title, jObject);
 			}
 			else {
 				boolean in = false;
-				if(newListHt.containsKey(firstArtist+"@"+firstTitle)) {
+				if(newListHt.containsKey(artist+"@"+title)) {
 				  in = true;
-				  String value = (String) newListHt.get(firstArtist+"@"+firstTitle);
-				  if(firstRating > Integer.parseInt(value.substring(value.indexOf("@")+1))) {
+				  JSONObject oldjObject = (JSONObject) newListHt.get(artist+"@"+title);
+				  int oldRating = -1;
+                  try {
+                    oldRating = Integer.parseInt(oldjObject.getString("rating"));
+                  } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                  } catch (JSONException e) {
+                    e.printStackTrace();
+                  } 
+				  if(rating > oldRating) {
 				    //remove the one with low rating
-				    newListHt.remove(firstArtist+"@"+firstTitle);
+				    newListHt.remove(artist+"@"+title);
 				    in = false;
 				  }
 				}
 				if(!in)
-				  newListHt.put(firstArtist+"@"+firstTitle, i+"@"+firstRating);
+				  newListHt.put(artist+"@"+title, jObject);
 			}
   	}
   	//add elements in hash table to newList
-  	for(int i = 0; i < entries.size(); i++) {
-  	  String artistTitle = artistTitleArray.get(i);
-  	  if(newListHt.containsKey(artistTitle)) {
-  	    String value = (String) newListHt.get(artistTitle);
-  	    if(i == Integer.parseInt(value.substring(0,value.indexOf("@")))) {
-  	      newList.add(entries.get(i));
-  	    }
-  	  }
+  	Iterator<JSONObject> it = newListHt.values().iterator();
+  	while(it.hasNext()) {
+  	  newList.add(it.next());
   	}
   	//list size no less than 10
   	if(newList.size() < 10) {
