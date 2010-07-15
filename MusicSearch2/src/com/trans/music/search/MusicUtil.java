@@ -29,8 +29,8 @@ public class MusicUtil {
 			"<td.*?href=\"([^\"]*)\".*?" +  // 5
 			"<td.*?</td>.*?" +  // Ignore
 			"<td.*?>([^<]*)<.*?" +   // 6
-			"<td.*?>([^<]*)<" +   // 7
-			""
+			"<td.*?>([^<]*)<.*?" +   // 7
+			"<td.*?spdbar([0-9]?)\".*?"
 			, Pattern.DOTALL);
 	
 	
@@ -145,6 +145,7 @@ public static void setStingKey(String key, String value) {
 					info.setAlbum(m.group(3).trim());
 					info.setLink(m.group(4).trim());
 					info.setFSize(String.valueOf(sizeFromStr(m.group(6).trim())));
+					info.setSpeed(m.group(8).trim());
 					
 					songs.add(info);
 				}

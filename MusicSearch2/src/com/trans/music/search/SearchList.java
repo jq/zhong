@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 public class SearchList extends BaseList {
   private final static String TAG = "SearchList";
-  public final static int DEFAULT_RESULT = 30;
+  public final static int DEFAULT_RESULT = 10;
   
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -127,8 +127,8 @@ public class SearchList extends BaseList {
         return reloadUrl;
       }
       lastCnt = pos;
-      int page = pos / DEFAULT_RESULT + 1;
-      String url = MusicUtil.getSogouLinks(reloadUrl, page);
+      //int page = pos / DEFAULT_RESULT + 1;
+      String url = MusicUtil.getSogouLinks(reloadUrl, ++currentPage);
       return url;
     }
     @Override
@@ -219,6 +219,7 @@ public class SearchList extends BaseList {
   }
 
   private int lastCnt;
+  private int currentPage = 1;
   private SearchResultAdapter mAdapter;
   private ProgressDialog getLinkProgressDialog;
 }

@@ -12,7 +12,8 @@ public class MP3Info{
   public String album="";
   public String fsize=""; 
   public String rate="";    
-  public String link="";  
+  public String link="";
+  public String speed="";
   public boolean bisLinkValid = false;
   void setName(String n)
   {
@@ -64,4 +65,9 @@ public class MP3Info{
     link = l;
   }
   public String getLink(){return link;}
+  void setSpeed(String s)
+  {
+    speed = s;
+  }
+  public String getSpeed(){return speed;}
  }
