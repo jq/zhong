@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tab_hot">热门</string>
+    <string name="tab_search">查找</string>
+    <string name="tab_browse">酷</string>
+    <string name="tab_download">铃声</string>
+    <string name="app_name">RingTone</string>
+    
+    <string name="no_sd">无法在SD卡上创建目录</string>
+    <string name="no_result">无结果</string>
+    
+    <string name="no_sd_space">SD卡空间不足</string>
+    <string name="search_hint">搜索</string>
+    
+    <string name="upload">上传</string>
+    <string name="clear_cache">清除缓存</string>
+
+    <string name="play">播放</string>
+    <string name="pause">暂停</string>
+    <string name="stop">停止</string>
+    <string name="error">错误</string>
+    <string name="artist_name">Feebe</string>
+    <string name="network_error">网络错误</string>
+    <string name="retry">重试</string>
+    <string name="footer">更多</string>
+        
+    <string name="info">信息:</string>
+    <string name="about">关于 Ringtone:</string>
+    <string name="myreview">我的评论:</string>
+		
+		<string name="info_download_count"> 下载它的人</string>
+    <!--
+     imported
+     -->
+    
+    
+    <string name="button_start_record_activity">录制新铃声</string>
+
+    <string name="sdcard_readonly">对不起，SD卡被安装为只读</string>
+    <string name="no_sdcard">不能运行，除非你有一个已插入的SD卡</string>
+    <string name="sdcard_shared">不能运行，因为您的手机被作为USB设备安装.</string>
+
+    <!--
+     Edit activity
+     -->
+
+    <!-- Labels next to the start and end time edit boxes -->
+    <string name="start_label">开始:</string>
+    <string name="end_label">结束:</string>
+
+    <string name="edit_intent">编辑</string>
+
+    <string name="time_seconds">秒</string>
+
+    <!-- After you save a notification or ringtone and have more options
+	 for what to do with them -->
+    <string name="what_to_do_with_ringtone">已保存！设为您的默认铃声或将其分配给联系人？</string>
+    <string name="set_default_notification">已保存!  设为默认的来电铃声？</string>
+
+    <string name="make_default_ringtone_button">设为默认</string>
+    <string name="choose_contact_ringtone_button">分配给联系人</string>
+    <string name="do_nothing_with_ringtone_button">关闭</string>
+
+    <!-- Progress dialog text for loading or saving... -->
+    <string name="progress_dialog_loading">加载中...</string>
+    <string name="progress_dialog_saving">保存中...</string>
+
+    <!--
+     Menu items
+     -->
+
+    <string name="menu_save">保存</string>
+    <string name="menu_reset">重置</string>
+    <string name="menu_show_all_audio">显示所有音频</string>
+    
+    <string name="menu_search">搜索</string>
+    <string name="menu_unset_ringtone">取消设置铃声</string>
+    
+    <!--
+     used in RingActivity search more listview
+     -->
+     <string name="search_more">搜索更多</string>
+     <string name="search_more_by">搜索更多用</string>
+     <string name="search_more_in">搜索更多在</string>
+    
+    <!--
+     used in share alert_dialog
+     -->
+     <string name="share_sms1">我希望与你分享这个铃声:</string>
+     <string name="share_sms2">来自</string>
+     <string name="share_sms3">发送来自Feebe的Android market的铃声://search?q=com.feebee.rings</string>
+    
+    <!--
+     used in RingActivity dlProgress dialog
+     -->
+     <string name="dlprogress_title">下载中...</string>
+     <string name="dlprogress_message">从网上下载铃声.\n该窗口将在铃声下载完成后自动关闭.</string>
+    
+    <!--
+     used in RingActivity mStreaming dialog
+     -->
+     <string name="mStreaming_title">稍等</string>
+     <string name="mStreaming_message">正在从网络上流出音频...</string>
+    
+    <!--
+     used in RingActivity ring_picker dialog
+     -->
+     <string name="ring_picker_title">选择铃声</string>
+     <string name="ring_picker_message">正在从网络上流出音频...</string>
+      
+    <!--
+     AlertDialogs
+     -->
+     <string name="alertdialog_select">选择</string>
+     <string name="alertdialog_ok">确定</string>
+     <string name="alertdialog_cancel">取消</string>
+     <string name="alertdialog_share">分享</string>
+
+    <!--
+     Context menu items
+     -->
+
+    <string name="context_menu_edit">编辑</string>
+    <string name="context_menu_delete">删除</string>
+
+    <!--
+     File Save dialog
+     -->
+
+    <string name="file_save_title">另存为:</string>
+    <string name="file_save_button_save">保存</string>
+    <string name="file_save_button_cancel">取消</string>
+
+    <string name="ringtone_type_label">类型:</string>
+
+    <string name="type_music">音乐</string>
+    <string name="type_alarm">警告</string>
+    <string name="type_notification">通知</string>
+    <string name="type_ringtone">铃声</string>
+
+    <string name="ringtone_name_label">名称:</string>
+
+    <!--
+     Delete confirmation dialog
+     -->
+
+    <string name="delete_ringtone">删除铃声</string>
+    <string name="delete_alarm">删除警告</string>
+    <string name="delete_notification">删除通知</string>
+    <string name="delete_music">删除音乐</string>
+    <string name="delete_audio">删除音频</string>
+
+    <string name="confirm_delete_ringdroid">确定吗?</string>
+
+    <string name="delete_ok_button">删除</string>
+    <string name="delete_cancel_button">取消</string>
+
+    <string name="delete_failed">无法删除文件</string>
+
+    <!--
+     Success and error messages
+     -->
+
+    <string name="alert_title_success">成功</string>
+    <string name="alert_title_failure">错误</string>
+    <string name="alert_ok_button">确定</string>
+    <string name="alert_yes_button">是的,请!</string>
+    <string name="alert_no_button">不,谢谢.</string>
+
+    <string name="save_success_message">已保存!</string>
+    <string name="default_ringtone_success_message">更换默认铃声</string>
+    <string name="play_error">无法播放此媒体文件</string>
+    <string name="no_unique_filename">无法找到唯一文件名</string>
+    <string name="delete_tmp_error">删除临时文件错误</string>
+    <string name="record_error">启动录音机错误</string>
+    <string name="too_small_error">无法保存该小文件,请稍后再尝试.</string>
+    <string name="write_error">写入文件错误</string>
+    <string name="read_error">读取文件错误</string>
+    <string name="download_failed">下载失败</string>
+
+    <string name="no_space_error">您的SD卡已满，没有足够的空间来保存此文件.</string>
+
+    <string name="bad_extension_error">尚不能编辑类型的文件</string>
+    <string name="no_extension_error">不能编辑一个文件，如果没有类似.mp3 or .wav的扩展名</string>
+
+    <!--
+     Choose Contact Activity
+     -->
+
+    <string name="choose_contact_title">分配给哪些联系人铃声?</string>
+    <string name="success_contact_ringtone">成功分配铃声给:</string>
+
+    
+</resources>
