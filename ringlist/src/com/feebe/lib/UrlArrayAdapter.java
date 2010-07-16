@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Comparator;
 import java.util.Collections;
@@ -103,12 +105,74 @@ public abstract class UrlArrayAdapter<T, W> extends ArrayAdapter<T> {
   }
     
   private boolean runList(List entries) {
-    int len = entries.size();
+  //combine the same
+    List newList = new ArrayList(entries.size());
+    Hashtable newListHt= new Hashtable();
+    for(int i = 0; i < entries.size(); i++) {
+        JSONObject jObject = (JSONObject) (entries.get(i));
+        String title = null;
+        String artist = null;
+        int rating = -1;
+        try {
+            if(jObject.has("song"))
+              title = jObject.getString("song");
+            if(jObject.has("title"))
+              title = jObject.getString("title");
+            if(jObject.has("artist"))
+              artist = jObject.getString("artist");
+            if(jObject.has("rating"))
+              rating = Integer.parseInt(jObject.getString("rating"));
+            } catch (JSONException e) {
+              e.printStackTrace();
+            }
+            if(newListHt.size() == 0) {
+                newListHt.put(artist+title, jObject);
+            }
+            else {
+                boolean in = false;
+                if(newListHt.containsKey(artist+title)) {
+                  in = true;
+                  JSONObject oldjObject = (JSONObject) newListHt.get(artist+title);
+                  int oldRating = -1;
+                  try {
+                    oldRating = Integer.parseInt(oldjObject.getString("rating"));
+                  } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                  } catch (JSONException e) {
+                    e.printStackTrace();
+                  } 
+                  if(rating > oldRating) {
+                    //remove the one with low rating
+                    newListHt.remove(artist+title);
+                    in = false;
+                  }
+                }
+                if(!in)
+                  newListHt.put(artist+title, jObject);
+            }
+    }
+    //add elements in hash table to newList
+    Iterator<JSONObject> it = newListHt.values().iterator();
+    while(it.hasNext()) {
+      newList.add(it.next());
+    }
+    //list size no less than 15
+    if(newList.size() < 15) {
+        for(int i = 0; i < entries.size(); i++) {
+            JSONObject o = (JSONObject) (entries.get(i));
+            if(!newList.contains(o))
+                newList.add(o);
+            if(newList.size() > 14)
+                break;
+        }
+    }
+    
+    int len = newList.size();
     if (len == 0) {
       return false;
     }
     for(int i = 0; i < len; i++){
-      T obj = getT(entries.get(i));
+      T obj = getT(newList.get(i));
       if (obj != null) {
         add(obj);
       }

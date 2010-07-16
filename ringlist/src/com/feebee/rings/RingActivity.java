@@ -458,7 +458,7 @@ public class RingActivity extends Activity {
   				mStreaming.setButton(RingActivity.this.getString(R.string.stop), new DialogInterface.OnClickListener() {			
   					@Override
   					public void onClick(DialogInterface dialog, int which) {
-  						mPlayer.stop();
+  						previewPlayer.stop();
   					}
   				});
 			  }
@@ -469,10 +469,10 @@ public class RingActivity extends Activity {
           @Override
           public void run() {
             try {
-            	mPlayer.setDataSource(mp3Location);
-            	mPlayer.prepare();
-            	mPlayer.start();
-            	mPlayer.setOnCompletionListener(new OnCompletionListener () {
+            	previewPlayer.setDataSource(mp3Location);
+            	previewPlayer.prepare();
+            	previewPlayer.start();
+            	previewPlayer.setOnCompletionListener(new OnCompletionListener () {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
                   try { 
@@ -594,7 +594,7 @@ public class RingActivity extends Activity {
   private LinearLayout layoutMyReview; 
   
   MediaPlayer mPlayer = new MediaPlayer();;
-  //MediaPlayer mediaPreview;
+  MediaPlayer previewPlayer = new MediaPlayer();
   
   boolean isPaused = false;
   
