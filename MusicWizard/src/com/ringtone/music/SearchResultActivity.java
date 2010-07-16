@@ -2,6 +2,8 @@ package com.ringtone.music;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -485,13 +487,43 @@ public class SearchResultActivity extends ListActivity {
 
 			setListAdapter(mAdapter);
 		}
+		
+		//combine same music
+        Hashtable htNewList = new Hashtable();
+        for (Iterator<MusicInfo> it = mp3List.iterator(); it.hasNext();) {
+          MusicInfo mp3 = it.next();
+          String title = mp3.getTitle();
+          String artist = mp3.getArtist();
+          boolean in = false;
+          if (htNewList.containsKey(artist+title)) {
+            in = true;
+          }
+          if (!in)
+            htNewList.put(artist+title, mp3);      
+        }
+        ArrayList<MusicInfo> newList = new ArrayList<MusicInfo>();
+        Iterator it2 = htNewList.values().iterator();
+        while (it2.hasNext()) {
+          newList.add((MusicInfo) it2.next());
+        }
+        
+        final int MINSIZE = 10;
+        if (newList.size() < MINSIZE) {
+          for (Iterator<MusicInfo> it = mp3List.iterator(); it.hasNext();) {
+            MusicInfo mp3 = it.next();
+            if (!newList.contains(mp3))
+              newList.add(mp3);
+            if (newList.size() > MINSIZE-1)
+              break;
+          }
+        }
 
-		if (mp3List != null) {
+		if (newList != null) {
 			if (sData == null)
 				sData = new Mp3ListWrapper();
 			
-			if (mp3List.size() > 0) {
-				sData.append(mp3List);
+			if (newList.size() > 0) {
+				sData.append(newList);
 			} else {
 				sHasMoreData = false;
 				if (sData.size() == 0) {
