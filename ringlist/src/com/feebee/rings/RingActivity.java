@@ -565,6 +565,14 @@ public class RingActivity extends Activity {
     df.execute(mp3Location, Const.getMp3FilePath(artist, title, extension));
   }
 
+  @Override
+  public void onStop() {
+    super.onStop();
+    mPlayer.stop();
+    mPlayer.release();
+    previewPlayer.stop();
+    previewPlayer.release();
+  }
 
   @Override
   public void onDestroy() {
