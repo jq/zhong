@@ -418,7 +418,8 @@ public class RingActivity extends Activity {
 					// Log.e(TAG, "error read mp3 file");
 				}
       	try {
-					mPlayer.setDataSource(filePath);
+					Log.e("#############filepath::", filePath);
+      	            mPlayer.setDataSource(filePath);
 					mPlayer.prepare();
 					mPlayer.start();
 					mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {					
@@ -457,7 +458,7 @@ public class RingActivity extends Activity {
   				mStreaming.setButton(RingActivity.this.getString(R.string.stop), new DialogInterface.OnClickListener() {			
   					@Override
   					public void onClick(DialogInterface dialog, int which) {
-  						mPlayer.stop();
+  						previewPlayer.stop();
   					}
   				});
 			  }
@@ -468,10 +469,10 @@ public class RingActivity extends Activity {
           @Override
           public void run() {
             try {
-            	mPlayer.setDataSource(mp3Location);
-            	mPlayer.prepare();
-            	mPlayer.start();
-            	mPlayer.setOnCompletionListener(new OnCompletionListener () {
+            	previewPlayer.setDataSource(mp3Location);
+            	previewPlayer.prepare();
+            	previewPlayer.start();
+            	previewPlayer.setOnCompletionListener(new OnCompletionListener () {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
                   try { 
@@ -564,6 +565,14 @@ public class RingActivity extends Activity {
     df.execute(mp3Location, Const.getMp3FilePath(artist, title, extension));
   }
 
+  @Override
+  public void onStop() {
+    super.onStop();
+    mPlayer.stop();
+    mPlayer.release();
+    previewPlayer.stop();
+    previewPlayer.release();
+  }
 
   @Override
   public void onDestroy() {
@@ -593,7 +602,7 @@ public class RingActivity extends Activity {
   private LinearLayout layoutMyReview; 
   
   MediaPlayer mPlayer = new MediaPlayer();;
-  //MediaPlayer mediaPreview;
+  MediaPlayer previewPlayer = new MediaPlayer();
   
   boolean isPaused = false;
   
