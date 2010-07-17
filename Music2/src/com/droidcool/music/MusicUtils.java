@@ -1188,13 +1188,13 @@ public class MusicUtils {
         Intent intent = new Intent(Intent.ACTION_PICK);
         switch (id) {
             case R.id.artisttab:
-                intent.setDataAndType(Uri.EMPTY, "vnd.android.cursor.dir/artistalbum");
+                intent.setDataAndType(Uri.EMPTY, "vnd.droidcool.cursor.dir/artistalbum");
                 break;
             case R.id.albumtab:
-                intent.setDataAndType(Uri.EMPTY, "vnd.android.cursor.dir/album");
+                intent.setDataAndType(Uri.EMPTY, "vnd.droidcool.cursor.dir/album");
                 break;
             case R.id.songtab:
-                intent.setDataAndType(Uri.EMPTY, "vnd.android.cursor.dir/track");
+                intent.setDataAndType(Uri.EMPTY, "vnd.droidcool.cursor.dir/track");
                 break;
             case R.id.playlisttab:
                 intent.setDataAndType(Uri.EMPTY, MediaStore.Audio.Playlists.CONTENT_TYPE);

@@ -41,7 +41,10 @@
         >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <!--
+                zyu: The following seems to block activity from launch.
                 <action android:name="android.intent.action.MUSIC_PLAYER" />
+                -->
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -107,14 +110,14 @@
             <intent-filter>
                 <action android:name="android.intent.action.PICK" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.dir/artistalbum"/>
+                <data android:mimeType="vnd.droidcool.cursor.dir/artistalbum"/>
             </intent-filter>
         </activity>
         <activity android:name="com.droidcool.music.AlbumBrowserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.PICK" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.dir/album"/>
+                <data android:mimeType="vnd.droidcool.cursor.dir/album"/>
             </intent-filter>
         </activity>
         <!-- 
@@ -122,7 +125,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.PICK" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.dir/nowplaying"/>
+                <data android:mimeType="vnd.droidcool.cursor.dir/nowplaying"/>
             </intent-filter>
         </activity>
          -->
@@ -131,7 +134,7 @@
                 <action android:name="android.intent.action.EDIT" />
                 <action android:name="android.intent.action.PICK" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.dir/track"/>
+                <data android:mimeType="vnd.droidcool.cursor.dir/track"/>
             </intent-filter>
         </activity>
         <activity android:name="com.droidcool.music.QueryBrowserActivity"
@@ -151,12 +154,12 @@
             <intent-filter>
                 <action android:name="android.intent.action.PICK" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.dir/playlist"/>
+                <data android:mimeType="vnd.droidcool.cursor.dir/playlist"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.dir/playlist"/>
+                <data android:mimeType="vnd.droidcool.cursor.dir/playlist"/>
             </intent-filter>
         </activity>
         <activity-alias android:name="com.droidcool.music.PlaylistShortcutActivity"
@@ -177,7 +180,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.PICK" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.dir/video"/>
+                <data android:mimeType="vnd.droidcool.cursor.dir/video"/>
             </intent-filter>
 <!--
             <intent-filter>
@@ -229,7 +232,7 @@
                 <action android:name="android.intent.action.PICK" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.OPENABLE" />
-                <data android:mimeType="vnd.android.cursor.dir/audio"/>
+                <data android:mimeType="vnd.droidcool.cursor.dir/audio"/>
             </intent-filter>
         </activity>
         <activity android:name="com.droidcool.music.CreatePlaylist"
