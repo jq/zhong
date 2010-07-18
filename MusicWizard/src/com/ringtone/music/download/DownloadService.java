@@ -111,7 +111,7 @@ public class DownloadService extends Service {
 		if (info == null)
 			return;
 		
-		if (TextUtils.isEmpty(info.getSource()) || 
+		if (info.getSource().size()==0 || 
 			TextUtils.isEmpty(info.getTarget())) {
 			Log.e(TAG, "Empty source or target");
 			return;
@@ -136,6 +136,15 @@ public class DownloadService extends Service {
 		synchronized(info) {
 			mPool.execute(new Task(info));
 		}
+	}
+	
+	public void retryDownload(DownloadInfo info) {
+	  synchronized(info) {
+	    if(info.getSourcePointer() < info.getSource().size()-1) {
+	      info.setSourcePointer(info.getSourcePointer() + 1);
+	    }
+	    mPool.execute(new Task(info));
+	  }
 	}
 	
 	
@@ -192,7 +201,7 @@ public class DownloadService extends Service {
 			URL url;
 			synchronized(mInfo) {
 				mInfo.setThread(Thread.currentThread());
-				url = new URL(mInfo.getSource());
+				url = new URL(mInfo.getSource().get(mInfo.getSourcePointer()));
 			}
 			HttpURLConnection connection = (HttpURLConnection)url.openConnection();
 			connection.setRequestProperty("User-Agent", Constants.USER_AGENT);

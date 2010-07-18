@@ -1,5 +1,7 @@
 package com.ringtone.music;
 
+import java.util.ArrayList;
+
 import android.text.TextUtils;
 
 public class MusicInfo {
@@ -7,8 +9,8 @@ public class MusicInfo {
 	private String mTitle;
 	private String mArtist;
 	private String mAlbum;
-	private String mUrl;
-	private String mDownloadUrl;
+	private ArrayList<String> mUrl = new ArrayList<String>();
+	private ArrayList<String> mDownloadUrl = new ArrayList<String>();
 	
 	private String mDisplaySize;
 	private int mFileSize;
@@ -59,19 +61,27 @@ public class MusicInfo {
 		return mAlbum;
 	}
 	
-	public void setUrl(String url) {
+	public void setUrl(ArrayList<String> url) {
 		mUrl = url;
 	}
 	
-	public String getUrl() {
+	public void addUrl(String url) {
+	    mUrl.add(url);
+	}
+	
+	public ArrayList<String> getUrl() {
 		return mUrl;
 	}
 	
-	public void setDownloadUrl(String url) {
+	public void setDownloadUrl(ArrayList<String> url) {
 		mDownloadUrl = url;
 	}
 	
-	public String getDownloadUrl() {
+	public void addDownloadUrl(String url) {
+	    mDownloadUrl.add(url);
+	}
+	
+	public ArrayList<String> getDownloadUrl() {
 		return mDownloadUrl;
 	}
 	
