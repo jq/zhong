@@ -17,7 +17,6 @@ import android.view.Window;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 
-import com.admob.android.ads.AdManager;
 import com.feebe.lib.ImgThread;
 import com.feebe.lib.TabCreator;
 import com.feebe.lib.TabSDKCreator;
