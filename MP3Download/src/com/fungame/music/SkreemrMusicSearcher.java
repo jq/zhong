@@ -88,7 +88,7 @@ public class SkreemrMusicSearcher implements IMusicSearcher {
 						info.setArtist("");
 						info.setTitle(artistAndTitle[0].trim());
 					}
-					info.setDownloadUrl(m.group(2).trim().replaceAll("%3A", ":").replaceAll("%2F", "/"));
+					info.addDownloadUrl(m.group(2).trim().replaceAll("%3A", ":").replaceAll("%2F", "/"));
 					String size = m.group(3).trim();
 					if (m.group(4).equals("kb")) {
 						info.setDisplayFileSize(size + "K");

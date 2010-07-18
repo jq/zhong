@@ -83,7 +83,7 @@ public class BDSearcher implements IMusicSearcher {
 			Matcher m = PATTERN.matcher(html);
 			while (m.find()) {
 				MusicInfo info = new MusicInfo();
-				info.setUrl(Utils.trimTag(m.group(1).trim()));
+				info.addUrl(Utils.trimTag(m.group(1).trim()));
 				info.setTitle(StringEscapeUtils.unescapeHtml(Utils.trimTag(m.group(2).trim())));
 				info.setDisplayFileSize(Utils.trimTag(m.group(4).trim()));
 				
@@ -111,7 +111,7 @@ public class BDSearcher implements IMusicSearcher {
 		
 		final Activity activity = (Activity)context;
 		
-		final String url = info.getUrl();
+		final String url = info.getUrl().get(0);
 		Utils.D("url: " + url);
 		
 		activity.runOnUiThread(new Runnable() {
@@ -140,7 +140,7 @@ public class BDSearcher implements IMusicSearcher {
 					return;
 				}
 			}
-			info.setDownloadUrl(mDownloadLink);
+			info.addDownloadUrl(mDownloadLink);
 			return;
 		}
 	}

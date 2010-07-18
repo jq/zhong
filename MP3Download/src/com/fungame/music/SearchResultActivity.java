@@ -61,6 +61,7 @@ public class SearchResultActivity extends ListActivity {
 	private static volatile IMusicSearcher sFetcher;
 	private static boolean sHasMoreData = true;
 
+	private int locPointer = 0;
 	private MusicInfo mCurrentMusic;
 
 	@SuppressWarnings("unused")
@@ -142,7 +143,7 @@ public class SearchResultActivity extends ListActivity {
 									}
 								});
 
-								if (TextUtils.isEmpty(mCurrentMusic.getDownloadUrl())) {
+								if (mCurrentMusic.getDownloadUrl().size() == 0) {
 									new FetchMp3LinkTaskForPreview().execute(mCurrentMusic);
 									break;
 								}
@@ -336,7 +337,7 @@ public class SearchResultActivity extends ListActivity {
 
     
 	private void playMusic(final MusicInfo mp3) {
-		if (mp3.getDownloadUrl().startsWith("http:")) {
+		if (mp3.getDownloadUrl().get(locPointer).startsWith("http:")) {
 			sPreviewThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
@@ -349,7 +350,7 @@ public class SearchResultActivity extends ListActivity {
 						sPlayer = new MediaPlayer();
 						player = sPlayer;
 						player.reset();
-						player.setDataSource(mp3.getDownloadUrl());
+						player.setDataSource(mp3.getDownloadUrl().get(locPointer));
 						player.prepare();
 						
 						player.start();
@@ -371,6 +372,8 @@ public class SearchResultActivity extends ListActivity {
 							@Override
 							public boolean onError(MediaPlayer mp, int what, int extra) {
 								onPlayError();
+								if(locPointer < mCurrentMusic.getDownloadUrl().size()-1)
+								  locPointer++;
 								return true;
 							}
 
@@ -399,7 +402,7 @@ public class SearchResultActivity extends ListActivity {
 	}
 
 	private void download(MusicInfo mp3) {
-		if (TextUtils.isEmpty(mp3.getDownloadUrl())) {
+		if (mp3.getDownloadUrl().size() == 0) {
 			showDialog(DIALOG_WAITING_FOR_SERVER);
 			new FetchMp3LinkTaskForDownload().execute(mp3);
 		} else {
@@ -488,13 +491,16 @@ public class SearchResultActivity extends ListActivity {
 		
 		//combine same music
 		Hashtable htNewList = new Hashtable();
-		for (Iterator<MusicInfo> it = mp3List.iterator(); it.hasNext();) {
+		Iterator<MusicInfo> it = mp3List.iterator();
+		while (it.hasNext()) {
 		  MusicInfo mp3 = it.next();
 		  String title = mp3.getTitle();
 	      String artist = mp3.getArtist();
 	      boolean in = false;
 	      if (htNewList.containsKey(artist+title)) {
 	        in = true;
+	        MusicInfo info = (MusicInfo) htNewList.get(artist+title);
+	        info.addUrl(mp3.getUrl().get(0));
 	      }
 	      if (!in)
 	        htNewList.put(artist+title, mp3);      
@@ -505,16 +511,16 @@ public class SearchResultActivity extends ListActivity {
 		  newList.add((MusicInfo) it2.next());
 		}
 		
-		final int MINSIZE = 10;
-		if (newList.size() < MINSIZE) {
-		  for (Iterator<MusicInfo> it = mp3List.iterator(); it.hasNext();) {
-		    MusicInfo mp3 = it.next();
-		    if (!newList.contains(mp3))
-		      newList.add(mp3);
-		    if (newList.size() > MINSIZE-1)
-		      break;
-		  }
-		}
+//		final int MINSIZE = 10;
+//		if (newList.size() < MINSIZE) {
+//		  for (Iterator<MusicInfo> it = mp3List.iterator(); it.hasNext();) {
+//		    MusicInfo mp3 = it.next();
+//		    if (!newList.contains(mp3))
+//		      newList.add(mp3);
+//		    if (newList.size() > MINSIZE-1)
+//		      break;
+//		  }
+//		}
 
 		if (newList != null) {
 			if (sData == null)

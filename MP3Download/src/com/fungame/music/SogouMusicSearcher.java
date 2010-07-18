@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -74,7 +75,7 @@ public class SogouMusicSearcher implements IMusicSearcher {
 					info.setTitle(m.group(1).trim());
 					info.setArtist(URLDecoder.decode(m.group(2), "gb2312").trim());
 					info.setAlbum(m.group(3).trim());
-					info.setUrl(SOGOU_MP3 + m.group(4).trim());
+					info.addUrl(SOGOU_MP3 + m.group(4).trim());
 					info.setLyricUrl(SOGOU_MP3 + m.group(5).trim());
 					String displayFileSize = m.group(6).trim();
 					if (displayFileSize.equals("未知"))
@@ -130,18 +131,21 @@ public class SogouMusicSearcher implements IMusicSearcher {
 	
 	@Override
 	public void setMusicDownloadUrl(Context context, MusicInfo info) {
+	  for(Iterator<String> it = info.getUrl().iterator(); it.hasNext();) {
+	    String url = it.next();
 		try {
 			String html = NetUtils.fetchHtmlPage(
-					MusicSearcherFactory.ID_SOGOU, info.getUrl(), "gb2312");
+					MusicSearcherFactory.ID_SOGOU, url, "gb2312");
 			
 			int start = html.indexOf(DOWNLOAD_MARKER) + DOWNLOAD_MARKER.length();
 			Matcher m = PATTERN_DOWNLOAD_URL.matcher(html.substring(start));
 			if (m.find()) {
-				info.setDownloadUrl(m.group(1));
+				info.addDownloadUrl(m.group(1));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	  }
 	}
 }
