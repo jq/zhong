@@ -3,7 +3,7 @@
 			android:layout_width="fill_parent" 
       android:layout_height="fill_parent">
       
-	<FrameLayout android:id="@+id/adsView" 
+	<FrameLayout android:id="@+id/ads_view" 
 	android:layout_width="fill_parent"
     android:layout_height="wrap_content" android:gravity="top"
     android:layout_alignParentBottom="true">
@@ -13,7 +13,7 @@
     <ListView android:id="@android:id/list"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/adsView"
+            android:layout_above="@id/ads_view"
             android:layout_alignTop="@layout/list"
             android:layout_alignParentTop="true"
             android:stackFromBottom="false"
