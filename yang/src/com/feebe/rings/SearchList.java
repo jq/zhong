@@ -10,7 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.admob.android.ads.AdView;
 import com.feebe.lib.AdListener;
 import com.feebe.lib.BaseList;
 import com.feebe.lib.DbAdapter;
@@ -18,7 +17,6 @@ import com.feebe.lib.EndlessUrlArrayAdapter;
 import com.feebe.lib.ImgThread;
 import com.feebe.lib.UrlArrayAdapter;
 import com.feebe.lib.Util;
-import com.qwapi.adclient.android.view.QWAdView;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -69,13 +67,7 @@ public class SearchList extends ListActivity implements OnItemClickListener {
 	  
 	  requestWindowFeature(Window.FEATURE_NO_TITLE);
     setContentView(R.layout.list); 
-    AdView admob = (AdView)findViewById(com.feebe.rings.R.id.adMob);
-    if (admob != null){
-        admob.setGoneWithoutAd(true);
-    }      
-    QWAdView qwAdView = (QWAdView)findViewById(com.feebe.rings.R.id.QWAd);
-    AdListener adListener = new AdListener(this);
-    qwAdView.setAdEventsListener(adListener,false);
+    AdListener.createAds(this);
     final ListView list = getListView();
     SearchListFooterView footer = new SearchListFooterView(this);
     list.addFooterView(footer);

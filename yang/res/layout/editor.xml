@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-/**
- * Copyright (c) 2007, Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); 
- * you may not use this file except in compliance with the License. 
- * You may obtain a copy of the License at 
- *
- *     http://www.apache.org/licenses/LICENSE-2.0 
- *
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
- * limitations under the License.
- */
--->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			  xmlns:app="http://schemas.android.com/apk/res/com.feebe.rings"
-			  xmlns:qwad="http://schemas.android.com/apk/res/com.feebe.rings"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
@@ -178,25 +159,6 @@
       <LinearLayout style="@style/VerticalDividerRight" />
 
    </LinearLayout>
-	<FrameLayout android:id="@+id/AdsView" 
-	android:layout_width="fill_parent"
-    android:layout_height="wrap_content" android:gravity="top"
-    android:layout_alignParentBottom="true">
- 
-    <com.admob.android.ads.AdView
-        android:id="@+id/adMob" 
-        android:layout_width="fill_parent"
-		android:layout_alignParentTop="true"
-		android:layout_height="wrap_content" />
- 
-    <com.qwapi.adclient.android.view.QWAdView
-    android:id="@+id/QWAd"
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    qwad:siteId="Ringtone-g56rajjb"
-    qwad:publisherId="34d153f75db441cdbb776ffb70c569c5"
-    qwad:mediaType="banner"
-    qwad:testMode="false" 
- />
-</FrameLayout>
+    <include layout_height="wrap_content" layout="@layout/ads"/>  
+
 </LinearLayout>

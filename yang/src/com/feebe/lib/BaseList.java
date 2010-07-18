@@ -1,9 +1,5 @@
 package com.feebe.lib;
 
-import com.admob.android.ads.AdManager;
-import com.admob.android.ads.AdView;
-import com.qwapi.adclient.android.view.QWAdView;
-
 import android.R;
 import android.app.ListActivity;
 import android.os.Bundle;
@@ -21,14 +17,7 @@ public abstract class BaseList extends ListActivity implements OnItemClickListen
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(Const.LAYOUT_LIST); 
-        AdView admob = (AdView)findViewById(com.feebe.rings.R.id.adMob);
-        if (admob != null){
-            admob.setGoneWithoutAd(true);
-        }      
-        QWAdView qwAdView = (QWAdView)findViewById(com.feebe.rings.R.id.QWAd);
-        AdListener adListener = new AdListener(this);
-        qwAdView.setAdEventsListener(adListener,
-            false);
+        AdListener.createAds(this);
         final ListView list = getListView();
         setListAdapter(getAdapter());
         list.setDividerHeight(1);
