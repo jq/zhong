@@ -1,8 +1,4 @@
 package com.trans.music.search;
-
-
-import com.admob.android.ads.*;
-import com.qwapi.adclient.android.view.QWAdView;
 import com.trans.music.search.R;
 
 import android.app.Activity;
@@ -38,7 +34,6 @@ public class SLMale extends Activity {
 	
 	ListView mTypesList;
 	private String[] mCurTypes;
-	private AdView mAd;
 
 	JSONArray mFeedentries;
 	
@@ -54,18 +49,7 @@ public class SLMale extends Activity {
 		findViewById(R.id.center_text).setVisibility(View.GONE);
 		
         mTypesList = (ListView) findViewById(R.id.popular);
-
-        
-        AdView admob = (AdView)findViewById(R.id.adMob);
-        if (admob != null){
-            admob.setGoneWithoutAd(true);
-        }      
-        QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
-        AdListener adListener = new AdListener(this);
-        qwAdView.setAdEventsListener(adListener,
-            false);
-        //new AdsView(this);
-        
+		AdListener.createAds(this);
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mType_Animals);    
         mTypesList.setAdapter(mAdapter);
 

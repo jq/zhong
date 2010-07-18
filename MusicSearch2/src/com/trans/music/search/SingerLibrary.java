@@ -1,8 +1,4 @@
 package com.trans.music.search;
-
-
-import com.admob.android.ads.*;
-import com.qwapi.adclient.android.view.QWAdView;
 import com.trans.music.search.R;
 
 import android.app.Activity;
@@ -40,7 +36,6 @@ public class SingerLibrary extends Activity {
 	
 	ListView mTypesList;
 	private String[] mCurTypes;
-	private AdView mAd;
 	EditText mQueryWho;
 	ImageButton mStartSearch;
 	
@@ -52,18 +47,7 @@ public class SingerLibrary extends Activity {
         findViewById(R.id.center_text).setVisibility(View.GONE);
 
 		mTypesList = (ListView) findViewById(R.id.popular);
-
-
-        AdView admob = (AdView)findViewById(R.id.adMob);
-        if (admob != null){
-            admob.setGoneWithoutAd(true);
-        }      
-        QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
-        AdListener adListener = new AdListener(this);
-        qwAdView.setAdEventsListener(adListener,
-            false);
-        
-        //new AdsView(this);
+		AdListener.createAds(this);
         
 		LayoutInflater mInflater;
 		mInflater = LayoutInflater.from(this);

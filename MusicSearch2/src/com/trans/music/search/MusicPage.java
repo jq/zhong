@@ -11,9 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.JSONObject;
-
-import com.admob.android.ads.AdView;
-import com.qwapi.adclient.android.view.QWAdView;
 import com.ringdroid.RingdroidSelectActivity;
 import com.trans.music.search.IMediaPlaybackService;
 import com.trans.music.search.R;
@@ -105,14 +102,7 @@ public class MusicPage extends Activity implements
     super.onCreate(savedInstanceState);
     this.getMediaInfo(this.getIntent());
     setContentView(R.layout.music_display);
-    AdView admob = (AdView)findViewById(R.id.adMob);
-    if (admob != null){
-        admob.setGoneWithoutAd(true);
-    }      
-    QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
-    AdListener adListener = new AdListener(this);
-    qwAdView.setAdEventsListener(adListener,
-        false);
+	AdListener.createAds(this);
     
     btnPreview = (Button) findViewById(R.id.preview);
     btnPreview.setOnClickListener(previewClick);

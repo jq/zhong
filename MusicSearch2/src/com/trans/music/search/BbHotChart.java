@@ -1,9 +1,5 @@
 
 package com.trans.music.search;
-
-
-import com.admob.android.ads.*;
-import com.qwapi.adclient.android.view.QWAdView;
 import com.trans.music.search.R;
 
 import android.app.Activity;
@@ -46,7 +42,6 @@ import java.net.URL;
 public class BbHotChart extends Activity {
 	
 	ListView mTypesList;
-	private AdView mAd;
 
 	JSONArray mFeedentries;
 	
@@ -66,14 +61,7 @@ public class BbHotChart extends Activity {
         setContentView(R.layout.popular);
         
         mTypesList = (ListView) findViewById(R.id.popular);
-        AdView admob = (AdView)findViewById(R.id.adMob);
-        if (admob != null){
-            admob.setGoneWithoutAd(true);
-        }      
-        QWAdView qwAdView = (QWAdView)findViewById(R.id.QWAd);
-        AdListener adListener = new AdListener(this);
-        qwAdView.setAdEventsListener(adListener,
-            false);
+		AdListener.createAds(this);
 		
 		Bundle extras = getIntent().getExtras();
 		hottype = extras.getString("type");

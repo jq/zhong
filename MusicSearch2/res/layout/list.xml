@@ -6,32 +6,17 @@
       		android:layout_height="fill_parent"
 			>
 
-	<FrameLayout android:id="@+id/AdsView" 
+	<FrameLayout android:id="@+id/ads_view" 
 	android:layout_width="fill_parent"
     android:layout_height="wrap_content" android:gravity="top"
     android:layout_alignParentBottom="true">
- 
-    <com.admob.android.ads.AdView
-        android:id="@+id/adMob" 
-        android:layout_width="fill_parent"
-		android:layout_alignParentTop="true" 
-		android:layout_height="wrap_content" />
- 
-    <com.qwapi.adclient.android.view.QWAdView
-    android:id="@+id/QWAd"
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    qwad:siteId="MusicSearch-g4qbie2h"
-    qwad:publisherId="79055569649a445d90cb15a3568f7db1"
-    qwad:mediaType="banner"
-    qwad:testMode="false" 
- />
+
 </FrameLayout>   
         
       <ListView android:id="@android:id/list"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/AdsView"
+            android:layout_above="@id/ads_view"
             android:layout_alignTop="@layout/list"
             android:layout_alignParentTop="true"
             android:stackFromBottom="false"

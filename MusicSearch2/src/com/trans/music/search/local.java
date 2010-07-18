@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import org.json.JSONArray;
-
-import com.admob.android.ads.AdView;
-import com.qwapi.adclient.android.view.QWAdView;
 import com.trans.music.search.R;
 
 import android.app.Activity;
@@ -200,14 +197,7 @@ public class local extends Activity {
 		mController.setMediaPlayer(mMediaPlayerControl);
 		mController.setEnabled(true);
 		mController.setAnchorView(anchorView);
-
-		AdView admob = (AdView) findViewById(R.id.adMob);
-		if (admob != null) {
-			admob.setGoneWithoutAd(true);
-		}
-		QWAdView qwAdView = (QWAdView) findViewById(R.id.QWAd);
-		AdListener adListener = new AdListener(this);
-		qwAdView.setAdEventsListener(adListener, false);
+		AdListener.createAds(this);
 
 		// Local Playlist UI
 		mLocalList = (ListView) findViewById(R.id.local_playlist);

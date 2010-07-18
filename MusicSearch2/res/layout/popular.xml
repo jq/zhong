@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			  xmlns:app="http://schemas.android.com/apk/res/com.trans.music.search"
-			  xmlns:qwad="http://schemas.android.com/apk/res/com.trans.music.search"
-    android:layout_width="fill_parent"
+   android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
 
@@ -25,28 +23,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             />   
-
-          	<FrameLayout android:id="@+id/AdsView" 
-	android:layout_width="fill_parent"
-    android:layout_height="wrap_content" android:gravity="top"
-    android:layout_alignParentBottom="true">
- 
-    <com.admob.android.ads.AdView
-        android:id="@+id/adMob" 
-        android:layout_width="fill_parent"
-		android:layout_alignParentTop="true" 
-		android:layout_height="wrap_content" />
- 
-    <com.qwapi.adclient.android.view.QWAdView
-    android:id="@+id/QWAd"
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    qwad:siteId="MusicSearch-g4qbie2h"
-    qwad:publisherId="79055569649a445d90cb15a3568f7db1"
-    qwad:mediaType="banner"
-    qwad:testMode="false" 
- />
-</FrameLayout>    
+    <include layout_height="wrap_content" layout="@layout/ads_view"/>  
         
 
         

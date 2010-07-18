@@ -15,7 +15,6 @@ import android.util.Log;
 import android.net.Uri;
 import android.graphics.Bitmap;
 
-import com.admob.android.ads.*;
 import com.trans.music.search.R;
 
 public class ArtistList extends Activity {
@@ -23,7 +22,6 @@ public class ArtistList extends Activity {
     private WebView mWebView = null;
     String  mRequstUrl = null;
     boolean mShouldShow = true;
-    private AdView mAd;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {

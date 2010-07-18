@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android" >
- 
-
-
-    <WebView android:id="@+id/adsWV"
-        android:layout_height="50px"
-        android:layout_width="fill_parent"
-        android:visibility="gone"
-        android:background="#000000"
-    ></WebView>
-</merge>
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/ads_view"
+/>	
