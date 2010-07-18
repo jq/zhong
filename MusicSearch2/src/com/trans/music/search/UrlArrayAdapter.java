@@ -120,11 +120,12 @@ public abstract class UrlArrayAdapter<T, W> extends ArrayAdapter<T> {
         if(newListHt.containsKey(artist+title)) {
           in = true;
           MP3Info htMp3 = (MP3Info) newListHt.get(artist+title);
-          int htSpeed = Integer.parseInt(htMp3.getSpeed());
-          if(speed > htSpeed) {
-            newListHt.remove(artist+title);
-            in = false;
-          }
+          //int htSpeed = Integer.parseInt(htMp3.getSpeed());
+          //if(speed > htSpeed) {
+          //  newListHt.remove(artist+title);
+          //  in = false;
+          //}
+          htMp3.addLink(mp3.getLink().get(0));
         }
         if(!in)
           newListHt.put(artist+title, mp3);

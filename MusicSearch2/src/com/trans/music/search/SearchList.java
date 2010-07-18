@@ -1,6 +1,8 @@
 package com.trans.music.search;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.trans.music.search.R;
@@ -19,7 +21,7 @@ import android.widget.Toast;
 
 public class SearchList extends BaseList {
   private final static String TAG = "SearchList";
-  public final static int DEFAULT_RESULT = 10;
+  public final static int DEFAULT_RESULT = 1;
   
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -167,26 +169,45 @@ public class SearchList extends BaseList {
 	protected Integer doInBackground(MP3Info... params) {
 		MP3Info mp3 = params[0];
 	    
-	    String mp3Link = null;
-	    if (!mp3.getLink().startsWith("http://")) {
-	  	try {
-	  	  mp3Link = MusicUtil.getLink(mp3.getLink());
-	  	  mp3.link = mp3Link;
-	  	  Log.e("mp3Link", mp3Link);
-	  	} catch (IOException e) {
-	  		Log.e("error", e.getMessage());
-	  		return 0;
-	  	}
-	  	
-	  	if (mp3Link == null) {
-	      return 0;
-	  	}
-	  	this.mp3 = mp3;
+//	    String mp3Link = null;
+//	    if (!mp3.getLink().startsWith("http://")) {
+//	  	try {
+//	  	  mp3Link = MusicUtil.getLink(mp3.getLink());
+//	  	  mp3.link = mp3Link;
+//	  	  Log.e("mp3Link", mp3Link);
+//	  	} catch (IOException e) {
+//	  		Log.e("error", e.getMessage());
+//	  		return 0;
+//	  	}
+//	  	
+//	  	if (mp3Link == null) {
+//	      return 0;
+//	  	}
+//	  	this.mp3 = mp3;
+//		return 1;
+//	    } else {
+//	    	this.mp3 = mp3;
+//	    	return 1;
+//	    }
+		ArrayList<String> mp3Links = new ArrayList<String>();
+		for(Iterator<String> it = mp3.getLink().iterator(); it.hasNext();) {
+		  String link = it.next();
+		  if(!link.startsWith("http://")) {
+		    try {
+		      String newLink = MusicUtil.getLink(link);
+		      mp3Links.add(newLink);
+		    } catch (IOException e) {
+		      Log.e("error", e.getMessage());
+		      return 0;
+		    }
+		  }
+		}
+		if (mp3Links.size() == 0) {
+		  return 0;
+		}
+		mp3.setLink(mp3Links);
+		this.mp3 = mp3;
 		return 1;
-	    } else {
-	    	this.mp3 = mp3;
-	    	return 1;
-	    }
 	}
 
 	@Override

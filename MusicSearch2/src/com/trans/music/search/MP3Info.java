@@ -2,6 +2,7 @@ package com.trans.music.search;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
@@ -12,9 +13,9 @@ public class MP3Info{
   public String album="";
   public String fsize=""; 
   public String rate="";    
-  public String link="";
+  public ArrayList<String> link = new ArrayList<String>();
   public String speed="";
-  public boolean bisLinkValid = false;
+  public boolean bisLinkValid;
   void setName(String n)
   {
     try {
@@ -60,11 +61,15 @@ public class MP3Info{
     rate = r;
   }
   public String getRate(){return rate;}
-  void setLink(String l)
+  void setLink(ArrayList<String> l)
   {
     link = l;
   }
-  public String getLink(){return link;}
+  public ArrayList<String> getLink(){return link;}
+  public void addLink(String l)
+  {
+    link.add(l);
+  }
   void setSpeed(String s)
   {
     speed = s;

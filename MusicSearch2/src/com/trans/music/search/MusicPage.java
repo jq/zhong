@@ -68,7 +68,8 @@ public class MusicPage extends Activity implements
   int mSongProgress;
   long mSongPosition;
   long mSongDuration;
-  String mMp3Local;
+  ArrayList<String> mMp3Local;
+  int locPointer = 0;
   boolean mDownloadFinish = false;
   boolean mIsPlaying = false;
   String mMp3Songer;
@@ -90,7 +91,7 @@ public class MusicPage extends Activity implements
   private MediaPlayer mPlayer;
 
   private void getMediaInfo(Intent intent) {
-    mMp3Local = intent.getStringExtra(Const.MP3LOC);
+    mMp3Local = intent.getStringArrayListExtra(Const.MP3LOC);
     mMp3Title = intent.getStringExtra(Const.MP3TITLE);
     mMp3Songer = intent.getStringExtra(Const.MP3SONGER);
     mAlbm = intent.getStringExtra(Const.MP3ALBM);
@@ -364,7 +365,7 @@ public class MusicPage extends Activity implements
                mPlayer.reset();
                Log.e("MusicPage","media service stopped");
                //mService.openfile(mMp3Local);
-               mPlayer.setDataSource(mMp3Local);
+               mPlayer.setDataSource(mMp3Local.get(locPointer));
                mPlayer.prepare();
                mPlayer.start();
                Log.e("MusicPage", "media file opened");
@@ -380,6 +381,9 @@ public class MusicPage extends Activity implements
                // TODO Auto-generated catch block
                showConnectDiaglog(false);
                showConnectErrorDiaglog(true);
+               if(locPointer < mMp3Local.size()-1) {
+                 locPointer++;
+               }
                e.printStackTrace();
              }
          }
@@ -462,8 +466,8 @@ public class MusicPage extends Activity implements
 						showDialog(DOWNLOAD_MP3FILE);
 						m_CurDownloadFile = mMp3Title + "[" + mMp3Songer + "]"
 								+ ".mp3";
-						Log.e("download", mMp3Local);
-						new DownloadTask(false).execute(mMp3Local);
+						Log.e("download", mMp3Local.get(locPointer));
+						new DownloadTask(false).execute(mMp3Local.get(locPointer));
 						/*
 						 * (new Thread() { public void run() { m_CurDownloadFile
 						 * = mMp3title + "[" + mMp3songer + "]" + ".mp3"; new
@@ -494,9 +498,9 @@ public class MusicPage extends Activity implements
 								mPlayer.stop();
 								Log.e("MusicPage", "media service stopped");
 								//mService.openfile(mMp3Local);
-								Log.e("play dataSource: ", mMp3Local);
+								Log.e("play dataSource: ", mMp3Local.get(locPointer));
 								mPlayer.reset();
-								mPlayer.setDataSource(mMp3Local);
+								mPlayer.setDataSource(mMp3Local.get(locPointer));
 								mPlayer.prepare();
 								Log.e("MusicPage", "media file opened");
 								//mHandler.sendEmptyMessage(RM_CON_DIALOG);
@@ -529,7 +533,7 @@ public class MusicPage extends Activity implements
 	public void onClick(View v) {
 	  try {
         m_CurDownloadFile = mMp3Title + "[" + mMp3Songer + "]" + ".mp3";
-        new DownloadTask(true).execute(mMp3Local);
+        new DownloadTask(true).execute(mMp3Local.get(locPointer));
         Toast.makeText(MusicPage.this, R.string.queue_message, Toast.LENGTH_SHORT).show();
         MusicPage.this.finish();
 	  } catch(Exception e) {
@@ -746,7 +750,7 @@ public class MusicPage extends Activity implements
             m_CurDownloadFile + getString(R.string.download_finished), Toast.LENGTH_LONG).show();
         // DownloadShowMessage(m_CurDownloadFile + " download finished");
         // updateDownloadList();
-        mMp3Local = fullpathname;
+        mMp3Local.set(locPointer, fullpathname);
         ScanMediafile(fullpathname);
         // showDownloadOKNotification(m_CurDownloadFile);
         if (isQueue) {
@@ -763,6 +767,9 @@ public class MusicPage extends Activity implements
     	  mDownloading = false;
           mDownloadFinish = false;
           mProgressDialogIsOpen = false;
+          if(locPointer < mMp3Local.size()-1) {
+            locPointer++;
+          }
       }
       if (!isQueue && result==1) {
     	removeDialog(DOWNLOAD_MP3FILE);

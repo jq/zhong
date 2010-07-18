@@ -143,7 +143,7 @@ public static void setStingKey(String key, String value) {
 					info.setName(m.group(1).trim());
 					info.setArtist(URLDecoder.decode(m.group(2), "gb2312").trim());
 					info.setAlbum(m.group(3).trim());
-					info.setLink(m.group(4).trim());
+					info.addLink(m.group(4).trim());
 					info.setFSize(String.valueOf(sizeFromStr(m.group(6).trim())));
 					info.setSpeed(m.group(8).trim());
 					
