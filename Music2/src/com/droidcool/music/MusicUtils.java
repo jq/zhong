@@ -1351,16 +1351,12 @@ public class MusicUtils {
     }
     
     
-    
+    private static CharsetEncoder sEncoder = Charset.forName("ISO-8859-1").newEncoder();
+    private static CharsetDecoder sDecoder = Charset.forName("GBK").newDecoder();
     static String convertGBK(String input) {
     	try {
-    		Charset charset1 = Charset.forName("ISO-8859-1");
-    		CharsetEncoder encoder = charset1.newEncoder();
-    		Charset charset2 = Charset.forName("GBK");
-    		CharsetDecoder decoder = charset2.newDecoder();
-    		
-    		ByteBuffer bbuf = encoder.encode(CharBuffer.wrap(input));
-    		CharBuffer cbuf = decoder.decode(bbuf);
+    		ByteBuffer bbuf = sEncoder.encode(CharBuffer.wrap(input));
+    		CharBuffer cbuf = sDecoder.decode(bbuf);
     		String output = cbuf.toString();
     		return output;
     	} catch (Exception e) {

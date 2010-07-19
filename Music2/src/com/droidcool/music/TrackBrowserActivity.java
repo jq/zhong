@@ -667,7 +667,7 @@ public class TrackBrowserActivity extends ListActivity
                 MediaStore.Audio.Media.ARTIST));
         mCurrentTrackName = mTrackCursor.getString(mTrackCursor.getColumnIndexOrThrow(
                 MediaStore.Audio.Media.TITLE));
-        menu.setHeaderTitle(mCurrentTrackName);
+        menu.setHeaderTitle(MusicUtils.convertGBK(mCurrentTrackName));
     }
 
     @Override

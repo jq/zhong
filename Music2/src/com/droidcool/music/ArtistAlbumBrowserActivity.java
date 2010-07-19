@@ -345,7 +345,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             if (mIsUnknownArtist) {
                 menu.setHeaderTitle(getString(R.string.unknown_artist_name));
             } else {
-                menu.setHeaderTitle(mCurrentArtistName);
+                menu.setHeaderTitle(MusicUtils.convertGBK(mCurrentArtistName));
                 menu.add(0, SEARCH, 0, R.string.search_title);
             }
             return;
@@ -371,7 +371,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             if (mIsUnknownAlbum) {
                 menu.setHeaderTitle(getString(R.string.unknown_album_name));
             } else {
-                menu.setHeaderTitle(mCurrentAlbumName);
+                menu.setHeaderTitle(MusicUtils.convertGBK(mCurrentAlbumName));
             }
             if (!mIsUnknownAlbum || !mIsUnknownArtist) {
                 menu.add(0, SEARCH, 0, R.string.search_title);
