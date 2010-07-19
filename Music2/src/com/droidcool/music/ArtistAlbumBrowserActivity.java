@@ -680,6 +680,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             if (unknown) {
                 displayartist = mUnknownArtist;
             }
+            displayartist = MusicUtils.convertGBK(displayartist);
             vh.line1.setText(displayartist);
 
             int numalbums = cursor.getInt(mGroupAlbumIdx);
@@ -688,6 +689,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             String songs_albums = MusicUtils.makeAlbumsLabel(context,
                     numalbums, numsongs, unknown);
             
+            songs_albums = MusicUtils.convertGBK(songs_albums);
             vh.line2.setText(songs_albums);
             
             long currentartistid = MusicUtils.getCurrentArtistId();
@@ -710,6 +712,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             if (unknown) {
                 displayname = mUnknownAlbum;
             }
+            displayname = MusicUtils.convertGBK(displayname);
             vh.line1.setText(displayname);
 
             int numsongs = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Audio.Albums.NUMBER_OF_SONGS));
@@ -732,7 +735,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
                     final Object[] args = mFormatArgs3;
                     args[0] = numsongs;
                     args[1] = numartistsongs;
-                    args[2] = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Artists.ARTIST));
+                    args[2] = MusicUtils.convertGBK(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Artists.ARTIST)));
                     builder.append(mResources.getQuantityString(R.plurals.Nsongscomp, numsongs, args));
                 }
             }

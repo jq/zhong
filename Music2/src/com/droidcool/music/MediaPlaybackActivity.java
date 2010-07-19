@@ -1302,15 +1302,15 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
                 if (MediaStore.UNKNOWN_STRING.equals(artistName)) {
                     artistName = getString(R.string.unknown_artist_name);
                 }
-                mArtistName.setText(artistName);
+                mArtistName.setText(MusicUtils.convertGBK(artistName));
                 String albumName = mService.getAlbumName();
                 long albumid = mService.getAlbumId();
                 if (MediaStore.UNKNOWN_STRING.equals(albumName)) {
                     albumName = getString(R.string.unknown_album_name);
                     albumid = -1;
                 }
-                mAlbumName.setText(albumName);
-                mTrackName.setText(mService.getTrackName());
+                mAlbumName.setText(MusicUtils.convertGBK(albumName));
+                mTrackName.setText(MusicUtils.convertGBK(mService.getTrackName()));
                 mAlbumArtHandler.removeMessages(GET_ALBUM_ART);
                 mAlbumArtHandler.obtainMessage(GET_ALBUM_ART, new AlbumSongIdWrapper(albumid, songid)).sendToTarget();
                 mAlbum.setVisibility(View.VISIBLE);

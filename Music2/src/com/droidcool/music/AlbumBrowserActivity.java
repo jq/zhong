@@ -610,6 +610,7 @@ public class AlbumBrowserActivity extends ListActivity
             if (unknown) {
                 displayname = mUnknownAlbum;
             }
+            displayname = MusicUtils.convertGBK(displayname);
             vh.line1.setText(displayname);
             
             name = cursor.getString(mArtistIdx);
@@ -617,6 +618,7 @@ public class AlbumBrowserActivity extends ListActivity
             if (name == null || name.equals(MediaStore.UNKNOWN_STRING)) {
                 displayname = mUnknownArtist;
             }
+            displayname = MusicUtils.convertGBK(displayname);
             vh.line2.setText(displayname);
 
             ImageView iv = vh.icon;

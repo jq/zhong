@@ -64,6 +64,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CharsetEncoder;
 import java.util.Arrays;
 import java.util.Formatter;
 import java.util.HashMap;
@@ -1197,7 +1202,8 @@ public class MusicUtils {
                 intent.setDataAndType(Uri.EMPTY, "vnd.droidcool.cursor.dir/track");
                 break;
             case R.id.playlisttab:
-                intent.setDataAndType(Uri.EMPTY, MediaStore.Audio.Playlists.CONTENT_TYPE);
+                //intent.setDataAndType(Uri.EMPTY, MediaStore.Audio.Playlists.CONTENT_TYPE);
+                intent.setDataAndType(Uri.EMPTY, "vnd.droidcool.cursor.dir/playlist");
                 break;
             case R.id.nowplayingtab:
                 intent = new Intent(a, MediaPlaybackActivity.class);
@@ -1227,12 +1233,12 @@ public class MusicUtils {
             if (true && MusicUtils.sService != null && MusicUtils.sService.getAudioId() != -1) {
                 TextView title = (TextView) nowPlayingView.findViewById(R.id.title);
                 TextView artist = (TextView) nowPlayingView.findViewById(R.id.artist);
-                title.setText(MusicUtils.sService.getTrackName());
+                title.setText(convertGBK(MusicUtils.sService.getTrackName()));
                 String artistName = MusicUtils.sService.getArtistName();
                 if (MediaStore.UNKNOWN_STRING.equals(artistName)) {
                     artistName = a.getString(R.string.unknown_artist_name);
                 }
-                artist.setText(artistName);
+                artist.setText(convertGBK(artistName));
                 //mNowPlayingView.setOnFocusChangeListener(mFocuser);
                 //mNowPlayingView.setOnClickListener(this);
                 nowPlayingView.setVisibility(View.VISIBLE);
@@ -1342,5 +1348,24 @@ public class MusicUtils {
                 entry.dump(out);
             }
         }
+    }
+    
+    
+    
+    static String convertGBK(String input) {
+    	try {
+    		Charset charset1 = Charset.forName("ISO-8859-1");
+    		CharsetEncoder encoder = charset1.newEncoder();
+    		Charset charset2 = Charset.forName("GBK");
+    		CharsetDecoder decoder = charset2.newDecoder();
+    		
+    		ByteBuffer bbuf = encoder.encode(CharBuffer.wrap(input));
+    		CharBuffer cbuf = decoder.decode(bbuf);
+    		String output = cbuf.toString();
+    		return output;
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		return input;
+    	}
     }
 }

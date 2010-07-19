@@ -47,6 +47,7 @@ public class MusicBrowserActivity extends Activity
                 && activeTab != R.id.playlisttab) {
             activeTab = R.id.artisttab;
         }
+        
         MusicUtils.activateTab(this, activeTab);
         
         String shuf = getIntent().getStringExtra("autoshuffle");

@@ -1454,11 +1454,18 @@ public class TrackBrowserActivity extends ListActivity
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
+        	//Log.i("Music2", "bindView");
             
             ViewHolder vh = (ViewHolder) view.getTag();
             
+            // TODO: Performance
+            /*
             cursor.copyStringToBuffer(mTitleIdx, vh.buffer1);
             vh.line1.setText(vh.buffer1.data, 0, vh.buffer1.sizeCopied);
+            */
+            String title = cursor.getString(mTitleIdx);
+            title = MusicUtils.convertGBK(title);
+            vh.line1.setText(title);
             
             int secs = cursor.getInt(mDurationIdx) / 1000;
             if (secs == 0) {
@@ -1471,6 +1478,7 @@ public class TrackBrowserActivity extends ListActivity
             builder.delete(0, builder.length());
 
             String name = cursor.getString(mArtistIdx);
+            name = MusicUtils.convertGBK(name);
             if (name == null || name.equals(MediaStore.UNKNOWN_STRING)) {
                 builder.append(mUnknownArtist);
             } else {
