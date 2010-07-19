@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.adwhirl.AdWhirlLayout;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -17,6 +19,9 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,6 +39,12 @@ public class Feed {
 	private static final String urlString = "http://chaowebs.appspot.com/feeds/music_wizard_feed.txt";
 	private static final String feedsFile = "feeds";
 
+	public static void createAds(Activity activity) {
+        AdWhirlLayout adWhirlLayout = new AdWhirlLayout(activity, "c2910c3b4b5241a48f4341ec3b2a968e");
+        RelativeLayout.LayoutParams adWhirlLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+        ViewGroup layout = (ViewGroup) activity.findViewById(R.id.ads_view);
+        layout.addView(adWhirlLayout, adWhirlLayoutParams);
+	}
 	private static Random generator = new Random();
 	public static void runFeed(int chance, Activity at, int resource) {
 		if (run(chance)) {
