@@ -76,7 +76,10 @@
 
 </RelativeLayout>
 
-	
+	 <include layout_height="wrap_content" 
+ 				android:layout_alignParentBottom="true"
+	  		android:layout_alignBottom="@layout/ring"
+ 				layout="@layout/ads"/>  
 
    <LinearLayout
 	  xmlns:android="http://schemas.android.com/apk/res/android"
@@ -84,8 +87,7 @@
 	  android:layout_width="fill_parent"
 	  android:layout_height="wrap_content"
 	  android:gravity="center_horizontal" 
-	  android:layout_alignParentBottom="true"
-	  android:layout_alignBottom="@layout/ring"
+	  android:layout_above="@id/ads_view"
 	  
 	  >	  
 	  <Button android:text="Preview" 
@@ -135,13 +137,13 @@
  
 	  </LinearLayout>
 	  
- <include layout_height="wrap_content" layout="@layout/ads"/>  
+
 
 	<ScrollView
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:layout_below="@id/linearLayout1"
-	    android:layout_above="@id/ads_view"
+	    android:layout_above="@id/detailLayout2"
 			>
 			
 	  <LinearLayout
