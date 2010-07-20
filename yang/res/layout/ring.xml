@@ -134,13 +134,14 @@
 				/>
  
 	  </LinearLayout>
+	  
  <include layout_height="wrap_content" layout="@layout/ads"/>  
 
 	<ScrollView
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:layout_below="@id/linearLayout1"
-	    android:layout_above="@id/AdsView"
+	    android:layout_above="@id/ads_view"
 			>
 			
 	  <LinearLayout
