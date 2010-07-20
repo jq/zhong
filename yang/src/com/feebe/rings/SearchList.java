@@ -247,7 +247,7 @@ public ListAdapter getAdapter() {
       reset();
     }
     public void reset() {      
-    	runSyn(reloadUrl, Const.OneWeek);
+    	runSyn(getUrl(currentPage), Const.OneWeek);
     }
     @Override
     public SearchResult getT(Object o) {
