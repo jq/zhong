@@ -1360,7 +1360,7 @@ public class MusicUtils {
     		String output = cbuf.toString();
     		return output;
     	} catch (Exception e) {
-    		e.printStackTrace();
+    		//e.printStackTrace();
     		return input;
     	}
     }

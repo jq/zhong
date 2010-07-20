@@ -507,7 +507,7 @@ public class TrackBrowserActivity extends ListActivity
         }
 
         if (fancyName != null) {
-            setTitle(fancyName);
+            setTitle(MusicUtils.convertGBK(fancyName.toString()));
         } else {
             setTitle(R.string.tracks_title);
         }
