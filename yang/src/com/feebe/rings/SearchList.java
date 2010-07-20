@@ -97,13 +97,17 @@ public class SearchList extends ListActivity implements OnItemClickListener {
 			@Override
 			public void onClick(View v) {
 				currentPage++;
-				showDialog(PROGRESS_DIALOG);
+				try {
+				  showDialog(PROGRESS_DIALOG);
+				} catch (Exception e) {
+					
+				}
 				new Thread(
 					new Runnable() {
 						public void run() {
-							if(mAdapter.getListFromUrl(reloadUrl, Const.OneWeek) == null) {
+							final List list = mAdapter.getListFromUrl(mAdapter.getUrl(currentPage), Const.OneWeek);
+							if(list == null) {
 								currentPage--;
-								waitDialog.dismiss();
 								uiHandler.post(new Runnable() {
 									@Override
 									public void run() {
@@ -111,19 +115,18 @@ public class SearchList extends ListActivity implements OnItemClickListener {
 									}
 								});
 								
-							}
-							else {
+							} else {
 								uiHandler.post(new Runnable() {							
 									@Override
 									public void run() {
 										mAdapter.clear();
-										mAdapter.reset();
+										mAdapter.runList(list);
 										mAdapter.notifyDataSetChanged();
 									}
 								});
-								waitDialog.dismiss();
 							}				
-							
+							waitDialog.dismiss();
+
 						}
 					}
 				).start();
@@ -313,7 +316,7 @@ public ListAdapter getAdapter() {
 
     @Override
     protected List getListFromUrl(String url, long expire) {
-      return RingUtil.getJsonArrayFromUrl(getUrl(currentPage), expire);
+      return RingUtil.getJsonArrayFromUrl(url, expire);
     }
 
   }

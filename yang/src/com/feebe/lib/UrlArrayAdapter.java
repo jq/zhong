@@ -104,7 +104,7 @@ public abstract class UrlArrayAdapter<T, W> extends ArrayAdapter<T> {
 	  Toast.makeText(Const.main, Const.no_result,Toast.LENGTH_SHORT).show();
   }
     
-  private boolean runList(List entries) {
+  public boolean runList(List entries) {
   	//combine the same
   	List newList = new ArrayList(entries.size());
   	Hashtable newListHt= new Hashtable();
