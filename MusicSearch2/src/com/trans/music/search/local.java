@@ -10,6 +10,7 @@ import com.trans.music.search.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -197,7 +198,11 @@ public class local extends Activity {
 		mController.setMediaPlayer(mMediaPlayerControl);
 		mController.setEnabled(true);
 		mController.setAnchorView(anchorView);
-		AdListener.createAds(this);
+		
+		if(Build.MODEL.toLowerCase().contains("hero") || Build.MODEL.toLowerCase().contains("mytouch"))
+	      AdListener.createAds(this);
+	    else
+	      AdListener.createAds(this, R.id.l1);
 
 		// Local Playlist UI
 		mLocalList = (ListView) findViewById(R.id.local_playlist);

@@ -15,6 +15,7 @@ import com.ringdroid.RingdroidSelectActivity;
 import com.trans.music.search.IMediaPlaybackService;
 import com.trans.music.search.R;
 
+import android.os.Build;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -102,7 +103,11 @@ public class MusicPage extends Activity implements
     super.onCreate(savedInstanceState);
     this.getMediaInfo(this.getIntent());
     setContentView(R.layout.music_display);
-	AdListener.createAds(this);
+    
+    if(Build.MODEL.toLowerCase().contains("hero") || Build.MODEL.toLowerCase().contains("mytouch"))
+      AdListener.createAds(this);
+    else
+      AdListener.createAds(this, R.id.music_dis);
     
     btnPreview = (Button) findViewById(R.id.preview);
     btnPreview.setOnClickListener(previewClick);

@@ -5,6 +5,7 @@ import com.trans.music.search.R;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.os.Build;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -61,8 +62,11 @@ public class BbHotChart extends Activity {
         setContentView(R.layout.popular);
         
         mTypesList = (ListView) findViewById(R.id.popular);
-		//AdListener.createAds(this, R.id.popular_main);
-		AdListener.createAds(this);
+        if(Build.MODEL.toLowerCase().contains("hero") || Build.MODEL.toLowerCase().contains("mytouch"))
+          AdListener.createAds(this);
+        else
+          AdListener.createAds(this, R.id.popular_main);
+
 		Bundle extras = getIntent().getExtras();
 		hottype = extras.getString("type");
 

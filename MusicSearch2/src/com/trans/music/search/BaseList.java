@@ -5,6 +5,7 @@ import com.admob.android.ads.AdView;
 import com.qwapi.adclient.android.view.QWAdView;
 
 import android.app.ListActivity;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -19,7 +20,10 @@ public abstract class BaseList extends ListActivity implements OnItemClickListen
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.list);
-        AdListener.createAds(this);//, R.id.ads_view);
+        if(Build.MODEL.toLowerCase().contains("hero") || Build.MODEL.toLowerCase().contains("mytouch"))
+          AdListener.createAds(this);
+        else
+          AdListener.createAds(this,R.id.list_main);
         final ListView list = getListView();
         setListAdapter(getAdapter());
         list.setDividerHeight(1);

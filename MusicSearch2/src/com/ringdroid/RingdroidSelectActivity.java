@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.MergeCursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -96,7 +97,10 @@ public class RingdroidSelectActivity
 
         // Inflate our UI from its XML layout description.
         setContentView(R.layout.media_select);
-		AdListener.createAds(this);
+        if(Build.MODEL.toLowerCase().contains("hero") || Build.MODEL.toLowerCase().contains("mytouch"))
+          AdListener.createAds(this);
+        else
+          AdListener.createAds(this, R.id.media_select_main);
         Button recordButton = (Button) findViewById(R.id.record);
         recordButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View clickedButton) {

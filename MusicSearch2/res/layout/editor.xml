@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/editor_main"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
@@ -159,5 +160,5 @@
       <LinearLayout style="@style/VerticalDividerRight" />
 
    </LinearLayout>
-    <!--<include layout_height="wrap_content" layout="@layout/ads_view"/>  -->
+<include layout_height="wrap_content" layout="@layout/ads_view"/>
 </LinearLayout>

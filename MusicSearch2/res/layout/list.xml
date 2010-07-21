@@ -8,6 +8,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             />
-           <!--<include layout_height="wrap_content" layout="@layout/ads_view"/>  -->
+      <include layout_height="wrap_content" layout="@layout/ads_view"/>
        
  </LinearLayout>

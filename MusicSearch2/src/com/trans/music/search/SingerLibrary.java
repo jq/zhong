@@ -2,6 +2,7 @@ package com.trans.music.search;
 import com.trans.music.search.R;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -47,7 +48,10 @@ public class SingerLibrary extends Activity {
         findViewById(R.id.center_text).setVisibility(View.GONE);
 
 		mTypesList = (ListView) findViewById(R.id.popular);
-        AdListener.createAds(this);//, R.id.popular_main);
+		if(Build.MODEL.toLowerCase().contains("hero") || Build.MODEL.toLowerCase().contains("mytouch"))
+	      AdListener.createAds(this);
+	    else
+	      AdListener.createAds(this, R.id.popular_main);
         
 		LayoutInflater mInflater;
 		mInflater = LayoutInflater.from(this);
