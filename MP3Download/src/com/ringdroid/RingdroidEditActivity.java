@@ -680,7 +680,7 @@ public class RingdroidEditActivity extends Activity implements
 		if (mArtist != null && mArtist.length() > 0) {
 			titleLabel += " - " + mArtist;
 		}
-		setTitle(titleLabel);
+		setTitle(Utils.convertGBK(titleLabel));
 
 		mLoadingStartTime = System.currentTimeMillis();
 		mLoadingLastUpdateTime = System.currentTimeMillis();
