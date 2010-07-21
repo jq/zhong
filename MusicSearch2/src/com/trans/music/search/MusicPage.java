@@ -178,6 +178,11 @@ public class MusicPage extends Activity implements
           intent2.setClass(MusicPage.this, SearchList.class);
           startActivityForResult(intent2, 1);
           return;
+        case 2:
+          Intent intent3 = new Intent();
+          intent3.putExtra(Const.Key, mAlbm);
+          intent3.setClass(MusicPage.this, SearchList.class);
+          startActivityForResult(intent3, 1);
         }
       }
     });
