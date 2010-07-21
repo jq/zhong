@@ -61,8 +61,8 @@ public class BbHotChart extends Activity {
         setContentView(R.layout.popular);
         
         mTypesList = (ListView) findViewById(R.id.popular);
-		AdListener.createAds(this, R.id.popular_main);
-		
+		//AdListener.createAds(this, R.id.popular_main);
+		AdListener.createAds(this);
 		Bundle extras = getIntent().getExtras();
 		hottype = extras.getString("type");
 

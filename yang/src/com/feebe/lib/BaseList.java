@@ -1,6 +1,6 @@
 package com.feebe.lib;
 
-import android.R;
+//import android.R;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +17,7 @@ public abstract class BaseList extends ListActivity implements OnItemClickListen
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(Const.LAYOUT_LIST); 
-        AdListener.createAds(this);
+        AdListener.createAds(this, R.id.list_main);
         final ListView list = getListView();
         setListAdapter(getAdapter());
         list.setDividerHeight(1);

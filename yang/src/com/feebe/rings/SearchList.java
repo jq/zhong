@@ -67,7 +67,7 @@ public class SearchList extends ListActivity implements OnItemClickListener {
 	  
 	  requestWindowFeature(Window.FEATURE_NO_TITLE);
     setContentView(R.layout.list); 
-    AdListener.createAds(this);
+    AdListener.createAds(this, R.id.list_main);
     final ListView list = getListView();
     SearchListFooterView footer = new SearchListFooterView(this);
     list.addFooterView(footer);
