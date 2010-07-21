@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
@@ -14,17 +14,8 @@
      android:layout_width="50px"
      android:layout_height="50px" />
      
-   <RatingBar android:id="@+id/row_small_ratingbar"
-         style="?android:attr/ratingBarStyleSmall"
-         android:numStars="5"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_marginTop="20px"
-         android:layout_marginBottom="20px"
-         android:layout_gravity="center_horizontal" 
-         android:layout_alignParentRight="true"/>
-
-<LinearLayout
+     
+     <LinearLayout
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -32,8 +23,7 @@
     android:layout_marginBottom="8px"
     android:layout_marginLeft="12px"
     android:layout_marginRight="12px"
-    android:layout_toRightOf="@id/row_icon"
-    android:layout_toLeftOf="@id/row_small_ratingbar"
+    android:layout_weight="1"
     >
       <TextView android:id="@+id/row_artist"
          android:textColor="#ff99ff"
@@ -58,6 +48,15 @@
 
  </LinearLayout>
  
+   <RatingBar android:id="@+id/row_small_ratingbar"
+         style="?android:attr/ratingBarStyleSmall"
+         android:numStars="5"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="20px"
+         android:layout_marginBottom="20px"
+         android:layout_gravity="right" />
 
 
-</RelativeLayout>
+
+</LinearLayout>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
    android:orientation="vertical"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
   
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/linearLayout1"
 	android:orientation="horizontal"
     android:layout_width="fill_parent"
@@ -20,17 +20,7 @@
      android:layout_width="50dip"
      android:layout_height="50dip" />
      
-   <RatingBar android:id="@+id/row_small_ratingbar"
-         style="?android:attr/ratingBarStyleSmall"
-         android:numStars="5"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_marginTop="20dip"
-         android:layout_marginBottom="20dip"
-         android:layout_gravity="center_horizontal" 
-         android:layout_alignParentRight="true"/>
-
-<LinearLayout
+   <LinearLayout
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -38,8 +28,7 @@
     android:layout_marginBottom="8dip"
     android:layout_marginLeft="12dip"
     android:layout_marginRight="12dip"
-    android:layout_toRightOf="@id/row_icon"
-    android:layout_toLeftOf="@id/row_small_ratingbar"
+    android:layout_weight="1"
     >
 
      <LinearLayout
@@ -71,79 +60,29 @@
         android:singleLine="true"/>
 
  </LinearLayout>
- 
+     
+   <RatingBar android:id="@+id/row_small_ratingbar"
+         style="?android:attr/ratingBarStyleSmall"
+         android:numStars="5"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="20dip"
+         android:layout_marginBottom="20dip"
+         android:layout_gravity="right" />
 
 
-</RelativeLayout>
+</LinearLayout>
 
-	 <include layout_height="wrap_content" 
- 				android:layout_alignParentBottom="true"
-	  		android:layout_alignBottom="@layout/ring"
- 				layout="@layout/ads"/>  
 
-   <LinearLayout
-	  xmlns:android="http://schemas.android.com/apk/res/android"
-	  android:id="@+id/detailLayout2"
-	  android:layout_width="fill_parent"
-	  android:layout_height="wrap_content"
-	  android:gravity="center_horizontal" 
-	  android:layout_above="@id/ads_view"
-	  
-	  >	  
-	  <Button android:text="Preview" 
-	    		android:id="@+id/preview" 
-	    		android:layout_width="wrap_content" 
-	    		android:layout_height="wrap_content">
-	    		</Button>
-	  
-	  <Button android:text="Download" 
-	    		android:id="@+id/download" 
-	    		android:layout_width="wrap_content" 
-	    		android:layout_height="wrap_content">
-	    		</Button>
-	  <Button android:text="Queue" 
-	    		android:id="@+id/queue" 
-	    		android:layout_width="wrap_content" 
-	    		android:layout_height="wrap_content">
-	    		</Button>
 
-		<Button android:text="Set" 
-				android:id="@+id/set" 
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content"
-		    	android:visibility="gone"
-				/>
 
-		<Button android:text="Assign" 
-				android:id="@+id/assign" 
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content"
-		    	android:visibility="gone"
-				/>
-		
-		<Button android:text="Share" 
-				android:id="@+id/share" 
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content"
-		    	android:visibility="gone"
-				/>
-				
-		<Button android:text="Edit" 
-				android:id="@+id/edit" 
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content"
-		    	android:visibility="gone"
-				/>
- 
-	  </LinearLayout>
 	  
 
 
 	<ScrollView
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:layout_below="@id/linearLayout1"
-	    android:layout_above="@id/detailLayout2"
+			android:layout_weight="1"
 			>
 			
 	  <LinearLayout
@@ -255,5 +194,64 @@
 </ScrollView>
 
 
+   <LinearLayout
+	  xmlns:android="http://schemas.android.com/apk/res/android"
+	  android:id="@+id/detailLayout2"
+	  android:layout_width="fill_parent"
+	  android:layout_height="wrap_content"
+	  android:gravity="center_horizontal" 
+	  
+	  >	  
+	  <Button android:text="Preview" 
+	    		android:id="@+id/preview" 
+	    		android:layout_width="wrap_content" 
+	    		android:layout_height="wrap_content">
+	    		</Button>
+	  
+	  <Button android:text="Download" 
+	    		android:id="@+id/download" 
+	    		android:layout_width="wrap_content" 
+	    		android:layout_height="wrap_content">
+	    		</Button>
+	  <Button android:text="Queue" 
+	    		android:id="@+id/queue" 
+	    		android:layout_width="wrap_content" 
+	    		android:layout_height="wrap_content">
+	    		</Button>
 
-</RelativeLayout>
+		<Button android:text="Set" 
+				android:id="@+id/set" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+		    	android:visibility="gone"
+				/>
+
+		<Button android:text="Assign" 
+				android:id="@+id/assign" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+		    	android:visibility="gone"
+				/>
+		
+		<Button android:text="Share" 
+				android:id="@+id/share" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+		    	android:visibility="gone"
+				/>
+				
+		<Button android:text="Edit" 
+				android:id="@+id/edit" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+		    	android:visibility="gone"
+				/>
+ 
+	  </LinearLayout>
+	  
+
+	 <include layout_height="wrap_content" 
+ 				layout="@layout/ads"/>  
+
+
+</LinearLayout>
