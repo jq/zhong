@@ -80,7 +80,7 @@ public class RingdroidSelectActivity
     // Context menu
     private static final int CMD_EDIT = 3;
     private static final int CMD_DELETE = 4;
-    
+
     public RingdroidSelectActivity() {
     }
 
@@ -139,7 +139,6 @@ public class RingdroidSelectActivity
                     MediaStore.Audio.Media.TITLE,
                     MediaStore.Audio.Media._ID },
                 // To widget ids in the row layout...
-                // They should be consistent with COLUMN_INDEX_* above.
                 new int[] {
                     R.id.row_artist,
                     R.id.row_album,
