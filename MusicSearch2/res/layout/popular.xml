@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
-
-    <TextView
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:id="@+id/popular_main"
+     android:layout_width="fill_parent" android:layout_height="fill_parent"
+        android:orientation="vertical">      
+      <TextView
         android:id="@+id/center_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,19 +13,11 @@
         android:padding="2dip"
         android:text="Retrive data from network..."/>
 
-
-    <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
-        android:orientation="vertical">      
         
          <ListView android:id="@+id/popular"
             android:layout_width="fill_parent" 
             android:layout_height="fill_parent"
             android:layout_weight="1"
             />   
-    <include layout_height="wrap_content" layout="@layout/ads_view"/>  
-        
-
-        
-    </LinearLayout>
-    
-</RelativeLayout>
+            
+</LinearLayout>

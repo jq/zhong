@@ -49,7 +49,7 @@ public class SLBand extends Activity {
 		findViewById(R.id.center_text).setVisibility(View.GONE);
 		
         mTypesList = (ListView) findViewById(R.id.popular);
-		AdListener.createAds(this);
+        AdListener.createAds(this, R.id.popular_main);
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mType_Animals);    
         mTypesList.setAdapter(mAdapter);
 

@@ -47,7 +47,7 @@ public class SingerLibrary extends Activity {
         findViewById(R.id.center_text).setVisibility(View.GONE);
 
 		mTypesList = (ListView) findViewById(R.id.popular);
-		AdListener.createAds(this);
+        AdListener.createAds(this, R.id.popular_main);
         
 		LayoutInflater mInflater;
 		mInflater = LayoutInflater.from(this);
