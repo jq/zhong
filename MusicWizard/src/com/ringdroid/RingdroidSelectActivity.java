@@ -80,7 +80,7 @@ public class RingdroidSelectActivity
     // Context menu
     private static final int CMD_EDIT = 3;
     private static final int CMD_DELETE = 4;
-
+    
     public RingdroidSelectActivity() {
     }
 
@@ -139,6 +139,7 @@ public class RingdroidSelectActivity
                     MediaStore.Audio.Media.TITLE,
                     MediaStore.Audio.Media._ID },
                 // To widget ids in the row layout...
+                // They should be consistent with COLUMN_INDEX_* above.
                 new int[] {
                     R.id.row_artist,
                     R.id.row_album,
@@ -174,9 +175,17 @@ public class RingdroidSelectActivity
                 public boolean setViewValue(View view,
                                             Cursor cursor,
                                             int columnIndex) {
-                    if (view.getId() == R.id.row_icon) {
+                	int id = view.getId();
+                    if (id == R.id.row_icon) {
                         setSoundIconFromCursor((ImageView) view, cursor);
                         return true;
+                    }
+                    
+                    if (id == R.id.row_artist ||
+                    	id == R.id.row_album ||
+                    	id == R.id.row_title) {
+                    	((TextView) view).setText(Utils.convertGBK(cursor.getString(columnIndex)));
+                    	return true;
                     }
                     return false;
                 }
@@ -287,6 +296,7 @@ public class RingdroidSelectActivity
         Cursor c = mAdapter.getCursor();
         String title = c.getString(c.getColumnIndexOrThrow(
             MediaStore.Audio.Media.TITLE));
+        title = Utils.convertGBK(title);
         menu.setHeaderTitle(title);
 
         menu.add(0, CMD_EDIT, 0, R.string.context_menu_edit);
@@ -350,7 +360,7 @@ public class RingdroidSelectActivity
         }
 
         new AlertDialog.Builder(RingdroidSelectActivity.this)
-            .setTitle(title)
+            .setTitle(Utils.convertGBK(title.toString()))
             .setMessage(message)
             .setPositiveButton(
                 R.string.delete_ok_button,
