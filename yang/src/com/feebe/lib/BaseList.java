@@ -17,7 +17,7 @@ public abstract class BaseList extends ListActivity implements OnItemClickListen
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(Const.LAYOUT_LIST); 
-        AdListener.createAds(this, R.id.list_main);
+        AdListener.createAds(this);
         final ListView list = getListView();
         setListAdapter(getAdapter());
         list.setDividerHeight(1);
