@@ -41,12 +41,9 @@ public class Feed {
 	private static final boolean blackscreen = isBlackScreen();
 
 	private static boolean isBlackScreen() {
-	    String device = Build.DEVICE.toLowerCase();
-	    String model = Build.MODEL.toLowerCase();
 	    // http://since2006.com/blog/google-io2010-android-devices/
-	    return device.contains("hero") || device.contains("mytouch") || 
-	      model.contains("hero") || model.contains("mytouch") ||
-	      device.contains("eris") || model.contains("eris");
+	    return Build.VERSION.SDK.equalsIgnoreCase("3");
+
 	}
 	
 	public static void createAds(Activity activity) {
