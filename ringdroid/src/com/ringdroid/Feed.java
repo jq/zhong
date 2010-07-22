@@ -18,9 +18,9 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
 import java.io.File;
@@ -38,10 +38,27 @@ import java.util.Random;
 public class Feed {
 	private static final String urlString = "http://chaowebs.appspot.com/feeds/music_wizard_feed.txt";
 	private static final String feedsFile = "feeds";
+	private static final boolean blackscreen = isBlackScreen();
 
+	private static boolean isBlackScreen() {
+	    String device = Build.DEVICE.toLowerCase();
+	    String model = Build.MODEL.toLowerCase();
+	    // http://since2006.com/blog/google-io2010-android-devices/
+	    return device.contains("hero") || device.contains("mytouch") || 
+	      model.contains("hero") || model.contains("mytouch") ||
+	      device.contains("eris") || model.contains("eris");
+	}
+	
 	public static void createAds(Activity activity) {
+	    //Log.e("model", Build.MODEL + " " + Build.DEVICE);
+	    int w;
+	    if (blackscreen) {
+	      w = 48;
+	    } else {
+	      w = LayoutParams.WRAP_CONTENT;
+	    }
         AdWhirlLayout adWhirlLayout = new AdWhirlLayout(activity, "c2910c3b4b5241a48f4341ec3b2a968e");
-        RelativeLayout.LayoutParams adWhirlLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+        LayoutParams adWhirlLayoutParams = new LayoutParams(LayoutParams.FILL_PARENT, w);
         ViewGroup layout = (ViewGroup) activity.findViewById(R.id.ads_view);
         layout.addView(adWhirlLayout, adWhirlLayoutParams);
 	}
