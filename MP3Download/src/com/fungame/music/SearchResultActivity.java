@@ -489,38 +489,7 @@ public class SearchResultActivity extends ListActivity {
 			setListAdapter(mAdapter);
 		}
 		
-		//combine same music
-		Hashtable htNewList = new Hashtable();
-		Iterator<MusicInfo> it = mp3List.iterator();
-		while (it.hasNext()) {
-		  MusicInfo mp3 = it.next();
-		  String title = mp3.getTitle();
-	      String artist = mp3.getArtist();
-	      boolean in = false;
-	      if (htNewList.containsKey(artist+title)) {
-	        in = true;
-	        MusicInfo info = (MusicInfo) htNewList.get(artist+title);
-	        info.addUrl(mp3.getUrl().get(0));
-	      }
-	      if (!in)
-	        htNewList.put(artist+title, mp3);      
-		}
-		ArrayList<MusicInfo> newList = new ArrayList<MusicInfo>();
-		Iterator it2 = htNewList.values().iterator();
-		while (it2.hasNext()) {
-		  newList.add((MusicInfo) it2.next());
-		}
-		
-//		final int MINSIZE = 10;
-//		if (newList.size() < MINSIZE) {
-//		  for (Iterator<MusicInfo> it = mp3List.iterator(); it.hasNext();) {
-//		    MusicInfo mp3 = it.next();
-//		    if (!newList.contains(mp3))
-//		      newList.add(mp3);
-//		    if (newList.size() > MINSIZE-1)
-//		      break;
-//		  }
-//		}
+		ArrayList<MusicInfo> newList = Utils.dedup(mp3List);
 
 		if (newList != null) {
 			if (sData == null)

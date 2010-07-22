@@ -15,6 +15,9 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -84,6 +87,55 @@ public class Util {
 	  int hash = s.hashCode();
 	  return String.valueOf(hash);
 	}
+  
+  public static List dedup(List entries) {
+    if(entries == null)
+      return null;
+    
+    //combine
+    List newList = new ArrayList(entries.size());
+    Hashtable newListHt= new Hashtable();
+    for(int i = 0; i < entries.size(); i++) {
+      MP3Info mp3 = (MP3Info) entries.get(i);
+      String title = mp3.getName();
+      String artist = mp3.getArtist();
+      int speed = Integer.parseInt(mp3.getSpeed());
+      if(newListHt.size() == 0)
+        newListHt.put(artist+title, mp3);
+      else {
+        boolean in = false;
+        if(newListHt.containsKey(artist+title)) {
+          in = true;
+          MP3Info htMp3 = (MP3Info) newListHt.get(artist+title);
+          //int htSpeed = Integer.parseInt(htMp3.getSpeed());
+          //if(speed > htSpeed) {
+          //  newListHt.remove(artist+title);
+          //  in = false;
+          //}
+          htMp3.addLink(mp3.getLink().get(0));
+        }
+        if(!in)
+          newListHt.put(artist+title, mp3);
+      }
+    }
+    //add elements in hash table to newList
+    Iterator<MP3Info> it = newListHt.values().iterator();
+    while(it.hasNext()) {
+      newList.add(it.next());
+    }
+    //list size no less than 10
+    final int MINSIZE = 10;
+    if(newList.size()<MINSIZE) {
+      for(int i = 0; i < entries.size(); i++) {
+        MP3Info mp3 = (MP3Info) entries.get(i);
+        if(!newList.contains(mp3))
+          newList.add(mp3);
+        if(newList.size() > MINSIZE-1)
+          break;
+      }
+    }
+    return newList;
+  }
   
   public static JSONArray getJsonArrayFromUrl(String url, long expire) {
 	  File cache = null;
