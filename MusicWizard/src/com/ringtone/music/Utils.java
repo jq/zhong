@@ -5,7 +5,9 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharsetEncoder;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Hashtable;
 import java.util.Iterator;
 
 import com.adwhirl.AdWhirlLayout;
@@ -45,6 +47,34 @@ public class Utils {
 	static public void assertD(boolean b) {
 		if (DEBUG)
 			assert b;
+	}
+	
+	static public ArrayList<MusicInfo> dedup(ArrayList<MusicInfo> mp3List) {
+		if (mp3List == null) {
+			return null;
+		}
+		//combine same music
+        Hashtable htNewList = new Hashtable();
+        for (Iterator<MusicInfo> it = mp3List.iterator(); it.hasNext();) {
+          MusicInfo mp3 = it.next();
+          String title = mp3.getTitle();
+          String artist = mp3.getArtist();
+          boolean in = false;
+          if (htNewList.containsKey(artist+title)) {
+            in = true;
+            MusicInfo info = (MusicInfo) htNewList.get(artist+title);
+            info.addUrl(mp3.getUrl().get(0));
+          }
+          if (!in)
+            htNewList.put(artist+title, mp3);      
+        }
+        
+        ArrayList<MusicInfo> newList = new ArrayList<MusicInfo>();
+        Iterator it2 = htNewList.values().iterator();
+        while (it2.hasNext()) {
+          newList.add((MusicInfo) it2.next());
+        }
+        return newList;
 	}
 	
 	// A dialogue showing a specified message.
