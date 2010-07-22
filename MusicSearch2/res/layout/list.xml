@@ -3,11 +3,14 @@
 			android:layout_width="fill_parent" 
       		android:layout_height="fill_parent"
       		android:id="@+id/list_main"
+      		android:orientation="vertical"
 			>
-      <ListView android:id="@android:id/list"
+      <ListView android:id="@+android:id/list"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="0px"
+            android:layout_weight="1">
+     <requestFocus />
+  </ListView>
       <include layout_height="wrap_content" layout="@layout/ads_view"/>
        
  </LinearLayout>

@@ -601,10 +601,7 @@ public class RingdroidEditActivity extends Activity implements
 	private void loadGui() {
 		// Inflate our UI from its XML layout description.
 		setContentView(R.layout.editor);
-		if(Build.MODEL.toLowerCase().contains("hero") || Build.MODEL.toLowerCase().contains("mytouch"))
-	      AdListener.createAds(this);
-	    else
-	      AdListener.createAds(this, R.id.editor_main);
+        AdListener.createAds(this);
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		mDensity = metrics.density;

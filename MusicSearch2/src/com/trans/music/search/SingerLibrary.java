@@ -48,10 +48,7 @@ public class SingerLibrary extends Activity {
         findViewById(R.id.center_text).setVisibility(View.GONE);
 
 		mTypesList = (ListView) findViewById(R.id.popular);
-		if(Build.MODEL.toLowerCase().contains("hero") || Build.MODEL.toLowerCase().contains("mytouch"))
-	      AdListener.createAds(this);
-	    else
-	      AdListener.createAds(this, R.id.popular_main);
+        AdListener.createAds(this);
         
 		LayoutInflater mInflater;
 		mInflater = LayoutInflater.from(this);

@@ -199,10 +199,7 @@ public class local extends Activity {
 		mController.setEnabled(true);
 		mController.setAnchorView(anchorView);
 		
-		if(Build.MODEL.toLowerCase().contains("hero") || Build.MODEL.toLowerCase().contains("mytouch"))
-	      AdListener.createAds(this);
-	    else
-	      AdListener.createAds(this, R.id.l1);
+        AdListener.createAds(this);
 
 		// Local Playlist UI
 		mLocalList = (ListView) findViewById(R.id.local_playlist);

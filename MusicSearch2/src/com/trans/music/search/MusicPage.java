@@ -104,10 +104,7 @@ public class MusicPage extends Activity implements
     this.getMediaInfo(this.getIntent());
     setContentView(R.layout.music_display);
     
-    if(Build.MODEL.toLowerCase().contains("hero") || Build.MODEL.toLowerCase().contains("mytouch"))
-      AdListener.createAds(this);
-    else
-      AdListener.createAds(this, R.id.music_dis);
+    AdListener.createAds(this);
     
     btnPreview = (Button) findViewById(R.id.preview);
     btnPreview.setOnClickListener(previewClick);
