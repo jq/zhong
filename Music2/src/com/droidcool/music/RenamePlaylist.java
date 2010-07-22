@@ -49,7 +49,7 @@ public class RenamePlaylist extends Activity
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.create_playlist);
-        getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+        getWindow().setLayout(WindowManager.LayoutParams.FILL_PARENT,
                                     WindowManager.LayoutParams.WRAP_CONTENT);
 
         mPrompt = (TextView)findViewById(R.id.prompt);

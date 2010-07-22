@@ -460,7 +460,7 @@ public class TrackBrowserActivity extends ListActivity
                     }    
                     cursor.deactivate();
                 }
-                if (fancyName == null || fancyName.equals(MediaStore.UNKNOWN_STRING)) {
+                if (fancyName == null || fancyName.equals(Const.UNKNOWN_STRING)) {
                     fancyName = getString(R.string.unknown_album_name);
                 }
             }
@@ -621,8 +621,8 @@ public class TrackBrowserActivity extends ListActivity
         String title = c.getString(titleidx);
         String album = c.getString(albumidx);
         String artist = c.getString(artistidx);
-        if (MediaStore.UNKNOWN_STRING.equals(album) &&
-                MediaStore.UNKNOWN_STRING.equals(artist) &&
+        if (Const.UNKNOWN_STRING.equals(album) &&
+                Const.UNKNOWN_STRING.equals(artist) &&
                 title != null &&
                 title.startsWith("recording")) {
             // not music
@@ -740,13 +740,13 @@ public class TrackBrowserActivity extends ListActivity
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         
         title = mCurrentTrackName;
-        if (MediaStore.UNKNOWN_STRING.equals(mCurrentArtistNameForAlbum)) {
+        if (Const.UNKNOWN_STRING.equals(mCurrentArtistNameForAlbum)) {
             query = mCurrentTrackName;
         } else {
             query = mCurrentArtistNameForAlbum + " " + mCurrentTrackName;
             i.putExtra(MediaStore.EXTRA_MEDIA_ARTIST, mCurrentArtistNameForAlbum);
         }
-        if (MediaStore.UNKNOWN_STRING.equals(mCurrentAlbumName)) {
+        if (Const.UNKNOWN_STRING.equals(mCurrentAlbumName)) {
             i.putExtra(MediaStore.EXTRA_MEDIA_ALBUM, mCurrentAlbumName);
         }
         i.putExtra(MediaStore.EXTRA_MEDIA_FOCUS, "audio/*");
@@ -1040,7 +1040,7 @@ public class TrackBrowserActivity extends ListActivity
                     // Nothing is playing.
                 }
             } else if (mPlaylist.equals("podcasts")) {
-                where.append(" AND " + MediaStore.Audio.Media.IS_PODCAST + "=1");
+                where.append(" AND " + Const.IS_PODCAST + "=1");
                 ret = queryhandler.doQuery(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                         mCursorCols, where.toString(), keywords,
                         MediaStore.Audio.Media.DEFAULT_SORT_ORDER, async);
@@ -1479,7 +1479,7 @@ public class TrackBrowserActivity extends ListActivity
 
             String name = cursor.getString(mArtistIdx);
             name = MusicUtils.convertGBK(name);
-            if (name == null || name.equals(MediaStore.UNKNOWN_STRING)) {
+            if (name == null || name.equals(Const.UNKNOWN_STRING)) {
                 builder.append(mUnknownArtist);
             } else {
                 builder.append(name);

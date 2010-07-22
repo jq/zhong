@@ -269,7 +269,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
         intent.putExtra("album", mCurrentAlbumId);
         Cursor c = (Cursor) getExpandableListAdapter().getChild(groupPosition, childPosition);
         String album = c.getString(c.getColumnIndex(MediaStore.Audio.Albums.ALBUM));
-        if (album == null || album.equals(MediaStore.UNKNOWN_STRING)) {
+        if (album == null || album.equals(Const.UNKNOWN_STRING)) {
             // unknown album, so we should include the artist ID to limit the songs to songs only by that artist 
             mArtistCursor.moveToPosition(groupPosition);
             mCurrentArtistId = mArtistCursor.getString(mArtistCursor.getColumnIndex(MediaStore.Audio.Artists._ID));
@@ -340,7 +340,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             mCurrentArtistName = mArtistCursor.getString(mArtistCursor.getColumnIndexOrThrow(MediaStore.Audio.Artists.ARTIST));
             mCurrentAlbumId = null;
             mIsUnknownArtist = mCurrentArtistName == null ||
-                    mCurrentArtistName.equals(MediaStore.UNKNOWN_STRING);
+                    mCurrentArtistName.equals(Const.UNKNOWN_STRING);
             mIsUnknownAlbum = true;
             if (mIsUnknownArtist) {
                 menu.setHeaderTitle(getString(R.string.unknown_artist_name));
@@ -365,9 +365,9 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             mCurrentArtistNameForAlbum = mArtistCursor.getString(
                     mArtistCursor.getColumnIndexOrThrow(MediaStore.Audio.Artists.ARTIST));
             mIsUnknownArtist = mCurrentArtistNameForAlbum == null ||
-                    mCurrentArtistNameForAlbum.equals(MediaStore.UNKNOWN_STRING);
+                    mCurrentArtistNameForAlbum.equals(Const.UNKNOWN_STRING);
             mIsUnknownAlbum = mCurrentAlbumName == null ||
-                    mCurrentAlbumName.equals(MediaStore.UNKNOWN_STRING);
+                    mCurrentAlbumName.equals(Const.UNKNOWN_STRING);
             if (mIsUnknownAlbum) {
                 menu.setHeaderTitle(getString(R.string.unknown_album_name));
             } else {
@@ -676,7 +676,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
 
             String artist = cursor.getString(mGroupArtistIdx);
             String displayartist = artist;
-            boolean unknown = artist == null || artist.equals(MediaStore.UNKNOWN_STRING);
+            boolean unknown = artist == null || artist.equals(Const.UNKNOWN_STRING);
             if (unknown) {
                 displayartist = mUnknownArtist;
             }
@@ -708,7 +708,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
 
             String name = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Albums.ALBUM));
             String displayname = name;
-            boolean unknown = name == null || name.equals(MediaStore.UNKNOWN_STRING); 
+            boolean unknown = name == null || name.equals(Const.UNKNOWN_STRING); 
             if (unknown) {
                 displayname = mUnknownAlbum;
             }
@@ -788,7 +788,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
                 MyCursorWrapper(Cursor c, String artist) {
                     super(c);
                     mArtistName = artist;
-                    if (mArtistName == null || mArtistName.equals(MediaStore.UNKNOWN_STRING)) {
+                    if (mArtistName == null || mArtistName.equals(Const.UNKNOWN_STRING)) {
                         mArtistName = mUnknownArtist;
                     }
                     mMagicColumnIdx = c.getColumnCount();

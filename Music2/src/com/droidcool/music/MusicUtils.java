@@ -1155,10 +1155,12 @@ public class MusicUtils {
 
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (hasFocus) {
-                        for (int i = 0; i < ll.getTabCount(); i++) {
-                            if (ll.getChildTabViewAt(i) == v) {
+                    	// TODO was using getTabCount getChildTabViewAt
+                        for (int i = 0; i < ll.getChildCount(); i++) {
+                            if (ll.getChildAt(i) == v) {
                                 ll.setCurrentTab(i);
-                                processTabClick((Activity)ll.getContext(), v, ll.getChildAt(sActiveTabIndex).getId());
+                                processTabClick((Activity)ll.getContext(), 
+                                		v, ll.getChildAt(sActiveTabIndex).getId());
                                 break;
                             }
                         }
@@ -1216,7 +1218,9 @@ public class MusicUtils {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         a.startActivity(intent);
         a.finish();
-        a.overridePendingTransition(0, 0);
+        
+        // TODO checking
+        // a.overridePendingTransition(0, 0);
     }
     
     static void updateNowPlaying(Activity a) {
@@ -1235,7 +1239,7 @@ public class MusicUtils {
                 TextView artist = (TextView) nowPlayingView.findViewById(R.id.artist);
                 title.setText(convertGBK(MusicUtils.sService.getTrackName()));
                 String artistName = MusicUtils.sService.getArtistName();
-                if (MediaStore.UNKNOWN_STRING.equals(artistName)) {
+                if (Const.UNKNOWN_STRING.equals(artistName)) {
                     artistName = a.getString(R.string.unknown_artist_name);
                 }
                 artist.setText(convertGBK(artistName));

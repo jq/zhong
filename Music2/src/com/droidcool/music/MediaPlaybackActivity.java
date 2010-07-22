@@ -287,8 +287,8 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
             return true;
         }
 
-        if (MediaStore.UNKNOWN_STRING.equals(album) &&
-                MediaStore.UNKNOWN_STRING.equals(artist) &&
+        if (Const.UNKNOWN_STRING.equals(album) &&
+                Const.UNKNOWN_STRING.equals(artist) &&
                 song != null &&
                 song.startsWith("recording")) {
             // not music
@@ -314,10 +314,10 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
         }
 
         boolean knownartist =
-            (artist != null) && !MediaStore.UNKNOWN_STRING.equals(artist);
+            (artist != null) && !Const.UNKNOWN_STRING.equals(artist);
 
         boolean knownalbum =
-            (album != null) && !MediaStore.UNKNOWN_STRING.equals(album);
+            (album != null) && !Const.UNKNOWN_STRING.equals(album);
         
         if (knownartist && view.equals(mArtistName.getParent())) {
             title = artist;
@@ -332,7 +332,7 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
             }
             mime = MediaStore.Audio.Albums.ENTRY_CONTENT_TYPE;
         } else if (view.equals(mTrackName.getParent()) || !knownartist || !knownalbum) {
-            if ((song == null) || MediaStore.UNKNOWN_STRING.equals(song)) {
+            if ((song == null) || Const.UNKNOWN_STRING.equals(song)) {
                 // A popup of the form "Search for null/'' using ..." is pretty
                 // unhelpful, plus, we won't find any way to buy it anyway.
                 return true;
@@ -1299,13 +1299,13 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
                 ((View) mArtistName.getParent()).setVisibility(View.VISIBLE);
                 ((View) mAlbumName.getParent()).setVisibility(View.VISIBLE);
                 String artistName = mService.getArtistName();
-                if (MediaStore.UNKNOWN_STRING.equals(artistName)) {
+                if (Const.UNKNOWN_STRING.equals(artistName)) {
                     artistName = getString(R.string.unknown_artist_name);
                 }
                 mArtistName.setText(MusicUtils.convertGBK(artistName));
                 String albumName = mService.getAlbumName();
                 long albumid = mService.getAlbumId();
-                if (MediaStore.UNKNOWN_STRING.equals(albumName)) {
+                if (Const.UNKNOWN_STRING.equals(albumName)) {
                     albumName = getString(R.string.unknown_album_name);
                     albumid = -1;
                 }

@@ -398,7 +398,7 @@ implements MusicUtils.Defs, ServiceConnection
                         MediaStore.Audio.Artists.ARTIST));
                 String displayname = name;
                 boolean isunknown = false;
-                if (name == null || name.equals(MediaStore.UNKNOWN_STRING)) {
+                if (name == null || name.equals(Const.UNKNOWN_STRING)) {
                     displayname = context.getString(R.string.unknown_artist_name);
                     isunknown = true;
                 }
@@ -417,7 +417,7 @@ implements MusicUtils.Defs, ServiceConnection
                 String name = cursor.getString(cursor.getColumnIndexOrThrow(
                         MediaStore.Audio.Albums.ALBUM));
                 String displayname = name;
-                if (name == null || name.equals(MediaStore.UNKNOWN_STRING)) {
+                if (name == null || name.equals(Const.UNKNOWN_STRING)) {
                     displayname = context.getString(R.string.unknown_album_name);
                 }
                 tv1.setText(displayname);
@@ -425,7 +425,7 @@ implements MusicUtils.Defs, ServiceConnection
                 name = cursor.getString(cursor.getColumnIndexOrThrow(
                         MediaStore.Audio.Artists.ARTIST));
                 displayname = name;
-                if (name == null || name.equals(MediaStore.UNKNOWN_STRING)) {
+                if (name == null || name.equals(Const.UNKNOWN_STRING)) {
                     displayname = context.getString(R.string.unknown_artist_name);
                 }
                 tv2.setText(displayname);
@@ -440,12 +440,12 @@ implements MusicUtils.Defs, ServiceConnection
 
                 String displayname = cursor.getString(cursor.getColumnIndexOrThrow(
                         MediaStore.Audio.Artists.ARTIST));
-                if (displayname == null || displayname.equals(MediaStore.UNKNOWN_STRING)) {
+                if (displayname == null || displayname.equals(Const.UNKNOWN_STRING)) {
                     displayname = context.getString(R.string.unknown_artist_name);
                 }
                 name = cursor.getString(cursor.getColumnIndexOrThrow(
                         MediaStore.Audio.Albums.ALBUM));
-                if (name == null || name.equals(MediaStore.UNKNOWN_STRING)) {
+                if (name == null || name.equals(Const.UNKNOWN_STRING)) {
                     name = context.getString(R.string.unknown_album_name);
                 }
                 tv2.setText(displayname + " - " + name);

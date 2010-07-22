@@ -1078,12 +1078,12 @@ public class MediaPlaybackService extends Service {
             } else {
                 String artist = getArtistName();
                 views.setTextViewText(R.id.trackname, MusicUtils.convertGBK(getTrackName()));
-                if (artist == null || artist.equals(MediaStore.UNKNOWN_STRING)) {
+                if (artist == null || artist.equals(Const.UNKNOWN_STRING)) {
                     artist = getString(R.string.unknown_artist_name);
                 }
                 artist = MusicUtils.convertGBK(artist);
                 String album = getAlbumName();
-                if (album == null || album.equals(MediaStore.UNKNOWN_STRING)) {
+                if (album == null || album.equals(Const.UNKNOWN_STRING)) {
                     album = getString(R.string.unknown_album_name);
                 }
                 album = MusicUtils.convertGBK(album);

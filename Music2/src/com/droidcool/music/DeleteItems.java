@@ -38,7 +38,7 @@ public class DeleteItems extends Activity
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.confirm_delete);
-        getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+        getWindow().setLayout(WindowManager.LayoutParams.FILL_PARENT,
                                     WindowManager.LayoutParams.WRAP_CONTENT);
 
         mPrompt = (TextView)findViewById(R.id.prompt);

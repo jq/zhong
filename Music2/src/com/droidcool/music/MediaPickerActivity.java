@@ -265,14 +265,14 @@ public class MediaPickerActivity extends ListActivity implements MusicUtils.Defs
             tv = (TextView) view.findViewById(R.id.line2);
             name = cursor.getString(mAlbumIdx);
             StringBuilder builder = new StringBuilder();
-            if (name == null || name.equals(MediaStore.UNKNOWN_STRING)) {
+            if (name == null || name.equals(Const.UNKNOWN_STRING)) {
                 builder.append(context.getString(R.string.unknown_album_name));
             } else {
                 builder.append(name);
             }
             builder.append("\n");
             name = cursor.getString(mArtistIdx);
-            if (name == null || name.equals(MediaStore.UNKNOWN_STRING)) {
+            if (name == null || name.equals(Const.UNKNOWN_STRING)) {
                 builder.append(context.getString(R.string.unknown_artist_name));
             } else {
                 builder.append(name);
