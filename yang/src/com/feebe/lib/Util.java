@@ -15,6 +15,9 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -124,6 +127,76 @@ public class Util {
     //Toast.makeText(Ring.main, R.string.no_result,Toast.LENGTH_SHORT).show();
 
   	return null;
+  }
+  
+  public static List dedup(List entries) {
+    if(entries == null) {
+      return null;
+    }
+    //combine the same
+    List newList = new ArrayList(entries.size());
+    Hashtable newListHt= new Hashtable();
+    for(int i = 0; i < entries.size(); i++) {
+        JSONObject jObject = (JSONObject) (entries.get(i));
+        String title = null;
+        String artist = null;
+        int rating = -1;
+        try {
+            if(jObject.has("song"))
+              title = jObject.getString("song");
+            if(jObject.has("title"))
+              title = jObject.getString("title");
+            if(jObject.has("artist"))
+              artist = jObject.getString("artist");
+            if(jObject.has("rating"))
+              rating = Integer.parseInt(jObject.getString("rating"));
+            } catch (JSONException e) {
+              e.printStackTrace();
+            }
+            if(newListHt.size() == 0) {
+                newListHt.put(artist+title, jObject);
+            }
+            else {
+                boolean in = false;
+                if(newListHt.containsKey(artist+title)) {
+                  in = true;
+                  JSONObject oldjObject = (JSONObject) newListHt.get(artist+title);
+                  int oldRating = -1;
+                  try {
+                    if(oldjObject.has("rating"))
+                      oldRating = Integer.parseInt(oldjObject.getString("rating"));
+                  } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                  } catch (JSONException e) {
+                    e.printStackTrace();
+                  } 
+                  if(rating > oldRating) {
+                    //remove the one with low rating
+                    newListHt.remove(artist+title);
+                    in = false;
+                  }
+                }
+                if(!in)
+                  newListHt.put(artist+title, jObject);
+            }
+    }
+    //add elements in hash table to newList
+    Iterator<JSONObject> it = newListHt.values().iterator();
+    while(it.hasNext()) {
+      newList.add(it.next());
+    }
+    //list size no less than 10
+    if(newList.size() < 10) {
+        for(int i = 0; i < entries.size(); i++) {
+            JSONObject o = (JSONObject) (entries.get(i));
+            if(!newList.contains(o))
+                newList.add(o);
+            if(newList.size() > 9)
+                break;
+        }
+    }
+    
+    return newList;
   }
 
   public static JSONObject getJsonFromUrl(String url, long expire) {

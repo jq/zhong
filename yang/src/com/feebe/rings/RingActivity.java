@@ -385,13 +385,13 @@ public class RingActivity extends Activity {
   OnClickListener dlClick = new OnClickListener() {
     @Override
     public void onClick(View v) {
-      if(mPlayer.isPlaying())	{
+      if(mPlayer != null && mPlayer.isPlaying())	{
     	mPlayer.pause();
     	isPaused = true;
     	dl.setText(R.string.play);
     	return;
       }
-      if (mp3Location.startsWith("http:")) {     	
+      if (mp3Location.startsWith("http:")) { 
         Intent intetn = new Intent(RingActivity.this, RingdroidSelectActivity.class);
       	ringDownloadListener = new RingDownloadListener(RingActivity.this, notificationIntent, false);
       	download(ringDownloadListener);
@@ -557,11 +557,14 @@ public class RingActivity extends Activity {
 
   @Override
   public void onStop() {
+    if(mPlayer != null && mPlayer.isPlaying()) {
+      mPlayer.pause();
+      isPaused = true;
+      dl.setText(R.string.play);
+    }
+    if(previewPlayer != null && previewPlayer.isPlaying())
+      previewPlayer.stop();
     super.onStop();
-    mPlayer.stop();
-    mPlayer.release();
-    previewPlayer.stop();
-    previewPlayer.release();
   }
 
   @Override
