@@ -3,7 +3,7 @@
    android:installLocation="auto"
 
       package="com.trans.music.search"
-      android:versionName="3.2" android:versionCode="93">
+      android:versionName="3.2" android:versionCode="95">
       <uses-sdk android:minSdkVersion="3" />   
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name="Home"
