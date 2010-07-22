@@ -20,6 +20,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ViewGroup;
@@ -142,11 +143,26 @@ public class Utils {
     
     
     private static int sNotificationId = 0;
+    
+    private static final boolean blackscreen = isBlackScreen();
+    
+    private static boolean isBlackScreen() {
+        // http://since2006.com/blog/google-io2010-android-devices/
+        return Build.VERSION.SDK.equalsIgnoreCase("3");
+    }
+    
     public static void addAds(Activity act) {
-    	AdWhirlLayout adWhirlLayout = new AdWhirlLayout(act, "e383f83acfec4f34b591486a93c4da96");
-    	RelativeLayout.LayoutParams adWhirlLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-    	LinearLayout layout = (LinearLayout) act.findViewById(R.id.layout_ad);
-    	layout.addView(adWhirlLayout, adWhirlLayoutParams);
+      int w;
+      if (blackscreen) {
+          w = 48;
+      } else {
+          w = LayoutParams.WRAP_CONTENT;
+      }
+      
+      AdWhirlLayout adWhirlLayout = new AdWhirlLayout(act, "e383f83acfec4f34b591486a93c4da96");
+      LayoutParams adWhirlLayoutParams = new LayoutParams(LayoutParams.FILL_PARENT, w);
+      LinearLayout layout = (LinearLayout) act.findViewById(R.id.layout_ad);
+      layout.addView(adWhirlLayout, adWhirlLayoutParams);
 
     }
   
