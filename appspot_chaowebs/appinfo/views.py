@@ -99,13 +99,9 @@ def EditAppInfo(request, package):
     form = AppInfoForm(request.POST)
     if form.is_valid():
       app = form.save(commit = False) 
-      app = models.AppInfo(
-          key_name = package,
-          version = app.version,
-          url = app.url,
-          message = app.message,
-          seq = app.seq)
-      app.save()
+      saved_app = models.AppInfo(key_name = package,
+          **dict([(prop, getattr(app, prop)) for prop in app.properties()]))
+      saved_app.save()
   else:
     app = models.AppInfo.get_by_key_name(package)
     form = AppInfoForm(instance = app)
