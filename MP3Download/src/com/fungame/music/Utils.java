@@ -61,6 +61,24 @@ public class Utils {
 	    }).setTitle("Debug").setMessage(msg).create().show();
 	}
 	
+	static public int getSizeInM(String sizeStr) {
+      int size = 0;
+      if(sizeStr.startsWith("unknown"))
+        return 0;
+      if(sizeStr.endsWith("k") || sizeStr.endsWith("K"))
+        return 0;
+      if(sizeStr.endsWith("m") || sizeStr.endsWith("M")) {
+        String sizeString = sizeStr.substring(0, sizeStr.length()-1);
+        try {
+          size = (int) Double.parseDouble(sizeString);
+        } catch (Exception e) {
+          return 0;
+        }
+        return size;
+      }
+      return size;
+    }
+	
 	public static ArrayList<MusicInfo> dedup(ArrayList<MusicInfo> mp3List) {
 	  if(mp3List == null)
 	    return null;
@@ -71,14 +89,15 @@ public class Utils {
         MusicInfo mp3 = it.next();
         String title = mp3.getTitle();
         String artist = mp3.getArtist();
+        int size = getSizeInM(mp3.getDisplayFileSize());
         boolean in = false;
-        if (htNewList.containsKey(artist+title)) {
+        if (htNewList.containsKey(artist+title+size)) {
           in = true;
-          MusicInfo info = (MusicInfo) htNewList.get(artist+title);
+          MusicInfo info = (MusicInfo) htNewList.get(artist+title+size);
           info.addUrl(mp3.getUrl().get(0));
         }
         if (!in)
-          htNewList.put(artist+title, mp3);      
+          htNewList.put(artist+title+size, mp3);      
       }
       ArrayList<MusicInfo> newList = new ArrayList<MusicInfo>();
       Iterator it2 = htNewList.values().iterator();
