@@ -131,7 +131,7 @@ public class SogouMusicSearcher implements IMusicSearcher {
 	
 	@Override
 	public void setMusicDownloadUrl(Context context, MusicInfo info) {
-	  for(Iterator<String> it = info.getUrl().iterator(); it.hasNext();) {
+	  for (Iterator<String> it = info.getUrls().iterator(); it.hasNext();) {
 	    String url = it.next();
 		try {
 			String html = NetUtils.fetchHtmlPage(

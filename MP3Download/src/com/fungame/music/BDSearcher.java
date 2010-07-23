@@ -111,7 +111,10 @@ public class BDSearcher implements IMusicSearcher {
 		
 		final Activity activity = (Activity)context;
 		
-		final String url = info.getUrl().get(0);
+		if (info.getUrls() == null || info.getUrls().size() == 0)
+			return;
+		
+		final String url = info.getUrls().get(0);
 		Utils.D("url: " + url);
 		
 		activity.runOnUiThread(new Runnable() {

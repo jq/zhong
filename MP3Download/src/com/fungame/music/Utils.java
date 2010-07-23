@@ -94,7 +94,7 @@ public class Utils {
         if (htNewList.containsKey(artist+title+size)) {
           in = true;
           MusicInfo info = (MusicInfo) htNewList.get(artist+title+size);
-          info.addUrl(mp3.getUrl().get(0));
+          info.addUrl(mp3.getUrls().get(0));
         }
         if (!in)
           htNewList.put(artist+title+size, mp3);      
