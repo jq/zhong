@@ -130,8 +130,10 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
                     mHandler.removeMessages(MSG_LONGPRESS_TIMEOUT);
                     mDown = false;
                 }
-                if (isOrderedBroadcast()) {
+                try {
                     abortBroadcast();
+                } catch (Exception e) {
+                	// ignore since sdk 3 donesn't have isOrderedBroadcast
                 }
             }
         }

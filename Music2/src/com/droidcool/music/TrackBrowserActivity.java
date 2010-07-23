@@ -525,7 +525,7 @@ public class TrackBrowserActivity extends ListActivity
                 mDeletedOneRow = true;
             } else {
                 // update a saved playlist
-                MediaStore.Audio.Playlists.Members.moveItem(getContentResolver(),
+                Const.moveItem(getContentResolver(),
                         Long.valueOf(mPlaylist), from, to);
             }
         }
