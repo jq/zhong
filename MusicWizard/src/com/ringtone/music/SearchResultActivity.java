@@ -63,7 +63,6 @@ public class SearchResultActivity extends ListActivity {
 	private static volatile IMusicSearcher sFetcher;
 	private static boolean sHasMoreData = true;
 
-	private int locPointer = 0;
 	private MusicInfo mCurrentMusic;
 
 	@SuppressWarnings("unused")
@@ -145,7 +144,7 @@ public class SearchResultActivity extends ListActivity {
 									}
 								});
 
-								if (mCurrentMusic.getDownloadUrl().size() == 0) {
+								if (mCurrentMusic.getDownloadUrl() == null) {
 									new FetchMp3LinkTaskForPreview().execute(mCurrentMusic);
 									break;
 								}
@@ -335,11 +334,12 @@ public class SearchResultActivity extends ListActivity {
 				Toast.makeText(getApplication(), "Streaming error", Toast.LENGTH_LONG).show();
 			}
 		});
+		sFetcher.setMusicDownloadUrl(SearchResultActivity.this, mCurrentMusic);
 	}
 
     
 	private void playMusic(final MusicInfo mp3) {
-		if (mp3.getDownloadUrl().get(locPointer).startsWith("http:")) {
+		if (mp3.getDownloadUrl().startsWith("http:")) {
 			sPreviewThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
@@ -352,7 +352,7 @@ public class SearchResultActivity extends ListActivity {
 						sPlayer = new MediaPlayer();
 						player = sPlayer;
 						player.reset();
-						player.setDataSource(mp3.getDownloadUrl().get(locPointer));
+						player.setDataSource(mp3.getDownloadUrl());
 						player.prepare();
 						
 						player.start();
@@ -374,8 +374,6 @@ public class SearchResultActivity extends ListActivity {
 							@Override
 							public boolean onError(MediaPlayer mp, int what, int extra) {
 								onPlayError();
-								if(locPointer < mCurrentMusic.getDownloadUrl().size()-1)
-								  locPointer++;
 								return true;
 							}
 
@@ -404,16 +402,11 @@ public class SearchResultActivity extends ListActivity {
 	}
 
 	private void download(MusicInfo mp3) {
-		if (mp3.getDownloadUrl().size() == 0) {
-			showDialog(DIALOG_WAITING_FOR_SERVER);
-			new FetchMp3LinkTaskForDownload().execute(mp3);
-		} else {
-            DownloadInfo download = new DownloadInfo(mp3.getDownloadUrl(), MusicInfo.downloadPath(mp3));
-			mDownloadService.insertDownload(download);
+	    DownloadInfo download = new DownloadInfo(mp3, sFetcher);
+	    mDownloadService.insertDownload(download);
 
-            Intent intent = new Intent(SearchResultActivity.this, DownloadActivity.class);
-			startActivity(intent);
-		}
+	    Intent intent = new Intent(SearchResultActivity.this, DownloadActivity.class);
+	    startActivity(intent);
 
 	}
 
@@ -429,7 +422,8 @@ public class SearchResultActivity extends ListActivity {
 		sSearchActivity = null;
 	}
 
-    private class FetchMp3LinkTaskForDownload extends AsyncTask<MusicInfo, Void, MusicInfo> {
+	/*
+    public class FetchMp3LinkTaskForDownload extends AsyncTask<MusicInfo, Void, MusicInfo> {
 		protected MusicInfo doInBackground(MusicInfo... mp3s) {
 			MusicInfo mp3 = mp3s[0];
 			sFetcher.setMusicDownloadUrl(SearchResultActivity.this, mp3);
@@ -446,7 +440,7 @@ public class SearchResultActivity extends ListActivity {
 				return;
 			}
 
-            DownloadInfo download = new DownloadInfo(mp3.getDownloadUrl(), MusicInfo.downloadPath(mp3));
+            DownloadInfo download = new DownloadInfo(mp3, MusicInfo.downloadPath(mp3),sFetcher);
 			mDownloadService.insertDownload(download);
 
             Intent intent = new Intent(SearchResultActivity.this, DownloadActivity.class);
@@ -456,6 +450,7 @@ public class SearchResultActivity extends ListActivity {
 			}
 		}
 	}
+	*/
 
     private class FetchMp3LinkTaskForPreview extends AsyncTask<MusicInfo, Void, MusicInfo> {
 		protected MusicInfo doInBackground(MusicInfo... mp3s) {

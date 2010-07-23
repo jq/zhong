@@ -10,7 +10,8 @@ public class MusicInfo {
 	private String mArtist;
 	private String mAlbum;
 	private ArrayList<String> mUrl = new ArrayList<String>();
-	private ArrayList<String> mDownloadUrl = new ArrayList<String>();
+	private String mDownloadUrl = null;
+	private int mUrlIndex = 0;
 	
 	private String mDisplaySize;
 	private int mFileSize;
@@ -73,15 +74,19 @@ public class MusicInfo {
 		return mUrl;
 	}
 	
-	public void setDownloadUrl(ArrayList<String> url) {
+	public int getUrlIndex() {
+	  return mUrlIndex;
+	}
+	
+	public void setUrlIndex(int p) {
+	  mUrlIndex = p;
+	}
+	
+	public void setDownloadUrl(String url) {
 		mDownloadUrl = url;
 	}
 	
-	public void addDownloadUrl(String url) {
-	    mDownloadUrl.add(url);
-	}
-	
-	public ArrayList<String> getDownloadUrl() {
+	public String getDownloadUrl() {
 		return mDownloadUrl;
 	}
 	

@@ -111,10 +111,18 @@ public class DownloadService extends Service {
 		if (info == null)
 			return;
 		
-		if (info.getSource().size()==0 || 
-			TextUtils.isEmpty(info.getTarget())) {
+		if (TextUtils.isEmpty(info.getTarget())) {
 			Log.e(TAG, "Empty source or target");
 			return;
+		}
+		
+		if (info.getMusicInfo().getDownloadUrl() == null) {
+		  //fetch download url
+		  info.getMusicSearcher().setMusicDownloadUrl(DownloadService.this, info.getMusicInfo());
+		  if (info.getMusicInfo().getDownloadUrl() == null) {
+		    Log.e(TAG, "Empty source or target");
+	        return;
+		  }
 		}
 		
 		synchronized(mDownloads) {
@@ -140,11 +148,10 @@ public class DownloadService extends Service {
 	
 	public void retryDownload(DownloadInfo info) {
 	  synchronized(info) {
-	    if(info.getSourcePointer() < info.getSource().size()-1) {
-	      info.setSourcePointer(info.getSourcePointer() + 1);
+	    info.getMusicSearcher().setMusicDownloadUrl(DownloadService.this, info.getMusicInfo());
 	    }
 	    mPool.execute(new Task(info));
-	  }
+	  
 	}
 	
 	
@@ -201,7 +208,7 @@ public class DownloadService extends Service {
 			URL url;
 			synchronized(mInfo) {
 				mInfo.setThread(Thread.currentThread());
-				url = new URL(mInfo.getSource().get(mInfo.getSourcePointer()));
+				url = new URL(mInfo.getMusicInfo().getDownloadUrl());
 			}
 			HttpURLConnection connection = (HttpURLConnection)url.openConnection();
 			connection.setRequestProperty("User-Agent", Constants.USER_AGENT);
