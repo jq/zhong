@@ -66,7 +66,7 @@
        		android:theme="@android:style/Theme.Translucent.NoTitleBar">
  	</activity>	
     </application>
-    <uses-sdk android:minSdkVersion="4" />
+    <uses-sdk android:minSdkVersion="3" />
 
 	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
