@@ -186,7 +186,13 @@ public static void setStingKey(String key, String value) {
     if (TextUtils.isEmpty(sizeStr)) {
       return 0;
     }
-    return Integer.parseInt(sizeStr) / (1024 * 1024);
+    int size = 0;
+    try {
+      size = Integer.parseInt(sizeStr) / (1024 * 1024);
+    } catch (NumberFormatException e) {
+      return 0;
+    }
+    return size;
   }
 
 	// Given the link to each individual mp3, get the corresponding link by which we can actually download the music.
