@@ -1,1 +1,2 @@
-[{"descript":"Native BBS on Android","type":"","uri":"market://search?q=pname:net.laoyu.aforum","name":"aForum"}]
+[{"descript":"Native BBS on Android","type":"","uri":"market://search?q=pname:net.laoyu.aforum","name":"aForum"},{"descript":"Music Wizard new
+version","type":"","uri":"market://search?q=pname:com.ringtone.music","name":"Ringtone Mp3"}]
