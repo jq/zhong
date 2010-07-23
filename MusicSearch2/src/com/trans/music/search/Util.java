@@ -99,14 +99,15 @@ public class Util {
       MP3Info mp3 = (MP3Info) entries.get(i);
       String title = mp3.getName();
       String artist = mp3.getArtist();
+      int size = MusicUtil.sizeInM(mp3.getFSize());
       int speed = Integer.parseInt(mp3.getSpeed());
       if(newListHt.size() == 0)
-        newListHt.put(artist+title, mp3);
+        newListHt.put(artist+title+size, mp3);
       else {
         boolean in = false;
-        if(newListHt.containsKey(artist+title)) {
+        if(newListHt.containsKey(artist+title+size)) {
           in = true;
-          MP3Info htMp3 = (MP3Info) newListHt.get(artist+title);
+          MP3Info htMp3 = (MP3Info) newListHt.get(artist+title+size);
           //int htSpeed = Integer.parseInt(htMp3.getSpeed());
           //if(speed > htSpeed) {
           //  newListHt.remove(artist+title);
@@ -115,7 +116,7 @@ public class Util {
           htMp3.addLink(mp3.getLink().get(0));
         }
         if(!in)
-          newListHt.put(artist+title, mp3);
+          newListHt.put(artist+title+size, mp3);
       }
     }
     //add elements in hash table to newList
