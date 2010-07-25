@@ -135,7 +135,8 @@ public abstract class UrlArrayAdapter<T, W> extends ArrayAdapter<T> {
                   JSONObject oldjObject = (JSONObject) newListHt.get(artist+title);
                   int oldRating = -1;
                   try {
-                    oldRating = Integer.parseInt(oldjObject.getString("rating"));
+                    if(oldjObject.has("rating"))
+                      oldRating = Integer.parseInt(oldjObject.getString("rating"));
                   } catch (NumberFormatException e) {
                     e.printStackTrace();
                   } catch (JSONException e) {
