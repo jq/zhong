@@ -33,7 +33,6 @@ import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.media.AudioManager;
-import android.media.AudioManager.OnAudioFocusChangeListener;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Handler;
@@ -243,37 +242,8 @@ public class MediaPlaybackService extends Service {
         }
     };
 
-    private OnAudioFocusChangeListener mAudioFocusListener = new OnAudioFocusChangeListener() {
-        public void onAudioFocusChange(int focusChange) {
-            // AudioFocus is a new feature: focus updates are made verbose on purpose
-            switch (focusChange) {
-                case AudioManager.AUDIOFOCUS_LOSS:
-                    Log.v(LOGTAG, "AudioFocus: received AUDIOFOCUS_LOSS");
-                    if(isPlaying()) {
-                        mPausedByTransientLossOfFocus = false;
-                        pause();
-                    }
-                    break;
-                case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
-                case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
-                    Log.v(LOGTAG, "AudioFocus: received AUDIOFOCUS_LOSS_TRANSIENT");
-                    if(isPlaying()) {
-                        mPausedByTransientLossOfFocus = true;
-                        pause();
-                    }
-                    break;
-                case AudioManager.AUDIOFOCUS_GAIN:
-                    Log.v(LOGTAG, "AudioFocus: received AUDIOFOCUS_GAIN");
-                    if(!isPlaying() && mPausedByTransientLossOfFocus) {
-                        mPausedByTransientLossOfFocus = false;
-                        startAndFadeIn();
-                    }
-                    break;
-                default:
-                    Log.e(LOGTAG, "Unknown audio focus change code");
-            }
-        }
-    };
+    private Object mAudioFocusListener = Api8.getOnAudioFocusChangeListener(this);
+      
 
     public MediaPlaybackService() {
     }
@@ -281,11 +251,10 @@ public class MediaPlaybackService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        mAudioManager.registerMediaButtonEventReceiver(new ComponentName(getPackageName(),
-                MediaButtonIntentReceiver.class.getName()));
-        
+        if (Const.sdk >= 8) {
+            mAudioManager = Api8.getAudioManager(this);
+        }
+         
         mPreferences = getSharedPreferences("Music", MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE);
         mCardId = MusicUtils.getCardId(this);
         
@@ -325,7 +294,8 @@ public class MediaPlaybackService extends Service {
         mPlayer.release();
         mPlayer = null;
 
-        mAudioManager.abandonAudioFocus(mAudioFocusListener);
+        if (mAudioFocusListener != null)
+          Api8.abandonAudioFocus(mAudioManager, mAudioFocusListener);
         
         // make sure there aren't any other messages coming
         mDelayedStopHandler.removeCallbacksAndMessages(null);
@@ -579,7 +549,10 @@ public class MediaPlaybackService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public void onStart(Intent intent, int startId) {
+        handleCommand(intent, startId);
+    }
+    public int handleCommand(Intent intent, int startId) {
         mServiceStartId = startId;
         mDelayedStopHandler.removeCallbacksAndMessages(null);
 
@@ -619,7 +592,12 @@ public class MediaPlaybackService extends Service {
         mDelayedStopHandler.removeCallbacksAndMessages(null);
         Message msg = mDelayedStopHandler.obtainMessage();
         mDelayedStopHandler.sendMessageDelayed(msg, IDLE_DELAY);
-        return START_STICKY;
+        return Const.START_STICKY;
+    }
+    
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return handleCommand(intent, startId);
     }
     
     @Override
@@ -1054,11 +1032,9 @@ public class MediaPlaybackService extends Service {
      * Starts playback of a previously opened file.
      */
     public void play() {
-        mAudioManager.requestAudioFocus(mAudioFocusListener, AudioManager.STREAM_MUSIC,
-                AudioManager.AUDIOFOCUS_GAIN);
-        mAudioManager.registerMediaButtonEventReceiver(new ComponentName(this.getPackageName(),
-                MediaButtonIntentReceiver.class.getName()));
-
+      if (Const.sdk >= 8) {
+          Api8.play(this, mAudioManager, mAudioFocusListener);
+      }
         if (mPlayer.isInitialized()) {
             // if we are at the end of the song, go to the next song first
             long duration = mPlayer.duration();
@@ -1100,7 +1076,11 @@ public class MediaPlaybackService extends Service {
             status.contentIntent = PendingIntent.getActivity(this, 0,
                     new Intent("com.droidcool.music.PLAYBACK_VIEWER")
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK), 0);
-            startForeground(PLAYBACKSERVICE_STATUS, status);
+            if (Const.sdk >= 5) {
+                Api5.startForeground(this, PLAYBACKSERVICE_STATUS, status);
+            } else {
+                setForeground(true);
+            }
             if (!mIsSupposedToBePlaying) {
                 mIsSupposedToBePlaying = true;
                 notifyChange(PLAYSTATE_CHANGED);
@@ -1126,7 +1106,11 @@ public class MediaPlaybackService extends Service {
         if (remove_status_icon) {
             gotoIdleState();
         } else {
-            stopForeground(false);
+            if (Const.sdk >= 5) {
+               Api5.stopForeground(this, false);
+            } else {
+                setForeground(false);
+            }
         }
         if (remove_status_icon) {
             mIsSupposedToBePlaying = false;
@@ -1326,7 +1310,9 @@ public class MediaPlaybackService extends Service {
         mDelayedStopHandler.removeCallbacksAndMessages(null);
         Message msg = mDelayedStopHandler.obtainMessage();
         mDelayedStopHandler.sendMessageDelayed(msg, IDLE_DELAY);
-        stopForeground(true);
+        if (Const.sdk >= 5) {
+            Api5.stopForeground(this, true);
+        }
     }
     
     private void saveBookmarkIfNeeded() {

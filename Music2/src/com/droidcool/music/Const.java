@@ -27,5 +27,6 @@ public class Const {
       values.put(MediaStore.Audio.Playlists.Members.PLAY_ORDER, to);
       return res.update(uri, values, null, null) != 0;
   }
+  public static final int START_STICKY = 1;
 
 }
