@@ -143,7 +143,7 @@ public class BDSearcher implements IMusicSearcher {
 					return;
 				}
 			}
-			info.addDownloadUrl(mDownloadLink);
+			info.setDownloadUrl(mDownloadLink);
 			return;
 		}
 	}

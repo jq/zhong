@@ -2,6 +2,9 @@ package com.fungame.music.download;
 
 import java.util.ArrayList;
 
+import com.fungame.music.IMusicSearcher;
+import com.fungame.music.MusicInfo;
+
 public class DownloadInfo {
 	
 	public static final int STATUS_PENDING = 0;
@@ -10,8 +13,8 @@ public class DownloadInfo {
 	public static final int STATUS_DOWNLOADING = 3;
 	public static final int STATUS_STOPPED = 4;
 	
-	private ArrayList<String> mSource;
-	private int mSourcePointer = 0;
+	private MusicInfo mMusicInfo;
+	private IMusicSearcher mMusicSearcher;
 	private String mTarget;
 	private int mStatus;
 	private int mTotalBytes;
@@ -19,28 +22,25 @@ public class DownloadInfo {
 	private Thread mThread;
 	private String mError;
 	
-	public DownloadInfo(ArrayList<String> source, String target) {
-		mSource = source;
-		mTarget = target;
+	public DownloadInfo(MusicInfo info, IMusicSearcher searcher) {
+		mMusicInfo = info;
+		mTarget = MusicInfo.downloadPath(info);
+		mMusicSearcher = searcher;
 		mStatus = STATUS_PENDING;
 		mTotalBytes = 0;
 		mCurrentBytes = 0;
 	}
 	
-	public ArrayList<String> getSource() {
-		return mSource;
+	public MusicInfo getMusicInfo() {
+		return mMusicInfo;
+	}
+	
+	public IMusicSearcher getMusicSearcher() {
+	  return mMusicSearcher;
 	}
 	
 	public String getTarget() {
 		return mTarget;
-	}
-	
-	public int getSourcePointer() {
-	    return mSourcePointer;
-	}
-	
-	public void setSourcePointer(int pointer) {
-	    mSourcePointer = pointer;
 	}
 	
 	public void setStatus(int status) {

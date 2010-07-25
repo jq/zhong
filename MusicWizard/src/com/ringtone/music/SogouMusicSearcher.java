@@ -131,8 +131,8 @@ public class SogouMusicSearcher implements IMusicSearcher {
 	
 	@Override
 	public void setMusicDownloadUrl(Context context, MusicInfo info) {
-	  if(info.getUrlIndex() < info.getUrl().size()) {
-	    String url = info.getUrl().get(info.getUrlIndex());
+	  if(info.getUrlIndex() < info.getUrls().size()) {
+	    String url = info.getUrls().get(info.getUrlIndex());
 		try {
 			String html = NetUtils.fetchHtmlPage(
 					MusicSearcherFactory.ID_SOGOU, url, "gb2312");			
@@ -144,7 +144,7 @@ public class SogouMusicSearcher implements IMusicSearcher {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		info.setUrlIndex( (info.getUrlIndex() + 1) % info.getUrl().size() );
+		info.setUrlIndex( (info.getUrlIndex() + 1) % info.getUrls().size() );
 	  }
 	}
 }

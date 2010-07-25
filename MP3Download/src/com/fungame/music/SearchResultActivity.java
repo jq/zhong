@@ -61,7 +61,6 @@ public class SearchResultActivity extends ListActivity {
 	private static volatile IMusicSearcher sFetcher;
 	private static boolean sHasMoreData = true;
 
-	private int mLocPointer = 0;
 	private MusicInfo mCurrentMusic;
 
 	@SuppressWarnings("unused")
@@ -143,7 +142,7 @@ public class SearchResultActivity extends ListActivity {
 									}
 								});
 
-								if (mCurrentMusic.getDownloadUrls().size() == 0) {
+								if (mCurrentMusic.getDownloadUrl() == null) {
 									new FetchMp3LinkTaskForPreview().execute(mCurrentMusic);
 									break;
 								}
@@ -333,11 +332,12 @@ public class SearchResultActivity extends ListActivity {
 				Toast.makeText(getApplication(), "Streaming error", Toast.LENGTH_LONG).show();
 			}
 		});
+		sFetcher.setMusicDownloadUrl(SearchResultActivity.this, mCurrentMusic);
 	}
 
     
 	private void playMusic(final MusicInfo mp3) {
-		if (mp3.getDownloadUrls().size() != 0 && mp3.getDownloadUrls().get(mLocPointer).startsWith("http:")) {
+		if (mp3.getDownloadUrl() != null && mp3.getDownloadUrl().startsWith("http:")) {
 			sPreviewThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
@@ -350,7 +350,7 @@ public class SearchResultActivity extends ListActivity {
 						sPlayer = new MediaPlayer();
 						player = sPlayer;
 						player.reset();
-						player.setDataSource(mp3.getDownloadUrls().get(mLocPointer));
+						player.setDataSource(mp3.getDownloadUrl());
 						player.prepare();
 						
 						player.start();
@@ -372,8 +372,6 @@ public class SearchResultActivity extends ListActivity {
 							@Override
 							public boolean onError(MediaPlayer mp, int what, int extra) {
 								onPlayError();
-								if (mLocPointer < mCurrentMusic.getDownloadUrls().size() - 1)
-								  mLocPointer++;
 								return true;
 							}
 
@@ -402,17 +400,11 @@ public class SearchResultActivity extends ListActivity {
 	}
 
 	private void download(MusicInfo mp3) {
-		if (mp3.getDownloadUrls().size() == 0) {
-			showDialog(DIALOG_WAITING_FOR_SERVER);
-			new FetchMp3LinkTaskForDownload().execute(mp3);
-		} else {
-            DownloadInfo download = new DownloadInfo(mp3.getDownloadUrls(), MusicInfo.downloadPath(mp3));
-			mDownloadService.insertDownload(download);
+	    DownloadInfo download = new DownloadInfo(mp3, sFetcher);
+	    mDownloadService.insertDownload(download);
 
-            Intent intent = new Intent(SearchResultActivity.this, DownloadActivity.class);
-			startActivity(intent);
-		}
-
+	    Intent intent = new Intent(SearchResultActivity.this, DownloadActivity.class);
+	    startActivity(intent);
 	}
 
 	@Override
@@ -427,6 +419,7 @@ public class SearchResultActivity extends ListActivity {
 		sSearchActivity = null;
 	}
 
+	/*
     private class FetchMp3LinkTaskForDownload extends AsyncTask<MusicInfo, Void, MusicInfo> {
 		protected MusicInfo doInBackground(MusicInfo... mp3s) {
 			MusicInfo mp3 = mp3s[0];
@@ -455,6 +448,7 @@ public class SearchResultActivity extends ListActivity {
 			}
 		}
 	}
+	*/
 
     private class FetchMp3LinkTaskForPreview extends AsyncTask<MusicInfo, Void, MusicInfo> {
 		protected MusicInfo doInBackground(MusicInfo... mp3s) {
@@ -464,8 +458,7 @@ public class SearchResultActivity extends ListActivity {
 		}
 
 		protected void onPostExecute(MusicInfo mp3) {
-			if (mp3.getDownloadUrls() == null ||
-				mp3.getDownloadUrls().size() > 0) {
+			if (mp3.getDownloadUrl() == null) {
 				if (mProgressDialog != null && mProgressDialog.isShowing()) {
 					mProgressDialog.dismiss();
 				}

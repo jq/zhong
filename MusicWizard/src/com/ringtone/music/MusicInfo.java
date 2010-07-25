@@ -9,7 +9,7 @@ public class MusicInfo {
 	private String mTitle;
 	private String mArtist;
 	private String mAlbum;
-	private ArrayList<String> mUrl = new ArrayList<String>();
+	private ArrayList<String> mUrls = new ArrayList<String>();
 	private String mDownloadUrl = null;
 	private int mUrlIndex = 0;
 	
@@ -23,7 +23,7 @@ public class MusicInfo {
 		StringBuffer sb = new StringBuffer("title=" + mTitle);
 		sb.append(",artist=" + mArtist);
 		sb.append(",album=" + mAlbum);
-		sb.append(",url=" + mUrl);
+		sb.append(",url=" + mUrls);
 		sb.append(",downloadurl=" + mDownloadUrl);
 		sb.append(",displaysize=" + mDisplaySize);
 		sb.append(",filesize=" + mFileSize);
@@ -62,16 +62,16 @@ public class MusicInfo {
 		return mAlbum;
 	}
 	
-	public void setUrl(ArrayList<String> url) {
-		mUrl = url;
+	public void setUrls(ArrayList<String> urls) {
+		mUrls = urls;
 	}
 	
 	public void addUrl(String url) {
-	    mUrl.add(url);
+	    mUrls.add(url);
 	}
 	
-	public ArrayList<String> getUrl() {
-		return mUrl;
+	public ArrayList<String> getUrls() {
+		return mUrls;
 	}
 	
 	public int getUrlIndex() {

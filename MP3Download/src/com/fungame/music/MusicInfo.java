@@ -12,7 +12,8 @@ public class MusicInfo {
 	
 	// The following two should match with each other.
 	private ArrayList<String> mUrls = new ArrayList<String>();
-	private ArrayList<String> mDownloadUrls = new ArrayList<String>();
+	private String mDownloadUrl = null;
+	private int mUrlIndex = 0;
 	
 	private String mDisplaySize;
 	private int mFileSize;
@@ -25,7 +26,7 @@ public class MusicInfo {
 		sb.append(",artist=" + mArtist);
 		sb.append(",album=" + mAlbum);
 		sb.append(",url=" + mUrls);
-		sb.append(",downloadurl=" + mDownloadUrls);
+		sb.append(",downloadurl=" + mDownloadUrl);
 		sb.append(",displaysize=" + mDisplaySize);
 		sb.append(",filesize=" + mFileSize);
 		sb.append(",lyricurl=" + mLyricUrl);
@@ -75,16 +76,20 @@ public class MusicInfo {
 	  mUrls.add(url);
 	}
 	
-	public void setDownloadUrls(ArrayList<String> url) {
-		mDownloadUrls = url;
+	public void setDownloadUrl(String url) {
+		mDownloadUrl = url;
 	}
 	
-	public ArrayList<String> getDownloadUrls() {
-		return mDownloadUrls;
+	public String getDownloadUrl() {
+		return mDownloadUrl;
 	}
 	
-	public void addDownloadUrl(String url) {
-	  mDownloadUrls.add(url);
+	public int getUrlIndex() {
+	  return mUrlIndex;
+	}
+	
+	public void setUrlIndex(int index) {
+	  mUrlIndex = index;
 	}
 	
 	public void setFileSize(int size) {

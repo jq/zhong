@@ -34,6 +34,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -339,7 +340,7 @@ public class SearchResultActivity extends ListActivity {
 
     
 	private void playMusic(final MusicInfo mp3) {
-		if (mp3.getDownloadUrl().startsWith("http:")) {
+		if (mp3.getDownloadUrl() !=null && mp3.getDownloadUrl().startsWith("http:")) {
 			sPreviewThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
