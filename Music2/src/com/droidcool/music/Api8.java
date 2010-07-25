@@ -13,7 +13,6 @@ public class Api8 {
             // AudioFocus is a new feature: focus updates are made verbose on purpose
             switch (focusChange) {
                 case AudioManager.AUDIOFOCUS_LOSS:
-                    Log.v(LOGTAG, "AudioFocus: received AUDIOFOCUS_LOSS");
                     if(service.isPlaying()) {
                       service.mPausedByTransientLossOfFocus = false;
                       service.pause();
@@ -21,21 +20,18 @@ public class Api8 {
                     break;
                 case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
                 case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
-                    Log.v(LOGTAG, "AudioFocus: received AUDIOFOCUS_LOSS_TRANSIENT");
                     if(service.isPlaying()) {
                       service.mPausedByTransientLossOfFocus = true;
                       service.pause();
                     }
                     break;
                 case AudioManager.AUDIOFOCUS_GAIN:
-                    Log.v(LOGTAG, "AudioFocus: received AUDIOFOCUS_GAIN");
                     if(!service.isPlaying() && service.mPausedByTransientLossOfFocus) {
                       service.mPausedByTransientLossOfFocus = false;
                       service.startAndFadeIn();
                     }
                     break;
                 default:
-                    Log.e(LOGTAG, "Unknown audio focus change code");
             }
         }
 	    };

@@ -140,7 +140,7 @@ public class MediaPlaybackService extends Service {
     private boolean mQuietMode = false;
     private AudioManager mAudioManager;
     // used to track what type of audio focus loss caused the playback to pause
-    private boolean mPausedByTransientLossOfFocus = false;
+    public boolean mPausedByTransientLossOfFocus = false;
 
     private SharedPreferences mPreferences;
     // We use this to distinguish between different cards when saving/restoring playlists.
@@ -152,7 +152,7 @@ public class MediaPlaybackService extends Service {
     // interval after which we stop the service when idle
     private static final int IDLE_DELAY = 60000;
     
-    private void startAndFadeIn() {
+    public void startAndFadeIn() {
         mMediaplayerHandler.sendEmptyMessageDelayed(FADEIN, 10);
     }
     
