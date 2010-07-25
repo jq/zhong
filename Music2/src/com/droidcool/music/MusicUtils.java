@@ -1298,13 +1298,15 @@ public class MusicUtils {
 
     static int getCardId(Context context) {
         ContentResolver res = context.getContentResolver();
-        Cursor c = res.query(Uri.parse("content://media/external/fs_id"), null, null, null, null);
         int id = -1;
-        if (c != null) {
-            c.moveToFirst();
-            id = c.getInt(0);
-            c.close();
-        }
+        try {
+	        Cursor c = res.query(Uri.parse("content://media/external/fs_id"), null, null, null, null);
+	        if (c != null) {
+	            c.moveToFirst();
+	            id = c.getInt(0);
+	            c.close();
+	        } 
+        } catch (Exception e) {}
         return id;
     }
 

@@ -242,9 +242,15 @@ public class MediaPlaybackService extends Service {
         }
     };
 
-    private Object mAudioFocusListener = Api8.getOnAudioFocusChangeListener(this);
+    private Object mAudioFocusListener = getAudioFocusChangeListener();
       
-
+    private Object getAudioFocusChangeListener() {
+        if (Const.sdk >= 8) {
+        	return Api8.getOnAudioFocusChangeListener(this);
+        } else {
+        	return null;
+        }
+    }
     public MediaPlaybackService() {
     }
 
