@@ -4,13 +4,6 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
-
-/**
- * 
- * @version 2009-01-15
- * @author Peli
- *
- */
 public class VersionUtils {
 	
 	private static final String TAG = "VersionUtils";

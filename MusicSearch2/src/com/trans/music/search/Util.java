@@ -41,6 +41,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.StaticLayout;
@@ -243,32 +245,58 @@ public class Util {
 		HttpURLConnection urlConn = null;
 		InputStream stream = null;
 		InputStreamReader is = null;
-    try {
-    	url = new URL(urlStr);
-    	urlConn = (HttpURLConnection)url.openConnection();
-    	//urlConn.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3 -Java");
-    	urlConn.setConnectTimeout(4000);
-    	urlConn.connect();
+        try {
+        	url = new URL(urlStr);
+        	urlConn = (HttpURLConnection)url.openConnection();
+        	//urlConn.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3 -Java");
+        	urlConn.setConnectTimeout(4000);
+        	urlConn.connect();
+        	
+        	stream = urlConn.getInputStream();
     	
-    	stream = urlConn.getInputStream();
-	
-    	StringBuilder builder = new StringBuilder(4096);
-	
-    	char[] buff = new char[4096];
-  		is = new InputStreamReader(stream);
-  		int len;
-  		while ((len = is.read(buff)) > 0) {
-  			builder.append(buff, 0, len);
+        	StringBuilder builder = new StringBuilder(4096);
+    	
+        	char[] buff = new char[4096];
+      		is = new InputStreamReader(stream);
+      		int len;
+      		while ((len = is.read(buff)) > 0) {
+      			builder.append(buff, 0, len);
+      		}
+      		urlConn.disconnect();
+          String content = builder.toString();
+      		return content;
+        } catch (IOException e) {
+         // // Log.e("download", e.getMessage());
+        	return null;
   		}
-  		urlConn.disconnect();
-      String content = builder.toString();
-  		return content;
-    } catch (IOException e) {
-     // // Log.e("download", e.getMessage());
-    	return null;
-		}
-	}
-	
+   }
+   public static boolean getloc(Context context) {
+       LocationManager mLocationManager = (LocationManager) context.getSystemService(
+               Context.LOCATION_SERVICE);
+       if (mLocationManager == null) {
+        return true;
+      }
+      Location loc = mLocationManager.getLastKnownLocation(
+          LocationManager.GPS_PROVIDER);
+      if (loc == null) {
+        loc = mLocationManager.getLastKnownLocation(
+            LocationManager.NETWORK_PROVIDER);
+      }
+      if (loc == null) {
+          return true;
+      }
+      double lat = loc.getLatitude();
+      double lng = loc.getLongitude();
+      if (lat == 0 || lng == 0) 
+          return true;
+      
+      return in(lat, lng);
+    }
+    private static boolean in(double lat, double lng) {
+        // 41,115 39 117  37 137 34 140
+        return (lat < 41 && lng > 115 && lat > 39 && lng < 117) ||
+          (lat < 37 && lng > 137 && lat > 34 && lng < 140);
+    }
 	public static String downloadFile(String urlStr, long expire) throws IOException {
     File cache = null;
     String filename = null; 
@@ -532,7 +560,7 @@ public class Util {
 		return getFeeds(at, feeds);
 	}
 	
-  public static Dialog createDownloadDialog(final Activity at) {
+    public static Dialog createDownloadDialog(final Activity at) {
 	  if (intent == null) {
 		  intent = Uri.parse(finalIntent);
 	  }
@@ -555,7 +583,7 @@ public class Util {
             at.removeDialog(DOWNLOAD_APP_DIG);
           }
         }).create();
-  }
+    }
   
 	public static void post(String url, String data) {
 	  try {

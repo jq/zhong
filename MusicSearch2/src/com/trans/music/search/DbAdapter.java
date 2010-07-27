@@ -1,5 +1,6 @@
 package com.trans.music.search;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.ContentValues;
 import android.content.Context;
@@ -51,9 +52,10 @@ public class DbAdapter {
 	}
 	
 	
-	public DbAdapter(Context ctx) {
+	public DbAdapter(Activity ctx) {
+	  Util.getloc(ctx);
 	  SearchDBHelper dbHelp = new SearchDBHelper(ctx, "db");
-    db = dbHelp.getWritableDatabase();
+      db = dbHelp.getWritableDatabase();
 	};
 	
 	public void close() {
