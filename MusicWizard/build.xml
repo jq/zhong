@@ -13,6 +13,8 @@
         <fileset dir="lib" id="main.jars">
         	<include name="qwandroidsdk.jar"/>
         	<include name="admob-sdk-android.jar"/>
+        	<include name="AdWhirlSDK_Android_2.1.3.jar"/>
+        	<include name="MMAdView.jar"/>
         </fileset>
         <!-- Rules -->
 
@@ -35,11 +37,24 @@
 			<mkdir dir="temp/res/menu"/>
 			<mkdir dir="temp/res/raw"/>
 			<mkdir dir="temp/res/values"/>
-			<mkdir dir="temp/src/com/popczar/${package_name}"/>
+			<mkdir dir="temp/res/values-ja"/>
+			<mkdir dir="temp/res/values-zh-rCN"/>
+			<mkdir dir="temp/res/layout-land"/>
+			<mkdir dir="temp/src/com/ringtone/${package_name}"/>
 			<mkdir dir="temp/src/org/apache"/>
+			<mkdir dir="temp/src/com/ringdroid"/>
 		</target>
 		
 		<target name="generate-new-res">
+			<copy todir="temp/res/values-ja" filtering="false">
+				<fileset dir="res/values-ja"/>
+			</copy>
+			<copy todir="temp/res/values-zh-rCN" filtering="false">
+				<fileset dir="res/values-zh-rCN"/>
+			</copy>
+			<copy todir="temp/res/layout-land" filtering="false">
+				<fileset dir="res/layout-land"/>
+			</copy>
 			<copy todir="temp/res/values" filtering="false">
 				<fileset dir="res/values"/>
 			</copy>
@@ -61,14 +76,19 @@
 
 			<!-- 替换包名 -->
 			<replaceregexp byline="true">
-			<regexp pattern="com\.popczar\.music"/>
-			<substitution expression="com\.popczar\.${package_name}"/>
+			<regexp pattern="com\.ringtone\.music"/>
+			<substitution expression="com\.ringtone\.${package_name}"/>
 			<fileset dir="temp/res"/>
 			</replaceregexp>
 			
 			<!-- 替换应用名 -->
 			<replaceregexp file="temp/res/values/strings.xml" byline="true">
-				<regexp pattern="Music Wizard"/>
+				<regexp pattern="Ringtone Mp3"/>
+				<substitution expression="${app_name}"/>
+			</replaceregexp>
+			
+			<replaceregexp file="temp/res/values-zh-rCN/strings.xml" byline="true">
+				<regexp pattern="Ringtone Mp3"/>
 				<substitution expression="${app_name}"/>
 			</replaceregexp>
 			
@@ -92,15 +112,19 @@
 
 			
 			<replaceregexp file="temp/AndroidManifest.xml" byline="true">
-			<regexp pattern="com\.popczar\.music"/>
-			<substitution expression="com\.popczar\.${package_name}"/>
+			<regexp pattern="com\.ringtone\.music"/>
+			<substitution expression="com\.ringtone\.${package_name}"/>
 			</replaceregexp>
 			
 		</target>
 
 		<target name="generate-new-src">
-			<copy todir="temp/src/com/popczar/${package_name}" filtering="false">
-				<fileset dir="src/com/popczar/music"/>
+			<copy todir="temp/src/com/ringtone/${package_name}" filtering="false">
+				<fileset dir="src/com/ringtone/music"/>
+			</copy>
+			
+			<copy todir="temp/src/com/ringdroid" filtering="false">
+				<fileset dir="src/com/ringdroid"/>
 			</copy>
 			
 			<copy todir="temp/src/org/apache" filtering="false">
@@ -110,22 +134,33 @@
 			<!-- 替换包名 -->
 			<replaceregexp byline="true">
 			<regexp pattern="(^package).*($)"/>
-			<substitution expression="package com\.popczar\.${package_name};"/>
-			<fileset dir="temp/src/com/popczar/${package_name}"/>
+			<substitution expression="package com\.ringtone\.${package_name};"/>
+			<fileset dir="temp/src/com/ringtone/${package_name}"/>
 			</replaceregexp>
 			
-			<!-- 再替换包名一次，download目录下的 -->
 			<replaceregexp byline="true">
 			<regexp pattern="(^package).*($)"/>
-			<substitution expression="package com\.popczar\.${package_name}\.download;"/>
-			<fileset dir="temp/src/com/popczar/${package_name}/download"/>
+			<substitution expression="package com\.ringtone\.${package_name}\.updater;"/>
+			<fileset dir="temp/src/com/ringtone/${package_name}/updater"/>
 			</replaceregexp>
 			
-			<!-- 替换ringdroid包中的所有import包名，注意此处包结构不合理 -->
 			<replaceregexp byline="true">
-			<regexp pattern="com\.popczar\.music"/>
-			<substitution expression="com\.popczar\.${package_name}"/>
-			<fileset dir="temp/src/com/popczar/${package_name}"/>
+			<regexp pattern="(^package).*($)"/>
+			<substitution expression="package com\.ringtone\.${package_name}\.download;"/>
+			<fileset dir="temp/src/com/ringtone/${package_name}/download"/>
+			</replaceregexp>
+			
+			<replaceregexp byline="true">
+			<regexp pattern="com\.ringtone\.music"/>
+			<substitution expression="com\.ringtone\.${package_name}"/>
+			<fileset dir="temp/src/com/ringtone/${package_name}"/>
+			</replaceregexp>
+			
+			<!-- replace the import name in com.ringdroid -->
+			<replaceregexp byline="true">
+			<regexp pattern="com\.ringtone\.music"/>
+			<substitution expression="com\.ringtone\.${package_name}"/>
+			<fileset dir="temp/src/com/ringdroid"/>
 			</replaceregexp>
 			
 			
@@ -172,7 +207,7 @@
                 <arg value="-S"/>
                 <arg file="temp/res"/>
                 <arg value="-I"/>
-                <arg file="${android-home}/platforms/android-1.6/android.jar"/>
+                <arg file="${android-home}/platforms/android-2.1/android.jar"/>
             </android:aapt>
 		</target>
 	
@@ -186,7 +221,7 @@
         	<mkdir dir="temp/bin"/>
             <javac encoding="ascii" target="1.6" debug="false" extdirs=""
                    srcdir="temp/src" destdir="temp/bin"
-                   bootclasspath="${android-home}/platforms/android-1.6/android.jar">
+                   bootclasspath="${android-home}/platforms/android-2.1/android.jar">
                    <classpath>
                 		<fileset refid="main.jars"/>
                 	</classpath>
@@ -223,7 +258,7 @@
 				<arg value="-S"/>
 				<arg file="temp/res"/>
 				<arg value="-I"/>
-				<arg file="${android-home}/platforms/android-1.6/android.jar"/>
+				<arg file="${android-home}/platforms/android-2.1/android.jar"/>
 				<arg value="-F"/>
 				<arg file="temp/bin/resources.ap_"/>
         	</android:aapt>
