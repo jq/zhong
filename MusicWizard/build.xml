@@ -303,32 +303,32 @@
     		
     		<antcall target="package-apk">
     		    <param name="package_name" value="Music1"/>
-    		    <param name="drawable" value="app_icons\\icon.png"/>
+    		    <param name="drawable" value="app_icons\\player1.png"/>
     			<param name="app_name" value="Music Ringtone"/>
     		</antcall> 
 
     		<antcall target="package-apk">
     		    <param name="package_name" value="Music2"/>
-    		    <param name="drawable" value="app_icons\\icon2.png"/>
+    		    <param name="drawable" value="app_icons\\player2.png"/>
     			<param name="app_name" value="Music Wizzard"/>
     		</antcall> 
     		
     		<antcall target="package-apk">
     		    <param name="package_name" value="Music3"/>
-    		    <param name="drawable" value="app_icons\\icon3.png"/>
+    		    <param name="drawable" value="app_icons\\player3.png"/>
     			<param name="app_name" value="Ringtone Mp3"/>
     		</antcall> 
     		
     		<antcall target="package-apk">
     		    <param name="package_name" value="Music4"/>
-    		    <param name="drawable" value="app_icons\\icon4.png"/>
+    		    <param name="drawable" value="app_icons\\player4.png"/>
     			<param name="app_name" value="Ringtone Music"/>
     		</antcall> 
     		
 			
 			<antcall target="package-apk">
     		    <param name="package_name" value="Music5"/>
-    		    <param name="drawable" value="app_icons\\icon5.png"/>
+    		    <param name="drawable" value="app_icons\\player5.png"/>
     			<param name="app_name" value="Mp3 Music"/>
     		</antcall> 
     		
