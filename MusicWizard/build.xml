@@ -119,15 +119,15 @@
 		</target>
 
 		<target name="generate-new-src">
-			<copy todir="temp/src/com/ringtone/${package_name}" filtering="false">
+			<copy todir="temp/src/com/ringtone/${package_name}" outputencoding="UTF-8" filtering="false">
 				<fileset dir="src/com/ringtone/music"/>
 			</copy>
 			
-			<copy todir="temp/src/com/ringdroid" filtering="false">
+			<copy todir="temp/src/com/ringdroid" outputencoding="UTF-8" filtering="false">
 				<fileset dir="src/com/ringdroid"/>
 			</copy>
 			
-			<copy todir="temp/src/org/apache" filtering="false">
+			<copy todir="temp/src/org/apache" outputencoding="UTF-8" filtering="false">
 				<fileset dir="src/org/apache"/>
 			</copy>
 			
@@ -219,7 +219,7 @@
     		</antcall>
         	
         	<mkdir dir="temp/bin"/>
-            <javac encoding="ascii" target="1.6" debug="false" extdirs=""
+            <javac encoding="utf-8" target="1.6" debug="false" extdirs=""
                    srcdir="temp/src" destdir="temp/bin"
                    bootclasspath="${android-home}/platforms/android-2.1/android.jar">
                    <classpath>
@@ -304,14 +304,57 @@
     		<antcall target="package-apk">
     		    <param name="package_name" value="Music1"/>
     		    <param name="drawable" value="app_icons\\icon.png"/>
-    			<param name="app_name" value="Music Wizard"/>
+    			<param name="app_name" value="Music Ringtone"/>
     		</antcall> 
 
     		<antcall target="package-apk">
     		    <param name="package_name" value="Music2"/>
     		    <param name="drawable" value="app_icons\\icon2.png"/>
-    			<param name="app_name" value="Music Wizard"/>
+    			<param name="app_name" value="Music Wizzard"/>
     		</antcall> 
-
+    		
+    		<antcall target="package-apk">
+    		    <param name="package_name" value="Music3"/>
+    		    <param name="drawable" value="app_icons\\icon3.png"/>
+    			<param name="app_name" value="Ringtone Mp3"/>
+    		</antcall> 
+    		
+    		<antcall target="package-apk">
+    		    <param name="package_name" value="Music4"/>
+    		    <param name="drawable" value="app_icons\\icon4.png"/>
+    			<param name="app_name" value="Ringtone Music"/>
+    		</antcall> 
+    		
+			
+			<antcall target="package-apk">
+    		    <param name="package_name" value="Music5"/>
+    		    <param name="drawable" value="app_icons\\icon5.png"/>
+    			<param name="app_name" value="Mp3 Music"/>
+    		</antcall> 
+    		
+    		<antcall target="package-apk">
+    		    <param name="package_name" value="Music6"/>
+    		    <param name="drawable" value="app_icons\\icon6.png"/>
+    			<param name="app_name" value="Mp3 Ringtone"/>
+    		</antcall> 
+			
+			<antcall target="package-apk">
+    		    <param name="package_name" value="Music7"/>
+    		    <param name="drawable" value="app_icons\\icon7.png"/>
+    			<param name="app_name" value="Mp3 Player"/>
+    		</antcall> 
+    		
+    		<antcall target="package-apk">
+    		    <param name="package_name" value="Music8"/>
+    		    <param name="drawable" value="app_icons\\icon8.png"/>
+    			<param name="app_name" value="Music Player"/>
+    		</antcall> 
+    		
+    		<antcall target="package-apk">
+    		    <param name="package_name" value="Music9"/>
+    		    <param name="drawable" value="app_icons\\icon9.png"/>
+    			<param name="app_name" value="Ringtone Player"/>
+    		</antcall> 
+			
     	</target>
 </project>
