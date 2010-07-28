@@ -1366,7 +1366,7 @@ public class RingdroidEditActivity extends Activity implements
 	private void chooseContactForRingtone(Uri uri) {
 		try {
 			Intent intent = new Intent(Intent.ACTION_EDIT, uri);
-			intent.setClassName("com.feebee.rings",
+			intent.setClassName(this,
 					"com.ringdroid.ChooseContactActivity");
 			startActivityForResult(intent, REQUEST_CODE_CHOOSE_CONTACT);
 		} catch (Exception e) {
