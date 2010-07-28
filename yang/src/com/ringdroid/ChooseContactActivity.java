@@ -78,6 +78,7 @@ public class ChooseContactActivity
 
         Intent intent = getIntent();
         mRingtoneUri = intent.getData();
+        Log.e("ringtone uri:", mRingtoneUri.toString());
 
         // Inflate our UI from its XML layout description.
         setContentView(R.layout.choose_contact);
@@ -150,6 +151,19 @@ public class ChooseContactActivity
             mFilter.addTextChangedListener(this);
         }
     }
+    
+    private boolean isEclairOrLater() {
+      return Build.VERSION.SDK_INT >= 5;
+    }
+    
+    private Uri getContactContentUri() {
+      if (isEclairOrLater()) {
+          // ContactsContract.Contacts.CONTENT_URI
+          return Uri.parse("content://com.android.contacts/contacts");
+      } else {
+          return Contacts.People.CONTENT_URI;
+      }
+    }
 
     private void assignRingtoneToContact() {
         Cursor c = mAdapter.getCursor();
@@ -158,12 +172,7 @@ public class ChooseContactActivity
 
         dataIndex = c.getColumnIndexOrThrow(People.DISPLAY_NAME);
         String displayName = c.getString(dataIndex);
-        Uri uri = null;
-        if (Integer.parseInt(Build.VERSION.SDK) >= 5) {
-        	uri = GenContactUri.getContextUri(contactId);
-        } else {
-        	uri = Uri.withAppendedPath(People.CONTENT_URI, contactId);
-        } 
+        Uri uri = Uri.withAppendedPath(getContactContentUri(), contactId);
         Log.e("SDK version: ", Build.VERSION.SDK);
         Log.e("assign contact uri: ", uri.toString());
         ContentValues values = new ContentValues();
@@ -178,7 +187,7 @@ public class ChooseContactActivity
 
         Toast.makeText(this, message, Toast.LENGTH_SHORT)
             .show();
-//        finish();
+        finish();
         return;
     }
 
@@ -190,7 +199,7 @@ public class ChooseContactActivity
             selection = null;
         }
         Cursor cursor = managedQuery(
-            People.CONTENT_URI,
+            getContactContentUri(),
             new String[] {
             	People._ID,
             	People.CUSTOM_RINGTONE,
@@ -201,7 +210,7 @@ public class ChooseContactActivity
             	People.TIMES_CONTACTED },
             selection,
             null,
-            "STARRED DESC, TIMES_CONTACTED DESC, LAST_TIME_CONTACTED DESC");
+            "STARRED DESC, TIMES_CONTACTED DESC, LAST_TIME_CONTACTED DESC, DISPLAY_NAME ASC");
 
         Log.i("Ringdroid", cursor.getCount() + " contacts");
 
