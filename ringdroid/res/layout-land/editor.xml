@@ -41,30 +41,30 @@
     <LinearLayout
      style="@style/ToolbarBackground"
      android:layout_width="fill_parent" 
-     android:layout_height="68px">
+     android:layout_height="68dip">
 
         <LinearLayout
          android:layout_width="wrap_content" 
          android:layout_height="fill_parent"
-         android:layout_marginLeft="5px"
-         android:layout_marginRight="5px"
+         android:layout_marginLeft="5dip"
+         android:layout_marginRight="5dip"
          android:gravity="center">
 
 	  <ImageButton android:id="@+id/rew"
-	   android:layout_width="52px"
-	   android:layout_height="52px"
+	   android:layout_width="52dip"
+	   android:layout_height="52dip"
            style="@android:style/MediaButton"
 	   android:src="@drawable/ic_media_rew" />
 
 	  <ImageButton android:id="@+id/play"
-	   android:layout_width="52px"
-	   android:layout_height="52px"
+	   android:layout_width="52dip"
+	   android:layout_height="52dip"
            style="@android:style/MediaButton"
 	   android:src="@drawable/ic_media_play" />
 
 	  <ImageButton android:id="@+id/ffwd"
-	   android:layout_width="52px"
-	   android:layout_height="52px"
+	   android:layout_width="52dip"
+	   android:layout_height="52dip"
            style="@android:style/MediaButton"
 	   android:src="@drawable/ic_media_ff" />
 
@@ -76,18 +76,18 @@
         <LinearLayout
          android:layout_width="wrap_content"
          android:layout_height="fill_parent"
-         android:layout_marginLeft="5px"
-         android:layout_marginRight="5px"
+         android:layout_marginLeft="5dip"
+         android:layout_marginRight="5dip"
          android:gravity="center">
     
 	  <ImageButton android:id="@+id/zoom_in"
-	   android:layout_width="52px"
-	   android:layout_height="52px"
+	   android:layout_width="52dip"
+	   android:layout_height="52dip"
 	   android:src="@drawable/button_zoom_in" />
 
 	  <ImageButton android:id="@+id/zoom_out"
-	   android:layout_width="52px"
-	   android:layout_height="52px"
+	   android:layout_width="52dip"
+	   android:layout_height="52dip"
 	   android:src="@drawable/button_zoom_out" />
 
 	</LinearLayout>
@@ -98,9 +98,9 @@
       <LinearLayout
          android:layout_width="wrap_content" 
          android:layout_height="fill_parent"
-         android:layout_marginTop="6px"
-         android:layout_marginLeft="5px"
-         android:layout_marginRight="5px"
+         android:layout_marginTop="6dip"
+         android:layout_marginLeft="5dip"
+         android:layout_marginRight="5dip"
          android:gravity="center"
          android:orientation="vertical">
 
@@ -112,7 +112,7 @@
            android:textStyle="bold"
            android:clickable="true"
            android:layout_width="wrap_content" 
-           android:layout_height="31px" />
+           android:layout_height="31dip" />
 
         <TextView
            android:id="@+id/mark_end"
@@ -122,7 +122,7 @@
            android:textStyle="bold"
            android:clickable="true"
            android:layout_width="wrap_content" 
-           android:layout_height="31px" />
+           android:layout_height="31dip" />
 
       </LinearLayout>
 
@@ -134,13 +134,13 @@
 
         <EditText android:id="@+id/starttext"
            android:textSize="11sp"
-           android:layout_width="70px"
-           android:layout_height="31px" />
+           android:layout_width="70dip"
+           android:layout_height="31dip" />
 
         <EditText android:id="@+id/endtext"
            android:textSize="11sp"
-           android:layout_width="70px"
-           android:layout_height="31px" />
+           android:layout_width="70dip"
+           android:layout_height="31dip" />
 
       </LinearLayout>
 
@@ -150,13 +150,13 @@
       <LinearLayout
          android:layout_width="wrap_content"
          android:layout_height="fill_parent"
-         android:layout_marginLeft="5px"
-         android:layout_marginRight="5px"
+         android:layout_marginLeft="5dip"
+         android:layout_marginRight="5dip"
          android:gravity="center">
 
         <ImageButton android:id="@+id/save"
-         android:layout_width="52px"
-         android:layout_height="52px"
+         android:layout_width="52dip"
+         android:layout_height="52dip"
          android:src="@drawable/menu_save" />
 
       </LinearLayout>

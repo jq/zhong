@@ -78,7 +78,6 @@ public class ChooseContactActivity
 
         Intent intent = getIntent();
         mRingtoneUri = intent.getData();
-        Log.e("ringtone uri:", mRingtoneUri.toString());
 
         // Inflate our UI from its XML layout description.
         setContentView(R.layout.choose_contact);
@@ -187,7 +186,7 @@ public class ChooseContactActivity
 
         Toast.makeText(this, message, Toast.LENGTH_SHORT)
             .show();
-        finish();
+//        finish();
         return;
     }
 
