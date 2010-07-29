@@ -24,8 +24,8 @@ import android.net.Uri;
 import android.content.Intent;
 
 public class Lyric extends Activity {
-
-	private static final String urlQueryString = "http://www.heiguge.com/mp3/getlyric/?";
+	// http://ggapp.appspot.com//mp3/bhot100/
+	private static final String urlQueryString = "http://ggapp.appspot.com/mp3/getlyric/?";
 	WebView mWebPageView;
 	String mArtist, mSong;
 	Dialog mFindLyricDia;	

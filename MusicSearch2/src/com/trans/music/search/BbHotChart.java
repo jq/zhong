@@ -220,7 +220,7 @@ public class BbHotChart extends Activity {
         }
 
     }
-	private String urlString = "http://www.heiguge.com/mp3/";
+	private String urlString = "http://ggapp.appspot.com/mp3/";
 	
 	private boolean networkError = false;
 	
