@@ -10,27 +10,12 @@ public class MusicInfo {
 	private String mArtist;
 	private String mAlbum;
 	private ArrayList<String> mUrls = new ArrayList<String>();
-	private String mDownloadUrl = null;
-	private int mUrlIndex = 0;
+	private ArrayList<String> mDownloadUrls = new ArrayList<String>();
 	
 	private String mDisplaySize;
 	private int mFileSize;
 	private String mLyricUrl;
 	private String mType;
-	
-	// For Debugging.
-	public String toString() {
-		StringBuffer sb = new StringBuffer("title=" + mTitle);
-		sb.append(",artist=" + mArtist);
-		sb.append(",album=" + mAlbum);
-		sb.append(",url=" + mUrls);
-		sb.append(",downloadurl=" + mDownloadUrl);
-		sb.append(",displaysize=" + mDisplaySize);
-		sb.append(",filesize=" + mFileSize);
-		sb.append(",lyricurl=" + mLyricUrl);
-		sb.append(",type=" + mType);
-		return sb.toString();
-	}
 	
 	public void setTitle(String title) {
 		mTitle = title;
@@ -59,35 +44,29 @@ public class MusicInfo {
 	}
 	
 	public String getAlbum() {
+		if (TextUtils.isEmpty(mAlbum))
+			return "Unknown";
 		return mAlbum;
-	}
-	
-	public void setUrls(ArrayList<String> urls) {
-		mUrls = urls;
 	}
 	
 	public void addUrl(String url) {
 	    mUrls.add(url);
 	}
 	
-	public ArrayList<String> getUrls() {
-		return mUrls;
+	public String getUrl() {
+		if (mUrls == null || mUrls.size() == 0)
+			return null;
+		return mUrls.get(0);
 	}
 	
-	public int getUrlIndex() {
-	  return mUrlIndex;
-	}
-	
-	public void setUrlIndex(int p) {
-	  mUrlIndex = p;
-	}
-	
-	public void setDownloadUrl(String url) {
-		mDownloadUrl = url;
+	public void addDownloadUrl(String url) {
+	    mDownloadUrls.add(url);
 	}
 	
 	public String getDownloadUrl() {
-		return mDownloadUrl;
+		if (mDownloadUrls == null || mDownloadUrls.size() == 0)
+			return null;
+		return mDownloadUrls.get(0);
 	}
 	
 	public void setFileSize(int size) {
@@ -103,6 +82,8 @@ public class MusicInfo {
 	}
 	
 	public String getDisplayFileSize() {
+		if (mDisplaySize == null)
+			return "";
 		return mDisplaySize;
 	}
 	

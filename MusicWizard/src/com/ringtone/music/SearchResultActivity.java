@@ -145,7 +145,7 @@ public class SearchResultActivity extends ListActivity {
 									}
 								});
 
-								if (mCurrentMusic.getDownloadUrl() == null) {
+								if (TextUtils.isEmpty(mCurrentMusic.getDownloadUrl())) {
 									new FetchMp3LinkTaskForPreview().execute(mCurrentMusic);
 									break;
 								}
@@ -335,7 +335,6 @@ public class SearchResultActivity extends ListActivity {
 				Toast.makeText(getApplication(), "Streaming error", Toast.LENGTH_LONG).show();
 			}
 		});
-		sFetcher.setMusicDownloadUrl(SearchResultActivity.this, mCurrentMusic);
 	}
 
     
@@ -403,11 +402,16 @@ public class SearchResultActivity extends ListActivity {
 	}
 
 	private void download(MusicInfo mp3) {
-	    DownloadInfo download = new DownloadInfo(mp3, sFetcher);
-	    mDownloadService.insertDownload(download);
+		if (TextUtils.isEmpty(mp3.getDownloadUrl())) {
+			showDialog(DIALOG_WAITING_FOR_SERVER);
+			new FetchMp3LinkTaskForDownload().execute(mp3);
+		} else {
+            DownloadInfo download = new DownloadInfo(mp3.getDownloadUrl(), MusicInfo.downloadPath(mp3));
+			mDownloadService.insertDownload(download);
 
-	    Intent intent = new Intent(SearchResultActivity.this, DownloadActivity.class);
-	    startActivity(intent);
+            Intent intent = new Intent(SearchResultActivity.this, DownloadActivity.class);
+			startActivity(intent);
+		}
 
 	}
 
@@ -423,8 +427,7 @@ public class SearchResultActivity extends ListActivity {
 		sSearchActivity = null;
 	}
 
-	/*
-    public class FetchMp3LinkTaskForDownload extends AsyncTask<MusicInfo, Void, MusicInfo> {
+    private class FetchMp3LinkTaskForDownload extends AsyncTask<MusicInfo, Void, MusicInfo> {
 		protected MusicInfo doInBackground(MusicInfo... mp3s) {
 			MusicInfo mp3 = mp3s[0];
 			sFetcher.setMusicDownloadUrl(SearchResultActivity.this, mp3);
@@ -441,7 +444,7 @@ public class SearchResultActivity extends ListActivity {
 				return;
 			}
 
-            DownloadInfo download = new DownloadInfo(mp3, MusicInfo.downloadPath(mp3),sFetcher);
+            DownloadInfo download = new DownloadInfo(mp3.getDownloadUrl(), MusicInfo.downloadPath(mp3));
 			mDownloadService.insertDownload(download);
 
             Intent intent = new Intent(SearchResultActivity.this, DownloadActivity.class);
@@ -451,7 +454,6 @@ public class SearchResultActivity extends ListActivity {
 			}
 		}
 	}
-	*/
 
     private class FetchMp3LinkTaskForPreview extends AsyncTask<MusicInfo, Void, MusicInfo> {
 		protected MusicInfo doInBackground(MusicInfo... mp3s) {
@@ -486,7 +488,8 @@ public class SearchResultActivity extends ListActivity {
 
 			setListAdapter(mAdapter);
 		}
-		mp3List = Utils.dedup(mp3List);
+		// Uncomment until it is really working.
+		//mp3List = Utils.dedupMp3List(mp3List);
 		if (mp3List != null) {
 			if (sData == null)
 				sData = new Mp3ListWrapper();

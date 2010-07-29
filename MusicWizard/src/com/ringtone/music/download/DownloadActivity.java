@@ -225,21 +225,13 @@ public class DownloadActivity extends ListActivity {
 			break;
 		}
 		case MENU_RESUME: {
-		  if(d.getStatus() == DownloadInfo.STATUS_FAILED) {
-		    if(mDownloadService != null) {
-		      mAdapter.notifyDataSetChanged();
-		      mDownloadService.retryDownload(d);
-		    }
-		  }
-		  else if(d.getStatus() == DownloadInfo.STATUS_STOPPED) {
-		    if (mDownloadService != null) {
-		      synchronized(d) {
-		        d.setStatus(DownloadInfo.STATUS_PENDING);
-		      }
-		      mAdapter.notifyDataSetChanged();
-		      mDownloadService.resumeDownload(d);
-		    }
-		  }
+			if (mDownloadService != null) {
+				synchronized(d) {
+					d.setStatus(DownloadInfo.STATUS_PENDING);
+				}
+				mAdapter.notifyDataSetChanged();
+				mDownloadService.resumeDownload(d);
+			}
 			break;
 		}
 		case MENU_DELETE: {

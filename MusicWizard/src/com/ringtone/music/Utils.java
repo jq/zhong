@@ -7,6 +7,7 @@ import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
 
@@ -50,50 +51,35 @@ public class Utils {
 			assert b;
 	}
 	
-	static public int getSizeInM(String sizeStr) {
-	  int size = 0;
-	  if(sizeStr.startsWith("unknown"))
-	    return 0;
-	  if(sizeStr.endsWith("k") || sizeStr.endsWith("K"))
-	    return 0;
-	  if(sizeStr.endsWith("m") || sizeStr.endsWith("M")) {
-	    String sizeString = sizeStr.substring(0, sizeStr.length()-1);
-	    try {
-	      size = (int) Double.parseDouble(sizeString);
-	    } catch (Exception e) {
-	      return 0;
-	    }
-	    return size;
-	  }
-	  return size;
-	}
-	
-	static public ArrayList<MusicInfo> dedup(ArrayList<MusicInfo> mp3List) {
+	// Combine duplicate music infos. Duplicate music infos are identified by the tuple of (title, artist, displaySize).
+	static public ArrayList<MusicInfo> dedupMp3List(ArrayList<MusicInfo> mp3List) {
 		if (mp3List == null) {
 			return null;
 		}
+		
+		if (mp3List.size() == 0)
+			return mp3List;
+		
 		//combine same music
-        Hashtable htNewList = new Hashtable();
+        Hashtable<String, MusicInfo> seen = new Hashtable<String, MusicInfo>();
+        ArrayList<MusicInfo> newList = new ArrayList<MusicInfo>();
+     
         for (Iterator<MusicInfo> it = mp3List.iterator(); it.hasNext();) {
           MusicInfo mp3 = it.next();
           String title = mp3.getTitle();
           String artist = mp3.getArtist();
-          int size = getSizeInM(mp3.getDisplayFileSize());
-          boolean in = false;
-          if (htNewList.containsKey(artist+title+size)) {
-            in = true;
-            MusicInfo info = (MusicInfo) htNewList.get(artist+title+size);
-            info.addUrl(mp3.getUrls().get(0));
+          String displaySize = mp3.getDisplayFileSize();
+          final String key = title + artist + displaySize;
+          if (seen.containsKey(key)) {
+            MusicInfo info = (MusicInfo) seen.get(key);
+            // Assumes URL does not have duplicates.
+            info.addUrl(mp3.getUrl());
+          } else {
+            seen.put(key, mp3);      
+            newList.add(mp3);
           }
-          if (!in)
-            htNewList.put(artist+title+size, mp3);      
         }
         
-        ArrayList<MusicInfo> newList = new ArrayList<MusicInfo>();
-        Iterator it2 = htNewList.values().iterator();
-        while (it2.hasNext()) {
-          newList.add((MusicInfo) it2.next());
-        }
         return newList;
 	}
 	
