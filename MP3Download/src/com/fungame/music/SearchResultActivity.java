@@ -2,8 +2,6 @@ package com.fungame.music;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -142,7 +140,7 @@ public class SearchResultActivity extends ListActivity {
 									}
 								});
 
-								if (mCurrentMusic.getDownloadUrl() == null) {
+								if (TextUtils.isEmpty(mCurrentMusic.getDownloadUrl())) {
 									new FetchMp3LinkTaskForPreview().execute(mCurrentMusic);
 									break;
 								}
@@ -332,12 +330,11 @@ public class SearchResultActivity extends ListActivity {
 				Toast.makeText(getApplication(), "Streaming error", Toast.LENGTH_LONG).show();
 			}
 		});
-		sFetcher.setMusicDownloadUrl(SearchResultActivity.this, mCurrentMusic);
 	}
 
     
 	private void playMusic(final MusicInfo mp3) {
-		if (mp3.getDownloadUrl() != null && mp3.getDownloadUrl().startsWith("http:")) {
+		if (mp3.getDownloadUrl().startsWith("http:")) {
 			sPreviewThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
@@ -400,11 +397,17 @@ public class SearchResultActivity extends ListActivity {
 	}
 
 	private void download(MusicInfo mp3) {
-	    DownloadInfo download = new DownloadInfo(mp3, sFetcher);
-	    mDownloadService.insertDownload(download);
+		if (TextUtils.isEmpty(mp3.getDownloadUrl())) {
+			showDialog(DIALOG_WAITING_FOR_SERVER);
+			new FetchMp3LinkTaskForDownload().execute(mp3);
+		} else {
+            DownloadInfo download = new DownloadInfo(mp3.getDownloadUrl(), MusicInfo.downloadPath(mp3));
+			mDownloadService.insertDownload(download);
 
-	    Intent intent = new Intent(SearchResultActivity.this, DownloadActivity.class);
-	    startActivity(intent);
+            Intent intent = new Intent(SearchResultActivity.this, DownloadActivity.class);
+			startActivity(intent);
+		}
+
 	}
 
 	@Override
@@ -419,7 +422,6 @@ public class SearchResultActivity extends ListActivity {
 		sSearchActivity = null;
 	}
 
-	/*
     private class FetchMp3LinkTaskForDownload extends AsyncTask<MusicInfo, Void, MusicInfo> {
 		protected MusicInfo doInBackground(MusicInfo... mp3s) {
 			MusicInfo mp3 = mp3s[0];
@@ -428,8 +430,7 @@ public class SearchResultActivity extends ListActivity {
 		}
 
 		protected void onPostExecute(MusicInfo mp3) {
-			if (mp3.getDownloadUrls() == null ||
-				mp3.getDownloadUrls().size() == 0) {
+			if (mp3.getDownloadUrl() == null) {
 				if (mProgressDialog != null && mProgressDialog.isShowing()) {
 					mProgressDialog.dismiss();
 				}
@@ -438,7 +439,7 @@ public class SearchResultActivity extends ListActivity {
 				return;
 			}
 
-            DownloadInfo download = new DownloadInfo(mp3.getDownloadUrls(), MusicInfo.downloadPath(mp3));
+            DownloadInfo download = new DownloadInfo(mp3.getDownloadUrl(), MusicInfo.downloadPath(mp3));
 			mDownloadService.insertDownload(download);
 
             Intent intent = new Intent(SearchResultActivity.this, DownloadActivity.class);
@@ -448,7 +449,6 @@ public class SearchResultActivity extends ListActivity {
 			}
 		}
 	}
-	*/
 
     private class FetchMp3LinkTaskForPreview extends AsyncTask<MusicInfo, Void, MusicInfo> {
 		protected MusicInfo doInBackground(MusicInfo... mp3s) {
@@ -483,15 +483,13 @@ public class SearchResultActivity extends ListActivity {
 
 			setListAdapter(mAdapter);
 		}
-		
-		ArrayList<MusicInfo> newList = Utils.dedup(mp3List);
 
-		if (newList != null) {
+		if (mp3List != null) {
 			if (sData == null)
 				sData = new Mp3ListWrapper();
 			
-			if (newList.size() > 0) {
-				sData.append(newList);
+			if (mp3List.size() > 0) {
+				sData.append(mp3List);
 			} else {
 				sHasMoreData = false;
 				if (sData.size() == 0) {

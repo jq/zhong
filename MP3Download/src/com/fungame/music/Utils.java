@@ -79,45 +79,6 @@ public class Utils {
       return size;
     }
 	
-	public static ArrayList<MusicInfo> dedup(ArrayList<MusicInfo> mp3List) {
-	  if(mp3List == null)
-	    return null;
-	  //combine same music
-      Hashtable htNewList = new Hashtable();
-      Iterator<MusicInfo> it = mp3List.iterator();
-      while (it.hasNext()) {
-        MusicInfo mp3 = it.next();
-        String title = mp3.getTitle();
-        String artist = mp3.getArtist();
-        int size = getSizeInM(mp3.getDisplayFileSize());
-        boolean in = false;
-        if (htNewList.containsKey(artist+title+size)) {
-          in = true;
-          MusicInfo info = (MusicInfo) htNewList.get(artist+title+size);
-          info.addUrl(mp3.getUrls().get(0));
-        }
-        if (!in)
-          htNewList.put(artist+title+size, mp3);      
-      }
-      ArrayList<MusicInfo> newList = new ArrayList<MusicInfo>();
-      Iterator it2 = htNewList.values().iterator();
-      while (it2.hasNext()) {
-        newList.add((MusicInfo) it2.next());
-      }
-      
-//    final int MINSIZE = 10;
-//    if (newList.size() < MINSIZE) {
-//      for (Iterator<MusicInfo> it = mp3List.iterator(); it.hasNext();) {
-//        MusicInfo mp3 = it.next();
-//        if (!newList.contains(mp3))
-//          newList.add(mp3);
-//        if (newList.size() > MINSIZE-1)
-//          break;
-//      }
-//    }
-      return newList;
-	}
-	
     public static String join(Collection<String> s, String delimiter) {
         StringBuffer buffer = new StringBuffer();
         Iterator<String> iter = s.iterator();

@@ -1,10 +1,5 @@
 package com.fungame.music.download;
 
-import java.util.ArrayList;
-
-import com.fungame.music.IMusicSearcher;
-import com.fungame.music.MusicInfo;
-
 public class DownloadInfo {
 	
 	public static final int STATUS_PENDING = 0;
@@ -13,8 +8,7 @@ public class DownloadInfo {
 	public static final int STATUS_DOWNLOADING = 3;
 	public static final int STATUS_STOPPED = 4;
 	
-	private MusicInfo mMusicInfo;
-	private IMusicSearcher mMusicSearcher;
+	private String mSource;
 	private String mTarget;
 	private int mStatus;
 	private int mTotalBytes;
@@ -22,21 +16,16 @@ public class DownloadInfo {
 	private Thread mThread;
 	private String mError;
 	
-	public DownloadInfo(MusicInfo info, IMusicSearcher searcher) {
-		mMusicInfo = info;
-		mTarget = MusicInfo.downloadPath(info);
-		mMusicSearcher = searcher;
+	public DownloadInfo(String source, String target) {
+		mSource = source;
+		mTarget = target;
 		mStatus = STATUS_PENDING;
 		mTotalBytes = 0;
 		mCurrentBytes = 0;
 	}
 	
-	public MusicInfo getMusicInfo() {
-		return mMusicInfo;
-	}
-	
-	public IMusicSearcher getMusicSearcher() {
-	  return mMusicSearcher;
+	public String getSource() {
+		return mSource;
 	}
 	
 	public String getTarget() {

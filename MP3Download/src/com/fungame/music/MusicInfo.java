@@ -1,7 +1,5 @@
 package com.fungame.music;
 
-import java.util.ArrayList;
-
 import android.text.TextUtils;
 
 public class MusicInfo {
@@ -9,11 +7,8 @@ public class MusicInfo {
 	private String mTitle;
 	private String mArtist;
 	private String mAlbum;
-	
-	// The following two should match with each other.
-	private ArrayList<String> mUrls = new ArrayList<String>();
-	private String mDownloadUrl = null;
-	private int mUrlIndex = 0;
+	private String mUrl;
+	private String mDownloadUrl;
 	
 	private String mDisplaySize;
 	private int mFileSize;
@@ -25,7 +20,7 @@ public class MusicInfo {
 		StringBuffer sb = new StringBuffer("title=" + mTitle);
 		sb.append(",artist=" + mArtist);
 		sb.append(",album=" + mAlbum);
-		sb.append(",url=" + mUrls);
+		sb.append(",url=" + mUrl);
 		sb.append(",downloadurl=" + mDownloadUrl);
 		sb.append(",displaysize=" + mDisplaySize);
 		sb.append(",filesize=" + mFileSize);
@@ -64,16 +59,12 @@ public class MusicInfo {
 		return mAlbum;
 	}
 	
-	public void setUrls(ArrayList<String> urls) {
-		mUrls = urls;
+	public void setUrl(String url) {
+		mUrl = url;
 	}
 	
-	public ArrayList<String> getUrls() {
-		return mUrls;
-	}
-	
-	public void addUrl(String url) {
-	  mUrls.add(url);
+	public String getUrl() {
+		return mUrl;
 	}
 	
 	public void setDownloadUrl(String url) {
@@ -82,14 +73,6 @@ public class MusicInfo {
 	
 	public String getDownloadUrl() {
 		return mDownloadUrl;
-	}
-	
-	public int getUrlIndex() {
-	  return mUrlIndex;
-	}
-	
-	public void setUrlIndex(int index) {
-	  mUrlIndex = index;
 	}
 	
 	public void setFileSize(int size) {
