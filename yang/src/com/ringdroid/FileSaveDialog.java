@@ -32,7 +32,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.feebe.rings.R;
+import com.feebee.rings.R;
 
 public class FileSaveDialog extends Dialog {
 

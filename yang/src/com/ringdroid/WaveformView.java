@@ -25,7 +25,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.feebe.rings.R;
+import com.feebee.rings.R;
 import com.ringdroid.soundfile.CheapSoundFile;
 
 import java.util.Map;

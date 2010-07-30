@@ -50,7 +50,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.feebe.rings.R;
+import com.feebee.rings.R;
 
 /**
  * After a ringtone has been saved, this activity lets you pick a contact

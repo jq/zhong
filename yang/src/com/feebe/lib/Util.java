@@ -225,8 +225,7 @@ public class Util {
         // Log.e(TAG, e.getMessage());
       }
     }
-    Toast.makeText(Const.main, Const.no_result,Toast.LENGTH_SHORT).show();
-
+    Const.noResultToast();
   	return null;
   }
   

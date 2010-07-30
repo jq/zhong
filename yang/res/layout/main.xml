@@ -9,7 +9,7 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        xmlns:app="http://schemas.android.com/apk/res/com.feebe.rings"
+        xmlns:app="http://schemas.android.com/apk/res/com.feebee.rings"
         >
 
         <TabWidget android:id="@android:id/tabs"

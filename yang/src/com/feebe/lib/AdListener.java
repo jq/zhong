@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout.LayoutParams;
  
 import com.adwhirl.AdWhirlLayout;
-import com.feebe.rings.R;
+import com.feebee.rings.R;
 
 public class AdListener {
   private static final boolean blackscreen = isBlackScreen();

@@ -43,7 +43,7 @@
      -->
      <string name="share_sms1">I would like to share this ringtone to you:</string>
      <string name="share_sms2">from</string>
-     <string name="share_sms3">Send from Feebe Ringtone of Android market://search?q=com.feebe.rings</string>
+     <string name="share_sms3">Send from Feebe Ringtone of Android market://search?q=com.feebee.rings</string>
     
     <!--
      used in RingActivity dlProgress dialog

@@ -88,7 +88,7 @@
      -->
      <string name="share_sms1">私はあなたにこの着メロを共有したいのですが:</string>
      <string name="share_sms2">〜から</string>
-     <string name="share_sms3">Feebe着メロAndroidのから市場を送る://search?q=com.feebe.rings</string>
+     <string name="share_sms3">Feebe着メロAndroidのから市場を送る://search?q=com.feebee.rings</string>
     
     <!--
      used in RingActivity dlProgress dialog

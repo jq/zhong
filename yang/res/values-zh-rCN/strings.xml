@@ -88,7 +88,7 @@
      -->
      <string name="share_sms1">我希望与你分享这个铃声:</string>
      <string name="share_sms2">来自</string>
-     <string name="share_sms3">发送来自Feebe的Android market的铃声://search?q=com.feebe.rings</string>
+     <string name="share_sms3">发送来自Feebe的Android market的铃声://search?q=com.feebee.rings</string>
     
     <!--
      used in RingActivity dlProgress dialog

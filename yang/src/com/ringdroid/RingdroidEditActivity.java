@@ -60,10 +60,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.feebe.lib.AdListener;
-import com.feebe.rings.AdsView;
-import com.feebe.rings.Const;
-import com.feebe.rings.R;
-import com.feebe.rings.RingActivity;
+import com.feebee.rings.R;
+import com.feebee.rings.AdsView;
+import com.feebee.rings.Const;
+import com.feebee.rings.RingActivity;
 import com.ringdroid.soundfile.CheapSoundFile;
 
 import java.io.ByteArrayOutputStream;
@@ -1366,7 +1366,7 @@ public class RingdroidEditActivity extends Activity implements
 	private void chooseContactForRingtone(Uri uri) {
 		try {
 			Intent intent = new Intent(Intent.ACTION_EDIT, uri);
-			intent.setClassName("com.feebe.rings",
+			intent.setClassName("com.feebee.rings",
 					"com.ringdroid.ChooseContactActivity");
 			startActivityForResult(intent, REQUEST_CODE_CHOOSE_CONTACT);
 		} catch (Exception e) {

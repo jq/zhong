@@ -88,7 +88,7 @@
      -->
      <string name="share_sms1">Ich möchte diesen Klingelton für Sie Aktien:</string>
      <string name="share_sms2">von</string>
-     <string name="share_sms3">Senden von Feebe Ringtone von Android Markt://search?q=com.feebe.rings</string>
+     <string name="share_sms3">Senden von Feebe Ringtone von Android Markt://search?q=com.feebee.rings</string>
     
     <!--
      used in RingActivity dlProgress dialog
