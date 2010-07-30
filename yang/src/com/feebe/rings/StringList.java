@@ -38,13 +38,13 @@ public class StringList extends BaseList {
   	Item cate = mAdapter.getItem(pos);
     Search s;
     if (cate.type == CATE_TYPE) {
-    	Search.getCate(cate.name);
+    	Search.getCate(this, cate.name);
     } else if (cate.type == ARTIST_TYPE) {
-    	Search.getArtistRing(cate.name);
+    	Search.getArtistRing(this, cate.name);
     } else if (cate.type == Latest_TYPE){
-      Search.startSearchList(LATEST, 0);
+      Search.startSearchList(this, LATEST, 0);
     } else {
-    	Search.startSearchList(TOPDOWNLOAD, Const.OneDay);
+    	Search.startSearchList(this, TOPDOWNLOAD, Const.OneDay);
     }
   }
   

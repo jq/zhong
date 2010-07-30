@@ -240,13 +240,13 @@ public class RingActivity extends Activity {
 						long id) {
 					// TODO Auto-generated method stub
 					switch(position){
-					case 0:	Search.getArtistRing(artist);
+					case 0:	Search.getArtistRing(RingActivity.this, artist);
 					  return;
-					case 1:	Search.getAuthorRing(author);
+					case 1:	Search.getAuthorRing(RingActivity.this, author);
 					  return;
-					case 2: Search.getCate(category);
+					case 2: Search.getCate(RingActivity.this, category);
 				    return;
-					case 3: Search.getTitleRing(title);
+					case 3: Search.getTitleRing(RingActivity.this, title);
 			    return;
 					}
 				}

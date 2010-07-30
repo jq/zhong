@@ -15,45 +15,42 @@ public class Search {
   private final static String TAG = "Search";
   public final static String keyIDUrl = "http://ggapp.appspot.com/ringtone/show/";
   
-  public static void getCate(String cate) {
+  public static void getCate(Activity act, String cate) {
     String url = Const.SearchBase + "category=" + URLEncoder.encode(cate);
-    startSearchList(url, Const.OneWeek);
+    startSearchList(act, url, Const.OneWeek);
   }
   
-  public static void getArtistRing(String artist) {
+  public static void getArtistRing(Activity act, String artist) {
     String url = Const.SearchBase + "artist=" + URLEncoder.encode(artist);
-    startSearchList(url, Const.OneWeek);
+    startSearchList(act, url, Const.OneWeek);
   }
    
-  public static void getArtistAndTitle(String artist, String title) {
+  public static void getArtistAndTitle(Activity act, String artist, String title) {
     String url = Const.SearchBase + "artist=" + URLEncoder.encode(artist) +"&q=" +URLEncoder.encode(title);
-    startSearchList(url, Const.OneWeek);
+    startSearchList(act, url, Const.OneWeek);
   }
   
-  public static void getTitleRing(String key) {
+  public static void getTitleRing(Activity act, String key) {
     String url = Const.SearchBase + "&q=" +URLEncoder.encode(key);
-    startSearchList(url, Const.OneWeek);
+    startSearchList(act, url, Const.OneWeek);
   }
 
-  public static void getAuthorRing(String key) {
+  public static void getAuthorRing(Activity act, String key) {
     String url = Const.SearchBase + "&author=" +URLEncoder.encode(key);
-    startSearchList(url, Const.OneWeek);
+    startSearchList(act, url, Const.OneWeek);
   }
 
-  public static void startSearchList(String url, long expire) {
+  public static void startSearchList(Activity act, String url, long expire) {
     Log.e("url", url);
     Intent intent = new Intent();
     intent.putExtra(Const.searchurl, url);
     intent.putExtra(Const.expire, expire);
-    intent.setClass(Const.main, SearchList.class);
-    Const.main.startActivity(intent);
+    intent.setClass(act, SearchList.class);
+    act.startActivity(intent);
   }
     
   public static String getRingUrl(String key) {
   	return keyIDUrl + key + "?json=1";
-  }
-  public static void startRing(String key) {
-	  startRing(Const.main, key);
   }
   public static void startRing(Activity at, String key) {
     Intent intent = new Intent();

@@ -101,7 +101,7 @@ public abstract class UrlArrayAdapter<T, W> extends ArrayAdapter<T> {
 	}
 
   protected void onNoResult(){
-	  Toast.makeText(Const.main, Const.no_result,Toast.LENGTH_SHORT).show();
+	    Const.noResultToast();
   }
     
   public boolean runList(List entries) {

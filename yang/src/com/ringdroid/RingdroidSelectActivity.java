@@ -449,7 +449,7 @@ public class RingdroidSelectActivity
           	String jsonFile = com.feebe.rings.Const.jsondir +filename.substring(com.feebe.rings.Const.contentDir.length());
           	File file = new File(jsonFile);
           	if (file.exists()) {
-          	  Search.startRing(jsonFile);
+          	  Search.startRing(this, jsonFile);
           	  return;
           	}
           } 
