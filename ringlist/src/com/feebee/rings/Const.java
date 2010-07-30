@@ -60,6 +60,8 @@ public class Const extends com.feebe.lib.Const {
 
   
   private static void addFileName(StringBuilder f, String str) {
+    if (str == null) 
+      return;
     for (int i = 0; i < str.length(); i++) {
       char a = str.charAt(i);
       if (Character.isLetterOrDigit(a) || a == ' ') {
@@ -70,7 +72,14 @@ public class Const extends com.feebe.lib.Const {
   
   public static String getMp3FilePath(String artist, String title, String extension) {
     // Turn the title into a filename
-    StringBuilder filebuf = new StringBuilder(artist.length()+ title.length() + contentDir.length() + 1);
+    int len = 0;
+    if (artist != null) {
+      len += artist.length();
+    }
+    if (title != null) {
+      len += title.length();
+    }
+    StringBuilder filebuf = new StringBuilder(len + contentDir.length() + 1);
     filebuf.append(contentDir);
     addFileName(filebuf, artist);
     filebuf.append(' ');

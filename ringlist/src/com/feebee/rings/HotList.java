@@ -41,7 +41,7 @@ public class HotList extends BaseList {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
 	  HotSong h = mAdapter.getItem(pos);
-	  Search.getArtistAndTitle(h.artist, h.title);
+	  Search.getArtistAndTitle(this, h.artist, h.title);
 	}
 	
 	public static class HotSong {

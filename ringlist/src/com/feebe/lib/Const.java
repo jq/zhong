@@ -55,9 +55,7 @@ public class Const {
 	// other changed const var
 	public static String QWName;
 	public static String QWID;
-	public static Activity main = null;
-    //public static Object obj;
-   // public static DownloadAdapter mDownload;
+	protected static Activity main = null;
 	
   public static final int NO_FILE_KIND = -1;
   public static final int FILE_KIND_MUSIC = 0;
@@ -72,6 +70,10 @@ public class Const {
   public static String cachedir;
   public static final int ver = Integer.parseInt(Build.VERSION.SDK);
   
+  public static void noResultToast() {
+    if(main != null)
+      Toast.makeText(main, no_result,Toast.LENGTH_SHORT).show();
+  }
   public static void init(Activity c) {
 	main = c;
   	//downloadDb = new DownloadProvider(c);

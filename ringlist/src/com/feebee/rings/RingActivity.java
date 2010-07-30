@@ -241,14 +241,14 @@ public class RingActivity extends Activity {
 						long id) {
 					// TODO Auto-generated method stub
 					switch(position){
-					case 0:	Search.getArtistRing(artist);
+					case 0:	Search.getArtistRing(RingActivity.this, artist);
 					  return;
-					case 1:	Search.getAuthorRing(author);
+					case 1:	Search.getAuthorRing(RingActivity.this, author);
 					  return;
-					case 2: Search.getCate(category);
-				    return;
-					case 3: Search.getTitleRing(title);
-			    return;
+					case 2: Search.getCate(RingActivity.this, category);
+				      return;
+					case 3: Search.getTitleRing(RingActivity.this, title);
+			          return;
 					}
 				}
 
@@ -386,7 +386,7 @@ public class RingActivity extends Activity {
   OnClickListener dlClick = new OnClickListener() {
     @Override
     public void onClick(View v) {
-      if(mPlayer.isPlaying())	{
+      if(mPlayer != null && mPlayer.isPlaying())	{
     	mPlayer.pause();
     	isPaused = true;
     	dl.setText(R.string.play);
@@ -557,11 +557,14 @@ public class RingActivity extends Activity {
 
   @Override
   public void onStop() {
+    if(mPlayer != null && mPlayer.isPlaying()) {
+      mPlayer.pause();
+      isPaused = true;
+      dl.setText(R.string.play);
+    }
+    if(previewPlayer != null && previewPlayer.isPlaying())
+      previewPlayer.stop();
     super.onStop();
-    mPlayer.stop();
-    mPlayer.release();
-    previewPlayer.stop();
-    previewPlayer.release();
   }
 
   @Override
