@@ -37,6 +37,7 @@ public class AdListener {
       LayoutParams adWhirlLayoutParams = new LayoutParams(LayoutParams.FILL_PARENT, w);
       //activity.addContentView(adWhirlLayout, adWhirlLayoutParams);
       ViewGroup layout = (ViewGroup) activity.findViewById(R.id.ads_view);
-      layout.addView(adWhirlLayout, adWhirlLayoutParams);
+      if (layout != null)
+        layout.addView(adWhirlLayout, adWhirlLayoutParams);
   }
 }

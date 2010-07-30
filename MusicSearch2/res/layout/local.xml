@@ -33,19 +33,12 @@
         android:layout_height="0dip" 
         android:stackFromBottom="false"
         android:layout_weight="1"/>   
-    
-    <!--<MediaController
-    	android:id="@+id/mediaController"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:visibility="visible"
-    ></MediaController>-->
-    
+     
     <View
 		android:id="@+id/anchorView"
 		android:layout_width="fill_parent"
 		android:layout_height="1dip"
-	></View>
+		android:layout_weight="1" />
 <include layout_height="wrap_content" layout="@layout/ads_view"/>
 
 </LinearLayout>

@@ -436,7 +436,7 @@ public class local extends Activity {
 			nextIndex = curIndex;
 			break;
 		case Mode_Shuffling:
-			nextIndex = new Random().nextInt(mLocalStrings.size()+1);
+			nextIndex = new Random().nextInt(mLocalStrings.size());
 			break;
 		default:
 			break;
@@ -445,6 +445,7 @@ public class local extends Activity {
 	}
 	
 	private void playSong() {
+		if (mLocalStrings.size() == 0) return;
 		boolean isSucc = false;
 		int retryCount = 0;
 		do {
@@ -454,7 +455,7 @@ public class local extends Activity {
 			String fileLocal = Const.homedir
 					+ mLocalStrings.get(mLocalMp3index);
 			try {
-				Log.e("DataSource: ", fileLocal);
+				//Log.e("DataSource: ", fileLocal);
 				mPlayer.setDataSource(fileLocal);
 				mPlayer.prepare();
 				mPlayer.start();
@@ -488,7 +489,8 @@ public class local extends Activity {
 	private OnClickListener mPlayNextClickListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			playNext();
+			if (mLocalStrings.size() > 0)
+			  playNext();
 		}
 	};
 	

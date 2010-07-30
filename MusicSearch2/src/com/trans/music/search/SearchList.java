@@ -168,34 +168,14 @@ public class SearchList extends BaseList {
 	@Override
 	protected Integer doInBackground(MP3Info... params) {
 		MP3Info mp3 = params[0];
-	    
-//	    String mp3Link = null;
-//	    if (!mp3.getLink().startsWith("http://")) {
-//	  	try {
-//	  	  mp3Link = MusicUtil.getLink(mp3.getLink());
-//	  	  mp3.link = mp3Link;
-//	  	  Log.e("mp3Link", mp3Link);
-//	  	} catch (IOException e) {
-//	  		Log.e("error", e.getMessage());
-//	  		return 0;
-//	  	}
-//	  	
-//	  	if (mp3Link == null) {
-//	      return 0;
-//	  	}
-//	  	this.mp3 = mp3;
-//		return 1;
-//	    } else {
-//	    	this.mp3 = mp3;
-//	    	return 1;
-//	    }
 		ArrayList<String> mp3Links = new ArrayList<String>();
 		for(Iterator<String> it = mp3.getLink().iterator(); it.hasNext();) {
 		  String link = it.next();
 		  if(!link.startsWith("http://")) {
 		    try {
 		      String newLink = MusicUtil.getLink(link);
-		      mp3Links.add(newLink);
+		      if (newLink != null)
+		        mp3Links.add(newLink);
 		    } catch (IOException e) {
 		      Log.e("error", e.getMessage());
 		      return 0;

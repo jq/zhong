@@ -342,10 +342,14 @@ public class MusicPage extends Activity implements
   void showConnectErrorDiaglog(final boolean show) {
     this.runOnUiThread(new Runnable() {
       public void run() {
-        if (show == true)
-          showDialog(CONNECT_ERROR);
-        else
-          removeDialog(CONNECT_ERROR);
+    	  try {
+	        if (show == true)
+	          showDialog(CONNECT_ERROR);
+	        else
+	          removeDialog(CONNECT_ERROR);
+    	  } catch (Exception e) {
+    		  
+    	  }
       }
     });
   }
@@ -450,7 +454,6 @@ public class MusicPage extends Activity implements
 			removeDialog(CONNECTING);
 			mProgressDialogIsOpen = false;
 			if (!mDownloadFinish) {
-				// if(mDlService.mDownloading == false){
 				Log.e("mDownloading: ", ""+mDownloading);
 				Log.e("misPlaying: ", ""+mIsPlaying);
 				if (mDownloading == false) {
@@ -469,21 +472,6 @@ public class MusicPage extends Activity implements
 								+ ".mp3";
 						Log.e("download", mMp3Local.get(locPointer));
 						new DownloadTask(false).execute(mMp3Local.get(locPointer));
-						/*
-						 * (new Thread() { public void run() { m_CurDownloadFile
-						 * = mMp3title + "[" + mMp3songer + "]" + ".mp3"; new
-						 * DownloadTask().execute(mMp3Local);
-						 * //DownloadMusic(m_CurDownloadFile, mMp3Local); }
-						 * }).start();
-						 */
-						// }else
-						// Toast.makeText(MusicPage.this,
-						// "Please select link in search results first",
-						// Toast.LENGTH_SHORT).show();
-						// }else
-						// Toast.makeText(MusicPage.this,
-						// "Please search music first",
-						// Toast.LENGTH_SHORT).show();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -495,15 +483,15 @@ public class MusicPage extends Activity implements
 					new Thread(new Runnable() {
 						public void run() {
 							try {
-								Log.e("MusicPage", "into new thread");
+								//Log.e("MusicPage", "into new thread");
 								mPlayer.stop();
-								Log.e("MusicPage", "media service stopped");
+								//Log.e("MusicPage", "media service stopped");
 								//mService.openfile(mMp3Local);
-								Log.e("play dataSource: ", mMp3Local.get(locPointer));
+								//Log.e("play dataSource: ", mMp3Local.get(locPointer));
 								mPlayer.reset();
 								mPlayer.setDataSource(mMp3Local.get(locPointer));
 								mPlayer.prepare();
-								Log.e("MusicPage", "media file opened");
+								//Log.e("MusicPage", "media file opened");
 								//mHandler.sendEmptyMessage(RM_CON_DIALOG);
 								//mService.play();
 								mPlayer.start();
@@ -689,12 +677,9 @@ public class MusicPage extends Activity implements
           DownloadSetMax(downsize);
 
           DataInputStream fileStream;
-         
-          // FileOutputStream filemp3 = openFileOutput(filename,
-          // MODE_WORLD_READABLE);
           FileOutputStream filemp3 = new FileOutputStream(fullpathname);
 
-          byte[] buff = new byte[64 * 1024];
+          byte[] buff = new byte[4 * 1024];
           int len;
           fileStream = new DataInputStream(new BufferedInputStream(urlConn
               .getInputStream()));

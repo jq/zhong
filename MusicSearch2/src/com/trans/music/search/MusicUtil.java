@@ -87,22 +87,6 @@ public static void setStingKey(String key, String value) {
   	}
   }
 
- /* 
-  public static ArrayList<MP3Info> getSogoMp3(String urlStr, int limit) {
-  	ArrayList<MP3Info> list = getSogoMp3Once(urlStr, limit);
-  	
-  	if ((list == null ||list.size() == 0) && !urlStr.contains("&page=") && !sUseProxy) {
-  		//Log.e("failed to load ", "try again");
-  		urlStr = urlStr.replace("mp3.sogou.com", "feebe.appspot.com/msearch");
-  		sUseProxy = true;
-  		list = getSogoMp3Once(urlStr, limit);
-  	} else {
-  		//Log.e("load ", "no problem");
-  	}
-  	return list;
-  }
-  */
-  
 	public static ArrayList<MP3Info> getSogoMp3(String urlStr, int limit) {
 		ArrayList<MP3Info> songs = new ArrayList<MP3Info>();
 		String httpresponse = null;
@@ -122,7 +106,7 @@ public static void setStingKey(String key, String value) {
 			}
 			InputStream stream = urlConn.getInputStream();
 
-			StringBuilder builder = new StringBuilder(8 * 1024);
+			StringBuilder builder = new StringBuilder(16 * 1024);
 
 			char[] buff = new char[4096];
 
@@ -220,35 +204,11 @@ public static void setStingKey(String key, String value) {
 			urlConn.disconnect();
 			String httpresponse = builder.toString();
 			int linkStartPos = httpresponse.indexOf("\" href=\"") + "\" href=\"".length();
-
-			int linkEndPos = httpresponse.indexOf('>', linkStartPos)-1;
-			return httpresponse.substring(linkStartPos, linkEndPos);
+			if (linkStartPos > 0) {
+			  int linkEndPos = httpresponse.indexOf('>', linkStartPos)-1;
+			  if (linkEndPos > 0)
+			    return httpresponse.substring(linkStartPos, linkEndPos);
+			}
+			return null;
 	}
-/*
-	public static String getLink(String request) throws IOException {
-		request = "http://mp3.sogou.com" + request;
-    	URL url = new URL(request);
-    	HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
-    	urlConn.setRequestProperty("User-Agent", "Apache-HttpClient/UNAVAILABLE (java 1.4)");
-    	urlConn.setConnectTimeout(12000);
-    	urlConn.connect();
-    	
-    	InputStream stream = urlConn.getInputStream();
-		
-    	StringBuilder builder = new StringBuilder(8*1024);
-		
-    	char[] buff = new char[4096];
-    	InputStreamReader is = new InputStreamReader(stream,"gb2312");
-		
-		int len;
-		while ((len = is.read(buff, 0, 4096)) > 0) {
-			builder.append(buff, 0, len);
-		}
-		urlConn.disconnect();
-		String httpresponse = builder.toString();
-		 int linkStartPos = httpresponse.indexOf("下载歌曲\" href=\"")+"下载歌曲\" href=\"".length();
-		 int linkEndPos = httpresponse.indexOf('>', linkStartPos)-1;
-		return httpresponse.substring(linkStartPos, linkEndPos);
-	}
-*/
 }
