@@ -46,10 +46,10 @@
 		</target>
 		
 		<target name="generate-new-res">
-			<copy todir="temp/res/values-ja" filtering="false">
+			<copy todir="temp/res/values-ja" filtering="false" encoding="UTF-8">
 				<fileset dir="res/values-ja"/>
 			</copy>
-			<copy todir="temp/res/values-zh-rCN" filtering="false">
+			<copy todir="temp/res/values-zh-rCN" filtering="false" encoding="UTF-8">
 				<fileset dir="res/values-zh-rCN"/>
 			</copy>
 			<copy todir="temp/res/layout-land" filtering="false">
@@ -119,15 +119,15 @@
 		</target>
 
 		<target name="generate-new-src">
-			<copy todir="temp/src/com/ringtone/${package_name}" outputencoding="UTF-8" filtering="false">
+			<copy todir="temp/src/com/ringtone/${package_name}" encoding="UTF-8" filtering="false">
 				<fileset dir="src/com/ringtone/music"/>
 			</copy>
 			
-			<copy todir="temp/src/com/ringdroid" outputencoding="UTF-8" filtering="false">
+			<copy todir="temp/src/com/ringdroid" encoding="UTF-8" filtering="false">
 				<fileset dir="src/com/ringdroid"/>
 			</copy>
 			
-			<copy todir="temp/src/org/apache" outputencoding="UTF-8" filtering="false">
+			<copy todir="temp/src/org/apache" encoding="UTF-8" filtering="false">
 				<fileset dir="src/org/apache"/>
 			</copy>
 			
