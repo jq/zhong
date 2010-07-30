@@ -27,7 +27,7 @@
         </activity>
         <activity android:name="SearchList" android:label=""
                   android:configChanges="orientation|keyboardHidden"
-                  android:launchMode="singleTask"
+                  android:launchMode="singleTop"
                   android:alwaysRetainTaskState="true">
             <intent-filter>
               <action android:name="android.intent.action.SEARCH" />
