@@ -21,19 +21,6 @@ public class NetUtils {
 		URL url = new URL(link);
 		HttpURLConnection connection = (HttpURLConnection)url.openConnection();
 		
-		//connection.setRequestProperty("Accept", "application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5");
-		//connection.setRequestProperty("User-Agent",
-		//		"Mozilla/5.0 (Linux; U; Android 1.6; en-us; sdk Build/Donut) AppleWebKit/528.5+ (KHTML, like Gecko) " +
-		//		"Version/3.1.2 Mobile Safari/525.20.1");
-		//connection.setRequestProperty("Accept-Language", "en-us");
-		//connection.setRequestProperty("Accept-Charset", "utf-8, iso-8859-1, utf-16, *;q=0.7");
-		
-		/*
-		connection.setRequestProperty("User-Agent",
-									  "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3");
-		*/
-		
-		
 		connection.setRequestProperty("User-Agent",
 									  "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3");
 		connection.setRequestProperty("Accept", "application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5");
@@ -78,7 +65,8 @@ public class NetUtils {
 
 		String line = null;
 		while ((line = reader.readLine()) != null) {
-			builder.append(line + "\n");
+			builder.append(line);
+			builder.append('\n');
 		}
 		return builder.toString();
 	}
