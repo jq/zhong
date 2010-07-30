@@ -154,13 +154,13 @@ public class RingdroidSelectActivity
 
         } catch (SecurityException e) {
             // No permission to retrieve audio?
-            Log.e("Ringdroid", e.toString());
+            // Log.e("Ringdroid", e.toString());
             throw e;
 
             // todo error 1
         } catch (IllegalArgumentException e) {
             // No permission to retrieve audio?
-            Log.e("Ringdroid", e.toString());
+            // Log.e("Ringdroid", e.toString());
             throw e;
 
             // todo error 2
@@ -418,7 +418,7 @@ public class RingdroidSelectActivity
                 "com.ringdroid.RingdroidEditActivity");
             startActivityForResult(intent, REQUEST_CODE_EDIT);
         } catch (Exception e) {
-            Log.e("Ringdroid", "Couldn't start editor");
+            // Log.e("Ringdroid", "Couldn't start editor");
         }
     }
 
@@ -436,7 +436,7 @@ public class RingdroidSelectActivity
                 "com.ringdroid.RingdroidEditActivity");
             startActivityForResult(intent, REQUEST_CODE_EDIT);
         } catch (Exception e) {
-            Log.e("Ringdroid", "Couldn't start editor");
+            // Log.e("Ringdroid", "Couldn't start editor");
         }
     }*/
     private void startRingdroidEditor() {
@@ -444,7 +444,7 @@ public class RingdroidSelectActivity
         int dataIndex = c.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
         String filename = c.getString(dataIndex);
         try {
-          Log.e("file", filename);
+          // Log.e("file", filename);
           if (filename.startsWith(com.feebee.rings.Const.contentDir)) {
           	String jsonFile = com.feebee.rings.Const.jsondir +filename.substring(com.feebee.rings.Const.contentDir.length());
           	File file = new File(jsonFile);

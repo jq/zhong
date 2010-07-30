@@ -34,6 +34,8 @@ public abstract class EndlessUrlArrayAdapter<T, W> extends UrlArrayAdapter<T, W>
    */
  @Override
  public int getCount() {
+		// Log.e("getCount", "" + super.getCount() + " " + keepOnAppending);
+
    if (keepOnAppending) {
      return(super.getCount()+1);   // one more for "pending"
    }
@@ -75,15 +77,17 @@ public abstract class EndlessUrlArrayAdapter<T, W> extends UrlArrayAdapter<T, W>
 @Override
 public View getView(int position, View convertView,
                     ViewGroup parent) {
+	// Log.e("getView", "" + super.getCount() + " " + position + " " + keepOnAppending);
   if (position==super.getCount() &&
       keepOnAppending) {
     if (pendingView==null) {
+      // Log.e("pend", "view");
       pendingView=getPendingView(parent);
       //pendingPosition=position;
     }
     // TODO: it may call into here twice at the first load
     // this will result we load more than we should.
-    // Log.e("endless", " pos " + position);
+    // // Log.e("endless", " pos " + position);
     new AppendTask(expire_).execute(getUrl(position));
     return(pendingView);
   }
@@ -99,6 +103,7 @@ protected void fetchMoreResult() {
 
 @Override
 protected void onNoResult(){
+	// Log.e("onNoResult", " onNoResult");
   keepOnAppending = false;
   // since we have no more result, we are not going to show the extra pending 
   // so it maybe a change, 

@@ -47,34 +47,9 @@ public class SearchList extends BaseList {
   @Override
   public void onCreate(Bundle savedInstanceState) {
 	  Const.init(this);
-	  //android.util.Log.e("init", "" + Const.main != null);
+	  //android.util.// Log.e("init", "" + Const.main != null);
 	  super.onCreate(savedInstanceState);
   }  
-/*
-  @Override
-  public void onNewIntent(final Intent intent) {
-	  
-  }
- */ 
-  @Override
-  public boolean onContextItemSelected(MenuItem item) {
-	// TODO Auto-generated method stub
-	  AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
-	  
-	  return super.onContextItemSelected(item);
-  }
-
-@Override
-public void onCreateContextMenu(ContextMenu menu, View v,
-		ContextMenuInfo menuInfo) {
-	// TODO Auto-generated method stub
-	menu.setHeaderTitle("Operation");
-	
-	menu.add(0,0,0,"play");
-	
-	super.onCreateContextMenu(menu, v, menuInfo);
-}
-
 @Override
   public ListAdapter getAdapter() {
   	new ImgThread(getListView());
@@ -162,8 +137,10 @@ public void onCreateContextMenu(ContextMenu menu, View v,
       reset();
     }
     public void reset() {
+      super.keepOnAppending = true;
       lastCnt = 0;
       if (Util.inCache(reloadUrl, expire_)) {
+    	  // Log.e("reset", "incache");
         runSyn(reloadUrl, expire_);
         finishLoading();
       }
@@ -236,7 +213,7 @@ public void onCreateContextMenu(ContextMenu menu, View v,
     }
     @Override
     protected void finishLoading() {
-      Log.e("finishLoading", "cont " + super.getCount() + " last " + lastCnt);
+      // Log.e("finishLoading", "cont " + super.getCount() + " last " + lastCnt);
       if(super.getCount() == 0) {
     	this.onNoResult();  
     	SearchList.this.finish();
@@ -252,21 +229,12 @@ public void onCreateContextMenu(ContextMenu menu, View v,
     }
     @Override
     protected List getListFromUrl(String url, long expire) {
+    	// Log.e("getListFromUrl", url);
       return RingUtil.getJsonArrayFromUrl(url, expire);
     }
 
   }
   
-
-/* (non-Javadoc)
- * @see android.app.Activity#onDestroy()
- */
-@Override
-protected void onDestroy() {
-	// TODO Auto-generated method stub
-	super.onDestroy();
-}
-
  private int lastCnt;
  private SearchResultAdapter mAdapter;
 }

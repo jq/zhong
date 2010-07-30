@@ -21,11 +21,11 @@ public class ImgThread implements android.widget.AbsListView.OnScrollListener {
       return;
     }
     int itemCnt = view.getChildCount();
-    //Log.e("scrollState", "" + scrollState + " " + itemCnt);
+    //// Log.e("scrollState", "" + scrollState + " " + itemCnt);
     for (int i = 0; i < itemCnt; ++i) {
       View v = view.getChildAt(i);
       if (v == null) {
-        //Log.e("view", "null " + i);
+        //// Log.e("view", "null " + i);
         continue;
       }
       ImgLoader w = (ImgLoader) v.getTag();
@@ -40,7 +40,7 @@ public class ImgThread implements android.widget.AbsListView.OnScrollListener {
           } 
         }
       } else {
-        //Log.e("w","null");
+        //// Log.e("w","null");
       }
     }
    }

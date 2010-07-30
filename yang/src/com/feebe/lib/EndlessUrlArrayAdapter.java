@@ -83,7 +83,7 @@ public View getView(int position, View convertView,
     }
     // TODO: it may call into here twice at the first load
     // this will result we load more than we should.
-    // Log.e("endless", " pos " + position);
+    // // Log.e("endless", " pos " + position);
     new AppendTask(expire_).execute(getUrl(position));
     return(pendingView);
   }

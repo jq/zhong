@@ -1,6 +1,5 @@
 package com.feebe.lib;
 
-import android.R;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,21 +29,4 @@ public abstract class BaseList extends ListActivity implements OnItemClickListen
     
     public abstract void onItemClick(AdapterView<?> parent, View v, int pos, long id);
     public abstract ListAdapter getAdapter();
-
- /*   
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-      boolean handled = keyCode == KeyEvent.KEYCODE_BACK;
-      return handled || super.onKeyDown(keyCode, event);
-    }
-       
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-      boolean handled = keyCode == KeyEvent.KEYCODE_BACK;
-      if (handled) {
-        moveTaskToBack(true);
-      }
-      return handled || super.onKeyUp(keyCode, event);
-    }
-*/
 }

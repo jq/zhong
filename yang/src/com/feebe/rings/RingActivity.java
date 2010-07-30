@@ -80,7 +80,7 @@ public class RingActivity extends Activity {
 	@Override
 	public void onDownloadFinish(File file, Uri u) {
 		super.onDownloadFinish(file, u);
-	    //Log.e("onDownloadFinish", file.getAbsolutePath());
+	    //// Log.e("onDownloadFinish", file.getAbsolutePath());
 	    mp3Location = file.getAbsolutePath();
 	    mCurrentFileUri = u;
 	    jsonLocation = Const.jsondir + file.getName();
@@ -106,7 +106,7 @@ public class RingActivity extends Activity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      // Log.e(TAG,"onCreate");
+      // // Log.e(TAG,"onCreate");
 
       requestWindowFeature(Window.FEATURE_NO_TITLE);
       setContentView(R.layout.ring);
@@ -151,7 +151,7 @@ public class RingActivity extends Activity {
       					ring.put(Const.myRating, rating);
       					Util.saveFile(ring.toString(), jsonLocation);
             } catch (JSONException e) {
-      					// Log.e(TAG, "put myRating "+ rating);
+      					// // Log.e(TAG, "put myRating "+ rating);
       			}
       		} 			
       	}
@@ -200,7 +200,7 @@ public class RingActivity extends Activity {
         if (imgUrl != null && imgUrl.length() > 0)
           new DownloadImg(iconImageView).execute(imgUrl);
       } catch (JSONException e) {
-        // Log.e(TAG, e.getMessage());
+        // // Log.e(TAG, e.getMessage());
         return;
       }
       
@@ -304,12 +304,12 @@ public class RingActivity extends Activity {
             if (mCurrentFileUri == null) {
     	          mCurrentFileUri = Uri.parse(ring.getString(Const.mp3));
             }
-            Log.e("u", " uri " + mCurrentFileUri.toString() + " mp3 " + ring.getString(Const.mp3));
+            // Log.e("u", " uri " + mCurrentFileUri.toString() + " mp3 " + ring.getString(Const.mp3));
 	          intent.setData(mCurrentFileUri);
 	          intent.setClass(RingActivity.this, com.ringdroid.ChooseContactActivity.class);
 	          RingActivity.this.startActivity(intent);
           } catch (JSONException e) {
-            // Log.e("assign", e.getMessage());
+            // // Log.e("assign", e.getMessage());
           }
         }
     });
@@ -405,10 +405,10 @@ public class RingActivity extends Activity {
       	try {
 					filePath = ring.getString("filePath");
 				} catch (JSONException e1) {
-					// Log.e(TAG, "error read mp3 file");
+					// // Log.e(TAG, "error read mp3 file");
 				}
       	try {
-					Log.e("#############filepath::", filePath);
+					// Log.e("#############filepath::", filePath);
       	            mPlayer.setDataSource(filePath);
 					mPlayer.prepare();
 					mPlayer.start();
@@ -429,7 +429,7 @@ public class RingActivity extends Activity {
 				}
 				dl.setText(R.string.pause);
 				
-        // Log.e("mp3", mp3Location);
+        // // Log.e("mp3", mp3Location);
       }
     }
   };
@@ -548,7 +548,7 @@ public class RingActivity extends Activity {
   private void download(RingDownloadListener listerner) {
     int lastPos = mp3Location.lastIndexOf('.');
     String extension = mp3Location.substring(lastPos);
-    // Log.e("path", fullpathame);
+    // // Log.e("path", fullpathame);
 
     DownloadFile df = new RingDownloadFile(
         listerner, 512,mp3Size, category, artist, title, this.getContentResolver(), fileKinds, ring);

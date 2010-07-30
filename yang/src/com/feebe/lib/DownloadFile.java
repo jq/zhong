@@ -76,7 +76,7 @@ public class DownloadFile extends AsyncTask<String, Integer, File> {
 		  urlConn.disconnect();
 		  return f;
 	  } catch (IOException e) {
-		  Log.e("download", e.getMessage());
+		  // Log.e("download", e.getMessage());
 	  }
 	  return null;
   }
