@@ -88,7 +88,7 @@
      -->
      <string name="share_sms1">난 당신이 벨소리를 공유하고 싶습니다:</string>
      <string name="share_sms2">로부터</string>
-     <string name="share_sms3">Feebe 벨소리 Android 방송 시장에서 보내기://search?q=com.feebee.rings</string>
+     <string name="share_sms3">Feebe 벨소리 Android 방송 시장에서 보내기://search?q=com.feebe.rings</string>
     
     <!--
      used in RingActivity dlProgress dialog

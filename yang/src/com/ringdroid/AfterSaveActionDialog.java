@@ -29,7 +29,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.feebee.rings.R;
+import com.feebe.rings.R;
 
 public class AfterSaveActionDialog extends Dialog {
 

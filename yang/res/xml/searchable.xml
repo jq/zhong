@@ -9,6 +9,6 @@
     
     android:includeInGlobalSearch="true"
     
-    android:searchSuggestAuthority="ringsf"
+    android:searchSuggestAuthority="rings"
     android:searchSuggestIntentAction="android.intent.action.VIEW"
 />

@@ -43,9 +43,9 @@ public abstract class EndlessUrlArrayAdapter<T, W> extends UrlArrayAdapter<T, W>
  private RotateAnimation rotate=null;
 
  protected View getPendingView(ViewGroup parent) {
-   View row= mInflater.inflate(com.feebee.rings.R.layout.pending_view, parent, false);
+   View row= mInflater.inflate(com.feebe.rings.R.layout.pending_view, parent, false);
    //((ImageView)row).setImageResource(android.R.drawable.ic_popup_sync);
-   ImageView child = (ImageView)row.findViewById(com.feebee.rings.R.id.throbber);
+   ImageView child = (ImageView)row.findViewById(com.feebe.rings.R.id.throbber);
    child.setImageResource(android.R.drawable.ic_popup_sync);
    //child.setImageResource(ThrobberImg);
    if (rotate == null) {

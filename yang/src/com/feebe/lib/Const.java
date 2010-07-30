@@ -14,7 +14,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.feebee.rings.R;
+import com.feebe.rings.R;
 
 import android.app.Activity;
 import android.content.Context;
@@ -55,7 +55,7 @@ public class Const {
 	// other changed const var
 	public static String QWName;
 	public static String QWID;
-	protected static Activity main = null;
+	public static Activity main = null;
     //public static Object obj;
    // public static DownloadAdapter mDownload;
 	
@@ -108,10 +108,6 @@ public class Const {
     //exceptionHandler();
   }
   
-  public static void noResultToast() {
-	   if (Const.main != null)
-		      Toast.makeText(Const.main, Const.no_result,Toast.LENGTH_SHORT).show();
-  }
   public static void trimCache() {
     new Thread(new Runnable() {
 

@@ -88,7 +88,7 @@
      -->
      <string name="share_sms1">Mi piacerebbe condividere questa suoneria per voi:</string>
      <string name="share_sms2">da</string>
-     <string name="share_sms3">Send Ringtone da Feebe di Android Market://search?q=com.feebee.rings</string>
+     <string name="share_sms3">Send Ringtone da Feebe di Android Market://search?q=com.feebe.rings</string>
     
     <!--
      used in RingActivity dlProgress dialog

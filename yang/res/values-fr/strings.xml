@@ -88,7 +88,7 @@
      -->
      <string name="share_sms1">J\'aimerais partager cette sonnerie à vous:</string>
      <string name="share_sms2">à partir de</string>
-     <string name="share_sms3">Envoyez à partir Feebe sonnerie de Android Market://search?q=com.feebee.rings</string>
+     <string name="share_sms3">Envoyez à partir Feebe sonnerie de Android Market://search?q=com.feebe.rings</string>
     
     <!--
      used in RingActivity dlProgress dialog

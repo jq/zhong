@@ -45,9 +45,9 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.feebee.rings.R;
-import com.feebee.rings.AdsView;
-import com.feebee.rings.Search;
+import com.feebe.rings.AdsView;
+import com.feebe.rings.R;
+import com.feebe.rings.Search;
 import com.ringdroid.soundfile.CheapSoundFile;
 
 import java.io.File;
@@ -414,7 +414,7 @@ public class RingdroidSelectActivity
             intent.putExtra("was_get_content_intent",
                             mWasGetContentIntent);
             intent.setClassName(
-                "com.feebee.rings",
+                "com.feebe.rings",
                 "com.ringdroid.RingdroidEditActivity");
             startActivityForResult(intent, REQUEST_CODE_EDIT);
         } catch (Exception e) {
@@ -432,7 +432,7 @@ public class RingdroidSelectActivity
             intent.putExtra("was_get_content_intent",
                             mWasGetContentIntent);
             intent.setClassName(
-                "com.feebee.rings",
+                "com.feebe.rings",
                 "com.ringdroid.RingdroidEditActivity");
             startActivityForResult(intent, REQUEST_CODE_EDIT);
         } catch (Exception e) {
@@ -445,11 +445,11 @@ public class RingdroidSelectActivity
         String filename = c.getString(dataIndex);
         try {
           Log.e("file", filename);
-          if (filename.startsWith(com.feebee.rings.Const.contentDir)) {
-          	String jsonFile = com.feebee.rings.Const.jsondir +filename.substring(com.feebee.rings.Const.contentDir.length());
+          if (filename.startsWith(com.feebe.rings.Const.contentDir)) {
+          	String jsonFile = com.feebe.rings.Const.jsondir +filename.substring(com.feebe.rings.Const.contentDir.length());
           	File file = new File(jsonFile);
           	if (file.exists()) {
-          	  Search.startRing(this, jsonFile);
+          	  Search.startRing(jsonFile);
           	  return;
           	}
           } 
