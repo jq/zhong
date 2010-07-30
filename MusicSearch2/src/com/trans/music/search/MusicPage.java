@@ -78,6 +78,7 @@ public class MusicPage extends Activity implements
   Button btnPreview;
   Button btnDownload;
   Button btnQueue;
+  Button btnLyric;
   private boolean mPaused = false, mDownloading = false;
   private static final int REFRESH = 1;
   private static final int RM_CON_DIALOG = 2;
@@ -114,6 +115,9 @@ public class MusicPage extends Activity implements
     
     btnQueue = (Button) findViewById(R.id.queue);
     btnQueue.setOnClickListener(queueClick);
+    
+    btnLyric = (Button) findViewById(R.id.lyric);
+    btnLyric.setOnClickListener(lyricClick);
     
 /*    Intent serviceIntent = new Intent(this, MediaPlaybackService.class);
     startService(serviceIntent);
@@ -538,6 +542,17 @@ public class MusicPage extends Activity implements
 	}
 };
   
+  OnClickListener lyricClick = new OnClickListener() {
+    
+    @Override
+    public void onClick(View v) {
+      Intent intent = new Intent();
+      intent.putExtra("artist", mMp3Songer);
+      intent.putExtra("song", mMp3Title);
+      intent.setClass(MusicPage.this, Lyric.class);
+      startActivity(intent);
+    }
+  };
 
   private void SeekBarSetSecondaryProgress(final int progress) {
     this.runOnUiThread(new Runnable() {

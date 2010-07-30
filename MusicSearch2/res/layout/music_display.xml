@@ -60,6 +60,13 @@
 	    		android:layout_height="wrap_content"
 	    		android:layout_weight="1.0">
 	  </Button>
+	  <Button android:text="Lyric"
+	  			android:id="@+id/lyric"
+	  			android:layout_width="wrap_content"
+	  			android:layout_height="wrap_content"
+	  			android:layout_weight="1.0">
+	  </Button>
+	  	
 
 		
 				
