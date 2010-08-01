@@ -1,6 +1,7 @@
 package com.ringtone.music;
 
 import java.util.ArrayList;
+import android.os.Handler;
 
 import android.content.Context;
 import android.util.Log;
@@ -22,16 +23,16 @@ public class MergedMusicSearcher implements IMusicSearcher {
 	
 
 	@Override
-	public ArrayList<MusicInfo> getNextResultList() {
+	public ArrayList<MusicInfo> getNextResultList(Context context) {
 		sNumQueries++;
 		if (!mBackupMode) {
-			ArrayList<MusicInfo> infos = mSogou.getNextResultList();
+			ArrayList<MusicInfo> infos = mSogou.getNextResultList(context);
 			if (infos == null)  // Error
 				return null;
 			if (infos.size() == 0 && mPage == 1) {
 				if (sNumQueries <= 2)  { // Retry 
 					Log.i(Utils.TAG, "Retry " + sNumQueries);
-					return getNextResultList();
+					return getNextResultList(context);
 				}
 				mBackupMode = true;
 				Log.i(Utils.TAG, "Switching to backup mode");
@@ -43,7 +44,7 @@ public class MergedMusicSearcher implements IMusicSearcher {
 		}
 		
 		if (mBackupMode) {
-			return mSecondSearcher.getNextResultList();
+			return mSecondSearcher.getNextResultList(context);
 		}
 		// Will not reach here.
 		return new ArrayList<MusicInfo>();

@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.content.Context;
+import android.os.Handler;
 import android.text.TextUtils;
 
 public class SkreemrMusicSearcher implements IMusicSearcher {
@@ -29,7 +30,7 @@ public class SkreemrMusicSearcher implements IMusicSearcher {
 	}
 
 	@Override
-	public ArrayList<MusicInfo> getNextResultList() {
+	public ArrayList<MusicInfo> getNextResultList(Context context) {
 		if (mDone)
 			return new ArrayList<MusicInfo>();
 		

@@ -88,7 +88,8 @@ public class MusicInfo {
 	}
 	
 	public void setLyricUrl(String url) {
-		mLyricUrl = url;
+        // To save memory, we don't store lyrics url for now. Change it when we need it.
+		// mLyricUrl = url;
 	}
 	
 	public String getLyricUrl() {

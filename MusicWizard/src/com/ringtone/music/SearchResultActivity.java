@@ -215,17 +215,17 @@ public class SearchResultActivity extends ListActivity {
 	private OnClickListener mRetryListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			fetchNextMp3ListBatch();
+			fetchNextMp3ListBatch(getApplication());
 			mAdapter.setStatus(ListStatusView.Status.LOADING);
 			mAdapter.notifyDataSetChanged();
 		}
 
 	};
 
-	private static void fetchNextMp3ListBatch() {
+	private static void fetchNextMp3ListBatch(Context context) {
 		if (sFetchMp3ListTask != null)
 			sFetchMp3ListTask.cancel(true);
-		sFetchMp3ListTask = new FetchMp3ListTask();
+		sFetchMp3ListTask = new FetchMp3ListTask(context);
 		sFetchMp3ListTask.execute();
 	}
 	
@@ -266,19 +266,19 @@ public class SearchResultActivity extends ListActivity {
 			mAdapter.notifyDataSetInvalidated();
 	}
 
-	public static void startQuery(String keyWords) {
+	public static void startQuery(Context context, String keyWords) {
 		if (!TextUtils.isEmpty(keyWords)) {
 			sQuery = keyWords;
 			sData = null;
 			if (sSearchActivity != null)
 				sSearchActivity.notifyDataSetInvalidated();
 			sHasMoreData = true;
-            sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_MERGED);
+            //sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_MERGED);
             //sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_BAIDU);
-            //sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SOGOU);
+            sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SOGOU);
 	    	//sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SKREEMR);
 			sFetcher.setQuery(keyWords);
-			fetchNextMp3ListBatch();
+			fetchNextMp3ListBatch(context);
 		} else {
 			sFetchMp3ListTask = null;
 			sFetcher = null;
@@ -516,9 +516,18 @@ public class SearchResultActivity extends ListActivity {
 	}
 
 	private static class FetchMp3ListTask extends AsyncTask<Void, Void, ArrayList<MusicInfo>> {
+		Context mContext;
+		public FetchMp3ListTask(Context context) {
+			super();
+			mContext = context;
+		}
 		
 		@Override
 		protected void onPostExecute(ArrayList<MusicInfo> mp3List) {
+            if (sFetchMp3ListTask != this) {
+                // A new query is going on?
+                return;
+            }
 			sFetchMp3ListTask = null;
 			if (sSearchActivity != null) {
 				sSearchActivity.handleSearchResult(mp3List);
@@ -527,7 +536,7 @@ public class SearchResultActivity extends ListActivity {
 
 		@Override
 		protected ArrayList<MusicInfo> doInBackground(Void... params) {
-			return sFetcher.getNextResultList();
+			return sFetcher.getNextResultList(mContext);
 		}
 	}
 
@@ -702,7 +711,7 @@ public class SearchResultActivity extends ListActivity {
 				mHandler.post(new Runnable() {
 					@Override
 					public void run() {
-						fetchNextMp3ListBatch();
+						fetchNextMp3ListBatch(getApplication());
 						setStatus(ListStatusView.Status.LOADING);
 						notifyDataSetChanged();
 					}

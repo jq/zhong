@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -52,28 +53,6 @@ public class BDSearcher implements IMusicSearcher {
 		return mStart == 0 ? mSearchUrl : mSearchUrl + "&pn=" + mStart;
 	}
 
-	@Override
-	public ArrayList<MusicInfo> getNextResultList() {
-		try {
-			String url = getNextUrl();
-			
-			Utils.D("URL = " + url);
-			
-			String html = NetUtils.fetchHtmlPage(MusicSearcherFactory.ID_BAIDU, url, "gb2312");
-			if (TextUtils.isEmpty(html))
-				return null;
-			ArrayList<MusicInfo> musicList = getMusicInfoListFromHtml(html);
-			if (musicList.size() > 0) {
-				mStart += musicList.size();
-			}
-			return musicList;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	
 	private ArrayList<MusicInfo> getMusicInfoListFromHtml(String html) {
 			Utils.D("+++++++++++++++");
 			Utils.printD(html);
@@ -121,6 +100,8 @@ public class BDSearcher implements IMusicSearcher {
 				if (mWebView != null)
 					mWebView.destroy();
 				mWebView = new WebView(activity);
+			    mWebView.getSettings().setLoadsImagesAutomatically(false);
+		        mWebView.getSettings().setBlockNetworkImage(true);
 				mWebView.getSettings().setJavaScriptEnabled(true);
 				mWebView.addJavascriptInterface(new MyJavaScriptInterface(), "HTMLOUT");
 				mWebView.setWebViewClient(new FetchLinkWebViewClient());
@@ -176,6 +157,27 @@ public class BDSearcher implements IMusicSearcher {
 		// TODO Auto-generated method stub
 		mStart = 0;
 		mSearchUrl = BASE_URL + URLEncoder.encode(query);
+	}
+
+	@Override
+	public ArrayList<MusicInfo> getNextResultList(Context context) {
+		try {
+			String url = getNextUrl();
+			
+			Utils.D("URL = " + url);
+			
+			String html = NetUtils.fetchHtmlPage(MusicSearcherFactory.ID_BAIDU, url, "gb2312");
+			if (TextUtils.isEmpty(html))
+				return null;
+			ArrayList<MusicInfo> musicList = getMusicInfoListFromHtml(html);
+			if (musicList.size() > 0) {
+				mStart += musicList.size();
+			}
+			return musicList;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

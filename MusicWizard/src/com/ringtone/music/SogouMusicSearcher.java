@@ -1,6 +1,7 @@
 package com.ringtone.music;
 
 import java.io.IOException;
+import android.os.Handler;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -9,10 +10,12 @@ import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class SogouMusicSearcher implements IMusicSearcher {
 	private static final String URL_SEARCH = "http://mp3.sogou.com/music.so?pf=mp3&query=";
@@ -36,10 +39,9 @@ public class SogouMusicSearcher implements IMusicSearcher {
 	private static final String DOWNLOAD_MARKER = "下载歌曲";
 	
 	private String mSearchUrl;
-	private String mProxyUrl;
 	private int mPage;  // Next page to fetch.
 	
-	private static boolean sUseProxy = false;
+	private volatile Handler mHandler = new Handler();
 	
 	public SogouMusicSearcher() {
 	}
@@ -48,16 +50,13 @@ public class SogouMusicSearcher implements IMusicSearcher {
 		mPage = 1;
 		try {
 			mSearchUrl = URL_SEARCH + URLEncoder.encode(query, "gb2312");
-			mProxyUrl = URL_SEARCH_PROXY + URLEncoder.encode(query, "gb2312");
 		} catch (UnsupportedEncodingException e) {
 			mSearchUrl = URL_SEARCH + URLEncoder.encode(query);
-			mProxyUrl = URL_SEARCH_PROXY + URLEncoder.encode(query);
 		}
 	}
 	
 	private String getNextUrl() {
-		String baseUrl = sUseProxy ? mProxyUrl : mSearchUrl;
-		return mPage == 1 ? baseUrl : baseUrl + "&page=" + mPage;
+		return mPage == 1 ? mSearchUrl : mSearchUrl + "&page=" + mPage;
 	}
 	
 	
@@ -89,54 +88,104 @@ public class SogouMusicSearcher implements IMusicSearcher {
 			Utils.D("Exit getMusicInfoListFromHtml");
 			return musicList;
 	}
-
-	// Returns null when something wrong happens.
-	public ArrayList<MusicInfo> getNextResultList() {
-		if (mPage > 0) {
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	
+	// Used to signal between threads.
+	class Signal {
+		public boolean ready;
+	};
+	
+	class HtmlData {
+		public String content;
+	};
+	
+	class MyJavaScriptInterface {  
+		Signal mSignal;
+		HtmlData mData;
+		public MyJavaScriptInterface(Signal s, HtmlData data) {
+			this.mSignal = s;
+			this.mData = data;
 		}
-		try {
-			String html = NetUtils.fetchHtmlPage(MusicSearcherFactory.ID_SOGOU, getNextUrl(), "gb2312");
-			if (TextUtils.isEmpty(html))
-				return null;
-			ArrayList<MusicInfo> musicList = getMusicInfoListFromHtml(html);
-			if (musicList.size() > 0) {
-				mPage++;
-				return musicList;
+		
+	    @SuppressWarnings("unused")  
+	    public void parseHtml(String html) {  
+	    	mData.content = html;
+	    	mSignal.ready = true;
+	    	synchronized(mSignal) {
+	    		mSignal.notify();
+	    	}
+	    }  
+	}  
+	
+	
+	private class FetchSearchPage extends WebViewClient {
+		@Override
+		public void onPageFinished(WebView view, String url) {
+			 view.loadUrl("javascript:window.HTMLOUT.parseHtml(document.getElementsByTagName('html')[0].innerHTML);"); 
+		}
+	}
+	
+	private boolean loadUrl(final Context context, final String url, final HtmlData data) {
+		final Signal s = new Signal();
+		s.ready = false;
+		mHandler.post(new Runnable() {
+			@Override
+			public void run() {
+				WebView web = new WebView(context);
+				web.getSettings().setJavaScriptEnabled(true);
+			    web.getSettings().setLoadsImagesAutomatically(false);
+		        web.getSettings().setBlockNetworkImage(true);
+				web.addJavascriptInterface(new MyJavaScriptInterface(s, data), "HTMLOUT");
+				web.setWebViewClient(new FetchSearchPage());
+				web.loadUrl(url);
 			}
-			/*
-			else if (!sUseProxy && mPage == 1) {
-				// Give it one more chance.
-				sUseProxy = true;
-				Log.i(Utils.TAG, "Switching to proxy mode");
-				html = NetUtils.fetchHtmlPage(getNextUrl(), "gb2312");
-				musicList = getMusicInfoListFromHtml(html);
-				if (musicList.size() > 0) {
-					mPage++;
+		});
+		
+		synchronized(s) {
+			while (!s.ready) {
+				try {
+					s.wait();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return false;
 				}
 			}
-			*/
-			return musicList;
-		} catch (Exception e) {
+			
+			return true;
+		}
+	}
+
+	// Returns null when something wrong happens.
+	@Override
+	public ArrayList<MusicInfo> getNextResultList(final Context context) {
+		HtmlData data = new HtmlData();
+		if (!loadUrl(context, getNextUrl(), data))
+			return null;
+		
+        if (TextUtils.isEmpty(data.content))                                                                                                                                                                    
+            return null;
+        ArrayList<MusicInfo> musicList;
+		try {
+			musicList = getMusicInfoListFromHtml(data.content);
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			return null;
 		}
+		if (musicList.size() > 0) {
+			mPage++;
+		}
+		return musicList;
 	}
 
 	
 	@Override
 	public void setMusicDownloadUrl(Context context, MusicInfo info) {
 		try {
-			String html = NetUtils.fetchHtmlPage(
-					MusicSearcherFactory.ID_SOGOU, info.getUrl(), "gb2312");
+			HtmlData data = new HtmlData();
+			loadUrl(context, info.getUrl(), data);
 			
-			int start = html.indexOf(DOWNLOAD_MARKER) + DOWNLOAD_MARKER.length();
-			Matcher m = PATTERN_DOWNLOAD_URL.matcher(html.substring(start));
+			int start = data.content.indexOf(DOWNLOAD_MARKER) + DOWNLOAD_MARKER.length();
+			Matcher m = PATTERN_DOWNLOAD_URL.matcher(data.content.substring(start));
 			if (m.find()) {
 				info.addDownloadUrl(m.group(1));
 			}
