@@ -153,7 +153,7 @@ public class SearchList extends BaseList {
     protected List getListFromUrl(String url, long expire) {
       //return MusicUtil.getBiduMp3(url);
     	// for test sogo
-    	return MusicUtil.getSogoMp3(url, -1);
+    	return MusicUtil.getSogoMp3(getApplication(),url, -1);
     }
     @Override
     protected MP3Info getT(Object obj) {
@@ -173,7 +173,7 @@ public class SearchList extends BaseList {
 		  String link = it.next();
 		  if(!link.startsWith("http://")) {
 		    try {
-		      String newLink = MusicUtil.getLink(link);
+		      String newLink = MusicUtil.getLink(getApplication(), link);
 		      if (newLink != null)
 		        mp3Links.add(newLink);
 		    } catch (IOException e) {

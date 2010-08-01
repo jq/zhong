@@ -13,10 +13,14 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class MusicUtil {
 	static Pattern PATTERN_ROW = Pattern.compile("<tr(.*?)</tr>", Pattern.DOTALL);
@@ -33,13 +37,16 @@ public class MusicUtil {
 			"<td.*?spdbar([0-9]?)\".*?"
 			, Pattern.DOTALL);
 	
-	
+	private static final Pattern PATTERN_DOWNLOAD_URL = Pattern.compile("href=\"([^\"]*)\"");
+	private static final String DOWNLOAD_MARKER = "下载歌曲";
   
   //public static final String //SogouSearchBase = "http://mp3.sogou.com/music.so?pf=mp3&as=&st=&ac=1&w=02009900&query=";
   //http://mp3.sogou.com/music.so?pf=&as=&st=&ac=1&w=02009900&query=
   public static final String  SogouSearchBase = "http://mp3.sogou.com/music.so?pf=mp3&query=";
 	//private static final String URL_SEARCH_PROXY = "http://feebe.appspot.com/msearch/music.so?pf=mp3&query=";
 
+  private static volatile Handler sHandler = new Handler();
+  
   public static String getSogouLinks(String key) {
 		String reqString = null;
 		try {
@@ -87,39 +94,81 @@ public static void setStingKey(String key, String value) {
   	}
   }
 
-	public static ArrayList<MP3Info> getSogoMp3(String urlStr, int limit) {
+//Used to signal between threads.
+  static class Signal {
+      public boolean ready;
+  };
+  
+  static class HtmlData {
+      public String content;
+  };
+  
+  static class MyJavaScriptInterface {  
+      Signal mSignal;
+      HtmlData mData;
+      public MyJavaScriptInterface(Signal s, HtmlData data) {
+          this.mSignal = s;
+          this.mData = data;
+      }
+      
+      @SuppressWarnings("unused")  
+      public void parseHtml(String html) {  
+          mData.content = html;
+          mSignal.ready = true;
+          synchronized(mSignal) {
+              mSignal.notify();
+          }
+      }  
+  }  
+  
+  private static class FetchSearchPage extends WebViewClient {
+      @Override
+      public void onPageFinished(WebView view, String url) {
+           view.loadUrl("javascript:window.HTMLOUT.parseHtml(document.getElementsByTagName('html')[0].innerHTML);"); 
+      }
+  }
+  
+  private static boolean loadUrl(final Context context, final String url, final HtmlData data) {
+      final Signal s = new Signal();
+      s.ready = false;
+      sHandler.post(new Runnable() {
+          @Override
+          public void run() {
+              WebView web = new WebView(context);
+              web.getSettings().setJavaScriptEnabled(true);
+              web.getSettings().setLoadsImagesAutomatically(false);
+              web.getSettings().setBlockNetworkImage(true);
+              web.addJavascriptInterface(new MyJavaScriptInterface(s, data), "HTMLOUT");
+              web.setWebViewClient(new FetchSearchPage());
+              web.loadUrl(url);
+          }
+      });
+      
+      synchronized(s) {
+          while (!s.ready) {
+              try {
+                  s.wait();
+              } catch (InterruptedException e) {
+                  // TODO Auto-generated catch block
+                  e.printStackTrace();
+                  return false;
+              }
+          }
+          
+          return true;
+      }
+  }
+  
+	public static ArrayList<MP3Info> getSogoMp3(Context context, String urlStr, int limit) {
 		ArrayList<MP3Info> songs = new ArrayList<MP3Info>();
-		String httpresponse = null;
+		HtmlData data = new HtmlData();
+		if (!loadUrl(context, urlStr, data))
+          return null;
+		if (TextUtils.isEmpty(data.content))                                                                                                                                                                    
+          return null;
+		
 		try {
-			Log.e("query url:", urlStr);
-			URL url = new URL(urlStr);
-			HttpURLConnection urlConn = (HttpURLConnection) url
-			.openConnection();
-			setConnectionString(urlConn);
-			urlConn.setConnectTimeout(20000);
-			urlConn.connect();
-
-			String cookie = urlConn.getHeaderField("Set-Cookie");
-			if (!TextUtils.isEmpty(cookie)) {
-				sCookie = cookie;
-				setStingKey("cookie", cookie);
-			}
-			InputStream stream = urlConn.getInputStream();
-
-			StringBuilder builder = new StringBuilder(16 * 1024);
-
-			char[] buff = new char[4096];
-
-			InputStreamReader is = new InputStreamReader(stream, "gb2312");
-
-			int len;
-			while ((len = is.read(buff, 0, 4096)) > 0) {
-				builder.append(buff, 0, len);
-			}
-			urlConn.disconnect();
-			httpresponse = builder.toString();
-
-			Matcher matcherRow = PATTERN_ROW.matcher(httpresponse);
+			Matcher matcherRow = PATTERN_ROW.matcher(data.content);
 			while (matcherRow.find()) {
 				Matcher m = PATTERN.matcher(matcherRow.group(1));
 				while (m.find()) {
@@ -180,35 +229,46 @@ public static void setStingKey(String key, String value) {
   }
 
 	// Given the link to each individual mp3, get the corresponding link by which we can actually download the music.
-	public static String getLink(String req)  throws IOException{
+	public static String getLink(Context context, String req)  throws IOException{
 			String request = "http://mp3.sogou.com" +req;
 			Log.e("get download link: ", request);
-			URL url = new URL(request);
-			HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
-			setConnectionString(urlConn);
-			urlConn.setConnectTimeout(20000);
-			urlConn.connect();
-
-			InputStream stream = urlConn.getInputStream();
-
-			StringBuilder builder = new StringBuilder(8 * 1024);
-
-			char[] buff = new char[4096];
-			//必须在此指定编码，否则后面toString会导致乱码
-			InputStreamReader is = new InputStreamReader(stream);
+//			URL url = new URL(request);
 			
-			int len;
-			while ((len = is.read(buff, 0, 4096)) > 0) {
-				builder.append(buff, 0, len);
-			}
-			urlConn.disconnect();
-			String httpresponse = builder.toString();
-			int linkStartPos = httpresponse.indexOf("\" href=\"") + "\" href=\"".length();
-			if (linkStartPos > 0) {
-			  int linkEndPos = httpresponse.indexOf('>', linkStartPos)-1;
-			  if (linkEndPos > 0)
-			    return httpresponse.substring(linkStartPos, linkEndPos);
-			}
+			HtmlData data = new HtmlData();
+			if (!loadUrl(context, request, data))
+	          return null;
+	        if (TextUtils.isEmpty(data.content))                                                                                                                                                                    
+	          return null;
+	        int start = data.content.indexOf(DOWNLOAD_MARKER) + DOWNLOAD_MARKER.length();
+	        Matcher m = PATTERN_DOWNLOAD_URL.matcher(data.content.substring(start));
+	        if (m.find()) {
+              return m.group(1);
+            }
+//			HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
+//			setConnectionString(urlConn);
+//			urlConn.setConnectTimeout(20000);
+//			urlConn.connect();
+//
+//			InputStream stream = urlConn.getInputStream();
+//
+//			StringBuilder builder = new StringBuilder(8 * 1024);
+//
+//			char[] buff = new char[4096];
+//			//必须在此指定编码，否则后面toString会导致乱码
+//			InputStreamReader is = new InputStreamReader(stream);
+//			
+//			int len;
+//			while ((len = is.read(buff, 0, 4096)) > 0) {
+//				builder.append(buff, 0, len);
+//			}
+//			urlConn.disconnect();
+//			String httpresponse = builder.toString();
+//			int linkStartPos = data.content.indexOf("\" href=\"") + "\" href=\"".length();
+//			if (linkStartPos > 0) {
+//			  int linkEndPos = data.content.indexOf('>', linkStartPos)-1;Log.e("@@@@@@@@@@@@@@data.content", data.content.substring(linkStartPos, linkEndPos));
+//			  if (linkEndPos > 0)
+//			    return data.content.substring(linkStartPos, linkEndPos);
+//			}
 			return null;
 	}
 }

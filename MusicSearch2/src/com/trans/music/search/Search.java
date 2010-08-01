@@ -18,7 +18,7 @@ public class Search extends SearchProvider {
   protected Cursor getSuggestions(String query, MatrixCursor cursor) {
    // String queryUrl = Const.SearchBase + "count=8&q="+query;
    // String data = Util.download(queryUrl);
-    List<MP3Info> entries = MusicUtil.getSogoMp3(MusicUtil.getSogouLinks(query), 6);
+    List<MP3Info> entries = MusicUtil.getSogoMp3(this.getContext(),MusicUtil.getSogouLinks(query), 6);
     if (entries != null) {
       for(int i = 0; i < entries.size(); i++)
       {
