@@ -464,9 +464,13 @@ public class SearchResultActivity extends ListActivity {
 
 		protected void onPostExecute(MusicInfo mp3) {
 			if (mp3.getDownloadUrl() == null) {
-				if (mProgressDialog != null && mProgressDialog.isShowing()) {
-					mProgressDialog.dismiss();
+				if (mStreaming != null && mStreaming.isShowing()) {
+					mStreaming.dismiss();
 				}
+
+                if (mProgressDialog != null && mProgressDialog.isShowing()) {
+                    mProgressDialog.dismiss();
+                }
 
                 Toast.makeText(SearchResultActivity.this, R.string.no_download_link, Toast.LENGTH_SHORT).show();
 				return;
