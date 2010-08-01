@@ -42,6 +42,7 @@ public class SogouMusicSearcher implements IMusicSearcher {
 	private int mPage;  // Next page to fetch.
 	
 	private volatile Handler mHandler = new Handler();
+	private static int sNumQueries = 0;
 	
 	public SogouMusicSearcher() {
 	}
@@ -158,6 +159,7 @@ public class SogouMusicSearcher implements IMusicSearcher {
 	// Returns null when something wrong happens.
 	@Override
 	public ArrayList<MusicInfo> getNextResultList(final Context context) {
+		sNumQueries++;
 		HtmlData data = new HtmlData();
 		if (!loadUrl(context, getNextUrl(), data))
 			return null;
@@ -167,6 +169,10 @@ public class SogouMusicSearcher implements IMusicSearcher {
         ArrayList<MusicInfo> musicList;
 		try {
 			musicList = getMusicInfoListFromHtml(data.content);
+			if (musicList.size() == 0 && mPage == 1 && sNumQueries <= 1) {
+				Log.i(Utils.TAG, "Retry " + sNumQueries);
+				return getNextResultList(context);
+			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			return null;
