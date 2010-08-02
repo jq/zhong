@@ -77,7 +77,7 @@ public class SogouMusicSearcher {
 				  if (displayFileSize.equals("未知")) {
 				    displayFileSize = "Unknown size";
 				  } else {
-				    fileSize = (long) (Double.parseDouble(displayFileSize.substring(0, displayFileSize.indexOf("M"))) * Utils.ONE_MB);
+				    fileSize = Utils.sizeFromStr(displayFileSize);
 				  }
 				  searchResult.setDisplayFileSize(displayFileSize);
 				  searchResult.setFileSize(fileSize);
