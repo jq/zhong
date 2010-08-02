@@ -34,7 +34,7 @@
 		<link>
 			<name>p2p</name>
 			<type>2</type>
-			<locationURI>p2p/src</locationURI>
+			<locationURI>_android_p2p/src</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
