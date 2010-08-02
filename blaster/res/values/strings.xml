@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Music Blaster</string>
+    <string name="go">Go</string>
+    <string name="error_network">Network connection error!</string>
+    <string name="retry">Retry</string>
+    <string name="wait">Please wait while we connect...</string>
+    <string name="no_download_link">Failed to get music download location</string>
+    <string name="loading">Loading...</string>
+    <string name="create_app_dir_error">Failed to create app directory. Do you have a SD card?</string>
+    <string name="create_mp3_dir_error">Failed to create mp3 directory.</string>
+    <string name="clear_finished">Clear Completed</string>
+    <string name="no_download_data">No downloads</string>
+    <string name="hide">Hide</string>
+    <string name="done">Done</string>
+    <string name="finished">FINISHED</string>
+    <string name="pending">PENDING</string>
+    <string name="stopping">STOPPING</string>
+    <string name="failed">FAILED</string>
+    <string name="stopped">STOPPED</string>
+    <string name="downloading">DOWNLOADING</string>
+    <string name="queued">QUEUED</string>
+    <string name="aborted">ABORTED</string>
+    <string name="paused">PAUSED</string>
+    <string name="downloads">Downloads</string>
+    <string name="clear">Clear</string>
+    <string name="play">Play</string>
+    <string name="cancel">Cancel</string>
+    <string name="stop">Stop</string>
+    <string name="delete">Delete</string>
+    <string name="resume">Resume</string>
+    <string name="preview">Preview</string>
+    <string name="download">Download</string>
+    <string name="music_option_prompt">View more options by long clicking the item.</string>
+    <string name="streaming">Streaming music</string>
+    <string name="search">Simple Search</string>
+    <string name="options">Options</string>
+    <string name="no_result">No result</string>
+    <string name="target_exists">target file already exists</string>
+    <string name="pause">Pause</string>
+    <string name="already_downloading">Target already being downloaded</string>
+    <string name="status">Status:</string>
+    <string name="searching">Searching...</string>
+    <string name="initializing">Initializing...</string>
+    <string name="no_playing_activity">No activity found to handle mp3 files. You may want to start music player manually.</string>
+
+    <string name="title">Title</string>
+    <string name="artist">Artist</string>
+    <string name="album">Album</string>
+    <string name="advance_search">Advanced</string>
+    <string name="exit">Exit</string>
+
+    <string name="eula_title">Term of Use</string>
+    <string name="eula_accept">Accept</string>
+    <string name="eula_refuse">Decline</string>
+    <string name="network_dialog_title">Network Error</string>
+    <string name="network_error_message">You can only proceed after fixing your network connection.</string>
+    <string name="ring">Ringtone</string>
+    <string name="updater_dialog_title">New update available</string> 
+    <string name="updater_dialog_message">A new version is available for downloading. Click on \"Download\" below to download.</string>
+    <string name="about">About</string>
+    <!--
+     Main / media select activity
+     -->
+
+    <string name="main_activity_label">ringtone</string>
+
+    <string name="button_start_record_activity">Record New</string>
+
+    <string name="sdcard_readonly">Sorry, the SD Card is mounted as read-only and ringtone requires it to be writable.</string>
+    <string name="no_sdcard">Sorry, ringtone can not run unless you have an SD Card inserted.</string>
+    <string name="sdcard_shared">Sorry, ringtone can not run while your handset is mounted as a USB device.</string>
+
+    <!--
+     Edit activity
+     -->
+
+    <!-- Labels next to the start and end time edit boxes -->
+    <string name="start_label">Start:</string>
+    <string name="end_label">End:</string>
+
+    <string name="edit_intent">Edit</string>
+
+    <string name="time_seconds">seconds</string>
+
+    <!-- After you save a notification or ringtone and have more options
+	 for what to do with them -->
+    <string name="what_to_do_with_ringtone">Saved!  Make this your default ringtone or assign it to a contact?</string>
+    <string name="set_default_notification">Saved!  Make this your default notification?</string>
+
+    <string name="make_default_ringtone_button">Make Default</string>
+    <string name="choose_contact_ringtone_button">Assign to Contact</string>
+    <string name="do_nothing_with_ringtone_button">Close</string>
+
+    <!-- Progress dialog text for loading or saving... -->
+    <string name="progress_dialog_loading">Loading...</string>
+    <string name="progress_dialog_saving">Saving...</string>
+
+    <!--
+     Menu items
+     -->
+
+    <string name="menu_save">Save</string>
+    <string name="menu_reset">Reset</string>
+    <string name="menu_about">About</string>
+    <string name="menu_show_all_audio">Show All Audio</string>
+
+    <!--
+     Context menu items
+     -->
+
+    <string name="context_menu_edit">Edit</string>
+    <string name="context_menu_delete">Delete</string>
+
+    <!--
+     File Save dialog
+     -->
+
+    <string name="file_save_title">Save As:</string>
+    <string name="file_save_button_save">Save</string>
+    <string name="file_save_button_cancel">Cancel</string>
+
+    <string name="ringtone_type_label">Type:</string>
+
+    <string name="type_music">Music</string>
+    <string name="type_alarm">Alarm</string>
+    <string name="type_notification">Notification</string>
+    <string name="type_ringtone">Ringtone</string>
+
+    <string name="ringtone_name_label">Name:</string>
+
+    <string name="artist_name">ringtone</string>
+
+    <!--
+     Delete confirmation dialog
+     -->
+
+    <string name="delete_ringtone">Delete Ringtone</string>
+    <string name="delete_alarm">Delete Alarm</string>
+    <string name="delete_notification">Delete Notification</string>
+    <string name="delete_music">Delete Music</string>
+    <string name="delete_audio">Delete Audio</string>
+
+    <string name="confirm_delete_ringtone">Are you sure?</string>
+    <string name="confirm_delete_non_ringtone"
+    >Are you sure?  This file was not created using ringtone!</string>
+
+    <string name="delete_ok_button">Delete</string>
+    <string name="delete_cancel_button">Cancel</string>
+
+    <string name="delete_failed">Unable to delete file</string>
+
+    <!--
+     Success and error messages
+     -->
+
+    <string name="alert_title_success">Success</string>
+    <string name="alert_title_failure">Error</string>
+    <string name="alert_ok_button">OK</string>
+    <string name="alert_yes_button">Yes, please!</string>
+    <string name="alert_no_button">No, thanks.</string>
+
+    <string name="save_success_message">Saved!</string>
+    <string name="default_ringtone_success_message">Changed default ringtone</string>
+    <string name="play_error">Unable to play this media file</string>
+    <string name="no_unique_filename">Unable to find unique filename</string>
+    <string name="delete_tmp_error">Error deleting temporary file</string>
+    <string name="record_error">Error launching Sound Recorder</string>
+    <string name="too_small_error">Can not save a file that small, try making it longer.</string>
+    <string name="write_error">Error writing file</string>
+    <string name="read_error">Error reading file</string>
+
+    <string name="no_space_error">Your SD card is full, there is not enough space to save this file.</string>
+
+    <string name="bad_extension_error">Sorry, ringtone is not yet able to edit files of type</string>
+    <string name="no_extension_error">Sorry, ringtone can not edit a file if it does not have an extension like .mp3 or .wav</string>
+
+    <!--
+     Choose Contact Activity
+     -->
+
+    <string name="choose_contact_title">Assign ringtone to which contact?</string>
+    <string name="success_contact_ringtone">Successfully assigned ringtone to:</string>
+
+    <!--
+     Sending information to server
+     -->
+    <string name="server_title">Share your data!</string>
+    <string name="server_prompt">Okay to send anonymous data about the ringtones and other sounds you create to ringtone.com so we can collect statistics?</string>
+    <string name="server_yes">OK to send</string>
+    <string name="server_later">Ask later</string>
+    <string name="server_never">Never</string>
+
+    <string name="error_server_prompt">Okay to send anonymous data about this error to ringtone.com so we can try to fix this problem in the future?</string>
+
+    <!--
+     About
+     -->
+
+    <string name="about_title">About ringtone</string>
+    <string name="about_text"><![CDATA[Use ringtone to edit MP3, WAV, AAC, and AMR audio files and create ringtones, alarms, and notifications from them.\n\nTip: copy audio files to your SD card using a USB cable, or get MP3s using the Amazon MP3 application.\n\nTip: long-press on an audio file from the main screen to delete it.  More below...\n\nTip: tap anywhere on the waveform to start playing at that position.\n\nTip: while playing, tap the word Start or End to quickly set the start and end markers to the current playback time.\n\nTip: Use the jog wheel for more precise adjustments.\n\nVersion 2.3\n\nDeveloper: Dominic Mazzoni\nGraphics: Joseph Wain\nSupport and evangelizing: Eugene Koh\n\nringtone is free software, distributed under the Apache 2.0 license.  Source code is on code.google.com\n]]></string>
+    <string name="edit">Edit</string>
+        <string name="rate_low">The bitrate of this music is too low. It may be distorted after edited. It is recommended you to use the whole music by click "Use All" button.</string>
+    <string name="use_all">Use all</string>
+    <string name="alertdialog_cancel">Cancel</string>
+    <string name="ring_picker_title">Select Ring</string>
+</resources>
