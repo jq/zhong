@@ -422,23 +422,6 @@ public class RingdroidSelectActivity
         }
     }
 
-    /*private void startRingdroidEditor() {
-        Cursor c = mAdapter.getCursor();
-        int dataIndex = c.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
-        String filename = c.getString(dataIndex);
-        try {
-            Intent intent = new Intent(Intent.ACTION_EDIT,
-                                       Uri.parse(filename));
-            intent.putExtra("was_get_content_intent",
-                            mWasGetContentIntent);
-            intent.setClassName(
-                "com.feebe.rings",
-                "com.ringdroid.RingdroidEditActivity");
-            startActivityForResult(intent, REQUEST_CODE_EDIT);
-        } catch (Exception e) {
-            // Log.e("Ringdroid", "Couldn't start editor");
-        }
-    }*/
     private void startRingdroidEditor() {
         Cursor c = mAdapter.getCursor();
         int dataIndex = c.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
