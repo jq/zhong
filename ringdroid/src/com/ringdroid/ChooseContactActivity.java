@@ -148,7 +148,7 @@ public class ChooseContactActivity
     }
 
     private boolean isEclairOrLater() {
-      return Build.VERSION.SDK_INT >= 5;
+        return Build.VERSION.SDK.compareTo("5") >=0;
     }
     
     private Uri getContactContentUri() {
