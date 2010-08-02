@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	<item android:id="@+id/ringtone"
        android:title="@string/main_activity_label"
-       android:icon="@drawable/logo"/>
+       android:icon="@drawable/ringdroidlogo"/>
 	<item android:id="@+id/about"
           android:title="@string/about"
           android:icon="@drawable/ic_menu_info_details"/>

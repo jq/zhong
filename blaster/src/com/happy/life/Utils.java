@@ -294,18 +294,21 @@ public class Utils {
     }
     
 	public static void addMixedAds(Activity activity) {
-	  int w;
-      if (blackscreen) {
-          w = 48;
-      } else {
-          w = LayoutParams.WRAP_CONTENT;
-      }
-      AdWhirlLayout adWhirlLayout = new AdWhirlLayout(activity, "b2c900faac5d44f5a2358df294d75309");
-      LayoutParams adWhirlLayoutParams = new LayoutParams(LayoutParams.FILL_PARENT, w);
-      LinearLayout layout = (LinearLayout) activity.findViewById(R.id.layout_ad);
-      if (layout != null)
-        layout.addView(adWhirlLayout, adWhirlLayoutParams);
+	  addMixedAds(activity, R.id.layout_ad);
 	}
+	public static void addMixedAds(Activity activity, int id) {
+		  int w;
+	      if (blackscreen) {
+	          w = 48;
+	      } else {
+	          w = LayoutParams.WRAP_CONTENT;
+	      }
+	      AdWhirlLayout adWhirlLayout = new AdWhirlLayout(activity, "b2c900faac5d44f5a2358df294d75309");
+	      LayoutParams adWhirlLayoutParams = new LayoutParams(LayoutParams.FILL_PARENT, w);
+	      LinearLayout layout = (LinearLayout) activity.findViewById(id);
+	      if (layout != null)
+	        layout.addView(adWhirlLayout, adWhirlLayoutParams);
+		}
 	
 	private static final int CONNECT_TIMEOUT = 10000;  // 10s
 	private static final int INITIAL_BUFFER_SIZE = 16000;  // 16K

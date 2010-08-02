@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>life</name>
+	<name>ringdroid-base</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -32,14 +32,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>p2p</name>
+			<name>util</name>
 			<type>2</type>
-			<locationURI>_android_p2p/src</locationURI>
-		</link>
-		<link>
-			<name>ringdroid</name>
-			<type>2</type>
-			<locationURI>_android_ringdroid/src</locationURI>
+			<location>/Users/julianqian/src/feebe/util/src</location>
 		</link>
 	</linkedResources>
 </projectDescription>

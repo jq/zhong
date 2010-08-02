@@ -58,8 +58,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.ringdroid.soundfile.CheapSoundFile;
+import com.util.Utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -83,8 +83,6 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.json.JSONException;
-import com.happy.life.R;
-import com.happy.life.Utils;
 
 /**
  * The activity for the Ringdroid main editor window. Keeps track of the
@@ -602,7 +600,6 @@ public class RingdroidEditActivity extends Activity implements
 	private void loadGui() {
 		// Inflate our UI from its XML layout description.
 		setContentView(R.layout.editor);
-		Utils.addMixedAds(this);
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		mDensity = metrics.density;

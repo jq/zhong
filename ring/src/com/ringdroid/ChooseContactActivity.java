@@ -49,8 +49,6 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import com.happy.life.R;
-
 
 /**
  * After a ringtone has been saved, this activity lets you pick a contact
@@ -149,7 +147,7 @@ public class ChooseContactActivity
     }
     
     private boolean isEclairOrLater() {
-      return Build.VERSION.SDK.compareTo("5") >=0;
+        return Build.VERSION.SDK.compareTo("5") >=0;
     }
     
     private Uri getContactContentUri() {

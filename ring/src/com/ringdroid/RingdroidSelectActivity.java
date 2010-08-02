@@ -47,12 +47,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ringdroid.soundfile.CheapSoundFile;
+import com.util.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import com.happy.life.R;
-import com.happy.life.Utils;
 
 /**
  * Main screen that shows up when you launch Ringdroid.  Handles selecting
@@ -80,7 +79,7 @@ public class RingdroidSelectActivity
     // Context menu
     private static final int CMD_EDIT = 3;
     private static final int CMD_DELETE = 4;
-
+    protected static String EDITOR;
     public RingdroidSelectActivity() {
     }
 
@@ -115,7 +114,7 @@ public class RingdroidSelectActivity
 
         // Inflate our UI from its XML layout description.
         setContentView(R.layout.media_select);
-		Utils.addMixedAds(this);
+
         //AdsView.createAdsenseAds(this, AdsView.CHANNEL_ID_2);
         Button recordButton = (Button) findViewById(R.id.record);
         recordButton.setOnClickListener(new View.OnClickListener() {
@@ -198,7 +197,8 @@ public class RingdroidSelectActivity
         }
         Constants.init(this);
     }
-    	
+    
+
 	private void setSoundIconFromCursor(ImageView view, Cursor cursor) {
         if (0 != cursor.getInt(cursor.getColumnIndexOrThrow(
                 MediaStore.Audio.Media.IS_RINGTONE))) {
@@ -250,10 +250,6 @@ public class RingdroidSelectActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         MenuItem item;
-
- //       item = menu.add(0, CMD_ABOUT, 0, R.string.menu_about);
- //       item.setIcon(R.drawable.menu_about);
-
         item = menu.add(0, CMD_SHOW_ALL, 0, R.string.menu_show_all_audio);
         item.setIcon(R.drawable.menu_show_all_audio);
         
@@ -263,7 +259,6 @@ public class RingdroidSelectActivity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        //menu.findItem(CMD_ABOUT).setVisible(true);
         menu.findItem(CMD_SHOW_ALL).setVisible(true);
         menu.findItem(CMD_SHOW_ALL).setEnabled(!mShowAll);
         return true;
@@ -320,8 +315,6 @@ public class RingdroidSelectActivity
         // See if the selected list item was created by Ringdroid to
         // determine which alert message to show
         Cursor c = mAdapter.getCursor();
-        int artistIndex = c.getColumnIndexOrThrow(
-            MediaStore.Audio.Media.ARTIST);
         String artist = c.getString(c.getColumnIndexOrThrow(
             MediaStore.Audio.Media.ARTIST));
         CharSequence ringdroidArtist =
@@ -333,10 +326,10 @@ public class RingdroidSelectActivity
         CharSequence message;
         if (artist.equals(ringdroidArtist)) {
             message = getResources().getText(
-                R.string.confirm_delete_ringtone);
+                R.string.confirm_delete_ringdroid);
         } else {
             message = getResources().getText(
-                R.string.confirm_delete_non_ringtone);
+                R.string.confirm_delete_non_ringdroid);
         }
 
         CharSequence title;
@@ -425,8 +418,9 @@ public class RingdroidSelectActivity
                                        Uri.parse("record"));
             intent.putExtra("was_get_content_intent",
                             mWasGetContentIntent);
+            
             intent.setClassName(
-                this, "com.ringdroid.RingdroidEditActivity");
+                this, EDITOR);
             startActivityForResult(intent, REQUEST_CODE_EDIT);
         } catch (Exception e) {
             Log.e("Ringdroid", "Couldn't start editor " + e.getMessage());
@@ -444,7 +438,7 @@ public class RingdroidSelectActivity
                             mWasGetContentIntent);
             intent.setClassName(
                 this,
-                "com.ringdroid.RingdroidEditActivity");
+                EDITOR);
             startActivityForResult(intent, REQUEST_CODE_EDIT);
         } catch (Exception e) {
             Log.e("Ringdroid", "Couldn't start editor " + e.getMessage());

@@ -3,6 +3,7 @@ package com.happy.life;
 import com.happy.life.updater.AppUpdater;
 import com.happy.life.updater.UpdateInfo;
 import com.limegroup.gnutella.RouterService;
+import com.other.RingSelectActivity;
 import com.ringdroid.RingdroidSelectActivity;
 
 import android.app.Activity;
@@ -124,7 +125,7 @@ public class music extends Activity {
         ringButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-	            Intent i = new Intent(music.this, RingdroidSelectActivity.class);
+	            Intent i = new Intent(music.this, RingSelectActivity.class);
 	            startActivity(i);
 			}
         });
@@ -271,7 +272,7 @@ public class music extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.ringtone:
-            Intent i = new Intent(this, RingdroidSelectActivity.class);
+            Intent i = new Intent(this, RingSelectActivity.class);
             this.startActivity(i);
             break;
         case R.id.about:

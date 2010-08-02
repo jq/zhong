@@ -28,7 +28,6 @@ import android.view.View;
 import com.ringdroid.soundfile.CheapSoundFile;
 
 import java.util.Map;
-import com.happy.life.R;
 
 /**
  * WaveformView is an Android view that displays a visual representation

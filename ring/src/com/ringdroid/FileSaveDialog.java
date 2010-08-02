@@ -31,8 +31,6 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import com.happy.life.R;
-
 
 public class FileSaveDialog extends Dialog {
 

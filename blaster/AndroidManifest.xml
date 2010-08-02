@@ -26,7 +26,7 @@
 
         
                 <!-- Main activity that's launched when the user opens Ringdroid. -->
-        <activity android:name="com.ringdroid.RingdroidSelectActivity"
+        <activity android:name="com.other.RingSelectActivity"
                   android:label="@string/main_activity_label">
             <intent-filter>
                 <action android:name="android.intent.action.GET_CONTENT" />
@@ -41,7 +41,7 @@
              Controls viewing the waveform, setting the start and end
              positions, playback, and triggering saving of the output
              file. -->
-        <activity android:name="com.ringdroid.RingdroidEditActivity"
+        <activity android:name="com.other.RingEditActivity"
                   android:configChanges="orientation|keyboardHidden">
             <intent-filter android:label="@string/edit_intent">
                 <action android:name="android.intent.action.EDIT" />

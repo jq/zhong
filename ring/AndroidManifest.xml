@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.ringdroid"
+          android:versionName="2.3.1"
+          android:versionCode="20301">
+
+    <uses-sdk android:minSdkVersion="3" />
+
+    <uses-permission android:name="android.permission.INTERNET" /> 
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application android:label="@string/app_name"
+                 android:icon="@drawable/ringdroidlogo">
+
+        <!-- Main activity that's launched when the user opens Ringdroid. -->
+        <activity android:name="RingdroidSelectActivity"
+                  android:label="@string/main_activity_label">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+                <data android:mimeType="audio/*" />
+            </intent-filter>
+
+        </activity>
+
+	<!-- Activity for actually editing a particular audio file.
+             Controls viewing the waveform, setting the start and end
+             positions, playback, and triggering saving of the output
+             file. -->
+        <activity android:name="RingdroidEditActivity"
+                  android:configChanges="orientation|keyboardHidden">
+            <intent-filter android:label="@string/edit_intent">
+                <action android:name="android.intent.action.EDIT" />
+                <data android:mimeType="audio/*" />
+            </intent-filter>
+        </activity>
+
+	<!-- Activity for choosing a contact to assign a ringtone to. -->
+        <activity android:name="ChooseContactActivity"
+                  android:configChanges="orientation|keyboardHidden">
+        </activity>
+	<!-- The application's publisher ID assigned by AdMob -->
+        <meta-data android:value="a14bec9ee3954d4" android:name="ADMOB_PUBLISHER_ID" />
+    </application>
+
+</manifest>
