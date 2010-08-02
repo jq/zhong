@@ -1484,7 +1484,7 @@ public class RingdroidEditActivity extends Activity implements
 			}
 		};
 		Message message = Message.obtain(handler);
-		FileSaveDialog dlog = new FileSaveDialog(this, getResources(), mTitle,
+		FileSaveDialog dlog = new FileSaveDialog(this, getResources(), Utils.convertGBK(mTitle),
 				message);
 		dlog.show();
 	}
