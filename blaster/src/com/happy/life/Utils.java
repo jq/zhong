@@ -119,19 +119,24 @@ public class Utils {
     	if (TextUtils.isEmpty(sizeStr)) {
     		return 0;
     	} else {
-    		if (sizeStr.endsWith("K") ||
-    			sizeStr.endsWith("k")) {
-    			return (long) (1024 * Float.valueOf(sizeStr.substring(0, sizeStr.length() - 1)));
-    		} else if (sizeStr.endsWith("M") ||
-    			sizeStr.endsWith("m")) {
-    			return (long) (1024 * 1024 * Float.valueOf(sizeStr.substring(0, sizeStr.length() - 1)));
-    		} else {
-    			try {
-        			return Long.valueOf(sizeStr);
-    			} catch (java.lang.NumberFormatException e) {
-    				e.printStackTrace();
-    				return 0;
-    			}
+    		try {
+	    		if (sizeStr.endsWith("K") ||
+	    			sizeStr.endsWith("k")) {
+	    			return (long) (1024 * Float.valueOf(sizeStr.substring(0, sizeStr.length() - 1)));
+	    		} else if (sizeStr.endsWith("M") ||
+	    			sizeStr.endsWith("m")) {
+	    			return (long) (1024 * 1024 * Float.valueOf(sizeStr.substring(0, sizeStr.length() - 1)));
+	    		} else {
+	    			try {
+	        			return Long.valueOf(sizeStr);
+	    			} catch (java.lang.NumberFormatException e) {
+	    				e.printStackTrace();
+	    				return 0;
+	    			}
+	    		}
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    			return 0;
     		}
     	}
     }
