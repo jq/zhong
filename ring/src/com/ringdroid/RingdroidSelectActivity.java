@@ -195,7 +195,6 @@ public class RingdroidSelectActivity
         if (mFilter != null) {
             mFilter.addTextChangedListener(this);
         }
-        Constants.init(this);
     }
     
 
