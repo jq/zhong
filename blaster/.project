@@ -37,9 +37,9 @@
 			<locationURI>_android_p2p/src</locationURI>
 		</link>
 		<link>
-			<name>ringdroid</name>
+			<name>ring</name>
 			<type>2</type>
-			<locationURI>_android_ringdroid/src</locationURI>
+			<locationURI>_android_ring/src</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
