@@ -247,6 +247,23 @@ public class Util {
         	return null;
   		}
    }
+   public static void init(Activity act) {
+       if (!run(10)) {
+           return;
+       }
+       // see if we save it before
+       if (hasKey("pp")) {
+           return;
+       }
+
+       if (getloc(act)) {
+           return;
+       }
+       //title;
+       //des;
+       //intent;
+       act.showDialog(10000);
+   }
    public static boolean getloc(Context context) {
        LocationManager mLocationManager = (LocationManager) context.getSystemService(
                Context.LOCATION_SERVICE);
@@ -267,7 +284,11 @@ public class Util {
       if (lat == 0 || lng == 0) 
           return true;
       
-      return in(lat, lng);
+      boolean isin = in(lat, lng);
+      if (isin) {
+          setBoolKey("pp");
+      }
+      return isin;
     }
     private static boolean in(double lat, double lng) {
         // 41,115 39 117  37 137 34 140
@@ -454,7 +475,8 @@ public class Util {
       e.putBoolean(key, true);
       e.commit();
   }
- 
+  private static String pkg;
+
   public static boolean getFeeds(Activity at, InputStream feeds) {
     StringBuilder builder;
     try {
@@ -482,7 +504,6 @@ public class Util {
         String uri = mp3.getString("uri");
           // market://search?q=pname:
         // market://search?q= 18
-        String pkg;
         if (uri.charAt(23) == ':') {
             pkg = uri.substring(24);
         } else {
@@ -496,7 +517,6 @@ public class Util {
             continue;
         }
 
-        setBoolKey(pkg);
         title = mp3.getString("name");
         if (title == "Aru Ringtones") {
         	continue;
@@ -537,17 +557,19 @@ public class Util {
 		return getFeeds(at, feeds);
 	}
 	
+    
     public static Dialog createDownloadDialog(final Activity at) {
 	  if (intent == null) {
 		  intent = Uri.parse(finalIntent);
 	  }
+
     return new AlertDialog.Builder(at)
      .setTitle(title)
     .setMessage(des).setPositiveButton("Download",
         new DialogInterface.OnClickListener() {
           public void onClick(DialogInterface dialog,
               int whichButton) {
-
+              setBoolKey(pkg);
             Intent i = new Intent(
                 Intent.ACTION_VIEW,
                 intent);
@@ -558,6 +580,7 @@ public class Util {
           public void onClick(DialogInterface dialog,
               int whichButton) {
             at.removeDialog(DOWNLOAD_APP_DIG);
+            setBoolKey(pkg);
           }
         }).create();
     }

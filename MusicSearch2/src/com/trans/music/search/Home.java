@@ -39,14 +39,8 @@ public class Home extends TabActivity implements OnTabChangeListener{
 
     MusicUtil.mSetting = getPreferences(0);
     setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
+    Util.runFeed(4, this, R.raw.feed);
   }
-
-  @Override
-  public void onResume() {
-	  super.onResume();
-      Util.runFeed(4, this, R.raw.feed);
-  }
-  
   /*@Override
   protected void onDestroy() {
     super.onDestroy();

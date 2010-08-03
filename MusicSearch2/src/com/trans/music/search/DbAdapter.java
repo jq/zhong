@@ -53,7 +53,7 @@ public class DbAdapter {
 	
 	
 	public DbAdapter(Activity ctx) {
-	  Util.getloc(ctx);
+	  Util.init(ctx);
 	  SearchDBHelper dbHelp = new SearchDBHelper(ctx, "db");
       db = dbHelp.getWritableDatabase();
 	};
