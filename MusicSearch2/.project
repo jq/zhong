@@ -39,7 +39,7 @@
 		<link>
 			<name>util</name>
 			<type>2</type>
-			<location>/home/julianqian/D::/eclipse_android/workspace/util/src</location>
+			<locationURI>_android_util/src</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
