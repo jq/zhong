@@ -30,4 +30,16 @@
 		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>ringdroid</name>
+			<type>2</type>
+			<locationURI>_android_ringdroid/src</locationURI>
+		</link>
+		<link>
+			<name>util</name>
+			<type>2</type>
+			<locationURI>_android_util/src</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

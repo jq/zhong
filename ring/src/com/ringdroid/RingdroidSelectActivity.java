@@ -65,12 +65,12 @@ public class RingdroidSelectActivity
 	public static final boolean LOG_ENABLED = true;
 	public static final String LOG_TAG = "ringdroid";
     private TextView mFilter;
-    private SimpleCursorAdapter mAdapter;
-    private boolean mWasGetContentIntent;
+    protected SimpleCursorAdapter mAdapter;
+    protected boolean mWasGetContentIntent;
     private boolean mShowAll;
 
     // Result codes
-    private static final int REQUEST_CODE_EDIT = 1;
+    protected static final int REQUEST_CODE_EDIT = 1;
 
     // Menu commands
     private static final int CMD_ABOUT = 1;
@@ -426,7 +426,7 @@ public class RingdroidSelectActivity
         }
     }
 
-    private void startRingdroidEditor() {
+    protected void startRingdroidEditor() {
         Cursor c = mAdapter.getCursor();
         int dataIndex = c.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
         String filename = c.getString(dataIndex);

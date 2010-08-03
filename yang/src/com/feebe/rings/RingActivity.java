@@ -17,6 +17,7 @@ import com.feebe.lib.DefaultDownloadListener;
 import com.feebe.lib.DownloadImg;
 import com.feebe.lib.DownloadFile;
 import com.feebe.lib.Util;
+import com.lib.RingSelect;
 import com.ringdroid.RingdroidSelectActivity;
 
 import entagged.audioformats.AudioFile;
@@ -264,7 +265,7 @@ public class RingActivity extends Activity {
           	// save json file
             Toast.makeText(
                 RingActivity.this, R.string.queue, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(RingActivity.this ,RingdroidSelectActivity.class);
+            Intent intent = new Intent(RingActivity.this ,RingSelect.class);
           	ringDownloadListener = new RingDownloadListener(RingActivity.this, intent, true);
           	download(ringDownloadListener);
             saveArtist();
@@ -392,7 +393,7 @@ public class RingActivity extends Activity {
     	return;
       }
       if (mp3Location.startsWith("http:")) { 
-        Intent intetn = new Intent(RingActivity.this, RingdroidSelectActivity.class);
+        Intent intetn = new Intent(RingActivity.this, RingSelect.class);
       	ringDownloadListener = new RingDownloadListener(RingActivity.this, notificationIntent, false);
       	download(ringDownloadListener);
         saveArtist();

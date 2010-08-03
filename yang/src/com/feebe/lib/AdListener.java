@@ -17,6 +17,9 @@ public class AdListener {
 
   }
   public static void createAds(Activity activity) {
+    createAds(activity, R.id.ads_view);
+  }
+  public static void createAds(Activity activity, int id) {
     //// Log.e("model", Build.MODEL + " " + Build.DEVICE);
     int w;
     if (blackscreen) {
@@ -26,7 +29,7 @@ public class AdListener {
     }
     AdWhirlLayout adWhirlLayout = new AdWhirlLayout(activity, "9e817eff582a444cbb34c339e2523693");
     LayoutParams adWhirlLayoutParams = new LayoutParams(LayoutParams.FILL_PARENT, w);
-    ViewGroup layout = (ViewGroup) activity.findViewById(R.id.ads_view);
+    ViewGroup layout = (ViewGroup) activity.findViewById(id);
     if (layout != null)
       layout.addView(adWhirlLayout, adWhirlLayoutParams);
   }
