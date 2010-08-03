@@ -839,8 +839,7 @@ public class SearchResultActivity extends Activity {
 			    //LOG.logSp("handleQueryResult null");
 				return;
 			}
-            LOG.logSp("handleQueryResult" + rfd.getHost());
-			
+ 			
 			final byte[] replyGuid = data.getMessageGUID();
 			
 			mHandler.post(new Runnable() {
@@ -848,7 +847,6 @@ public class SearchResultActivity extends Activity {
 				public void run() {
 					//if (!mSearchAdapter.sameGuid(replyGuid) && mSearchAdapter.size() > 3) {
 					if (!mSearchAdapter.sameGuid(replyGuid)) {
-						LOG.logSp("Ignoring result. becasue not same GUID");
 						return;
 					}
 					

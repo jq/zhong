@@ -357,7 +357,6 @@ public class Utils {
                 }
             }
         } catch (SocketException ex) {
-            LOG.error(ex.toString());
         }
         
         return InetAddress.getLocalHost();
