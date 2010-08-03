@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>MusicSearch2</name>
+	<name>oldMusicSearch</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -39,7 +39,7 @@
 		<link>
 			<name>util</name>
 			<type>2</type>
-			<location>D:/eclipse_android/workspace/util/src</location>
+			<location>/home/julianqian/D::/eclipse_android/workspace/util/src</location>
 		</link>
 	</linkedResources>
 </projectDescription>
