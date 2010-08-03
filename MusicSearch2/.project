@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>oldMusicSearch</name>
+	<name>MusicSearch2</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -30,4 +30,16 @@
 		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>ring</name>
+			<type>2</type>
+			<locationURI>_android_ring/src</locationURI>
+		</link>
+		<link>
+			<name>util</name>
+			<type>2</type>
+			<location>D:/eclipse_android/workspace/util/src</location>
+		</link>
+	</linkedResources>
 </projectDescription>
