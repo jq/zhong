@@ -1,7 +1,6 @@
 package com.trans.music.search;
 
 import com.trans.music.search.R;
-import com.ringdroid.RingdroidSelectActivity;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -35,7 +34,7 @@ public class Home extends TabActivity implements OnTabChangeListener{
     hot = new Intent(this, local.class);
     TabCreator.createTab(this, tabHost, hot, getString(R.string.tab_downlaod), android.R.drawable.ic_media_play);
     
-    hot = new Intent(this, RingdroidSelectActivity.class);
+    hot = new Intent(this, com.other.RingSelectActivity.class);
     TabCreator.createTab(this, tabHost, hot, getString(R.string.tab_lib), android.R.drawable.ic_menu_gallery);
 
     MusicUtil.mSetting = getPreferences(0);

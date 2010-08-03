@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.JSONObject;
-import com.ringdroid.RingdroidSelectActivity;
+import com.other.RingSelectActivity;
 import com.trans.music.search.IMediaPlaybackService;
 import com.trans.music.search.R;
 

@@ -95,7 +95,7 @@
      	</activity>       	
      	<service android:name="MediaPlaybackService" android:exported="true" />
         
-               <activity android:name="com.ringdroid.RingdroidSelectActivity" android:label=""
+               <activity android:name="com.other.RingSelectActivity" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.GET_CONTENT" />
@@ -105,7 +105,7 @@
             </intent-filter>
                   
         </activity>
-        <activity android:name="com.ringdroid.RingdroidEditActivity"
+        <activity android:name="com.other.RingEditActivity"
         			android:launchMode="singleTop" 
                   android:configChanges="orientation|keyboardHidden">
             <intent-filter android:label="@string/edit_intent">

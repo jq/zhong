@@ -508,7 +508,7 @@ public class local extends Activity {
                             false);
             intent.setClassName(
             	"com.trans.music.search",
-                "com.ringdroid.RingdroidEditActivity");
+                "com.other.RingEditActivity");
             startActivity(intent);
         } catch (Exception e) {
             Log.e("Ringdroid", "Couldn't start editor");
