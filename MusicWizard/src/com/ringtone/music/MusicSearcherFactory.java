@@ -6,6 +6,7 @@ public class MusicSearcherFactory {
 	public static final int ID_SKREEMR = 1;
 	public static final int ID_MERGED = 2;
 	public static final int ID_BAIDU = 3;
+	public static final int ID_REALM = 4;
 	
 	public static IMusicSearcher getInstance(int id) {
 		if (id == ID_SOGOU) {
@@ -16,6 +17,8 @@ public class MusicSearcherFactory {
 			return new MergedMusicSearcher();
 		} else if (id == ID_BAIDU) {
 			return new BDSearcher();
+		} else if (id == ID_REALM) {
+		    return new RealmMusicSearcher();
 		}
 		
 		return null;
