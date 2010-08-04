@@ -277,6 +277,8 @@ public class SearchResultActivity extends ListActivity {
             //sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_BAIDU);
             sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SOGOU);
 	    	//sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SKREEMR);
+	    	//sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_REALM);
+            
 			sFetcher.setQuery(keyWords);
 			fetchNextMp3ListBatch(context);
 		} else {

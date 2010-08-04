@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
@@ -77,19 +79,19 @@ public class RealmMusicSearcher implements IMusicSearcher {
 					String title = m.group(2).trim();
 					title = title.replace("<b>", "");
 					title = title.replace("</b>", "");
-					info.setTitle(title);
+					info.setTitle(StringEscapeUtils.unescapeHtml(title));
 					String artist = m.group(3).trim();
                     Matcher matcherArtist = PATTERN_ARTIST_ALBUM.matcher(artist);
                     while (matcherArtist.find()) {
                       artist = matcherArtist.group(1);
                     }
-					info.setArtist(artist);
+					info.setArtist(StringEscapeUtils.unescapeHtml(artist));
 					String album = m.group(4).trim();
                     Matcher matcherAlbum = PATTERN_ARTIST_ALBUM.matcher(album);
                     while (matcherAlbum.find()) {
                       album = matcherAlbum.group(1);
                     }
-					info.setAlbum(album);
+					info.setAlbum(StringEscapeUtils.unescapeHtml(album));
 					String displayFileSize = m.group(9).trim();
 					if (displayFileSize.equals("unknown"))
 						displayFileSize = "Unknown size";
@@ -177,15 +179,11 @@ public class RealmMusicSearcher implements IMusicSearcher {
 		if (!loadUrl(context, getNextUrl(), data))
 			return null;
 		
-        if (TextUtils.isEmpty(data.content))                                                                                                                                                                    
+        if (TextUtils.isEmpty(data.content))
             return null;
         ArrayList<MusicInfo> musicList;
 		try {
 			musicList = getMusicInfoListFromHtml(data.content);
-			if (musicList.size() == 0 && mPage == 1 && sNumQueries <= 1) {
-				Log.i(Utils.TAG, "Retry " + sNumQueries);
-				return getNextResultList(context);
-			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			return null;
