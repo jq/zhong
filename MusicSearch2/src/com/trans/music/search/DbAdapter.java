@@ -7,6 +7,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbAdapter {
@@ -20,7 +21,6 @@ public class DbAdapter {
   public final static int TYPE_TITLE = 1;
   public final static int TYPE_ARTIST = 2;
 
-	private SQLiteDatabase db;
 	private final static int DB_VERSION = 4;
 	
 	private static class SearchDBHelper extends SQLiteOpenHelper{
@@ -50,23 +50,25 @@ public class DbAdapter {
 	    }
 	  }
 	}
+	SearchDBHelper mOpenHelper;
 	
 	
 	public DbAdapter(Activity ctx) {
 	  Util.init(ctx);
-	  SearchDBHelper dbHelp = new SearchDBHelper(ctx, "db");
-      db = dbHelp.getWritableDatabase();
+	  mOpenHelper = new SearchDBHelper(ctx, "db");
 	};
 	
-	public void close() {
-	  db.close();
-	}
 
 	public void intsertHistory(String key, int type) {
-		ContentValues cv = new ContentValues();
-		cv.put(SearchManager.SUGGEST_COLUMN_TEXT_1, key);
-		cv.put(TYPE, type);
-		db.insert(TableHistory, null, cv);
+      try {
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(SearchManager.SUGGEST_COLUMN_TEXT_1, key);
+        cv.put(TYPE, type);
+        db.insert(TableHistory, null, cv);
+      } catch (SQLiteException e) {
+        e.printStackTrace();
+      }
 	}
 	  private static final String[] projection_key = new String[] {"_id", SearchManager.SUGGEST_COLUMN_TEXT_1, 
 		  SearchManager.SUGGEST_COLUMN_TEXT_1 + " AS \"" + SearchManager.SUGGEST_COLUMN_INTENT_DATA + "\""
@@ -74,11 +76,21 @@ public class DbAdapter {
 	
 	public Cursor getHistoryByType(String key, int type){
 		String selection = "type = " + type + " and " + SearchManager.SUGGEST_COLUMN_TEXT_1 + " like \'" + key +"%\'";
-    return db.query(TableHistory, projection_key, selection, null, null, null, null);
+		try {
+          SQLiteDatabase db = mOpenHelper.getReadableDatabase();
+          return db.query(TableHistory, projection_key, selection, null, null, null, null);
+        } catch (Exception e) {
+          return null;
+        }
 	}
   public Cursor getHistoryByType(int type){
 	  String selection = "type = " + type;
-	  return db.query(TableHistory, projection_key, selection, null, null, null, null);
+	  try {
+        SQLiteDatabase db = mOpenHelper.getReadableDatabase();
+        return db.query(TableHistory, projection_key, selection, null, null, null, null);
+      } catch(Exception e) {
+        return null;
+      }
 	}
 
 }
