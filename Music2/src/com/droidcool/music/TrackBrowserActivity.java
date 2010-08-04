@@ -936,6 +936,11 @@ public class TrackBrowserActivity extends ListActivity
                 break;
                 
             case SHUFFLE_NOW_PLAYING:
+            	if (MusicUtils.sService != null)
+					try {
+						MusicUtils.sService.shuffleQueue();
+					} catch (RemoteException e) {
+					}
             	return true;
                 
             case SHUFFLE_ALL:

@@ -907,7 +907,11 @@ public class MediaPlaybackService extends Service {
 	            mPlayList[i] = mPlayList[r];
 	            mPlayList[r] = tmp;
 	        }
+	        mPlayPos = (int) (Math.random() * N);
+            openCurrent();
+            play();
             notifyChange(QUEUE_CHANGED);
+            notifyChange(META_CHANGED);
     	}
     }
 
