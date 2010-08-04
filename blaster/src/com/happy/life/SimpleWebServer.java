@@ -20,7 +20,7 @@ public class SimpleWebServer extends Thread {
         if (!_rootDir.isDirectory()) {
             throw new IOException("Not a directory.");
         }
-        _serverSocket = new ServerSocket(port);
+        _serverSocket = new ServerSocket(port, 0, InetAddress.getByName("localhost"));
         start();
     }
     
