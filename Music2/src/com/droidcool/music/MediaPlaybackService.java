@@ -893,6 +893,23 @@ public class MediaPlaybackService extends Service {
             notifyChange(QUEUE_CHANGED);
         }
     }
+    
+    
+    public void shuffleQueue() {
+    	synchronized (this) {
+    		int N = mPlayListLen;
+    		if (N <= 1) {
+    			return;
+    		}
+	        for (int i = 0; i < N; i++) {
+	            int r = i + (int) (Math.random() * (N-i));   // between i and N-1
+	            long tmp = mPlayList[i];
+	            mPlayList[i] = mPlayList[r];
+	            mPlayList[r] = tmp;
+	        }
+            notifyChange(QUEUE_CHANGED);
+    	}
+    }
 
     /**
      * Returns the current play list
@@ -1899,6 +1916,9 @@ public class MediaPlaybackService extends Service {
         }
         public void moveQueueItem(int from, int to) {
             mService.get().moveQueueItem(from, to);
+        }
+        public void shuffleQueue() {
+        	mService.get().shuffleQueue();
         }
         public String getPath() {
             return mService.get().getPath();

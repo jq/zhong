@@ -67,6 +67,7 @@
     <string name="delete_item">Delete</string>
     <!-- Menu item to play back all the songs in the currently showing list in shuffle mode -->
     <string name="shuffle_all">Shuffle all</string>
+    <string name="shuffle_now_playing">Shuffle now playing</string>
     <!-- Menu item to play back all the songs in the currently showing list in list order -->
     <string name="play_all">Play all</string>
 

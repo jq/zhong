@@ -13,7 +13,7 @@
     
     <uses-sdk android:minSdkVersion="3" />
 
-    <application android:icon="@drawable/app_music"
+    <application android:icon="@drawable/icon"
         android:label="@string/musicbrowserlabel"
         android:taskAffinity="droidcool.task.music"
         android:allowTaskReparenting="true"

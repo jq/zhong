@@ -74,8 +74,9 @@ public class TrackBrowserActivity extends ListActivity
     private static final int CLEAR_PLAYLIST = CHILD_MENU_BASE + 4;
     private static final int REMOVE = CHILD_MENU_BASE + 5;
     private static final int SEARCH = CHILD_MENU_BASE + 6;
-
-
+    
+    private static final int SHUFFLE_NOW_PLAYING = CHILD_MENU_BASE + 7;
+    
     private static final String LOGTAG = "TrackBrowser";
 
     private String[] mCursorCols;
@@ -710,7 +711,7 @@ public class TrackBrowserActivity extends ListActivity
                 list[0] = (int) mSelectedId;
                 Bundle b = new Bundle();
                 String f = getString(R.string.delete_song_desc); 
-                String desc = String.format(f, mCurrentTrackName);
+                String desc = String.format(f, MusicUtils.convertGBK(mCurrentTrackName));
                 b.putString("description", desc);
                 b.putLongArray("items", list);
                 Intent intent = new Intent();
@@ -900,6 +901,9 @@ public class TrackBrowserActivity extends ListActivity
         if (mPlaylist == null) {
             menu.add(0, PLAY_ALL, 0, R.string.play_all).setIcon(R.drawable.ic_menu_play_clip);
         }
+        if ("nowplaying".equals(mPlaylist)) {
+	        menu.add(0, SHUFFLE_NOW_PLAYING, 0, R.string.shuffle_now_playing);
+        }
         menu.add(0, PARTY_SHUFFLE, 0, R.string.party_shuffle); // icon will be set in onPrepareOptionsMenu()
         menu.add(0, SHUFFLE_ALL, 0, R.string.shuffle_all).setIcon(R.drawable.ic_menu_shuffle);
         if (mPlaylist != null) {
@@ -930,6 +934,9 @@ public class TrackBrowserActivity extends ListActivity
             case PARTY_SHUFFLE:
                 MusicUtils.togglePartyShuffle();
                 break;
+                
+            case SHUFFLE_NOW_PLAYING:
+            	return true;
                 
             case SHUFFLE_ALL:
                 // Should 'shuffle all' shuffle ALL, or only the tracks shown?
@@ -1208,6 +1215,14 @@ public class TrackBrowserActivity extends ListActivity
                 mService.moveQueueItem(from, to);
                 mNowPlaying = mService.getQueue();
                 onMove(-1, mCurPos); // update the underlying cursor
+            } catch (RemoteException ex) {
+            }
+        }
+        
+        public void shuffleNowPlaying() {
+            try {
+                mService.shuffleQueue();
+                mNowPlaying = mService.getQueue();
             } catch (RemoteException ex) {
             }
         }
