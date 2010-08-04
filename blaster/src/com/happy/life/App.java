@@ -46,7 +46,7 @@ public class App extends Application {
 		}
 	};
 	
-	public synchronized static void init(Context context) {
+	public static void init(Context context) {
 		if (sInitialized)
 			return;
 		
@@ -62,9 +62,6 @@ public class App extends Application {
 		intent = new Intent(context, MiniServer.class);
 		context.startService(intent);
 		
-		sRouterService = new RouterService(new DummyCallback());
-		Utils.D("Starting router service.");
-		sRouterService.start();
 		sInitialized = true;
 	}
 	
@@ -205,7 +202,6 @@ public class App extends Application {
         @Override
         public void retryQueryAfterConnect() {
             // TODO Auto-generated method stub
-            
         }
 	};
 	
@@ -213,6 +209,17 @@ public class App extends Application {
     public void onCreate() {
 		super.onCreate();
         Constants.init(this);
+        
+        init(this);
+        
+        new Thread(new Runnable() {
+			@Override
+			public void run() {
+				sRouterService = new RouterService(new DummyCallback());
+				Utils.D("Starting router service.");
+				sRouterService.start();
+			}
+        }).start();
     }
 }
 

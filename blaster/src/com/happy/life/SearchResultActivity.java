@@ -78,6 +78,7 @@ public class SearchResultActivity extends Activity {
         
 	
 	private static FetchMp3ListTask sFetchMp3ListTask;
+	private static WaitForRouterServiceTask sWaitForRouterServiceTask;
 	
 	private SearchBar mSearch;
 	private String mQuery;
@@ -579,57 +580,18 @@ public class SearchResultActivity extends Activity {
 
 	private void startQuery(Intent intent) {
 	    mQuery = mSearch.getQuery();
-	    String xml = null;
 	    
-        /*
-	    if (mShowNoResult != null) {
-	    	mHandler.removeCallbacks(mShowNoResult);
-	    	mShowNoResult = null;
-	    }
-        */
+    	mAdapter.setStatus(ListStatusView.Status.SEARCHING);
+    	mAdapter.notifyDataSetChanged();
 	    
 	    if (TextUtils.isEmpty(mQuery)) {
-	        xml = intent.getStringExtra(Constants.XML);
         	mQuery = StringUtils.removeIllegalChars(intent.getStringExtra(Constants.QUERY));
 	    }
 	    
+		sWaitForRouterServiceTask = new WaitForRouterServiceTask(intent, mQuery);
+		sWaitForRouterServiceTask.execute();
+	    
 	    if (!TextUtils.isEmpty(mQuery)) {
-	    	mAdapter.setStatus(ListStatusView.Status.SEARCHING);
-	    	stopQuery();
-			
-	    	Utils.D("Querying: " + mQuery);
-	    	
-			mGuid = RouterService.newQueryGUID();
-			//mAdapter.notifyDataSetInvalidated();
-			
-			mSearchAdapter = new SearchAdapter(mGuid);
-			
-			Utils.D("Guid: " + Utils.getHexString(mGuid));
-			Utils.D("connect " + RouterService.getConnectionManager().isConnected());
-			
-            /*
-			mShowNoResult = new Runnable() {
-				@Override
-				public void run() {
-					if (mAdapter != null) {
-						mAdapter.setStatus(ListStatusView.Status.NO_RESULT);
-						mAdapter.notifyDataSetChanged();
-					}
-					mShowNoResult = null;
-				}
-			};
-
-			mHandler.postDelayed(mShowNoResult, MAX_SEARCH_DELAY);
-            */
-			mAdapter.notifyDataSetChanged();
-			
-			if (xml != null) {
-			     RouterService.query(mGuid, mQuery, xml, MediaType.TYPE_MP3);
-			} else {
-		         RouterService.query(mGuid, mQuery, MediaType.TYPE_MP3);
-
-			}
-
 			sSogouMusicSearcher.setQuery(mQuery);
 			sFetchMp3ListTask = new FetchMp3ListTask(getApplication());
 			sFetchMp3ListTask.execute();
@@ -1085,6 +1047,52 @@ public class SearchResultActivity extends Activity {
 
 			return v;
 		}
+    }
+
+    private class WaitForRouterServiceTask extends AsyncTask<Void, Void, Integer> {
+
+        Intent mIntent;
+        String mQuery;
+        
+        public WaitForRouterServiceTask(Intent intent, String query) {
+            mIntent = intent;
+            mQuery = query;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            if (sWaitForRouterServiceTask != this) {
+                return;
+            }
+            
+            sWaitForRouterServiceTask = null;
+
+            String xml = mIntent == null ? null : mIntent.getStringExtra(Constants.XML);
+            if (xml == null)
+            	xml = "";
+
+            if (!TextUtils.isEmpty(mQuery) ||
+            	!TextUtils.isEmpty(xml)) {
+            	stopQuery();
+            	mGuid = RouterService.newQueryGUID();
+            	mSearchAdapter = new SearchAdapter(mGuid);
+            	mAdapter.notifyDataSetChanged();
+        		RouterService.query(mGuid, mQuery, xml, MediaType.TYPE_MP3);
+            }
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+        	try {
+		        while (!RouterService.isConnected()) {
+		        	Utils.D("RouterService not ready");
+					Thread.sleep(500);
+		        }
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+            return 0;
+        }
     }
 
     private static class FetchMp3ListTask extends AsyncTask<Void, Void, ArrayList<SogouSearchResult>> {

@@ -70,8 +70,10 @@ public class music extends Activity {
                 .setPositiveButton(R.string.retry, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
 				    	if (Utils.isNetworkAvailable(music.this)) {
-						    showDialog(DIALOG_INITIALIZING);
-						    new InitTask().execute();
+                            if (!sInitialized) {
+                                sInitialized = true;
+                                checkFeedsAndUpdate();
+                            }
 				    	} else {
 				    		mHandler.post(new Runnable() {
 				    			public void run() {
@@ -131,33 +133,6 @@ public class music extends Activity {
         });
     }
     
-    private class InitTask extends AsyncTask<Void, Void, Integer> {
-
-    	@Override
-		protected Integer doInBackground(Void... params) {
-	        App.init(getApplication());
-        	try {
-		        while (!RouterService.isConnected()) {
-		        	Utils.D("RouterService not ready");
-					Thread.sleep(300);
-		        }
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-	        return 0;
-		}
-		
-		@Override
-		protected void onPostExecute(Integer ignore) {
-			//if (mProgressDialog != null && mProgressDialog.isShowing()) {
-			//	mProgressDialog.dismiss();
-			//}
-			
-			//initViews();
-			checkFeedsAndUpdate();
-		}
-    }
     
     private class CheckUpdateTask extends AsyncTask<Void, Void, UpdateInfo> {
 		@Override
@@ -204,11 +179,10 @@ public class music extends Activity {
     public void onResume() {
     	super.onResume();
     	if (Utils.isNetworkAvailable(this)) {
-    		if (!sInitialized) {
+            if (!sInitialized) {
     			sInitialized = true;
-			    //showDialog(DIALOG_INITIALIZING);
-			    new InitTask().execute();
-    		} 
+                checkFeedsAndUpdate();
+            }
     	} else {
     		showDialog(DIALOG_NETWORK_ERROR);
     	}
