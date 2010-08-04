@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
@@ -72,9 +74,9 @@ public class SogouMusicSearcher implements IMusicSearcher {
 				Matcher m = PATTERN.matcher(matcherRow.group(1));
 				while (m.find()) {
 					MusicInfo info = new MusicInfo();
-					info.setTitle(m.group(1).trim());
-					info.setArtist(URLDecoder.decode(m.group(2), "gb2312").trim());
-					info.setAlbum(m.group(3).trim());
+					info.setTitle(StringEscapeUtils.unescapeHtml(m.group(1).trim()));
+					info.setArtist(StringEscapeUtils.unescapeHtml(URLDecoder.decode(m.group(2), "gb2312").trim()));
+					info.setAlbum(StringEscapeUtils.unescapeHtml(m.group(3).trim()));
 					info.addUrl(SOGOU_MP3 + m.group(4).trim());
 					info.setLyricUrl(SOGOU_MP3 + m.group(5).trim());
 					String displayFileSize = m.group(6).trim();
