@@ -29,5 +29,46 @@
     <string name="myreview">私のレビュー:</string>
 		
 		<string name="info_download_count"> 人々がそれをダウンロード</string>
+		
+		<string name="queue">リングは、キュー内の、リング]タブでダウンロードした後に表示されます</string>
+	
+		<string name="menu_unset_ringtone">unset ringtone</string>
+		
+		    <!--
+     used in RingActivity search more listview
+     -->
+     <string name="search_more">Search more</string>
+     <string name="search_more_by">Search more by</string>
+     <string name="search_more_in">Search more in</string>
+    
+    <!--
+     used in share alert_dialog
+     -->
+     <string name="share_sms1">I would like to share this ringtone to you:</string>
+     <string name="share_sms2">from</string>
+     <string name="share_sms3">Send from Feebe Ringtone of Android market://search?q=com.feebe.rings</string>
+    
+    <!--
+     used in RingActivity dlProgress dialog
+     -->
+     <string name="dlprogress_title">Downloading...</string>
+     <string name="dlprogress_message">Downloading ringtone from network.\nThis window will close automatically after download is complete.</string>
+    
+    <!--
+     used in RingActivity mStreaming dialog
+     -->
+     <string name="mStreaming_title">Please wait</string>
+     <string name="mStreaming_message">Streaming audio from network...</string>
+    
+    <!--
+     used in RingActivity ring_picker dialog
+     -->
+     <string name="ring_picker_title">Select Ring</string>
+     
+    <!-- 
+	 used in RingActivity notification when finish or failed download.
+	 -->
+	 <string name="notification_text_finish">ダウンロードが完了</string>
+	 <string name="notification_text_failed">ダウンロードに失敗しました。後ほど再試行します。</string>
     
 </resources>

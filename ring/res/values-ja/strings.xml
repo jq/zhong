@@ -52,6 +52,11 @@
     <string name="menu_show_all_audio">Show All Audio</string>
 
     <!--
+     AlertDialogs
+     -->
+     <string name="alertdialog_cancel">取消</string>
+     
+    <!--
      Context menu items
      -->
 

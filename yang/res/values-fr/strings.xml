@@ -29,53 +29,19 @@
     <string name="myreview">Mon examen:</string>
 		
 		<string name="info_download_count"> personnes téléchargé</string>
+		
+		<string name="queue">Ring est en file d\'attente, apparaît dans l\'onglet anneau après le téléchargement</string>
+		
+		<string name="menu_unset_ringtone">unset Sonnerie</string>
+		
     <!--
-     imported
+     AlertDialogs
      -->
-    
-    
-    <string name="button_start_record_activity">Nouveau record</string>
-
-    <string name="sdcard_readonly">Désolé, la carte SD est monté en lecture seule</string>
-    <string name="no_sdcard">Ne peut pas courir, sauf si vous avez une carte SD insérée.</string>
-    <string name="sdcard_shared">Ne peut pas courir pendant que votre appareil est monté comme un périphérique USB.</string>
-
-    <!--
-     Edit activity
-     -->
-
-    <!-- Labels next to the start and end time edit boxes -->
-    <string name="start_label">Début:</string>
-    <string name="end_label">Fin:</string>
-
-    <string name="edit_intent">Modifier</string>
-
-    <string name="time_seconds">seconde</string>
-
-    <!-- After you save a notification or ringtone and have more options
-	 for what to do with them -->
-    <string name="what_to_do_with_ringtone">Saved! Faire cette sonnerie par défaut ou l\'affecter à un contact?</string>
-    <string name="set_default_notification">Saved! Faire de cette notification, votre défaut?</string>
-
-    <string name="make_default_ringtone_button">Utiliser par défaut</string>
-    <string name="choose_contact_ringtone_button">Attribuer à contact</string>
-    <string name="do_nothing_with_ringtone_button">Fermer</string>
-
-    <!-- Progress dialog text for loading or saving... -->
-    <string name="progress_dialog_loading">Chargement...</string>
-    <string name="progress_dialog_saving">Saving...</string>
-
-    <!--
-     Menu items
-     -->
-
-    <string name="menu_save">Sauver</string>
-    <string name="menu_reset">Reset</string>
-    <string name="menu_show_all_audio">Afficher tous les audio</string>
-    
-    <string name="menu_search">recherche</string>
-    <string name="menu_unset_ringtone">unset Sonnerie</string>
-    
+     <string name="alertdialog_select">Sélectionnez</string>
+     <string name="alertdialog_ok">OK</string>
+     <string name="alertdialog_cancel">Annuler</string>
+     <string name="alertdialog_share">Partager</string>
+     
     <!--
      used in RingActivity search more listview
      -->
@@ -106,89 +72,11 @@
      used in RingActivity ring_picker dialog
      -->
      <string name="ring_picker_title">Sélectionnez Ring</string>
-     <string name="ring_picker_message">Streaming réseau sous forme audio...</string>
       
-    <!--
-     AlertDialogs
-     -->
-     <string name="alertdialog_select">Sélectionnez</string>
-     <string name="alertdialog_ok">OK</string>
-     <string name="alertdialog_cancel">Annuler</string>
-     <string name="alertdialog_share">Partager</string>
-
-    <!--
-     Context menu items
-     -->
-
-    <string name="context_menu_edit">Modifier</string>
-    <string name="context_menu_delete">Supprimer</string>
-
-    <!--
-     File Save dialog
-     -->
-
-    <string name="file_save_title">Enregistrer sous:</string>
-    <string name="file_save_button_save">Sauver</string>
-    <string name="file_save_button_cancel">Annuler</string>
-
-    <string name="ringtone_type_label">Type:</string>
-
-    <string name="type_music">Musique</string>
-    <string name="type_alarm">Alarme</string>
-    <string name="type_notification">Notification</string>
-    <string name="type_ringtone">Sonnerie</string>
-
-    <string name="ringtone_name_label">Nom:</string>
-
-    <!--
-     Delete confirmation dialog
-     -->
-
-    <string name="delete_ringtone">Supprimer Ringtone</string>
-    <string name="delete_alarm">Supprimer l\'alarme</string>
-    <string name="delete_notification">Supprimer Notification</string>
-    <string name="delete_music">Supprimer Musique</string>
-    <string name="delete_audio">Supprimer audio</string>
-
-    <string name="confirm_delete_ringdroid">Etes-vous s?r?</string>
-
-    <string name="delete_ok_button">Supprimer</string>
-    <string name="delete_cancel_button">Annuler</string>
-
-    <string name="delete_failed">Impossible de supprimer le fichier</string>
-
-    <!--
-     Success and error messages
-     -->
-
-    <string name="alert_title_success">Réussi</string>
-    <string name="alert_title_failure">Error</string>
-    <string name="alert_ok_button">OK</string>
-    <string name="alert_yes_button">Oui, s\'il vous pla?t!</string>
-    <string name="alert_no_button">Non, merci.</string>
-
-    <string name="save_success_message">Saved!</string>
-    <string name="default_ringtone_success_message">Sonnerie par défaut Changed</string>
-    <string name="play_error">Impossible de lire les fichiers médias</string>
-    <string name="no_unique_filename">Impossible de trouver le nom de fichier unique</string>
-    <string name="delete_tmp_error">Erreur de suppression de fichiers temporaires</string>
-    <string name="record_error">Erreur lors du lancement Sound Recorder</string>
-    <string name="too_small_error">Impossible d\'enregistrer un fichier que les petites, essayez de faire plus longtemps.</string>
-    <string name="write_error">Erreur d\'écriture du fichier</string>
-    <string name="read_error">Erreur de lecture de fichier</string>
-    <string name="download_failed">Le téléchargement a échoué</string>
-
-    <string name="no_space_error">Votre carte SD est pleine, il n\'y a pas assez d\'espace pour enregistrer ce fichier.</string>
-
-    <string name="bad_extension_error">Pas encore en mesure de modifier les fichiers de type</string>
-    <string name="no_extension_error">Impossible de modifier un fichier s\'il n\'a pas une extension du type .mp3 or .wav</string>
-
-    <!--
-     Choose Contact Activity
-     -->
-
-    <string name="choose_contact_title">Attribuer sonnerie à laquelle le contact?</string>
-    <string name="success_contact_ringtone">Succès attribué sonnerie à:</string>
-
+    <!-- 
+	 used in RingActivity notification when finish or failed download.
+	 -->
+	 <string name="notification_text_finish">Télécharger finition</string>
+	 <string name="notification_text_failed">Le téléchargement a échoué. S\'il vous plaît réessayer plus tard.</string>
     
 </resources>

@@ -27,9 +27,12 @@
     <string name="info">Info:</string>
     <string name="about">About Ringtone:</string>
     <string name="myreview">My review:</string>		
+    
 	<string name="info_download_count"> people downloaded it</string>
 	
 	<string name="queue">Ring is in queue, will appear in ring tab after download</string>
+	
+	<string name="menu_unset_ringtone">unset ringtone</string>
 	    
     <!--
      used in RingActivity search more listview
@@ -61,7 +64,6 @@
      used in RingActivity ring_picker dialog
      -->
      <string name="ring_picker_title">Select Ring</string>
-     <string name="ring_picker_message">Streaming audio from network...</string>
      
     <!-- 
 	 used in RingActivity notification when finish or failed download.
