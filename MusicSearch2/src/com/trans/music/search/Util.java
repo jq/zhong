@@ -248,6 +248,7 @@ public class Util {
   		}
    }
    public static void init(Activity act) {
+     /*
        if (!run(10)) {
            return;
        }
@@ -259,10 +260,11 @@ public class Util {
        if (getloc(act)) {
            return;
        }
+       */
        //title;
        //des;
        //intent;
-       act.showDialog(10000);
+       //act.showDialog(10000);
    }
    public static boolean getloc(Context context) {
        LocationManager mLocationManager = (LocationManager) context.getSystemService(
