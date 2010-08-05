@@ -75,7 +75,7 @@ public class RingActivity extends Activity {
 	public void onDownloadFail() {
 		super.onDownloadFail();
 	    Toast.makeText(
-	        RingActivity.this, R.string.download_failed, Toast.LENGTH_SHORT).show();
+	        RingActivity.this, R.string.notification_text_failed, Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
