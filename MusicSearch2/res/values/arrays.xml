@@ -22,14 +22,7 @@
         <item>Download</item>
     </string-array>
         <!-- SetRingOption --> 
-      <!-- Ringtypes -->
-    <string-array name="set_ring_option">
-        <item>Set as default Ringtone</item>
-        <item>Set as Notification</item>
-        <item>Set as Alarm</item>
-        <item>Assign to contact</item>
-    </string-array>  
-    <string-array name="play_mode">
+     <string-array name="play_mode">
     	<item>Repeat all musics</item>
     	<item>Shuffling play</item>
     	<item>Repeat single music</item>
