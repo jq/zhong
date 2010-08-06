@@ -290,7 +290,12 @@
         	  <flattenmapper />
         	</signjar>
 
-
+        	<android:zipalign>
+                <arg value="-fv"/>
+                <arg value="4"/>
+	            <arg file="targets/signed/${package_name}.apk"/>
+                <arg file="targets/zipaligned/${package_name}.apk"/>
+            </android:zipalign>
 
         	<!--sleep  seconds="5"/>-->
         	
