@@ -297,7 +297,7 @@
                 <arg file="targets/zipaligned/${package_name}.apk"/>
             </android:zipalign>
 
-        	<!--sleep  seconds="5"/>-->
+        	<sleep  seconds="2"/>
         	
         </target>
     	<target name="package-apks" depends="clean-apks, init-all" description="Package applications.">
