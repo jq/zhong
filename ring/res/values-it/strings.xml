@@ -58,6 +58,7 @@
 
     <string name="context_menu_edit">Modifica</string>
     <string name="context_menu_delete">Eliminare</string>
+    <string name="context_menu_assign">Assign to contact</string>
 
     <!--
      File Save dialog

@@ -79,6 +79,7 @@ public class RingdroidSelectActivity
     // Context menu
     private static final int CMD_EDIT = 3;
     private static final int CMD_DELETE = 4;
+    private static final int CMD_ASSIGN = 5;
     protected static String EDITOR;
     public RingdroidSelectActivity() {
     }
@@ -292,6 +293,7 @@ public class RingdroidSelectActivity
 
         menu.add(0, CMD_EDIT, 0, R.string.context_menu_edit);
         menu.add(0, CMD_DELETE, 0, R.string.context_menu_delete);
+        menu.add(0, CMD_ASSIGN, 0, R.string.context_menu_assign);
     }
 
     @Override
@@ -305,6 +307,22 @@ public class RingdroidSelectActivity
         case CMD_DELETE:
             confirmDelete();
             return true;
+        case CMD_ASSIGN:
+            Cursor c = mAdapter.getCursor();
+            int uriIndex = c.getColumnIndex(
+                "\"" + MediaStore.Audio.Media.INTERNAL_CONTENT_URI + "\"");
+            if (uriIndex == -1) {
+                uriIndex = c.getColumnIndex(
+                    "\"" + MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "\"");
+            }
+            if(uriIndex != -1) {
+              String itemUri = c.getString(uriIndex) + "/" + c.getString(c.getColumnIndexOrThrow(MediaStore.Audio.Media._ID));
+              Uri currentFileUri = Uri.parse(itemUri);
+              Intent intent = new Intent();
+              intent.setData(currentFileUri);
+              intent.setClass(RingdroidSelectActivity.this, com.ringdroid.ChooseContactActivity.class);
+              RingdroidSelectActivity.this.startActivity(intent);
+            }
         default:
             return super.onContextItemSelected(item);
         }
