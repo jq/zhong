@@ -301,6 +301,8 @@ public class RingdroidEditActivity extends Activity implements
 		// ringtone / other sound will stick around.
 		mRecordingUri = dataIntent.getData();
 		mRecordingFilename = getFilenameFromUri(mRecordingUri);
+		if (mRecordingFilename == null)
+			return;
 		mFilename = mRecordingFilename;
 		loadFromFile();
 	}
@@ -365,6 +367,8 @@ public class RingdroidEditActivity extends Activity implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case CMD_SAVE:
+            if (mSoundFile == null)
+                return false;
 			if (mSoundFile.getAvgBitrateKbps() <= 32) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
 				builder.setMessage(R.string.rate_low).setCancelable(false)
@@ -673,7 +677,7 @@ public class RingdroidEditActivity extends Activity implements
 		if (mArtist != null && mArtist.length() > 0) {
 			titleLabel += " - " + mArtist;
 		}
-		setTitle(titleLabel);
+		setTitle(Utils.convertGBK(titleLabel));
 
 		mLoadingStartTime = System.currentTimeMillis();
 		mLoadingLastUpdateTime = System.currentTimeMillis();
@@ -737,7 +741,6 @@ public class RingdroidEditActivity extends Activity implements
 							listener);
 
 					if (mSoundFile == null) {
-						mProgressDialog.dismiss();
 						String name = mFile.getName().toLowerCase();
 						String[] components = name.split("\\.");
 						String err;
@@ -752,6 +755,7 @@ public class RingdroidEditActivity extends Activity implements
 						final String finalErr = err;
 						Runnable runnable = new Runnable() {
 							public void run() {
+                                mProgressDialog.dismiss();
 								handleFatalError("UnsupportedExtension",
 										finalErr, new Exception());
 							}
@@ -760,12 +764,12 @@ public class RingdroidEditActivity extends Activity implements
 						return;
 					}
 				} catch (final Exception e) {
-					mProgressDialog.dismiss();
 					e.printStackTrace();
-					mInfo.setText(e.toString());
 
 					Runnable runnable = new Runnable() {
 						public void run() {
+							mProgressDialog.dismiss();
+							mInfo.setText(e.toString());
 							handleFatalError("ReadError", getResources()
 									.getText(R.string.read_error), e);
 						}
@@ -773,7 +777,14 @@ public class RingdroidEditActivity extends Activity implements
 					mHandler.post(runnable);
 					return;
 				}
-				mProgressDialog.dismiss();
+				mHandler.post(new Runnable() {
+
+					@Override
+					public void run() {
+						mProgressDialog.dismiss();
+					}
+					
+				});
 				if (mLoadingKeepGoing) {
 					Runnable runnable = new Runnable() {
 						public void run() {
@@ -1469,7 +1480,7 @@ public class RingdroidEditActivity extends Activity implements
 			}
 		};
 		Message message = Message.obtain(handler);
-		FileSaveDialog dlog = new FileSaveDialog(this, getResources(), mTitle,
+		FileSaveDialog dlog = new FileSaveDialog(this, getResources(), Utils.convertGBK(mTitle),
 				message);
 		dlog.show();
 	}
@@ -1548,7 +1559,7 @@ public class RingdroidEditActivity extends Activity implements
 							RingtoneManager.setActualDefaultRingtoneUri(
 									RingdroidEditActivity.this, ring_type,
 									currentFileUri);
-							Toast.makeText(RingdroidEditActivity.this, "Set "+getResources().getStringArray(R.array.set_ring_option)[ring_button_type], Toast.LENGTH_SHORT).show();
+							Toast.makeText(RingdroidEditActivity.this, "" + getResources().getStringArray(R.array.set_ring_option)[ring_button_type], Toast.LENGTH_SHORT).show();
 						}
 					}).setNegativeButton(R.string.alertdialog_cancel,
 					new DialogInterface.OnClickListener() {
@@ -1567,6 +1578,8 @@ public class RingdroidEditActivity extends Activity implements
 
 	private OnClickListener mSaveListener = new OnClickListener() {
 		public void onClick(View sender) {
+            if (mSoundFile == null)
+                return;
 			if (mSoundFile.getAvgBitrateKbps() <= 32) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						RingdroidEditActivity.this);
@@ -1755,7 +1768,7 @@ public class RingdroidEditActivity extends Activity implements
 
 		return uniqueId;
 	}
-	
+
 	private Cursor getInternalAudioCursor(String selection,
 			String[] selectionArgs) {
 		return managedQuery(MediaStore.Audio.Media.INTERNAL_CONTENT_URI,
@@ -1776,7 +1789,7 @@ public class RingdroidEditActivity extends Activity implements
 			MediaStore.Audio.Media.ALBUM, MediaStore.Audio.Media.IS_RINGTONE,
 			MediaStore.Audio.Media.IS_ALARM,
 			MediaStore.Audio.Media.IS_NOTIFICATION,
-			MediaStore.Audio.Media.IS_MUSIC};
+			MediaStore.Audio.Media.IS_MUSIC };
 
 	private static final String[] EXTERNAL_COLUMNS = new String[] {
 			MediaStore.Audio.Media._ID, MediaStore.Audio.Media.DATA,

@@ -48,6 +48,7 @@ import android.widget.Toast;
 
 import com.ringdroid.soundfile.CheapSoundFile;
 
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -156,11 +157,13 @@ public class RingdroidSelectActivity
         } catch (SecurityException e) {
             // No permission to retrieve audio?
             Log.e("Ringdroid", e.toString());
+            throw e;
 
             // todo error 1
         } catch (IllegalArgumentException e) {
             // No permission to retrieve audio?
             Log.e("Ringdroid", e.toString());
+            throw e;
 
             // todo error 2
         }
@@ -169,9 +172,17 @@ public class RingdroidSelectActivity
                 public boolean setViewValue(View view,
                                             Cursor cursor,
                                             int columnIndex) {
-                    if (view.getId() == R.id.row_icon) {
+                	int id = view.getId();
+                    if (id == R.id.row_icon) {
                         setSoundIconFromCursor((ImageView) view, cursor);
                         return true;
+                    }
+                    
+                    if (id == R.id.row_artist ||
+                    	id == R.id.row_album ||
+                    	id == R.id.row_title) {
+                    	((TextView) view).setText(Utils.convertGBK(cursor.getString(columnIndex)));
+                    	return true;
                     }
                     return false;
                 }
@@ -292,6 +303,7 @@ public class RingdroidSelectActivity
         Cursor c = mAdapter.getCursor();
         String title = c.getString(c.getColumnIndexOrThrow(
             MediaStore.Audio.Media.TITLE));
+        title = Utils.convertGBK(title);
         menu.setHeaderTitle(title);
 
         menu.add(0, CMD_EDIT, 0, R.string.context_menu_edit);
@@ -372,7 +384,7 @@ public class RingdroidSelectActivity
         }
 
         new AlertDialog.Builder(RingdroidSelectActivity.this)
-            .setTitle(title)
+            .setTitle(Utils.convertGBK(title.toString()))
             .setMessage(message)
             .setPositiveButton(
                 R.string.delete_ok_button,
@@ -440,12 +452,12 @@ public class RingdroidSelectActivity
                                        Uri.parse("record"));
             intent.putExtra("was_get_content_intent",
                             mWasGetContentIntent);
+            
             intent.setClassName(
-                this,
-                "com.ringdroid.RingdroidEditActivity");
+                this, "com.ringdroid.RingdroidEditActivity");
             startActivityForResult(intent, REQUEST_CODE_EDIT);
         } catch (Exception e) {
-            Log.e("Ringdroid", "Couldn't start editor");
+            Log.e("Ringdroid", "Couldn't start editor " + e.getMessage());
         }
     }
 
@@ -463,7 +475,7 @@ public class RingdroidSelectActivity
                 "com.ringdroid.RingdroidEditActivity");
             startActivityForResult(intent, REQUEST_CODE_EDIT);
         } catch (Exception e) {
-            Log.e("Ringdroid", "Couldn't start editor");
+            Log.e("Ringdroid", "Couldn't start editor " + e.getMessage());
         }
     }
 
