@@ -22,6 +22,7 @@ import com.feebe.lib.TabCreator;
 import com.feebe.lib.TabSDKCreator;
 import com.feebe.lib.Util;
 import com.feebee.rings.R;
+import com.lib.RingSelect;
 import com.ringdroid.RingdroidSelectActivity;
 
 public class Ring extends TabActivity implements OnTabChangeListener {
@@ -39,7 +40,7 @@ public class Ring extends TabActivity implements OnTabChangeListener {
       TabCreator.createTab(this, tabHost, hot, getString(R.string.tab_hot), R.drawable.tab_hot);
       Intent me = new Intent(this, StringList.class);
       TabCreator.createTab(this, tabHost, me, getString(R.string.tab_browse), R.drawable.tab_browse);
-      Intent dl = new Intent(this, RingdroidSelectActivity.class);
+      Intent dl = new Intent(this, RingSelect.class);
       TabCreator.createTab(this, tabHost, dl, getString(R.string.tab_download), R.drawable.tab_download);
       Intent search = new Intent(this, SearchTab.class);
       TabCreator.createTab(this, tabHost, search, getString(R.string.tab_search), R.drawable.tab_search);

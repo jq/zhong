@@ -47,7 +47,7 @@
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
         </activity>
 
-        <activity android:name="com.ringdroid.RingdroidSelectActivity" android:label=""
+        <activity android:name="com.lib.RingSelect" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.GET_CONTENT" />
@@ -57,7 +57,7 @@
             </intent-filter>
                   
         </activity>
-        <activity android:name="com.ringdroid.RingdroidEditActivity"
+        <activity android:name="com.lib.RingEditor"
            			android:launchMode="singleTop" 
                   android:configChanges="orientation|keyboardHidden">
             <intent-filter android:label="@string/edit_intent">

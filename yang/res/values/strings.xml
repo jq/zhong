@@ -33,7 +33,15 @@
 	<string name="queue">Ring is in queue, will appear in ring tab after download</string>
 	
 	<string name="menu_unset_ringtone">unset ringtone</string>
-	    
+
+    <!--
+     AlertDialogs
+     -->
+     <string name="alertdialog_select">Select</string>
+     <string name="alertdialog_ok">OK</string>
+     <string name="alertdialog_cancel">Cancel</string>
+     <string name="alertdialog_share">Share</string>
+     	    
     <!--
      used in RingActivity search more listview
      -->
