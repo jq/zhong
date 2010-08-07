@@ -43,6 +43,7 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Handler;
 import android.os.IBinder;
 import android.text.TextUtils;
@@ -659,6 +660,7 @@ public class SearchResultActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		//Debug.stopMethodTracing();
 	}
 	
 	
@@ -1000,17 +1002,6 @@ public class SearchResultActivity extends Activity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			boolean isFooter = (mSearchAdapter == null || position == mSearchAdapter.displaySize());
-			//boolean isFooter = (position == mSearchAdapter.displaySize());
-			
-			/*
-			if (Utils.DEBUG) {
-				if (mSearchAdapter == null) {
-					Utils.D("mSearchAdapter is null");
-				} else {
-					Utils.D("position = " + position + ", size = " + mSearchAdapter.displaySize() + ", count = " + getCount() + ", footer = " + isFooter);
-				}
-			}
-			*/
 			
 			if (isFooter) {
 				ListStatusView footerView = (ListStatusView) convertView;

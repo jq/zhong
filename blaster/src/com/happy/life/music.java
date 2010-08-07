@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -176,6 +177,18 @@ public class music extends Activity {
     }
     
     @Override
+    public void onStart() {
+    	super.onStart();
+    }
+    
+    
+    @Override
+    public void onStop() {
+    	super.onStop();
+    	//Debug.stopMethodTracing();
+    }
+    
+    @Override
     public void onResume() {
     	super.onResume();
     	if (Utils.isNetworkAvailable(this)) {
@@ -249,6 +262,13 @@ public class music extends Activity {
             Intent i = new Intent(this, RingSelectActivity.class);
             this.startActivity(i);
             break;
+            
+        /*
+        case R.id.exit:
+        	System.exit(0);
+        	break;
+       	*/
+        
         case R.id.about:
         	new AlertDialog.Builder(this)
         	.setTitle(R.string.about)

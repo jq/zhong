@@ -59,4 +59,5 @@
     <string name="updater_dialog_title">New update available</string> 
     <string name="updater_dialog_message">A new version is available for downloading. Click on \"Download\" below to download.</string>
     <string name="about">About</string>
+    <string name="exit">Exit</string>
 </resources>

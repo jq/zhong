@@ -3,6 +3,7 @@ package com.happy.life;
 import com.limegroup.gnutella.util.StringUtils;
 
 import android.app.Activity;
+import android.os.Debug;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -57,6 +58,7 @@ public class SearchBar {
 		Utils.D("start search");
 
 		if (!TextUtils.isEmpty(query)) {
+	    	//Debug.startMethodTracing("blaster");
 			SearchResultActivity.handleMp3ListSimpleIntent(mActivity, query);
 		}
 	}
