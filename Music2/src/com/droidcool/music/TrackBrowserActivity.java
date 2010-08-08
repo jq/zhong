@@ -902,7 +902,7 @@ public class TrackBrowserActivity extends ListActivity
             menu.add(0, PLAY_ALL, 0, R.string.play_all).setIcon(R.drawable.ic_menu_play_clip);
         }
         if ("nowplaying".equals(mPlaylist)) {
-	        menu.add(0, SHUFFLE_NOW_PLAYING, 0, R.string.shuffle_now_playing);
+	        menu.add(0, SHUFFLE_NOW_PLAYING, 0, R.string.shuffle_now_playing).setIcon(R.drawable.ic_menu_shuffle_playing);
         }
         menu.add(0, PARTY_SHUFFLE, 0, R.string.party_shuffle); // icon will be set in onPrepareOptionsMenu()
         menu.add(0, SHUFFLE_ALL, 0, R.string.shuffle_all).setIcon(R.drawable.ic_menu_shuffle);

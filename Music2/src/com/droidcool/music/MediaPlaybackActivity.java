@@ -353,17 +353,17 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
         Intent i = new Intent();
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         i.setAction(MediaStore.INTENT_ACTION_MEDIA_SEARCH);
-        i.putExtra(SearchManager.QUERY, query);
+        i.putExtra(SearchManager.QUERY, MusicUtils.convertGBK(query));
         if(knownartist) {
-            i.putExtra(MediaStore.EXTRA_MEDIA_ARTIST, artist);
+            i.putExtra(MediaStore.EXTRA_MEDIA_ARTIST, MusicUtils.convertGBK(artist));
         }
         if(knownalbum) {
-            i.putExtra(MediaStore.EXTRA_MEDIA_ALBUM, album);
+            i.putExtra(MediaStore.EXTRA_MEDIA_ALBUM, MusicUtils.convertGBK(album));
         }
-        i.putExtra(MediaStore.EXTRA_MEDIA_TITLE, song);
+        i.putExtra(MediaStore.EXTRA_MEDIA_TITLE, MusicUtils.convertGBK(song));
         i.putExtra(MediaStore.EXTRA_MEDIA_FOCUS, mime);
 
-        startActivity(Intent.createChooser(i, title));
+        startActivity(Intent.createChooser(i, MusicUtils.convertGBK(title.toString())));
         return true;
     }
 
