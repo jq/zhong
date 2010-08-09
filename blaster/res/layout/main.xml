@@ -22,23 +22,42 @@ xmlns:app="http://schemas.android.com/apk/res/com.happy.life"
 	<include layout="@layout/search"/>
 	
     <include layout_height="wrap_content" layout="@layout/ads"/>  
+    
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+    
 	<Button android:id="@+id/downloads_button"
-	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
+	        android:layout_width="0dip"
+	        android:layout_weight="1"
 	        android:text="@string/downloads"
 		    android:layout_gravity="left"
 	        />
+   	<Button android:id="@+id/music_library"
+       android:layout_height="wrap_content"
+       android:layout_width="0dip"
+       android:layout_weight="1"
+       android:drawablePadding="2dip"
+       android:text="@string/my_library"
+    android:layout_gravity="right" />
+	</LinearLayout>
+	
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+
 	<Button android:id="@+id/advance_search_button"
-	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
+	        android:layout_width="0dip"
+	        android:layout_weight="1"
 	        android:text="@string/advance_search"
 		    android:layout_gravity="left"
 	        />
+	
 	<Button android:id="@+id/ring_button"
-	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
+	        android:layout_width="0dip"
+	        android:layout_weight="1"
 	        android:drawablePadding="2dip"
 	        android:text="@string/ring"
 		    android:layout_gravity="right" />
+	</LinearLayout>
 </LinearLayout>
 </ScrollView>

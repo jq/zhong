@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.droidcool.music.MediaPlaybackActivity;
 import com.limegroup.gnutella.Downloader;
 import com.limegroup.gnutella.downloader.AlreadyDownloadingException;
 
@@ -215,8 +216,7 @@ public class DownloadActivity extends ListActivity {
     		return;
 
     	try {
-	    	Intent intent = new Intent(Intent.ACTION_VIEW);
-	    	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			Intent intent = new Intent(this, MediaPlaybackActivity.class);
 	    	if(info instanceof P2pDownloadInfo)
 	    	  intent.setDataAndType(
 	    			Uri.parse("file://" + ((P2pDownloadInfo) info).getDownloader().getFile().getAbsolutePath()), "audio");

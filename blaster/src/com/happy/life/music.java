@@ -1,5 +1,6 @@
 package com.happy.life;
 
+import com.droidcool.music.TrackBrowserActivity;
 import com.happy.life.updater.AppUpdater;
 import com.happy.life.updater.UpdateInfo;
 import com.limegroup.gnutella.RouterService;
@@ -129,6 +130,15 @@ public class music extends Activity {
 			@Override
 			public void onClick(View arg0) {
 	            Intent i = new Intent(music.this, RingSelectActivity.class);
+	            startActivity(i);
+			}
+        });
+        
+        Button libraryButton = (Button)findViewById(R.id.music_library);
+        libraryButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+	            Intent i = new Intent(music.this, TrackBrowserActivity.class);
 	            startActivity(i);
 			}
         });

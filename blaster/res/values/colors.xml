@@ -5,4 +5,6 @@
 <color name="download_pending">#1E90FF</color>
 <color name="download_stopped">#FF8C00</color>
 <color name="music_filename">#008B8B</color>
+
+<color name="appwidget_text">#ffffffff</color>
 </resources>

@@ -22,10 +22,10 @@
         <activity android:name=".EulaActivity" android:theme="@android:style/Theme.Light"/>
         <service android:name=".DownloadService"></service>
         <service android:name=".MiniServer"></service>
-	<meta-data android:value="a14bde108d3ecc3" android:name="ADMOB_PUBLISHER_ID" />
+		<meta-data android:value="a14bde108d3ecc3" android:name="ADMOB_PUBLISHER_ID" />
 
         
-                <!-- Main activity that's launched when the user opens Ringdroid. -->
+        <!-- Main activity that's launched when the user opens Ringdroid. -->
         <activity android:name="com.other.RingSelectActivity"
                   android:label="@string/main_activity_label">
             <intent-filter>
@@ -53,19 +53,63 @@
         <activity android:name="com.ringdroid.ChooseContactActivity"
                   android:configChanges="orientation|keyboardHidden">
         </activity>
+        
+        <activity android:name="com.droidcool.music.TrackBrowserActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.EDIT" />
+                <action android:name="android.intent.action.PICK" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.droidcool.cursor.dir/track"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.droidcool.music.ScanningProgress"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity android:name="com.droidcool.music.DeleteItems"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity android:name="com.droidcool.music.CreatePlaylist"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity android:name="com.droidcool.music.MediaPlaybackActivity"
+                android:theme="@android:style/Theme.NoTitleBar"
+                android:label="@string/mediaplaybacklabel"
+                android:taskAffinity=""
+                android:launchMode="singleTask"
+                android:clearTaskOnLaunch="true"
+                android:excludeFromRecents="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="content"/>
+                <data android:scheme="file"/>
+                <data android:mimeType="audio/*"/>
+                <data android:mimeType="application/ogg"/>
+                <data android:mimeType="application/x-ogg"/>
+                <data android:mimeType="application/itunes"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.droidcool.music.PLAYBACK_VIEWER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+        <service android:name="com.droidcool.music.MediaPlaybackService" android:exported="false" />
     </application>
-    <uses-sdk android:minSdkVersion="3" />
+    <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="8"/>
 	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
 	
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<!--
 	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	-->
 	<uses-permission android:name="android.permission.READ_CONTACTS" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 	<uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+ 
+    <!-- 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+     -->
+     
     <!--
     <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS"/>
     <uses-permission android:name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/> 
