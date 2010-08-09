@@ -325,7 +325,7 @@ public class RingActivity extends Activity {
 					String filePath = ring.getString("filePath");
 					Intent intent = new Intent(Intent.ACTION_EDIT, Uri.parse(filePath));
 					intent.putExtra("was_get_content_intent",false);
-					intent.setClassName("com.feebe.rings","com.ringdroid.RingdroidEditActivity");
+					intent.setClassName("com.feebe.rings","com.lib.RingEditor");
 					startActivity(intent);
 				} catch (JSONException e) {
 					e.printStackTrace();
