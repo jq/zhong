@@ -46,6 +46,32 @@
         <activity android:name="StringList" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
         </activity>
+        
+        
+        <activity android:name="SingerLibrary" android:label="Singer Library"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+     		</activity>    
+        <activity android:name="SLMale" android:label="Singer Library: Male Artist"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+     		</activity>    
+        <activity android:name="SLFemale" android:label="Singer Library: Female Artist"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+	     	</activity>    
+	     	<activity android:name="SLBand" android:label="Singer Library: Band"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+	     	</activity>  
+	     	<activity android:name="Artist" android:label="Artist Information"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+     		</activity>
+     		<activity android:name=".BbHotChart" android:label="The most popular songs"
+                  android:configChanges="keyboardHidden|orientation"
+				  >
+     		</activity>   
 
         <activity android:name="com.lib.RingSelect" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">

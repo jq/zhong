@@ -9,8 +9,8 @@ import org.json.JSONObject;
 import com.feebe.lib.BaseList;
 import com.feebe.lib.UrlArrayAdapter;
 
-
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,23 +26,38 @@ public class StringList extends BaseList {
   private static final int ARTIST_TYPE = 1;
   private static final int TOP_TYPE = 2;
   private static final int Latest_TYPE = 3;
+  private static final int ARTIST_LIB_TYPE = 4;
+  private static final int BBHOTCHART_TYPE = 5;
   
   @Override
   public ListAdapter getAdapter() {
     mAdapter = new StringAdapter(this, android.R.layout.simple_list_item_1);
     return mAdapter;
   }
+  
+  private static final String[] BbHotChartStr = {
+    "yahootop", "bhot100","bhiphop", "bcountry", "bmodernrock", "bdanceclub","brap","bpop","bmainrock"
+  };
 
   @Override
   public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
   	Item cate = mAdapter.getItem(pos);
     Search s;
-    if (cate.type == CATE_TYPE) {
+    if (cate.type == ARTIST_LIB_TYPE) {
+        Intent intent = new Intent();
+        intent.setClass(this, SingerLibrary.class);
+        startActivityForResult(intent, 1);
+    } else if (cate.type == BBHOTCHART_TYPE) {
+        Intent intent = new Intent();
+        intent.putExtra("type", BbHotChartStr[pos - 1]);
+        intent.setClass(this, BbHotChart.class);
+        startActivityForResult(intent, 1);
+    } else if (cate.type == CATE_TYPE) {
     	Search.getCate(this, cate.name);
     } else if (cate.type == ARTIST_TYPE) {
     	Search.getArtistRing(this, cate.name);
     } else if (cate.type == Latest_TYPE){
-      Search.startSearchList(this, LATEST, 0);
+        Search.startSearchList(this, LATEST, 0);
     } else {
     	Search.startSearchList(this, TOPDOWNLOAD, Const.OneDay);
     }
@@ -61,6 +76,9 @@ public class StringList extends BaseList {
 
     public StringAdapter(Context context, int resource) {
       super(context, resource);
+      add(new Item("Artist Library", ARTIST_LIB_TYPE));
+      add(new Item("Yahoo! Music Top Songs", BBHOTCHART_TYPE));
+      add(new Item("Billboard Top 100", BBHOTCHART_TYPE));
       add(new Item("Top download", TOP_TYPE));
       add(new Item("Latest Rings", Latest_TYPE));
 

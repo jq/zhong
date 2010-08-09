@@ -229,6 +229,20 @@ public class Util {
   	return null;
   }
   
+  public static String downloadAndCache(String url, long expire) {
+    String httpresponse = null;
+    boolean inCache = inCache(url, expire);
+    if (inCache) {
+        return readFile(Const.cachedir+Util.getHashcode(url));
+    } else {
+        httpresponse = Util.download(url);
+    }
+    if (httpresponse!=null && httpresponse.length()>0) {
+        saveFileInThread(httpresponse, Const.cachedir+Util.getHashcode(url));
+    }
+    return httpresponse;
+  }
+  
   public static boolean inCache(String urlStr, long expire) {
     File cache = null;
     if (expire > 0) {
