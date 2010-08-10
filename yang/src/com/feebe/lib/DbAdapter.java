@@ -19,7 +19,7 @@ public class DbAdapter {
   public final static int TYPE_TITLE = 1;
   public final static int TYPE_ARTIST = 2;
 
-	private SQLiteDatabase db;
+	private SearchDBHelper db;
 	private final static int DB_VERSION = 4;
 	
 	private static class SearchDBHelper extends SQLiteOpenHelper{
@@ -52,8 +52,7 @@ public class DbAdapter {
 	
 	
 	public DbAdapter(Context ctx) {
-	  SearchDBHelper dbHelp = new SearchDBHelper(ctx, "db");
-    db = dbHelp.getWritableDatabase();
+	  db  = new SearchDBHelper(ctx, "db");
 	};
 	
 	public void close() {
@@ -64,7 +63,8 @@ public class DbAdapter {
 		ContentValues cv = new ContentValues();
 		cv.put(SearchManager.SUGGEST_COLUMN_TEXT_1, key);
 		cv.put(TYPE, type);
-		db.insert(TableHistory, null, cv);
+		
+		db.getWritableDatabase().insert(TableHistory, null, cv);
 	}
   private static final String[] projection_key = new String[] {"_id", SearchManager.SUGGEST_COLUMN_TEXT_1, 
 	  SearchManager.SUGGEST_COLUMN_TEXT_1 + " AS \"" + SearchManager.SUGGEST_COLUMN_INTENT_DATA + "\""
@@ -72,11 +72,11 @@ public class DbAdapter {
 	
 	public Cursor getHistoryByType(String key, int type){
 		String selection = "type = " + type + " and " + SearchManager.SUGGEST_COLUMN_TEXT_1 + " like \'" + key +"%\'";
-    return db.query(TableHistory, projection_key, selection, null, null, null, null);
+    return db.getReadableDatabase().query(TableHistory, projection_key, selection, null, null, null, null);
 	}
   public Cursor getHistoryByType(int type){
 	  String selection = "type = " + type;
-	  return db.query(TableHistory, projection_key, selection, null, null, null, null);
+	  return db.getReadableDatabase().query(TableHistory, projection_key, selection, null, null, null, null);
 	}
 
 }

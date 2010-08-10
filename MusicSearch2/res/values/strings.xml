@@ -28,11 +28,13 @@
 	  Music activity
 	 -->
 	 <string name="play">Play</string>
-	 
+	 	 <string name="play_error">Error</string>
+	 	 	 <string name="save_success_message">Save success</string>
 	 
 	 <!-- 
 	 	getLinkProgressDialog
 	  -->
+    <string name="download_failed">download failed</string>
 	  <string name="get_download_link">Get download link, Please wait...</string>
     <!--	new ringdroid-->
     <string name="menu_about">About</string>

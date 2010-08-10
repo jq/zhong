@@ -54,7 +54,10 @@ public abstract class SearchProvider extends ContentProvider {
     public boolean onCreate() {
 //        Resources resources = getContext().getResources();
 //        Dictionary.getInstance().ensureLoaded(resources);
-        return true;
+      if (Const.dbAdapter == null){
+        Const.dbAdapter = new DbAdapter(this.getContext());
+      }
+      return true;
     }
 
     @Override
@@ -79,16 +82,16 @@ public abstract class SearchProvider extends ContentProvider {
                       MatrixCursor cursor = new MatrixCursor(COLUMNS);
                       return getSuggestions(query, cursor);
                     } else if (len > 0) {
-                      //// Log.e("search", query);
+                      //Log.e("search", query);
                       Cursor c = Const.dbAdapter.getHistoryByType(query, DbAdapter.TYPE_SEARCH);
-                      //// Log.e(query, " " + c.getCount());
+                      //Log.e(query, " " + c.getCount());
 
                       return c;
                     }
                     return null;
                 } else {
                   Cursor c = Const.dbAdapter.getHistoryByType(DbAdapter.TYPE_SEARCH);
-                  // Log.e("cur", " " + c.getCount());
+                  //Log.e("cur", " " + c.getCount());
                   return c;
                 }
                 /*

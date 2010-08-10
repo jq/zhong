@@ -33,6 +33,7 @@
 	<string name="queue">Ring is in queue, will appear in ring tab after download</string>
 	
 	<string name="menu_unset_ringtone">unset ringtone</string>
+    <string name="menu_search">Search</string>
 
     <!--
      AlertDialogs

@@ -74,7 +74,7 @@ public class Const {
 	    Toast.makeText(main, no_result,Toast.LENGTH_SHORT).show();
   }
   public static void init(Activity c) {
-	main = c;
+	  main = c;
   	//downloadDb = new DownloadProvider(c);
     File sdcardRoot = Environment.getExternalStorageDirectory();
     dbAdapter = new DbAdapter(c);
