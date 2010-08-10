@@ -19,6 +19,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.widget.Toast;
 
 public class Const  {
@@ -59,10 +60,12 @@ public class Const  {
   public static String homedir;
   public static String cachedir;
   public static final int ver = Integer.parseInt(Build.VERSION.SDK);
-  
+  public static volatile Handler sHandler;
+
   public static void init(Activity c) {
-	if (main != null) return;
-	main = c;
+	  if (main != null) return;
+	  sHandler = new Handler();
+	  main = c;
     File sdcardRoot = Environment.getExternalStorageDirectory();
     dbAdapter = new DbAdapter(c);
     File homeDir = new File(sdcardRoot, appname);

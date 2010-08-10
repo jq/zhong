@@ -43,10 +43,7 @@ public class MusicUtil {
   //public static final String //SogouSearchBase = "http://mp3.sogou.com/music.so?pf=mp3&as=&st=&ac=1&w=02009900&query=";
   //http://mp3.sogou.com/music.so?pf=&as=&st=&ac=1&w=02009900&query=
   public static final String  SogouSearchBase = "http://mp3.sogou.com/music.so?pf=mp3&query=";
-	//private static final String URL_SEARCH_PROXY = "http://feebe.appspot.com/msearch/music.so?pf=mp3&query=";
-
-  private static volatile Handler sHandler = new Handler();
-  
+	//private static final String URL_SEARCH_PROXY = "http://feebe.appspot.com/msearch/music.so?pf=mp3&query=";  
   public static String getSogouLinks(String key) {
 		String reqString = null;
 		try {
@@ -131,7 +128,7 @@ public static void setStingKey(String key, String value) {
   private static boolean loadUrl(final Context context, final String url, final HtmlData data) {
       final Signal s = new Signal();
       s.ready = false;
-      sHandler.post(new Runnable() {
+      Const.sHandler.post(new Runnable() {
           @Override
           public void run() {
               WebView web = new WebView(context);
