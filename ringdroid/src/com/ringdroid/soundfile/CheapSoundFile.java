@@ -230,4 +230,11 @@ public class CheapSoundFile {
     public void WriteFile(File outputFile, int startFrame, int numFrames)
             throws java.io.IOException {
     }
+    public void CutFile(File outputFile, int startFrame1, int numFrames1, int startFrame2, int numFrames2)
+            throws java.io.IOException {
+    }
+    public boolean MergeFile(File inputFile, File outputFile)
+            throws java.io.IOException {
+      return false;
+    }
 };

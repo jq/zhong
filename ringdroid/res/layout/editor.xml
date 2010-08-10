@@ -153,11 +153,20 @@
          android:layout_width="52dip"
          android:layout_height="52dip"
          android:src="@drawable/menu_save" />
+         
+        <ImageButton android:id="@+id/cut"
+         android:layout_width="52dip"
+         android:layout_height="52dip"
+         android:src="@drawable/menu_cut" />
+         
+        <ImageButton android:id="@+id/append"
+         android:layout_width="52dip"
+         android:layout_height="52dip"
+         android:src="@drawable/menu_append" />
 
       </LinearLayout>
 
-      <LinearLayout style="@style/VerticalDividerLeft" />
-      <LinearLayout style="@style/VerticalDividerRight" />
+
 
    </LinearLayout>
     <include layout_height="wrap_content" layout="@layout/ads"/>  

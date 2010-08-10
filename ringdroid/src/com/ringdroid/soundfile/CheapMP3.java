@@ -20,6 +20,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
+import android.util.Log;
+
 /**
  * CheapMP3 represents an MP3 file by doing a "cheap" scan of the file,
  * parsing the frame headers only and getting an extremely rough estimate
@@ -208,7 +210,11 @@ public class CheapMP3 extends CheapSoundFile {
             // From here on we assume the frame is good
             mGlobalSampleRate = sampleRate;
             int padding = (buffer[2] & 2) >> 1;
-            int frameLen = 144 * bitRate * 1000 / sampleRate + padding;
+            int frameLen;
+            if(mpgVersion == 1)
+              frameLen = 144 * bitRate * 1000 / sampleRate + padding;
+            else
+              frameLen = 72 * bitRate * 1000 / sampleRate + padding;
 
             int gain;
             if ((buffer[3] & 0xC0) == 0xC0) {
@@ -309,6 +315,112 @@ public class CheapMP3 extends CheapSoundFile {
         }
         in.close();
         out.close();
+    }
+    
+    public boolean MergeFile(File appendFile, File outputFile)
+            throws java.io.IOException {
+      if(!appendFile.getName().endsWith("mp3"))
+        return false;
+      CheapMP3 appendMP3 = new CheapMP3();
+      appendMP3.ReadFile(appendFile);
+      
+      //cannot merge
+      if(!(appendMP3.getSampleRate() == mGlobalSampleRate &&
+          appendMP3.getChannels() == mGlobalChannels &&
+          appendMP3.getAvgBitrateKbps() == mAvgBitRate))
+        return false;
+      
+      outputFile.createNewFile();
+      FileInputStream in1 = new FileInputStream(mInputFile);
+      FileInputStream in2 = new FileInputStream(appendFile);
+      FileOutputStream out = new FileOutputStream(outputFile);
+         
+      //write original mp3
+      int maxFrameLen = 0;
+      for (int i = 0; i < mNumFrames; i++) {
+          if (mFrameLens[i] > maxFrameLen)
+              maxFrameLen = mFrameLens[i];
+      }
+      int pos = 0;
+      byte[] buffer = new byte[maxFrameLen];
+      for (int i = 0; i < mNumFrames; i++) {
+        int skip = mFrameOffsets[i] - pos;
+        int len = mFrameLens[i];
+        if (skip > 0) {
+            in1.skip(skip);
+            pos += skip;
+        }
+        in1.read(buffer, 0, len);
+        out.write(buffer, 0, len);
+        pos += len;
+      }
+      
+      //append mp3
+      maxFrameLen = 0;
+      for (int i = 0; i < appendMP3.getNumFrames(); i++) {
+        if (appendMP3.getFrameLens()[i] > maxFrameLen)
+            maxFrameLen = appendMP3.getFrameLens()[i];
+      }
+      pos = 0;
+      byte[] buffer2 = new byte[maxFrameLen];
+      for (int i = 0; i < appendMP3.getNumFrames(); i++) {
+        int skip = appendMP3.getFrameOffsets()[i] - pos;
+        int len = appendMP3.getFrameLens()[i];
+        if (skip > 0) {
+            in2.skip(skip);
+            pos += skip;
+        }
+        in2.read(buffer2, 0, len);
+        out.write(buffer2, 0, len);
+        pos += len;
+      }
+
+      in1.close();
+      in2.close();
+      out.close();
+      return true;
+    }
+    
+    public void CutFile(File outputFile, int startFrame1, int numFrames1, int startFrame2, int numFrames2)
+            throws java.io.IOException {
+      outputFile.createNewFile();
+      FileInputStream in = new FileInputStream(mInputFile);
+      FileOutputStream out = new FileOutputStream(outputFile);
+      int maxFrameLen = 0;
+      for (int i = 0; i  < numFrames1; i++) {
+        if (mFrameLens[startFrame1 + i] > maxFrameLen)
+          maxFrameLen = mFrameLens[startFrame1 + i];
+      }
+      for (int i = 0; i  < numFrames2; i++) {
+        if (mFrameLens[startFrame2 + i] > maxFrameLen)
+          maxFrameLen = mFrameLens[startFrame2 + i];
+      }
+      byte[] buffer = new byte[maxFrameLen];
+      int pos = 0;
+      for (int i = 0; i < numFrames1; i++) {
+        int skip = mFrameOffsets[startFrame1 + i] - pos;
+        int len = mFrameLens[startFrame1 + i];
+        if (skip > 0) {
+            in.skip(skip);
+            pos += skip;
+        }
+        in.read(buffer, 0, len);
+        out.write(buffer, 0, len);
+        pos += len;
+      }
+      for (int i = 0; i < numFrames2; i++) {
+        int skip = mFrameOffsets[startFrame2 + i] - pos;
+        int len = mFrameLens[startFrame2 + i];
+        if (skip > 0) {
+            in.skip(skip);
+            pos += skip;
+        }
+        in.read(buffer, 0, len);
+        out.write(buffer, 0, len);
+        pos += len;
+      }
+      in.close();
+      out.close();
     }
 
     static private int BITRATES_MPEG1_L3[] = {

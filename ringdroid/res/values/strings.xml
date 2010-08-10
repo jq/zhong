@@ -137,6 +137,8 @@
 
     <string name="bad_extension_error">Sorry, ringtone is not yet able to edit files of type</string>
     <string name="no_extension_error">Sorry, ringtone can not edit a file if it does not have an extension like .mp3 or .wav</string>
+    
+    <string name="merge_error">Sorry, cannot merge different types</string>
 
     <!--
      Choose Contact Activity
@@ -167,4 +169,7 @@
     <string name="use_all">Use all</string>
     <string name="alertdialog_cancel">Cancel</string>
     <string name="ring_picker_title">Select Ring</string>
+    
+    
+    <string name="choose_ring_title">Choose one to append</string>
 </resources>

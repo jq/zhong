@@ -517,6 +517,136 @@ public class CheapAMR extends CheapSoundFile {
         in.close();
         out.close();
     }
+    
+    public boolean MergeFile(File appendFile, File outputFile)
+            throws java.io.IOException {
+      if(!appendFile.getName().endsWith("3gpp"))
+        return false;
+      CheapAMR appendAMR = new CheapAMR();
+      appendAMR.ReadFile(appendFile);
+      
+      outputFile.createNewFile();
+      FileInputStream in1 = new FileInputStream(mInputFile);
+      FileInputStream in2 = new FileInputStream(appendFile);
+      FileOutputStream out = new FileOutputStream(outputFile); 
+      
+      byte[] header = new byte[6];
+      header[0] = '#';
+      header[1] = '!';
+      header[2] = 'A';
+      header[3] = 'M';
+      header[4] = 'R';
+      header[5] = '\n';
+      out.write(header, 0, 6);
+      
+      //write original AMR
+      int maxFrameLen = 0;
+      for (int i = 0; i < mNumFrames; i++) {
+          if (mFrameLens[i] > maxFrameLen)
+              maxFrameLen = mFrameLens[i];
+      }
+      byte[] buffer = new byte[maxFrameLen];
+      int pos = 0;
+      for (int i = 0; i < mNumFrames; i++) {
+          int skip = mFrameOffsets[i] - pos;
+          int len = mFrameLens[i];
+          if (skip < 0) {
+              continue;
+          }
+          if (skip > 0) {
+              in1.skip(skip);
+              pos += skip;
+          }
+          in1.read(buffer, 0, len);
+          out.write(buffer, 0, len);
+          pos += len;
+      }
+      
+      //write append AMR
+      maxFrameLen = 0;
+      for (int i = 0; i < appendAMR.getNumFrames(); i++) {
+        if (appendAMR.getFrameLens()[i] > maxFrameLen)
+            maxFrameLen = appendAMR.getFrameLens()[i];
+      }
+      pos = 0;
+      for (int i = 0; i < appendAMR.getNumFrames(); i++) {
+        int skip = appendAMR.getFrameOffsets()[i] - pos;
+        int len = appendAMR.getFrameLens()[i];
+        if (skip < 0) {
+            continue;
+        }
+        if (skip > 0) {
+            in2.skip(skip);
+            pos += skip;
+        }
+        in2.read(buffer, 0, len);
+        out.write(buffer, 0, len);
+        pos += len;
+      }
+      
+      in1.close();
+      in2.close();
+      out.close();
+      return true;
+    }
+    
+    public void CutFile(File outputFile, int startFrame1, int numFrames1, int startFrame2, int numFrames2)
+            throws java.io.IOException {
+      FileInputStream in = new FileInputStream(mInputFile);
+      FileOutputStream out = new FileOutputStream(outputFile);
+
+      byte[] header = new byte[6];
+      header[0] = '#';
+      header[1] = '!';
+      header[2] = 'A';
+      header[3] = 'M';
+      header[4] = 'R';
+      header[5] = '\n';
+      out.write(header, 0, 6);
+
+      int maxFrameLen = 0;
+      for (int i = 0; i < numFrames1; i++) {
+          if (mFrameLens[startFrame1 + i] > maxFrameLen)
+              maxFrameLen = mFrameLens[startFrame1 + i];
+      }
+      for (int i = 0; i < numFrames2; i++) {
+        if (mFrameLens[startFrame2 + i] > maxFrameLen)
+            maxFrameLen = mFrameLens[startFrame2 + i];
+      }
+      byte[] buffer = new byte[maxFrameLen];
+      int pos = 0;
+      for (int i = 0; i < numFrames1; i++) {
+          int skip = mFrameOffsets[startFrame1 + i] - pos;
+          int len = mFrameLens[startFrame1 + i];
+          if (skip < 0) {
+              continue;
+          }
+          if (skip > 0) {
+              in.skip(skip);
+              pos += skip;
+          }
+          in.read(buffer, 0, len);
+          out.write(buffer, 0, len);
+          pos += len;
+      }
+      for (int i = 0; i < numFrames2; i++) {
+        int skip = mFrameOffsets[startFrame2 + i] - pos;
+        int len = mFrameLens[startFrame2 + i];
+        if (skip < 0) {
+            continue;
+        }
+        if (skip > 0) {
+            in.skip(skip);
+            pos += skip;
+        }
+        in.read(buffer, 0, len);
+        out.write(buffer, 0, len);
+        pos += len;
+      }
+
+      in.close();
+      out.close();
+    }
 
     void getMR122Params(int[] bits,
                         int[] adaptiveIndex,

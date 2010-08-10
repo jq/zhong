@@ -64,6 +64,7 @@ import com.ringdroid.soundfile.CheapSoundFile;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -103,6 +104,7 @@ public class RingdroidEditActivity extends Activity implements
 	private String mAlbum;
 	private String mGenre;
 	private String mTitle;
+	private String displayTitle;
 	private int mYear;
 	private String mExtension;
 	private String mRecordingFilename;
@@ -121,6 +123,8 @@ public class RingdroidEditActivity extends Activity implements
 	private ImageButton mZoomInButton;
 	private ImageButton mZoomOutButton;
 	private ImageButton mSaveButton;
+	private ImageButton mCutButton;
+	private ImageButton mAppendButton;
 	private boolean mKeyDown;
 	private String mCaption = "";
 	private int mWidth;
@@ -163,6 +167,7 @@ public class RingdroidEditActivity extends Activity implements
 	// Result codes
 	private static final int REQUEST_CODE_RECORD = 1;
 	private static final int REQUEST_CODE_CHOOSE_CONTACT = 2;
+	private static final int REQUEST_CODE_CHOOSE_RING = 3;
 
 	/**
 	 * This is a special intent action that means "edit a sound file".
@@ -210,6 +215,7 @@ public class RingdroidEditActivity extends Activity implements
 		mRecordingUri = null;
 		mPlayer = null;
 		mIsPlaying = false;
+		displayTitle = null;
 
 		Intent intent = getIntent();
 		mFilename = intent.getData().toString();
@@ -220,6 +226,8 @@ public class RingdroidEditActivity extends Activity implements
 		// they create.
 		mWasGetContentIntent = intent.getBooleanExtra("was_get_content_intent",
 				false);
+		if(intent.hasExtra("displayTitle"))
+		  displayTitle = intent.getStringExtra("displayTitle");
 
 		mSoundFile = null;
 		mKeyDown = false;
@@ -242,6 +250,49 @@ public class RingdroidEditActivity extends Activity implements
 		if (!mFilename.equals("record")) {
 			loadFromFile();
 		}
+	}
+	
+	@Override
+	protected void onNewIntent(Intent intent) {
+	  super.onNewIntent(intent);
+	  mRecordingFilename = null;
+      mRecordingUri = null;
+      mPlayer = null;
+      mIsPlaying = false;
+      displayTitle = null;
+
+      mFilename = intent.getData().toString();
+
+      // If the Ringdroid media select activity was launched via a
+      // GET_CONTENT intent, then we shouldn't display a "saved"
+      // message when the user saves, we should just return whatever
+      // they create.
+      mWasGetContentIntent = intent.getBooleanExtra("was_get_content_intent",
+              false);
+      if(intent.hasExtra("displayTitle"))
+        displayTitle = intent.getStringExtra("displayTitle");
+
+      mSoundFile = null;
+      mKeyDown = false;
+
+      if (mFilename.equals("record")) {
+          try {
+              Intent recordIntent = new Intent(
+                      MediaStore.Audio.Media.RECORD_SOUND_ACTION);
+              startActivityForResult(recordIntent, REQUEST_CODE_RECORD);
+          } catch (Exception e) {
+              showFinalAlert(e, R.string.record_error);
+          }
+      }
+
+      loadGui();
+
+      mHandler = new Handler();
+      mHandler.postDelayed(mTimerRunnable, 100);
+
+      if (!mFilename.equals("record")) {
+          loadFromFile();
+      }
 	}
 
 	/** Called with the activity is finally destroyed. */
@@ -279,6 +330,14 @@ public class RingdroidEditActivity extends Activity implements
 			// they're done.
 			// sendStatsToServerIfAllowedAndFinish();
 			return;
+		}
+		
+		if (requestCode == REQUEST_CODE_CHOOSE_RING) {
+		    if( resultCode == RESULT_OK ) {
+		      String filename = dataIntent.getStringExtra("filename");
+		      onAppend(filename);
+		    }
+		    
 		}
 
 		if (requestCode != REQUEST_CODE_RECORD) {
@@ -622,6 +681,10 @@ public class RingdroidEditActivity extends Activity implements
 		mZoomOutButton.setOnClickListener(mZoomOutListener);
 		mSaveButton = (ImageButton) findViewById(R.id.save);
 		mSaveButton.setOnClickListener(mSaveListener);
+		mCutButton = (ImageButton) findViewById(R.id.cut);
+		mCutButton.setOnClickListener(mCutListener);
+		mAppendButton = (ImageButton) findViewById(R.id.append);
+		mAppendButton.setOnClickListener(mAppendListener);
 
 		TextView markStartButton = (TextView) findViewById(R.id.mark_start);
 		markStartButton.setOnClickListener(mMarkStartListener);
@@ -677,7 +740,11 @@ public class RingdroidEditActivity extends Activity implements
 		if (mArtist != null && mArtist.length() > 0) {
 			titleLabel += " - " + mArtist;
 		}
-		setTitle(Utils.convertGBK(titleLabel));
+
+		if(displayTitle == null) {
+		  displayTitle = titleLabel;
+		}
+		setTitle(Utils.convertGBK(displayTitle));
 
 		mLoadingStartTime = System.currentTimeMillis();
 		mLoadingLastUpdateTime = System.currentTimeMillis();
@@ -1612,6 +1679,83 @@ public class RingdroidEditActivity extends Activity implements
 			}
 		}
 	};
+	
+	private OnClickListener mCutListener = new OnClickListener() {
+      
+      @Override
+      public void onClick(View v) {
+        onCut();
+      }
+    };
+    
+    private OnClickListener mAppendListener = new OnClickListener() {
+      
+      @Override
+      public void onClick(View v) {
+        Intent intent = new Intent(RingdroidEditActivity.this, ChooseRingActivity.class);
+        startActivityForResult(intent, REQUEST_CODE_CHOOSE_RING);
+      }
+    };
+    
+    private void onCut() {
+      double startTime = mWaveformView.pixelsToSeconds(mStartPos);
+      double endTime = mWaveformView.pixelsToSeconds(mEndPos);
+      final int startFrame = mWaveformView.secondsToFrames(startTime);
+      final int endFrame = mWaveformView.secondsToFrames(endTime);
+      final int duration = (int) (endTime - startTime + 0.5);
+      
+      String fileExtention = mFilename.substring(mFilename.lastIndexOf("."));
+      File outFile = new File("/sdcard/ringdroidTemp1" + fileExtention);
+      if(outFile.getAbsolutePath().equals(mFilename)) {
+        outFile = new File("/sdcard/ringdroidTemp2" + fileExtention);
+      }
+      if (outFile.exists()) {
+        outFile.delete();
+      }
+      try {
+        mSoundFile.CutFile(outFile, 0, startFrame, endFrame, mSoundFile.getNumFrames() - endFrame);
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      Intent intent = new Intent(Intent.ACTION_EDIT, Uri.parse(outFile.getAbsolutePath()));
+      intent.putExtra("was_get_content_intent", mWasGetContentIntent);
+      intent.putExtra("displayTitle", displayTitle);
+      //intent.setClassName(RingdroidEditActivity.this, "com.ringdroid.RingdroidEditActivity");
+      //startActivityForResult(intent, 0);
+      intent.setClass(RingdroidEditActivity.this, com.ringdroid.RingdroidEditActivity.class);
+      startActivity(intent);
+    }
+    
+    private void onAppend(String filename) {
+      boolean canMerge = false;
+      File appendFile = new File(filename);
+      String fileExtention = mFilename.substring(mFilename.lastIndexOf("."));
+      File outFile = new File("/sdcard/ringdroidTemp3" + fileExtention);
+      if(outFile.getAbsolutePath().equals(mFilename)) {
+        outFile = new File("/sdcard/ringdroidTemp4" + fileExtention);
+      }
+      if( !appendFile.exists()) {
+        Log.e("RingdroidEditActivity", "error");
+        return;
+      }
+      try {
+        canMerge = mSoundFile.MergeFile(appendFile, outFile);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      if(!canMerge) {
+        Toast.makeText(this, R.string.merge_error, Toast.LENGTH_SHORT).show();
+        return;
+      }
+      Intent intent = new Intent(Intent.ACTION_EDIT, Uri.parse(outFile.getAbsolutePath()));
+      intent.putExtra("was_get_content_intent", mWasGetContentIntent);
+      intent.putExtra("displayTitle", displayTitle);
+      //intent.setClassName(RingdroidEditActivity.this, "com.ringdroid.RingdroidEditActivity");
+      //startActivityForResult(intent, 0);
+      intent.setClass(RingdroidEditActivity.this, com.ringdroid.RingdroidEditActivity.class);
+      startActivity(intent);
+    }
 
 	private OnClickListener mPlayListener = new OnClickListener() {
 		public void onClick(View sender) {

@@ -304,4 +304,104 @@ public class CheapWAV extends CheapSoundFile {
         in.close();
         out.close();
     }
+    
+    public void CutFile(File outputFile, int startFrame1, int numFrames1, int startFrame2, int numFrames2)
+            throws java.io.IOException {
+      outputFile.createNewFile();
+      FileInputStream in = new FileInputStream(mInputFile);
+      FileOutputStream out = new FileOutputStream(outputFile);
+
+      long totalAudioLen = 0;
+      for (int i = 0; i < numFrames1; i++) {
+          totalAudioLen += mFrameLens[startFrame1 + i];
+      }
+      for (int i = 0; i < numFrames2; i++) {
+          totalAudioLen += mFrameLens[startFrame2 + i];
+      }
+
+      long totalDataLen = totalAudioLen + 36;
+      long longSampleRate = mSampleRate;
+      long byteRate = mSampleRate * 2 * mChannels;
+      
+      byte[] header = new byte[44];
+      header[0] = 'R';  // RIFF/WAVE header
+      header[1] = 'I';
+      header[2] = 'F';
+      header[3] = 'F';
+      header[4] = (byte) (totalDataLen & 0xff);
+      header[5] = (byte) ((totalDataLen >> 8) & 0xff);
+      header[6] = (byte) ((totalDataLen >> 16) & 0xff);
+      header[7] = (byte) ((totalDataLen >> 24) & 0xff);
+      header[8] = 'W';
+      header[9] = 'A';
+      header[10] = 'V';
+      header[11] = 'E';
+      header[12] = 'f';  // 'fmt ' chunk
+      header[13] = 'm';
+      header[14] = 't';
+      header[15] = ' ';
+      header[16] = 16;  // 4 bytes: size of 'fmt ' chunk
+      header[17] = 0;
+      header[18] = 0;
+      header[19] = 0;
+      header[20] = 1;  // format = 1
+      header[21] = 0;
+      header[22] = (byte) mChannels;
+      header[23] = 0;
+      header[24] = (byte) (longSampleRate & 0xff);
+      header[25] = (byte) ((longSampleRate >> 8) & 0xff);
+      header[26] = (byte) ((longSampleRate >> 16) & 0xff);
+      header[27] = (byte) ((longSampleRate >> 24) & 0xff);
+      header[28] = (byte) (byteRate & 0xff);
+      header[29] = (byte) ((byteRate >> 8) & 0xff);
+      header[30] = (byte) ((byteRate >> 16) & 0xff);
+      header[31] = (byte) ((byteRate >> 24) & 0xff);
+      header[32] = (byte) (2 * mChannels);  // block align
+      header[33] = 0;
+      header[34] = 16;  // bits per sample
+      header[35] = 0;
+      header[36] = 'd';
+      header[37] = 'a';
+      header[38] = 't';
+      header[39] = 'a';
+      header[40] = (byte) (totalAudioLen & 0xff);
+      header[41] = (byte) ((totalAudioLen >> 8) & 0xff);
+      header[42] = (byte) ((totalAudioLen >> 16) & 0xff);
+      header[43] = (byte) ((totalAudioLen >> 24) & 0xff);
+      out.write(header, 0, 44);
+      
+      byte[] buffer = new byte[mFrameBytes];
+      int pos = 0;
+      for (int i = 0; i < numFrames1; i++) {
+          int skip = mFrameOffsets[startFrame1 + i] - pos;
+          int len = mFrameLens[startFrame1 + i];
+          if (skip < 0) {
+              continue;
+          }
+          if (skip > 0) {
+              in.skip(skip);
+              pos += skip;
+          }
+          in.read(buffer, 0, len);
+          out.write(buffer, 0, len);
+          pos += len;
+      }
+      for (int i = 0; i < numFrames2; i++) {
+          int skip = mFrameOffsets[startFrame2 + i] - pos;
+          int len = mFrameLens[startFrame2 + i];
+          if (skip < 0) {
+              continue;
+          }
+          if (skip > 0) {
+              in.skip(skip);
+              pos += skip;
+          }
+          in.read(buffer, 0, len);
+          out.write(buffer, 0, len);
+          pos += len;
+      }
+
+      in.close();
+      out.close();
+    }
 };

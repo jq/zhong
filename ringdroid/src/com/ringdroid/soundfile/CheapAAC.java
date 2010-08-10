@@ -750,6 +750,209 @@ public class CheapAAC extends CheapSoundFile {
         in.close();
         out.close();
     }
+    
+    public void CutFile(File outputFile, int startFrame1, int numFrames1, int startFrame2, int numFrames2)
+            throws java.io.IOException {
+      int numFrames = startFrame1 + startFrame2;
+      outputFile.createNewFile();
+      FileInputStream in = new FileInputStream(mInputFile);
+      FileOutputStream out = new FileOutputStream(outputFile);
+
+      SetAtomData(kFTYP, new byte[] {
+              'M', '4', 'A', ' ',
+              0, 0, 0, 0,
+              'M', '4', 'A', ' ',
+              'm', 'p', '4', '2',
+              'i', 's', 'o', 'm',
+              0, 0, 0, 0
+          });
+      
+      SetAtomData(kSTTS, new byte[] {
+              0, 0, 0, 0,  // version / flags
+              0, 0, 0, 1,  // entry count
+              (byte) ((numFrames >> 24) & 0xff),
+              (byte) ((numFrames >> 16) & 0xff),
+              (byte) ((numFrames >> 8) & 0xff),
+              (byte) (numFrames & 0xff),
+              (byte) ((mSamplesPerFrame >> 24) & 0xff),
+              (byte) ((mSamplesPerFrame >> 16) & 0xff),
+              (byte) ((mSamplesPerFrame >> 8) & 0xff),
+              (byte) (mSamplesPerFrame & 0xff)
+          });
+
+      SetAtomData(kSTSC, new byte[] {
+              0, 0, 0, 0,  // version / flags
+              0, 0, 0, 1,  // entry count
+              0, 0, 0, 1,  // first chunk
+              (byte) ((numFrames >> 24) & 0xff),
+              (byte) ((numFrames >> 16) & 0xff),
+              (byte) ((numFrames >> 8) & 0xff),
+              (byte) (numFrames & 0xff),
+              0, 0, 0, 1  // Smaple desc index
+          });
+
+      byte[] stszData = new byte[12 + 4 * numFrames];
+      stszData[8] = (byte)((numFrames >> 24) & 0xff);
+      stszData[9] = (byte)((numFrames >> 16) & 0xff);
+      stszData[10] = (byte)((numFrames >> 8) & 0xff);
+      stszData[11] = (byte)(numFrames & 0xff);
+      for (int i = 0; i < numFrames1; i++) {
+          stszData[12 + 4 * i] =
+              (byte)((mFrameLens[startFrame1 + i] >> 24) & 0xff);
+          stszData[13 + 4 * i] =
+              (byte)((mFrameLens[startFrame1 + i] >> 16) & 0xff);
+          stszData[14 + 4 * i] =
+              (byte)((mFrameLens[startFrame1 + i] >> 8) & 0xff);
+          stszData[15 + 4 * i] =
+              (byte)(mFrameLens[startFrame1 + i] & 0xff);
+      }
+      for (int i = numFrames1; i < numFrames; i++) {
+          stszData[12 + 4 * i] =
+              (byte)((mFrameLens[numFrames1+startFrame2 + i] >> 24) & 0xff);
+          stszData[13 + 4 * i] =
+              (byte)((mFrameLens[numFrames1+startFrame1 + i] >> 16) & 0xff);
+          stszData[14 + 4 * i] =
+              (byte)((mFrameLens[numFrames1+startFrame1 + i] >> 8) & 0xff);
+          stszData[15 + 4 * i] =
+              (byte)(mFrameLens[numFrames1+startFrame1 + i] & 0xff);
+      }
+      SetAtomData(kSTSZ, stszData);
+
+      int mdatOffset =
+          144 +
+          4 * numFrames +
+          mAtomMap.get(kSTSD).len +
+          mAtomMap.get(kSTSC).len +
+          mAtomMap.get(kMVHD).len +
+          mAtomMap.get(kTKHD).len +
+          mAtomMap.get(kMDHD).len +
+          mAtomMap.get(kHDLR).len +
+          mAtomMap.get(kSMHD).len +
+          mAtomMap.get(kDINF).len;
+
+      /*System.out.println("Mdat offset: " + mdatOffset);*/
+
+      SetAtomData(kSTCO, new byte[] {
+              0, 0, 0, 0,  // version / flags
+              0, 0, 0, 1,  // entry count
+              (byte) ((mdatOffset >> 24) & 0xff),
+              (byte) ((mdatOffset >> 16) & 0xff),
+              (byte) ((mdatOffset >> 8) & 0xff),
+              (byte) (mdatOffset & 0xff),
+          });
+
+      mAtomMap.get(kSTBL).len =
+          8 +
+          mAtomMap.get(kSTSD).len +
+          mAtomMap.get(kSTTS).len +
+          mAtomMap.get(kSTSC).len +
+          mAtomMap.get(kSTSZ).len +
+          mAtomMap.get(kSTCO).len;
+
+      mAtomMap.get(kMINF).len =
+          8 +
+          mAtomMap.get(kDINF).len +
+          mAtomMap.get(kSMHD).len +
+          mAtomMap.get(kSTBL).len;
+
+      mAtomMap.get(kMDIA).len =
+          8 +
+          mAtomMap.get(kMDHD).len +
+          mAtomMap.get(kHDLR).len +
+          mAtomMap.get(kMINF).len;
+
+      mAtomMap.get(kTRAK).len =
+          8 +
+          mAtomMap.get(kTKHD).len +
+          mAtomMap.get(kMDIA).len;
+
+      mAtomMap.get(kMOOV).len =
+          8 +
+          mAtomMap.get(kMVHD).len +
+          mAtomMap.get(kTRAK).len;
+
+      int mdatLen = 8;
+      for (int i = 0; i < numFrames1; i++) {
+          mdatLen += mFrameLens[startFrame1 + i];
+      }
+      for (int i = 0; i < numFrames2; i++) {
+        mdatLen += mFrameLens[startFrame2 + i];
+      }
+      mAtomMap.get(kMDAT).len = mdatLen;
+
+      WriteAtom(out, kFTYP);
+      StartAtom(out, kMOOV);
+      {
+          WriteAtom(out, kMVHD);
+          StartAtom(out, kTRAK);
+          {
+              WriteAtom(out, kTKHD);
+              StartAtom(out, kMDIA);
+              {
+                  WriteAtom(out, kMDHD);
+                  WriteAtom(out, kHDLR);
+                  StartAtom(out, kMINF);
+                  {
+                      WriteAtom(out, kDINF);
+                      WriteAtom(out, kSMHD);
+                      StartAtom(out, kSTBL);
+                      {
+                          WriteAtom(out, kSTSD);
+                          WriteAtom(out, kSTTS);
+                          WriteAtom(out, kSTSC);
+                          WriteAtom(out, kSTSZ);
+                          WriteAtom(out, kSTCO);
+                      }
+                  }
+              }
+          }
+      }
+      StartAtom(out, kMDAT);
+
+      int maxFrameLen = 0;
+      for (int i = 0; i < numFrames1; i++) {
+          if (mFrameLens[startFrame1 + i] > maxFrameLen)
+              maxFrameLen = mFrameLens[startFrame1 + i];
+      }
+      for (int i = 0; i < numFrames2; i++) {
+        if (mFrameLens[startFrame2 + i] > maxFrameLen)
+            maxFrameLen = mFrameLens[startFrame2 + i];
+      }
+      byte[] buffer = new byte[maxFrameLen];
+      int pos = 0;
+      for (int i = 0; i < numFrames1; i++) {
+          int skip = mFrameOffsets[startFrame1 + i] - pos;
+          int len = mFrameLens[startFrame1 + i];
+          if (skip < 0) {
+              continue;
+          }
+          if (skip > 0) {
+              in.skip(skip);
+              pos += skip;
+          }
+          in.read(buffer, 0, len);
+          out.write(buffer, 0, len);
+          pos += len;
+      }
+      for (int i = 0; i < numFrames2; i++) {
+        int skip = mFrameOffsets[startFrame2 + i] - pos;
+        int len = mFrameLens[startFrame2 + i];
+        if (skip < 0) {
+            continue;
+        }
+        if (skip > 0) {
+            in.skip(skip);
+            pos += skip;
+        }
+        in.read(buffer, 0, len);
+        out.write(buffer, 0, len);
+        pos += len;
+      }
+
+      in.close();
+      out.close();
+      
+    }
 
     /** For debugging
     public static void main(String[] argv) throws Exception {
