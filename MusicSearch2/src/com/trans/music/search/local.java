@@ -412,13 +412,13 @@ public class local extends Activity {
 		int prevIndex = 0;
 		switch (mPlayMode) {
 		case Mode_All_Repeat:
-			prevIndex = (--curIndex)%mLocalStrings.size()+mLocalStrings.size();
+			prevIndex = (--curIndex + mLocalStrings.size())%mLocalStrings.size();
 			break;
 		case Mode_Single_Repeat:
 			prevIndex = curIndex;
 			break;
 		case Mode_Shuffling:
-			prevIndex = new Random().nextInt(mLocalStrings.size()+1);
+			prevIndex = new Random().nextInt(mLocalStrings.size());
 			break;
 		default:
 			break;
