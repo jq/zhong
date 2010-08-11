@@ -1001,29 +1001,33 @@ public class RingdroidEditActivity extends Activity implements
 	  double lastSeconds = Double.parseDouble(formatTime(mWaveformView.maxPos()));
 	  int numFrames = mSoundFile.getNumFrames();
 	  int[] frameGains = mSoundFile.getFrameGains();
-	  //compute average gain per 5 seconds
-	  int numUnits = (int) (lastSeconds/5.0);
+	  //compute average gain per second
+	  int numUnits = (int) (lastSeconds);
 	  int[] unitGains = new int[numUnits];
-	  int framesPerUnit = (int) (numFrames/lastSeconds * 5);
+	  int framesPerUnit = numFrames / numUnits;
 	  for(int i = 0; i < numUnits; i++) {
 	    int temp = 0;
 	    for(int j = 0; j < framesPerUnit; j++) {
-	      temp += frameGains[i*framesPerUnit + j]; 
+	      temp += frameGains[i*framesPerUnit + j];
 	    }
 	    unitGains[i] += temp;
 	  }
-	  //compute max gain per 15 seconds
+	  //compute max gain per 15s
 	  int maxGain = 0;
 	  int maxIndex = 0;
-	  for(int i = 0; i < numUnits-3; i++) {
-	    int tempGain = unitGains[i] + unitGains[i+1] + unitGains[i+2];
-	    if(tempGain > maxGain) {
-	      maxGain = tempGain;
-	      maxIndex = i;
+	  for(int i = 0; i < 15; i++) {
+	    maxGain += unitGains[i];
+	  }
+	  int sum = maxGain;
+	  for(int i = 15; i < numUnits; i++) {
+	    sum = sum + unitGains[i] - unitGains[i-15];
+	    if(sum > maxGain) {
+	      maxGain = sum;
+	      maxIndex = i - 14;
 	    }
 	  }
 	  //move
-	  double startSecond = maxIndex * 5.0;
+	  double startSecond = maxIndex;
 	  mStartPos = mWaveformView.secondsToPixels(startSecond);
 	  mEndPos = mWaveformView.secondsToPixels(startSecond + 15.0);
 	  
