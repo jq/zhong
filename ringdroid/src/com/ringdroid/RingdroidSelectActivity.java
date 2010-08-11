@@ -285,8 +285,8 @@ public class RingdroidSelectActivity
         }
 		}catch(IllegalArgumentException e){
             view.setImageResource(R.drawable.type_contact);
-//            ((View) view.getParent()).setBackgroundColor(
-//                getResources().getColor(R.drawable.type_bkgnd_ringtone));			
+            ((View) view.getParent()).setBackgroundColor(
+                getResources().getColor(R.drawable.type_bkgnd_music));			
 		}
     }
 
