@@ -157,9 +157,10 @@ public class RingdroidEditActivity extends Activity implements
 
 	// Menu commands
 	private static final int CMD_SAVE = 1;
-	private static final int CMD_RESET = 2;
-	private static final int CMD_ABOUT = 3;
-	private static final int CMD_USE_ALL = 4;
+	private static final int CMD_AUTOSELECT = 2;
+	private static final int CMD_RESET = 3;
+	private static final int CMD_ABOUT = 4;
+	private static final int CMD_USE_ALL = 5;
 
 	// Dialog ID
 	private static final int DIALOG_USE_ALL = 1;
@@ -399,6 +400,9 @@ public class RingdroidEditActivity extends Activity implements
 
 		item = menu.add(0, CMD_SAVE, 0, R.string.menu_save);
 		item.setIcon(R.drawable.menu_save);
+		
+		item = menu.add(0, CMD_AUTOSELECT, 0, R.string.menu_auto_select);
+		item.setIcon(R.drawable.menu_auto_select);
 
 		item = menu.add(0, CMD_RESET, 0, R.string.menu_reset);
 		item.setIcon(R.drawable.menu_reset);
@@ -416,6 +420,7 @@ public class RingdroidEditActivity extends Activity implements
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		super.onPrepareOptionsMenu(menu);
 		menu.findItem(CMD_SAVE).setVisible(true);
+		menu.findItem(CMD_AUTOSELECT).setVisible(true);
 		menu.findItem(CMD_RESET).setVisible(true);
 		menu.findItem(CMD_USE_ALL).setVisible(true);
 		// menu.findItem(CMD_ABOUT).setVisible(true);
@@ -458,6 +463,11 @@ public class RingdroidEditActivity extends Activity implements
 				onSave();
 			}
 			return true;
+		case CMD_AUTOSELECT:
+		    int offset = autoSelectPositions();
+		    mOffsetGoal = offset;
+		    updateDisplay();
+		    return true;
 		case CMD_RESET:
 			resetPositions();
 			mOffsetGoal = 0;
@@ -985,6 +995,39 @@ public class RingdroidEditActivity extends Activity implements
 	private void resetPositions() {
 		mStartPos = mWaveformView.secondsToPixels(0.0);
 		mEndPos = mWaveformView.secondsToPixels(15.0);
+	}
+	
+	private int autoSelectPositions() {
+	  double lastSeconds = Double.parseDouble(formatTime(mWaveformView.maxPos()));
+	  int numFrames = mSoundFile.getNumFrames();
+	  int[] frameGains = mSoundFile.getFrameGains();
+	  //compute average gain per 5 seconds
+	  int numUnits = (int) (lastSeconds/5.0);
+	  int[] unitGains = new int[numUnits];
+	  int framesPerUnit = (int) (numFrames/lastSeconds * 5);
+	  for(int i = 0; i < numUnits; i++) {
+	    int temp = 0;
+	    for(int j = 0; j < framesPerUnit; j++) {
+	      temp += frameGains[i*framesPerUnit + j]; 
+	    }
+	    unitGains[i] += temp;
+	  }
+	  //compute max gain per 15 seconds
+	  int maxGain = 0;
+	  int maxIndex = 0;
+	  for(int i = 0; i < numUnits-3; i++) {
+	    int tempGain = unitGains[i] + unitGains[i+1] + unitGains[i+2];
+	    if(tempGain > maxGain) {
+	      maxGain = tempGain;
+	      maxIndex = i;
+	    }
+	  }
+	  //move
+	  double startSecond = maxIndex * 5.0;
+	  mStartPos = mWaveformView.secondsToPixels(startSecond);
+	  mEndPos = mWaveformView.secondsToPixels(startSecond + 15.0);
+	  
+	  return mStartPos;
 	}
 
 	private int trap(int pos) {
