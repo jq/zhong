@@ -199,7 +199,7 @@ public class local extends Activity {
 		mController.setEnabled(true);
 		mController.setAnchorView(anchorView);
 		
-        AdListener.createAds(this);
+        AdListener.createAds(this,R.id.l1);
 
 		// Local Playlist UI
 		mLocalList = (ListView) findViewById(R.id.local_playlist);

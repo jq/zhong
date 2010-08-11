@@ -13,7 +13,7 @@ public class RingSelectActivity extends RingdroidSelectActivity {
   public void onCreate(Bundle icicle) {
     super.EDITOR = "com.other.RingEditActivity";
     super.onCreate(icicle);
-    AdListener.createAds(this);
+    AdListener.createAds(this, R.id.mediaselect);
   }
   @Override
 	public void onConfigurationChanged(Configuration newConfig) {

@@ -30,15 +30,13 @@
 	</LinearLayout>
    	<ListView android:id="@+id/local_playlist"
         android:layout_width="fill_parent" 
-        android:layout_height="0dip" 
+        android:layout_height="wrap_content" 
         android:stackFromBottom="false"
-        android:layout_weight="1"/>   
+      />   
      
     <View
 		android:id="@+id/anchorView"
 		android:layout_width="fill_parent"
-		android:layout_height="1dip"
-		android:layout_weight="1" />
-<include layout_height="wrap_content" layout="@layout/ads_view"/>
+		android:layout_height="1dip"/>
 
 </LinearLayout>

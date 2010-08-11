@@ -25,6 +25,8 @@ public class SearchTab  extends Activity {
     searchTitle = (EditText) findViewById(R.id.search_query_words);
     searchButton = (ImageButton) findViewById(R.id.search_button);
     
+    AdListener.createAds(this);
+    
     searchTitle.setOnKeyListener(new OnKeyListener() {
 
 		@Override

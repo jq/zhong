@@ -22,5 +22,5 @@
             	android:layout_weight="1"
             />
          </LinearLayout>    
-    <!--<include layout_height="wrap_content" layout="@layout/ads_view"/>  -->
+    <include layout_height="wrap_content" layout="@layout/ads_view"/>
 </LinearLayout>
