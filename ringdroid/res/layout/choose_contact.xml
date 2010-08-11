@@ -45,11 +45,11 @@
 
   </LinearLayout>
 
-  <ListView android:id="@+id/android:list"
+  <com.ringdroid.MyListView android:id="@+id/android:list"
      android:layout_width="fill_parent"
      android:layout_height="0px"
      android:layout_weight="1">
      <requestFocus />
-  </ListView>
+  </com.ringdroid.MyListView>
 
 </LinearLayout>

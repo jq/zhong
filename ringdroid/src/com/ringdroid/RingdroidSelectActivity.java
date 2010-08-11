@@ -25,9 +25,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.MergeCursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Contacts;
 import android.provider.MediaStore;
+import android.provider.Contacts.People;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -133,10 +136,10 @@ public class RingdroidSelectActivity
                 createCursor(""),
                 // Map from database columns...
                 new String[] {
-                    MediaStore.Audio.Media.ARTIST,
-                    MediaStore.Audio.Media.ALBUM,
-                    MediaStore.Audio.Media.TITLE,
-                    MediaStore.Audio.Media._ID },
+                    "_id",
+                    "_id",
+                    "_id",                    
+                	"_id" },
                 // To widget ids in the row layout...
                 new int[] {
                     R.id.row_artist,
@@ -179,12 +182,52 @@ public class RingdroidSelectActivity
                         return true;
                     }
                     
-                    if (id == R.id.row_artist ||
-                    	id == R.id.row_album ||
-                    	id == R.id.row_title) {
-                    	((TextView) view).setText(Utils.convertGBK(cursor.getString(columnIndex)));
+                 if (id == R.id.row_title){
+                    	int dataIndex=-1;
+                    	String displayname="";
+                    	try{
+                    		dataIndex= cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE);
+                    		displayname = cursor.getString(dataIndex);
+                    	}catch(IllegalArgumentException e){
+                    		dataIndex= cursor.getColumnIndexOrThrow(People.DISPLAY_NAME);
+                    		displayname = cursor.getString(dataIndex)+"\'s ringtone";
+                    	}                  	
+                    	((TextView) view).setText(Utils.convertGBK(displayname));
                     	return true;
                     }
+                    
+                    if (id == R.id.row_artist){
+                    	int dataIndex=-1;
+                    	String filename="";
+                    	try{
+                    		dataIndex= cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST);
+                        	filename = cursor.getString(dataIndex);
+                    	}catch(IllegalArgumentException e){
+                    		dataIndex= cursor.getColumnIndexOrThrow(People.CUSTOM_RINGTONE);
+                    		filename=cursor.getString(dataIndex);
+                    		if (filename.startsWith("content:")){
+                    			Cursor c=managedQuery(Uri.parse(filename),null,null,null,null);
+                    			c.moveToFirst();
+                    			dataIndex=c.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+                    			filename=c.getString(dataIndex);
+                    		}
+                    	}
+                    	((TextView) view).setText(Utils.convertGBK(filename));
+                    	return true;
+                    }
+                    
+                    if (id == R.id.row_album) {
+                    	int dataIndex=-1;
+                    	try {
+                    		dataIndex= cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM);
+                        	String row_album = cursor.getString(dataIndex);
+                        	((TextView) view).setText(Utils.convertGBK(row_album));
+                    	}catch (IllegalArgumentException e){
+                    		((TextView) view).setText("");
+                    	}
+                    	return true;
+                    }
+                    
                     return false;
                 }
             });
@@ -211,6 +254,7 @@ public class RingdroidSelectActivity
 	}
 	
 	private void setSoundIconFromCursor(ImageView view, Cursor cursor) {
+		try {
         if (0 != cursor.getInt(cursor.getColumnIndexOrThrow(
                 MediaStore.Audio.Media.IS_RINGTONE))) {
             view.setImageResource(R.drawable.type_ringtone);
@@ -239,6 +283,11 @@ public class RingdroidSelectActivity
             ((View) view.getParent()).setBackgroundColor(
                 getResources().getColor(R.drawable.type_bkgnd_unsupported));
         }
+		}catch(IllegalArgumentException e){
+            view.setImageResource(R.drawable.type_contact);
+//            ((View) view.getParent()).setBackgroundColor(
+//                getResources().getColor(R.drawable.type_bkgnd_ringtone));			
+		}
     }
 
     /** Called with an Activity we started with an Intent returns. */
@@ -266,7 +315,6 @@ public class RingdroidSelectActivity
         if (resultCode != RESULT_OK) {
             return;
         }
-
 
         setResult(RESULT_OK, dataIntent);
         //finish();
@@ -317,14 +365,24 @@ public class RingdroidSelectActivity
         super.onCreateContextMenu(menu, v, menuInfo);
 
         Cursor c = mAdapter.getCursor();
-        String title = c.getString(c.getColumnIndexOrThrow(
-            MediaStore.Audio.Media.TITLE));
-        title = Utils.convertGBK(title);
-        menu.setHeaderTitle(title);
-
-        menu.add(0, CMD_EDIT, 0, R.string.context_menu_edit);
-        menu.add(0, CMD_DELETE, 0, R.string.context_menu_delete);
-        menu.add(0, CMD_ASSIGN, 0, R.string.context_menu_assign);
+        String title="";
+       
+        try {
+        	title = c.getString(c.getColumnIndexOrThrow(
+        			MediaStore.Audio.Media.TITLE));
+        	title = Utils.convertGBK(title);
+        	menu.setHeaderTitle(title);
+            menu.add(0, CMD_EDIT, 0, R.string.context_menu_edit);
+            menu.add(0, CMD_DELETE, 0, R.string.context_menu_delete);
+            menu.add(0, CMD_ASSIGN, 0, R.string.context_menu_assign);
+        }catch(IllegalArgumentException e){
+        	int dataIndex= c.getColumnIndexOrThrow(People.DISPLAY_NAME);
+        	title=c.getString(dataIndex)+"\'s Ringtone";
+        	title = Utils.convertGBK(title);
+        	menu.setHeaderTitle(title);
+        	menu.add(0, CMD_EDIT, 0, R.string.context_menu_edit);
+        	menu.add(0, CMD_ASSIGN, 0, R.string.context_menu_assign);
+        }
     }
 
     @Override
@@ -353,7 +411,18 @@ public class RingdroidSelectActivity
               intent.setData(currentFileUri);
               intent.setClass(RingdroidSelectActivity.this, com.ringdroid.ChooseContactActivity.class);
               RingdroidSelectActivity.this.startActivity(intent);
+              return true;
             }
+
+            uriIndex= c.getColumnIndex(People.CUSTOM_RINGTONE);
+            String filename=c.getString(uriIndex);
+            if (filename.length()>0){
+            	Intent intent = new Intent();
+            	intent.setData(Uri.parse(filename));
+            	intent.setClass(RingdroidSelectActivity.this, com.ringdroid.ChooseContactActivity.class);
+            	RingdroidSelectActivity.this.startActivity(intent);
+            }
+            return true;
         default:
             return super.onContextItemSelected(item);
         }
@@ -479,8 +548,21 @@ public class RingdroidSelectActivity
 
     private void startRingdroidEditor() {
         Cursor c = mAdapter.getCursor();
-        int dataIndex = c.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
-        String filename = c.getString(dataIndex);
+        int dataIndex=0;
+        String filename="";
+        try
+        {
+        	dataIndex = c.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+        }catch (IllegalArgumentException e){
+        	dataIndex = c.getColumnIndexOrThrow(People.CUSTOM_RINGTONE);
+        	String custom_ringtone=c.getString(dataIndex);
+        	if (custom_ringtone.startsWith("content:")){
+        			c=managedQuery(Uri.parse(custom_ringtone),null,null,null,null);
+        			c.moveToFirst(); 
+        			dataIndex = c.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+        	}
+        }
+    	filename = c.getString(dataIndex);
         try {
             Intent intent = new Intent(Intent.ACTION_EDIT,
                                        Uri.parse(filename));
@@ -554,7 +636,9 @@ public class RingdroidSelectActivity
 
         Cursor c = new MergeCursor(new Cursor[] {
             getExternalAudioCursor(selection, argsArray),
-            getInternalAudioCursor(selection, argsArray)});
+            getInternalAudioCursor(selection, argsArray),
+            createContactCursor(filter)});
+        Log.e("Ringdroid", c.getCount()+"c");
         startManagingCursor(c);
         return c;
     }
@@ -601,4 +685,45 @@ public class RingdroidSelectActivity
         MediaStore.Audio.Media.IS_MUSIC,
         "\"" + MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "\""
     };
+    @SuppressWarnings("deprecation")
+	private Cursor createContactCursor(String filter) {
+        String selection;
+        if (filter != null && filter.length() > 0) {
+            selection = "(DISPLAY_NAME LIKE \"%" + filter + "%\")";
+            selection = selection + " AND (LENGTH(CUSTOM_RINGTONE)>0)";
+        } else {
+            //selection = null;
+        	selection = "(LENGTH(CUSTOM_RINGTONE)>0)";
+        }
+
+        Cursor cursor = managedQuery(
+            getContactContentUri(),
+            new String[] {
+            	People._ID,
+            	People.CUSTOM_RINGTONE,
+            	People.DISPLAY_NAME,
+            	People.LAST_TIME_CONTACTED,
+            	People.STARRED,
+            	People.TIMES_CONTACTED },
+            selection,
+            null,
+            "STARRED DESC, TIMES_CONTACTED DESC, LAST_TIME_CONTACTED DESC, DISPLAY_NAME ASC");
+
+        Log.i("Ringdroid", cursor.getCount() + " contacts");
+
+        return cursor;
+    }
+    
+    private boolean isEclairOrLater() {
+        return Build.VERSION.SDK.compareTo("5") >=0;
+    }
+    
+    private Uri getContactContentUri() {
+      if (isEclairOrLater()) {
+          // ContactsContract.Contacts.CONTENT_URI
+          return Uri.parse("content://com.android.contacts/contacts");
+      } else {
+          return Contacts.People.CONTENT_URI;
+      }
+    } 
 }
