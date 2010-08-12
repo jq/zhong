@@ -46,6 +46,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Browser;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -520,13 +521,49 @@ public class RingActivity extends Activity {
             } else {
               ring_type = RingtoneManager.TYPE_ALARM;
             }
-            String u;
+            //String u;
             try {
               //u = Const.mp3dir + ring.getString(Const.mp3);
               if (mCurrentFileUri == null) {
                 mCurrentFileUri = Uri.parse(ring.getString(Const.mp3));
               }
               RingtoneManager.setActualDefaultRingtoneUri(RingActivity.this, ring_type, mCurrentFileUri);
+              //add to system library
+              if(ring_type == RingtoneManager.TYPE_RINGTONE) {
+                Settings.System.putString(getContentResolver(), Settings.System.RINGTONE, mCurrentFileUri.toString());
+                try {
+                  ContentValues values = new ContentValues(2);
+                  values.put(MediaStore.Audio.Media.IS_RINGTONE, "1");
+                  values.put(MediaStore.Audio.Media.IS_ALARM, "1");
+                  getContentResolver().update(mCurrentFileUri, values, null, null);
+                } catch (UnsupportedOperationException ex) {
+                  // most likely the card just got unmounted
+                  return;
+                }
+              }
+              if(ring_type == RingtoneManager.TYPE_NOTIFICATION) {
+                Settings.System.putString(getContentResolver(), Settings.System.NOTIFICATION_SOUND, mCurrentFileUri.toString());
+                try {
+                  ContentValues values = new ContentValues(2);
+                  values.put(MediaStore.Audio.Media.IS_NOTIFICATION, "1");
+                  values.put(MediaStore.Audio.Media.IS_ALARM, "1");
+                  getContentResolver().update(mCurrentFileUri, values, null, null);
+                } catch (UnsupportedOperationException ex) {
+                  // most likely the card just got unmounted
+                  return;
+                }
+              }
+              if(ring_type == RingtoneManager.TYPE_ALARM) {
+                Settings.System.putString(getContentResolver(), Settings.System.ALARM_ALERT, mCurrentFileUri.toString());
+                try {
+                  ContentValues values = new ContentValues(2);
+                  values.put(MediaStore.Audio.Media.IS_ALARM, "1");
+                  getContentResolver().update(mCurrentFileUri, values, null, null);
+                } catch (UnsupportedOperationException ex) {
+                  // most likely the card just got unmounted
+                  return;
+                }
+              }
             } catch (JSONException e) {
               // TODO Auto-generated catch block
               e.printStackTrace();
