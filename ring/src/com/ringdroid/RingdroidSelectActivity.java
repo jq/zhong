@@ -275,7 +275,7 @@ public class RingdroidSelectActivity
             refreshListView();
             return true;
         default:
-            return false;
+            return super.onOptionsItemSelected(item);
         }
     }
 
