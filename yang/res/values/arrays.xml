@@ -12,7 +12,18 @@
     <string-array name="select_unset_ringtone">
         <item>Set phone to viberate</item>
         <item>Set phone to silent</item>
-
+    </string-array>
+    
+  <!-- used in local activity --> 
+     <string-array name="play_mode">
+    	<item>Repeat all musics</item>
+    	<item>Shuffling play</item>
+    	<item>Repeat single music</item>
+    </string-array>
+    <string-array name="local_music_option">
+    	<item>Play</item>
+    	<item>Edit</item>
+    	<item>Delete</item>
     </string-array>
   
  </resources>

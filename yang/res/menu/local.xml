@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item	android:id="@+id/menu_mode"
+    	android:title="@string/play_mode"
+    	android:icon="@drawable/ic_menu_play_clip"
+    		/>
+		<item android:id="@+id/menu_local"
+        android:title="@string/downloaded_files"
+        android:icon="@drawable/ic_menu_music_library" />
+    <item android:id="@+id/menu_ringtone"
+        android:title="Use as ringtone"
+        android:icon="@drawable/ic_menu_set_as_ringtone"
+         />
+         
+</menu>
+

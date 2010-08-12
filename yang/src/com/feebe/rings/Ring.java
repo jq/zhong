@@ -82,6 +82,8 @@ public class Ring extends TabActivity implements OnTabChangeListener {
       super.onCreateOptionsMenu(menu);
       menu.add(0, R.string.menu_search, 0, R.string.menu_search).setIcon(
           android.R.drawable.ic_menu_search);
+      menu.add(0, R.string.menu_downloaded, 0, R.string.menu_downloaded).setIcon(
+          android.R.drawable.ic_menu_gallery);
       menu.add(0, R.string.menu_unset_ringtone, 0, R.string.menu_unset_ringtone).setIcon(
           android.R.drawable.ic_lock_silent_mode);
       menu.add(0, R.string.clear_cache, 0, R.string.clear_cache).setIcon(
@@ -105,6 +107,11 @@ public class Ring extends TabActivity implements OnTabChangeListener {
         case R.string.menu_search:
            startSearch(this.getString(R.string.search_hint), true, null, false);
           return true; 
+        case R.string.menu_downloaded:
+          Intent intent = new Intent();
+          intent.setClass(Ring.this, local.class);
+          startActivity(intent);
+          return true;
         case R.string.menu_unset_ringtone:
         	AlertDialog dialog2 = new AlertDialog.Builder(this)
         	.setIcon(android.R.drawable.ic_dialog_alert)

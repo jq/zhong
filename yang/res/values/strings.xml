@@ -34,6 +34,7 @@
 	
 	<string name="menu_unset_ringtone">unset ringtone</string>
     <string name="menu_search">Search</string>
+    <string name="menu_downloaded">Downloaded</string>
 
     <!--
      AlertDialogs
@@ -79,5 +80,18 @@
 	 -->
 	 <string name="notification_text_finish">Download finish</string>
 	 <string name="notification_text_failed">Download failed. Please retry later.</string>
+	 
+	 	<!-- 
+	 	used in local Activity --> 	
+	 	<string name="play_mode">Play mode</string>
+    <string name="current_music">Current music</string>
+    <string name="select_play_mode">Select play mode.</string>
+    <string name="play_mode_set_to">Play mode set to</string>
+    <string name="have_no_valide_music">You have no available music file.</string>
+    <string name="select_opration">Select an operation.</string>
+    <string name="delete_warning">Are you sure to delete</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="downloaded_files">Download files</string>
      
 </resources>
