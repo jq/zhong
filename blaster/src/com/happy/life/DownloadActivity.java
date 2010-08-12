@@ -146,8 +146,14 @@ public class DownloadActivity extends ListActivity {
 						   state == Downloader.WAITING_FOR_RETRY ||
 						   state == Downloader.WAITING_FOR_CONNECTIONS ||
 						   state == Downloader.ITERATIVE_GUESSING) {
-					menu.add(0, MENU_PAUSE, 0, R.string.pause);
-					menu.add(0, MENU_STOP, 0, R.string.stop);
+					if ((d instanceof P2pDownloadInfo) && 
+                           !((P2pDownloadInfo) d).isScheduled()) {
+						menu.add(0, MENU_RETRY, 0, R.string.retry);
+						menu.add(0, MENU_DELETE, 0, R.string.delete);
+					} else {
+						menu.add(0, MENU_PAUSE, 0, R.string.pause);
+						menu.add(0, MENU_STOP, 0, R.string.stop);
+					}
 				} else if (state == Downloader.QUEUED) {
 					// menu.add(0, MENU_STOP, 0, R.string.stop);
 				} else if (state == Downloader.PAUSED ||
@@ -229,34 +235,6 @@ public class DownloadActivity extends ListActivity {
 			Toast.makeText(DownloadActivity.this,
 					getString(R.string.no_playing_activity), Toast.LENGTH_LONG).show();
     	}
-
-    	/*
-    	if (mPlayer != null) {
-    		new Thread(new Runnable() {
-    			public void run() {
-    				try {
-    					if (mPlayer.isPlaying()) {
-    						mPlayer.stop();
-    					}
-
-    					mPlayer.reset();
-    					
-    					FileInputStream fis = new FileInputStream(new File(info.getFileName()));
-    					mPlayer.setDataSource(fis.getFD());
-
-    					mPlayer.prepare();
-    					mPlayer.start();
-    				} catch (IllegalArgumentException e) {
-    					e.printStackTrace();
-    				} catch (IllegalStateException e) {
-    					e.printStackTrace();
-    				} catch (IOException e) {
-    					e.printStackTrace();
-    				}
-    			}
-    		}).start();
-    	}
-    	*/
     }
 	
 	public boolean onContextItemSelected(MenuItem item) {
@@ -269,8 +247,10 @@ public class DownloadActivity extends ListActivity {
 			if (mDownloadService != null) {
 				mDownloadService.removeDownload(d);
 				synchronized(d) {
-				  if(d instanceof P2pDownloadInfo)
+				  if (d instanceof P2pDownloadInfo) {
 					((P2pDownloadInfo) d).setScheduled(false);
+                    mDownloadService.notifyChanged();
+				  }
 				}
 			}
 			break;
@@ -281,11 +261,13 @@ public class DownloadActivity extends ListActivity {
 		}
 		case MENU_STOP: {
 			synchronized(d) {
-			  if(d instanceof P2pDownloadInfo) {
+			  if (d instanceof P2pDownloadInfo) {
 				((P2pDownloadInfo) d).getDownloader().stop();
 				((P2pDownloadInfo) d).setScheduled(false);
+				if (mDownloadService != null)
+	                mDownloadService.notifyChanged();
 			  }
-			  if(d instanceof SogouDownloadInfo) {
+			  if (d instanceof SogouDownloadInfo) {
 			    ((SogouDownloadInfo) d).setStatus(Downloader.PAUSED);
 			    ((SogouDownloadInfo) d).getThread().interrupt();
 			  }
@@ -295,7 +277,7 @@ public class DownloadActivity extends ListActivity {
 		}
 		case MENU_RESUME: {
 			if (mDownloadService != null) {
-			  if(d instanceof P2pDownloadInfo) {
+			  if (d instanceof P2pDownloadInfo) {
 				try {
 					Downloader downloader = ((P2pDownloadInfo) d).getDownloader();
 					downloader.resume();
@@ -304,7 +286,7 @@ public class DownloadActivity extends ListActivity {
 					e.printStackTrace();
 				}
 			  }
-			  if(d instanceof SogouDownloadInfo) {
+			  if (d instanceof SogouDownloadInfo) {
 			    synchronized(d) {
                   ((SogouDownloadInfo) d).setStatus(DownloadInfo.PENDING);
                 }
@@ -317,21 +299,24 @@ public class DownloadActivity extends ListActivity {
 		case MENU_DELETE: {
 			if (mDownloadService != null) {
 				mDownloadService.removeDownload(d);
-				if(d instanceof P2pDownloadInfo) {
-				Downloader downloader = ((P2pDownloadInfo) d).getDownloader();
-				if (downloader != null) {
-					File file = downloader.getFile();
-					if (file != null && file.exists()) {
-						file.delete();
-					}
-				}
-				
-				synchronized(d) {
-					// Force existing thread to stop.
-					((P2pDownloadInfo) d).setScheduled(false);
-				}
-				}
-				if(d instanceof SogouDownloadInfo) {
+                if (d instanceof P2pDownloadInfo) {
+                    Downloader downloader = ((P2pDownloadInfo) d).getDownloader();
+                    downloader.stop();
+                    ((P2pDownloadInfo) d).setScheduled(false);
+                    if (downloader != null) {
+                        File file = downloader.getFile();
+                        if (file != null && file.exists()) {
+                            file.delete();
+                        }
+                    }
+
+                    synchronized (d) {
+                        // Force existing thread to stop.
+                        ((P2pDownloadInfo) d).setScheduled(false);
+		                mDownloadService.notifyChanged();
+                    }
+                }
+				if (d instanceof SogouDownloadInfo) {
 				  File file = new File(((SogouDownloadInfo) d).getTarget());
 				  if (file.exists()) {
 				    file.delete();
@@ -346,10 +331,10 @@ public class DownloadActivity extends ListActivity {
 			break;
 		}
 		case MENU_PAUSE: {
-		  if(d instanceof P2pDownloadInfo) {
+		  if (d instanceof P2pDownloadInfo) {
 			((P2pDownloadInfo) d).getDownloader().pause();
 		  }
-		  if(d instanceof SogouDownloadInfo) {
+		  if (d instanceof SogouDownloadInfo) {
 		    synchronized(d) {
               ((SogouDownloadInfo) d).setStatus(Downloader.PAUSED);
             }
@@ -369,7 +354,7 @@ public class DownloadActivity extends ListActivity {
 				}
 				mDownloadService.retryDownload((P2pDownloadInfo) d);
 			  }
-			  if(d instanceof SogouDownloadInfo) {
+			  if (d instanceof SogouDownloadInfo) {
 			    mAdapter.notifyDataSetChanged();
                 mDownloadService.retryDownload((SogouDownloadInfo) d);
 			  }
@@ -493,7 +478,7 @@ public class DownloadActivity extends ListActivity {
 				musicStatus.setTextColor(getResources().getColor(R.color.download_failed));
 				bytesInfo.setVisibility(View.GONE);
 				error.setVisibility(View.VISIBLE);
-				error.setText("Failed, but you probably can resume");
+				error.setText("Oops, you probably can resume");
 			} else if (state == Downloader.RECOVERY_FAILED) {
 				musicStatus.setText(R.string.failed);
 				musicStatus.setTextColor(getResources().getColor(R.color.download_failed));
@@ -509,11 +494,19 @@ public class DownloadActivity extends ListActivity {
 					   state == Downloader.WAITING_FOR_RETRY ||
 					   state == Downloader.WAITING_FOR_CONNECTIONS ||
 					   state == Downloader.ITERATIVE_GUESSING) {
-				musicStatus.setText(R.string.downloading);
-				musicStatus.setTextColor(getResources().getColor(R.color.download_pending));
-				bytesInfo.setVisibility(View.VISIBLE);
-				error.setVisibility(View.GONE);
-				bytesInfo.setText("" + percent + "%");
+				if ((info instanceof P2pDownloadInfo) && 
+                       !((P2pDownloadInfo) info).isScheduled()) {
+					musicStatus.setText(R.string.aborted);
+					musicStatus.setTextColor(getResources().getColor(R.color.download_failed));
+					bytesInfo.setVisibility(View.GONE);
+					error.setVisibility(View.GONE);
+				} else {
+					musicStatus.setText(R.string.downloading);
+					musicStatus.setTextColor(getResources().getColor(R.color.download_pending));
+					bytesInfo.setVisibility(View.VISIBLE);
+					error.setVisibility(View.GONE);
+					bytesInfo.setText("" + percent + "%");
+				}
 			} else if (state == Downloader.QUEUED) {
 				musicStatus.setText(R.string.queued);
 				musicStatus.setTextColor(getResources().getColor(R.color.download_pending));

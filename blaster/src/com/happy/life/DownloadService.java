@@ -94,7 +94,7 @@ public class DownloadService extends Service {
         }
     }
 
-    private void notifyChanged() {
+    public void notifyChanged() {
         synchronized(mObservers) {
             for (DownloadObserver o : mObservers) {
                 o.onChange();
@@ -347,25 +347,25 @@ public class DownloadService extends Service {
                     Downloader d = RouterService.download(((P2pSearchResult)rs).getRFDArray(),
                             ((P2pSearchResult)rs).getAlt(), true, new GUID(((P2pSearchResult)rs).getGuid()));
 
-                        Utils.D("Start downloading " + d.getFileName());
+                    Utils.D("Start downloading " + d.getFileName());
 
-                        synchronized(p2pInfo) {
-                            if (!p2pInfo.isScheduled()) {
-                                // This is a hack. It means user aborts/clears the download.
-                                return;
-                            }
-                            p2pInfo.setTotalBytes(d.getContentLength());
-                            p2pInfo.setDownloader(d);
+                    synchronized (p2pInfo) {
+                        if (!p2pInfo.isScheduled()) {
+                            // This is a hack. It means user aborts/clears the download.
+                            return;
                         }
+                        p2pInfo.setTotalBytes(d.getContentLength());
+                        p2pInfo.setDownloader(d);
+                    }
 
                     // Polling.
                     int bytesRead = 0;
                     Utils.D("old state: " + d.getState());
 
-                        int state = d.getState();
+                    int state = d.getState();
                     while (isDownloading(state)) {
                         bytesRead = d.getAmountRead();
-                        synchronized(p2pInfo) {
+                        synchronized (p2pInfo) {
                             if (!p2pInfo.isScheduled()) {
                                 Utils.D("Aborted");
                                 return;  // Abort.
@@ -388,13 +388,13 @@ public class DownloadService extends Service {
                 } catch (FileExistsException e) {
                     synchronized(p2pInfo) {
                         p2pInfo.setFailed(true);
-                            p2pInfo.setError(getString(R.string.target_exists));
+                        p2pInfo.setError(getString(R.string.target_exists));
                     }
                     e.printStackTrace();
                 } catch (AlreadyDownloadingException e) {
                     synchronized(p2pInfo) {
                         p2pInfo.setFailed(true);
-                            p2pInfo.setError(getString(R.string.already_downloading));
+                        p2pInfo.setError(getString(R.string.already_downloading));
                     }
                     e.printStackTrace();
                 }
@@ -556,8 +556,9 @@ public class DownloadService extends Service {
                     notifyChanged();
                     Utils.D("task finished: " + mInfo);
                     synchronized(mInfo) {
-                        if(mInfo instanceof P2pDownloadInfo)
+                        if (mInfo instanceof P2pDownloadInfo)
                             ((P2pDownloadInfo) mInfo).setScheduled(false);
+                            notifyChanged();
                     }
                 }
             }
