@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import org.json.JSONArray;
+
 import com.trans.music.search.R;
 
 import android.app.Activity;
@@ -357,18 +358,7 @@ public class local extends Activity {
 			}
 			break;
 		case R.id.menu_delete:
-			try {
-				String fileLocal = Const.homedir
-						+ mLocalStrings.get(mLocalMp3index);
-				File mp3 = new File(fileLocal);
-				if (mp3.exists()) {
-					mp3.delete();
-					updateDownloadList();
-					mChooseItem = false;
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			deleteMusicFile(mLocalMp3index);
 			return true;
 		case R.id.menu_help:
 			intent = new Intent(local.this, help.class);
@@ -515,9 +505,36 @@ public class local extends Activity {
         }
     }
     
+
     private void deleteMusicFile(int index) {
-    	String fileLocal = Const.homedir + mLocalStrings.get(index);
-    	File deleteFile = new File(fileLocal);
-    	deleteFile.delete();
+      String fileLocal = Const.homedir + mLocalStrings.get(index);
+      //delete from MediaStore
+      try {
+        ContentResolver mContentResolver = this.getContentResolver();
+        Cursor cursor = mContentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, null, null, MediaStore.Audio.Media.DEFAULT_SORT_ORDER);
+        while(cursor.moveToNext()) {
+          String url = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA));
+          if(url.equals(fileLocal)) {
+            String itemUri = MediaStore.Audio.Media.getContentUriForPath(url).toString() + "/" + cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID));
+            mContentResolver.delete(Uri.parse(itemUri), null, null);
+            //Log.e("itemUri:", itemUri.toString());
+          }
+        }
+      } catch (IllegalArgumentException e) {
+        e.printStackTrace();
+      }
+      //delete from sdcard
+      try {
+        mPlayer.stop();
+        mPlayer.reset();       
+        File mp3 = new File(fileLocal);
+        if (mp3.exists()) {
+            mp3.delete();
+            updateDownloadList();
+            mChooseItem = false;
+        }
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
     }
 }
