@@ -1062,6 +1062,8 @@ public class MusicUtils {
             }
         } catch (FileNotFoundException ex) {
             //
+        } catch (IllegalStateException e) {
+            return null;
         }
         if (bm != null) {
             mCachedBit = bm;

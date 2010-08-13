@@ -301,9 +301,9 @@ public class DownloadActivity extends ListActivity {
 				mDownloadService.removeDownload(d);
                 if (d instanceof P2pDownloadInfo) {
                     Downloader downloader = ((P2pDownloadInfo) d).getDownloader();
-                    downloader.stop();
                     ((P2pDownloadInfo) d).setScheduled(false);
                     if (downloader != null) {
+	                    downloader.stop();
                         File file = downloader.getFile();
                         if (file != null && file.exists()) {
                             file.delete();
