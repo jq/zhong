@@ -29,6 +29,8 @@
     <string name="myreview">My review:</string>		
     
 	<string name="info_download_count"> people downloaded it</string>
+	<string name="info_auther">Added by:</string>
+	<string name="info_category">"Category:</string>
 	
 	<string name="queue">Ring is in queue, will appear in ring tab after download</string>
 	
@@ -50,6 +52,7 @@
      <string name="search_more">Search more</string>
      <string name="search_more_by">Search more by</string>
      <string name="search_more_in">Search more in</string>
+     <string name="view_more_about">View about</string>
     
     <!--
      used in share alert_dialog

@@ -181,9 +181,9 @@ public class RingActivity extends Activity {
         mp3Size = ring.getInt(Const.size);
         titleTextView.setText(title);
         artistTextView.setText(artist);
-        detailInfo.append(download + this.getString(R.string.info_download_count));
-//        detailInfo.append("Added by: " + author + "\n");
-//        detailInfo.append("Category: " + category);
+        detailInfo.append(download + " " + this.getString(R.string.info_download_count) + "\n");
+        detailInfo.append(this.getString(R.string.info_auther) + " " + author + "\n");
+        detailInfo.append(this.getString(R.string.info_category) + " " + category);
         
         if(rating.length()>0) {
 	        int ratingNum = Integer.parseInt(rating);
@@ -220,15 +220,18 @@ public class RingActivity extends Activity {
       HashMap<String, String> map2 = new HashMap<String, String>();
       HashMap<String, String> map3 = new HashMap<String, String>();
       HashMap<String, String> map4 = new HashMap<String, String>();
+      HashMap<String, String> map5 = new HashMap<String, String>();
       map1.put("ItemTitle", this.getString(R.string.search_more) + " " + artist);
       map2.put("ItemTitle", this.getString(R.string.search_more_by) + " " +  author);
       map3.put("ItemTitle", this.getString(R.string.search_more_in) +  " " + category);
       map4.put("ItemTitle",  this.getString(R.string.search_more) +  " " + title);
+      map5.put("ItemTitle",  this.getString(R.string.view_more_about) +  " " + artist);
 
       ringlist.add(map1);
       ringlist.add(map2);
       ringlist.add(map3);
       ringlist.add(map4);
+      ringlist.add(map5);
       SimpleAdapter mSearchOthers = new SimpleAdapter(this, 
                                                   ringlist,   
                                                   R.layout.ring_list_item,       
@@ -247,8 +250,15 @@ public class RingActivity extends Activity {
 					case 1:	Search.getAuthorRing(RingActivity.this, author);
 					  return;
 					case 2: Search.getCate(RingActivity.this, category);
-				    return;
+				      return;
 					case 3: Search.getTitleRing(RingActivity.this, title);
+					  return;
+					case 4: 
+					  Intent intent = new Intent();
+					  String url = "http://ggapp.appspot.com/mobile/artist/" + artist;
+					  intent.putExtra("url", url);
+					  intent.setClass(RingActivity.this, WebViewActivity.class);
+					  startActivity(intent);
 			    return;
 					}
 				}

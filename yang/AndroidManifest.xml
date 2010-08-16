@@ -76,6 +76,10 @@
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
                   
         </activity>
+        <activity android:name="WebViewActivity" android:label=""
+                  android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
+                  
+        </activity>
         <activity android:name="com.lib.RingSelect" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
             <intent-filter>
