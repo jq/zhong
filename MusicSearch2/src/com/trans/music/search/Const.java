@@ -11,7 +11,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.trans.music.search.R;
+import com.ringtone.search1.R;
 
 import android.app.Activity;
 import android.content.Context;

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Music Search</string>
+    <string name="app_name">Ringtone Search</string>
     <string name="local_service_started">Download has started</string>
+    <string name="ringtone">Ringtone</string>
     
     <string name="network_error">Network error!</string>
     <string name="no_result">No Result, Please retry later</string>

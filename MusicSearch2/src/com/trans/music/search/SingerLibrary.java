@@ -1,5 +1,5 @@
 package com.trans.music.search;
-import com.trans.music.search.R;
+import com.ringtone.search1.R;
 
 import android.app.Activity;
 import android.os.Build;

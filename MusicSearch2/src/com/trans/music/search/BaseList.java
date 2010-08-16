@@ -1,11 +1,8 @@
 package com.trans.music.search;
 
-import com.admob.android.ads.AdManager;
-import com.admob.android.ads.AdView;
-import com.qwapi.adclient.android.view.QWAdView;
+import com.ringtone.search1.R;
 
 import android.app.ListActivity;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;

@@ -10,12 +10,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.json.JSONObject;
-import com.other.RingSelectActivity;
-import com.trans.music.search.IMediaPlaybackService;
-import com.trans.music.search.R;
+import com.ringtone.search1.R;
 
-import android.os.Build;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -119,12 +115,6 @@ public class MusicPage extends Activity implements
     btnLyric = (Button) findViewById(R.id.lyric);
     btnLyric.setOnClickListener(lyricClick);
     
-/*    Intent serviceIntent = new Intent(this, MediaPlaybackService.class);
-    startService(serviceIntent);
-        bindService((new Intent()).setClass(this,
-                MediaPlaybackService.class), osc, 0);*/
-
-    
     mSeekBar = (SeekBar) findViewById(R.id.play_seek_bar);
     mSeekBar.setOnSeekBarChangeListener(this);
     mSeekBar.setMax(1000);
@@ -217,37 +207,12 @@ public class MusicPage extends Activity implements
   @Override
   protected void onDestroy() {
   	super.onDestroy();
-/*    try {
-      if(mService.isPlaying() == true){
-        mService.stop();
-      }
-    } catch (Exception ex) {
-          ;
-    }
-        
-    unbindService(osc);*/
   	try {
   	  mPlayer.stop();
   	  mPlayer.release();
   	} catch (Exception e) {
-	}
+	  }
   }
-  //private IMediaPlaybackService mService = null;
- /* private ServiceConnection osc = new ServiceConnection() {
-    public void onServiceConnected(ComponentName classname, IBinder obj) {
-      Log.e("music page service", "connected");
-
-        mService = IMediaPlaybackService.Stub.asInterface(obj);
-    }*/
-
-    /*public void onServiceDisconnected(ComponentName classname) {
-	    try {
-	     mService.stop();
-	    } catch (Exception ex) {
-	    }
-
-    }
-};*/
 
   private OnClickListener mPlayStopListener = new OnClickListener() {
     public void onClick(View v) {

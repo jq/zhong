@@ -1,6 +1,6 @@
 package com.trans.music.search;
 
-import com.trans.music.search.R;
+import com.ringtone.search1.R;
 
 import android.view.View;
 import android.widget.TextView;

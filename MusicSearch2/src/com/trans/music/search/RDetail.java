@@ -55,7 +55,7 @@ import java.io.FileInputStream;
 import java.io.DataInputStream;
 import java.io.BufferedInputStream;
 
-import com.trans.music.search.R;
+import com.ringtone.search1.R;
 
 /**
  * 歌手名列表，被Feature和Category调用

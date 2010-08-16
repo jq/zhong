@@ -5,6 +5,16 @@
     <item android:id="@+id/menu_local"
         android:title="@string/downloaded_files"
         android:icon="@drawable/ic_menu_music_library" />
+    <item android:id="@+id/menu_hot"
+        android:title="@string/tab_hot"
+        android:icon="@android:drawable/ic_input_get" />
+    <item android:id="@+id/menu_ringdroid"
+        android:title="@string/ringtone"
+        android:icon="@drawable/ringdroidlogo" />
+        
+    <item android:id="@+id/menu_music"
+        android:title="@string/play"
+        android:icon="@android:drawable/ic_media_play" />
         
     <item android:id="@+id/menu_help"
         android:title="Help"
