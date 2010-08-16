@@ -1047,10 +1047,14 @@ public class MusicUtils {
         try {
             if (albumid < 0) {
                 Uri uri = Uri.parse("content://media/external/audio/media/" + songid + "/albumart");
-                ParcelFileDescriptor pfd = context.getContentResolver().openFileDescriptor(uri, "r");
-                if (pfd != null) {
-                    FileDescriptor fd = pfd.getFileDescriptor();
-                    bm = BitmapFactory.decodeFileDescriptor(fd);
+                try {
+                  ParcelFileDescriptor pfd = context.getContentResolver().openFileDescriptor(uri, "r");
+                  if (pfd != null) {
+                      FileDescriptor fd = pfd.getFileDescriptor();
+                      bm = BitmapFactory.decodeFileDescriptor(fd);
+                  }
+                } catch (Exception e) {
+                  
                 }
             } else {
                 Uri uri = ContentUris.withAppendedId(sArtworkUri, albumid);

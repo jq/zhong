@@ -109,36 +109,6 @@ public class DownloadService extends Service {
         }
     }
 
-
-    //    public boolean fileBeingDownloaded(SearchResult mp3) {
-    //    	if (mp3 == null)
-    //    		return false;
-    //    	
-    //    	String filename = mp3.getFileName();
-    //    	if (filename == null)
-    //    		return false;
-    //    	synchronized(mDownloads) {
-    //    		for (DownloadInfo d : mDownloads) {
-    //    		  if(d instanceof SogouDownloadInfo){
-    //    		    if (((SogouDownloadInfo) d).getSogouSearchResult() == null)
-    //                  continue;
-    //                if (((SogouDownloadInfo) d).getSogouSearchResult().getFileName() != null && 
-    //                    filename.equals(((SogouDownloadInfo) d).getSogouSearchResult().getFileName()))
-    //                  return true;
-    //    		  }
-    //    		  if(d instanceof P2pDownloadInfo) {
-    //    		    if (((P2pDownloadInfo) d).getP2pSearchResult() == null)
-    //    		      continue;
-    //    		    if (((P2pDownloadInfo) d).getP2pSearchResult().getFileName() != null && 
-    //                    filename.equals(((P2pDownloadInfo) d).getP2pSearchResult().getFileName()))
-    //                  return true;
-    //    		  }
-    //    			
-    //    		}
-    //    		return false;
-    //    	}
-    //    }
-
     public boolean fileBeingDownloaded(SogouSearchResult mp3) {
         if (mp3 == null)
             return true;
