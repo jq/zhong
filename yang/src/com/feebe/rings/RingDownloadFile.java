@@ -29,7 +29,7 @@ public class RingDownloadFile extends DownloadFile {
       ring.put("filePath", file.getAbsolutePath());
       ring.put(Const.mp3, u.toString());
       Util.saveFile(ring.toString(), Const.jsondir + file.getName());
-    } catch (JSONException e) {
+    } catch (Exception e) {
     }
     return u;
   }

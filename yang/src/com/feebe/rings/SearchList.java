@@ -223,7 +223,7 @@ public ListAdapter getAdapter() {
       reset();
     }
     public void reset() {      
-    	runSyn(getUrl(currentPage), Const.OneWeek);
+    	runAsyn(getUrl(currentPage), Const.OneWeek);
     }
     @Override
     public SearchResult getT(Object o) {

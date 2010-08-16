@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
    android:installLocation="auto"
       package="com.feebe.rings"
-      android:versionName="3.5" android:versionCode="80">
+      android:versionName="3.5.2" android:versionCode="82">
     <application android:icon="@drawable/ring" android:label="@string/app_name">
         <activity android:name="Ring"
                   android:label="@string/app_name"

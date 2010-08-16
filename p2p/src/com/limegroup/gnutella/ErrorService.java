@@ -65,14 +65,14 @@ public final class ErrorService {
 		 */
 		public void error(Throwable t) {
 			t.printStackTrace();
-			throw new RuntimeException(t.getMessage());
+			//throw new RuntimeException(t.getMessage());
 		}
 		
 		//inherit doc comment
 		public void error(Throwable t, String msg) {
 		    t.printStackTrace();
 		    LOG.info(msg);
-		    throw new RuntimeException(t.getMessage());
+		    //throw new RuntimeException(t.getMessage());
 		}
 	}
 }
