@@ -15,6 +15,7 @@ import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class SearchTab  extends Activity {
   private EditText searchTitle;
@@ -48,6 +49,41 @@ public class SearchTab  extends Activity {
       public void onClick(View v) {
         search();
       }
+    });
+    
+    TextView downloads = (TextView)findViewById(R.id.downloads);
+    downloads.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(SearchTab.this, local.class);
+            startActivity(intent);
+        }
+    });
+    
+    TextView viewMusic = (TextView)findViewById(R.id.hot);
+    viewMusic.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View arg0) {
+            Intent intent = new Intent(SearchTab.this, StringList.class);
+            startActivity(intent);
+        }
+    });
+    
+    TextView ringtone = (TextView)findViewById(R.id.ringtone);
+    ringtone.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View arg0) {
+            Intent intent = new Intent(SearchTab.this, com.other.RingSelectActivity.class);
+            startActivity(intent);
+        }
+    });
+    
+    TextView play = (TextView)findViewById(R.id.play);
+    play.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View arg0) {
+            loadDefaultMusicApp();
+        }
     });
   }
   
