@@ -36,6 +36,7 @@ import android.media.MediaPlayer.OnSeekCompleteListener;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -125,6 +126,7 @@ public class RingdroidEditActivity extends Activity implements
 	private ImageButton mSaveButton;
 	private ImageButton mCutButton;
 	private ImageButton mAppendButton;
+	private ImageButton mAutoSelectButton;
 	private boolean mKeyDown;
 	private String mCaption = "";
 	private int mWidth;
@@ -464,9 +466,7 @@ public class RingdroidEditActivity extends Activity implements
 			}
 			return true;
 		case CMD_AUTOSELECT:
-		    int offset = autoSelectPositions();
-		    mOffsetGoal = offset;
-		    updateDisplay();
+		    new autoSelectPositionsTask().execute();
 		    return true;
 		case CMD_RESET:
 			resetPositions();
@@ -695,12 +695,15 @@ public class RingdroidEditActivity extends Activity implements
 		mCutButton.setOnClickListener(mCutListener);
 		mAppendButton = (ImageButton) findViewById(R.id.append);
 		mAppendButton.setOnClickListener(mAppendListener);
+		mAutoSelectButton = (ImageButton) findViewById(R.id.auto_select);
+		mAutoSelectButton.setOnClickListener(mAutoSelectListener);
 
 		TextView markStartButton = (TextView) findViewById(R.id.mark_start);
-		markStartButton.setOnClickListener(mMarkStartListener);
-		TextView markEndButton = (TextView) findViewById(R.id.mark_end);
-		markEndButton.setOnClickListener(mMarkStartListener);
-
+		if (markStartButton != null) {
+    		markStartButton.setOnClickListener(mMarkStartListener);
+    		TextView markEndButton = (TextView) findViewById(R.id.mark_end);
+    		markEndButton.setOnClickListener(mMarkStartListener);
+		}
 		enableDisableButtons();
 
 		mWaveformView = (WaveformView) findViewById(R.id.waveform);
@@ -998,42 +1001,108 @@ public class RingdroidEditActivity extends Activity implements
 	}
 	
 	private int autoSelectPositions() {
-	  double lastSeconds = Double.parseDouble(formatTime(mWaveformView.maxPos()));
-	  int numFrames = mSoundFile.getNumFrames();
-	  int[] frameGains = mSoundFile.getFrameGains();
-	  //compute average gain per second
-	  int numUnits = (int) (lastSeconds);
-	  int[] unitGains = new int[numUnits];
-	  int framesPerUnit = numFrames / numUnits;
-	  for(int i = 0; i < numUnits; i++) {
-	    int temp = 0;
-	    for(int j = 0; j < framesPerUnit; j++) {
-	      temp += frameGains[i*framesPerUnit + j];
-	    }
-	    unitGains[i] += temp;
+      int numFrames = mSoundFile.getNumFrames();
+      int[] frameGains = mSoundFile.getFrameGains();
+      //trim frameGains
+      for(int i = frameGains.length-1; i > -1; i--) {
+        if(frameGains[i] == 0)
+          numFrames--;
+        else
+          break;
+      }
+      if(numFrames < 1)
+        return 0;
+      
+      final int NUM_OF_FRAMES_TO_COMBINE = 5;
+      int numFramesReduced = numFrames/NUM_OF_FRAMES_TO_COMBINE;
+      int[] gains = new int[numFramesReduced];
+      for(int i = 0; i < numFramesReduced; i++) {
+//        gains[i] = 0;
+//        for(int j = 0; j < NUM_OF_FRAMES_TO_COMBINE; j++) {
+//          int index = i * NUM_OF_FRAMES_TO_COMBINE + j;
+//          if(index < numFrames)
+//            gains[i] += frameGains[index];
+//        }
+//        gains[i] = gains[i] / NUM_OF_FRAMES_TO_COMBINE; 
+        gains[i] = frameGains[i * NUM_OF_FRAMES_TO_COMBINE];
+        
+      }
+      //compute similarity matrix
+      /*
+      int[][] similarityMatrix = new int[numFramesReduced][numFramesReduced];
+      for(int i = 0; i < numFramesReduced; i++) {
+        for(int j = 0; j < i; j++) {
+          similarityMatrix[i][j] = (Math.abs(gains[j] - gains[i]));
+        }
+      }
+      */
+      //compute number of frames per 20 second
+      double lastSeconds = Double.parseDouble(formatTime(mWaveformView.maxPos()));
+      int numFramesSelect = lastSeconds > 20.0 ? (int) (numFramesReduced * 20 / lastSeconds): numFramesReduced;
+      int ratio = (int) (numFramesSelect * 0.5);
+      //compute column sum of similarity matrix
+      int[] similarityX = new int[numFramesReduced];
+      for(int i = 0; i < numFramesReduced; i++) {
+        int sum =0;
+        for(int j = i + ratio; j < numFramesReduced; j++) {
+          int diff = gains[j] - gains[i];      
+          if(diff < 0)
+            diff = -diff;
+          sum += diff;
+        }
+        for(int j = 0; j < i - ratio; j++) {
+          int diff = gains[j] - gains[i];      
+          if(diff < 0)
+            diff = -diff;
+          sum += diff;
+        }
+        similarityX[i] = sum;
+      }
+      //compute summary scores
+      long minScore = 0;
+      for(int i = 0; i < numFramesSelect; i++) {
+        minScore += similarityX[i];
+      }
+      int index = 0;
+      long sum = minScore;
+      for(int i = numFramesSelect; i < numFramesReduced; i++) {
+        sum = sum + similarityX[i] - similarityX[i-numFramesSelect];
+        if(sum < minScore) {
+          minScore = sum;
+          index = i - numFramesSelect;
+        }
+      }
+      //move
+      double startSecond = lastSeconds * index / numFramesReduced;
+      mStartPos = mWaveformView.secondsToPixels(startSecond);
+      mEndPos = mWaveformView.secondsToPixels(startSecond + 20.0);
+      return mStartPos;
+    }
+	
+	private class autoSelectPositionsTask extends AsyncTask<Void, Void, Integer> {
+	  protected void onPreExecute() {
+	    mProgressDialog = new ProgressDialog(RingdroidEditActivity.this);
+        mProgressDialog.setTitle("Please wait");
+        mProgressDialog.setMessage("Selecting chorus...");
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
 	  }
-	  //compute max gain per 15s
-	  int maxGain = 0;
-	  int maxIndex = 0;
-	  for(int i = 0; i < 15; i++) {
-	    maxGain += unitGains[i];
-	  }
-	  int sum = maxGain;
-	  for(int i = 15; i < numUnits; i++) {
-	    sum = sum + unitGains[i] - unitGains[i-15];
-	    if(sum > maxGain) {
-	      maxGain = sum;
-	      maxIndex = i - 14;
-	    }
-	  }
-	  //move
-	  double startSecond = maxIndex;
-	  mStartPos = mWaveformView.secondsToPixels(startSecond);
-	  mEndPos = mWaveformView.secondsToPixels(startSecond + 15.0);
 	  
-	  return mStartPos;
+      @Override
+      protected Integer doInBackground(Void... params) {
+        int result = autoSelectPositions();
+        return result;
+      }
+      
+      @Override
+      protected void onPostExecute(Integer result) {
+        mOffsetGoal = result;
+        mProgressDialog.dismiss();
+        updateDisplay();
+      }
 	}
-
+	
 	private int trap(int pos) {
 		if (pos < 0)
 			return 0;
@@ -1741,6 +1810,14 @@ public class RingdroidEditActivity extends Activity implements
       public void onClick(View v) {
         Intent intent = new Intent(RingdroidEditActivity.this, ChooseRingActivity.class);
         startActivityForResult(intent, REQUEST_CODE_CHOOSE_RING);
+      }
+    };
+    
+    private OnClickListener mAutoSelectListener = new OnClickListener() {
+      
+      @Override
+      public void onClick(View v) {
+        new autoSelectPositionsTask().execute();
       }
     };
     

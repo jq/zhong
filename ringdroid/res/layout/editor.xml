@@ -129,12 +129,12 @@
 
         <EditText android:id="@+id/starttext"
            android:textSize="11sp"
-           android:layout_width="70dip"
+           android:layout_width="50dip"
            android:layout_height="31dip" />
 
         <EditText android:id="@+id/endtext"
            android:textSize="11sp"
-           android:layout_width="70dip"
+           android:layout_width="50dip"
            android:layout_height="31dip" />
 
       </LinearLayout>
@@ -164,6 +164,11 @@
          android:layout_height="52dip"
          android:src="@drawable/menu_append" />
 
+				<ImageButton android:id="@+id/auto_select"
+         android:layout_width="52dip"
+         android:layout_height="52dip"
+         android:src="@drawable/menu_auto_select" />
+         
       </LinearLayout>
 
 

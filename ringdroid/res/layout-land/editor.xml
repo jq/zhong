@@ -51,20 +51,20 @@
          android:gravity="center">
 
 	  <ImageButton android:id="@+id/rew"
-	   android:layout_width="48dip"
-	   android:layout_height="48dip"
+	   android:layout_width="46dip"
+	   android:layout_height="46dip"
            style="@android:style/MediaButton"
 	   android:src="@drawable/ic_media_rew" />
 
 	  <ImageButton android:id="@+id/play"
-	   android:layout_width="48dip"
-	   android:layout_height="48dip"
+	   android:layout_width="46dip"
+	   android:layout_height="46dip"
            style="@android:style/MediaButton"
 	   android:src="@drawable/ic_media_play" />
 
 	  <ImageButton android:id="@+id/ffwd"
-	   android:layout_width="48dip"
-	   android:layout_height="48dip"
+	   android:layout_width="46dip"
+	   android:layout_height="46dip"
            style="@android:style/MediaButton"
 	   android:src="@drawable/ic_media_ff" />
 
@@ -73,7 +73,7 @@
 
         <LinearLayout style="@style/VerticalDividerLeft" />
         <LinearLayout style="@style/VerticalDividerRight" />
-
+<!--  
       <LinearLayout
          android:layout_width="wrap_content" 
          android:layout_height="fill_parent"
@@ -104,7 +104,7 @@
            android:layout_height="31dip" />
 
       </LinearLayout>
-
+-->
       <LinearLayout
          android:layout_width="wrap_content" 
          android:layout_height="fill_parent"
@@ -135,29 +135,34 @@
          
          
         <ImageButton android:id="@+id/zoom_in"
-	   				android:layout_width="48dip"
-	   				android:layout_height="48dip"
+	   				android:layout_width="46dip"
+	   				android:layout_height="46dip"
 	   				android:src="@drawable/button_zoom_in" />
 
 	  		<ImageButton android:id="@+id/zoom_out"
-	   				android:layout_width="48dip"
-	   				android:layout_height="48dip"
+	   				android:layout_width="46dip"
+	   				android:layout_height="46dip"
 	   				android:src="@drawable/button_zoom_out" />
 
         <ImageButton android:id="@+id/save"
-         android:layout_width="48dip"
-         android:layout_height="48dip"
+         android:layout_width="46dip"
+         android:layout_height="46dip"
          android:src="@drawable/menu_save" />
          
          <ImageButton android:id="@+id/cut"
-         android:layout_width="48dip"
-         android:layout_height="48dip"
+         android:layout_width="46dip"
+         android:layout_height="46dip"
          android:src="@drawable/menu_cut" />
          
          <ImageButton android:id="@+id/append"
-         android:layout_width="48dip"
-         android:layout_height="48dip"
+         android:layout_width="46dip"
+         android:layout_height="46dip"
          android:src="@drawable/menu_append" />
+         
+         <ImageButton android:id="@+id/auto_select"
+         android:layout_width="46dip"
+         android:layout_height="46dip"
+         android:src="@drawable/menu_auto_select" />
 
       </LinearLayout>
       
