@@ -77,7 +77,11 @@
      used in RingActivity ring_picker dialog
      -->
      <string name="ring_picker_title">Select Ring</string>
-     
+    
+    <!--
+     used in RingActivity title
+     -->
+      <string name="ring_activity_title">Ring Detail</string>
     <!-- 
 	 used in RingActivity notification when finish or failed download.
 	 -->
