@@ -238,7 +238,7 @@
 			        android:layout_width="wrap_content"
 			        android:background="#FF909090" />	
 			   <ListView android:layout_width="fill_parent"    
-		                  android:layout_height="180dip"    
+		                  android:layout_height="225dip"    
 		                  android:id="@+id/list_searchOthers">  
 		        </ListView>  
 		        

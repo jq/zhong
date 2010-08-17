@@ -18,6 +18,7 @@ import com.feebe.lib.DownloadImg;
 import com.feebe.lib.DownloadFile;
 import com.feebe.lib.Util;
 import com.feebee.rings.R;
+import com.lib.RingSelect;
 import com.ringdroid.RingdroidSelectActivity;
 
 import entagged.audioformats.AudioFile;
@@ -46,6 +47,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Browser;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -107,9 +109,10 @@ public class RingActivity extends Activity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      // // Log.e(TAG,"onCreate");
 
-      requestWindowFeature(Window.FEATURE_NO_TITLE);
+      //requestWindowFeature(Window.FEATURE_NO_TITLE);
+      requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+      setTitle(R.string.ring_activity_title);
       setContentView(R.layout.ring);
       AdListener.createAds(this);
       iconImageView = (ImageView) findViewById(R.id.row_icon);
@@ -125,6 +128,10 @@ public class RingActivity extends Activity {
       mPreview = (Button)this.findViewById(R.id.preview);
       dl.setOnClickListener(dlClick);
       mPreview.setOnClickListener(previewClick);
+      queue = (Button)this.findViewById(R.id.queue);
+      dl.setClickable(false);
+      mPreview.setClickable(false);
+      queue.setClickable(false);
       
       largeRatingBar.setIsIndicator(true);
       largeRatingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
@@ -161,121 +168,9 @@ public class RingActivity extends Activity {
       if (!json.startsWith("http")) {
         jsonLocation = json;
       }
-      ring = Search.getRingJson(json);
-      if (ring == null) {
-        // TODO: tell user this file is broken
-        finish();
-        return;
-      }
-
-      try {
-  	  	category = ring.getString(Const.category);
-  	  	download = ring.getString(Const.download);
-  	  	author = ring.getString(Const.author);
-  	  	artist = ring.getString(Const.artist);
-  	  	rating = ring.getString(Const.rating);
-  	  	title = ring.getString(Const.title);
-  	  	key = ring.getString(Const.key);
-        mp3Location = ring.getString(Const.mp3);
-        mp3Size = ring.getInt(Const.size);
-        titleTextView.setText(title);
-        artistTextView.setText(artist);
-        detailInfo.append(download + this.getString(R.string.info_download_count));
-//        detailInfo.append("Added by: " + author + "\n");
-//        detailInfo.append("Category: " + category);
-        
-        if(rating.length()>0) {
-	        int ratingNum = Integer.parseInt(rating);
-		  	if (ratingNum < 60){
-		  		ratingBar.setRating(1);
-		  	}else if (ratingNum < 70){
-		  		ratingBar.setRating(2);
-		  	}else if (ratingNum < 80){
-		  		ratingBar.setRating(3);
-		  	}else if (ratingNum < 90){
-		  		ratingBar.setRating(4);
-		  	}else
-		  		ratingBar.setRating(5);  
-        }
-        String imgUrl = ring.getString(Const.image);
-        if (imgUrl != null && imgUrl.length() > 0)
-          new DownloadImg(iconImageView).execute(imgUrl);
-      } catch (JSONException e) {
-        // // Log.e(TAG, e.getMessage());
-        return;
-      }
       
-      if(ring.has(Const.myRating)){
-    	  try {
-			myRating = ring.getString(Const.myRating);
-			largeRatingBar.setRating(Float.parseFloat(myRating));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-      }
-      
-      ArrayList<HashMap<String, String>> ringlist = new ArrayList<HashMap<String, String>>(); 
-      HashMap<String, String> map1 = new HashMap<String, String>();
-      HashMap<String, String> map2 = new HashMap<String, String>();
-      HashMap<String, String> map3 = new HashMap<String, String>();
-      HashMap<String, String> map4 = new HashMap<String, String>();
-      map1.put("ItemTitle", this.getString(R.string.search_more) + " " + artist);
-      map2.put("ItemTitle", this.getString(R.string.search_more_by) + " " +  author);
-      map3.put("ItemTitle", this.getString(R.string.search_more_in) +  " " + category);
-      map4.put("ItemTitle",  this.getString(R.string.search_more) +  " " + title);
+      new FetchJsonTask().execute(json);
 
-      ringlist.add(map1);
-      ringlist.add(map2);
-      ringlist.add(map3);
-      ringlist.add(map4);
-      SimpleAdapter mSearchOthers = new SimpleAdapter(this, 
-                                                  ringlist,   
-                                                  R.layout.ring_list_item,       
-                                                  new String[] {"ItemTitle"},                                             
-                                                  new int[] {R.id.ringListItem1});   
-      listSearchOthers.setAdapter(mSearchOthers);
-      listSearchOthers.setOnItemClickListener(new OnItemClickListener() {
-		
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view, int position,
-						long id) {
-					// TODO Auto-generated method stub
-					switch(position){
-					case 0:	Search.getArtistRing(RingActivity.this, artist);
-					  return;
-					case 1:	Search.getAuthorRing(RingActivity.this, author);
-					  return;
-					case 2: Search.getCate(RingActivity.this, category);
-				      return;
-					case 3: Search.getTitleRing(RingActivity.this, title);
-			          return;
-					}
-				}
-
-      });
-      
-      queue = (Button)this.findViewById(R.id.queue);
-
-      if (!mp3Location.startsWith("http:")) {
-        initFinishDownloadButton();
-      } else {
-      	queue.setOnClickListener(new OnClickListener() {
-          @Override
-          public void onClick(View v) {
-          	// save json file
-            Toast.makeText(
-                RingActivity.this, R.string.queue, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(RingActivity.this ,RingdroidSelectActivity.class);
-          	ringDownloadListener = new RingDownloadListener(RingActivity.this, intent, true);
-          	download(ringDownloadListener);
-            saveArtist();
-            finish();
-            //Const.downloadDb.insert(values);
-            // TODO: start new intent to launch download queue view
-            // pass json file to the download view, so that when download finish, it will get it
-          }  
-        });
-      }
   }
   
   private static final int RING_PICKER = 1;
@@ -519,13 +414,49 @@ public class RingActivity extends Activity {
             } else {
               ring_type = RingtoneManager.TYPE_ALARM;
             }
-            String u;
+            //String u;
             try {
               //u = Const.mp3dir + ring.getString(Const.mp3);
               if (mCurrentFileUri == null) {
                 mCurrentFileUri = Uri.parse(ring.getString(Const.mp3));
               }
               RingtoneManager.setActualDefaultRingtoneUri(RingActivity.this, ring_type, mCurrentFileUri);
+              //add to system library
+              if(ring_type == RingtoneManager.TYPE_RINGTONE) {
+                Settings.System.putString(getContentResolver(), Settings.System.RINGTONE, mCurrentFileUri.toString());
+                try {
+                  ContentValues values = new ContentValues(2);
+                  values.put(MediaStore.Audio.Media.IS_RINGTONE, "1");
+                  values.put(MediaStore.Audio.Media.IS_ALARM, "1");
+                  getContentResolver().update(mCurrentFileUri, values, null, null);
+                } catch (UnsupportedOperationException ex) {
+                  // most likely the card just got unmounted
+                  return;
+                }
+              }
+              if(ring_type == RingtoneManager.TYPE_NOTIFICATION) {
+                Settings.System.putString(getContentResolver(), Settings.System.NOTIFICATION_SOUND, mCurrentFileUri.toString());
+                try {
+                  ContentValues values = new ContentValues(2);
+                  values.put(MediaStore.Audio.Media.IS_NOTIFICATION, "1");
+                  values.put(MediaStore.Audio.Media.IS_ALARM, "1");
+                  getContentResolver().update(mCurrentFileUri, values, null, null);
+                } catch (UnsupportedOperationException ex) {
+                  // most likely the card just got unmounted
+                  return;
+                }
+              }
+              if(ring_type == RingtoneManager.TYPE_ALARM) {
+                Settings.System.putString(getContentResolver(), Settings.System.ALARM_ALERT, mCurrentFileUri.toString());
+                try {
+                  ContentValues values = new ContentValues(2);
+                  values.put(MediaStore.Audio.Media.IS_ALARM, "1");
+                  getContentResolver().update(mCurrentFileUri, values, null, null);
+                } catch (UnsupportedOperationException ex) {
+                  // most likely the card just got unmounted
+                  return;
+                }
+              }
             } catch (JSONException e) {
               // TODO Auto-generated catch block
               e.printStackTrace();
@@ -571,6 +502,147 @@ public class RingActivity extends Activity {
   public void onDestroy() {
     super.onDestroy();
     // TODO: cancel download 
+  }
+  
+  private class FetchJsonTask extends AsyncTask<String, Void, JSONObject> {
+    @Override
+    protected void onPreExecute() {
+      setProgressBarIndeterminateVisibility(true);
+    }
+    
+    @Override
+    protected JSONObject doInBackground(String... params) {
+      String jsonLocation = params[0];
+      JSONObject ring = Search.getRingJson(jsonLocation);
+      if(ring == null)
+        finish();
+      return ring;
+    }   
+    
+    @Override
+    protected void onPostExecute(JSONObject ring) {
+      try {
+        category = ring.getString(Const.category);
+        download = ring.getString(Const.download);
+        author = ring.getString(Const.author);
+        artist = ring.getString(Const.artist);
+        rating = ring.getString(Const.rating);
+        title = ring.getString(Const.title);
+        key = ring.getString(Const.key);
+        mp3Location = ring.getString(Const.mp3);
+        mp3Size = ring.getInt(Const.size);
+        titleTextView.setText(title);
+        artistTextView.setText(artist);
+        detailInfo.append(download + " " + RingActivity.this.getString(R.string.info_download_count) + "\n");
+        detailInfo.append(RingActivity.this.getString(R.string.info_auther) + " " + author + "\n");
+        detailInfo.append(RingActivity.this.getString(R.string.info_category) + " " + category);
+        
+        if(rating.length()>0) {
+            int ratingNum = Integer.parseInt(rating);
+            if (ratingNum < 60){
+                ratingBar.setRating(1);
+            }else if (ratingNum < 70){
+                ratingBar.setRating(2);
+            }else if (ratingNum < 80){
+                ratingBar.setRating(3);
+            }else if (ratingNum < 90){
+                ratingBar.setRating(4);
+            }else
+                ratingBar.setRating(5);  
+        }
+        String imgUrl = ring.getString(Const.image);
+        if (imgUrl != null && imgUrl.length() > 0)
+          new DownloadImg(iconImageView).execute(imgUrl);
+      } catch (JSONException e) {
+        return;
+      }
+      
+      if(ring.has(Const.myRating)){
+        try {
+          myRating = ring.getString(Const.myRating);
+          largeRatingBar.setRating(Float.parseFloat(myRating));
+        } catch (JSONException e) {
+          e.printStackTrace();
+        }
+      }
+      
+      ArrayList<HashMap<String, String>> ringlist = new ArrayList<HashMap<String, String>>(); 
+      HashMap<String, String> map1 = new HashMap<String, String>();
+      HashMap<String, String> map2 = new HashMap<String, String>();
+      HashMap<String, String> map3 = new HashMap<String, String>();
+      HashMap<String, String> map4 = new HashMap<String, String>();
+      HashMap<String, String> map5 = new HashMap<String, String>();
+      map1.put("ItemTitle", RingActivity.this.getString(R.string.search_more) + " " + artist);
+      map2.put("ItemTitle", RingActivity.this.getString(R.string.search_more_by) + " " +  author);
+      map3.put("ItemTitle", RingActivity.this.getString(R.string.search_more_in) +  " " + category);
+      map4.put("ItemTitle",  RingActivity.this.getString(R.string.search_more) +  " " + title);
+      map5.put("ItemTitle",  RingActivity.this.getString(R.string.view_more_about) +  " " + artist);
+
+      ringlist.add(map1);
+      ringlist.add(map2);
+      ringlist.add(map3);
+      ringlist.add(map4);
+      ringlist.add(map5);
+      SimpleAdapter mSearchOthers = new SimpleAdapter(RingActivity.this, 
+                                                  ringlist,   
+                                                  R.layout.ring_list_item,       
+                                                  new String[] {"ItemTitle"},                                             
+                                                  new int[] {R.id.ringListItem1});   
+      listSearchOthers.setAdapter(mSearchOthers);
+      listSearchOthers.setOnItemClickListener(new OnItemClickListener() {
+        
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position,
+                        long id) {
+                    // TODO Auto-generated method stub
+                    switch(position){
+                    case 0: Search.getArtistRing(RingActivity.this, artist);
+                      return;
+                    case 1: Search.getAuthorRing(RingActivity.this, author);
+                      return;
+                    case 2: Search.getCate(RingActivity.this, category);
+                      return;
+                    case 3: Search.getTitleRing(RingActivity.this, title);
+                      return;
+                    case 4: 
+                      Intent intent = new Intent();
+                      String url = "http://ggapp.appspot.com/mobile/artist/" + artist;
+                      intent.putExtra("url", url);
+                      intent.setClass(RingActivity.this, WebViewActivity.class);
+                      startActivity(intent);
+                return;
+                    }
+                }
+
+      });
+      
+      if (!mp3Location.startsWith("http:")) {
+        initFinishDownloadButton();
+      } else {
+        queue.setOnClickListener(new OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            // save json file
+            Toast.makeText(
+                RingActivity.this, R.string.queue, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(RingActivity.this ,RingSelect.class);
+            ringDownloadListener = new RingDownloadListener(RingActivity.this, intent, true);
+            download(ringDownloadListener);
+            saveArtist();
+            finish();
+            //Const.downloadDb.insert(values);
+            // TODO: start new intent to launch download queue view
+            // pass json file to the download view, so that when download finish, it will get it
+          }  
+        });
+      }
+      
+      dl.setClickable(true);
+      mPreview.setClickable(true);
+      queue.setClickable(true);
+      setProgressBarIndeterminateVisibility(false);
+    }
+
   }
   
   private Uri mCurrentFileUri;
