@@ -134,7 +134,7 @@ public class SearchList extends ListActivity implements OnItemClickListener {
 				
 			}
 		});
-	 
+	
   }  
 
 public ListAdapter getAdapter() {
@@ -143,6 +143,8 @@ public ListAdapter getAdapter() {
     reloadUrl = getUrlFromIntent(i);
     long expire = i.getLongExtra(Const.expire, 0);
     mAdapter = new SearchResultAdapter(this, R.layout.searchlist_row);
+    if(!Util.inCache(reloadUrl, Const.OneWeek))
+      showDialog(PROGRESS_DIALOG);
     return mAdapter;
   }
 
@@ -293,6 +295,25 @@ public ListAdapter getAdapter() {
     @Override
     protected List getListFromUrl(String url, long expire) {
       return RingUtil.getJsonArrayFromUrl(url, expire);
+    }
+    
+    @Override
+    protected void onNoResult() {
+      if(!reloadUrl.contains("start=") && reloadUrl.contains("artist=") && reloadUrl.contains("&q=")) {
+        reloadUrl = reloadUrl.substring(0, reloadUrl.indexOf("&q="));
+        mAdapter.clear();
+        mAdapter.reset();
+      } else {
+        super.onNoResult();
+        finish();
+      }
+        
+    }
+    
+    @Override
+    protected void dismissProgressDialog() {
+      if(waitDialog != null && waitDialog.isShowing())
+        dismissDialog(PROGRESS_DIALOG);
     }
 
   }

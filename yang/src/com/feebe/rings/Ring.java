@@ -45,7 +45,7 @@ public class Ring extends TabActivity implements OnTabChangeListener {
       TabCreator.createTab(this, tabHost, search, getString(R.string.tab_search), R.drawable.tab_search);
       setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
       //throw new RuntimeException("exc");
-      Util.runFeed(4, this, R.raw.feed);
+      Util.runFeed(4, this, R.raw.feed);     
     }
     
     @Override

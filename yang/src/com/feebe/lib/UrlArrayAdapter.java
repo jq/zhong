@@ -135,8 +135,12 @@ public abstract class UrlArrayAdapter<T, W> extends ArrayAdapter<T> {
     
   }
     
-  public void runAsyn(final String url, final long expire) {
+  protected void runAsyn(final String url, final long expire) {
     new AppendTask(expire).execute(url);
+  }
+  
+  protected void dismissProgressDialog() {
+    
   }
 
   @SuppressWarnings("unchecked")
@@ -156,6 +160,7 @@ public abstract class UrlArrayAdapter<T, W> extends ArrayAdapter<T> {
     }
     
     protected void onPost(List result) {
+      dismissProgressDialog();
       if (result != null) {
         runList(result);
       }else {
