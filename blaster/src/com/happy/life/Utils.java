@@ -210,30 +210,6 @@ public class Utils {
         
         notificationManager.notify(R.layout.search + sNotificationId++, notification);
 	}
-
-	public static void copyConfigFile(Context context) {
-        // copy file
-        File gnutella = new File("/sdcard/musiclife/setting/gnutella.net");
-        if (!gnutella.exists()) {
-            InputStream in = context.getResources().openRawResource(R.raw.gnutella);
-            OutputStream out;
-            try {
-                out = new FileOutputStream(gnutella);
-    
-                byte[] buf = new byte[4096];
-                int len;
-                while ((len = in.read(buf)) > 0){
-                  out.write(buf, 0, len);
-                }
-                in.close();
-                out.close();
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-        }
-	}
 	
 	public static String getHexString(byte[] b) {
 		String result = "";
