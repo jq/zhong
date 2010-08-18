@@ -207,9 +207,18 @@ public class RingdroidSelectActivity
                     		filename=cursor.getString(dataIndex);
                     		if (filename.startsWith("content:")){
                     			Cursor c=managedQuery(Uri.parse(filename),null,null,null,null);
-                    			c.moveToFirst();
-                    			dataIndex=c.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
-                    			filename=c.getString(dataIndex);
+                    			if(c.getCount() > 0) {
+                        			c.moveToFirst();
+                        			dataIndex=c.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+                        			filename=c.getString(dataIndex);
+                    			} else {
+                    			    filename = "ringtone has been deleted";
+                    			}
+                    		} else {
+                    		  File file = new File(filename);
+                    		  if(!file.exists())
+                    		    filename = "ringtone has been deleted";
+                    		  file = null;
                     		}
                     	}
                     	((TextView) view).setText(Utils.convertGBK(filename));
@@ -562,7 +571,11 @@ public class RingdroidSelectActivity
         			dataIndex = c.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
         	}
         }
-    	filename = c.getString(dataIndex);
+        try {
+          filename = c.getString(dataIndex);
+        } catch (Exception e) {
+          return;
+        }
         try {
             Intent intent = new Intent(Intent.ACTION_EDIT,
                                        Uri.parse(filename));
