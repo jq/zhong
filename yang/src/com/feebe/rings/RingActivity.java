@@ -151,12 +151,12 @@ public class RingActivity extends Activity {
       			} catch (IOException e) {
       				e.printStackTrace();
       			}
-      			if (ring.has(myRating)) {
-      				ring.remove(myRating);
+      			if (ring_.has(myRating)) {
+      				ring_.remove(myRating);
       			}
             try {
-      					ring.put(Const.myRating, rating);
-      					Util.saveFile(ring.toString(), jsonLocation);
+      					ring_.put(Const.myRating, rating);
+      					Util.saveFile(ring_.toString(), jsonLocation);
             } catch (JSONException e) {
       					// // Log.e(TAG, "put myRating "+ rating);
       			}
@@ -196,7 +196,7 @@ public class RingActivity extends Activity {
         try {
         	
             if (mCurrentFileUri == null) {
-    	          mCurrentFileUri = Uri.parse(ring.getString(Const.mp3));
+    	          mCurrentFileUri = Uri.parse(ring_.getString(Const.mp3));
             }
             // Log.e("u", " uri " + mCurrentFileUri.toString() + " mp3 " + ring.getString(Const.mp3));
 	          intent.setData(mCurrentFileUri);
@@ -210,15 +210,16 @@ public class RingActivity extends Activity {
     
     mEdit = (Button) findViewById(R.id.edit);
     mEdit.setVisibility(View.VISIBLE);
+    Log.e("edit", "set edit " + String.valueOf(ring_ == null));
     mEdit.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
 				// TODO edit ringtone
 				try {
-					String filePath = ring.getString("filePath");
+					String filePath = ring_.getString("filePath");
 					Intent intent = new Intent(Intent.ACTION_EDIT, Uri.parse(filePath));
 					intent.putExtra("was_get_content_intent",false);
-					intent.setClassName("com.feebe.rings","com.lib.RingEditor");
+					intent.setClassName(RingActivity.this,"com.lib.RingEditor");
 					startActivity(intent);
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -297,7 +298,7 @@ public class RingActivity extends Activity {
       } else{
         // TODO: play
       	try {
-					filePath = ring.getString("filePath");
+					filePath = ring_.getString("filePath");
 				} catch (JSONException e1) {
 					// // Log.e(TAG, "error read mp3 file");
 				}
@@ -416,7 +417,7 @@ public class RingActivity extends Activity {
             try {
               //u = Const.mp3dir + ring.getString(Const.mp3);
               if (mCurrentFileUri == null) {
-                mCurrentFileUri = Uri.parse(ring.getString(Const.mp3));
+                mCurrentFileUri = Uri.parse(ring_.getString(Const.mp3));
               }
               RingtoneManager.setActualDefaultRingtoneUri(RingActivity.this, ring_type, mCurrentFileUri);
               //add to system library
@@ -480,7 +481,7 @@ public class RingActivity extends Activity {
     // // Log.e("path", fullpathame);
 
     DownloadFile df = new RingDownloadFile(
-        listerner, 512,mp3Size, category, artist, title, this.getContentResolver(), fileKinds, ring);
+        listerner, 512,mp3Size, category, artist, title, this.getContentResolver(), fileKinds, ring_);
     df.execute(mp3Location, Const.getMp3FilePath(artist, title, extension));
   }
 
@@ -512,14 +513,20 @@ public class RingActivity extends Activity {
     protected JSONObject doInBackground(String... params) {
       String jsonLocation = params[0];
       JSONObject ring = Search.getRingJson(jsonLocation);
-      if(ring == null)
+
+      if(ring == null) {
         finish();
+      }
       return ring;
     }   
     
     @Override
     protected void onPostExecute(JSONObject ring) {
       try {
+    	if (ring == null) {
+    		return;
+    	}
+    	ring_ = ring;
         category = ring.getString(Const.category);
         download = ring.getString(Const.download);
         author = ring.getString(Const.author);
@@ -644,7 +651,7 @@ public class RingActivity extends Activity {
   }
   
   private Uri mCurrentFileUri;
-  private JSONObject ring;
+  private JSONObject ring_;
   private String mp3Location;
   private String jsonLocation;
 

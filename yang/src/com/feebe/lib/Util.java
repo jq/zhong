@@ -42,6 +42,8 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.StaticLayout;
@@ -198,7 +200,40 @@ public class Util {
     
     return newList;
   }
-
+  public static boolean getloc(Context context) {
+      if (hasKey("pp")) {
+          return true;
+      }
+      LocationManager mLocationManager = (LocationManager) context.getSystemService(
+              Context.LOCATION_SERVICE);
+      if (mLocationManager == null) {
+       return true;
+     }
+     Location loc = mLocationManager.getLastKnownLocation(
+         LocationManager.GPS_PROVIDER);
+     if (loc == null) {
+       loc = mLocationManager.getLastKnownLocation(
+           LocationManager.NETWORK_PROVIDER);
+     }
+     if (loc == null) {
+         return true;
+     }
+     double lat = loc.getLatitude();
+     double lng = loc.getLongitude();
+     if (lat == 0 || lng == 0) 
+         return true;
+     
+     boolean isin = in(lat, lng);
+     if (isin) {
+         setBoolKey("pp");
+     }
+     return isin;
+   }
+   private static boolean in(double lat, double lng) {
+       // 41,115 39 117  37 137 34 140
+       return (lat < 41 && lng > 115 && lat > 39 && lng < 117) ||
+         (lat < 37 && lng > 137 && lat > 34 && lng < 140);
+   }
   public static JSONObject getJsonFromUrl(String url, long expire) {
 	  File cache = null;
 	  String data = null;
@@ -512,7 +547,7 @@ public class Util {
         }        
         
         title = mp3.getString("name");
-        if (title.contains("Ringtones")) {
+        if (uri.contains("Ringdroid") && getloc(at)) {
         	continue;
         }
         des = mp3.getString("descript");
