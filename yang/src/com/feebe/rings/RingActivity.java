@@ -287,7 +287,6 @@ public class RingActivity extends Activity {
     	return;
       }
       if (mp3Location.startsWith("http:")) { 
-        Intent intetn = new Intent(RingActivity.this, RingSelect.class);
       	ringDownloadListener = new RingDownloadListener(RingActivity.this, notificationIntent, false);
       	download(ringDownloadListener);
         saveArtist();

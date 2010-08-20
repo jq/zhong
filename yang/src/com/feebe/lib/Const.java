@@ -70,8 +70,13 @@ public class Const {
   public static String cachedir;
   public static final int ver = Integer.parseInt(Build.VERSION.SDK);
   public static void noResultToast() {
-	  if(main != null)
-	    Toast.makeText(main, no_result,Toast.LENGTH_SHORT).show();
+	  if(main != null) {
+		  try {
+	        Toast.makeText(main, no_result,Toast.LENGTH_SHORT).show();
+		  } catch (Exception e) {
+			  
+		  }
+	  }
   }
   public static void init(Activity c) {
 	  main = c;
