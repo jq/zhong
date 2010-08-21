@@ -6,7 +6,6 @@
         <taskdef uri="antlib:com.googlecode.autoandroid.ant" classpath="fixed-android-ant.jar"/>
         
         <android:home/> <!-- Set the detected android-home property to the sdk root. -->
-
         
         <!-- Dependencies -->
 
@@ -37,8 +36,10 @@
 			<mkdir dir="temp/res/menu"/>
 			<mkdir dir="temp/res/raw"/>
 			<mkdir dir="temp/res/values"/>
+			<!--
 			<mkdir dir="temp/res/values-ja"/>
 			<mkdir dir="temp/res/values-zh-rCN"/>
+			-->
 			<mkdir dir="temp/res/layout-land"/>
 			<mkdir dir="temp/src/com/ringtone/${package_name}"/>
 			<mkdir dir="temp/src/org/apache"/>
@@ -46,12 +47,14 @@
 		</target>
 		
 		<target name="generate-new-res">
+			<!--
 			<copy todir="temp/res/values-ja" filtering="false" encoding="UTF-8">
 				<fileset dir="res/values-ja"/>
 			</copy>
 			<copy todir="temp/res/values-zh-rCN" filtering="false" encoding="UTF-8">
 				<fileset dir="res/values-zh-rCN"/>
 			</copy>
+			-->
 			<copy todir="temp/res/layout-land" filtering="false">
 				<fileset dir="res/layout-land"/>
 			</copy>
@@ -83,14 +86,16 @@
 			
 			<!-- 替换应用名 -->
 			<replaceregexp file="temp/res/values/strings.xml" byline="true">
-				<regexp pattern="Ringtone Mp3"/>
+				<regexp pattern="superstar"/>
 				<substitution expression="${app_name}"/>
 			</replaceregexp>
 			
+			<!--
 			<replaceregexp file="temp/res/values-zh-rCN/strings.xml" byline="true">
-				<regexp pattern="Ringtone Mp3"/>
+				<regexp pattern="superstar"/>
 				<substitution expression="${app_name}"/>
 			</replaceregexp>
+			-->
 			
 			<!-- 去除includeInGlobalSearch -->
 			<!--replaceregexp file="temp/res/xml/searchable.xml" byline="true">
@@ -104,13 +109,6 @@
 		<target name="generate-new-manifest">
 			<copyfile dest="temp/AndroidManifest.xml" src="AndroidManifest.xml" filtering="false"/>
 
-			<!-- 去除targetSdkVersion -->
-			<!--replaceregexp file="temp/AndroidManifest.xml" byline="true">
-			<regexp pattern="android:targetSdkVersion.{4}"/>
-			<substitution expression=""/>
-			</replaceregexp>-->
-
-			
 			<replaceregexp file="temp/AndroidManifest.xml" byline="true">
 			<regexp pattern="com\.ringtone\.music"/>
 			<substitution expression="com\.ringtone\.${package_name}"/>
@@ -162,16 +160,7 @@
 			<substitution expression="com\.ringtone\.${package_name}"/>
 			<fileset dir="temp/src/com/ringdroid"/>
 			</replaceregexp>
-			
-			
-			<!-- 替换feebe.lib包中的所有import包名，注意此处包结构不合理 -->
-			<!--replaceregexp byline="true">
-			<regexp pattern="com\.feebe\.rings"/>
-			<substitution expression="com\.feebe\.${package_name}"/>
-			<fileset dir="temp/src/com/feebe/lib"/>
-			</replaceregexp>-->
-					
-
+				
 		</target>
 	
 		<target name="generate-new-prj" depends="clean, init">
@@ -207,7 +196,7 @@
                 <arg value="-S"/>
                 <arg file="temp/res"/>
                 <arg value="-I"/>
-                <arg file="${android-home}/platforms/android-2.1/android.jar"/>
+                <arg file="${android-home}/platforms/android-4/android.jar"/>
             </android:aapt>
 		</target>
 	
@@ -221,7 +210,7 @@
         	<mkdir dir="temp/bin"/>
             <javac encoding="utf-8" target="1.6" debug="false" extdirs=""
                    srcdir="temp/src" destdir="temp/bin"
-                   bootclasspath="${android-home}/platforms/android-2.1/android.jar">
+                   bootclasspath="${android-home}/platforms/android-4/android.jar">
                    <classpath>
                 		<fileset refid="main.jars"/>
                 	</classpath>
@@ -258,7 +247,7 @@
 				<arg value="-S"/>
 				<arg file="temp/res"/>
 				<arg value="-I"/>
-				<arg file="${android-home}/platforms/android-2.1/android.jar"/>
+				<arg file="${android-home}/platforms/android-4/android.jar"/>
 				<arg value="-F"/>
 				<arg file="temp/bin/resources.ap_"/>
         	</android:aapt>
@@ -294,67 +283,19 @@
         	  <flattenmapper />
         	</signjar>
 
-
-
         	<sleep  seconds="2"/>
         	
         </target>
-    	<target name="package-apks" depends="clean-apks, init-all" description="Package applications.">
-    		
+    	<target name="package-apks" depends="clean-apks, init-all" description="Package applications.">  		
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Music1"/>
+    		    <param name="package_name" value="ladygaga"/>
     		    <param name="drawable" value="app_icons\\player1.png"/>
-    			<param name="app_name" value="Music Ringtone"/>
+    			<param name="app_name" value="lady gaga"/>
     		</antcall> 
-
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Music2"/>
+    		    <param name="package_name" value="leehom"/>
     		    <param name="drawable" value="app_icons\\player2.png"/>
-    			<param name="app_name" value="Music Wizzard"/>
+    			<param name="app_name" value="leehom"/>
     		</antcall> 
-    		
-    		<antcall target="package-apk">
-    		    <param name="package_name" value="Music3"/>
-    		    <param name="drawable" value="app_icons\\player3.png"/>
-    			<param name="app_name" value="Ringtone Mp3"/>
-    		</antcall> 
-    		
-    		<antcall target="package-apk">
-    		    <param name="package_name" value="Music4"/>
-    		    <param name="drawable" value="app_icons\\player4.png"/>
-    			<param name="app_name" value="Ringtone Music"/>
-    		</antcall> 
-    		
-			
-			<antcall target="package-apk">
-    		    <param name="package_name" value="Music5"/>
-    		    <param name="drawable" value="app_icons\\player5.png"/>
-    			<param name="app_name" value="Mp3 Music"/>
-    		</antcall> 
-    		
-    		<antcall target="package-apk">
-    		    <param name="package_name" value="Music6"/>
-    		    <param name="drawable" value="app_icons\\icon6.png"/>
-    			<param name="app_name" value="Mp3 Ringtone"/>
-    		</antcall> 
-			
-			<antcall target="package-apk">
-    		    <param name="package_name" value="Music7"/>
-    		    <param name="drawable" value="app_icons\\icon7.png"/>
-    			<param name="app_name" value="Mp3 Player"/>
-    		</antcall> 
-    		
-    		<antcall target="package-apk">
-    		    <param name="package_name" value="Music8"/>
-    		    <param name="drawable" value="app_icons\\icon8.png"/>
-    			<param name="app_name" value="Music Player"/>
-    		</antcall> 
-    		
-    		<antcall target="package-apk">
-    		    <param name="package_name" value="Music9"/>
-    		    <param name="drawable" value="app_icons\\icon9.png"/>
-    			<param name="app_name" value="Ringtone Player"/>
-    		</antcall> 
-			
     	</target>
 </project>

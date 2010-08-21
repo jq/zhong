@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="app_name">Lady Gaga</string>
-    <string name="singer">Lady Gaga</string>
+    <string name="app_name">superstar</string>
+    <string name="singer">superstar</string>
     <string name="go">Go</string>
     <string name="error_network">Network connection error!</string>
     <string name="retry">Retry</string>
