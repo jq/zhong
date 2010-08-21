@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+	<include layout="@layout/search"/>
+	
+    <include layout="@layout/adsw"/>
+
+	<TextView android:textSize="12.0sp"
+	          android:background="#cccccc"
+	          android:textColor="#000000"
+	          android:textStyle="bold"
+	          android:text="More Options"
+	          android:gravity="center"
+	          android:layout_width="fill_parent"
+	          android:layout_height="wrap_content"
+	          android:paddingLeft="2dip"
+	          android:layout_marginTop="20dip"
+	          />
+
+   <ScrollView android:scrollbars="none"
+               android:layout_width="fill_parent" android:layout_height="wrap_content"
+   >
+    
+    <LinearLayout android:gravity="center"
+     android:orientation="vertical"
+     android:padding="4.0dip"
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content">
+     
+     <TextView android:id="@+id/downloads"
+     		   android:gravity="center"
+     		   android:textSize="20.0sp"
+     		   android:typeface="sans"
+     		   android:textColor="#eeeeee"
+     		   android:background="@android:drawable/list_selector_background"
+     		   android:layout_width="fill_parent"
+     		   android:layout_height="wrap_content"
+     		   android:text="Download Panel"
+     		   android:layout_margin="6.0dip"
+     		   />
+
+	<View android:layout_height="1dip"
+	      android:layout_width="fill_parent"
+ 		  android:background="#FF909090" />
+
+	<TextView android:id="@+id/music_library"
+	    android:gravity="center"
+	    android:textSize="20.0sp"
+		android:typeface="sans"
+		android:textColor="#eeeeee"
+		android:background="@android:drawable/list_selector_background"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="My Music"
+		android:layout_margin="6.0dip"
+	/>
+ 		  		   
+	<View android:layout_height="1dip"
+	      android:layout_width="fill_parent"
+ 		  android:background="#FF909090" />
+
+	<TextView android:id="@+id/ringtone"
+	    android:gravity="center"
+	    android:textSize="20.0sp"
+		android:typeface="sans"
+		android:textColor="#eeeeee"
+		android:background="@android:drawable/list_selector_background"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="My Ringtones"
+		android:layout_margin="6.0dip"
+	/>
+ 		  		   
+	<View android:layout_height="1dip"
+	      android:layout_width="fill_parent"
+ 		  android:background="#FF909090" />
+
+     
+     </LinearLayout>
+     </ScrollView>
+    
+	
+	<!--
+	<LinearLayout
+	android:layout_width="fill_parent"
+	android:layout_height="0dip"
+	android:layout_weight="1"
+	/>
+	<Button android:id="@+id/downloads_button"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/downloads"
+		    android:layout_gravity="bottom"
+	        />  -->
+</LinearLayout>

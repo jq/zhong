@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>Bad Romance Lady Gaga 下载-搜狗音乐</title>
+<link href="css/download.css?2" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="wrapper">
+  <div id="head"><a href="http://mp3.sogou.com/?w=02041500" target=_blank><img
+src="images/logo2.gif" alt="搜狗音乐" width="100" height="41"
+class="logo"></a><a target=_blank
+href="http://www.sogou.com/feedback/?product=搜狗音乐下载">意见反馈</a></div>
+  <div class="boxinner">
+    <div class="mp3info">
+      <table>
+
+        <tr>
+          <td class="info1"><strong>歌名：</strong><a target=query
+href="/music.so?query=Bad+Romance+Lady+Gaga" title="Bad Romance">Bad
+Romance</a><br>
+            <strong>歌手：</strong><a target=query
+href="/music.so?s=Lady+Gaga" title="Lady Gaga">Lady Gaga</td>
+          <td class="info2"><strong>格式：</strong>mp3<br>
+            <strong>大小：</strong>7.92M</td>
+
+        </tr>
+      </table>
+    </div>
+    <div class="dlinfo">
+  <div class="dl"><a
+href="http://outerspaceringtones.com/ringtones/0/018fad3bef.mp3"><img
+src="images/dlbtn2.gif" alt="下载歌曲" width="104" height="29"></a>
+点击鼠标右键，选择“目标另存为”下载歌曲</div>
+      <table class="linkbox" style="margin-bottom:6px;">
+        <tr>
+   <th width="41">链接：</th>
+
+          <td><a title="点击鼠标右键，选择&quot;目标另存为&quot;下载歌曲"
+href="http://outerspaceringtones.com/ringtones/0/018fad3bef.mp3">http://outerspaceringtones.com/ringtones/0/018fad3bef.mp3</a></td>
+        </tr>
+      </table>
+
+      <table class="linkbox">
+        <tr>
+          <th width="96">其他链接地址：</th>
+          <td>
+
+      <a
+href="http://dl2.dtop.cn:9082/mp3/2009-12/mp3_503360f.mp3?v=f">链接1</a>
+
+    </td>
+        </tr>
+      </table>
+
+    </div>  
+</style>
+    <div class="adbox">
+
+  <div id=sogouFrag_17></div>
+        <div id=sogouFrag_6></div>
+    </div>
+  </div>
+</div>
+<div id="footer">&copy; 2010 SOGOU.COM <a
+href="http://www.sogou.com/docs/terms.htm" target="_blank">免责声明</a></div>
+</body>
+</html>
+<script language=JavaScript src=/js/common/ajaj.js></script>
+
+<script language=JavaScript src=/js/app/music_ad.js?10></script>
+<script language=JavaScript src=/js/common/rp.js></script>
+<script language=JavaScript src=/js/common/pingback.js?cf></script>
+<script language=JavaScript src='http://js.sogou.com/pv_sogou.js'></script>
+<script>
+showAD([17,6]);
+</script>
+<!--zly-->
+

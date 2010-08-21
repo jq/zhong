@@ -1,0 +1,5 @@
+This application searches and downloads musics freely available on the Internet.
+We do not host any music for downloading ourselves. Some of these free musics may violate copyrights.
+And we are not responsible for any damage you make by downloading these illegal musics.
+
+If you agree with the above statement, please click on "Accept" below.  

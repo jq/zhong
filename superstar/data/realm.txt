@@ -1,0 +1,347 @@
+﻿<script type="text/javascript" src="/search.php/jscore"></script>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+         <title>gaga mp3 Download - Mp3Realm Mp3 Search Engine</title>
+                 
+        <meta name="description" content="Mp3 search results for gaga - download for free">
+        <meta name="keywords" content="gaga free mp3 download, mp3 search">
+        		<meta name="robots"content="index,follow">
+        <meta name="copyright" content="Copyright 2009 Mp3Realm All Rights Reserved.">
+        <meta name="google-site-verification" content="rXJUBedJLHSskgDXksBPC7YFyVYMbKGRZfS5eWccb7k" />
+        <meta name="y_key" content="5644b30f4e8f174c">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="revisit-after" content="3">
+        <meta name="geo.region" content="EN">
+        <link rel="shortcut icon" HREF="http://mp3realm.org/favicon.ico" type="image/ico">
+        <script type="text/javascript" src="/search.php/jscore">
+        </script>
+        <script type="text/javascript" src="http://mp3realm.org/js/column.js">
+        </script>
+        <link rel="stylesheet" href="http://mp3realm.org/styles/default.css" type="text/css">
+                <script type="text/javascript" src="http://mp3realm.org/js/niftyplayer.js">
+        </script>
+        	<script src="/mint/?js" type="text/javascript"></script>
+    </head>
+    <body bgcolor="#FFFFFF" onload="document.f.q.focus();">
+        <div id="container">
+            <div id="outer">
+                <div id="hdr-l">
+                    <a href="../../../"><img src="http://mp3realm.org/imgs/logo.jpg" width="229" height="53" alt="Mp3Realm" border="0"></a>
+                </div>
+                <div id="hdr-c">
+                    <BR>
+                    Search For &nbsp; 
+                    <form method="post" id="f" name='s' action='../../../search?'>
+                        <input type="radio" name="t" value="audio" checked="checked">Audio &nbsp;&nbsp;<input type="radio" name="t" value="lyrics">Lyrics &nbsp;&nbsp;&nbsp;&nbsp;<a href='../../../?g=adv' title='Browse by Genre, Search by Artist, Search Parameters'>Advanced</a>
+                        <BR>
+                        <input type="text" class="input-box" name="q" id="fq" value="gaga"><input type="hidden" name="submit" value="true">&nbsp;<input type="submit" name="submit" size="10" value="Search" id="fs">
+                    </form>
+                    <BR>
+                    <div id="search-results">
+                    </div>
+                </div>
+		
+                <script type="text/javascript">
+                    ajaxac_attachWidget('__query', 'fq');
+                    ajaxac_attachWidget('__results', 'search-results');
+                </script>
+                <script type="text/javascript" src="/index.php/jsapp">
+                </script>
+		
+                <div id="hdr-r">
+                    <br>
+                    <br>
+                    <form name="lang" id="lang" action="">
+                        Language: 
+                        <select name="langmenu" id="langmenu" style="width:100px;" onchange="window.location ='http://'+this.value+'.mp3realm.org'">
+                                                        <option class="drop-down" value="af">Afrikaans</option>
+                                                                                    <option class="drop-down" value="en" SELECTED>English  </option>
+                                                                                    <option class="drop-down" value="fr">Français</option>
+                                                                                    <option class="drop-down" value="nl">Nederlands</option>
+                                                                                    <option class="drop-down" value="pt">Português</option>
+                                                                                </select>
+                    </form>
+                </div>
+<div id="thenav">
+    <ul id="tablist">
+                <li class="audio"><a class="active" href="search?q=gaga">Audio</a></li>
+        <li class="lyrics"><a href="search?q=lyrics:gaga">Lyrics</a></li>
+                <li class="lyrics"><a href="../../../">Home</a></li>
+    </ul>
+</div>
+<div id="searchbar"> <div id="search-info"><h3>Audio</h3><p>Results <strong>1 - 10</strong> of <strong>169</strong> for <strong>gaga </strong> 0.03 Seconds</p></div></div>
+	
+<BR>
+<div id="lh-col">
+    <div id="content"><BR>
+        
+                <fieldset><legend>Search Filters</legend>
+            <form name="advgo" method="post" action="search?"><h4>Duration</h4>&nbsp;
+                <select name="nav" class="drop-down" onchange="window.location=document.advgo.nav.options[document.advgo.nav.selectedIndex].value">
+                    <option class="drop-down" value="search?q&#61;gaga&amp;bitrate&#61;&amp;pp&#61;10&amp;dur=0" selected>All</option>
+                    <option class="drop-down" value="search?q&#61;gaga&amp;bitrate&#61;&amp;pp&#61;10&amp;dur=60"> > 1 Minute</option>
+                    <option class="drop-down" value="search?q&#61;gaga&amp;bitrate&#61;&amp;pp&#61;10&amp;dur=180"> > 3 Minutes</option>
+                </select>&nbsp;&nbsp;</form>&nbsp;&nbsp;
+            <form name="ppgo" method="post" action="search?"> <h4>Per Page</h4>&nbsp;
+                <select name="sort" class="drop-down" onchange="window.location=document.ppgo.sort.options[document.ppgo.sort.selectedIndex].value">
+                    <option class="drop-down" value="search?q&#61;gaga&amp;bitrate&#61;&amp;dur&#61;0&amp;pp=10" selected> 10</option>
+                    <option class="drop-down" value="search?q&#61;gaga&amp;bitrate&#61;&amp;dur&#61;0&amp;pp=15"> 15</option>
+                    <option class="drop-down" value="search?q&#61;gaga&amp;bitrate&#61;&amp;dur&#61;0&amp;pp=25"> 25</option>
+                    <option class="drop-down" value="search?q&#61;gaga&amp;bitrate&#61;&amp;dur&#61;0&amp;pp=50"> 50</option>
+                </select>&nbsp;&nbsp;</form>&nbsp;&nbsp;
+            <form name="bitratego" method="post" action="search?"> <h4>BitRate</h4>&nbsp;
+                <select name="sort" class="drop-down" onchange="window.location=document.bitratego.sort.options[document.bitratego.sort.selectedIndex].value">
+                    <option class="drop-down" value="search?q&#61;gaga&amp;dur&#61;0&amp;pp&#61;10&amp;bitrate=32" selected> >=32</option>
+                    <option class="drop-down" value="search?q&#61;gaga&amp;dur&#61;0&amp;pp&#61;10&amp;bitrate=64"> >=64</option>
+                    <option class="drop-down" value="search?q&#61;gaga&amp;dur&#61;0&amp;pp&#61;10&amp;bitrate=128"> >=128</option>
+                    <option class="drop-down" value="search?q&#61;gaga&amp;dur&#61;0&amp;pp&#61;10&amp;bitrate=192"> >=192</option>
+                </select>&nbsp;</form></fieldset>
+        	        <BR><fieldset><legend>Audio Search Results</legend>
+			                    
+                        <ul>
+                                                <li>
+                    <a href='url?id&#61;NzEyMjk4MHw0NjI0NTk3'>
+                        <u><font color='#1875bf'>Lady <b>GaGa</b> - Beautiful Dirty Rich</font></u></a><BR>
+                    <div class="textlcolumn"><h4>Artist: </h4><a Href="search?q=artist:Lady GaGa">Lady GaGa</a></div>
+                    <div class="textrcolumn"><h4>Album: </h4><a Href="search?q=album:The Fame">The Fame</a></div>
+                    <div class="textlcolumn"><h4>Year: </h4>Unknown</div>
+                    <div class="textrcolumn"><h4>Genre: </h4>Other</div>
+                    <div class="textlcolumn"><h4>BitRate: </h4>96</div>
+                    <div class="textrcolumn"><h4>Playtime: </h4>02:40</div>
+                    <div class="textrcolumn">&nbsp;<i><a style="color:#7ACD1B" href="http://www.fimoculous.com" target="new">www.fimoculous.com</a></i> -
+                            1.84 MB -
+                            <a  title = "Download : Lady GaGa - Beautiful Dirty Rich Mp3" href='url?id&#61;NzEyMjk4MHw0NjI0NTk3'><u>Download</u></a> -
+                            <a title= "Listen to : Lady GaGa - Beautiful Dirty Rich without having to download the song!" HREF="javascript:;" onClick="niftyplayer('niftyPlayer1').loadAndPlay('http://www.fimoculous.com/mp3/Lady-GaGa-Beautiful-Dirty-Rich.mp3')"><u>Listen</u></a> -
+                            <a title = "Find lyrics for Lady GaGa - Beautiful Dirty Rich" href='search?q=lyrics:Lady GaGa - Beautiful Dirty Rich'><u>Lyrics</u></a>
+                    </div><br>
+                                            <li>
+                    <a href='url?id&#61;NzE2NjU3OXw0NzAxMjI5'>
+                        <u><font color='#1875bf'>Lady <b>Gaga</b> - Starstruck (Feat. Flo Rida)</font></u></a><BR>
+                    <div class="textlcolumn"><h4>Artist: </h4><a Href="search?q=artist:Lady Gaga">Lady Gaga</a></div>
+                    <div class="textrcolumn"><h4>Album: </h4>Unknown</div>
+                    <div class="textlcolumn"><h4>Year: </h4>2008</div>
+                    <div class="textrcolumn"><h4>Genre: </h4>Pop</div>
+                    <div class="textlcolumn"><h4>BitRate: </h4>128</div>
+                    <div class="textrcolumn"><h4>Playtime: </h4>09:10</div>
+                    <div class="textrcolumn">&nbsp;<i><a style="color:#7ACD1B" href="http://pmatunes.com" target="new">pmatunes.com</a></i> -
+                            8 MB -
+                            <a  title = "Download : Lady Gaga - Starstruck (Feat. Flo Rida) Mp3" href='url?id&#61;NzE2NjU3OXw0NzAxMjI5'><u>Download</u></a> -
+                            <a title= "Listen to : Lady Gaga - Starstruck (Feat. Flo Rida) without having to download the song!" HREF="javascript:;" onClick="niftyplayer('niftyPlayer1').loadAndPlay('http://pmatunes.com/wp-content/uploads/2008/10/lady-gaga-featuring-flo-rida-starstruck.mp3')"><u>Listen</u></a> -
+                            <a title = "Find lyrics for Lady Gaga - Starstruck (Feat. Flo Rida)" href='search?q=lyrics:Lady Gaga - Starstruck (Feat. Flo Rida)'><u>Lyrics</u></a>
+                    </div><br>
+                                            <li>
+                    <a href='url?id&#61;NzM4MDE0MHw1MDE5MDYw'>
+                        <u><font color='#1875bf'>Lady <b>GaGa</b> - BoysBoysBoys</font></u></a><BR>
+                    <div class="textlcolumn"><h4>Artist: </h4><a Href="search?q=artist:Lady GaGa">Lady GaGa</a></div>
+                    <div class="textrcolumn"><h4>Album: </h4>Unknown</div>
+                    <div class="textlcolumn"><h4>Year: </h4>Unknown</div>
+                    <div class="textrcolumn"><h4>Genre: </h4>Unknown</div>
+                    <div class="textlcolumn"><h4>BitRate: </h4>320</div>
+                    <div class="textrcolumn"><h4>Playtime: </h4>03:24</div>
+                    <div class="textrcolumn">&nbsp;<i><a style="color:#7ACD1B" href="http://cdn1-83.projectplaylist.com" target="new">cdn1-83.projectplaylist.com</a></i> -
+                            7.81 MB -
+                            <a  title = "Download : Lady GaGa - BoysBoysBoys Mp3" href='url?id&#61;NzM4MDE0MHw1MDE5MDYw'><u>Download</u></a> -
+                            <a title= "Listen to : Lady GaGa - BoysBoysBoys without having to download the song!" HREF="javascript:;" onClick="niftyplayer('niftyPlayer1').loadAndPlay('http://cdn1-83.projectplaylist.com/e1/files/cdn5/mp3/2407064.mp3')"><u>Listen</u></a> -
+                            <a title = "Find lyrics for Lady GaGa - BoysBoysBoys" href='search?q=lyrics:Lady GaGa - BoysBoysBoys'><u>Lyrics</u></a>
+                    </div><br>
+                                            <li>
+                    <a href='url?id&#61;NzM4MDYxOXw1MDE4ODI4'>
+                        <u><font color='#1875bf'>Lady <b>GaGa</b> - Just Dance</font></u></a><BR>
+                    <div class="textlcolumn"><h4>Artist: </h4><a Href="search?q=artist:Lady GaGa">Lady GaGa</a></div>
+                    <div class="textrcolumn"><h4>Album: </h4><a Href="search?q=album:The Fame (Revised International Version)">The Fame (Revised...</a></div>
+                    <div class="textlcolumn"><h4>Year: </h4>2008</div>
+                    <div class="textrcolumn"><h4>Genre: </h4>Unknown</div>
+                    <div class="textlcolumn"><h4>BitRate: </h4>64</div>
+                    <div class="textrcolumn"><h4>Playtime: </h4>01:30</div>
+                    <div class="textrcolumn">&nbsp;<i><a style="color:#7ACD1B" href="http://www.digirama.co.nz" target="new">www.digirama.co.nz</a></i> -
+                            0.69 MB -
+                            <a  title = "Download : Lady GaGa - Just Dance Mp3" href='url?id&#61;NzM4MDYxOXw1MDE4ODI4'><u>Download</u></a> -
+                            <a title= "Listen to : Lady GaGa - Just Dance without having to download the song!" HREF="javascript:;" onClick="niftyplayer('niftyPlayer1').loadAndPlay('http://www.digirama.co.nz/local/audio/sample/68/000000648024.mp3')"><u>Listen</u></a> -
+                            <a title = "Find lyrics for Lady GaGa - Just Dance" href='search?q=lyrics:Lady GaGa - Just Dance'><u>Lyrics</u></a>
+                    </div><br>
+                                            <li>
+                    <a href='url?id&#61;NzQ0MzQ3NXw1MTM1Njg3'>
+                        <u><font color='#1875bf'>Lady <b>Gaga</b> - Poker Face</font></u></a><BR>
+                    <div class="textlcolumn"><h4>Artist: </h4><a Href="search?q=artist:Lady Gaga">Lady Gaga</a></div>
+                    <div class="textrcolumn"><h4>Album: </h4><a Href="search?q=album:The Fame">The Fame</a></div>
+                    <div class="textlcolumn"><h4>Year: </h4>Unknown</div>
+                    <div class="textrcolumn"><h4>Genre: </h4>Unknown</div>
+                    <div class="textlcolumn"><h4>BitRate: </h4>172</div>
+                    <div class="textrcolumn"><h4>Playtime: </h4>03:59</div>
+                    <div class="textrcolumn">&nbsp;<i><a style="color:#7ACD1B" href="http://stopokaygo.typepad.com" target="new">stopokaygo.typepad.com</a></i> -
+                            4.92 MB -
+                            <a  title = "Download : Lady Gaga - Poker Face Mp3" href='url?id&#61;NzQ0MzQ3NXw1MTM1Njg3'><u>Download</u></a> -
+                            <a title= "Listen to : Lady Gaga - Poker Face without having to download the song!" HREF="javascript:;" onClick="niftyplayer('niftyPlayer1').loadAndPlay('http://stopokaygo.typepad.com/files/06-lady-gaga-poker-face.mp3')"><u>Listen</u></a> -
+                            <a title = "Find lyrics for Lady Gaga - Poker Face" href='search?q=lyrics:Lady Gaga - Poker Face'><u>Lyrics</u></a>
+                    </div><br>
+                                            <li>
+                    <a href='url?id&#61;NzQ1ODkwNHw1MTY5MTc2'>
+                        <u><font color='#1875bf'>Lady <b>Gaga</b> - Just Dance(Prod. by Victor Korh)</font></u></a><BR>
+                    <div class="textlcolumn"><h4>Artist: </h4><a Href="search?q=artist:Lady Gaga">Lady Gaga</a></div>
+                    <div class="textrcolumn"><h4>Album: </h4>Unknown</div>
+                    <div class="textlcolumn"><h4>Year: </h4>Unknown</div>
+                    <div class="textrcolumn"><h4>Genre: </h4>Unknown</div>
+                    <div class="textlcolumn"><h4>BitRate: </h4>128</div>
+                    <div class="textrcolumn"><h4>Playtime: </h4>05:14</div>
+                    <div class="textrcolumn">&nbsp;<i><a style="color:#7ACD1B" href="http://1nsk.net" target="new">1nsk.net</a></i> -
+                            4.8 MB -
+                            <a  title = "Download : Lady Gaga - Just Dance(Prod. by Victor Korh) Mp3" href='url?id&#61;NzQ1ODkwNHw1MTY5MTc2'><u>Download</u></a> -
+                            <a title= "Listen to : Lady Gaga - Just Dance(Prod. by Victor Korh) without having to download the song!" HREF="javascript:;" onClick="niftyplayer('niftyPlayer1').loadAndPlay('http://1nsk.net/data/podcast/23/flv/5e56a4ee8646f730.mp3')"><u>Listen</u></a> -
+                            <a title = "Find lyrics for Lady Gaga - Just Dance(Prod. by Victor Korh)" href='search?q=lyrics:Lady Gaga - Just Dance(Prod. by Victor Korh)'><u>Lyrics</u></a>
+                    </div><br>
+                                            <li>
+                    <a href='url?id&#61;NzYwMTM2NXw1NDQ4NzQ4'>
+                        <u><font color='#1875bf'>Lady <b>GaGa</b> - Space Cowboy's 'The Fame' Megamix</font></u></a><BR>
+                    <div class="textlcolumn"><h4>Artist: </h4><a Href="search?q=artist:Lady GaGa">Lady GaGa</a></div>
+                    <div class="textrcolumn"><h4>Album: </h4>Unknown</div>
+                    <div class="textlcolumn"><h4>Year: </h4>2008</div>
+                    <div class="textrcolumn"><h4>Genre: </h4>Other</div>
+                    <div class="textlcolumn"><h4>BitRate: </h4>128</div>
+                    <div class="textrcolumn"><h4>Playtime: </h4>04:18</div>
+                    <div class="textrcolumn">&nbsp;<i><a style="color:#7ACD1B" href="http://fable.moskva.com" target="new">fable.moskva.com</a></i> -
+                            3.94 MB -
+                            <a  title = "Download : Lady GaGa - Space Cowboy's 'The Fame' Megamix Mp3" href='url?id&#61;NzYwMTM2NXw1NDQ4NzQ4'><u>Download</u></a> -
+                            <a title= "Listen to : Lady GaGa - Space Cowboy's 'The Fame' Megamix without having to download the song!" HREF="javascript:;" onClick="niftyplayer('niftyPlayer1').loadAndPlay('http://fable.moskva.com/data/uf/9980163/18/63/12/18631201_Lady_GaGa_-_Space_Cowboys_The_Fame_Megamix.mp3')"><u>Listen</u></a> -
+                            <a title = "Find lyrics for Lady GaGa - Space Cowboy's 'The Fame' Megamix" href='search?q=lyrics:Lady GaGa - Space Cowboy's 'The Fame' Megamix'><u>Lyrics</u></a>
+                    </div><br>
+                                            <li>
+                    <a href='url?id&#61;NzYwMjQwNnw1NDQ5MDIw'>
+                        <u><font color='#1875bf'>Lady <b>GaGa</b> - Just Dance feat. Colby O'Donis</font></u></a><BR>
+                    <div class="textlcolumn"><h4>Artist: </h4><a Href="search?q=artist:Lady GaGa">Lady GaGa</a></div>
+                    <div class="textrcolumn"><h4>Album: </h4><a Href="search?q=album:The Fame">The Fame</a></div>
+                    <div class="textlcolumn"><h4>Year: </h4>2008</div>
+                    <div class="textrcolumn"><h4>Genre: </h4>Pop</div>
+                    <div class="textlcolumn"><h4>BitRate: </h4>128</div>
+                    <div class="textrcolumn"><h4>Playtime: </h4>06:31</div>
+                    <div class="textrcolumn">&nbsp;<i><a style="color:#7ACD1B" href="http://www.box.net" target="new">www.box.net</a></i> -
+                            5.97 MB -
+                            <a  title = "Download : Lady GaGa - Just Dance feat. Colby O'Donis Mp3" href='url?id&#61;NzYwMjQwNnw1NDQ5MDIw'><u>Download</u></a> -
+                            <a title= "Listen to : Lady GaGa - Just Dance feat. Colby O'Donis without having to download the song!" HREF="javascript:;" onClick="niftyplayer('niftyPlayer1').loadAndPlay('http://www.box.net/rssdownload/188627436/Just%2520Dance%2520feat.%2520Colby%2520O%2527Donis.mp3')"><u>Listen</u></a> -
+                            <a title = "Find lyrics for Lady GaGa - Just Dance feat. Colby O'Donis" href='search?q=lyrics:Lady GaGa - Just Dance feat. Colby O'Donis'><u>Lyrics</u></a>
+                    </div><br>
+                                            <li>
+                    <a href='url?id&#61;ODA4MzYwMHw2NDk3OTY1'>
+                        <u><font color='#1875bf'>Lady <b>Gaga</b> - Poker Face (Space Cowboy Remix)</font></u></a><BR>
+                    <div class="textlcolumn"><h4>Artist: </h4><a Href="search?q=artist:Lady Gaga">Lady Gaga</a></div>
+                    <div class="textrcolumn"><h4>Album: </h4><a Href="search?q=album:The Fame Remixes">The Fame Remixes</a></div>
+                    <div class="textlcolumn"><h4>Year: </h4>2008</div>
+                    <div class="textrcolumn"><h4>Genre: </h4>Electronic</div>
+                    <div class="textlcolumn"><h4>BitRate: </h4>96</div>
+                    <div class="textrcolumn"><h4>Playtime: </h4>10:54</div>
+                    <div class="textrcolumn">&nbsp;<i><a style="color:#7ACD1B" href="http://pmatunes.com" target="new">pmatunes.com</a></i> -
+                            7.49 MB -
+                            <a  title = "Download : Lady Gaga - Poker Face (Space Cowboy Remix) Mp3" href='url?id&#61;ODA4MzYwMHw2NDk3OTY1'><u>Download</u></a> -
+                            <a title= "Listen to : Lady Gaga - Poker Face (Space Cowboy Remix) without having to download the song!" HREF="javascript:;" onClick="niftyplayer('niftyPlayer1').loadAndPlay('http://pmatunes.com/wp-content/uploads/2008/11/lady-gaga-poker-face-space-cowboy-remix.mp3')"><u>Listen</u></a> -
+                            <a title = "Find lyrics for Lady Gaga - Poker Face (Space Cowboy Remix)" href='search?q=lyrics:Lady Gaga - Poker Face (Space Cowboy Remix)'><u>Lyrics</u></a>
+                    </div><br>
+                                            <li>
+                    <a href='url?id&#61;OTQ4MzY5Nnw4NDQxNjYy'>
+                        <u><font color='#1875bf'>Lady <b>Gaga</b> - Just Dance</font></u></a><BR>
+                    <div class="textlcolumn"><h4>Artist: </h4><a Href="search?q=artist:Lady Gaga">Lady Gaga</a></div>
+                    <div class="textrcolumn"><h4>Album: </h4><a Href="search?q=album:The Fame">The Fame</a></div>
+                    <div class="textlcolumn"><h4>Year: </h4>Unknown</div>
+                    <div class="textrcolumn"><h4>Genre: </h4>Unknown</div>
+                    <div class="textlcolumn"><h4>BitRate: </h4>164</div>
+                    <div class="textrcolumn"><h4>Playtime: </h4>04:05</div>
+                    <div class="textrcolumn">&nbsp;<i><a style="color:#7ACD1B" href="http://pmatunes.com" target="new">pmatunes.com</a></i> -
+                            4.8 MB -
+                            <a  title = "Download : Lady Gaga - Just Dance Mp3" href='url?id&#61;OTQ4MzY5Nnw4NDQxNjYy'><u>Download</u></a> -
+                            <a title= "Listen to : Lady Gaga - Just Dance without having to download the song!" HREF="javascript:;" onClick="niftyplayer('niftyPlayer1').loadAndPlay('http://pmatunes.com/wp-content/uploads/2008/10/01-lady-gaga-just-dance.mp3')"><u>Listen</u></a> -
+                            <a title = "Find lyrics for Lady Gaga - Just Dance" href='search?q=lyrics:Lady Gaga - Just Dance'><u>Lyrics</u></a>
+                    </div><br>
+                                            </li>
+                                        </fieldset>
+    </div>
+        <br><fieldset><div class="pagination"><ul><h4>Result Page:</h4>&nbsp;&nbsp;<li class="disabled">&laquo;</li>
+<li class="currentpage"><b>1</b></li>
+<li><a href="search?q=gaga&amp;page&#61;2">2</a></li>
+<li><a href="search?q=gaga&amp;page&#61;3">3</a></li>
+<li><a href="search?q=gaga&amp;page&#61;4">4</a></li>
+<li><a href="search?q=gaga&amp;page&#61;5">5</a></li>
+<li><a href="search?q=gaga&amp;page&#61;6">6</a></li>
+<li class="Nextpage"><a href="search?q=gaga&amp;page&#61;2">&raquo;</a></li>
+</ul></div></fieldset>
+        <BR><BR><BR><BR></div>
+    <div id="rh-col">
+    <div class="titles" style="border-top:none;">
+        <H4>
+        Popular Searches</h4>
+    </div>
+    <BR>
+    
+
+<div id="tagcloud">
+<div>
+<span class="medium"><a href="../../search?q=mark+medlock">mark medlock</a></span><span class="small"><a href="../../search?q=Coldplay">Coldplay</a></span><span class="medium"><a href="../../search?q=Mariah+Carey">Mariah Carey</a></span><span class="small"><a href="../../search?q=Christina+Aguilera">Christina Aguilera</a></span><span class="medium"><a href="../../search?q=Pink">Pink</a></span><span class="small"><a href="../../search?q=dj">dj</a></span><span class="medium"><a href="../../search?q=Akon">Akon</a></span><span class="small"><a href="../../search?q=Green+Day">Green Day</a></span><span class="medium"><a href="../../search?q=Metallica">Metallica</a></span><span class="small"><a href="../../search?q=Timbaland">Timbaland</a></span><span class="small"><a href="../../search?q=genre%3Arock">genre:rock</a></span><span class="medium"><a href="../../search?q=50+cent">50 cent</a></span><span class="small"><a href="../../search?q=Avril+Lavigne">Avril Lavigne</a></span><span class="largest"><a href="../../search?q=Madonna">Madonna</a></span><span class="small"><a href="../../search?q=The+Who">The Who</a></span><span class="small"><a href="../../search?q=Slipknot">Slipknot</a></span><span class="small"><a href="../../search?q=ABBA">ABBA</a></span><span class="small"><a href="../../search?q=Low">Low</a></span><span class="large"><a href="../../search?q=Rihanna">Rihanna</a></span><span class="medium"><a href="../../search?q=Eminem">Eminem</a></span><span class="small"><a href="../../search?q=Scooter">Scooter</a></span><span class="small"><a href="../../search?q=genre%3Atechno">genre:techno</a></span><span class="small"><a href="../../search?q=Lil+Wayne">Lil Wayne</a></span><span class="small"><a href="../../search?q=Kiss">Kiss</a></span><span class="small"><a href="../../search?q=the">the</a></span><span class="medium"><a href="../../search?q=usher">usher</a></span><span class="small"><a href="../../search?q=Kanye+West">Kanye West</a></span><span class="small"><a href="../../search?q=Dj+%C3%B6tzi">Dj ötzi</a></span><span class="small"><a href="../../search?q=Nelly">Nelly</a></span><span class="small"><a href="../../search?q=Chris+Brown">Chris Brown</a></span><span class="small"><a href="../../search?q=Kelly+Clarkson">Kelly Clarkson</a></span><span class="small"><a href="../../search?q=System+of+a+Down">System of a Down</a></span><span class="small"><a href="../../search?q=Britney+Spears">Britney Spears</a></span><span class="medium"><a href="../../search?q=u2">u2</a></span><span class="large"><a href="../../search?q=Queen">Queen</a></span><span class="small"><a href="../../search?q=Justin+Timberlake">Justin Timberlake</a></span><span class="small"><a href="../../search?q=Nelly+Furtado">Nelly Furtado</a></span><span class="medium"><a href="../../search?q=thomas+godoj">thomas godoj</a></span><span class="small"><a href="../../search?q=Pink+Floyd">Pink Floyd</a></span><span class="medium"><a href="../../search?q=Genesis">Genesis</a></span><span class="small"><a href="../../search?q=Michael+Jackson">Michael Jackson</a></span><span class="medium"><a href="../../search?q=beatles">beatles</a></span><span class="small"><a href="../../search?q=Celine+Dion">Celine Dion</a></span><span class="small"><a href="../../search?q=remix">remix</a></span><span class="small"><a href="../../search?q=Sweet">Sweet</a></span><span class="small"><a href="../../search?q=genre%3Asoundtrack">genre:soundtrack</a></span><span class="small"><a href="../../search?q=Beyonc%C3%A9">Beyoncé</a></span><span class="large"><a href="../../search?q=Linkin+Park">Linkin Park</a></span><span class="small"><a href="../../search?q=Rammstein">Rammstein</a></span><span class="small"><a href="../../search?q=Shakira">Shakira</a></span></div>
+</div>
+
+    <BR>
+    <BR>
+        <div class="titles">
+        <H4>
+        Stream Player</h4>
+    </div>
+    <BR>
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="165" height="37" id="niftyPlayer1" align="">
+        <param name=movie value="niftyplayer.swf?"><param name=quality value=high><param name=bgcolor value=#FFFFFF>
+        <embed src="niftyplayer.swf" quality=high bgcolor=#FFFFFF width="165" height="37" name="niftyPlayer1" align="" type="application/x-shockwave-flash" swLiveConnect="true" pluginspage="http://www.macromedia.com/go/getflashplayer">
+        </embed>
+    </object>
+    <BR>
+        <center>
+                 
+        <SCRIPT language="JavaScript" type="text/javascript">
+            
+            <!--
+            
+            document.write('<SCR' + 'IPT src="http://adserver.adreactor.com/servlet/view/banner/javascript/zone?zid=6&pid=45&custom1=&custom2=&custom3=gaga&random=' + Math.floor(89999999 * Math.random() + 10000000) + '&millis=' + new Date().getTime() + '&referrer=' + escape(document.location) + '" language="JavaScript" type="text/javascript"></SCR' + 'IPT>');
+            
+            //-->
+        </SCRIPT>
+        <NOSCRIPT>
+            <A href="http://adserver.adreactor.com/servlet/click/zone?zid=6&pid=45&custom1=&custom2=&custom3=gaga&lookup=true&position=1" target="_top"><IMG src="http://adserver.adreactor.com/servlet/view/banner/image/zone?zid=6&pid=45&custom1=&custom2=&custom3=gaga&position=1" height="250" width="300" hspace="0" vspace="0" border="0" alt="Click Here!"></A>
+        </NOSCRIPT>
+        <BR>
+        <SCRIPT language="JavaScript" type="text/javascript">
+            <!--
+            document.write('<SCR' + 'IPT src="http://adserver.adreactor.com/servlet/view/banner/javascript/zone?zid=14&pid=45&custom1=&custom2=&custom3=gaga&random=' + Math.floor(89999999 * Math.random() + 10000000) + '&millis=' + new Date().getTime() + '&referrer=' + escape(document.location) + '" language="JavaScript" type="text/javascript"></SCR' + 'IPT>');
+            //-->
+        </SCRIPT>
+        <NOSCRIPT>
+            <A href="http://adserver.adreactor.com/servlet/click/zone?zid=14&pid=45&custom1=&custom2=&custom3=gaga&lookup=true&position=1" target="_top"><IMG src="http://adserver.adreactor.com/servlet/view/banner/image/zone?zid=14&pid=45&custom1=&custom2=&custom3=gaga&position=1" hspace="0" vspace="0" border="0" alt="Click Here!"></A>
+        </NOSCRIPT>
+                    </center>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <div class="titles">
+        <H4>
+        Intrests</h4>
+    </div>
+    <BR>
+    <B><a title="Play your old classic NES games in your browser!" href="http://playnes.net" target="new">PlayNES.net</a></B><BR>
+<B><a title="Mp3 Resource Guide!" href="http://mp3.startpagina.nl" target="new">mp3.startpagina.nl</a></B><BR>
+
+    <br>
+</div>
+<div id="footer">
+    &#169; Mp3Realm.org&nbsp;-&nbsp <a href='/about/'>About</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href='/help/'>Help</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href='/contact/'>Contact</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href='/legal/'>Legal</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href='/feedback/'>Feedback</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href='/removal/'>Content Removal</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href='/submit/'>Submit URL</a>
+</div>
+</div>
+</div>
+</body>
+</html>
+ 熁쎌鸉ꩠ

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/ringtone"
+       android:title="@string/main_activity_label"
+       android:icon="@drawable/logo"/>
+	<item android:id="@+id/share_app"
+       android:title="@string/share"
+       android:icon="@drawable/ic_menu_share"/>
+	<item android:id="@+id/about"
+          android:title="@string/about"
+          android:icon="@drawable/ic_menu_info_details"/>
+</menu>
+

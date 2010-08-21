@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  <!--  <include android:layout_height="wrap_content" layout="@layout/search"/> --> 
+  
+  <ListView android:id="@id/android:list"
+ 	  android:layout_width="fill_parent"
+      android:layout_height="0px"
+      android:layout_weight="1"
+      android:stackFromBottom="false" >
+      <requestFocus />
+      </ListView>
+      
+    <LinearLayout android:id="@id/android:empty"
+     			  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+			      android:layout_weight="1"
+                  android:gravity="center"
+                  android:orientation="horizontal"
+                  android:padding="8dip">
+
+      <ProgressBar android:id="@+id/search_progress"
+      			   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center_vertical"
+                   android:paddingRight="8dip"
+                   style="?android:attr/progressBarStyleSmall"/>
+
+      <TextView android:id="@+id/search_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/please_retry_query"
+                android:gravity="center_vertical"
+                android:textSize="18dip"/>
+
+    </LinearLayout>
+<include layout="@layout/adsw"/> 
+</LinearLayout>
+  

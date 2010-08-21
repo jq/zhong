@@ -1,0 +1,240 @@
+﻿
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Lady GaGa - Beautiful Dirty Rich Download MP3 - Mp3Realm</title>
+		                <meta name="description" content="Download Lady GaGa - Beautiful Dirty Rich Download MP3 - Mp3Realm .mp3 for free. Download and listen to music">
+        <meta name="keywords" content="Lady GaGa - Beautiful Dirty Rich Download MP3 - Mp3Realm .mp3, I Gotta Feeling download, $genre music, mp3 player, free mp3, mp3 music, songs, download mp3, playlist, download mp3 music">
+        		<meta name="robots"content="index,follow">
+        <meta name="copyright" content="Copyright 2009 Mp3Realm All Rights Reserved.">
+        <meta name="google-site-verification" content="rXJUBedJLHSskgDXksBPC7YFyVYMbKGRZfS5eWccb7k" />
+        <meta name="y_key" content="5644b30f4e8f174c">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="revisit-after" content="3">
+        <meta name="geo.region" content="">
+        <link rel="shortcut icon" HREF="http://mp3realm.org/favicon.ico" type="image/ico">
+        <script type="text/javascript" src="/search.php/jscore">
+        </script>
+        <script type="text/javascript" src="http://mp3realm.org/js/column.js">
+        </script>
+        <link rel="stylesheet" href="http://mp3realm.org/styles/default.css" type="text/css">
+        	<script src="/mint/?js" type="text/javascript"></script>
+    </head>
+    <body bgcolor="#FFFFFF" onload="document.f.q.focus();">
+        <div id="container">
+            <div id="outer">
+                <div id="hdr-l">
+                    <a href="../../../"><img src="http://mp3realm.org/imgs/logo.jpg" width="229" height="53" alt="Mp3Realm" border="0"></a>
+                </div>
+                <div id="hdr-c">
+                    <BR>
+                    Search For &nbsp; 
+                    <form method="post" id="f" name='s' action='../../../search?'>
+                        <input type="radio" name="t" value="audio" checked="checked">Audio &nbsp;&nbsp;<input type="radio" name="t" value="lyrics">Lyrics &nbsp;&nbsp;&nbsp;&nbsp;<a href='../../../?g=adv' title='Browse by Genre, Search by Artist, Search Parameters'>Advanced</a>
+                        <BR>
+                        <input type="text" class="input-box" name="q" id="fq" value=""><input type="hidden" name="submit" value="true">&nbsp;<input type="submit" name="submit" size="10" value="Search" id="fs">
+                    </form>
+                    <BR>
+                    <div id="search-results">
+                    </div>
+                </div>
+		
+                <script type="text/javascript">
+                    ajaxac_attachWidget('__query', 'fq');
+                    ajaxac_attachWidget('__results', 'search-results');
+                </script>
+                <script type="text/javascript" src="/index.php/jsapp">
+                </script>
+		
+                <div id="hdr-r">
+                    <br>
+                    <br>
+                    <form name="lang" id="lang" action="">
+                        Language: 
+                        <select name="langmenu" id="langmenu" style="width:100px;" onchange="window.location ='http://'+this.value+'.mp3realm.org'">
+                                                        <option class="drop-down" value="af">Afrikaans</option>
+                                                                                    <option class="drop-down" value="en">English</option>
+                                                                                    <option class="drop-down" value="fr">Français</option>
+                                                                                    <option class="drop-down" value="nl">Nederlands</option>
+                                                                                    <option class="drop-down" value="pt">Português</option>
+                                                                                </select>
+                    </form>
+                </div>
+<div id="thenav">
+    <ul id="tablist">
+        <li class="home">
+            <B><a href="http://mp3realm.org">Home</a></B>
+        </li>
+    </ul>
+</div>
+<div id="searchbar">
+    <div id="search-info">
+        <h3>Download Gateway</h3>
+    </div>
+</div>
+<br>
+<div id="lh-col">
+    <div id="content">
+        <H3 style="padding-left:15px"></H3>
+        <fieldset>
+            <legend>
+                Lady GaGa - Beautiful Dirty Rich
+            </legend>
+            <ul>
+                <div id='dllcolumn'>
+                    <li>
+                        <B>Artist:</B>
+                        : <a href="../search?q=Lady GaGa">Lady GaGa</a>
+                    </li>
+                                        <li>
+                        <B>Album:</B>
+                        : <a href="../search?q=album:The Fame">The Fame</a>
+                    </li>
+                                        <li>
+                        <B>File Size:</B>
+                        : 1.84 MegaBytes
+                    </li>
+                    <li>
+                        <B>Playtime:</B>
+                        : 02:40
+                    </li>
+                    <li>
+                        <B>Source Host:</B>
+                        : <a href="http://www.fimoculous.com" target="new">www.fimoculous.com</a>
+                    </li>
+                    <li>
+                        <B>Lyrics:</B>
+                        : <a href="http://mp3realm.org/search?q=lyrics:Lady GaGa - Beautiful Dirty Rich">Find lyrics for Lady GaGa - Beautiful Dirty Rich</a>
+                    </li>
+                                        <li>
+                        <B>Link Status:</B>
+                        : 
+                        <font color="#7ACD1B">
+                            The link is working!
+                        </font>
+                    </li>
+                                        <li style='border:0;'>
+                        <b><a href="http://www.fimoculous.com/mp3/Lady-GaGa-Beautiful-Dirty-Rich.mp3">
+                                <font color='#1875bf' size='2'>
+                                    <b>Download</b>
+                                </font>
+                            </a> &nbsp; - or - &nbsp; <img src="../imgs/phone_icon_blue_small_trans_left.gif" weight="16px" height="17px" alt="Send Ringtones" border="0">&nbsp;&nbsp;<a href="http://www.ringtonematcher.com/co/ringtonematcher/02?sid=EMASros&artist=Lady GaGa&song=Beautiful Dirty Rich" target="_blank" rel="nofollow" style='color:red; font-size:12px;'>Send 'Beautiful Dirty Rich' Ringtone to your Cell</a>&nbsp;&nbsp;<img src="../imgs/phone_icon_blue_small_trans_right.gif" weight="16px" height="17px" alt="Send Ringtones" border="0">
+                            <BR>
+                        </b>
+                    </li>
+                </div>
+				</UL>
+                </fieldset>
+                <BR>
+                <fieldset>
+                    <legend>
+                        Add to Your Blog/Profile
+                    </legend>
+                    <B>Blog and Myspace Users, adding songs is easy. Just copy this code into your layout!</B>
+                    <BR>
+                    <textarea cols=50 rows=5><embed src="http://www.fimoculous.com/mp3/Lady-GaGa-Beautiful-Dirty-Rich.mp3" autostart="true" loop="true" height="0" width="0"></embed><a href="http://mp3realm.org" target="new">Generated by Mp3Realm.org</a>
+                    </textarea>
+                </fieldset>
+                <BR>
+                <fieldset>
+                    <legend>
+                        Comments
+                    </legend>
+                        <ul>
+                                                        <form name='comments' action='' method='POST'>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <h4>Name :</h4>
+                                        </td>
+                                        <td>
+                                            <input class=input-box type=text name=Name>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <textarea class=input-box name=Body cols=40 rows=5></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <input type=submit value='Add Comment'>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                            <br>
+                                              </UL>
+                                </FIELDSET>
+</DIV><BR>
+</DIV>
+
+                
+            </div>
+            <div id="rh-col">
+    <div class="titles" style="border-top:none;">
+        <H4>
+        Popular Searches</h4>
+    </div>
+    <BR>
+    
+
+<div id="tagcloud">
+<div>
+<span class="medium"><a href="../../search?q=usher">usher</a></span><span class="small"><a href="../../search?q=dj">dj</a></span><span class="small"><a href="../../search?q=Shakira">Shakira</a></span><span class="medium"><a href="../../search?q=thomas+godoj">thomas godoj</a></span><span class="small"><a href="../../search?q=Lil+Wayne">Lil Wayne</a></span><span class="small"><a href="../../search?q=Dj+%C3%B6tzi">Dj ötzi</a></span><span class="medium"><a href="../../search?q=50+cent">50 cent</a></span><span class="large"><a href="../../search?q=Rihanna">Rihanna</a></span><span class="small"><a href="../../search?q=Beyonc%C3%A9">Beyoncé</a></span><span class="small"><a href="../../search?q=Justin+Timberlake">Justin Timberlake</a></span><span class="small"><a href="../../search?q=Kelly+Clarkson">Kelly Clarkson</a></span><span class="small"><a href="../../search?q=Low">Low</a></span><span class="small"><a href="../../search?q=the">the</a></span><span class="small"><a href="../../search?q=Rammstein">Rammstein</a></span><span class="small"><a href="../../search?q=System+of+a+Down">System of a Down</a></span><span class="small"><a href="../../search?q=Pink+Floyd">Pink Floyd</a></span><span class="medium"><a href="../../search?q=u2">u2</a></span><span class="small"><a href="../../search?q=Britney+Spears">Britney Spears</a></span><span class="small"><a href="../../search?q=Kiss">Kiss</a></span><span class="medium"><a href="../../search?q=beatles">beatles</a></span><span class="small"><a href="../../search?q=Kanye+West">Kanye West</a></span><span class="small"><a href="../../search?q=The+Who">The Who</a></span><span class="small"><a href="../../search?q=Celine+Dion">Celine Dion</a></span><span class="small"><a href="../../search?q=Chris+Brown">Chris Brown</a></span><span class="large"><a href="../../search?q=Queen">Queen</a></span><span class="small"><a href="../../search?q=remix">remix</a></span><span class="small"><a href="../../search?q=Green+Day">Green Day</a></span><span class="largest"><a href="../../search?q=Madonna">Madonna</a></span><span class="small"><a href="../../search?q=Nelly">Nelly</a></span><span class="large"><a href="../../search?q=Linkin+Park">Linkin Park</a></span><span class="small"><a href="../../search?q=Avril+Lavigne">Avril Lavigne</a></span><span class="medium"><a href="../../search?q=Metallica">Metallica</a></span><span class="small"><a href="../../search?q=Michael+Jackson">Michael Jackson</a></span><span class="medium"><a href="../../search?q=Akon">Akon</a></span><span class="small"><a href="../../search?q=Christina+Aguilera">Christina Aguilera</a></span><span class="small"><a href="../../search?q=Nelly+Furtado">Nelly Furtado</a></span><span class="medium"><a href="../../search?q=Mariah+Carey">Mariah Carey</a></span><span class="medium"><a href="../../search?q=Pink">Pink</a></span><span class="small"><a href="../../search?q=Coldplay">Coldplay</a></span><span class="medium"><a href="../../search?q=mark+medlock">mark medlock</a></span><span class="medium"><a href="../../search?q=Genesis">Genesis</a></span><span class="small"><a href="../../search?q=Timbaland">Timbaland</a></span><span class="small"><a href="../../search?q=genre%3Arock">genre:rock</a></span><span class="small"><a href="../../search?q=genre%3Atechno">genre:techno</a></span><span class="small"><a href="../../search?q=Slipknot">Slipknot</a></span><span class="medium"><a href="../../search?q=Eminem">Eminem</a></span><span class="small"><a href="../../search?q=Sweet">Sweet</a></span><span class="small"><a href="../../search?q=ABBA">ABBA</a></span><span class="small"><a href="../../search?q=Scooter">Scooter</a></span><span class="small"><a href="../../search?q=genre%3Asoundtrack">genre:soundtrack</a></span></div>
+</div>
+
+    <BR>
+    <BR>
+        <center>
+                <SCRIPT language="JavaScript" type="text/javascript">
+            
+            <!--
+            
+            document.write('<SCR' + 'IPT src="http://adserver.adreactor.com/servlet/view/banner/javascript/zone?zid=6&pid=45&custom1=Lady+GaGa&custom2=Beautiful+Dirty+Rich&custom3=&random=' + Math.floor(89999999 * Math.random() + 10000000) + '&millis=' + new Date().getTime() + '&referrer=' + escape(document.location) + '" language="JavaScript" type="text/javascript"></SCR' + 'IPT>');
+            
+            //-->
+        </SCRIPT>
+        <NOSCRIPT>
+            <A href="http://adserver.adreactor.com/servlet/click/zone?zid=6&pid=45&custom1=Lady+GaGa&custom2=Beautiful+Dirty+Rich&custom3=&lookup=true&position=1" target="_top"><IMG src="http://adserver.adreactor.com/servlet/view/banner/image/zone?zid=6&pid=45&custom1=Lady+GaGa&custom2=Beautiful+Dirty+Rich&custom3=&position=1" height="250" width="300" hspace="0" vspace="0" border="0" alt="Click Here!"></A>
+        </NOSCRIPT>
+		
+		
+	
+		    </center>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <BR>
+    <div class="titles">
+        <H4>
+        Intrests</h4>
+    </div>
+    <BR>
+    <B><a title="Play your old classic NES games in your browser!" href="http://playnes.net" target="new">PlayNES.net</a></B><BR>
+<B><a title="Mp3 Resource Guide!" href="http://mp3.startpagina.nl" target="new">mp3.startpagina.nl</a></B><BR>
+
+    <br>
+</div>
+<div id="footer">
+    &#169; Mp3Realm.org&nbsp;-&nbsp <a href='/about/'>About</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href='/help/'>Help</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href='/contact/'>Contact</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href='/legal/'>Legal</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href='/feedback/'>Feedback</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href='/removal/'>Content Removal</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href='/submit/'>Submit URL</a>
+</div>
+</div>
+</div>
+</body>
+</html>
+     
