@@ -66,15 +66,15 @@ public class RequestThread extends Thread {
     	}
 		Map<String, String> map = getQueryMap(path);
 		
-    	Utils.D("+++++++++++++++++++++");
-    	Utils.D("path = " + path);
+    	com.util.Utils.D("+++++++++++++++++++++");
+    	com.util.Utils.D("path = " + path);
 		
     	sendHeader(out, 200, "audio/mpeg", -1, System.currentTimeMillis());
     	
     	String command = map.get("cmd");
     	path = map.get("file");
     	
-    	Utils.D("path = " + path);
+    	com.util.Utils.D("path = " + path);
     	
     	if (command != null) {
     		if (command.equals("ready")) {
@@ -112,7 +112,7 @@ public class RequestThread extends Thread {
     			} else {
     				if (finished)
     					break;
-    				Utils.D("Total bytes written: " + totalBytes);
+    				com.util.Utils.D("Total bytes written: " + totalBytes);
     				
     				File tmp = new File(_rootDir, path);
     				if (!tmp.exists()) {
@@ -123,7 +123,7 @@ public class RequestThread extends Thread {
     							break;
 	    					mFile = new RandomAccessFile(tmp2 , "r");
 	    					mFile.seek((long)totalBytes);
-	    					Utils.D("Switched to downloaded file.");
+	    					com.util.Utils.D("Switched to downloaded file.");
     					} else {
     						break;
     					}

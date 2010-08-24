@@ -10,9 +10,41 @@ import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharsetEncoder;
 import java.util.Enumeration;
 
-public class Utils {
-	static String TAG = "pp";
+import com.limegroup.gnutella.Downloader;
+
+import android.util.Log;
+
+public class Utils {  
+	public static String TAG = "pp";
+	
+    /**
+     * The number of bytes in a kilobyte.
+     */
+    public static final long ONE_KB = 1024;
+
+    /**
+     * The number of bytes in a megabyte.
+     */
+    public static final long ONE_MB = ONE_KB * ONE_KB;
+
+    /**
+     * The number of bytes in a gigabyte.
+     */
+    public static final long ONE_GB = ONE_KB * ONE_MB;
+    
 	static public final boolean DEBUG = false;
+    static public void D(String msg) {
+      if (DEBUG) {
+          Log.d(TAG, msg);
+      }
+    }
+    static public void E(String msg) {
+          Log.e(TAG, msg);
+    }    
+    static public void assertD(boolean b) {
+        if (DEBUG)
+            assert b;
+    }
     public static InetAddress getLocalIpAddress() throws UnknownHostException {
         try {
             for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
@@ -43,5 +75,9 @@ public class Utils {
     		//e.printStackTrace();
     		return input;
     	}
+    }
+    
+    public static String displaySizeInMB(long size) {
+      return String.format("%.2fM", size * 1.0 / ONE_MB);
     }
 }

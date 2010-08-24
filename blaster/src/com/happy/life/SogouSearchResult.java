@@ -3,9 +3,11 @@ package com.happy.life;
 import java.io.File;
 import java.util.ArrayList;
 
+import com.util.DownloadInfo;
+
 import android.text.TextUtils;
 
-public class SogouSearchResult extends SearchResult {
+public class SogouSearchResult extends com.util.SearchResult {
 
     private String mTitle;
     private String mArtist;
@@ -125,7 +127,14 @@ public class SogouSearchResult extends SearchResult {
     }
 
     @Override
-        public String getFileName() {
-            return getTitle() + "[" + getArtist() + "].mp3";
-        }
+    public String getFileName() {
+        return getTitle() + "[" + getArtist() + "].mp3";
+    }
+
+    @Override
+    public DownloadInfo createDownloadInfo() {
+      return new SogouDownloadInfo(this);
+    }
+
+
 }

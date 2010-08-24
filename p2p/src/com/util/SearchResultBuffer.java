@@ -1,4 +1,4 @@
-package com.happy.life;
+package com.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,12 +7,12 @@ import java.util.Iterator;
 import android.util.Log;
 
 import com.limegroup.gnutella.RemoteFileDesc;
+import com.util.SearchResult;
 
 // Result for presentation in one batch.
-class SearchResultBuffer { 
+public class SearchResultBuffer { 
 	public static final int BUFFER_SIZE = 20;
 	private ArrayList<SearchResult> mResults;
-    private long mTimeLastSorted;
 
 	public SearchResultBuffer() {
 		mResults = new ArrayList<SearchResult>(BUFFER_SIZE);

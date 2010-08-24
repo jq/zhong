@@ -3,7 +3,6 @@
     <string name="app_name">Music Blaster</string>
     <string name="go">Go</string>
     <string name="error_network">Network connection error!</string>
-    <string name="retry">Retry</string>
     <string name="wait">Please wait while we connect...</string>
     <string name="no_download_link">Failed to get music download location</string>
     <string name="loading">Loading...</string>
@@ -13,36 +12,18 @@
     <string name="no_download_data">No downloads</string>
     <string name="hide">Hide</string>
     <string name="done">Done</string>
-    <string name="finished">FINISHED</string>
-    <string name="pending">PENDING</string>
     <string name="stopping">STOPPING</string>
-    <string name="failed">FAILED</string>
     <string name="stopped">STOPPED</string>
-    <string name="downloading">DOWNLOADING</string>
-    <string name="queued">QUEUED</string>
-    <string name="aborted">ABORTED</string>
-    <string name="paused">PAUSED</string>
-    <string name="downloads">Downloads</string>
-    <string name="clear">Clear</string>
-    <string name="play">Play</string>
+    
     <string name="cancel">Cancel</string>
-    <string name="stop">Stop</string>
-    <string name="delete">Delete</string>
-    <string name="resume">Resume</string>
     <string name="preview">Preview</string>
     <string name="download">Download</string>
-    <string name="music_option_prompt">View more options by long clicking the item.</string>
     <string name="streaming">Streaming music</string>
-    <string name="search">Simple Search</string>
     <string name="options">Options</string>
     <string name="no_result">No result</string>
-    <string name="target_exists">target file already exists</string>
-    <string name="pause">Pause</string>
-    <string name="already_downloading">Target already being downloaded</string>
     <string name="status">Status:</string>
     <string name="searching">Searching...</string>
     <string name="initializing">Initializing...</string>
-    <string name="no_playing_activity">No activity found to handle mp3 files. You may want to start music player manually.</string>
 
     <string name="title">Title</string>
     <string name="artist">Artist</string>
@@ -50,9 +31,7 @@
     <string name="advance_search">Advanced</string>
     <string name="exit">Exit</string>
 
-    <string name="eula_title">Term of Use</string>
-    <string name="eula_accept">Accept</string>
-    <string name="eula_refuse">Decline</string>
+
     <string name="network_dialog_title">Network Error</string>
     <string name="network_error_message">You can only proceed after fixing your network connection.</string>
     <string name="ring">Ringtone</string>

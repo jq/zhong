@@ -3,6 +3,8 @@ package com.happy.life;
 import java.util.ArrayList;
 
 import com.limegroup.gnutella.util.StringUtils;
+import com.util.DbAdapter;
+import com.util.SearchCursorAdapter;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -89,7 +91,7 @@ public class SearchTab extends Activity{
 	}
 	
 	private AutoCompleteTextView setTextView(int id, int type) {
-	    Cursor c = Constants.dbAdapter.getHistoryByType(type);
+	    Cursor c = com.util.Constants.dbAdapter.getHistoryByType(type);
 	   
 	    AutoCompleteTextView view = (AutoCompleteTextView) findViewById(id);
 	    if (c != null) {
@@ -116,27 +118,27 @@ public class SearchTab extends Activity{
         StringBuilder b = new StringBuilder(256);
         b.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?> <audio schema=\"http://www.limewire.com/schemas/audio.xsd\"");
         if (!noArtist) {
-            Constants.dbAdapter.insertHistory(artist, DbAdapter.TYPE_ARTIST);
+            com.util.Constants.dbAdapter.insertHistory(artist, DbAdapter.TYPE_ARTIST);
             b.append("artist=\"");
             b.append(artist);
             b.append("\" ");
             key += artist + " ";
         }
         if (!noTitle) {
-            Constants.dbAdapter.insertHistory(title, DbAdapter.TYPE_TITLE);
+            com.util.Constants.dbAdapter.insertHistory(title, DbAdapter.TYPE_TITLE);
             b.append("title=\"");
             b.append(title);
             b.append("\" ");
             key += title + " ";
         }
         if (!noAlbum) {
-            Constants.dbAdapter.insertHistory(album, DbAdapter.TYPE_TITLE);
+            com.util.Constants.dbAdapter.insertHistory(album, DbAdapter.TYPE_TITLE);
             b.append("album=\"");
             b.append(album);
             b.append("\" ");
             key += album;
         }
         b.append("/>");
-        SearchResultActivity.handleMp3ListXMLIntent(this, key, b.toString());
+        MusicSearchResultActivity.handleMp3ListXMLIntent(this, key, b.toString());
     }
 }

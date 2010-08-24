@@ -15,12 +15,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchResultActivity" android:launchMode="singleTop"
+        <activity android:name=".MusicSearchResultActivity" android:launchMode="singleTop"
         		  android:theme="@android:style/Theme.Light"></activity>
-        <activity android:name=".DownloadActivity" android:theme="@android:style/Theme.Light"></activity>
+        <activity android:name="com.util.SearchResultActivity" android:launchMode="singleTop"
+        		  android:theme="@android:style/Theme.Light"></activity>
+        <activity android:name=".MusicDownloadActivity" android:theme="@android:style/Theme.Light"></activity>
+        <activity android:name="com.util.DownloadActivity" android:theme="@android:style/Theme.Light"></activity>
         <activity android:name=".SearchTab"></activity>
-        <activity android:name=".EulaActivity" android:theme="@android:style/Theme.Light"/>
-        <service android:name=".DownloadService"></service>
+        <activity android:name="com.util.EulaActivity" android:theme="@android:style/Theme.Light"/>
+        <service android:name="com.util.DownloadService"></service>
         <service android:name=".MiniServer"></service>
 		<meta-data android:value="a14bde108d3ecc3" android:name="ADMOB_PUBLISHER_ID" />
 

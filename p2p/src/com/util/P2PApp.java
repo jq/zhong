@@ -223,6 +223,7 @@ public class P2PApp extends Application {
 	@Override
     public void onCreate() {
    		super.onCreate();
+   		Constants.init(this);
       new Thread(new Runnable() {
   			@Override
   			public void run() {

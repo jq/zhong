@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_download_data">No downloads</string>
+    <string name="clear_finished">Clear Completed</string>
+    <string name="done">Done</string>
+    <string name="status">Status:</string>
+    <string name="music_option_prompt">View more options by long clicking the item.</string>
+		<string name="clear">Clear</string>
+    <string name="play">Play</string>
+		<string name="retry">Retry</string>
+    <string name="delete">Delete</string>
+    <string name="pause">Pause</string>
+    <string name="stop">Stop</string>
+    <string name="resume">Resume</string>
+    <string name="no_playing_activity">No activity found to handle mp3 files. You may want to start music player manually.</string>
+    <string name="finished">FINISHED</string>
+    <string name="failed">FAILED</string>
+    <string name="downloading">DOWNLOADING</string>
+    <string name="queued">QUEUED</string>
+    <string name="aborted">ABORTED</string>
+    <string name="paused">PAUSED</string>
+    <string name="pending">PENDING</string>
+    
+    <string name="target_exists">target file already exists</string>
+    <string name="already_downloading">Target already being downloaded</string>
+    <string name="search">Simple Search</string>
+		<string name="wait">Please wait while we connect...</string>
+    <string name="downloads">Downloads</string>    
+    
+    
+    <string name="eula_title">Term of Use</string>
+    <string name="eula_accept">Accept</string>
+    <string name="eula_refuse">Decline</string>
+    
+</resources>

@@ -1,4 +1,4 @@
-package com.happy.life;
+package com.util;
 
 import android.app.SearchManager;
 import android.content.ContentValues;

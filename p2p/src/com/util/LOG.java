@@ -18,36 +18,36 @@ public class LOG {
   }
   
   public static void logSp(String log) {
-	  if (Utils.DEBUG)
+	  if (com.util.Utils.DEBUG)
 		  android.util.Log.i(Utils.TAG, log);
   }
   public static void logSp(String log, Throwable t) {
-	  if (Utils.DEBUG)
+	  if (com.util.Utils.DEBUG)
 		  android.util.Log.i(Utils.TAG, log + " : " + t.getMessage());
   }
   
   public static void logxml(String log, Throwable t) {
-	  if (Utils.DEBUG)
+	  if (com.util.Utils.DEBUG)
 		  android.util.Log.i(Utils.TAG, log + " : " + t.getMessage());
   }
   
   public static void logxml(String log) {
-	  if (Utils.DEBUG)
+	  if (com.util.Utils.DEBUG)
 		  android.util.Log.i(Utils.TAG, log);
   }
 
   private static void log(String log) {
-	  if (Utils.DEBUG)
+	  if (com.util.Utils.DEBUG)
 		  android.util.Log.i(Utils.TAG, log);
   }
   
   public static void trace(String log) {
-	  if (Utils.DEBUG)
+	  if (com.util.Utils.DEBUG)
 		  android.util.Log.i(Utils.TAG, log);
   }
   
   public static void trace(String log, Throwable t) {
-	  if (Utils.DEBUG)
+	  if (com.util.Utils.DEBUG)
 		  android.util.Log.i(Utils.TAG, log + " : " + t.getMessage());
   }
   

@@ -1,4 +1,4 @@
-package com.happy.life;
+package com.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,18 +11,20 @@ import com.limegroup.gnutella.Endpoint;
 import com.limegroup.gnutella.RemoteFileDesc;
 import com.limegroup.gnutella.URN;
 import com.limegroup.gnutella.search.HostData;
+import com.util.P2pSearchResult;
+import com.util.SearchResult;
+import com.util.SearchResultBuffer;
 
 // This class is thread safe.
 public class SearchAdapter {
-	private HashMap<URN, P2pSearchResult> mResult = new HashMap<URN, P2pSearchResult>();
-	private int mSougouResultCount = 0;
+	protected HashMap<URN, P2pSearchResult> mResult = new HashMap<URN, P2pSearchResult>();
 	
 	// Provide a list view for representation.
-	private ArrayList<SearchResultBuffer> mResultBuffers = new ArrayList<SearchResultBuffer>();
+	protected ArrayList<SearchResultBuffer> mResultBuffers = new ArrayList<SearchResultBuffer>();
 	private final byte[] mGuid;
 	
 	// For displaying.
-	private int mCurrentBatch;
+	protected int mCurrentBatch;
 	
 	public SearchAdapter(byte[] guid) {
 		mGuid = guid;
@@ -49,7 +51,7 @@ public class SearchAdapter {
 	}
 	
 	public synchronized int size() {
-		return mResult.size() + mSougouResultCount;
+		return mResult.size() ;
 	}
 	
 	// Set loc is Endpoint.
@@ -97,29 +99,6 @@ public class SearchAdapter {
 		return shouldRefresh;
 	}
 	
-	public synchronized boolean add(SogouSearchResult result) {
-	  if (result == null)
-	    return false;
-	  
-	  SearchResultBuffer lastBuffer = null;
-      if (!mResultBuffers.isEmpty())
-          lastBuffer = mResultBuffers.get(mResultBuffers.size() - 1);
-      
-      boolean shouldRefresh = false;
-      mSougouResultCount++;
-      
-      if (lastBuffer != null && !lastBuffer.isFull()) {
-        lastBuffer.add(result);
-      } else {
-        lastBuffer = new SearchResultBuffer();
-        lastBuffer.add(result);
-        mResultBuffers.add(lastBuffer);
-      }
-      if (mCurrentBatch < mResultBuffers.size() && mResultBuffers.get(mCurrentBatch) == lastBuffer) {
-        shouldRefresh = true;
-      }
-      return shouldRefresh;
-	}
 	
 	// Method for display..
 	public synchronized int displaySize() {

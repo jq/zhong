@@ -1,4 +1,4 @@
-package com.happy.life;
+package com.util;
 
 public abstract class DownloadObserver {
 

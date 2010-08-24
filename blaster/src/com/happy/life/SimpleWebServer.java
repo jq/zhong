@@ -25,7 +25,7 @@ public class SimpleWebServer extends Thread {
     }
     
     public void run() {
-    	Utils.D("SimpleWebServer running");
+    	com.util.Utils.D("SimpleWebServer running");
         while (_running) {
             try {
                 Socket socket = _serverSocket.accept();

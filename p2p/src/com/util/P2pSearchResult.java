@@ -1,4 +1,4 @@
-package com.happy.life;
+package com.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -170,4 +170,10 @@ public final class P2pSearchResult extends SearchResult implements Comparable<P2
     public int compareTo(P2pSearchResult arg0) {
         return arg0.getSize() -  getSize();
     }
+
+  @Override
+  public DownloadInfo createDownloadInfo() {
+    return new P2pDownloadInfo(this);
+  }
+
 }

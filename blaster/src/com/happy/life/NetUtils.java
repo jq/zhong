@@ -39,13 +39,13 @@ public class NetUtils {
 		connection.setConnectTimeout(CONNECT_TIMEOUT);
 		connection.connect();
 		
-		if (Utils.DEBUG) {
-			Utils.D("Reply headers:");
+		if (com.util.Utils.DEBUG) {
+			com.util.Utils.D("Reply headers:");
 			Map replyHeaders = connection.getHeaderFields();
 			Iterator it = replyHeaders.entrySet().iterator();
 			Map.Entry pairs = (Map.Entry)it.next();
-			Utils.D(pairs.getKey() + " = " + pairs.getValue());
-			Utils.D("End reply headers");
+			com.util.Utils.D(pairs.getKey() + " = " + pairs.getValue());
+			com.util.Utils.D("End reply headers");
 		}
 		
 		String cookie = connection.getHeaderField("Set-Cookie");

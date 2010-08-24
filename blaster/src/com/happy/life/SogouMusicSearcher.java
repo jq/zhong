@@ -59,9 +59,9 @@ public class SogouMusicSearcher {
 	
 	
 	private ArrayList<SogouSearchResult> getMusicInfoListFromHtml(String html) throws UnsupportedEncodingException {
-			Utils.D("+++++++++++++++");
-			Utils.D(html);
-			Utils.D("+++++++++++++++");
+			//com.util.Utils.E("+++++++++++++++");
+			//com.util.Utils.E(html);
+			//com.util.Utils.E("+++++++++++++++");
 			
 			ArrayList<SogouSearchResult> musicList = new ArrayList<SogouSearchResult>();
 			Matcher matcherRow = PATTERN_ROW.matcher(html);
@@ -84,11 +84,11 @@ public class SogouMusicSearcher {
 				  searchResult.setDisplayFileSize(displayFileSize);
 				  searchResult.setFileSize(fileSize);
 				  searchResult.setType(m.group(7).trim());
-					
+				  Log.e("result", searchResult.getArtist());
 				  musicList.add(searchResult);
 				}
 			}
-			Utils.D("Exit getMusicInfoListFromHtml");
+			com.util.Utils.D("Exit getMusicInfoListFromHtml");
 			return musicList;
 	}
 	
@@ -161,12 +161,14 @@ public class SogouMusicSearcher {
 	// Returns null when something wrong happens.
 	public ArrayList<SogouSearchResult> getNextResultList(final Context context) {
 		sNumQueries++;
+
 		HtmlData data = new HtmlData();
-		if (!loadUrl(context, getNextUrl(), data))
+		if (!loadUrl(context, getNextUrl(), data)) {
 			return null;
-		
-        if (TextUtils.isEmpty(data.content))                                                                                                                                                                    
+		}
+        if (TextUtils.isEmpty(data.content)) { 
             return null;
+        }
         ArrayList<SogouSearchResult> musicList;
 		try {
 			musicList = getMusicInfoListFromHtml(data.content);
@@ -181,6 +183,7 @@ public class SogouMusicSearcher {
 		if (musicList.size() > 0) {
 			mPage++;
 		}
+		Log.e("list", "" + musicList.size());
 		return musicList;
 	}
 

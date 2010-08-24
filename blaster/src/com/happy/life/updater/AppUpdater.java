@@ -30,18 +30,18 @@ public class AppUpdater {
 			if (TextUtils.isEmpty(update.getUrl()) ||
 				TextUtils.isEmpty(update.getVersion()) ||
 				TextUtils.isEmpty(update.getMessage())) {
-		    	Utils.D("Update: incomplete field");
+		    	com.util.Utils.D("Update: incomplete field");
 				return null;
 			}
 			
 			if (update.getSeq() <= VersionUtils.getVersionCode(context)) {
-		    	Utils.D("new update is no newer than installed version");
+		    	com.util.Utils.D("new update is no newer than installed version");
 				return null;
 			}
 			
 			SharedPreferences setting = context.getSharedPreferences(Constants.PREFS_UPDATE, 0);
 			if (update.getSeq() <= setting.getInt(Constants.UPDATE_SEQ, 0)) {
-		    	Utils.D("Already received update.");
+		    	com.util.Utils.D("Already received update.");
 				return null;
 			}
 			
@@ -72,8 +72,8 @@ public class AppUpdater {
 		int versionCode = setting.getInt(Constants.UPDATE_SEQ, -1);
 		int myVersion = VersionUtils.getVersionCode(context);
 		
-		Utils.D("version code = " + versionCode);
-		Utils.D("My version code = " + myVersion);
+		com.util.Utils.D("version code = " + versionCode);
+		com.util.Utils.D("My version code = " + myVersion);
 		
 		if (versionCode == -1 || versionCode > myVersion) {
 			return setting.getString(Constants.UPDATE_URL, "market://search?q=pname:" + context.getPackageName());

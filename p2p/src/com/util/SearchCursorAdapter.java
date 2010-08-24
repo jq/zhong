@@ -1,4 +1,4 @@
-package com.happy.life;
+package com.util;
 
 import android.content.Context;
 import android.database.Cursor;

@@ -49,9 +49,6 @@ import android.widget.RelativeLayout;
 public class Utils {
 	
 	static String TAG = "MBlaster";
-	
-	static public final boolean DEBUG = false;
-	
     /**
      * The number of bytes in a kilobyte.
      */
@@ -66,18 +63,7 @@ public class Utils {
      * The number of bytes in a gigabyte.
      */
     public static final long ONE_GB = ONE_KB * ONE_MB;
-	
-	static public void D(String msg) {
-		if (DEBUG) {
-			Log.d(TAG, msg);
-		}
-	}
-	
-	static public void assertD(boolean b) {
-		if (DEBUG)
-			assert b;
-	}
-	
+		
 	// A dialogue showing a specified message.
 	static public void DP(Context a, String msg) {
 		new AlertDialog.Builder(a).setPositiveButton(
@@ -220,9 +206,6 @@ public class Utils {
 		return result;
 	}
 
-    public static String displaySizeInMB(long size) {
-    	return String.format("%.2fM", size * 1.0 / ONE_MB);
-    }
     
     public static int getSizeInM(int size) {
       return (int) (size / ONE_MB);

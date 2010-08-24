@@ -27,7 +27,7 @@ public class MiniServer extends Service{
     @Override
     public void onCreate() {
         super.onCreate();
-        Utils.D("Mini Server: onCreate()");
+        com.util.Utils.D("Mini Server: onCreate()");
         try {
             server = new SimpleWebServer(rootDir, Constants.MINI_SERVER_PORT);
         } catch (IOException e) {

@@ -1,6 +1,7 @@
-package com.happy.life;
+package com.util;
 
 import com.limegroup.gnutella.util.StringUtils;
+import com.limegroup.gnutella.R;
 
 import android.app.Activity;
 import android.os.Debug;
@@ -15,9 +16,9 @@ import android.widget.ImageButton;
 
 public class SearchBar {
 
-	private Activity mActivity;
-	private EditText mQuery;
-	private ImageButton mGo;
+	protected Activity mActivity;
+	protected EditText mQuery;
+	protected ImageButton mGo;
 	
 	public SearchBar(Activity activity) {
 		mActivity = activity;
@@ -55,7 +56,7 @@ public class SearchBar {
 	private void doSearch() {
 		String query = mQuery.getText().toString();
 		query = StringUtils.removeIllegalChars(query);
-		Utils.D("start search");
+		com.util.Utils.D("start search");
 
 		if (!TextUtils.isEmpty(query)) {
 	    	//Debug.startMethodTracing("blaster");

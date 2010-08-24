@@ -1,4 +1,4 @@
-package com.happy.life;
+package com.util;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -6,13 +6,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import com.limegroup.gnutella.R;
 
 public class ListStatusView extends LinearLayout {
     private View mFooter;
     private ProgressBar mProgress;
     private TextView mMessage;
     
-    enum Status {
+    public enum Status {
     	OFFLINE,
     	LOAD_MORE,
     	SEARCHING,

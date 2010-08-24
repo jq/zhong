@@ -6,6 +6,7 @@ import com.happy.life.updater.UpdateInfo;
 import com.limegroup.gnutella.RouterService;
 import com.other.RingSelectActivity;
 import com.ringdroid.RingdroidSelectActivity;
+import com.util.SearchBar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -28,7 +29,7 @@ import android.widget.Button;
 
 public class music extends Activity {
 	@SuppressWarnings("unused")
-	private SearchBar mSearch;
+	private MusicSearchBar mSearch;
 	
 	private static final int DIALOG_INITIALIZING = 1;
 	private static final int DIALOG_NETWORK_ERROR = 2;
@@ -43,7 +44,7 @@ public class music extends Activity {
 	
     @Override
     protected Dialog onCreateDialog(int id) {
-        Utils.D("onCreateDialog() " + id);
+        com.util.Utils.D("onCreateDialog() " + id);
         switch (id) {
         case DIALOG_INITIALIZING: {
             if (mProgressDialog == null) {
@@ -100,7 +101,7 @@ public class music extends Activity {
     }
     
     private void initViews() {
-        mSearch = new SearchBar(music.this);
+        mSearch = new MusicSearchBar(music.this);
         
         Button downloadsButton = (Button)findViewById(R.id.downloads_button);
         downloadsButton.setOnClickListener(null);
@@ -108,7 +109,7 @@ public class music extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(music.this, DownloadActivity.class);
+				Intent intent = new Intent(music.this, MusicDownloadActivity.class);
 				startActivity(intent);
 			}
         	
@@ -226,7 +227,7 @@ public class music extends Activity {
         	     } ); */ 
         Utils.addMixedAds(this);
         
-		if (!EulaActivity.checkEula(this)) {
+		if (!com.util.EulaActivity.checkEula(this)) {
 			return;
 		}
 		
@@ -252,7 +253,7 @@ public class music extends Activity {
     }
     
     private void checkUpdate() {
-    	Utils.D("Checking update");
+    	com.util.Utils.D("Checking update");
     	new CheckUpdateTask().execute();
     }
     

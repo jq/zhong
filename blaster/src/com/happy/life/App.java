@@ -14,6 +14,7 @@ import com.limegroup.gnutella.chat.Chatter;
 import com.limegroup.gnutella.search.HostData;
 import com.limegroup.gnutella.security.User;
 import com.limegroup.gnutella.settings.SharingSettings;
+import com.util.DownloadService;
 import com.util.P2PApp;
 
 import android.app.Application;
@@ -35,7 +36,7 @@ public class App extends P2PApp {
 	
 	@Override
   public void onCreate() {
-    Constants.init(this);
+    
     init(this);
     // the order has to be like this, since super.onCreate depends on this init
 		super.onCreate();
