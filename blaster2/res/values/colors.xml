@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+<color name="download_finished">#008000</color>
+<color name="download_failed">#FF0000</color>
+<color name="download_pending">#1E90FF</color>
+<color name="download_stopped">#FF8C00</color>
+<color name="music_filename">#008B8B</color>
+
+<color name="appwidget_text">#ffffffff</color>
+</resources>

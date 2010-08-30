@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res/com.feebe.rings"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+       <LinearLayout android:id="@+id/AdsView" android:layout_width="fill_parent" android:layout_height="wrap_content" ></LinearLayout>
+    <TextView 
+        android:id="@+id/search_artist"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="4dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:text="Artist"
+        android:gravity="left"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+            
+    
+  		
+    <AutoCompleteTextView
+        android:id="@+id/input_artist"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:scrollHorizontally="true"
+        android:capitalize="none"
+        android:gravity="fill_horizontal"
+         />
+
+		
+  		
+    <TextView
+        android:id="@+id/serach_title"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:text="Title"
+        android:gravity="left"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	
+  		            
+    <AutoCompleteTextView
+        android:id="@+id/input_title"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:scrollHorizontally="true"
+        android:capitalize="none"
+        android:gravity="fill_horizontal"
+         /> 
+         
+    <TextView
+        android:id="@+id/serach_album"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:text="Album"
+        android:gravity="left"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	
+  		            
+    <AutoCompleteTextView
+        android:id="@+id/input_album"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:scrollHorizontally="true"
+        android:capitalize="none"
+        android:gravity="fill_horizontal"
+         /> 
+         
+    <include layout_height="wrap_content" layout="@layout/ads"/>  
+    
+    <Button
+    		android:id="@+id/search_button"
+    		android:text="Search"
+    		android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+    		/>
+</LinearLayout>

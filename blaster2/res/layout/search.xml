@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:layout_width="fill_parent"
+			  android:layout_height="wrap_content"
+		      android:orientation="horizontal">
+	<EditText android:id="@+id/q"
+    	      android:layout_width="wrap_content"
+    	      android:layout_height="wrap_content"
+    	      android:hint="@string/search"
+    	      android:singleLine="true"
+    	      android:layout_weight="1"/>
+    <ImageButton android:id="@+id/clear"
+    		android:src="@drawable/ic_input_delete"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"/>
+    <ImageButton android:id="@+id/go"
+    		android:src="@drawable/search_button"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"/>
+</LinearLayout>
