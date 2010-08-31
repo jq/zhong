@@ -80,7 +80,7 @@ public class HTTPDownloader implements BandwidthTracker {
     /**
      * The length of the buffer used in downloading.
      */
-    public static final int BUF_LENGTH=1024;
+    public static final int BUF_LENGTH=1024*8;
     
     /**
      * The smallest possible time in seconds to wait before retrying a busy
