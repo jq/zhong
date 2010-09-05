@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 public class MusicInfo {
 
+	public final static String TYPT_PAGE = "page";
 	public final static String TYPE_TITLE = "title";
 	public final static String TYPE_ARTIST = "artist";
 	public final static String TYPE_ALBUM = "album";

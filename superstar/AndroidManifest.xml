@@ -10,7 +10,7 @@
                   android:label="@string/app_name">
 
         </activity> -->
-        <activity android:name=".SearchResultActivity"
+        <activity android:name=".DBResultActivity"
         		  android:launchMode="singleTop">
         	<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
