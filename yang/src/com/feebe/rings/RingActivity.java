@@ -1,11 +1,18 @@
 package com.feebe.rings;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.json.JSONArray;
@@ -137,20 +144,44 @@ public class RingActivity extends Activity {
         @Override
         public void onRatingChanged(RatingBar largeRatingBar, float rating,
       		  boolean fromUser) {	  		
+            myRating = (int) rating*20 + "";
       		if(key!="" && jsonLocation != null) {
-      			String ratingUrl = Const.RatingBase + key + "?score=" + rating*20;
-      			try {
-      				URL url = new URL(ratingUrl);
-      				HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
-      				urlConn.setConnectTimeout(4000);
-      			    urlConn.connect();
-      			    urlConn.disconnect();
-      			    // Log.d(TAG, ratingUrl);
-      			} catch (MalformedURLException e) {
-      				e.printStackTrace();
-      			} catch (IOException e) {
-      				e.printStackTrace();
-      			}
+        		if(AccountInfo.isEclairOrLater()) {
+        		  new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                      friendList = AccountInfo.getFriendListEclair(RingActivity.this);
+                      account = AccountInfo.getAccountNameEclair(RingActivity.this);
+                      rate();
+                    }
+                  }).start();
+                } else {
+                  friendList = AccountInfo.getFriendList(RingActivity.this);
+                  AccountInfo.getAccountName(RingActivity.this);
+                }
+                String realKey = key.substring(key.lastIndexOf("/")+1, key.indexOf("?"));
+                //Log.e("RealKey", realKey);
+              
+      			final String ratingUrl = Const.RatingBase + realKey + "?score=" + (int) rating*20;
+      			new Thread(new Runnable() {
+                  @Override
+                  public void run() {
+                    try {
+                      URL url = new URL(ratingUrl);
+                      HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
+                      urlConn.setConnectTimeout(4000);
+                      urlConn.connect();
+                      urlConn.getInputStream();
+                      urlConn.disconnect();
+                      // Log.d(TAG, ratingUrl);
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                  }
+                }).start();
+      			
       			if (ring_.has(myRating)) {
       				ring_.remove(myRating);
       			}
@@ -649,6 +680,86 @@ public class RingActivity extends Activity {
 
   }
   
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+      // TODO Auto-generated method stub
+      super.onActivityResult(requestCode, resultCode, data);
+
+      if (requestCode == AccountInfo.GET_ACCOUNT_REQUEST_CODE) {
+          //System.out.println(resultCode);
+          String key1 = "accounts";
+          System.out.println(key1 + ":" + Arrays.toString(data.getExtras().getStringArray(key1)));
+          String accounts[] = data.getExtras().getStringArray(key1);
+          if (accounts != null && accounts.length > 0) {
+              account = accounts[0];
+          } else {
+              account = "noAccountInfo";
+          }
+          //rate
+          rate();
+      }
+  }
+  
+  private void rate() {
+    //rate
+    String realKey = key.substring(key.lastIndexOf("/")+1, key.indexOf("?"));
+    final String ratingUrl2 =  "http://ringtonesns.appspot.com/rate?user=" + account + "&song=" + realKey + "&rate=" + myRating;
+    //Log.e("ratingUrl2: ", ratingUrl2);
+      // thread to collect info
+      new Thread( new Runnable() {
+        @Override
+        public void run() {               
+          
+          try {
+            URL url = new URL(ratingUrl2);
+            HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
+            urlConn.setConnectTimeout(4000);
+            urlConn.connect();
+            urlConn.getInputStream();
+            urlConn.disconnect();
+          } catch (MalformedURLException e) {
+            //e.printStackTrace();
+          } catch (IOException e) {
+            //e.printStackTrace();
+          }
+          String updateFriendsUrl = "http://ringtonesns.appspot.com/friend";
+          String updateFriendsParam = "user=" + URLEncoder.encode(account) + "&friends=";
+          String friends = "[";
+          for(int i = 0; i < friendList.size(); i++) {
+            friends += "'" + friendList.get(i) + "'," ;
+          }
+          friends = friends.substring(0, friends.length()-1) + "]";
+          updateFriendsParam = updateFriendsParam + URLEncoder.encode(friends);
+          //Log.e("updateFriendURL", updateFriendsUrl);
+          //Log.e("updateFriendsParam", updateFriendsParam);
+          try {
+            URL url = new URL(updateFriendsUrl);
+            HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
+            urlConn.setConnectTimeout(4000);
+            urlConn.setRequestMethod("POST");
+            urlConn.setDoOutput(true);
+            urlConn.connect();
+            OutputStreamWriter out = new OutputStreamWriter(urlConn.getOutputStream());
+            out.write(updateFriendsParam);
+            out.flush();
+            //get response
+            //BufferedReader in = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+            //String line;
+            //while ((line = in.readLine()) != null) {
+            //  Log.e("HTTP POST RESPONSE: ", line);
+            //}
+            out.close();
+            //in.close();
+            urlConn.disconnect();
+          } catch (MalformedURLException e) {
+            //e.printStackTrace();
+          } catch (IOException e) {
+            //e.printStackTrace();
+          }
+        }
+      }).start();
+  }
+  
   private Uri mCurrentFileUri;
   private JSONObject ring_;
   private String mp3Location;
@@ -686,6 +797,9 @@ public class RingActivity extends Activity {
   String myRating = "";
   String filePath = "";
   int mp3Size;
+  
+  private String account = "";
+  private ArrayList<String> friendList = new ArrayList<String>();
   
   private Intent notificationIntent;
   RingDownloadListener ringDownloadListener;	
