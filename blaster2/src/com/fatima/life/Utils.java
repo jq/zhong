@@ -26,10 +26,8 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.admob.android.ads.AdView;
 import com.adwhirl.AdWhirlLayout;
 import com.fatima.life.R;
-import com.qwapi.adclient.android.view.QWAdView;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
@@ -304,7 +302,8 @@ public class Utils {
 	      } else {
 	          w = LayoutParams.WRAP_CONTENT;
 	      }
-	      AdWhirlLayout adWhirlLayout = new AdWhirlLayout(activity, "b2c900faac5d44f5a2358df294d75309");
+	      //c21bae7f9c874b7181c6da1469cd755c b2c900faac5d44f5a2358df294d75309
+	      AdWhirlLayout adWhirlLayout = new AdWhirlLayout(activity, "c21bae7f9c874b7181c6da1469cd755c");
 	      LayoutParams adWhirlLayoutParams = new LayoutParams(LayoutParams.FILL_PARENT, w);
 	      LinearLayout layout = (LinearLayout) activity.findViewById(id);
 	      if (layout != null)
