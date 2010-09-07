@@ -146,19 +146,23 @@ public class RingActivity extends Activity {
       		  boolean fromUser) {	  		
             myRating = (int) rating*20 + "";
       		if(key!="" && jsonLocation != null) {
-        		if(AccountInfo.isEclairOrLater()) {
-        		  new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                      friendList = AccountInfo.getFriendListEclair(RingActivity.this);
-                      account = AccountInfo.getAccountNameEclair(RingActivity.this);
-                      rate();
-                    }
-                  }).start();
-                } else {
-                  friendList = AccountInfo.getFriendList(RingActivity.this);
-                  AccountInfo.getAccountName(RingActivity.this);
-                }
+      		    try {
+          		  if(AccountInfo.isEclairOrLater()) {
+          		  new Thread(new Runnable() {
+                      @Override
+                      public void run() {
+                        friendList = AccountInfo.getFriendListEclair(RingActivity.this);
+                        account = AccountInfo.getAccountNameEclair(RingActivity.this);
+                        rate();
+                      }
+                    }).start();
+                  } else {
+                    friendList = AccountInfo.getFriendList(RingActivity.this);
+                    AccountInfo.getAccountName(RingActivity.this);
+                  }
+      		    } catch (VerifyError e) {
+      		      //ignore VerifyError
+      		    }
                 String realKey = key.substring(key.lastIndexOf("/")+1, key.indexOf("?"));
                 //Log.e("RealKey", realKey);
               
