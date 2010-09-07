@@ -27,7 +27,7 @@ public class AdListener {
     } else {
       w = LayoutParams.WRAP_CONTENT;
     }
-    AdWhirlLayout adWhirlLayout = new AdWhirlLayout(activity, "9e817eff582a444cbb34c339e2523693");
+    AdWhirlLayout adWhirlLayout = new AdWhirlLayout(activity, "bcb2a6fca76c487e9662890bd595c127");
     LayoutParams adWhirlLayoutParams = new LayoutParams(LayoutParams.FILL_PARENT, w);
     ViewGroup layout = (ViewGroup) activity.findViewById(id);
     if (layout != null) {

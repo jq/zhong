@@ -210,11 +210,7 @@ public class Util {
        return true;
      }
      Location loc = mLocationManager.getLastKnownLocation(
-         LocationManager.GPS_PROVIDER);
-     if (loc == null) {
-       loc = mLocationManager.getLastKnownLocation(
-           LocationManager.NETWORK_PROVIDER);
-     }
+         LocationManager.NETWORK_PROVIDER);
      if (loc == null) {
          return true;
      }

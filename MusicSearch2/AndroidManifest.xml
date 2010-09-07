@@ -3,7 +3,7 @@
    android:installLocation="auto"
 
       package="com.ringtone.search1"
-      android:versionName="1.1" android:versionCode="3">
+      android:versionCode="4" android:versionName="1.2">
       <uses-sdk android:minSdkVersion="3" />   
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name="com.trans.music.search.SearchTab"
