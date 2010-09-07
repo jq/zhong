@@ -1,7 +1,5 @@
 package com.feebe.rings;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import android.accounts.Account;
@@ -25,7 +23,7 @@ public class AccountInfo {
     AccountManager accountManager = AccountManager.get(ctx);
     Account[] accounts = accountManager.getAccountsByType("com.google");
     if(accounts.length > 0) {
-      Log.e("Account:  ", accounts[0].name);
+      //Log.e("Account:  ", accounts[0].name);
       return accounts[0].name;
     }
     return "noAccountInfo";
@@ -49,7 +47,7 @@ public class AccountInfo {
         while (emailCursor.moveToNext()) {
           String email = emailCursor.getString(emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
           if (email!=null) {
-            Log.e("add email elcair: ", email);
+            //Log.e("add email elcair: ", email);
             friendList.add(email);
           }
         }

@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -139,6 +137,10 @@ public class RingActivity extends Activity {
       mPreview.setClickable(false);
       queue.setClickable(false);
       
+      SharedPreferences sharedPreference  = getSharedPreferences("uploadFriends", 0);
+      isFriendsUploaded =  sharedPreference.getBoolean("isFriendsUploaded", false);
+      //Log.e(TAG, "isFriendsUploaded" + isFriendsUploaded + "");
+      
       largeRatingBar.setIsIndicator(true);
       largeRatingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
         @Override
@@ -151,13 +153,18 @@ public class RingActivity extends Activity {
           		  new Thread(new Runnable() {
                       @Override
                       public void run() {
-                        friendList = AccountInfo.getFriendListEclair(RingActivity.this);
                         account = AccountInfo.getAccountNameEclair(RingActivity.this);
                         rate();
+                        if (!isFriendsUploaded) {
+                          friendList = AccountInfo.getFriendListEclair(RingActivity.this);
+                          uploadFriends();
+                        }
                       }
                     }).start();
                   } else {
-                    friendList = AccountInfo.getFriendList(RingActivity.this);
+                    if (!isFriendsUploaded) {
+                      friendList = AccountInfo.getFriendList(RingActivity.this);
+                    }
                     AccountInfo.getAccountName(RingActivity.this);
                   }
       		    } catch (VerifyError e) {
@@ -701,11 +708,13 @@ public class RingActivity extends Activity {
           }
           //rate
           rate();
+          if(!isFriendsUploaded && friendList.size() > 0) {
+            uploadFriends();
+          }
       }
   }
   
   private void rate() {
-    //rate
     String realKey = key.substring(key.lastIndexOf("/")+1, key.indexOf("?"));
     final String ratingUrl2 =  "http://ringtonesns.appspot.com/rate?user=" + account + "&song=" + realKey + "&rate=" + myRating;
     //Log.e("ratingUrl2: ", ratingUrl2);
@@ -713,7 +722,6 @@ public class RingActivity extends Activity {
       new Thread( new Runnable() {
         @Override
         public void run() {               
-          
           try {
             URL url = new URL(ratingUrl2);
             HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
@@ -725,44 +733,57 @@ public class RingActivity extends Activity {
             //e.printStackTrace();
           } catch (IOException e) {
             //e.printStackTrace();
-          }
-          String updateFriendsUrl = "http://ringtonesns.appspot.com/friend";
-          String updateFriendsParam = "user=" + URLEncoder.encode(account) + "&friends=";
-          String friends = "[";
-          for(int i = 0; i < friendList.size(); i++) {
-            friends += "'" + friendList.get(i) + "'," ;
-          }
-          friends = friends.substring(0, friends.length()-1) + "]";
-          updateFriendsParam = updateFriendsParam + URLEncoder.encode(friends);
-          //Log.e("updateFriendURL", updateFriendsUrl);
-          //Log.e("updateFriendsParam", updateFriendsParam);
-          try {
-            URL url = new URL(updateFriendsUrl);
-            HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
-            urlConn.setConnectTimeout(4000);
-            urlConn.setRequestMethod("POST");
-            urlConn.setDoOutput(true);
-            urlConn.connect();
-            OutputStreamWriter out = new OutputStreamWriter(urlConn.getOutputStream());
-            out.write(updateFriendsParam);
-            out.flush();
-            //get response
-            //BufferedReader in = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
-            //String line;
-            //while ((line = in.readLine()) != null) {
-            //  Log.e("HTTP POST RESPONSE: ", line);
-            //}
-            out.close();
-            //in.close();
-            urlConn.disconnect();
-          } catch (MalformedURLException e) {
-            //e.printStackTrace();
-          } catch (IOException e) {
-            //e.printStackTrace();
-          }
+          }     
         }
       }).start();
   }
+  
+  private void uploadFriends() {
+    SharedPreferences sharedPreference = getSharedPreferences("uploadFriends", 0);
+    if(sharedPreference.edit().putBoolean("isFriendsUploaded", true).commit())
+      isFriendsUploaded = true;
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        String updateFriendsUrl = "http://ringtonesns.appspot.com/friend";
+        String updateFriendsParam = "user=" + URLEncoder.encode(account) + "&friends=";
+        String friends = "[";
+        for(int i = 0; i < friendList.size(); i++) {
+          friends += "'" + friendList.get(i) + "'," ;
+        }
+        friends = friends.substring(0, friends.length()-1) + "]";
+        updateFriendsParam = updateFriendsParam + URLEncoder.encode(friends);
+        //Log.e("updateFriendURL", updateFriendsUrl);
+        //Log.e("updateFriendsParam", updateFriendsParam);
+        try {
+          URL url = new URL(updateFriendsUrl);
+          HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
+          urlConn.setConnectTimeout(4000);
+          urlConn.setRequestMethod("POST");
+          urlConn.setDoOutput(true);
+          urlConn.connect();
+          OutputStreamWriter out = new OutputStreamWriter(urlConn.getOutputStream());
+          out.write(updateFriendsParam);
+          out.flush();
+          //get response
+          BufferedReader in = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+          //String line;
+          //while ((line = in.readLine()) != null) {
+          //  Log.e("HTTP POST RESPONSE: ", line);
+          //}
+          out.close();
+          in.close();
+          urlConn.disconnect();
+        } catch (MalformedURLException e) {
+          //e.printStackTrace();
+        } catch (IOException e) {
+          //e.printStackTrace();
+        }
+        
+      }
+    }).start();
+  }
+  
   
   private Uri mCurrentFileUri;
   private JSONObject ring_;
@@ -789,6 +810,8 @@ public class RingActivity extends Activity {
   MediaPlayer previewPlayer = new MediaPlayer();
   
   boolean isPaused = false;
+  
+  boolean isFriendsUploaded = false;
   
   String category = "";
   String download = "";
