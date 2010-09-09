@@ -38,6 +38,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -47,6 +48,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.GestureDetector.OnGestureListener;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnTouchListener;
@@ -75,7 +77,6 @@ public class DBResultActivity extends ListActivity {
 	private static DBResultActivity sSearchActivity;
 	private static volatile IMusicSearcher sFetcher;
 	private LayoutInflater mControl_bar;
-	private LinearLayout mControlView;
 	
 	private static boolean sHasMoreData = true;
 
@@ -91,12 +92,13 @@ public class DBResultActivity extends ListActivity {
 	private ProgressBar mProgressBar;
 	private TextView mSearchMessage;
 
-	private Mp3ListAdapter mAdapter;
+	private static Mp3ListAdapter mAdapter;
 
 	private DownloadService mDownloadService;
 
 	private ProgressDialog mStreaming;
 	private static String sStreamingTitle;
+	private ControlBarView mControlBarView;
 	
 	private static volatile MediaPlayer sPlayer;
 	private static Thread sPreviewThread;
@@ -127,11 +129,11 @@ public class DBResultActivity extends ListActivity {
 			mProgressDialog.dismiss();
 
 		// Display
-		mAdapter = new Mp3ListAdapter(
-				DBResultActivity.this,
-				R.layout.result_item);
-
-		setListAdapter(mAdapter);
+//		mAdapter = new Mp3ListAdapter(
+//				DBResultActivity.this,
+//				R.layout.result_item);
+//
+//		setListAdapter(mAdapter);
 		
 		if (sData == null) {
 			if (sFetchMp3ListTask != null) {
@@ -162,7 +164,7 @@ public class DBResultActivity extends ListActivity {
 			sHasMoreData = true;
 			if (sFetcher == null)
 			{
-				sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SOGOU);
+				sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_LOCAL);
 				sFetcher.setQuery(keyWords);
 			}
 			fetchNextMp3ListBatch(context);
@@ -196,115 +198,10 @@ public class DBResultActivity extends ListActivity {
 		mSearchMessage = (TextView) findViewById(R.id.search_message);
 		mProgressBar = (ProgressBar) findViewById(R.id.search_progress);
 
-//		mSearch = new SearchBar(this);
+		mControlBarView = (ControlBarView) findViewById(R.id.control_bar);
 		
-		mControl_bar = getLayoutInflater();
-		mControlView = (LinearLayout) mControl_bar.inflate(R.layout.control_bar, (ViewGroup) findViewById(R.id.control_bar));
-		TextView mtv = (TextView) mControlView.findViewById(R.id.text);
-		mtv.setText("Hello world");
-		ImageButton btn_pre = (ImageButton) mControlView.findViewById(R.id.pre);
-		ImageButton btn_next = (ImageButton) mControlView.findViewById(R.id.next);
-		ImageButton btn_refresh = (ImageButton) mControlView.findViewById(R.id.refresh);
-		ImageButton btn_download = (ImageButton) mControlView.findViewById(R.id.download);
-		ImageButton btn_head = (ImageButton) mControlView.findViewById(R.id.head);
-		btn_pre.setImageDrawable(getResources().getDrawable(R.drawable.button_pre));
-		btn_next.setImageDrawable(getResources().getDrawable(R.drawable.button_next));
-		btn_refresh.setImageDrawable(getResources().getDrawable(R.drawable.button_refresh));
-		btn_download.setImageDrawable(getResources().getDrawable(R.drawable.button_download));
-		btn_head.setImageDrawable(getResources().getDrawable(R.drawable.superstar));
-		btn_pre.setBackgroundColor(Color.BLACK);
-		btn_next.setBackgroundColor(Color.BLACK);
-		btn_refresh.setBackgroundColor(Color.BLACK);
-		btn_download.setBackgroundColor(Color.BLACK);
-		btn_head.setBackgroundColor(Color.BLACK);
-		btn_download.setOnTouchListener(new OnTouchListener() {
-			
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
-				if (event.getAction()==MotionEvent.ACTION_DOWN){
-					((ImageButton) v).setImageDrawable(getResources().getDrawable(R.drawable.button_download_touch));
-				}if(event.getAction() == MotionEvent.ACTION_UP){
-					((ImageButton) v).setImageDrawable(getResources().getDrawable(R.drawable.button_download));
-				}
-				return false;
-			}
-		});
-		
-		btn_pre.setOnTouchListener(new OnTouchListener() {
-			
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
-				if (event.getAction()==MotionEvent.ACTION_DOWN){
-					((ImageButton) v).setImageDrawable(getResources().getDrawable(R.drawable.button_pre_touch));
-				}if(event.getAction() == MotionEvent.ACTION_UP){
-					((ImageButton) v).setImageDrawable(getResources().getDrawable(R.drawable.button_pre));
-				}
-				return false;
-			}
-		});
-		
-		btn_next.setOnTouchListener(new OnTouchListener() {
-			
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
-				if (event.getAction()==MotionEvent.ACTION_DOWN){
-					((ImageButton) v).setImageDrawable(getResources().getDrawable(R.drawable.button_next_touch));
-				}if(event.getAction() == MotionEvent.ACTION_UP){
-					((ImageButton) v).setImageDrawable(getResources().getDrawable(R.drawable.button_next));
-				}
-				return false;
-			}
-		});
-		
-		btn_refresh.setOnTouchListener(new OnTouchListener() {
-			
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
-				if (event.getAction()==MotionEvent.ACTION_DOWN){
-					((ImageButton) v).setImageDrawable(getResources().getDrawable(R.drawable.button_refresh_touch));
-				}if(event.getAction() == MotionEvent.ACTION_UP){
-					((ImageButton) v).setImageDrawable(getResources().getDrawable(R.drawable.button_refresh));
-				}
-				return false;
-			}
-		});
-		
-		btn_refresh.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				sData.clear();
-				mPageNum=1;
-				Constants.dbAdapter.dropall();
-				mAdapter.getData();
-	    	}
-		});
-		
-		btn_pre.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				if (mPageNum>1) {
-					mPageNum--;
-					mAdapter.getData();
-				}
-			}
-		});
-		
-		btn_next.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				mPageNum++;
-				mAdapter.getData();	
-			}
-			
-		});
+		setListener();
+		getListView().setOnTouchListener(new MyGesture());
 		
 //		Constants.dbAdapter.initCache();
 		mPageNum=1;
@@ -317,6 +214,48 @@ public class DBResultActivity extends ListActivity {
 		mAdapter.getData();
 	}
 	
+	private void setListener() {
+		// TODO Auto-generated method stub
+		ImageButton btn_pre = (ImageButton) mControlBarView.findViewById(R.id.pre);
+		ImageButton btn_next = (ImageButton) mControlBarView.findViewById(R.id.next);
+		ImageButton btn_refresh = (ImageButton) mControlBarView.findViewById(R.id.refresh);
+		ImageButton btn_download = (ImageButton) mControlBarView.findViewById(R.id.download);
+
+		btn_refresh.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				mAdapter.refresh();
+	    	}
+		});
+		
+		btn_pre.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				mAdapter.getLastPage();
+			}
+		});
+		
+		btn_next.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				mAdapter.getNextPage();
+			}
+			
+		});
+		
+		btn_download.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+	            Intent intent = new Intent(DBResultActivity.this, DownloadActivity.class);
+				startActivity(intent);
+	    	}
+		});
+	}
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
@@ -330,12 +269,12 @@ public class DBResultActivity extends ListActivity {
 	}
   
     private void handleSearchResult(ArrayList<MusicInfo> mp3List) {
-		if (mAdapter == null) {
-	        mAdapter = new Mp3ListAdapter(
-	            DBResultActivity.this,
-					R.layout.result_item);
-			setListAdapter(mAdapter);
-		}
+//		if (mAdapter == null) {
+//	        mAdapter = new Mp3ListAdapter(
+//	            DBResultActivity.this,
+//					R.layout.result_item);
+//			setListAdapter(mAdapter);
+//		}
 		// Uncomment until it is really working.
 		//mp3List = Utils.dedupMp3List(mp3List);
 		if (mp3List != null) {
@@ -347,7 +286,8 @@ public class DBResultActivity extends ListActivity {
 				sData.append(mp3List);
 //				Constants.dbAdapter.dropall();
 				Constants.dbAdapter.insertHistory(mp3List);
-				((TextView) mControlView.findViewById(R.id.text)).setText("Page "+Integer.toString(mPageNum)+" of "+Integer.toString(Constants.dbAdapter.getMaxPageNum())+" Pages");
+				mPageNum++;
+				mControlBarView.setText("Page "+Integer.toString(mPageNum)+" of "+Integer.toString(Constants.dbAdapter.getMaxPageNum())+" Pages");
 			} else {
 				sHasMoreData = false;
 				if (sData.size() == 0) {
@@ -461,6 +401,7 @@ public class DBResultActivity extends ListActivity {
 	private final class Mp3ListAdapter extends BaseAdapter {
 		private int mResource;
 		private LayoutInflater mInflater;
+		private boolean mCache;
 
 //		private ControlBarView.Status mStatus;
 
@@ -469,15 +410,39 @@ public class DBResultActivity extends ListActivity {
             mInflater = (LayoutInflater)context.getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
 //			mStatus = ControlBarView.Status.LOADED;
+            mCache=true;
 		}
 
 //		public void setStatus(ControlBarView.Status status) {
 //			mStatus = status;
 //		}
 
+		public void getNextPage(){
+			mPageNum++;
+			getData();		
+		}
+		
+		public void getLastPage(){
+			if (mPageNum>1) {
+				mPageNum--;
+				getData();
+			}
+		}
+		
+		public void refresh(){
+			sData.clear();
+			mPageNum=1;
+			mCache=false;
+			Constants.dbAdapter.dropall();
+			getData();
+		}
+		
 		public void getData(){
 			Cursor c=Constants.dbAdapter.getHistoryByPage(mPageNum);
-			((TextView) mControlView.findViewById(R.id.text)).setText("Page "+Integer.toString(mPageNum)+" of "+Integer.toString(Constants.dbAdapter.getMaxPageNum())+" Pages");
+			String displaytext="Page "+Integer.toString(mPageNum)+" of "+Integer.toString(Constants.dbAdapter.getMaxPageNum())+" Pages";
+			if (mCache==true){
+				displaytext="Cache mp3 list\n"+displaytext;
+			}
 			ArrayList<MusicInfo> musicList = new ArrayList<MusicInfo>();
 			if (c != null && c.getCount()>0){
 				sData.clear();
@@ -485,7 +450,6 @@ public class DBResultActivity extends ListActivity {
 					int i=0;
 					MusicInfo m=new MusicInfo();
 					i=c.getColumnIndex(MusicInfo.TYPE_ALBUM);
-					String tmp=c.getString(i);
 					m.setAlbum(c.getString(i));
 					i=c.getColumnIndex(MusicInfo.TYPE_ARTIST);
 					m.setArtist(c.getString(i));
@@ -502,16 +466,29 @@ public class DBResultActivity extends ListActivity {
 				if (musicList.size() > 0) {
 					sData.append(musicList);
 					notifyDataSetChanged();
+					mControlBarView.setText(displaytext);
 					return;
 				}else{
 					sData = null;
 				}
 			}
-			sData.clear();
-			((TextView) mControlView.findViewById(R.id.text)).setText("Fetching new page");
-			mProgressBar.setVisibility(View.VISIBLE);
-			mSearchMessage.setText("Please wait while we search \"" + getString(R.string.singer) + "\"");
-			startQuery(DBResultActivity.this,getString(R.string.singer));
+	
+			if (mPageNum == 1) {
+				mCache=false;
+			}
+			
+			mPageNum--;
+
+			if (mCache==true) {
+				Toast.makeText(getBaseContext(), "There is no more cache music,you can press refresh button to get new music list.", Toast.LENGTH_SHORT).show();
+				return;
+			} else{
+				sData.clear();
+				mControlBarView.setText("Fetching new page");
+				mProgressBar.setVisibility(View.VISIBLE);
+				mSearchMessage.setText("Please wait while we get the music of \"" + getString(R.string.singer) + "\"");
+				startQuery(DBResultActivity.this,getString(R.string.singer));
+			}
 		}
 		
 		@Override
@@ -556,6 +533,74 @@ public class DBResultActivity extends ListActivity {
             ((TextView) v.findViewById(R.id.size)).setText(info.getDisplayFileSize());
 
 			return v;
+		}
+	}
+
+	private class MyGesture implements OnTouchListener,OnGestureListener{
+		private GestureDetector mGestureDetector;
+		
+		public MyGesture() {  
+	        mGestureDetector = new GestureDetector(this);  
+	    }
+		
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			// TODO Auto-generated method stub
+	        return mGestureDetector.onTouchEvent(event);  
+		}
+
+		@Override
+		public boolean onDown(MotionEvent e) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+				float velocityY) {
+		    // 参数解释：  
+		    // e1：第1个ACTION_DOWN MotionEvent  
+		    // e2：最后一个ACTION_MOVE MotionEvent  
+		    // velocityX：X轴上的移动速度，像素/秒  
+		    // velocityY：Y轴上的移动速度，像素/秒  
+		  
+		    // 触发条件 ：  
+		    // X轴的坐标位移大于FLING_MIN_DISTANCE，且移动速度大于FLING_MIN_VELOCITY个像素/秒  	      
+		    final int FLING_MIN_DISTANCE = 50, FLING_MIN_VELOCITY = 50;  
+		    if (e1.getX() - e2.getX() > FLING_MIN_DISTANCE && Math.abs(velocityX) > FLING_MIN_VELOCITY) {  
+		        // Fling left  
+//		        Toast.makeText(getBaseContext(), "to get the last page", Toast.LENGTH_SHORT).show(); 
+		    	mAdapter.getLastPage();
+		    } else if (e2.getX() - e1.getX() > FLING_MIN_DISTANCE && Math.abs(velocityX) > FLING_MIN_VELOCITY) {  
+		        // Fling right  
+//		        Toast.makeText(getBaseContext(), "to get the next page", Toast.LENGTH_SHORT).show();  
+		    	mAdapter.getNextPage();
+		    }  
+		    return false;  
+		}
+
+		@Override
+		public void onLongPress(MotionEvent e) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public boolean onScroll(MotionEvent e1, MotionEvent e2,
+				float distanceX, float distanceY) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public void onShowPress(MotionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public boolean onSingleTapUp(MotionEvent e) {
+			// TODO Auto-generated method stub
+			return false;
 		}
 	}
 }

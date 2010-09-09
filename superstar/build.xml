@@ -71,11 +71,14 @@
 				<fileset dir="res/menu"/>
 			</copy>
 			<copy todir="temp/res/drawable" filtering="false">
-				<fileset dir="res/drawable" excludes="icon.png"/>
+				<fileset dir="res/drawable">
+					<exclude name="icon.png"/>
+					<exclude name="superstar.png"/>
+				</fileset>
 			</copy>
 			
-			
-			<copyfile dest="temp/res/drawable/icon.png" src="${drawable}"/>
+			<copy file="${drawable}" tofile="temp/res/drawable/icon.png"/>
+			<copy file="${head}" tofile="temp/res/drawable/superstar.png"/>
 
 			<!-- 替换包名 -->
 			<replaceregexp byline="true">
@@ -107,7 +110,10 @@
 		</target>
 
 		<target name="generate-new-manifest">
-			<copyfile dest="temp/AndroidManifest.xml" src="AndroidManifest.xml" filtering="false"/>
+
+<!--			<copyfile dest="temp/AndroidManifest.xml" src="AndroidManifest.xml" filtering="false"/> -->
+
+			<copy file="AndroidManifest.xml" tofile="temp/AndroidManifest.xml"/>
 
 			<replaceregexp file="temp/AndroidManifest.xml" byline="true">
 			<regexp pattern="com\.ringtone\.music"/>
@@ -167,6 +173,7 @@
     		<antcall target="generate-new-res">
     			<param name="package_name" value="${package_name}"/>
     			<param name="drawable" value="${drawable}"/>
+    			<param name="head" value="${head}"/>
     			<param name="app_name" value="${app_name}"/>
     		</antcall>
 			
@@ -183,6 +190,7 @@
     		<antcall target="generate-new-prj">
     			<param name="package_name" value="${package_name}"/>
     			<param name="drawable" value="${drawable}"/>
+    			<param name="head" value="${head}"/>
     			<param name="app_name" value="${app_name}"/>
     		</antcall>
 			
@@ -204,6 +212,7 @@
     		<antcall target="res-src">
     			<param name="package_name" value="${package_name}"/>
     			<param name="drawable" value="${drawable}"/>
+    			<param name="head" value="${head}"/>
     			<param name="app_name" value="${app_name}"/>
     		</antcall>
         	
@@ -221,6 +230,7 @@
     		<antcall target="compile-main">
     			<param name="package_name" value="${package_name}"/>
     			<param name="drawable" value="${drawable}"/>
+    			<param name="head" value="${head}"/>
     			<param name="app_name" value="${app_name}"/>
     		</antcall>        	
         	
@@ -236,6 +246,7 @@
     		<antcall target="dex">
     			<param name="package_name" value="${package_name}"/>
     			<param name="drawable" value="${drawable}"/>
+    			<param name="head" value="${head}"/>
     			<param name="app_name" value="${app_name}"/>
     		</antcall>        	
         	
@@ -257,6 +268,7 @@
     		<antcall target="package-res">
     			<param name="package_name" value="${package_name}"/>
     			<param name="drawable" value="${drawable}"/>
+    			<param name="head" value="${head}"/>
     			<param name="app_name" value="${app_name}"/>
     		</antcall>
         	
@@ -289,12 +301,14 @@
     	<target name="package-apks" depends="clean-apks, init-all" description="Package applications.">  		
     		<antcall target="package-apk">
     		    <param name="package_name" value="ladygaga"/>
-    		    <param name="drawable" value="app_icons\\player1.png"/>
+    		    <param name="drawable" value="app_icons\\ladygaga_large.png"/>
+    			<param name="head" value="app_icons\\ladygaga_small.png"/>
     			<param name="app_name" value="lady gaga"/>
     		</antcall> 
     		<antcall target="package-apk">
     		    <param name="package_name" value="leehom"/>
-    		    <param name="drawable" value="app_icons\\player2.png"/>
+    		    <param name="drawable" value="app_icons\\leehom_large.png"/>
+    			<param name="head" value="app_icons\\leehom_small.png"/>
     			<param name="app_name" value="leehom"/>
     		</antcall> 
     	</target>
