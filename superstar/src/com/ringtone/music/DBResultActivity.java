@@ -286,7 +286,6 @@ public class DBResultActivity extends ListActivity {
 				sData.append(mp3List);
 //				Constants.dbAdapter.dropall();
 				Constants.dbAdapter.insertHistory(mp3List);
-				mPageNum++;
 				mControlBarView.setText("Page "+Integer.toString(mPageNum)+" of "+Integer.toString(Constants.dbAdapter.getMaxPageNum())+" Pages");
 			} else {
 				sHasMoreData = false;
@@ -418,8 +417,10 @@ public class DBResultActivity extends ListActivity {
 //		}
 
 		public void getNextPage(){
-			mPageNum++;
-			getData();		
+			if (mPageNum<=Constants.dbAdapter.getMaxPageNum()){
+				mPageNum++;
+				getData();
+			}
 		}
 		
 		public void getLastPage(){
@@ -430,11 +431,15 @@ public class DBResultActivity extends ListActivity {
 		}
 		
 		public void refresh(){
-			sData.clear();
-			mPageNum=1;
-			mCache=false;
-			Constants.dbAdapter.dropall();
-			getData();
+			if (mCache==false && sData.size() == 0){
+				getData();
+			}else{
+				sData.clear();
+				mPageNum=1;
+				mCache=false;
+				Constants.dbAdapter.dropall();
+				getData();
+			}
 		}
 		
 		public void getData(){
@@ -487,6 +492,7 @@ public class DBResultActivity extends ListActivity {
 				mControlBarView.setText("Fetching new page");
 				mProgressBar.setVisibility(View.VISIBLE);
 				mSearchMessage.setText("Please wait while we get the music of \"" + getString(R.string.singer) + "\"");
+				mPageNum++;
 				startQuery(DBResultActivity.this,getString(R.string.singer));
 			}
 		}

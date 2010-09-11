@@ -26,7 +26,7 @@ public class DbAdapter {
 		+ MusicInfo.TYPE_TYPE + " text,"
 		+ MusicInfo.TYPE_DISPLAYSIZE + " text,"
 		+ MusicInfo.TYPE_URL + " text);";
-	private static final String SQLCreateInfo = "create table if not exists infotable (maxpage integer, minpage integer, cache integer);";
+	private static final String SQLCreateInfo = "create table if not exists infotable (maxpage integer, minpage integer);";
 	
 	private static int mMaxPageNum;		// 最大页码
 	private static int mMinPageNum;		// 最小页码
@@ -85,11 +85,10 @@ public class DbAdapter {
 			
 			if (maxpage==-1){
 				db.execSQL("delete from infotable;");
-				db.execSQL("insert into infotable values(1,0,1);");
+				db.execSQL("insert into infotable values(1,0);");
 				maxpage++;
 			} else {
 				db.execSQL("update infotable set maxpage = maxpage +1;");
-				db.execSQL("update infotable set cache = 1;");
 			}
 			
 			maxpage++;
@@ -180,8 +179,7 @@ public class DbAdapter {
 				+ " where " + MusicInfo.TYPT_PAGE+ " < "+Integer.toString(maxpage);
 			db.execSQL(deleteSQL);
 			db.execSQL("update "+TableHistory+ " set "+MusicInfo.TYPT_PAGE+"=1");
-			db.execSQL("update infotable set cache = 0");
-			db.execSQL("update infotable set maxpage = 1");
+			db.execSQL("update "+TableInfo+ " set maxpage = 1");
 		}
 	}
 }
