@@ -164,7 +164,7 @@ public class DBResultActivity extends ListActivity {
 			sHasMoreData = true;
 			if (sFetcher == null)
 			{
-				sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_LOCAL);
+				sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SOGOU);
 				sFetcher.setQuery(keyWords);
 			}
 			fetchNextMp3ListBatch(context);
@@ -601,6 +601,259 @@ public class DBResultActivity extends ListActivity {
 		public boolean onSingleTapUp(MotionEvent e) {
 			// TODO Auto-generated method stub
 			return false;
+		}
+	}
+	
+	@Override
+    protected void onListItemClick(ListView listView, View view, int position, long id) {
+		if (sData != null && position < sData.size()) {
+			mCurrentMusic = sData.get(position);
+			showDialog(DIALOG_MUSIC_OPTIONS);
+		}
+	}
+	
+	@Override
+	protected void onPrepareDialog(int id, Dialog dialog) {
+		switch (id) {
+		case DIALOG_MUSIC_OPTIONS: {
+			if (mCurrentMusic != null)
+				dialog.setTitle("Options for \"" + mCurrentMusic.getTitle() + "\"");
+			return;
+		}
+		case DIALOG_MUSIC_STREAMING: {
+			if (mCurrentMusic != null) {
+				sStreamingTitle = mCurrentMusic.getTitle();
+			}
+			if (!TextUtils.isEmpty(sStreamingTitle)) {
+				dialog.setTitle(sStreamingTitle);
+			}
+		}
+		}
+	}
+
+    
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		Utils.D("onCreateDialog() " + id);
+     
+		switch (id) {
+		case DIALOG_WAITING_FOR_SERVER: {
+			if (mProgressDialog == null) {
+				mProgressDialog = new ProgressDialog(this);
+				mProgressDialog.setMessage(getString(R.string.wait));
+				mProgressDialog.setIndeterminate(true);
+				mProgressDialog.setCancelable(true);
+			}
+			return mProgressDialog;
+		}
+
+		case DIALOG_MUSIC_OPTIONS:
+            return new AlertDialog.Builder(DBResultActivity.this)
+                .setTitle(R.string.options)
+                .setItems(R.array.music_item_options, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							switch (which) {
+							case MUSIC_OPTION_PREVIEW:
+								if (mCurrentMusic == null)
+									return;
+								mHandler.post(new Runnable() {
+									@Override
+									public void run() {
+										showDialog(DIALOG_MUSIC_STREAMING);
+									}
+								});
+
+								if (TextUtils.isEmpty(mCurrentMusic.getDownloadUrl())) {
+									new FetchMp3LinkTaskForPreview().execute(mCurrentMusic);
+									break;
+								}
+								playMusic(mCurrentMusic);
+
+								break;
+							case MUSIC_OPTION_DOWNLOAD:
+								if (mCurrentMusic == null)
+									return;
+								download(mCurrentMusic);
+								break;
+							}
+						}
+                })
+                .create();
+
+		case DIALOG_MUSIC_STREAMING:
+			if (mStreaming == null) {
+				mStreaming = new ProgressDialog(DBResultActivity.this);
+				mStreaming.setTitle("Streaming music...");
+				mStreaming.setMessage(getString(R.string.wait_streaming));
+				mStreaming.setIndeterminate(true);
+				mStreaming.setCancelable(false);
+        		mStreaming.setButton(getString(R.string.stop), new DialogInterface.OnClickListener() {          
+							@Override
+        			public void onClick(DialogInterface dialog, int which) {
+						if (mStreaming != null) {
+							mStreaming.dismiss();
+						}
+						
+						new Thread(new Runnable() {
+							@Override
+							public void run() {
+								MediaPlayer player = sPlayer;
+								if (player != null)
+									player.release();
+								sPlayer = null;
+							}
+						}).start();
+					}
+				});
+			}
+			return mStreaming;
+		}
+		return null;
+	}
+    private class FetchMp3LinkTaskForPreview extends AsyncTask<MusicInfo, Void, MusicInfo> {
+		protected MusicInfo doInBackground(MusicInfo... mp3s) {
+			MusicInfo mp3 = mp3s[0];
+			sFetcher.setMusicDownloadUrl(DBResultActivity.this, mp3);
+			return mp3;
+		}
+
+		protected void onPostExecute(MusicInfo mp3) {
+			if (mp3.getDownloadUrl() == null) {
+				if (mStreaming != null && mStreaming.isShowing()) {
+					mStreaming.dismiss();
+				}
+
+                if (mProgressDialog != null && mProgressDialog.isShowing()) {
+                    mProgressDialog.dismiss();
+                }
+
+                Toast.makeText(DBResultActivity.this, R.string.no_download_link, Toast.LENGTH_SHORT).show();
+				return;
+			}
+
+			if (mProgressDialog != null && mProgressDialog.isShowing()) {
+				mProgressDialog.dismiss();
+			}
+			playMusic(mp3);
+		}
+	}
+	private void playMusic(final MusicInfo mp3) {
+		if (mp3.getDownloadUrl() !=null && mp3.getDownloadUrl().startsWith("http:")) {
+			sPreviewThread = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						MediaPlayer player = sPlayer;
+						if (player != null) {
+							player.release();
+						}
+						
+						sPlayer = new MediaPlayer();
+						player = sPlayer;
+						player.reset();
+						player.setDataSource(mp3.getDownloadUrl());
+						player.prepare();
+						
+						player.start();
+						player.setOnCompletionListener(new OnCompletionListener () {
+							@Override
+							public void onCompletion(MediaPlayer mp) {
+								sPlayer = null;
+								runOnUiThread(new Runnable() {
+									@Override
+									public void run() {
+										if (mStreaming != null) {
+											mStreaming.dismiss();
+										}
+									}
+								});
+							}
+						});
+						player.setOnErrorListener(new OnErrorListener() {
+							@Override
+							public boolean onError(MediaPlayer mp, int what, int extra) {
+								onPlayError();
+								return true;
+							}
+
+						});
+						
+						if (sPlayer == null) {
+							// Someone requested us to stop.
+							player.release();
+						}
+					} catch (IllegalArgumentException e) {
+						onPlayError();
+						e.printStackTrace();
+					} catch (IllegalStateException e) {
+						//onPlayError();
+						e.printStackTrace();
+					} catch (IOException e) {
+						onPlayError();
+						e.printStackTrace();
+					} finally {
+						sPreviewThread = null;
+					}
+				}
+			});
+			sPreviewThread.start();
+		}
+	}
+
+	private void download(MusicInfo mp3) {
+		if (TextUtils.isEmpty(mp3.getDownloadUrl())) {
+			showDialog(DIALOG_WAITING_FOR_SERVER);
+			new FetchMp3LinkTaskForDownload().execute(mp3);
+		} else {
+            DownloadInfo download = new DownloadInfo(mp3.getDownloadUrl(), MusicInfo.downloadPath(mp3));
+			mDownloadService.insertDownload(download);
+
+            Intent intent = new Intent(DBResultActivity.this, DownloadActivity.class);
+			startActivity(intent);
+		}
+
+	}
+	private void onPlayError() {
+		MediaPlayer player = sPlayer;
+		sPlayer = null;
+		if (player != null)
+			player.release();
+		
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				if (mStreaming != null) {
+					mStreaming.dismiss();
+				}
+				Toast.makeText(getApplication(), "Streaming error", Toast.LENGTH_LONG).show();
+			}
+		});
+	}
+    private class FetchMp3LinkTaskForDownload extends AsyncTask<MusicInfo, Void, MusicInfo> {
+		protected MusicInfo doInBackground(MusicInfo... mp3s) {
+			MusicInfo mp3 = mp3s[0];
+			sFetcher.setMusicDownloadUrl(DBResultActivity.this, mp3);
+			return mp3;
+		}
+
+		protected void onPostExecute(MusicInfo mp3) {
+			if (mp3.getDownloadUrl() == null) {
+				if (mProgressDialog != null && mProgressDialog.isShowing()) {
+					mProgressDialog.dismiss();
+				}
+
+                Toast.makeText(DBResultActivity.this, R.string.no_download_link, Toast.LENGTH_SHORT).show();
+				return;
+			}
+
+            DownloadInfo download = new DownloadInfo(mp3.getDownloadUrl(), MusicInfo.downloadPath(mp3));
+			mDownloadService.insertDownload(download);
+
+            Intent intent = new Intent(DBResultActivity.this, DownloadActivity.class);
+			startActivity(intent);
+			if (mProgressDialog != null && mProgressDialog.isShowing()) {
+				mProgressDialog.dismiss();
+			}
 		}
 	}
 }
