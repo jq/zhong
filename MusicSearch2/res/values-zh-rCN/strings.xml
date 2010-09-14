@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ringtone Search</string>
+    <string name="local_service_started">下载已经开始</string>
+    <string name="ringtone">铃声</string>
+    
+    <string name="network_error">网络错误!</string>
+    <string name="no_result">没有结果, 请稍后重试</string>
+    <string name="no_sd">需要SD卡运行这个程序</string>
+    <string name="search_hint">搜索</string>
+    
+    <string name="tab_hot">热门</string>
+    <string name="tab_find">查找</string>
+    <string name="tab_lib">目录</string>
+    <string name="tab_downlaod">音乐</string>
+    <string name="downloaded_files">下载文件</string>
+  	
+   <string name="queue_message">歌曲已经在队列中</string>
+    <string name="download_finished">下载结束</string>
+		<string name="myreview">我的试听</string>
+		<string name="info">音乐信息</string>
+		<string name="about">关于</string>
+		<string name="artist">艺术家: </string>
+		<string name="title">标题: </string>
+		<string name="search_more">搜索更多</string>
+		<string name="search_more_by">搜索更多关于</string>
+		<string name="search_more_in">搜索更多在</string>
+	<!-- 
+	  Music activity
+	 -->
+	 <string name="play">播放</string>
+	 	 <string name="play_error">错误</string>
+	 	 	 <string name="save_success_message">保存成功</string>
+	 
+	 <!-- 
+	 	getLinkProgressDialog
+	  -->
+    <string name="download_failed">下载失败</string>
+	  <string name="get_download_link">获取下载链接,请稍等...</string>
+    <!--	new ringdroid-->
+    <string name="menu_about">关于</string>
+     <string name="about_title">关于  Ringdroid</string>
+    <string name="about_text"><![CDATA[用  Ringdroid编辑 MP3, WAV, AAC, 和 AMR 音频 文件和创建铃声, 闹钟, 提示音.\n\nTip: 
+    通过USB来复制音频文件, 或者通过Amazon MP3来获取MP3文件.\n\nTip: 从屏幕上长按音频文件可以删除它.  更多...\n\nTip: 点击波形上的任何地方可以播放.\n\n
+    Tip: 在播放时,点击开始或结束的词语,迅速设置开始和结束标记到当前的播放时间.\n\nTip: 使用更精确的调整旋钮.\n\nVersion 2.3\n\nDeveloper: Dominic Mazzoni\nGraphics: Joseph Wain\nSupport and evangelizing: Eugene Koh\n\nRingdroid 是免费的软件, distributed under the Apache 2.0 license.  Source code is on code.google.com\n]]></string>
+        <!--
+     Sending information to server
+     -->
+    <string name="server_title">分享你的数据!</string>
+    <string name="server_prompt">方便将你创建的铃声或者其他声音的匿名数据上传到Ringdroid.com以便我们可以收集吗?</string>
+    
+    <string name="server_yes">可以发送</string>
+    <string name="server_later">稍后询问</string>
+    <string name="server_never">从不</string>
+    <string name="error_server_prompt">方便将这个错误的匿名数据发送到Ringdroid.com以便我们可以在将来试图修复它吗?</string>
+    
+    <string name="confirm_delete_non_ringdroid"
+    >你确定吗?这个文件没有被Ringdoid创建!</string>
+    
+    <string name="rate_low">这个音乐的比特率太低.它编辑后被扭曲.建议您使用整个音乐点击“使用所有”按钮.</string>
+    <string name="use_all">使用所有</string>
+    <string name="edit">编辑</string>
+    <string name="artist_name">音乐搜索</string>
+    <string name="ring_picker_title">选择铃声</string>
+    <string name="play_mode">播放模式</string>
+    <string name="current_music">当前音乐</string>
+    <string name="select_play_mode">选择播放模式.</string>
+    <string name="play_mode_set_to">播放模式设置为</string>
+    <string name="have_no_valide_music">你没有合格的音乐文件.</string>
+    <string name="select_opration">选择一个命令.</string>
+    <string name="delete_warning">你确定删除吗?</string>
+    <string name="yes">是的</string>
+    <string name="no">不</string>
+</resources>
