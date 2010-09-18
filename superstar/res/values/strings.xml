@@ -27,6 +27,7 @@
     <string name="play">Play</string>
     <string name="cancel">Cancel</string>
     <string name="stop">Stop</string>
+    <string name="refresh">Refresh</string>
     <string name="delete">Delete</string>
     <string name="resume">Resume</string>
     <string name="preview">Preview</string>

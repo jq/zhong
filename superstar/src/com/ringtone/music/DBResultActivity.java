@@ -81,6 +81,7 @@ public class DBResultActivity extends ListActivity {
 
 	private MusicInfo mCurrentMusic;
 	private int mPageNum ;
+	private boolean mIsFling;
 
 	@SuppressWarnings("unused")
 //	private SearchBar mSearch;
@@ -551,6 +552,7 @@ public class DBResultActivity extends ListActivity {
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
 			// TODO Auto-generated method stub
+			mIsFling=false;
 	        return mGestureDetector.onTouchEvent(event);  
 		}
 
@@ -567,19 +569,21 @@ public class DBResultActivity extends ListActivity {
 		    // e1：第1个ACTION_DOWN MotionEvent  
 		    // e2：最后一个ACTION_MOVE MotionEvent  
 		    // velocityX：X轴上的移动速度，像素/秒  
-		    // velocityY：Y轴上的移动速度，像素/秒  
-		  
+		    // velocityY：Y轴上的移动速度，像素/秒    
 		    // 触发条件 ：  
-		    // X轴的坐标位移大于FLING_MIN_DISTANCE，且移动速度大于FLING_MIN_VELOCITY个像素/秒  	      
+		    // X轴的坐标位移大于FLING_MIN_DISTANCE，且移动速度大于FLING_MIN_VELOCITY个像素/秒
+			
 		    final int FLING_MIN_DISTANCE = 50, FLING_MIN_VELOCITY = 50;  
 		    if (e1.getX() - e2.getX() > FLING_MIN_DISTANCE && Math.abs(velocityX) > FLING_MIN_VELOCITY) {  
 		        // Fling left  
 //		        Toast.makeText(getBaseContext(), "to get the last page", Toast.LENGTH_SHORT).show(); 
 		    	mAdapter.getLastPage();
+		    	mIsFling=true;
 		    } else if (e2.getX() - e1.getX() > FLING_MIN_DISTANCE && Math.abs(velocityX) > FLING_MIN_VELOCITY) {  
 		        // Fling right  
 //		        Toast.makeText(getBaseContext(), "to get the next page", Toast.LENGTH_SHORT).show();  
 		    	mAdapter.getNextPage();
+		    	mIsFling=true;
 		    }  
 		    return false;  
 		}
@@ -611,7 +615,7 @@ public class DBResultActivity extends ListActivity {
 	
 	@Override
     protected void onListItemClick(ListView listView, View view, int position, long id) {
-		if (sData != null && position < sData.size()) {
+		if (sData != null && position < sData.size() && mIsFling == false) {
 			mCurrentMusic = sData.get(position);
 			showDialog(DIALOG_MUSIC_OPTIONS);
 		}
@@ -860,5 +864,26 @@ public class DBResultActivity extends ListActivity {
 				mProgressDialog.dismiss();
 			}
 		}
+	}
+    
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.search_result_menu, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.dowloads:
+            Intent intent = new Intent(DBResultActivity.this, DownloadActivity.class);
+			startActivity(intent);
+			return true;
+		case R.id.refresh:
+			mAdapter.refresh();
+			return true;
+		}
+		return false;
 	}
 }
