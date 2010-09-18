@@ -27,13 +27,13 @@ public class App extends Application {
 	@Override
     public void onCreate() {
 		File sdCardRoot = Environment.getExternalStorageDirectory();
-		sBaseDirPath = new File(sdCardRoot, Constants.BASE_DIR_NAME);
-		
+		//sBaseDirPath = new File(sdCardRoot, Constants.BASE_DIR_NAME);
+		sBaseDirPath = new File(sdCardRoot, getString(R.string.app_name));
 		if (!sBaseDirPath.exists() && !sBaseDirPath.mkdir()) {
 			Toast.makeText(this, R.string.create_app_dir_error, Toast.LENGTH_LONG).show();
 			return;
 		}
-		
+			
 		sMp3Path = new File(sBaseDirPath, "mp3");
 		if (!sMp3Path.exists() && !sMp3Path.mkdir()) {
 			Toast.makeText(this, R.string.create_mp3_dir_error, Toast.LENGTH_LONG).show();

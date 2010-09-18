@@ -51,7 +51,7 @@ public class ViewDownloadedActivity extends ListActivity {
 	private ProgressBar mProgress;
 	private TextView mMessage;
 	
-	private static File BASE_DIR = new File("/sdcard/music_wizard/mp3");
+//	private static File BASE_DIR = new File("/sdcard/music_wizard/mp3");
 	
 //	private MediaScannerHelper mScanner = new MediaScannerHelper();
 	
@@ -245,7 +245,7 @@ public class ViewDownloadedActivity extends ListActivity {
 
 		@Override
 		protected File[] doInBackground(Void... params) {
-			File[] files = BASE_DIR.listFiles(mFilter);
+			File[] files = App.getBaseDir().listFiles(mFilter);
 			if (files != null)
 				Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
 			return files;
