@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MusicSearch</string>
+    <string name="search">Search</string>
+    <string name="go">go</string>
+    <string name="please_wait_search">Searching...</string>
+    <string name="search_hit">Type the key words and click \"go\" button to do a search.</string>
+    <string name="searching_wait">Please wait while searching:\ </string>
+    <string name="network_error_retry">Network error. Please retry.</string>
+    <string name="retry">Retry</string>
+    <string name="no_result_sorry">Sorry, we didn't find any music match the keys words:\ </string>
+    <string name="music_information">Music Information</string>
+    <string name="about">About</string>
+    <string name="search_more_about">Search More About:\ </string>
+    <string name="artist">Artist</string>
+    <string name="song">Song</string>
+    <string name="album">Album</string>
+    <string name="size">Size</string>
+    <string name="download_link_list">Download Link List </string>
+    <string name="preview">Preview</string>
+    <string name="download">Download</string>
+    <string name="hide">Hide</string>
+    <string name="loading_download_link">Loading download links. Please wait...</string>
+    <string name="load_download_link_failed">Loading download links failed. Please retry later.</string>
+</resources>
