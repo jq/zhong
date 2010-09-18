@@ -10,9 +10,8 @@
         <!-- Dependencies -->
 
         <fileset dir="lib" id="main.jars">
-        	<include name="qwandroidsdk.jar"/>
         	<include name="admob-sdk-android.jar"/>
-        	<include name="AdWhirlSDK_Android_2.5.2.jar"/>
+        	<include name="AdWhirlSDK_Android_2.5.4.jar"/>
         	<include name="MMAdView.jar"/>
         </fileset>
         <!-- Rules -->

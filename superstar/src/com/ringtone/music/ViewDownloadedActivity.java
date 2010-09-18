@@ -9,7 +9,6 @@ import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import com.admob.android.ads.AdView;
-import com.qwapi.adclient.android.view.QWAdView;
 import android.app.ListActivity;
 import android.content.ContentResolver;
 import android.content.Context;

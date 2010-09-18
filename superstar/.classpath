@@ -2,10 +2,9 @@
 <classpath>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="lib" path="lib/admob-sdk-android.jar"/>
-	<classpathentry kind="lib" path="lib/qwandroidsdk.jar"/>
 	<classpathentry kind="lib" path="lib/MMAdView.jar"/>
-	<classpathentry kind="lib" path="lib/AdWhirlSDK_Android_2.5.2.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="lib/AdWhirlSDK_Android_2.5.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
