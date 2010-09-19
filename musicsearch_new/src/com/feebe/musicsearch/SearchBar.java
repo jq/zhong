@@ -50,7 +50,6 @@ public class SearchBar {
 	
 	private void doSearch() {
 		String query = mQuery.getText().toString();
-		Utils.D("start search");
 
 		if (!TextUtils.isEmpty(query)) {
 			SearchActivity.startQuery(query);

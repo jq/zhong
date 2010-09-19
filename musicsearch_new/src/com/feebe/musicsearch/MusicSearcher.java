@@ -111,7 +111,9 @@ public class MusicSearcher {
 			if (Utils.isUrl(key)) {
 				return;
 			} else {
+				Utils.D(URL_DOWNLINK+key);
 				String html = NetUtils.fetchHtmlPage(mCookie_id, URL_DOWNLINK+key, CODING);
+				Utils.D(html);
 				JSONArray entries = new JSONArray(html);
 				info.setDownloadUrl(getLinkListFromJsonArray(entries));
 			}
@@ -121,12 +123,13 @@ public class MusicSearcher {
 	}
 	
 	private ArrayList<String> getLinkListFromJsonArray(JSONArray entries) throws JSONException {
-		ArrayList<String> linkList = new ArrayList<String>();
 		ArrayList<String> downlinkList = new ArrayList<String>();
+		Utils.D(entries.toString());
 		for (int j=0; j<entries.length(); j++) {
+			Utils.D(entries.getString(j));
 			downlinkList.add(entries.getString(j));
 		}
-		return linkList;
+		return downlinkList;
 	}
 	
 	public int getCurPage() {

@@ -27,8 +27,9 @@
 	<LinearLayout
 	  	xmlns:android="http://schemas.android.com/apk/res/android"
 	  	android:layout_width="fill_parent"
-	  	android:layout_height="fill_parent"
+	  	android:layout_height="wrap_content"
 	  	android:orientation="vertical"
+	  	android:layout_alignParentTop="true"
 	  	android:layout_above="@id/button_group">
 	
 		<include android:layout_width="fill_parent" android:layout_height="wrap_content" layout="@layout/list_footer"></include>
@@ -46,8 +47,8 @@
 			android:layout_height="wrap_content">
 			<LinearLayout
 				android:id="@+id/album_size"
-				android:layout_height="fill_parent"
-				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_width="fill_parent"
 				android:orientation="vertical"
 				android:layout_alignParentRight="true"
 				android:paddingRight="5dip">
@@ -66,8 +67,8 @@
 			</LinearLayout>
 			<LinearLayout
 				android:id="@+id/song_artist"
-				android:layout_height="fill_parent"
-				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_width="fill_parent"
 				android:orientation="vertical"
 				android:layout_alignParentLeft="true"
 				android:paddingLeft="5dip">
@@ -86,29 +87,24 @@
 			</LinearLayout>
 		</RelativeLayout>
 		
-		<LinearLayout
+		<TextView
 			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:orientation="vertical">
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="10dip"
-				android:textSize="8dip"
-				android:text="@string/about">
-			</TextView>
-			<ListView
-				android:id="@+id/search_more_list"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content">
-			</ListView>
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="10dip"
-				android:textSize="8dip"
-				android:text="@string/download_link_list">
-			</TextView>
-			<include android:layout_width="fill_parent" android:layout_height="wrap_content" layout="@layout/android_list"></include>
-		</LinearLayout>
+			android:layout_height="10dip"
+			android:textSize="8dip"
+			android:text="@string/about">
+		</TextView>
+		<ListView
+			android:id="@+id/search_more_list"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content">
+		</ListView>
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="10dip"
+			android:textSize="8dip"
+			android:text="@string/download_link_list">
+		</TextView>
+		<include android:layout_width="fill_parent" android:layout_height="wrap_content" layout="@layout/android_list"></include>
 	
 	</LinearLayout>
 </RelativeLayout>

@@ -16,10 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class MusicPageActivity extends ListActivity {
 	
@@ -43,11 +47,14 @@ public class MusicPageActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.music_page);
 		mProgressBar = (ProgressBar) findViewById(R.id.search_progress);
 		mMessage = (TextView) findViewById(R.id.search_message);
 		mRetryButton = (Button) findViewById(R.id.retry_button);
 		sIndex = getIntent().getIntExtra(Const.INDEX, -1);
 		sMusicInfo = SearchActivity.sData.get(sIndex);
+		getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		getListView().setClickable(false);
 		fetchDownloadLink();
 	}
 
@@ -91,7 +98,7 @@ public class MusicPageActivity extends ListActivity {
 		}
 
 		@Override
-		public int getCount() {
+		public int getCount() { 
 			if (sMusicInfo==null || !sMusicInfo.isRealDownloadLink()) {
 				return 0;
 			} else  {
@@ -127,11 +134,25 @@ public class MusicPageActivity extends ListActivity {
 			}
 			String link = linkList.get(position);
 			((RadioButton) v.findViewById(R.id.is_checked)).setText(link);
-            return v;
+			((RadioButton) v.findViewById(R.id.is_checked)).setOnClickListener(new LinkItemClickListener(position));
+			return v;
 		}
 	}
 	
-
+	private class LinkItemClickListener implements  View.OnClickListener{
+		private int mPosition;
+		public LinkItemClickListener(int position) {
+			mPosition = position;
+		}
+		@Override
+		public void onClick(View v) {
+			ListView lv = getListView();
+			for (int i=0; i<lv.getChildCount(); i++) {
+				((RadioButton) lv.getChildAt(i).findViewById(R.id.is_checked)).setChecked(false);
+			}
+			((RadioButton) lv.getChildAt(mPosition).findViewById(R.id.is_checked)).setChecked(true);
+		}
+	} 
 	
 	private void setLoadingStatus() {
 		mProgressBar.setVisibility(View.VISIBLE);

@@ -185,8 +185,8 @@ public class Utils {
     }
    
     public static boolean isUrl(String url) {
-    	url = url.trim().substring(0, 6);
-    	if (url.equalsIgnoreCase("http://") || url.equalsIgnoreCase("https:/")) {
+    	url = url.trim().substring(0, 4);
+    	if (url.equalsIgnoreCase("http")) {
     		return true;
     	}
     	return false;
