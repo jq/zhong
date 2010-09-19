@@ -187,6 +187,12 @@ public class DBResultActivity extends ListActivity {
 		Constants.init(this);
 		sSearchActivity = this;
         
+		if (sFetcher == null)
+		{
+			sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SOGOU);
+			sFetcher.setQuery(getString(R.string.singer));
+		}
+		
 		Utils.D("Mp3ListActivity onCreate()");
 
 		setContentView(R.layout.result_list);
