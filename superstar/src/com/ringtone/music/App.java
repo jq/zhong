@@ -27,8 +27,14 @@ public class App extends Application {
 	@Override
     public void onCreate() {
 		File sdCardRoot = Environment.getExternalStorageDirectory();
-		//sBaseDirPath = new File(sdCardRoot, Constants.BASE_DIR_NAME);
-		sBaseDirPath = new File(sdCardRoot, getString(R.string.app_name));
+
+		File singerPath = new File(sdCardRoot, "ringtonehelper");
+		if (!singerPath.exists() && !singerPath.mkdir()) {
+			Toast.makeText(this, R.string.create_app_dir_error, Toast.LENGTH_LONG).show();
+			return;
+		}
+		
+		sBaseDirPath = new File(singerPath, getString(R.string.app_name));
 		if (!sBaseDirPath.exists() && !sBaseDirPath.mkdir()) {
 			Toast.makeText(this, R.string.create_app_dir_error, Toast.LENGTH_LONG).show();
 			return;

@@ -3,6 +3,7 @@ package com.ringtone.music;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -11,7 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DbAdapter {
+public class DbAdapter extends Activity{
 	private final static int DB_VERSION = 4;
 	
 	private final static int MAX_RECORD_NUMBER = 2;
@@ -147,7 +148,9 @@ public class DbAdapter {
             ArrayList<String> args = new ArrayList<String>();
             args.add(Integer.toString(pagenum));
             String[] argsArray = args.toArray(new String[args.size()]);
-            return db.query(TableHistory, projection_key, selection, argsArray, null, null, null);
+            Cursor c=db.query(TableHistory, projection_key, selection, argsArray, null, null, null);
+            startManagingCursor(c);
+            return c;
 		}catch(Exception e) {
 			return null;
 		}
@@ -158,6 +161,7 @@ public class DbAdapter {
             SQLiteDatabase db = mOpenHelper.getReadableDatabase();
             Cursor c;
             c=db.query(TableInfo,new String[] {"maxpage"},null,null,null,null,null);
+            startManagingCursor(c);
             if (c!= null && 0 != c.getCount()){
                 c.moveToFirst();
             	int i=c.getColumnIndex("maxpage");
@@ -181,5 +185,12 @@ public class DbAdapter {
 			db.execSQL("update "+TableHistory+ " set "+MusicInfo.TYPT_PAGE+"=1");
 			db.execSQL("update "+TableInfo+ " set maxpage = 1");
 		}
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+		db.close();
 	}
 }

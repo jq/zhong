@@ -450,6 +450,7 @@ public class DBResultActivity extends ListActivity {
 		
 		public void getData(){
 			Cursor c=Constants.dbAdapter.getHistoryByPage(mPageNum);
+			startManagingCursor(c);
 			String displaytext="Page "+Integer.toString(mPageNum)+" of "+Integer.toString(Constants.dbAdapter.getMaxPageNum())+" Pages";
 			if (mCache==true){
 				displaytext="Cache mp3 list\n"+displaytext;

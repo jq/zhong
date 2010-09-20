@@ -74,9 +74,9 @@ public class SogouMusicSearcher implements IMusicSearcher {
 				Matcher m = PATTERN.matcher(matcherRow.group(1));
 				while (m.find()) {
 					MusicInfo info = new MusicInfo();
-					info.setTitle(StringEscapeUtils.unescapeHtml(m.group(1).trim()));
+					info.setTitle(StringEscapeUtils.unescapeHtml(URLDecoder.decode(m.group(1),"gb2312").trim()));
 					info.setArtist(StringEscapeUtils.unescapeHtml(URLDecoder.decode(m.group(2), "gb2312").trim()));
-					info.setAlbum(StringEscapeUtils.unescapeHtml(m.group(3).trim()));
+					info.setAlbum(StringEscapeUtils.unescapeHtml(URLDecoder.decode(m.group(3),"gb2312").trim()));
 					info.addUrl(SOGOU_MP3 + m.group(4).trim());
 					info.setLyricUrl(SOGOU_MP3 + m.group(5).trim());
 					String displayFileSize = m.group(6).trim();
