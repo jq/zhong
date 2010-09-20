@@ -36,5 +36,6 @@
         android:indicatorRight="52dip" />
 
     <include layout="@layout/nowplaying" />
+    <include layout_height="wrap_content" layout="@layout/adsw"/>  
 
 </LinearLayout>
