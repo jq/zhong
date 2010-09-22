@@ -52,6 +52,8 @@ public class AccountInfo {
           }
         }
       }
+    } catch (Exception e) {
+      
     } finally {
       cursor.close();
     }
