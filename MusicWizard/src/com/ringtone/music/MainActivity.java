@@ -7,7 +7,6 @@ import com.ringtone.music.R;
 import com.ringtone.music.download.DownloadActivity;
 import com.ringtone.music.updater.AppUpdater;
 import com.ringtone.music.updater.UpdateInfo;
-import com.qwapi.adclient.android.view.QWAdView;
 
 import android.app.Activity;
 import android.app.AlertDialog;

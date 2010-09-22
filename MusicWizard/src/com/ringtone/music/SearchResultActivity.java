@@ -14,8 +14,6 @@ import com.ringtone.music.download.DownloadInfo;
 import com.ringtone.music.download.DownloadService;
 
 import com.ringtone.music.R;
-import com.qwapi.adclient.android.view.QWAdView;
-
 
 import android.app.AlertDialog;
 import android.app.Dialog;

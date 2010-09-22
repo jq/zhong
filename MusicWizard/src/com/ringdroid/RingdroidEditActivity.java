@@ -59,8 +59,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.admob.android.ads.AdView;
-import com.qwapi.adclient.android.view.QWAdView;
 import com.ringdroid.soundfile.CheapSoundFile;
 import com.ringtone.music.R;
 import com.ringtone.music.Utils;

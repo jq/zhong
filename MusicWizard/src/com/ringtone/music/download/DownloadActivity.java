@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import com.admob.android.ads.AdView;
 import com.ringtone.music.R;
 import com.ringtone.music.Utils;
-import com.qwapi.adclient.android.view.QWAdView;
 
 import android.app.ListActivity;
 import android.content.ComponentName;
