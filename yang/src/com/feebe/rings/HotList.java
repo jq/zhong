@@ -59,6 +59,7 @@ public class HotList extends BaseList {
 	public class HotAdapter extends UrlArrayAdapter<HotSong, SearchViewWp> {
 		public HotAdapter(Context context, int resource) {
 			super(context, resource);
+			useDedup_ = false;
 			runAsyn(base_url, Const.OneWeek);
 		}
 				

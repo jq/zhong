@@ -28,7 +28,7 @@ public class StringList extends BaseList {
   private static final int Latest_TYPE = 3;
   private static final int ARTIST_LIB_TYPE = 4;
   private static final int BBHOTCHART_TYPE = 5;
-  
+  private static final int TOP_ARTIST_TYPE = 6;
   @Override
   public ListAdapter getAdapter() {
     mAdapter = new StringAdapter(this, android.R.layout.simple_list_item_1);
@@ -42,7 +42,6 @@ public class StringList extends BaseList {
   @Override
   public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
   	Item cate = mAdapter.getItem(pos);
-    Search s;
     if (cate.type == ARTIST_LIB_TYPE) {
         Intent intent = new Intent();
         intent.setClass(this, SingerLibrary.class);
@@ -52,6 +51,10 @@ public class StringList extends BaseList {
         intent.putExtra("type", BbHotChartStr[pos - 1]);
         intent.setClass(this, BbHotChart.class);
         startActivityForResult(intent, 1);
+    } else if (cate.type == TOP_ARTIST_TYPE) {
+      Intent intent = new Intent();
+      intent.setClass(this, TopArtistList.class);
+      startActivityForResult(intent, 1);
     } else if (cate.type == CATE_TYPE) {
     	Search.getCate(this, cate.name);
     } else if (cate.type == ARTIST_TYPE) {
@@ -76,6 +79,8 @@ public class StringList extends BaseList {
 
     public StringAdapter(Context context, int resource) {
       super(context, resource);
+      useDedup_ = false;
+      add(new Item("Top Artist", TOP_ARTIST_TYPE));
       add(new Item("Artist Library", ARTIST_LIB_TYPE));
       add(new Item("Yahoo! Music Top Songs", BBHOTCHART_TYPE));
       add(new Item("Billboard Top 100", BBHOTCHART_TYPE));

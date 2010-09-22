@@ -106,6 +106,7 @@ public class Util {
       data = Util.download(url);
   	}
     if (data != null) {
+      Log.e("del", data);
       try {
         JSONArray entries;
         entries = new JSONArray(data);

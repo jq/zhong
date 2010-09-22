@@ -270,49 +270,6 @@ public class RingActivity extends Activity {
 			}
 		});
     
-    mShare = (Button) findViewById(R.id.share);
-    mShare.setVisibility(View.VISIBLE);
-    mShare.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				new AlertDialog.Builder(RingActivity.this)
-        .setTitle(R.string.alertdialog_share)
-        .setItems(R.array.select_share_methods, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                switch(which) {
-                case 0:
-                	Intent sms = new Intent(Intent.ACTION_VIEW);
-                	sms.putExtra("sms_body",
-                	    RingActivity.this.getString(R.string.share_sms1) + " " +
-                	    title+ " "  + RingActivity.this.getString(R.string.share_sms2)+ "\n" +
-                	    key.substring(0, key.length() - 7)+ "\n" +
-                	    RingActivity.this.getString(R.string.share_sms3)
-                	    ); 
-                	sms.setType("vnd.android-dir/mms-sms");
-                	startActivity(sms);
-                	break;
-                case 1:
-                	Intent mEmailIntent = new Intent(android.content.Intent.ACTION_SEND);
-                	mEmailIntent.setType("plain/text");
-                	mEmailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, 
-                	    title);
-                	mEmailIntent.putExtra(android.content.Intent.EXTRA_TEXT, 
-                	    RingActivity.this.getString(R.string.share_sms1) + " " + title + " " + 
-                	    RingActivity.this.getString(R.string.share_sms2) + "\n" + 
-                	    key.substring(0, key.length() - 7) + "\n" +
-                      RingActivity.this.getString(R.string.share_sms3));
-                	startActivity(Intent.createChooser(mEmailIntent, artist));
-                	break;
-                case 2:
-                	Browser.sendString(RingActivity.this, RingActivity.this.getString(R.string.share_sms1) + title + RingActivity.this.getString(R.string.share_sms2) + artist);
-                }
-            }
-        }).create().show();
-				
-			}
-		});
-    
     mPreview.setVisibility(View.GONE);
     
     layoutMyReview = (LinearLayout) findViewById(R.id.layoutMyReview);
@@ -661,7 +618,49 @@ public class RingActivity extends Activity {
                 }
 
       });
-      
+      mShare = (Button) findViewById(R.id.share);
+      mShare.setVisibility(View.VISIBLE);
+      mShare.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          // TODO Auto-generated method stub
+          new AlertDialog.Builder(RingActivity.this)
+          .setTitle(R.string.alertdialog_share)
+          .setItems(R.array.select_share_methods, new DialogInterface.OnClickListener() {
+              public void onClick(DialogInterface dialog, int which) {
+                  switch(which) {
+                  case 0:
+                    Intent sms = new Intent(Intent.ACTION_VIEW);
+                    sms.putExtra("sms_body",
+                        RingActivity.this.getString(R.string.share_sms1) + " " +
+                        title+ " "  + RingActivity.this.getString(R.string.share_sms2)+ "\n" +
+                        key.substring(0, key.length() - 7)+ "\n" +
+                        RingActivity.this.getString(R.string.share_sms3)
+                        ); 
+                    sms.setType("vnd.android-dir/mms-sms");
+                    startActivity(sms);
+                    break;
+                  case 1:
+                    Intent mEmailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    mEmailIntent.setType("plain/text");
+                    mEmailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, 
+                        title);
+                    mEmailIntent.putExtra(android.content.Intent.EXTRA_TEXT, 
+                        RingActivity.this.getString(R.string.share_sms1) + " " + title + " " + 
+                        RingActivity.this.getString(R.string.share_sms2) + "\n" + 
+                        key.substring(0, key.length() - 7) + "\n" +
+                        RingActivity.this.getString(R.string.share_sms3));
+                    startActivity(Intent.createChooser(mEmailIntent, artist));
+                    break;
+                  case 2:
+                    Browser.sendString(RingActivity.this, RingActivity.this.getString(R.string.share_sms1) + title + RingActivity.this.getString(R.string.share_sms2) + artist);
+                  }
+              }
+          }).create().show();
+          
+        }
+      });
+            
       if (!mp3Location.startsWith("http:")) {
         initFinishDownloadButton();
       } else {

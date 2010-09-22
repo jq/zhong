@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 
 import com.feebe.lib.AdListener;
+import com.feebe.lib.Const;
 import com.feebe.lib.Util;
 import com.feebe.rings.Search;
 import com.ringdroid.R;
@@ -33,8 +34,8 @@ public class RingSelect extends RingdroidSelectActivity {
     String filename = c.getString(dataIndex);
     try {
       // Log.e("file", filename);
-      if (filename.startsWith(com.feebe.rings.Const.contentDir)) {
-        String jsonFile = com.feebe.rings.Const.jsondir +filename.substring(com.feebe.rings.Const.contentDir.length());
+      if (filename.startsWith(Const.contentDir)) {
+        String jsonFile = Const.jsondir +filename.substring(Const.contentDir.length());
         File file = new File(jsonFile);
         if (file.exists()) {
           Search.startRing(this, jsonFile);

@@ -103,17 +103,20 @@ public abstract class UrlArrayAdapter<T, W> extends ArrayAdapter<T> {
   protected void onNoResult(){
 	    Const.noResultToast();
   }
-    
+  
+  protected boolean useDedup_ = true;
   public boolean runList(List entries) {
-  	List newList = Util.dedup(entries);
-  	if(newList == null)
+    if (useDedup_)
+  	 entries = Util.dedup(entries);
+  	
+  	if(entries == null)
   	  return false;
-    int len = newList.size();
+    int len = entries.size();
     if (len == 0) {
       return false;
     }
     for(int i = 0; i < len; i++){
-      T obj = getT(newList.get(i));
+      T obj = getT(entries.get(i));
       if (obj != null) {
         add(obj);
       }

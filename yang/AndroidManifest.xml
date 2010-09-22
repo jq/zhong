@@ -46,6 +46,9 @@
         <activity android:name="StringList" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
         </activity>
+        <activity android:name="TopArtistList" android:label=""
+                  android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
+        </activity>
         
         
         <activity android:name="SingerLibrary" android:label="Singer Library"
