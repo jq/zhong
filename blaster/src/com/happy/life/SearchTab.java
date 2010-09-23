@@ -112,6 +112,7 @@ public class SearchTab extends Activity{
         boolean noAlbum = TextUtils.isEmpty(album);
         String key = "";
         if (noArtist && noTitle && noAlbum) return;
+        // http://wiki.limewire.org/index.php?title=Metadata_Searches
         //          "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + 
         // "<audio schema=\"http://www.limewire.com/schemas/audio.xsd\"" +
         // " title=\"lady gaga\" artist=\"lady gaga\"/>";

@@ -61,4 +61,13 @@
         android:layout_marginLeft="20dip"
         android:layout_marginRight="20dip"
     		/>
-</LinearLayout>
+    <Button
+    		android:id="@+id/lycis_button"
+    		android:text="Search Lycis"
+    		android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+    		/>
+    		
+  </LinearLayout>

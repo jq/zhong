@@ -28,7 +28,6 @@ import java.util.Map;
 
 import com.admob.android.ads.AdView;
 import com.adwhirl.AdWhirlLayout;
-import com.qwapi.adclient.android.view.QWAdView;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
