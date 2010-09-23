@@ -69,16 +69,8 @@ public class Const extends com.feebe.lib.Const {
   }
   
   public static String getMp3FilePath(String artist, String title, String extension) {
-    // Turn the title into a filename
-	int len = 0;
-	if (artist != null) {
-		len += artist.length();
-	}
-	if (title != null) {
-		len += title.length();
-	}
-    StringBuilder filebuf = new StringBuilder(len + contentDir.length() + 1);
-    filebuf.append(contentDir);
+    StringBuilder filebuf = new StringBuilder(256);
+    addFileName(filebuf, contentDir);
     addFileName(filebuf, artist);
     filebuf.append(' ');
     addFileName(filebuf, title);
@@ -89,9 +81,12 @@ public class Const extends com.feebe.lib.Const {
     for (int i = 0; i < 100; i++) {
         String testPath;
         if (i > 0) {
-            testPath = filename + i + extension;
+            testPath = filename + i;
         } else {
-            testPath = filename + extension;
+            testPath = filename;
+        }
+        if (extension != null) {
+          testPath += extension;
         }
         try {
             RandomAccessFile f = new RandomAccessFile(

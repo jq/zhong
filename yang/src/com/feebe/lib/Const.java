@@ -80,7 +80,6 @@ public class Const {
   }
   public static void init(Activity c) {
 	  main = c;
-  	//downloadDb = new DownloadProvider(c);
     File sdcardRoot = Environment.getExternalStorageDirectory();
     dbAdapter = new DbAdapter(c);
     File homeDir = new File(sdcardRoot, appname);
