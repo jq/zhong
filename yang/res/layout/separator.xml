@@ -8,7 +8,7 @@
     >
     <TextView android:id="@+id/text"
         style="?android:attr/listSeparatorTextViewStyle"
-        android:text="Top Tracks"
+        android:text="@string/top_tracks"
 	    />
 		 
 </LinearLayout>

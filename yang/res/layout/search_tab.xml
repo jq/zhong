@@ -12,7 +12,7 @@
         android:layout_marginTop="4dip"
         android:layout_marginLeft="20dip"
         android:layout_marginRight="20dip"
-        android:text="Artist"
+        android:text="@string/artist"
         android:gravity="left"
         android:textAppearance="?android:attr/textAppearanceMedium" />
             
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_marginLeft="20dip"
         android:layout_marginRight="20dip"
-        android:text="Title"
+        android:text="@string/title"
         android:gravity="left"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 	
@@ -55,15 +55,15 @@
          /> 
     <Button
     		android:id="@+id/search_button"
-    		android:text="Search"
+    		android:text="@string/menu_search"
     		android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:layout_marginLeft="20dip"
         android:layout_marginRight="20dip"
     		/>
     <Button
-    		android:id="@+id/lycis_button"
-    		android:text="Search Lycis"
+    		android:id="@+id/lyrics_button"
+    		android:text="@string/lyrics"
     		android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:layout_marginLeft="20dip"

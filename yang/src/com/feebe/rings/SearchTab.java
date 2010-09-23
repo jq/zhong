@@ -6,6 +6,7 @@ import com.feebe.lib.DbAdapter;
 import com.feebe.lib.SearchAdapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.method.KeyListener;
@@ -18,15 +19,14 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class SearchTab extends Activity{
 	
 	private AutoCompleteTextView searchArtist;
 	private AutoCompleteTextView searchTitle;
 	private Button searchButton;
-	//private AutoCompleteTextView autoCompleteTextViewArtist;
-	//private AutoCompleteTextView autoCompleteTextViewTitle;
-	//private ArrayList<String> searchHistory;
+  private Button lyricsButton;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -77,12 +77,33 @@ public class SearchTab extends Activity{
 		searchButton.setOnClickListener(new OnClickListener() {		
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
 				actionListener();
 			}
 		});
+
+		lyricsButton = (Button) findViewById(R.id.lyrics_button);
+    
+		lyricsButton.setOnClickListener(new OnClickListener() {   
+      @Override
+      public void onClick(View v) {        
+        String artist = searchArtist.getText().toString();
+        String title = searchTitle.getText().toString();
+        boolean hasTitle = title.length() > 0;
+        boolean hasArtist = artist.length() > 0;
+        if (hasTitle && hasArtist) {
+          Intent intent = new Intent();
+          String url = "http://ggapp.appspot.com/mobile/lyric/?a=" + artist + "&s=" + title;
+          intent.putExtra("url", url);
+          intent.setClass(SearchTab.this, WebViewActivity.class);
+          startActivity(intent);
+
+        } else {
+          Toast.makeText(SearchTab.this, R.string.lyrics_search_warning, Toast.LENGTH_SHORT);
+        }
+      }
+    });
 	}
+	
 	private void actionListener(){
 		String artist = searchArtist.getText().toString();
 		String title = searchTitle.getText().toString();

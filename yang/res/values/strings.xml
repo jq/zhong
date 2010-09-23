@@ -102,5 +102,22 @@
     <string name="downloaded_files">Download files</string>
      
     <!--  new  -->
+    <string name="title">Title</string>
+    <string name="lyrics">Lyrics</string>
+    <string name="loading">Loading...</string>
+    <string name="input_artist">Who: please input complete artist name or band name to get her/his/their top popular songs</string>
+    <string name="preview">Preview</string>
+    <string name="download">Download</string>
+    <string name="queue">Queue</string>
+    <string name="set">Set</string>
+    <string name="assign">Assign</string>
+    <string name="edit">Edit</string>
+    <string name="artist">Artist</string>
+    <string name="pre">pre</string>
+    <string name="next">next</string>
+    <string name="top_tracks">Top Tracks</string>
+    <string name="lyrics_search_warning">Need both title and artist to get lyrics</string>
+    <string name="pre">pre</string>
+    <string name="pre">pre</string>
     
 </resources>

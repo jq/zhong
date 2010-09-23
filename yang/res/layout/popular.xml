@@ -11,7 +11,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:padding="2dip"
-        android:text="Retrive data from network..."/>
+        android:text="@string/loading"/>
 
         
          <ListView android:id="@+id/popular"

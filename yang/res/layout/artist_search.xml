@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Who: please input complete artist name or band name to get her/his/their top popular songs"/>
+        android:text="@string/input_artist"/>
 
 	<LinearLayout
 	  android:orientation="horizontal"
