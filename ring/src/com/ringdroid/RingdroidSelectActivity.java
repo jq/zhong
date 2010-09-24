@@ -157,13 +157,13 @@ public class RingdroidSelectActivity
 
         } catch (SecurityException e) {
             // No permission to retrieve audio?
-            Log.e("Ringdroid", e.toString());
+            // Log.e("Ringdroid", e.toString());
             throw e;
 
             // todo error 1
         } catch (IllegalArgumentException e) {
             // No permission to retrieve audio?
-            Log.e("Ringdroid", e.toString());
+            // Log.e("Ringdroid", e.toString());
             throw e;
 
             // todo error 2
@@ -440,7 +440,7 @@ public class RingdroidSelectActivity
                 this, EDITOR);
             startActivityForResult(intent, REQUEST_CODE_EDIT);
         } catch (Exception e) {
-            Log.e("Ringdroid", "Couldn't start editor " + e.getMessage());
+            // Log.e("Ringdroid", "Couldn't start editor " + e.getMessage());
         }
     }
 
@@ -458,7 +458,7 @@ public class RingdroidSelectActivity
                 EDITOR);
             startActivityForResult(intent, REQUEST_CODE_EDIT);
         } catch (Exception e) {
-            Log.e("Ringdroid", "Couldn't start editor " + e.getMessage());
+            // Log.e("Ringdroid", "Couldn't start editor " + e.getMessage());
         }
     }
 

@@ -137,7 +137,7 @@ public class ChooseContactActivity
 
         } catch (SecurityException e) {
             // No permission to retrieve contacts?
-            Log.e("Ringdroid", e.toString());
+            // Log.e("Ringdroid", e.toString());
         }
 
         mFilter = (TextView) findViewById(R.id.search_filter);
@@ -167,8 +167,8 @@ public class ChooseContactActivity
         dataIndex = c.getColumnIndexOrThrow(People.DISPLAY_NAME);
         String displayName = c.getString(dataIndex);
         Uri uri = Uri.withAppendedPath(getContactContentUri(), contactId);
-        Log.e("SDK version: ", Build.VERSION.SDK);
-        Log.e("assign contact uri: ", uri.toString());
+        // Log.e("SDK version: ", Build.VERSION.SDK);
+        // Log.e("assign contact uri: ", uri.toString());
         ContentValues values = new ContentValues();
         //values.put(People.CUSTOM_RINGTONE, mRingtoneUri.toString());
         values.put(People.CUSTOM_RINGTONE, mRingtoneUri.toString());

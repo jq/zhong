@@ -1071,8 +1071,8 @@ public class RingdroidEditActivity extends Activity implements
 	private void showFinalAlert(Exception e, CharSequence message) {
 		CharSequence title;
 		if (e != null) {
-			Log.e("Ringdroid", "Error: " + message);
-			Log.e("Ringdroid", getStackTrace(e));
+			// Log.e("Ringdroid", "Error: " + message);
+			// Log.e("Ringdroid", getStackTrace(e));
 			title = getResources().getText(R.string.alert_title_failure);
 			setResult(RESULT_CANCELED, new Intent());
 		} else {
@@ -1368,7 +1368,7 @@ public class RingdroidEditActivity extends Activity implements
 					"com.ringdroid.ChooseContactActivity");
 			startActivityForResult(intent, REQUEST_CODE_CHOOSE_CONTACT);
 		} catch (Exception e) {
-			Log.e("Ringdroid", "Couldn't open Choose Contact window");
+			// Log.e("Ringdroid", "Couldn't open Choose Contact window");
 		}
 	}
 
