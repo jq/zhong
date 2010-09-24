@@ -26,7 +26,7 @@ public class WebViewActivity extends Activity {
     ws.setBuiltInZoomControls(true);
 
     mUrl = getIntent().getStringExtra("url");
-    Log.e("url", mUrl);
+    // Log.e("url", mUrl);
     mView.loadUrl(mUrl);
 
   }

@@ -20,7 +20,7 @@ public class AdListener {
     createAds(activity, R.id.ads_view);
   }
   public static void createAds(Activity activity, int id) {
-    //// Log.e("model", Build.MODEL + " " + Build.DEVICE);
+    //// // Log.e("model", Build.MODEL + " " + Build.DEVICE);
     int w;
     if (blackscreen) {
       w = 48;

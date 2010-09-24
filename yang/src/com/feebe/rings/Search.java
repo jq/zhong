@@ -41,12 +41,22 @@ public class Search {
   }
 
   public static void startSearchList(Activity act, String url, long expire) {
-    //// Log.e("url", url);
     Intent intent = new Intent();
     intent.putExtra(Const.searchurl, url);
     intent.putExtra(Const.expire, expire);
     intent.setClass(act, SearchList.class);
     act.startActivity(intent);
+  }
+  
+  public static void startSearchList(Activity act, String url, long expire, boolean dedup) {
+    // Log.e("url", url);
+    Intent intent = new Intent();
+    intent.putExtra(Const.searchurl, url);
+    intent.putExtra(Const.expire, expire);
+    intent.putExtra(Const.USEDEDUP, dedup);
+    intent.setClass(act, SearchList.class);
+    act.startActivity(intent);
+   
   }
     
   public static String getRingUrl(String key) {
@@ -69,6 +79,7 @@ public class Search {
 	      try {
 	        r.put(Const.key, src);
         } catch (JSONException e) {
+          // Log.e("getRingJson", "put key error");
         }
   	} else {
   		String ring = Util.readFile(src);
@@ -94,7 +105,7 @@ public class Search {
 
   @Override
   public void run() {
-    //// // Log.e(TAG, "enter run");
+    //// // // Log.e(TAG, "enter run");
 
     String data = popup.download(url, Const.OneDay);
     if (data != null) {
@@ -106,7 +117,7 @@ public class Search {
           String key = entries.getJSONObject(0).getString(Const.key);
           SearchKey(key);
         } else if (len > 1){
-          //// // Log.e(TAG, data);
+          //// // // Log.e(TAG, data);
           Intent intent = new Intent();
           intent.putExtra(Const.searchurl, url);
           intent.setClass(Ring.main, SearchList.class);
@@ -116,11 +127,11 @@ public class Search {
           Toast.makeText(Ring.main, R.string.no_result,Toast.LENGTH_SHORT).show();
         }
       } catch (JSONException e) {
-        // // Log.e(TAG, e.getMessage());
+        // // // Log.e(TAG, e.getMessage());
       }
       
     } else {
-      // // Log.e(TAG, url);
+      // // // Log.e(TAG, url);
     }
     
   }

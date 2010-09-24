@@ -96,14 +96,14 @@ public class Const {
       try {
         noMedia.createNewFile();
       } catch (IOException e) {
-        // // Log.e("nomedia", e.getMessage());
+        // // // Log.e("nomedia", e.getMessage());
       }
     }
     homedir = homeDir.getAbsolutePath() + "/";
     contentDir = songdir.getAbsolutePath() + "/";;
     jsondir = jdir.getAbsolutePath() + "/";
     cachedir = cache.getAbsolutePath() + "/";
-    // // Log.e("cache", cachedir);
+    // // // Log.e("cache", cachedir);
     /*
     if (!homeDir.canWrite()) {
       Toast.makeText(Ring.main, R.string.no_sd_space,Toast.LENGTH_SHORT).show();

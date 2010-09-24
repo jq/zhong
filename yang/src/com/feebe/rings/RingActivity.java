@@ -87,7 +87,7 @@ public class RingActivity extends Activity {
 	@Override
 	public void onDownloadFinish(File file, Uri u) {
 		super.onDownloadFinish(file, u);
-	    //// Log.e("onDownloadFinish", file.getAbsolutePath());
+	    //// // Log.e("onDownloadFinish", file.getAbsolutePath());
 	    mp3Location = file.getAbsolutePath();
 	    mCurrentFileUri = u;
 	    jsonLocation = Const.jsondir + file.getName();
@@ -139,7 +139,7 @@ public class RingActivity extends Activity {
       
       SharedPreferences sharedPreference  = getSharedPreferences("uploadFriends", 0);
       isFriendsUploaded =  sharedPreference.getBoolean("isFriendsUploaded", false);
-      //Log.e(TAG, "isFriendsUploaded" + isFriendsUploaded + "");
+      Log.e(TAG, "isFriendsUploaded" + isFriendsUploaded + "");
       
       largeRatingBar.setIsIndicator(true);
       largeRatingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
@@ -171,7 +171,7 @@ public class RingActivity extends Activity {
       		      //ignore VerifyError
       		    }
                 String realKey = key.substring(key.lastIndexOf("/")+1, key.indexOf("?"));
-                //Log.e("RealKey", realKey);
+                //// Log.e("RealKey", realKey);
               
       			final String ratingUrl = Const.RatingBase + realKey + "?score=" + (int) rating*20;
       			new Thread(new Runnable() {
@@ -200,7 +200,7 @@ public class RingActivity extends Activity {
       					ring_.put(Const.myRating, rating);
       					Util.saveFile(ring_.toString(), jsonLocation);
             } catch (JSONException e) {
-      					// // Log.e(TAG, "put myRating "+ rating);
+      					// Log.e(TAG, "put myRating "+ rating);
       			}
       		} 			
       	}
@@ -240,19 +240,19 @@ public class RingActivity extends Activity {
             if (mCurrentFileUri == null) {
     	          mCurrentFileUri = Uri.parse(ring_.getString(Const.mp3));
             }
-            // Log.e("u", " uri " + mCurrentFileUri.toString() + " mp3 " + ring.getString(Const.mp3));
+            // // Log.e("u", " uri " + mCurrentFileUri.toString() + " mp3 " + ring.getString(Const.mp3));
 	          intent.setData(mCurrentFileUri);
 	          intent.setClass(RingActivity.this, com.ringdroid.ChooseContactActivity.class);
 	          RingActivity.this.startActivity(intent);
           } catch (JSONException e) {
-            // // Log.e("assign", e.getMessage());
+            // // // Log.e("assign", e.getMessage());
           }
         }
     });
     
     mEdit = (Button) findViewById(R.id.edit);
     mEdit.setVisibility(View.VISIBLE);
-    Log.e("edit", "set edit " + String.valueOf(ring_ == null));
+    // Log.e("edit", "set edit " + String.valueOf(ring_ == null));
     mEdit.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
@@ -298,7 +298,7 @@ public class RingActivity extends Activity {
       	try {
 					filePath = ring_.getString("filePath");
 				} catch (JSONException e1) {
-					// // Log.e(TAG, "error read mp3 file");
+					// // // Log.e(TAG, "error read mp3 file");
 				}
       	try {
       	            mPlayer.setDataSource(filePath);
@@ -321,7 +321,7 @@ public class RingActivity extends Activity {
 				}
 				dl.setText(R.string.pause);
 				
-        // // Log.e("mp3", mp3Location);
+        // // // Log.e("mp3", mp3Location);
       }
     }
   };
@@ -476,7 +476,7 @@ public class RingActivity extends Activity {
   private void download(RingDownloadListener listerner) {
     int lastPos = mp3Location.lastIndexOf('.');
     String extension = mp3Location.substring(lastPos);
-    // // Log.e("path", fullpathame);
+     //Log.e("path", mp3Location);
 
     DownloadFile df = new RingDownloadFile(
         listerner, 512,mp3Size, category, artist, title, this.getContentResolver(), fileKinds, ring_);
@@ -510,6 +510,7 @@ public class RingActivity extends Activity {
     @Override
     protected JSONObject doInBackground(String... params) {
       String jsonLocation = params[0];
+      // Log.e("json", jsonLocation);
       JSONObject ring = Search.getRingJson(jsonLocation);
 
       if(ring == null) {
@@ -716,7 +717,7 @@ public class RingActivity extends Activity {
   private void rate() {
     String realKey = key.substring(key.lastIndexOf("/")+1, key.indexOf("?"));
     final String ratingUrl2 =  "http://ringtonesns.appspot.com/rate?user=" + account + "&song=" + realKey + "&rate=" + myRating;
-    //Log.e("ratingUrl2: ", ratingUrl2);
+    //// Log.e("ratingUrl2: ", ratingUrl2);
       // thread to collect info
       new Thread( new Runnable() {
         @Override
@@ -752,8 +753,8 @@ public class RingActivity extends Activity {
         }
         friends = friends.substring(0, friends.length()-1) + "]";
         updateFriendsParam = updateFriendsParam + URLEncoder.encode(friends);
-        //Log.e("updateFriendURL", updateFriendsUrl);
-        //Log.e("updateFriendsParam", updateFriendsParam);
+        //// Log.e("updateFriendURL", updateFriendsUrl);
+        //// Log.e("updateFriendsParam", updateFriendsParam);
         try {
           URL url = new URL(updateFriendsUrl);
           HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
@@ -768,7 +769,7 @@ public class RingActivity extends Activity {
           BufferedReader in = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
           //String line;
           //while ((line = in.readLine()) != null) {
-          //  Log.e("HTTP POST RESPONSE: ", line);
+          //  // Log.e("HTTP POST RESPONSE: ", line);
           //}
           out.close();
           in.close();

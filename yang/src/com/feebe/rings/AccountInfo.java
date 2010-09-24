@@ -23,7 +23,7 @@ public class AccountInfo {
     AccountManager accountManager = AccountManager.get(ctx);
     Account[] accounts = accountManager.getAccountsByType("com.google");
     if(accounts.length > 0) {
-      //Log.e("Account:  ", accounts[0].name);
+      //// Log.e("Account:  ", accounts[0].name);
       return accounts[0].name;
     }
     return "noAccountInfo";
@@ -47,7 +47,7 @@ public class AccountInfo {
         while (emailCursor.moveToNext()) {
           String email = emailCursor.getString(emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
           if (email!=null) {
-            //Log.e("add email elcair: ", email);
+            //// Log.e("add email elcair: ", email);
             friendList.add(email);
           }
         }
@@ -84,7 +84,7 @@ public class AccountInfo {
           email = newCursor.getString(newCursor.getColumnIndex(Contacts.ContactMethods.DATA));
         }
         if (email.length() > 0 && email.endsWith("gmail.com")) {
-          //Log.e("add email: ", email);
+          //// Log.e("add email: ", email);
           friendList.add(email);
         }
         if (newCursor != null)

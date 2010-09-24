@@ -49,7 +49,7 @@ public class SingerLibrary extends Activity {
                 public void onClick(View v) {
 					final String queryWords = mQueryWho.getText().toString();
 	                Intent intent = new Intent();
-					Log.e("OnlineMusic ", "putExtra name : " + queryWords);
+					// Log.e("OnlineMusic ", "putExtra name : " + queryWords);
 					intent.putExtra("name", queryWords);
 	            	intent.setClass(SingerLibrary.this, Artist.class);
 					startActivity(intent);	

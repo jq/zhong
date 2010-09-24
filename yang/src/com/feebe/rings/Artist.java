@@ -59,7 +59,7 @@ public class Artist extends Activity {
 		
 		Bundle extras = getIntent().getExtras();
 		mArtistName = extras.getString("name");
-		Log.e("OnlineMusic ", "getString name : " + mArtistName);	
+		// Log.e("OnlineMusic ", "getString name : " + mArtistName);	
 
 		mTopTracksList = (ListView) findViewById(R.id.toptracks);
 		mTopTracksList.setSelectionAfterHeaderView();
@@ -128,7 +128,7 @@ public class Artist extends Activity {
 	
 	private void getArtistInfo(String rurl) {
     try {
-			Log.e("OnlineMusic", "searchFromNetwork mRequestUrl: " + rurl);
+			// Log.e("OnlineMusic", "searchFromNetwork mRequestUrl: " + rurl);
 			
 			String httpresponse = null;
 			httpresponse = Util.downloadAndCache(rurl, Const.OneWeek);
@@ -137,13 +137,13 @@ public class Artist extends Activity {
 				return;
 			}
 
-			//Log.e("OnlineMusic", "httpresponse : " + httpresponse);
+			//// Log.e("OnlineMusic", "httpresponse : " + httpresponse);
 			
 			Pattern pattern = Pattern.compile("<image size=\"extralarge\">([\\s\\S]*?)</image>");
 			Matcher matcher = pattern.matcher(httpresponse);
 			
 			if(matcher.find()) {	
-				Log.e("OnlineMusic", "pattern : " + matcher.group(1));
+				// Log.e("OnlineMusic", "pattern : " + matcher.group(1));
 				mArtistImage = NetUtils.loadBitmap(matcher.group(1));
 			}
 			
@@ -153,8 +153,8 @@ public class Artist extends Activity {
 			if(matcher.find()) {	
 				str_nohtml = matcher.group(1).replaceAll("<!\\[CDATA\\[", "").replaceAll("\\]\\]>", "");
 				str_nohtml = str_nohtml.replaceAll("\\&[a-zA-Z]{1,10};", "").replaceAll("<[^>]*>", "").replaceAll("[(/>)<]", "");
-				Log.e("OnlineMusic", "summary 1: " + matcher.group(1));
-				Log.e("OnlineMusic", "summary 2: " + str_nohtml);
+				// Log.e("OnlineMusic", "summary 1: " + matcher.group(1));
+				// Log.e("OnlineMusic", "summary 2: " + str_nohtml);
 				if(str_nohtml.length() > 108)
 					mSummary  = str_nohtml.substring(0, 108);  
 				else 
@@ -203,7 +203,7 @@ public class Artist extends Activity {
 					
 					findViewById(R.id.center_processbar).setVisibility(View.GONE);
 					mImage.setImageBitmap(mArtistImage);
-					Log.e("mImage==null? ", ""+(mImage==null));
+					// Log.e("mImage==null? ", ""+(mImage==null));
 					mTopTracksList.setVisibility(View.VISIBLE);
 					if (!hasInfo && !hasTracks) {
 						Toast.makeText(Artist.this, R.string.no_result, Toast.LENGTH_SHORT).show();

@@ -20,15 +20,20 @@ import android.widget.TextView;
 
 public class StringList extends BaseList {
   private static final String base_url = "http://ggapp.appspot.com/category/list/?json=1";
-  private static final String TOPDOWNLOAD = "http://ggapp.appspot.com/ringtone/hot/topdl/";
+  private static final String TOPDOWNLOADTODAY = "http://ggapp.appspot.com/ringtone/hot/topdl/?delta=1";
+  private static final String TOPDOWNLOADTHISWEEK = "http://ggapp.appspot.com/ringtone/hot/topdl/?delta=7";
+  private static final String TOPDOWNLOADTHISMONTH = "http://ggapp.appspot.com/ringtone/hot/topdl/?delta=30";
   private static final String LATEST = "http://ggapp.appspot.com/ringtone/hot/newest/";
   private static final int CATE_TYPE = 0;
   private static final int ARTIST_TYPE = 1;
-  private static final int TOP_TYPE = 2;
   private static final int Latest_TYPE = 3;
   private static final int ARTIST_LIB_TYPE = 4;
   private static final int BBHOTCHART_TYPE = 5;
   private static final int TOP_ARTIST_TYPE = 6;
+  private static final int TOP_TODAY_TYPE = 2;
+  private static final int TOP_WEEK_TYPE = 7;
+  private static final int TOP_MONTH_TYPE = 8;
+
   @Override
   public ListAdapter getAdapter() {
     mAdapter = new StringAdapter(this, android.R.layout.simple_list_item_1);
@@ -60,9 +65,13 @@ public class StringList extends BaseList {
     } else if (cate.type == ARTIST_TYPE) {
     	Search.getArtistRing(this, cate.name);
     } else if (cate.type == Latest_TYPE){
-        Search.startSearchList(this, LATEST, 0);
+        Search.startSearchList(this, LATEST, 0, false);
+    } else if (cate.type == TOP_TODAY_TYPE) {
+      Search.startSearchList(this, TOPDOWNLOADTODAY, Const.OneDay, false);
+    } else if (cate.type == TOP_WEEK_TYPE) {
+      Search.startSearchList(this, TOPDOWNLOADTHISWEEK, Const.OneWeek, false);    
     } else {
-    	Search.startSearchList(this, TOPDOWNLOAD, Const.OneDay);
+    	Search.startSearchList(this, TOPDOWNLOADTHISMONTH, Const.OneMonth, false);
     }
   }
   
@@ -84,7 +93,9 @@ public class StringList extends BaseList {
       add(new Item("Artist Library", ARTIST_LIB_TYPE));
       add(new Item("Yahoo! Music Top Songs", BBHOTCHART_TYPE));
       add(new Item("Billboard Top 100", BBHOTCHART_TYPE));
-      add(new Item("Top download", TOP_TYPE));
+      add(new Item("Top download today", TOP_TODAY_TYPE));
+      add(new Item("Top download this week", TOP_WEEK_TYPE));
+      add(new Item("Top download this month", TOP_MONTH_TYPE));
       add(new Item("Latest Rings", Latest_TYPE));
 
       // add artist

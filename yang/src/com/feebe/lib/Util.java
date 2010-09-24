@@ -106,7 +106,7 @@ public class Util {
       data = Util.download(url);
   	}
     if (data != null) {
-      Log.e("del", data);
+      // Log.e("del", data);
       try {
         JSONArray entries;
         entries = new JSONArray(data);
@@ -118,9 +118,9 @@ public class Util {
         } 
       } catch (JSONException e) {
         if (inCache && cache != null) {
-          // Log.e("del", url + " " + data);
+          // // Log.e("del", url + " " + data);
           if (cache.delete()) {
-            // Log.e("del", "succeed");
+            // // Log.e("del", "succeed");
             return getJsonArrayFromUrl(url, expire);
           }
           
@@ -239,22 +239,22 @@ public class Util {
       if (inCache(url, expire, cache)) {
         data = readFile(cache);
       }
-    }	  
-  	if (data == null) {
+    }
+    boolean newDownload = data == null || data.length() == 0;
+  	if (newDownload) {
       data = Util.download(url);
   	}
-
     if (data != null) {
       try {
       	JSONObject obj;
         obj = new JSONObject(data);
         if (obj != null) {
-        	if (expire > 0)
+        	if (expire > 0 && newDownload)
             Util.saveFile(data, cache);
           return obj;
         } 
       } catch (JSONException e) {
-        // // Log.e(TAG, e.getMessage());
+        Log.e("getJsonFromUrl", e.getMessage());
       }
     }
     Const.noResultToast();
@@ -330,7 +330,7 @@ public class Util {
       String content = builder.toString();
   		return content;
     } catch (IOException e) {
-     // // // Log.e("download", e.getMessage());
+     // // // // Log.e("download", e.getMessage());
     	return null;
 		}
 	}
@@ -379,7 +379,7 @@ public class Util {
       urlConn.disconnect();
       return f;
     } catch (IOException e) {
-     // Log.e("download", e.getMessage());
+     // // Log.e("download", e.getMessage());
     }
     return null;
 	  
@@ -413,7 +413,7 @@ public class Util {
       FileOutputStream file =  new FileOutputStream(name);
       file.write(content.getBytes());
     } catch (IOException e) {
-      // Log.e("saveFile", e.getMessage() + " file "+ name.getAbsolutePath() + " cache dir " + Const.cachedir);
+      // // Log.e("saveFile", e.getMessage() + " file "+ name.getAbsolutePath() + " cache dir " + Const.cachedir);
     }
   }
   
@@ -484,7 +484,7 @@ public class Util {
       }
       return builder.toString();
     } catch (Exception e) {
-      // // Log.e("readFile", e.getMessage());
+      // // // Log.e("readFile", e.getMessage());
     }
     return null;
 	}
@@ -625,7 +625,7 @@ public class Util {
       String outPath, long length, String artist, int[] fileKind, ContentResolver cr) {
     String mimeType = "audio/mpeg";
     ContentValues values = new ContentValues();
-    // // Log.e("save", " title " + title + " out " + outPath + " artist " + artist);
+    // // // Log.e("save", " title " + title + " out " + outPath + " artist " + artist);
     values.put(MediaStore.MediaColumns.DATA, outPath);
     values.put(MediaStore.MediaColumns.TITLE, title);
     values.put(MediaStore.MediaColumns.SIZE, length);
@@ -650,7 +650,7 @@ public class Util {
     // Insert it into the database
     Uri uri = MediaStore.Audio.Media.getContentUriForPath(outPath);
     final Uri newUri = cr.insert(uri, values);
-    // // Log.e("save", " ok ");
+    // // // Log.e("save", " ok ");
     // TODO: do we need this?
     //setResult(RESULT_OK, new Intent().setData(newUri));
     return newUri;
@@ -661,7 +661,7 @@ public class Util {
 	    // Construct data 
 	    // Send data 
 	    URL u = new URL(url);
-	    // Log.e("conn", data);
+	    // // Log.e("conn", data);
 	    HttpURLConnection conn = (HttpURLConnection)u.openConnection();
       conn.setConnectTimeout(4000);
 	    conn.setDoOutput(true);

@@ -9,10 +9,12 @@ import com.feebe.lib.EndlessUrlArrayAdapter;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.Toast;
 
 public class Const extends com.feebe.lib.Const {
+  public static final String USEDEDUP = "dedup";
 
   public static final String key = "key";
   public static final String mp3 = "mp3";
@@ -70,7 +72,8 @@ public class Const extends com.feebe.lib.Const {
   
   public static String getMp3FilePath(String artist, String title, String extension) {
     StringBuilder filebuf = new StringBuilder(256);
-    addFileName(filebuf, contentDir);
+    filebuf.append(contentDir);
+
     addFileName(filebuf, artist);
     filebuf.append(' ');
     addFileName(filebuf, title);
@@ -78,6 +81,7 @@ public class Const extends com.feebe.lib.Const {
     // Try to make the filename unique
     String path = null;
     String filename = filebuf.toString();
+    // Log.e("file", filename);
     for (int i = 0; i < 100; i++) {
         String testPath;
         if (i > 0) {

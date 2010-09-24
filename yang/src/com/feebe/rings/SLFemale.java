@@ -58,7 +58,7 @@ public class SLFemale extends Activity {
 				try{		
 	                final String key = (String)mTypesList.getItemAtPosition(position);
 	                Intent intent = new Intent();
-					Log.e("OnlineMusic ", "putExtra name : " + key);
+					// Log.e("OnlineMusic ", "putExtra name : " + key);
 					intent.putExtra("name", key);
 	            	intent.setClass(SLFemale.this, Artist.class);
 					startActivity(intent);	

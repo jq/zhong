@@ -86,7 +86,7 @@
 	 used in RingActivity notification when finish or failed download.
 	 -->
 	 <string name="notification_text_finish">Download finish</string>
-	 <string name="notification_text_failed">Download failed. Please retry later.</string>
+	 <string name="notification_text_failed">Download failed. You may run out of sdcard space.</string>
 	 
 	 	<!-- 
 	 	used in local Activity --> 	
@@ -116,8 +116,5 @@
     <string name="pre">pre</string>
     <string name="next">next</string>
     <string name="top_tracks">Top Tracks</string>
-    <string name="lyrics_search_warning">Need both title and artist to get lyrics</string>
-    <string name="pre">pre</string>
-    <string name="pre">pre</string>
-    
+    <string name="lyrics_search_warning">Need both title and artist to get lyrics</string>    
 </resources>

@@ -435,7 +435,7 @@ public class local extends Activity {
 			String fileLocal = Const.contentDir
 					+ mLocalStrings.get(mLocalMp3index);
 			try {
-				//Log.e("DataSource: ", fileLocal);
+				//// Log.e("DataSource: ", fileLocal);
 				mPlayer.setDataSource(fileLocal);
 				mPlayer.prepare();
 				mPlayer.start();
@@ -491,7 +491,7 @@ public class local extends Activity {
                 "com.lib.RingEditor");
             startActivity(intent);
         } catch (Exception e) {
-            Log.e("Ringdroid", "Couldn't start editor");
+            // Log.e("Ringdroid", "Couldn't start editor");
         }
     }
     
@@ -506,7 +506,7 @@ public class local extends Activity {
           if(url.equals(fileLocal)) {
             String itemUri = MediaStore.Audio.Media.getContentUriForPath(url).toString() + "/" + cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID));
             mContentResolver.delete(Uri.parse(itemUri), null, null);
-            //Log.e("itemUri:", itemUri.toString());
+            //// Log.e("itemUri:", itemUri.toString());
           }
         }
       } catch (IllegalArgumentException e) {

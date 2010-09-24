@@ -37,7 +37,7 @@ public class NetUtils {
         BufferedOutputStream out = null;
 
         try {
-			Log.e(TAG, "load Bitmap url: " + url);
+			// Log.e(TAG, "load Bitmap url: " + url);
             in = new BufferedInputStream(new URL(url).openStream(), IO_BUFFER_SIZE);
 
             final ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
@@ -47,9 +47,9 @@ public class NetUtils {
 
             final byte[] data = dataStream.toByteArray();
             bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-			//Log.e(TAG, "load Bitmap : " + bitmap);
+			//// Log.e(TAG, "load Bitmap : " + bitmap);
         } catch (IOException e) {
-            Log.e(TAG, "Could not load Bitmap from: " + url);
+            // Log.e(TAG, "Could not load Bitmap from: " + url);
         } finally {
             closeStream(in);
             closeStream(out);
@@ -65,7 +65,7 @@ public class NetUtils {
         BufferedOutputStream out = null;
 
         try {
-			Log.e(TAG, "load Bitmap url: " + url);
+			// Log.e(TAG, "load Bitmap url: " + url);
             in = new BufferedInputStream(new URL(url).openStream(), IO_BUFFER_SIZE);
 
             final ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
@@ -75,9 +75,9 @@ public class NetUtils {
 
             final byte[] data = dataStream.toByteArray();
             str = new String(data);
-			//Log.e(TAG, "load String : " + str);
+			//// Log.e(TAG, "load String : " + str);
         } catch (IOException e) {
-            Log.e(TAG, "Could not load Bitmap from: " + url);
+            // Log.e(TAG, "Could not load Bitmap from: " + url);
         } finally {
             closeStream(in);
             closeStream(out);
@@ -96,7 +96,7 @@ public class NetUtils {
             try {
                 stream.close();
             } catch (IOException e) {
-                android.util.Log.e(TAG, "Could not close stream", e);
+                //Log.e(TAG, "Could not close stream", e);
             }
         }
     }

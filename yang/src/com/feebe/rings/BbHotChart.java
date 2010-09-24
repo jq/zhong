@@ -228,7 +228,7 @@ public class BbHotChart extends Activity {
 	private void downloadFeeds() {
     try {
 			String httpresponse = null;
-			Log.e("url", mRequestUrl);
+			// Log.e("url", mRequestUrl);
 			boolean inCache = Util.inCache(mRequestUrl, Const.OneWeek); 
 			if (inCache) {
 				httpresponse = Util.readFile(Const.cachedir+Util.getHashcode(mRequestUrl));
@@ -283,7 +283,7 @@ public class BbHotChart extends Activity {
 		try{
 			JSONArray feedEntries2 = new JSONArray();
 			JSONArray entries = mFeedentries;
-			// Log.e("test", "length is " + entries.length());
+			// // Log.e("test", "length is " + entries.length());
 			for(int i = 0; i < entries.length(); i++){
 				if( entries.isNull(i) ){
 					break;

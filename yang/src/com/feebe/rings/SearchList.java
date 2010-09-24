@@ -58,10 +58,11 @@ public class SearchList extends ListActivity implements OnItemClickListener {
   private int currentPage = 0;
   private ProgressDialog waitDialog;
   final Handler uiHandler = new Handler();
+  private boolean dedup_ = true;
   @Override
   public void onCreate(Bundle savedInstanceState) {
 	  Const.init(this);
-	  //android.util.// Log.e("init", "" + Const.main != null);
+	  //android.util.// // Log.e("init", "" + Const.main != null);
 	  
 	  super.onCreate(savedInstanceState);
 	  
@@ -142,8 +143,9 @@ public ListAdapter getAdapter() {
     Intent i = this.getIntent();
     reloadUrl = getUrlFromIntent(i);
     long expire = i.getLongExtra(Const.expire, 0);
+    dedup_ = i.getBooleanExtra(Const.USEDEDUP, true);
     mAdapter = new SearchResultAdapter(this, R.layout.searchlist_row);
-    if(!Util.inCache(reloadUrl, Const.OneWeek))
+    if(!Util.inCache(reloadUrl, expire))
       showDialog(PROGRESS_DIALOG);
     return mAdapter;
   }
@@ -156,6 +158,7 @@ public ListAdapter getAdapter() {
     } catch (Exception e) {
       return;
     }
+    // Log.e("kye", ring.key);
     Search.startRing(this, Search.getRingUrl(ring.key));
   }
   
@@ -222,6 +225,7 @@ public ListAdapter getAdapter() {
   public class SearchResultAdapter extends UrlArrayAdapter<SearchResult, SearchViewWp> {
     public SearchResultAdapter(Context context, int resource) {
       super(context, resource);
+      useDedup_ = dedup_;
       reset();
     }
     public void reset() {      

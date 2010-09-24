@@ -33,7 +33,7 @@ public class RingSelect extends RingdroidSelectActivity {
     int dataIndex = c.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
     String filename = c.getString(dataIndex);
     try {
-      // Log.e("file", filename);
+      // // Log.e("file", filename);
       if (filename.startsWith(Const.contentDir)) {
         String jsonFile = Const.jsondir +filename.substring(Const.contentDir.length());
         File file = new File(jsonFile);
