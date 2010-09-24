@@ -28,7 +28,9 @@ public class SogouMusicSearcher {
 			"<td.*?\\btitle=\"([^\"]*)\".*?" +   // 3
 			"<td.*?</td>.*?" +  // Ignore
 			"<td.*?\'(/down.so.*?)\'.*?" +  // 4
-			"<td.*?href=\"([^\"]*)\".*?" +  // 5
+			// TODO(zyu): In some cases, lyrics are empty. Temporily ignore lyrics.
+//			"<td.*?href=\"([^\"]*)\".*?" +  // 5
+			"<td>(.*?)</td>.*?" +  // 5
 			"<td.*?</td>.*?" +  // Ignore
 			"<td.*?>([^<]*)<.*?" +   // 6
 			"<td.*?>([^<]*)<" +   // 7
@@ -69,11 +71,12 @@ public class SogouMusicSearcher {
 				Matcher m = PATTERN.matcher(matcherRow.group(1));
 				while (m.find()) {
 				  SogouSearchResult searchResult = new SogouSearchResult();
-				  searchResult.setTitle(StringEscapeUtils.unescapeHtml(m.group(1).trim()));
+				  searchResult.setTitle(StringEscapeUtils.unescapeHtml(URLDecoder.decode(m.group(1),"gb2312").trim()));
 				  searchResult.setArtist(StringEscapeUtils.unescapeHtml(URLDecoder.decode(m.group(2), "gb2312").trim()));
-				  searchResult.setAlbum(StringEscapeUtils.unescapeHtml(m.group(3).trim()));
+				  searchResult.setAlbum(StringEscapeUtils.unescapeHtml(URLDecoder.decode(m.group(3),"gb2312").trim()));
 				  searchResult.addUrl(SOGOU_MP3 + m.group(4).trim());
-				  searchResult.setLyricUrl(SOGOU_MP3 + m.group(5).trim());
+					// TODO(zyu): Fix lyrics.
+//					info.setLyricUrl(SOGOU_MP3 + m.group(5).trim());
 				  String displayFileSize = m.group(6).trim();
 				  long  fileSize = 0;
 				  if (displayFileSize.equals("未知")) {

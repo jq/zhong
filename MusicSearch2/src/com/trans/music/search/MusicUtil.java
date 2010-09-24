@@ -30,7 +30,9 @@ public class MusicUtil {
 			"<td.*?\\btitle=\"([^\"]*)\".*?" +   // 3
 			"<td.*?</td>.*?" +  // Ignore
 			"<td.*?\'(/down.so.*?)\'.*?" +  // 4
-			"<td.*?href=\"([^\"]*)\".*?" +  // 5
+			// TODO(zyu): In some cases, lyrics are empty. Temporily ignore lyrics.
+//			"<td.*?href=\"([^\"]*)\".*?" +  // 5
+			"<td>(.*?)</td>.*?" +  // 5
 			"<td.*?</td>.*?" +  // Ignore
 			"<td.*?>([^<]*)<.*?" +   // 6
 			"<td.*?>([^<]*)<.*?" +   // 7
