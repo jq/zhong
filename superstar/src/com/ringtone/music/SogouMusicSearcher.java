@@ -30,10 +30,12 @@ public class SogouMusicSearcher implements IMusicSearcher {
 			"<td.*?\\btitle=\"([^\"]*)\".*?" +   // 3
 			"<td.*?</td>.*?" +  // Ignore
 			"<td.*?\'(/down.so.*?)\'.*?" +  // 4
+			// TODO(zyu): In some cases, lyrics are empty. Temporily ignore lyrics.
+//			"<td.*?href=\"([^\"]*)\".*?" +  // 5
+			"<td>(.*?)</td>.*?" +  // 5
 			"<td.*?</td>.*?" +  // Ignore
-			"<td.*?</td>.*?" +  // Ignore
-			"<td.*?>([^<]*)<.*?" +   // 5
-			"<td.*?>([^<]*)<" +   // 6
+			"<td.*?>([^<]*)<.*?" +   // 6
+			"<td.*?>([^<]*)<" +   // 7
 			""
 			, Pattern.DOTALL);
 	
@@ -78,12 +80,13 @@ public class SogouMusicSearcher implements IMusicSearcher {
 					info.setArtist(StringEscapeUtils.unescapeHtml(URLDecoder.decode(m.group(2), "gb2312").trim()));
 					info.setAlbum(StringEscapeUtils.unescapeHtml(URLDecoder.decode(m.group(3),"gb2312").trim()));
 					info.addUrl(SOGOU_MP3 + m.group(4).trim());
+					// TODO(zyu): Fix lyrics.
 //					info.setLyricUrl(SOGOU_MP3 + m.group(5).trim());
-					String displayFileSize = m.group(5).trim();
+					String displayFileSize = m.group(6).trim();
 					if (displayFileSize.equals("未知"))
 						displayFileSize = "Unknown size";
 					info.setDisplayFileSize(displayFileSize);
-					info.setType(m.group(6).trim());
+					info.setType(m.group(7).trim());
 					
 					musicList.add(info);
 				}
