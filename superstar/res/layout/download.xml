@@ -35,7 +35,13 @@
 		android:layout_height="wrap_content"
         android:text="@string/clear_finished"
         android:layout_weight="1" />
-        
+      
+	<Button android:id="@+id/show_finished_button"
+		android:layout_width="0dip"
+		android:layout_height="wrap_content"
+        android:text="@string/show_finished"
+        android:layout_weight="1" />
+              
     <Button android:id="@+id/hide_button"
     	android:layout_width="0dip"
     	android:layout_height="wrap_content"

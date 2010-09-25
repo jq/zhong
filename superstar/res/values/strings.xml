@@ -14,8 +14,9 @@
     <string name="create_app_dir_error">Failed to create app directory. Do you have a SD card?</string>
     <string name="create_mp3_dir_error">Failed to create mp3 directory.</string>
     <string name="clear_finished">Clear Finished</string>
-    <string name="no_download_data">No downloading data</string>
-    <string name="hide">Hide</string>
+    <string name="show_finished">Show Finished</string>
+    <string name="no_download_data">No downloading data,you can press \"show finished\" button to show the musics which have been download.</string>
+    <string name="hide">Hide Downloads</string>
     <string name="finished">Finished</string>
     <string name="pending">Pending...</string>
     <string name="stopping">Stopping...</string>

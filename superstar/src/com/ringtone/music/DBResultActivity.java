@@ -33,6 +33,7 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.text.TextUtils;
@@ -82,6 +83,7 @@ public class DBResultActivity extends ListActivity {
 	private MusicInfo mCurrentMusic;
 	private int mPageNum ;
 	private boolean mIsFling;
+	private boolean mHint;
 
 	@SuppressWarnings("unused")
 //	private SearchBar mSearch;
@@ -186,7 +188,19 @@ public class DBResultActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		Constants.init(this);
 		sSearchActivity = this;
+		mHint=false;
         
+        String status = Environment.getExternalStorageState();
+        if (status.equals(Environment.MEDIA_MOUNTED_READ_ONLY)) {
+            showFinalAlert(getResources().getText(R.string.sdcard_readonly));
+        }
+        if (status.equals(Environment.MEDIA_SHARED)) {
+            showFinalAlert(getResources().getText(R.string.sdcard_shared));
+        }
+        if (!status.equals(Environment.MEDIA_MOUNTED)) {
+            showFinalAlert(getResources().getText(R.string.no_sdcard));
+        }
+		
 		if (sFetcher == null)
 		{
 			sFetcher = MusicSearcherFactory.getInstance(MusicSearcherFactory.ID_SOGOU);
@@ -249,6 +263,10 @@ public class DBResultActivity extends ListActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				mAdapter.getNextPage();
+				if (mHint==false){
+					Toast.makeText(getBaseContext(), "You can fling right to get next page or fling left to get pre page on the list", Toast.LENGTH_LONG).show();
+					mHint=true;
+				}
 			}
 			
 		});
@@ -893,4 +911,20 @@ public class DBResultActivity extends ListActivity {
 		}
 		return false;
 	}
+	
+    private void showFinalAlert(CharSequence message) {
+        new AlertDialog.Builder(DBResultActivity.this)
+            .setTitle(getResources().getText(R.string.alert_title_failure))
+            .setMessage(message)
+            .setPositiveButton(
+                R.string.alert_ok_button,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int whichButton) {
+                        finish();
+                    }
+                })
+            .setCancelable(false)
+            .show();
+    }
 }

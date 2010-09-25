@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import com.admob.android.ads.AdView;
+import com.ringtone.music.App;
 import com.ringtone.music.R;
 import com.ringtone.music.Utils;
 
@@ -48,15 +49,21 @@ public class DownloadActivity extends ListActivity {
 	private static final int MENU_EDIT = Menu.FIRST + 6;
 	
     private static final int REQUEST_CODE_EDIT = 1;
+
     
     private DownloadListAdapter mAdapter;
     private Handler mHandler = new Handler();
+    
+    private boolean mShowFinished;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	
 		setContentView(R.layout.download);
+		
+		mShowFinished=false;
+		
 		Utils.addAds(this);
 		bindService(new Intent(this, DownloadService.class),
 				mConnection, Context.BIND_AUTO_CREATE);
@@ -65,9 +72,20 @@ public class DownloadActivity extends ListActivity {
 		clearFinishedButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				mShowFinished=false;
 				if (mDownloadService != null) {
 					mDownloadService.clearFinished();
 				}
+				showList();
+			}
+		});
+		
+		Button showFinishedButton = (Button)findViewById(R.id.show_finished_button);
+		showFinishedButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mShowFinished=true;
+				showList();
 			}
 		});
 		
@@ -126,7 +144,7 @@ public class DownloadActivity extends ListActivity {
 				}
 				if (d.getStatus() == DownloadInfo.STATUS_FINISHED) {
 					menu.add(0, MENU_PLAY, 0, R.string.play);
-					menu.add(0, MENU_CLEAR, 0, R.string.clear);
+					menu.add(0, MENU_DELETE, 0, R.string.delete);
 					menu.add(0, MENU_ASSIGN, 0, R.string.assign);
 					menu.add(0, MENU_EDIT, 0, R.string.edit);
 				} else if (d.getStatus() == DownloadInfo.STATUS_FAILED) {
@@ -153,9 +171,8 @@ public class DownloadActivity extends ListActivity {
 				@Override
 				public void run() {
 					if (mDownloadService != null) {
-						mData = mDownloadService.getDownloadInfos();
+						showList();
 						// Utils.D("observer onChange: " + mData.size());
-						mAdapter.notifyDataSetChanged();
 					}
 				}
 			});
@@ -176,8 +193,7 @@ public class DownloadActivity extends ListActivity {
 			mDownloadService.registerDownloadObserver(mObserver);
 			mAdapter = new DownloadListAdapter(DownloadActivity.this, R.layout.download_item);
 			setListAdapter(mAdapter);
-			mData = mDownloadService.getDownloadInfos();
-			mAdapter.notifyDataSetChanged();
+			showList();
         }
 
         public void onServiceDisconnected(ComponentName className) {
@@ -281,7 +297,10 @@ public class DownloadActivity extends ListActivity {
 				if (file.exists()) {
 					file.delete();
 				}
+				mData.remove(d);
+				mAdapter.notifyDataSetChanged();
 			}
+			break;
 		}
 		case MENU_ASSIGN: {
 			assignToContact(d);
@@ -410,5 +429,31 @@ public class DownloadActivity extends ListActivity {
 			return v;
 		}
 
+    }
+    
+    private void showList(){
+		if (mShowFinished==true){
+			if (mDownloadService != null) {
+				mDownloadService.clearFinished();
+			}
+			mData = mDownloadService.getDownloadInfos();
+			File[] file = (new File(App.getMp3Path())).listFiles();
+			for (int i = 0; i < file.length; i++) {
+				if (file[i].isFile()) {
+					String fname = file[i].getName();
+					if (fname.endsWith(".mp3")){
+						DownloadInfo downloadinfo=new DownloadInfo("", App.getMp3Path()+"/"+fname);
+						int size=(int) file[i].length();
+						downloadinfo.setCurrentBytes(size);
+						downloadinfo.setTotalBytes(size);
+						downloadinfo.setStatus(DownloadInfo.STATUS_FINISHED);
+						mData.add(downloadinfo);
+					}
+				}
+			}
+		} else {
+			mData = mDownloadService.getDownloadInfos();
+		}
+		mAdapter.notifyDataSetChanged();
     }
 }
