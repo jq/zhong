@@ -41,12 +41,13 @@ public class ControlBarView extends LinearLayout {
 		btn_refresh.setImageDrawable(getResources().getDrawable(R.drawable.button_refresh));
 		btn_download.setImageDrawable(getResources().getDrawable(R.drawable.button_download));
 		btn_head.setImageDrawable(getResources().getDrawable(R.drawable.superstar));
-		btn_pre.setBackgroundColor(Color.BLACK);
-		btn_next.setBackgroundColor(Color.BLACK);
-		btn_refresh.setBackgroundColor(Color.BLACK);
-		btn_download.setBackgroundColor(Color.BLACK);
-		btn_head.setBackgroundColor(Color.BLACK);
-		
+		int color=btn_pre.getDrawingCacheBackgroundColor ();
+//		btn_pre.setBackgroundColor(Color.BLACK);
+		btn_pre.setBackgroundColor(color);
+		btn_next.setBackgroundColor(color);
+		btn_refresh.setBackgroundColor(color);
+		btn_download.setBackgroundColor(color);
+		btn_head.setBackgroundColor(color);
 		btn_download.setOnTouchListener(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
