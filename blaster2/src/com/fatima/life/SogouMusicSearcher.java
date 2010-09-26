@@ -71,9 +71,9 @@ public class SogouMusicSearcher {
 				Matcher m = PATTERN.matcher(matcherRow.group(1));
 				while (m.find()) {
 				  SogouSearchResult searchResult = new SogouSearchResult();
-				  searchResult.setTitle(StringEscapeUtils.unescapeHtml(URLDecoder.decode(m.group(1),"gb2312").trim()));
+				  searchResult.setTitle(StringEscapeUtils.unescapeHtml(m.group(1).trim()));
 				  searchResult.setArtist(StringEscapeUtils.unescapeHtml(URLDecoder.decode(m.group(2), "gb2312").trim()));
-				  searchResult.setAlbum(StringEscapeUtils.unescapeHtml(URLDecoder.decode(m.group(3),"gb2312").trim()));
+				  searchResult.setAlbum(StringEscapeUtils.unescapeHtml(m.group(3).trim()));
 				  searchResult.addUrl(SOGOU_MP3 + m.group(4).trim());
 					// TODO(zyu): Fix lyrics.
 //					info.setLyricUrl(SOGOU_MP3 + m.group(5).trim());
