@@ -73,10 +73,17 @@ public class DownloadActivity extends ListActivity {
 			@Override
 			public void onClick(View v) {
 				mShowFinished=false;
-				if (mDownloadService != null) {
-					mDownloadService.clearFinished();
+				synchronized(mHandler){
+					mHandler.post(new Runnable() {
+						@Override
+						public void run() {
+							if (mDownloadService != null) {
+								mDownloadService.clearFinished();
+							}
+							showList();
+						}
+					});
 				}
-				showList();
 			}
 		});
 		
@@ -85,7 +92,14 @@ public class DownloadActivity extends ListActivity {
 			@Override
 			public void onClick(View v) {
 				mShowFinished=true;
-				showList();
+				synchronized(mHandler){
+					mHandler.post(new Runnable() {
+						@Override
+						public void run() {
+							showList();
+						}
+					});
+				}
 			}
 		});
 		
@@ -167,15 +181,17 @@ public class DownloadActivity extends ListActivity {
 	private DownloadObserver mObserver = new DownloadObserver() {
 		@Override
 		public void onChange() {
-			mHandler.post(new Runnable() {
-				@Override
-				public void run() {
-					if (mDownloadService != null) {
-						showList();
-						// Utils.D("observer onChange: " + mData.size());
+			synchronized(mHandler){
+				mHandler.post(new Runnable() {
+					@Override
+					public void run() {
+						if (mDownloadService != null) {
+							showList();
+							// Utils.D("observer onChange: " + mData.size());
+						}
 					}
-				}
-			});
+				});
+			}
 		}
 	};
 	
@@ -193,7 +209,14 @@ public class DownloadActivity extends ListActivity {
 			mDownloadService.registerDownloadObserver(mObserver);
 			mAdapter = new DownloadListAdapter(DownloadActivity.this, R.layout.download_item);
 			setListAdapter(mAdapter);
-			showList();
+			synchronized(mHandler){
+				mHandler.post(new Runnable() {
+					@Override
+					public void run() {
+						showList();
+					}
+				});
+			}
         }
 
         public void onServiceDisconnected(ComponentName className) {
