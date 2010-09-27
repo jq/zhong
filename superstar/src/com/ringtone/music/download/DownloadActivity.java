@@ -315,23 +315,25 @@ public class DownloadActivity extends ListActivity {
 				File file = new File(d.getTarget());
 				if (file.exists()) {
 					file.delete();
-					try{
-						String selection="(_DATA = ?)";
-						ArrayList<String> args = new ArrayList<String>();
-						args.add(d.getTarget());
-						String[] argsArray = args.toArray(new String[args.size()]);
-						Cursor c=managedQuery(
-					            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-					            EXTERNAL_COLUMNS,
-					            selection,
-					            argsArray,
-					            MediaStore.Audio.Media.DATE_ADDED + " DESC");
-						startManagingCursor(c);
-						c.moveToFirst();
-						String itemUri = c.getString(c.getColumnIndexOrThrow("\"" + MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "\""))
-					   + "/" + c.getString(c.getColumnIndexOrThrow(MediaStore.Audio.Media._ID));
-						getContentResolver().delete(Uri.parse(itemUri), null, null);
-					}catch(Exception e){
+					if (d.getTarget().endsWith(".mp3")){
+						try{
+							String selection="(_DATA = ?)";
+							ArrayList<String> args = new ArrayList<String>();
+							args.add(d.getTarget());
+							String[] argsArray = args.toArray(new String[args.size()]);
+							Cursor c=managedQuery(
+						            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+						            EXTERNAL_COLUMNS,
+						            selection,
+						            argsArray,
+						            MediaStore.Audio.Media.DATE_ADDED + " DESC");
+							startManagingCursor(c);
+							c.moveToFirst();
+							String itemUri = c.getString(c.getColumnIndexOrThrow("\"" + MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "\""))
+						   + "/" + c.getString(c.getColumnIndexOrThrow(MediaStore.Audio.Media._ID));
+							getContentResolver().delete(Uri.parse(itemUri), null, null);
+						}catch(Exception e){
+						}
 					}
 				}
 				
