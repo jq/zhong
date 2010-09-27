@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res/com.happy.life"
+  
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+ 
+    <ListView android:id="@+id/result_list"
+ 	  android:layout_width="fill_parent"
+      android:layout_height="0px"
+      android:layout_weight="1"
+      android:stackFromBottom="false" >
+      <requestFocus />
+		</ListView>
+    
+   <include layout_height="wrap_content" layout="@layout/ads"/>  
+   <include android:layout_height="wrap_content" layout="@layout/search"/>
+</LinearLayout>

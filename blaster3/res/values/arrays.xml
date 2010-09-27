@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string-array name="music_item_options">
+        <item>Download</item>
+        <item>Preview</item>
+    </string-array>
+</resources>

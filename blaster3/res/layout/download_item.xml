@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/download_item"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:orientation="vertical">
+
+	<TextView
+		android:id="@+id/music_info"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="16sp"
+		android:textColor="@color/music_filename"
+		android:layout_marginLeft="4dip"
+		android:layout_marginTop="4dip"
+	/>	
+		
+
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="4dip"
+		android:layout_marginBottom="2dip"
+		android:orientation="horizontal"
+		>
+		
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/status"
+			android:layout_marginLeft="4dip"
+			android:layout_marginRight="4dip"
+		/>
+		
+		<TextView
+			android:id="@+id/music_status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="12sp"
+			android:layout_marginLeft="2dip"
+			android:layout_marginRight="4dip"
+		/>
+	</LinearLayout>
+
+	<TextView
+		android:id="@+id/error"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="3dip"
+		android:textStyle="bold"
+		android:visibility="gone" 
+	/>	 
+
+    <ProgressBar android:id="@+id/progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="6dip"
+        android:max="100"
+        android:layout_marginTop="6dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginBottom="8dip"
+        />
+        
+    <TextView
+    	android:id="@+id/download_bytes"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:textSize="12sp"
+    	android:textColor="#FFFFFF"
+    	android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="3dip"
+   	/>
+
+</LinearLayout>

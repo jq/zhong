@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+<string name="app_name">Music Blaster</string>
+    <string name="go">Go</string>
+    
+<string name="error_network">网络连接错误！</string>
+    
+<string name="retry">重试</string>
+    <string name="wait">请稍候，我们连接...</string>
+    
+<string name="no_download_link">无法取得音乐下载地址</string>
+    <string name="loading">载入中...</string>
+    
+<string name="create_app_dir_error">无法创建应用程序目录。你有一个SD卡吗？</string>
+    
+<string name="create_mp3_dir_error">无法创建MP3目录</string>
+    
+<string name="clear_finished">清除完成</string>
+    
+<string name="no_download_data">没有下载数据</string>
+    
+<string name="hide">隐藏</string>
+    
+<string name="done">完成</string>
+    <string name="finished">结束</string>
+    <string name="pending">待处理</string>
+    <string name="stopping">停止</string>
+    <string name="failed">失败</string>
+    <string name="stopped">已停止</string>
+    <string name="downloading">下载中</string>
+    <string name="queued">队列</string>
+    <string name="aborted">已中止</string>
+    <string name="paused">已暂停</string>
+    <string name="downloads">下载</string>
+    <string name="clear">清除</string>
+    <string name="play">播放</string>
+    <string name="cancel">取消</string>
+    <string name="stop">停止</string>
+    <string name="delete">删除</string>
+    <string name="resume">恢复</string>
+    <string name="preview">预听</string>
+    <string name="download">下载</string>
+    <string name="music_option_prompt">长按该键以获得更多操作选项</string>
+    <string name="streaming">音乐流</string>
+    <string name="search">简单搜索</string>
+    <string name="options">选项</string>
+    <string name="no_result">没有结果</string>
+    <string name="target_exists">目标文件已存在</string>
+    <string name="pause">暂停</string>
+    <string name="search_prompt">注：这是一个测试版本。在某些情况下，连接是没有正确设置，您将收到什么时候做一个搜索。您可能要重试由\“退出\点击”并重新启动这个程序。\ ? \ ?在最佳状态下的3G或Wifi。</string>
+    <string name="already_downloading">目标已被下载</string>
+    <string name="status">现状：</string>
+    <string name="searching">搜索...</string>
+    <string name="initializing">初始化...</string>
+    <string name="no_playing_activity">没有活动发现处理MP3文件。您可能需要手动启动音乐播放器。</string>
+
+    <string name="title">标题</string>
+    <string name="artist">艺术家</string>
+    <string name="album">相册</string>
+    <string name="advance_search">先进</string>
+
+    <string name="eula_title">长期使用</string>
+    <string name="eula_accept">接受</string>
+    <string name="eula_refuse">下降</string>
+    <string name="network_dialog_title">网络错误</string>
+    <string name="network_error_message">您只能进行固定后，您的网络连接。</string>
+    <string name="exit">Exit</string>
+    <string name="updater_dialog_title">新的更新可用</string> 
+    <string name="updater_dialog_message">新版本可以下载。点选\“下载\”下面下载。</string>
+    <string name="about">关于</string>
+</resources>
