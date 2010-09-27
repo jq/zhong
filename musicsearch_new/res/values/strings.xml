@@ -22,4 +22,5 @@
     <string name="hide">Hide</string>
     <string name="loading_download_link">Loading download links. Please wait...</string>
     <string name="load_download_link_failed">Loading download links failed. Please retry later.</string>
+    <string name="no_sd">Your device has no sd card or your sd card run out of space</string>
 </resources>

@@ -14,13 +14,15 @@
 			android:id="@+id/preview_button"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_weight="1">
+			android:layout_weight="1"
+			android:text="@string/preview">
 		</Button>
 		<Button
 			android:id="@+id/download_button"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_weight="1">
+			android:layout_weight="1"
+			android:text="@string/download">
 		</Button>
 	</LinearLayout>
 	

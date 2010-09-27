@@ -87,6 +87,9 @@ public class MusicInfo {
 	
 	public void setDisplayFileSize(String displaySize) {
 		mDisplaySize = displaySize;
+		if (mDisplaySize.contains("m") || mDisplaySize.contains("M")) {
+			setFileSize((int)(1000000*Double.parseDouble(mDisplaySize.substring(0, mDisplaySize.length()-1))));
+		}
 	}
 	
 	public String getDisplayFileSize() {
@@ -114,7 +117,7 @@ public class MusicInfo {
 	}
 	
 	public static String downloadPath(MusicInfo info) {
-		return Const.Home_Dir + "/" + downloadFilename(info);
+		return Const.sMusicDir + "/" + downloadFilename(info);
 	}
 	
 	public boolean isRealDownloadLink() {

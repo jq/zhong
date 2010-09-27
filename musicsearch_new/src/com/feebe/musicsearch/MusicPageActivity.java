@@ -1,5 +1,12 @@
 package com.feebe.musicsearch;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -7,10 +14,12 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,10 +60,13 @@ public class MusicPageActivity extends ListActivity {
 		mProgressBar = (ProgressBar) findViewById(R.id.search_progress);
 		mMessage = (TextView) findViewById(R.id.search_message);
 		mRetryButton = (Button) findViewById(R.id.retry_button);
+		mPreviewButton = (Button) findViewById(R.id.preview_button);
+		mDownloadButton = (Button) findViewById(R.id.download_button);
 		sIndex = getIntent().getIntExtra(Const.INDEX, -1);
 		sMusicInfo = SearchActivity.sData.get(sIndex);
 		getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		getListView().setClickable(false);
+		mDownloadButton.setOnClickListener(new DownloadClickListener());
 		fetchDownloadLink();
 	}
 
@@ -84,6 +96,107 @@ public class MusicPageActivity extends ListActivity {
 				setListAdapter(mAdapter);
 			} 
 			mAdapter.notifyDataSetChanged();
+		}
+	}
+	
+	private void downloadMusic() {
+		new DownloadMusicTask(this, sMusicInfo, sMusicInfo.getDownloadUrl().get(0)).execute();
+	}
+	
+	private class DownloadMusicTask extends AsyncTask<Void, Integer, File> {
+		private Context mContext;
+		private MusicInfo mDownloadMusicInfo;
+		private boolean mIsBackGround = false;
+		private DownloadProgressDialogListerner mDownloadProgressDialogListerner;
+		private String mUrl;
+		public DownloadMusicTask(Context context, MusicInfo musicInfo, String url) {
+			mContext = context;
+			mDownloadMusicInfo = musicInfo;
+			mUrl = url;
+		}
+		@Override
+		protected void onPreExecute() {
+			mDownloadProgressDialogListerner = new DownloadProgressDialogListerner(mContext);
+			mDownloadProgressDialogListerner.onDownloadStart();
+		}
+		@Override
+		protected File doInBackground(Void... params) {
+			Utils.D("background start:");
+			int count = 0;
+			URL url = null;
+			HttpURLConnection urlConn = null;
+			InputStream stream = null;
+			DataInputStream is = null;
+			try {
+				url = new URL(mUrl);
+				urlConn = (HttpURLConnection)url.openConnection();
+				urlConn.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3 -Java");
+				urlConn.setConnectTimeout(4000);
+				urlConn.connect();
+				stream = urlConn.getInputStream();
+				byte[] buff = new byte[4096];
+				is = new DataInputStream(stream);
+				int len;
+				File f = new File(Const.sMusicDir+mDownloadMusicInfo.getTitle()+".mp3");
+				FileOutputStream file =  new FileOutputStream(f);
+				while ((len = is.read(buff)) > 0) {
+					file.write(buff, 0, len);
+					count = count + len;
+					if (mDownloadMusicInfo.getFilesize() != 0)
+						Utils.D(""+(int) (count*100)/mDownloadMusicInfo.getFilesize());
+						publishProgress((int) (count*100)/mDownloadMusicInfo.getFilesize());
+				}
+				urlConn.disconnect();
+				return f;
+		  } catch (IOException e) {
+			  e.printStackTrace();
+		  }
+		  return null;
+		}
+		@Override
+		protected void onPostExecute(File result) {
+			if (result == null) {
+				Utils.D("result==null");
+			} else {
+				Utils.D("result!=null");
+			}
+			if (!mIsBackGround) {
+				mDownloadProgressDialogListerner.onDownloadFinish();
+			}
+		}
+		@Override
+		protected void onProgressUpdate(Integer... values) {
+			if (!mIsBackGround) {
+				mDownloadProgressDialogListerner.onProgressUpdate(values[0]);
+			}
+		}
+		@Override
+		protected void onCancelled() {
+
+			super.onCancelled();
+		}
+	}
+	
+	private class DownloadProgressDialogListerner {
+		private Context mContext;
+		private ProgressDialog mDownloadProgressDialog;
+		public DownloadProgressDialogListerner(Context context) {
+			mContext = context;
+		}
+		public void onDownloadStart() {
+			mDownloadProgressDialog = new ProgressDialog(mContext);
+			mDownloadProgressDialog.setTitle(R.string.download);
+			mDownloadProgressDialog.setIndeterminate(false);
+			mDownloadProgressDialog.setMax(100);
+			mDownloadProgressDialog.setProgress(0);
+			mDownloadProgressDialog.setCancelable(true);
+			mDownloadProgressDialog.show();
+		}
+		public void onProgressUpdate(int progress) {
+			mDownloadProgressDialog.setProgress(progress);
+		}
+		public void onDownloadFinish() {
+			mDownloadProgressDialog.cancel();
 		}
 	}
 	
@@ -153,6 +266,13 @@ public class MusicPageActivity extends ListActivity {
 			((RadioButton) lv.getChildAt(mPosition).findViewById(R.id.is_checked)).setChecked(true);
 		}
 	} 
+	
+	private class DownloadClickListener implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			downloadMusic();
+		}
+	}
 	
 	private void setLoadingStatus() {
 		mProgressBar.setVisibility(View.VISIBLE);
