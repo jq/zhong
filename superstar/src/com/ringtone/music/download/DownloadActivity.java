@@ -13,6 +13,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -314,6 +315,24 @@ public class DownloadActivity extends ListActivity {
 				File file = new File(d.getTarget());
 				if (file.exists()) {
 					file.delete();
+					try{
+						String selection="(_DATA = ?)";
+						ArrayList<String> args = new ArrayList<String>();
+						args.add(d.getTarget());
+						String[] argsArray = args.toArray(new String[args.size()]);
+						Cursor c=managedQuery(
+					            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+					            EXTERNAL_COLUMNS,
+					            selection,
+					            argsArray,
+					            MediaStore.Audio.Media.DATE_ADDED + " DESC");
+						startManagingCursor(c);
+						c.moveToFirst();
+						String itemUri = c.getString(c.getColumnIndexOrThrow("\"" + MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "\""))
+					   + "/" + c.getString(c.getColumnIndexOrThrow(MediaStore.Audio.Media._ID));
+						getContentResolver().delete(Uri.parse(itemUri), null, null);
+					}catch(Exception e){
+					}
 				}
 				
 				file = new File(d.getTarget() + ".tmp");
@@ -479,4 +498,16 @@ public class DownloadActivity extends ListActivity {
 		}
 		mAdapter.notifyDataSetChanged();
     }
+    private static final String[] EXTERNAL_COLUMNS = new String[] {
+        MediaStore.Audio.Media._ID,
+        MediaStore.Audio.Media.DATA,
+        MediaStore.Audio.Media.TITLE,
+        MediaStore.Audio.Media.ARTIST,
+        MediaStore.Audio.Media.ALBUM,
+        MediaStore.Audio.Media.IS_RINGTONE,
+        MediaStore.Audio.Media.IS_ALARM,
+        MediaStore.Audio.Media.IS_NOTIFICATION,
+        MediaStore.Audio.Media.IS_MUSIC,
+        "\"" + MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "\""
+    };
 }
