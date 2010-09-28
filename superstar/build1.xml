@@ -299,28 +299,34 @@
         </target>
     	<target name="package-apks" depends="clean-apks, init-all" description="Package applications.">  		
     		<antcall target="package-apk">
-    		    <param name="package_name" value="sarahconnor"/>
-    		    <param name="drawable" value="app_icons\\sarahconnor_large.png"/>
-    			<param name="head" value="app_icons\\sarahconnor_small.png"/>
-    			<param name="app_name" value="Sarah Connor"/>
+    		    <param name="package_name" value="ladygaga"/>
+    		    <param name="drawable" value="app_icons\\ladygaga_large.png"/>
+    			<param name="head" value="app_icons\\ladygaga_small.png"/>
+    			<param name="app_name" value="lady gaga"/>
     		</antcall> 
     		<antcall target="package-apk">
-    		    <param name="package_name" value="shakira"/>
-    		    <param name="drawable" value="app_icons\\shakira_large.png"/>
-    			<param name="head" value="app_icons\\shakira_small.png"/>
-    			<param name="app_name" value="Shakira"/>
+    		    <param name="package_name" value="leehom"/>
+    		    <param name="drawable" value="app_icons\\leehom_large.png"/>
+    			<param name="head" value="app_icons\\leehom_small.png"/>
+    			<param name="app_name" value="leehom"/>
     		</antcall> 
     		<antcall target="package-apk">
-    		    <param name="package_name" value="vitas"/>
-    		    <param name="drawable" value="app_icons\\vitas_large.png"/>
-    			<param name="head" value="app_icons\\vitas_small.png"/>
-    			<param name="app_name" value="Vitas"/>
+    		    <param name="package_name" value="michaeljackson"/>
+    		    <param name="drawable" value="app_icons\\michaeljackson_large.png"/>
+    			<param name="head" value="app_icons\\michaeljackson_small.png"/>
+    			<param name="app_name" value="Michael Jackson"/>
     		</antcall> 
     		<antcall target="package-apk">
-    		    <param name="package_name" value="britneyspears"/>
-    		    <param name="drawable" value="app_icons\\britneyspears_large.png"/>
-    			<param name="head" value="app_icons\\britneyspears_small.png"/>
-    			<param name="app_name" value="Britney Spears"/>
+    		    <param name="package_name" value="madonna"/>
+    		    <param name="drawable" value="app_icons\\madonna_large.png"/>
+    			<param name="head" value="app_icons\\madonna_small.png"/>
+    			<param name="app_name" value="Madonna"/>
+    		</antcall> 
+    		<antcall target="package-apk">
+    		    <param name="package_name" value="taylorswift"/>
+    		    <param name="drawable" value="app_icons\\taylorswift_large.png"/>
+    			<param name="head" value="app_icons\\taylorswift_small.png"/>
+    			<param name="app_name" value="Taylor Swift"/>
     		</antcall> 
     	</target>
 </project>
