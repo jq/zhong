@@ -50,9 +50,13 @@ public class SearchTab extends Activity{
 		searchArtist.setThreshold(1);
 		//ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line,history);
 		Const.dbAdapter = new DbAdapter(this);
-		SearchAdapter myCursorAdapterArtist = new SearchAdapter(
-		    this, Const.dbAdapter.getHistoryByType(DbAdapter.TYPE_ARTIST), DbAdapter.TYPE_ARTIST);
-		searchArtist.setAdapter(myCursorAdapterArtist);
+		try {
+  		SearchAdapter myCursorAdapterArtist = new SearchAdapter(
+  		    this, Const.dbAdapter.getHistoryByType(DbAdapter.TYPE_ARTIST), DbAdapter.TYPE_ARTIST);
+  		searchArtist.setAdapter(myCursorAdapterArtist);
+      } catch (Exception e) {
+      
+    }
 		
 		searchTitle = (AutoCompleteTextView) findViewById(R.id.input_title);
 		searchTitle.setOnKeyListener(new OnKeyListener(){
@@ -68,10 +72,13 @@ public class SearchTab extends Activity{
 			}
 		});
 		searchTitle.setThreshold(1);
-		SearchAdapter myCursorAdapterTitle = new SearchAdapter(
-		    this, Const.dbAdapter.getHistoryByType(DbAdapter.TYPE_TITLE), DbAdapter.TYPE_TITLE);
-		searchTitle.setAdapter(myCursorAdapterTitle);
-		
+		try {
+  		SearchAdapter myCursorAdapterTitle = new SearchAdapter(
+  		    this, Const.dbAdapter.getHistoryByType(DbAdapter.TYPE_TITLE), DbAdapter.TYPE_TITLE);
+  		searchTitle.setAdapter(myCursorAdapterTitle);
+		} catch (Exception e) {
+		  
+		}
 		searchButton = (Button) findViewById(R.id.search_button);
 		
 		searchButton.setOnClickListener(new OnClickListener() {		

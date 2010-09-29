@@ -103,7 +103,7 @@ public class Util {
       String title = mp3.getName();
       String artist = mp3.getArtist();
       int size = MusicUtil.sizeInM(mp3.getFSize());
-      int speed = Integer.parseInt(mp3.getSpeed());
+      // int speed = Integer.parseInt(mp3.getSpeed());
       String key = artist + title + size;
       
       if(newListHt.containsKey(key)) {

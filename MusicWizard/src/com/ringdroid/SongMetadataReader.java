@@ -133,7 +133,13 @@ public class SongMetadataReader {
     }
 
     private String getBasename(String filename) {
-        return filename.substring(filename.lastIndexOf('/') + 1,
-                                  filename.lastIndexOf('.'));
+      int first = filename.lastIndexOf('/') + 1;
+      int last =  filename.lastIndexOf('.');
+      if (first > 0 && last > 0)
+        return filename.substring(first, last);
+      if (first > 0) {
+        return filename.substring(first);
+      }
+      return "";
     }
 }

@@ -905,7 +905,7 @@ public class RingdroidEditActivity extends Activity implements
 	}
 
 	private synchronized void updateDisplay() {
-		if (mIsPlaying) {
+		if (mIsPlaying && mPlayer != null) {
 			int now = mPlayer.getCurrentPosition() + mPlayStartOffset;
 			int frames = mWaveformView.millisecsToPixels(now);
 			mWaveformView.setPlayback(frames);

@@ -154,4 +154,8 @@
         <string name="rate_low">The bitrate of this music is too low. It may be distorted after edited. It is recommended you to use the whole music by click "Use All" button.</string>
     <string name="use_all">Use all</string>
     <string name="ring_picker_title">Select Ring</string>
+    
+    <!-- new -->
+    <string name="db_error">Database error, please try again</string>
+    
 </resources>

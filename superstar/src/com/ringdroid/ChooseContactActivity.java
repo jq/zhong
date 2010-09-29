@@ -175,7 +175,13 @@ public class ChooseContactActivity
         ContentValues values = new ContentValues();
         //values.put(People.CUSTOM_RINGTONE, mRingtoneUri.toString());
         values.put(People.CUSTOM_RINGTONE, mRingtoneUri.toString());
-        getContentResolver().update(uri, values, null, null);
+        try {
+          getContentResolver().update(uri, values, null, null);
+        } catch (Exception e) {
+          Toast.makeText(this, R.string.db_error, Toast.LENGTH_SHORT).show();
+          
+          return;
+        }
 
         String message =
             getResources().getText(R.string.success_contact_ringtone) +
@@ -208,9 +214,6 @@ public class ChooseContactActivity
             selection,
             null,
             "STARRED DESC, TIMES_CONTACTED DESC, LAST_TIME_CONTACTED DESC, DISPLAY_NAME ASC");
-
-        Log.i("Ringdroid", cursor.getCount() + " contacts");
-
         return cursor;
     }
 

@@ -397,7 +397,7 @@ public class MusicPage extends Activity implements
     case CONNECT_ERROR: {
       return new AlertDialog.Builder(MusicPage.this).setIcon(R.drawable.icon)
           .setTitle("Connect error ! ").setMessage(
-              "This music link is invalid, please try anothor.").setCancelable(
+              "This music link is invalid, please try another.").setCancelable(
               true).setPositiveButton("OK",
               new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {

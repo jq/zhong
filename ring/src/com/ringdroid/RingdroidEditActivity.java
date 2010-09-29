@@ -824,7 +824,7 @@ public class RingdroidEditActivity extends Activity implements
 	}
 
 	private synchronized void updateDisplay() {
-		if (mIsPlaying) {
+		if (mIsPlaying && mPlayer != null) {
 			int now = mPlayer.getCurrentPosition() + mPlayStartOffset;
 			int frames = mWaveformView.millisecsToPixels(now);
 			mWaveformView.setPlayback(frames);
@@ -854,16 +854,12 @@ public class RingdroidEditActivity extends Activity implements
 		mWaveformView.setParameters(mStartPos, mEndPos, mOffset);
 		mWaveformView.invalidate();
 
-		boolean startVisible = true;
-		boolean endVisible = true;
-
 		int startX = mStartPos - mOffset - kMarkerLeftInset;
 		if (startX + mStartMarker.getWidth() >= 0) {
 			mStartMarker.setAlpha(255);
 		} else {
 			mStartMarker.setAlpha(0);
 			startX = 0;
-			startVisible = false;
 		}
 
 		int endX = mEndPos - mOffset - mEndMarker.getWidth()
@@ -873,7 +869,6 @@ public class RingdroidEditActivity extends Activity implements
 		} else {
 			mEndMarker.setAlpha(0);
 			endX = 0;
-			startVisible = false;
 		}
 
 		mStartMarker.setLayoutParams(new AbsoluteLayout.LayoutParams(

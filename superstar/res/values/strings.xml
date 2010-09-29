@@ -203,4 +203,8 @@
     <string name="use_all">Use all</string>
     <string name="alertdialog_cancel">Cancel</string>
     <string name="ring_picker_title">Select Ring</string>
+    
+        <!-- new -->
+    <string name="db_error">Database error, please try again</string>
+    
 </resources>
