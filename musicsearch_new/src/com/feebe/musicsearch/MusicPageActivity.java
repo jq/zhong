@@ -12,20 +12,25 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import android.R.integer;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -33,6 +38,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.SimpleAdapter.ViewBinder;
 
 public class MusicPageActivity extends ListActivity {
 	
@@ -42,7 +48,13 @@ public class MusicPageActivity extends ListActivity {
 	private static FetchDownloadLinkTask sFetchDownloadLinkTask;
 	
 	private static int sIndex;
-	private static MusicInfo sMusicInfo;
+	
+	private MusicInfo mMusicInfo;
+	private String mDownloadedMusicPath;
+	private boolean mIsBackground;
+	private DownloadMusicTask mDownloadMusicTask;
+	
+	private int mCurLinkIndex = -1;
 	
 	private ProgressBar	mProgressBar;
 	private TextView mMessage;
@@ -51,23 +63,67 @@ public class MusicPageActivity extends ListActivity {
 	private Button mPreviewButton;
 	private Button mDownloadButton;
 	
+	private ImageButton mPrevButton;
+	private ImageButton mNextButton;
+	
 	private DownloadLinkListAdapter mAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Utils.D("onCreate()");
 		setContentView(R.layout.music_page);
 		mProgressBar = (ProgressBar) findViewById(R.id.search_progress);
 		mMessage = (TextView) findViewById(R.id.search_message);
 		mRetryButton = (Button) findViewById(R.id.retry_button);
 		mPreviewButton = (Button) findViewById(R.id.preview_button);
 		mDownloadButton = (Button) findViewById(R.id.download_button);
-		sIndex = getIntent().getIntExtra(Const.INDEX, -1);
-		sMusicInfo = SearchActivity.sData.get(sIndex);
-		getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		getListView().setClickable(false);
+		mPrevButton = (ImageButton) findViewById(R.id.btn_prev);
+		mNextButton = (ImageButton) findViewById(R.id.btn_next);
+		mPrevButton.setOnClickListener(new PrevClickListener());
+		mNextButton.setOnClickListener(new NextClickListener());
+		mRetryButton.setOnClickListener(new RetryClickLister());
+		initData(getIntent());
+		initView();
 		mDownloadButton.setOnClickListener(new DownloadClickListener());
 		fetchDownloadLink();
+	}
+	
+	@Override
+	protected void onNewIntent(Intent intent) {
+		Utils.D("onNewIntent()");
+		initData(intent);
+		initView();
+		fetchDownloadLink();
+	}
+
+	private void initData(Intent intent) {
+		sIndex = intent.getIntExtra(Const.INDEX, 0);
+		Utils.D("sIndex: "+sIndex);
+		mMusicInfo = SearchActivity.sData.get(sIndex);
+		mAdapter = null;
+		setListAdapter(mAdapter);
+		setLoadingStatus();
+	}
+	
+	private void initView() {
+		mDownloadButton.setText(R.string.download);
+		if (sIndex == 0) {
+			mPrevButton.setEnabled(false);
+			mPrevButton.setClickable(false);
+		} else {
+			mPrevButton.setEnabled(true);
+			mPrevButton.setEnabled(true);
+		}
+		Utils.D("PrevbuttonEnable? "+mPrevButton.isEnabled());
+		if (sIndex == SearchActivity.sData.size()-1) {
+			mNextButton.setEnabled(false);
+			mNextButton.setClickable(false);
+		} else {
+			mNextButton.setEnabled(true);
+			mNextButton.setClickable(true);
+		}
+		mDownloadButton.setText(R.string.download);
 	}
 
 	private void fetchDownloadLink() {
@@ -76,6 +132,7 @@ public class MusicPageActivity extends ListActivity {
 		}
 		sFetchDownloadLinkTask = new FetchDownloadLinkTask();
 		sFetchDownloadLinkTask.execute();
+		setLoadingStatus();
 	}
 
 	private class FetchDownloadLinkTask extends AsyncTask<Void, Void, Void> {
@@ -84,7 +141,7 @@ public class MusicPageActivity extends ListActivity {
 			if (sFetcher == null) {
 				sFetcher = new MusicSearcher();
 			} 
-			sFetcher.setMusicDownloadUrl(sMusicInfo);
+			sFetcher.setMusicDownloadUrl(mMusicInfo);
 			return null;
 		}
 
@@ -94,13 +151,20 @@ public class MusicPageActivity extends ListActivity {
 			if (mAdapter == null) {
 				mAdapter = new DownloadLinkListAdapter(MusicPageActivity.this, R.layout.link_item);
 				setListAdapter(mAdapter);
-			} 
+			}
 			mAdapter.notifyDataSetChanged();
+			if (mAdapter.getCount() == 0) {
+				setErrorStatus();
+			} else {
+				mDownloadButton.setEnabled(true);
+				mPreviewButton.setEnabled(true);
+			}
 		}
 	}
 	
 	private void downloadMusic() {
-		new DownloadMusicTask(this, sMusicInfo, sMusicInfo.getDownloadUrl().get(0)).execute();
+	 	mDownloadMusicTask = new DownloadMusicTask(this, mMusicInfo, mMusicInfo.getDownloadUrl().get(mCurLinkIndex));
+	 	mDownloadMusicTask.execute();
 	}
 	
 	private class DownloadMusicTask extends AsyncTask<Void, Integer, File> {
@@ -142,23 +206,31 @@ public class MusicPageActivity extends ListActivity {
 				while ((len = is.read(buff)) > 0) {
 					file.write(buff, 0, len);
 					count = count + len;
+					int percent = 0;
+					int last_percent = 0;
 					if (mDownloadMusicInfo.getFilesize() != 0)
-						Utils.D(""+(int) (count*100)/mDownloadMusicInfo.getFilesize());
-						publishProgress((int) (count*100)/mDownloadMusicInfo.getFilesize());
+						percent = (int) ((count*100)/mDownloadMusicInfo.getFilesize());
+						if (percent != last_percent) {
+							publishProgress(percent);
+							last_percent = percent;
+						}
 				}
 				urlConn.disconnect();
 				return f;
-		  } catch (IOException e) {
-			  e.printStackTrace();
-		  }
-		  return null;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
 		}
 		@Override
 		protected void onPostExecute(File result) {
+			mDownloadMusicTask = null;
 			if (result == null) {
 				Utils.D("result==null");
 			} else {
 				Utils.D("result!=null");
+				mDownloadButton.setText(R.string.play);
+				mDownloadedMusicPath = result.getAbsolutePath();
 			}
 			if (!mIsBackGround) {
 				mDownloadProgressDialogListerner.onDownloadFinish();
@@ -175,6 +247,12 @@ public class MusicPageActivity extends ListActivity {
 
 			super.onCancelled();
 		}
+		public void showProgressDialog() {
+			mDownloadProgressDialogListerner.showProgressDialog();
+		}
+		public void hideProgressDialog() {
+			mDownloadProgressDialogListerner.hideProgressDialog();
+		}
 	}
 	
 	private class DownloadProgressDialogListerner {
@@ -188,7 +266,9 @@ public class MusicPageActivity extends ListActivity {
 			mDownloadProgressDialog.setTitle(R.string.download);
 			mDownloadProgressDialog.setIndeterminate(false);
 			mDownloadProgressDialog.setMax(100);
+			mDownloadProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 			mDownloadProgressDialog.setProgress(0);
+			mDownloadProgressDialog.setButton(MusicPageActivity.this.getString(R.string.hide), new HideProgressDialogClickListener());
 			mDownloadProgressDialog.setCancelable(true);
 			mDownloadProgressDialog.show();
 		}
@@ -197,6 +277,12 @@ public class MusicPageActivity extends ListActivity {
 		}
 		public void onDownloadFinish() {
 			mDownloadProgressDialog.cancel();
+		}
+		public void hideProgressDialog() {
+			mDownloadProgressDialog.hide();
+		}
+		public void showProgressDialog() {
+			mDownloadProgressDialog.show();
 		}
 	}
 	
@@ -212,17 +298,17 @@ public class MusicPageActivity extends ListActivity {
 
 		@Override
 		public int getCount() { 
-			if (sMusicInfo==null || !sMusicInfo.isRealDownloadLink()) {
+			if (mMusicInfo==null || !mMusicInfo.isRealDownloadLink()) {
 				return 0;
 			} else  {
-				return sMusicInfo.getDownloadUrl().size();
+				return mMusicInfo.getDownloadUrl().size();
 			}
 		}
 
 		@Override
 		public Object getItem(int position) {
-			if (sMusicInfo!=null && sMusicInfo.isRealDownloadLink()) {
-				return sMusicInfo.getDownloadUrl().get(position);
+			if (mMusicInfo!=null && mMusicInfo.isRealDownloadLink()) {
+				return mMusicInfo.getDownloadUrl().get(position);
 			} else {
 				return null;
 			}
@@ -230,7 +316,7 @@ public class MusicPageActivity extends ListActivity {
 
 		@Override
 		public long getItemId(int position) {
-			if (sMusicInfo==null || !sMusicInfo.isRealDownloadLink()) {
+			if (mMusicInfo==null || !mMusicInfo.isRealDownloadLink()) {
 				return -1;
 			}
 			return position;
@@ -239,15 +325,20 @@ public class MusicPageActivity extends ListActivity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View v;
-			ArrayList<String> linkList = sMusicInfo.getDownloadUrl();
+			ArrayList<String> linkList = mMusicInfo.getDownloadUrl();
 			if (convertView == null) {
 				v = mInflater.inflate(mResource, parent, false);
 			} else {
 				v = convertView;
 			}
 			String link = linkList.get(position);
-			((RadioButton) v.findViewById(R.id.is_checked)).setText(link);
-			((RadioButton) v.findViewById(R.id.is_checked)).setOnClickListener(new LinkItemClickListener(position));
+			RadioButton rb = (RadioButton) v.findViewById(R.id.is_checked);
+			rb.setText(link);
+			rb.setOnClickListener(new LinkItemClickListener(position));
+			if (position == 0) {
+				mCurLinkIndex = 0;
+				rb.setChecked(true);
+			}
 			return v;
 		}
 	}
@@ -264,24 +355,78 @@ public class MusicPageActivity extends ListActivity {
 				((RadioButton) lv.getChildAt(i).findViewById(R.id.is_checked)).setChecked(false);
 			}
 			((RadioButton) lv.getChildAt(mPosition).findViewById(R.id.is_checked)).setChecked(true);
+			mCurLinkIndex = mPosition;
 		}
-	} 
+	}
 	
 	private class DownloadClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
-			downloadMusic();
+			Utils.D("mDownloadMusicTask == "+mDownloadMusicTask);
+			Utils.D("mDownloadedMusicPath == "+mDownloadedMusicPath);
+			if (mDownloadMusicTask == null && mDownloadedMusicPath == null) {
+				downloadMusic();
+			} else if (mDownloadMusicTask!=null && mDownloadedMusicPath==null){
+				mDownloadMusicTask.hideProgressDialog();
+			} else if (mDownloadedMusicPath!=null) {
+	    		Intent intent = new Intent(Intent.ACTION_VIEW);
+	    		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	    		intent.setDataAndType(Uri.parse("file://" + mDownloadedMusicPath), "audio");
+	    		startActivity(intent);
+			}
 		}
 	}
 	
+	private class PreviewClickListener implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			
+		}
+	}
+	
+	private class RetryClickLister implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			fetchDownloadLink();
+		}
+	}
+	
+	private class PrevClickListener implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			Intent intent = new Intent(MusicPageActivity.this, MusicPageActivity.class);
+			intent.putExtra(Const.INDEX, sIndex-1);
+			startActivity(intent);
+		}
+	}
+	
+	private class NextClickListener implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			Intent intent = new Intent(MusicPageActivity.this, MusicPageActivity.class);
+			intent.putExtra(Const.INDEX, sIndex+1);
+			startActivity(intent);
+		}
+	}
+	
+	private class HideProgressDialogClickListener implements DialogInterface.OnClickListener {
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			if (mDownloadMusicTask != null) {
+				mDownloadMusicTask.hideProgressDialog();
+			}
+		}
+	}
+
 	private void setLoadingStatus() {
 		mProgressBar.setVisibility(View.VISIBLE);
 		mMessage.setVisibility(View.VISIBLE);
 		mRetryButton.setVisibility(View.GONE);
 		mMessage.setText(R.string.loading_download_link);
 	}
+	
 	private void setErrorStatus() {
-		mProgressBar.setVisibility(View.VISIBLE);
+		mProgressBar.setVisibility(View.GONE);
 		mMessage.setVisibility(View.VISIBLE);
 		mRetryButton.setVisibility(View.VISIBLE);
 		mMessage.setText(R.string.load_download_link_failed);

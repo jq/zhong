@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MusicSearch</string>
+    <string name="app_name">MusicSearchNew</string>
     <string name="search">Search</string>
     <string name="go">go</string>
     <string name="please_wait_search">Searching...</string>
@@ -19,8 +19,10 @@
     <string name="download_link_list">Download Link List </string>
     <string name="preview">Preview</string>
     <string name="download">Download</string>
-    <string name="hide">Hide</string>
     <string name="loading_download_link">Loading download links. Please wait...</string>
     <string name="load_download_link_failed">Loading download links failed. Please retry later.</string>
     <string name="no_sd">Your device has no sd card or your sd card run out of space</string>
+    <string name="hide">Hide</string>
+    <string name="show">Show</string>
+    <string name="play">Play</string>
 </resources>

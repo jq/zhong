@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:paddingRight="8dip"
-            style="?android:attr/progressBarStyleSmall">
+            style="?android:attr/progressBarStyleLarge">
         </ProgressBar>
 
         <TextView 
@@ -48,5 +48,6 @@
         	android:visibility="gone"
         	android:text="@string/retry">
         </Button>
+        
 	</LinearLayout>
 </LinearLayout>

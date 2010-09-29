@@ -30,6 +30,7 @@ public class Const {
 		public static final String Songname = "songname";
 	}
 	
+	
 	public static void init(Context context) {
 		app_name = context.getString(R.string.app_name);
 		File sdCardRoot = Environment.getExternalStorageDirectory();
