@@ -26,6 +26,7 @@
         
     <string name="info">Info:</string>
     <string name="about">About Ringtone:</string>
+    <string name="comments">Comments:</string>
     <string name="myreview">My review:</string>		
     
 	<string name="info_download_count"> people downloaded it</string>
@@ -37,6 +38,7 @@
 	<string name="menu_unset_ringtone">unset ringtone</string>
     <string name="menu_search">Search</string>
     <string name="menu_downloaded">Downloaded</string>
+    <string name="menu_connect_facebook">Facebook</string>
 
     <!--
      AlertDialogs
@@ -111,7 +113,7 @@
     <string name="input_artist">Who: please input complete artist name or band name to get her/his/their top popular songs</string>
     <string name="preview">Preview</string>
     <string name="download">Download</string>
-    <string name="queue">Queue</string>
+    <string name="queue_btn">Queue</string>
     <string name="set">Set</string>
     <string name="assign">Assign</string>
     <string name="edit">Edit</string>

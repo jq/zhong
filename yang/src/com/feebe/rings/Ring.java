@@ -18,6 +18,8 @@ import android.view.Window;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 
+import com.connect.facebook.Login;
+import com.facebook.android.Facebook;
 import com.feebe.lib.ImgThread;
 import com.feebe.lib.TabCreator;
 import com.feebe.lib.TabSDKCreator;
@@ -173,4 +175,5 @@ public class Ring extends TabActivity implements OnTabChangeListener {
       }
       return super.onOptionsItemSelected(item);
     }
+    
 }

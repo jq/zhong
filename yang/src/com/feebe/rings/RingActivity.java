@@ -17,6 +17,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.http.AccessToken;
+import twitter4j.http.RequestToken;
+
+import com.connect.facebook.BaseDialogListener;
+import com.connect.facebook.Login;
+import com.facebook.android.AsyncFacebookRunner;
+import com.facebook.android.Facebook;
+import com.facebook.android.FacebookError;
 import com.feebe.lib.AdListener;
 import com.feebe.lib.DefaultDownloadListener;
 import com.feebe.lib.DownloadImg;
@@ -53,11 +65,14 @@ import android.provider.Browser;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -127,6 +142,7 @@ public class RingActivity extends Activity {
       
       detailInfo = (TextView) findViewById(R.id.info_text);
       listSearchOthers = (ListView) findViewById(R.id.list_searchOthers);
+      listComments = (ListView) findViewById(R.id.list_comments);
      
       dl = (Button)this.findViewById(R.id.download);
       mPreview = (Button)this.findViewById(R.id.preview);
@@ -139,7 +155,10 @@ public class RingActivity extends Activity {
       
       SharedPreferences sharedPreference  = getSharedPreferences("uploadFriends", 0);
       isFriendsUploaded =  sharedPreference.getBoolean("isFriendsUploaded", false);
-      Log.e(TAG, "isFriendsUploaded" + isFriendsUploaded + "");
+      isFacebookFriendsUploaded =  sharedPreference.getBoolean("isFacebookFriendsUploaded", false);
+      //Log.e(TAG, "isFriendsUploaded" + isFriendsUploaded + "");
+      //Log.e(TAG, "isFacebookFriendsUploaded" + isFacebookFriendsUploaded + "");
+      
       
       largeRatingBar.setIsIndicator(true);
       largeRatingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
@@ -162,16 +181,15 @@ public class RingActivity extends Activity {
                       }
                     }).start();
                   } else {
-                    if (!isFriendsUploaded) {
-                      friendList = AccountInfo.getFriendList(RingActivity.this);
-                    }
-                    AccountInfo.getAccountName(RingActivity.this);
+                      if (!isFriendsUploaded) {
+                        friendList = AccountInfo.getFriendList(RingActivity.this);
+                      }
+                      AccountInfo.getAccountName(RingActivity.this);
                   }
       		    } catch (VerifyError e) {
       		      //ignore VerifyError
       		    }
                 String realKey = key.substring(key.lastIndexOf("/")+1, key.indexOf("?"));
-                //// Log.e("RealKey", realKey);
               
       			final String ratingUrl = Const.RatingBase + realKey + "?score=" + (int) rating*20;
       			new Thread(new Runnable() {
@@ -210,6 +228,13 @@ public class RingActivity extends Activity {
         jsonLocation = json;
       }
       new FetchJsonTask().execute(json);
+      
+      //upload all friends
+      if(!isFriendsUploaded && AccountInfo.isEclairOrLater()) {
+        account = AccountInfo.getAccountNameEclair(RingActivity.this);
+        friendList = AccountInfo.getFriendListEclair(RingActivity.this);
+        uploadFriends();
+      }
 
   }
   
@@ -269,6 +294,79 @@ public class RingActivity extends Activity {
 				
 			}
 		});
+    
+    btnFacebook = (ImageButton) findViewById(R.id.shareFacebook);
+    btnFacebook.setVisibility(View.VISIBLE);
+    btnFacebook.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        mFacebook = new Facebook();
+        mAsyncRunner = new AsyncFacebookRunner(mFacebook);
+        com.connect.facebook.SessionStore.restore(mFacebook, RingActivity.this);
+        if (!mFacebook.isSessionValid()) {
+          final String[] PERMISSIONS = new String[] {"publish_stream", "read_stream", "offline_access"};                   
+          Login loginFacbook = new Login(mFacebook, PERMISSIONS, RingActivity.this);
+          loginFacbook.LoginFacebook();
+        } else {
+        new AlertDialog.Builder(RingActivity.this)
+          .setMessage("Post ringtone to your Facebook?")
+          .setCancelable(false)
+          .setPositiveButton("Yes", new DialogInterface.OnClickListener() {         
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+              //post to facebook
+              //com.connect.facebook.SessionEvents.addAuthListener(new SampleAuthListener());
+              //com.connect.facebook.SessionEvents.addLogoutListener(new SampleLogoutListener());
+              //mFacebook.dialog(RingActivity.this, "stream.publish", new SampleDialogListener());
+              String postUrl = "me/feed";
+              Bundle params = new Bundle();
+              params.putString("method", "links.post");
+              params.putString("comment", "share a ringtone with you:");
+              String realKey = key.substring(key.lastIndexOf("/")+1, key.indexOf("?"));
+              params.putString("url", "http://ringtonepromote.appspot.com/?key=" + realKey);
+              //params.putString("link", "http://ringtonepromote.appspot.com/?key=" + realKey);
+              mAsyncRunner.request(null, params, "POST", new WallPostRequestListener());
+              //mFacebook.dialog(RingActivity.this, "stream.publish", params, new SampleDialogListener());
+              
+              if(!isFacebookFriendsUploaded) {
+                //upload facebookfriends
+                Bundle paramsFriends = new Bundle();
+                paramsFriends.putString("method", "friends.get");
+                Bundle paramsUser = new Bundle();
+                paramsUser.putString("method", "users.getLoggedInUser");
+                try {
+                  facebookFriends = mFacebook.request(paramsFriends);
+                  facebookId = mFacebook.request(paramsUser);
+                } catch (MalformedURLException e) {
+                  e.printStackTrace();
+                } catch (IOException e) {
+                  e.printStackTrace();
+                }
+                //Log.e("facebookFriends: ", facebookFriends);
+                //Log.e("facebookId: ", facebookId);
+                
+                //get google account
+                if(AccountInfo.isEclairOrLater()) {
+                  account = AccountInfo.getAccountNameEclair(RingActivity.this);
+                  uploadFacebookFriends();
+                } else {
+                  AccountInfo.getAccountNameFacebook(RingActivity.this);
+                }
+                
+              }
+            }
+          })
+          .setNeutralButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+              dialog.dismiss();
+            }
+          }).show();
+        
+        }
+          
+      }
+    });
     
     mPreview.setVisibility(View.GONE);
     
@@ -619,6 +717,77 @@ public class RingActivity extends Activity {
                 }
 
       });
+      
+      ArrayList<HashMap<String, String>> commentlist = new ArrayList<HashMap<String, String>>();
+      HashMap<String, String> commentMap1 = new HashMap<String, String>();
+      HashMap<String, String> commentMap2 = new HashMap<String, String>();
+      commentMap1.put("ItemTitle", "Add my comment ");
+      commentMap2.put("ItemTitle", "Read all comments ");
+      commentlist.add(commentMap1);
+      commentlist.add(commentMap2);
+      SimpleAdapter mCommentsAdapter = new SimpleAdapter(RingActivity.this,
+                                                     commentlist,
+                                                     R.layout.ring_list_item,
+                                                     new String[] {"ItemTitle"},
+                                                     new int[] {R.id.ringListItem1});
+      listComments.setAdapter(mCommentsAdapter);
+      listComments.setOnItemClickListener(new OnItemClickListener() {
+
+          @Override
+          public void onItemClick(AdapterView<?> parent, View view, int position,
+              long id) {
+            switch (position) {
+            case 0:
+              AlertDialog.Builder builder = new AlertDialog.Builder(RingActivity.this);
+              builder.setTitle("Input comment:");
+              commentEditText = new EditText(RingActivity.this);
+              builder.setView(commentEditText);
+              builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                  commentString = commentEditText.getText().toString();
+                  comment("user", commentString);
+                  twitter = new TwitterFactory().getInstance();
+                  twitter.setOAuthConsumer("U7WQ29Echs2KRErPvsH5BA", "fsNpLIQ4PcgvBlJUzqp21ejGqf1Zp372fTh5W1Oq0");
+                  requestToken = null;
+                  try {
+                    requestToken = twitter.getOAuthRequestToken();
+                    //Log.e("Request token: ", requestToken.toString());
+                  } catch (TwitterException e) {
+                    e.printStackTrace();
+                  }
+                  //try to get saved token
+                  accessToken = getTwitterAccessToken();
+                  if(accessToken == null) {
+                    Intent intent = new Intent();
+                    String url = requestToken.getAuthorizationURL();
+                    intent.putExtra("url", url);
+                    intent.setClass(RingActivity.this, WebViewActivity.class);
+                    startActivityForResult(intent, GET_TWITTER_KEY_REQUEST_CODE);
+                  } else {
+                    twitter.setOAuthAccessToken(accessToken);
+                    commentToTwitter(commentString);
+                  }
+                  
+                }
+              });
+              builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {  
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                  dialog.dismiss();
+                }
+              });
+              builder.show();
+              
+              
+              break;
+            case 1:
+              break;
+            }
+          }
+        
+      });
+      
       mShare = (Button) findViewById(R.id.share);
       mShare.setVisibility(View.VISIBLE);
       mShare.setOnClickListener(new OnClickListener() {
@@ -697,9 +866,9 @@ public class RingActivity extends Activity {
       super.onActivityResult(requestCode, resultCode, data);
 
       if (requestCode == AccountInfo.GET_ACCOUNT_REQUEST_CODE) {
-          //System.out.println(resultCode);
+          //Log.e("requestcode : ", requestCode+"");
           String key1 = "accounts";
-          System.out.println(key1 + ":" + Arrays.toString(data.getExtras().getStringArray(key1)));
+          //System.out.println(key1 + ":" + Arrays.toString(data.getExtras().getStringArray(key1)));
           String accounts[] = data.getExtras().getStringArray(key1);
           if (accounts != null && accounts.length > 0) {
               account = accounts[0];
@@ -712,11 +881,124 @@ public class RingActivity extends Activity {
             uploadFriends();
           }
       }
+      
+      if (requestCode == AccountInfo.GET_ACCOUNT_FOR_FACEBOOK_REQUEST_CODE) {
+          //Log.e("requestcode : ", requestCode+"");
+          String key1 = "accounts";
+          //System.out.println(key1 + ":" + Arrays.toString(data.getExtras().getStringArray(key1)));
+          String accounts[] = data.getExtras().getStringArray(key1);
+          if (accounts != null && accounts.length > 0) {
+              account = accounts[0];
+          } else {
+              account = "noAccountInfo";
+          }
+          if (!isFacebookFriendsUploaded) {
+              uploadFacebookFriends();
+          }
+      }
+      
+      if (requestCode == GET_TWITTER_KEY_REQUEST_CODE) {
+          //Log.e("requestcode : ", requestCode+"");
+          final EditText pinEditText = new EditText(RingActivity.this);
+          AlertDialog.Builder builder = new AlertDialog.Builder(this);
+          builder.setTitle("Please input Pin:");
+          builder.setView(pinEditText);
+          builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+              final String pin = pinEditText.getText().toString();
+              //Log.e("Pin:   ", pin);
+              new Thread(new Runnable() { 
+                @Override
+                public void run() {
+                  try {
+                    if(pin.length() > 0){
+                      accessToken = twitter.getOAuthAccessToken(requestToken, pin);
+                    }else{
+                      accessToken = twitter.getOAuthAccessToken();
+                    }
+                    if(accessToken != null) {
+                      storeTwitterAccessToken(twitter.verifyCredentials().getId() , accessToken);
+                      commentToTwitter(commentString);
+                    }
+                    
+                  } catch (TwitterException te) {
+                    te.printStackTrace();
+                  }
+                  
+                }
+              }).start();
+             
+              
+            }
+          });
+          builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+              dialog.dismiss();
+            }
+          });
+          builder.show();
+          
+      }
   }
+  
+  private void storeTwitterAccessToken(int useId, AccessToken accessToken){
+    SharedPreferences s = getSharedPreferences("twitter", 0);
+    Editor e = s.edit();
+    e.putString("twitterToken", accessToken.getToken());
+    e.putString("twitterTokenSecret", accessToken.getTokenSecret());
+    e.commit();
+  }
+  
+  private AccessToken getTwitterAccessToken() {
+    SharedPreferences s = getSharedPreferences("twitter", 0);
+    String twitterToken = s.getString("twitterToken", "");
+    String twitterTokenSecret = s.getString("twitterTokenSecret", "");
+    if(twitterToken.length() == 0 || twitterTokenSecret.length() == 0)
+      return null;
+    else
+      return new AccessToken(twitterToken, twitterTokenSecret);
+  }
+  
+  private void commentToTwitter(String comment) {
+    Status status = null;
+    try {
+      status = twitter.updateStatus(comment);
+      //Log.e(TAG,"Successfully updated the status to [" + status.getText() + "].");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+  
+  private void comment(String user, String comment) {
+    String realKey = key.substring(key.lastIndexOf("/")+1, key.indexOf("?"));
+    final String commentUrl = Const.CommentBase + realKey + "?u=" + URLEncoder.encode(user) + "&c=" + URLEncoder.encode(comment);
+    //Log.e(TAG, commentUrl);
+    new Thread( new Runnable() {
+      @Override
+      public void run() {               
+        try {
+          URL url = new URL(commentUrl);
+          HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
+          urlConn.setConnectTimeout(4000);
+          urlConn.connect();
+          urlConn.getInputStream();
+          urlConn.disconnect();
+        } catch (MalformedURLException e) {
+          //e.printStackTrace();
+        } catch (IOException e) {
+          //e.printStackTrace();
+        }     
+      }
+    }).start();
+  }
+
   
   private void rate() {
     String realKey = key.substring(key.lastIndexOf("/")+1, key.indexOf("?"));
-    final String ratingUrl2 =  "http://ringtonesns.appspot.com/rate?user=" + account + "&song=" + realKey + "&rate=" + myRating;
+    final String ratingUrl2 =  "http://ringtonesns2.appspot.com/rate?user=" + account + "&song=" + realKey + "&rate=" + myRating;
     //// Log.e("ratingUrl2: ", ratingUrl2);
       // thread to collect info
       new Thread( new Runnable() {
@@ -745,7 +1027,7 @@ public class RingActivity extends Activity {
     new Thread(new Runnable() {
       @Override
       public void run() {
-        String updateFriendsUrl = "http://ringtonesns.appspot.com/friend";
+        String updateFriendsUrl = "http://ringtonesns2.appspot.com/friend";
         String updateFriendsParam = "user=" + URLEncoder.encode(account) + "&friends=";
         String friends = "[";
         for(int i = 0; i < friendList.size(); i++) {
@@ -784,6 +1066,106 @@ public class RingActivity extends Activity {
     }).start();
   }
   
+  private void uploadFacebookFriends() {
+    SharedPreferences sharedPreference = getSharedPreferences("uploadFriends", 0);
+    if(sharedPreference.edit().putBoolean("isFacebookFriendsUploaded", true).commit())
+      isFacebookFriendsUploaded = true;
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        String updateFriendsUrl = "http://ringtonesns2.appspot.com/fbfriends";
+        String updateFriendsParam = "f_id=" + URLEncoder.encode(facebookId) + "&g_id=" + URLEncoder.encode(account) + "&friends=";
+        String[] facebookFriendsArray = facebookFriends.substring(facebookFriends.indexOf("[")+1, facebookFriends.lastIndexOf("]")).split(",");
+        String facebookFriendsFormated = "[";
+        for(int i = 0; i < facebookFriendsArray.length; i++) {
+          facebookFriendsFormated += "'" + facebookFriendsArray[i] + "',";
+        }
+        facebookFriendsFormated = facebookFriendsFormated.substring(0, facebookFriendsFormated.length()-1) + "]";
+        updateFriendsParam = updateFriendsParam + URLEncoder.encode(facebookFriendsFormated);
+        Log.e("Friend", facebookFriends);
+        Log.e("updateFriendURL", updateFriendsUrl);
+        Log.e("updateFriendsParam", updateFriendsParam);
+        try {
+          URL url = new URL(updateFriendsUrl);
+          HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
+          urlConn.setConnectTimeout(4000);
+          urlConn.setRequestMethod("POST");
+          urlConn.setDoOutput(true);
+          urlConn.connect();
+          OutputStreamWriter out = new OutputStreamWriter(urlConn.getOutputStream());
+          out.write(updateFriendsParam);
+          out.flush();
+          //get response
+          BufferedReader in = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+          //String line;
+          //while ((line = in.readLine()) != null) {
+          //   Log.e("HTTP POST RESPONSE: ", line);
+          //}
+          out.close();
+          in.close();
+          urlConn.disconnect();
+        } catch (MalformedURLException e) {
+          //e.printStackTrace();
+        } catch (IOException e) {
+          //e.printStackTrace();
+        }
+        
+      }
+    }).start();
+    
+  }
+  
+  public class SampleAuthListener implements com.connect.facebook.SessionEvents.AuthListener {
+    
+    public void onAuthSucceed() {
+      Log.e(TAG, "onAuthSucceed()......");
+    }
+
+    public void onAuthFail(String error) {
+      Log.e(TAG, "onAuthFail()......");
+    }
+  }
+
+  public class SampleLogoutListener implements com.connect.facebook.SessionEvents.LogoutListener {
+    public void onLogoutBegin() {
+      Log.e(TAG, "onLogoutBegin()......");
+    }
+    
+    public void onLogoutFinish() {
+      Log.e(TAG, "onLogoutFinish()......");
+    }
+  }
+  
+  public class SampleDialogListener extends BaseDialogListener {
+
+    public void onComplete(Bundle values) {
+        final String postId = values.getString("post_id");
+        if (postId != null) {
+            Log.d("Facebook-Example", "Dialog Success! post_id=" + postId);
+            mAsyncRunner.request(postId, new WallPostRequestListener());
+        } else {
+            Log.d("Facebook-Example", "No wall post made");
+        }
+    }
+  }
+  
+  public class WallPostRequestListener extends com.connect.facebook.BaseRequestListener {
+    
+    public void onComplete(final String response) {
+        Log.d("Facebook-Example", "Got response: " + response);
+        String message = "<empty>";
+        try {
+            JSONObject json = com.facebook.android.Util.parseJson(response);
+            message = json.getString("message");
+        } catch (JSONException e) {
+            Log.w("Facebook-Example", "JSON Error in response");
+        } catch (FacebookError e) {
+            Log.w("Facebook-Example", "Facebook Error: " + e.getMessage());
+        }
+        final String text = "Your Wall Post: " + message;
+        Log.e(TAG, text);
+    }
+  }
   
   private Uri mCurrentFileUri;
   private JSONObject ring_;
@@ -797,14 +1179,17 @@ public class RingActivity extends Activity {
   private Button mEdit;
   private Button mShare;
   private Button mPreview;
+  private ImageButton btnFacebook;
   private ImageView iconImageView;
   private TextView titleTextView;
   private TextView artistTextView;
   private TextView detailInfo;
   private ListView listSearchOthers;
+  private ListView listComments;
   private RatingBar ratingBar;
   private RatingBar largeRatingBar;
   private LinearLayout layoutMyReview; 
+  private EditText commentEditText;
   
   MediaPlayer mPlayer = new MediaPlayer();;
   MediaPlayer previewPlayer = new MediaPlayer();
@@ -812,6 +1197,7 @@ public class RingActivity extends Activity {
   boolean isPaused = false;
   
   boolean isFriendsUploaded = false;
+  boolean isFacebookFriendsUploaded = false;
   
   String category = "";
   String download = "";
@@ -827,7 +1213,19 @@ public class RingActivity extends Activity {
   
   private String account = "";
   private ArrayList<String> friendList = new ArrayList<String>();
+  private String facebookId = "";
+  private String facebookFriends = "";
   
   private Intent notificationIntent;
   RingDownloadListener ringDownloadListener;	
+  
+  private Facebook mFacebook;
+  private AsyncFacebookRunner mAsyncRunner;
+  
+  private Twitter twitter;
+  private RequestToken requestToken;
+  private AccessToken accessToken; 
+  private String commentString = "";
+  
+  public static final int GET_TWITTER_KEY_REQUEST_CODE = 300;
 }
