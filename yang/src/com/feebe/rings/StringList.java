@@ -8,8 +8,11 @@ import org.json.JSONObject;
 
 import com.feebe.lib.BaseList;
 import com.feebe.lib.UrlArrayAdapter;
+import com.ringdroid.R;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.View;
@@ -46,7 +49,7 @@ public class StringList extends BaseList {
 
   @Override
   public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
-  	Item cate = mAdapter.getItem(pos);
+  	final Item cate = mAdapter.getItem(pos);
     if (cate.type == ARTIST_LIB_TYPE) {
         Intent intent = new Intent();
         intent.setClass(this, SingerLibrary.class);
@@ -61,7 +64,18 @@ public class StringList extends BaseList {
       intent.setClass(this, TopArtistList.class);
       startActivityForResult(intent, 1);
     } else if (cate.type == CATE_TYPE) {
-    	Search.getCate(this, cate.name);
+      // &order=download , rating, date
+      AlertDialog.Builder builder = new AlertDialog.Builder(this);
+      builder.setTitle(R.string.order);
+      builder.setItems(R.array.order_option, new DialogInterface.OnClickListener() {
+          public void onClick(DialogInterface dialog, int item) {
+            String order = StringList.this.getResources().getStringArray(R.array.order_option)[item];
+            Search.getCateByOrder(StringList.this, cate.name, order);
+          }
+      });
+      AlertDialog alert = builder.create();
+      alert.show();
+      
     } else if (cate.type == ARTIST_TYPE) {
     	Search.getArtistRing(this, cate.name);
     } else if (cate.type == Latest_TYPE){

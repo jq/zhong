@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -84,13 +85,19 @@ public class Ring extends TabActivity implements OnTabChangeListener {
           android.R.drawable.ic_menu_search);
       menu.add(0, R.string.menu_downloaded, 0, R.string.menu_downloaded).setIcon(
           android.R.drawable.ic_menu_gallery);
+      
+      menu.add(0, R.string.menu_rate, 0, R.string.menu_rate).setIcon(
+          android.R.drawable.ic_menu_help);
+      
       menu.add(0, R.string.menu_unset_ringtone, 0, R.string.menu_unset_ringtone).setIcon(
           android.R.drawable.ic_lock_silent_mode);
       menu.add(0, R.string.clear_cache, 0, R.string.clear_cache).setIcon(
           android.R.drawable.ic_delete);
-      if (Const.ver > 4) {
-        menu.add(0, R.string.upload, 0, R.string.upload).setIcon(
+      
+      menu.add(0, R.string.alertdialog_share, 0, R.string.alertdialog_share).setIcon(
           android.R.drawable.ic_menu_share);
+      if (Const.ver > 4) {
+        menu.add(0, R.string.upload, 0, R.string.upload);
       }
       return true;
     }
@@ -98,6 +105,15 @@ public class Ring extends TabActivity implements OnTabChangeListener {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
       switch (item.getItemId()) {
+        case R.string.menu_rate:
+          Intent i = new Intent(
+              Intent.ACTION_VIEW,
+              Uri.parse("market://search?q=pname:com.feebe.rings"));
+          startActivity(i);
+          return true;
+        case R.string.alertdialog_share:
+          RingUtil.startShare(this);
+          return true;
         case R.string.clear_cache:
           Const.trimCache();
           return true;

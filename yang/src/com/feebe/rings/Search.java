@@ -20,6 +20,14 @@ public class Search {
     startSearchList(act, url, Const.OneWeek);
   }
   
+  public static void getCateByOrder(Activity act, String cate, String order) {
+    String url = Const.SearchBase + "category=" + URLEncoder.encode(cate) +
+      "&order=" + order;
+    Log.e("order", url);
+
+    startSearchList(act, url, Const.OneWeek, false);
+  }
+ 
   public static void getArtistRing(Activity act, String artist) {
     String url = Const.SearchBase + "artist=" + URLEncoder.encode(artist);
     startSearchList(act, url, Const.OneWeek);

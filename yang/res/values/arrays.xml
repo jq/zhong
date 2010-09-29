@@ -25,5 +25,11 @@
     	<item>Edit</item>
     	<item>Delete</item>
     </string-array>
+    
+    <string-array name="order_option">
+    	<item>download</item>
+    	<item>rating</item>
+    	<item>date</item>
+    </string-array>
   
  </resources>
