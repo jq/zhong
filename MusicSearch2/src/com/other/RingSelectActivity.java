@@ -4,7 +4,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.trans.music.search.AdListener;
-import com.ringtone.search1.R;
+import com.ringtone.music.search1.R;
 import com.ringdroid.RingdroidEditActivity;
 import com.ringdroid.RingdroidSelectActivity;
 

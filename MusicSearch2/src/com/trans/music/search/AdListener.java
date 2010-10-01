@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 
 import com.adwhirl.AdWhirlLayout;
-import com.ringtone.search1.R;
+import com.ringtone.music.search1.R;
 
 public class AdListener {
 	private static final boolean blackscreen = isBlackScreen();
