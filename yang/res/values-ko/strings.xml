@@ -78,5 +78,25 @@
 	 -->
 	 <string name="notification_text_finish">다운로드 완료</string>
 	 <string name="notification_text_failed">다운로드에 실패했습니다. 제발 나중에 다시 시도하십시오.</string>
+	 
+	 <!--  new  -->
+    <string name="order">주문에 의해</string>
+    <string name="menu_rate">율</string>
+    <string name="title">제목</string>
+    <string name="title">제목</string>
+    <string name="lyrics">가사</string>
+    <string name="loading">로드...</string>
+    <string name="input_artist">누가 : 그녀 / 그 / 그들의 최고 인기있는 노래를 입력 전체 아티스트 이름이나 밴드 이름을리겠습니다</string>
+    <string name="preview">미리보기</string>
+    <string name="download">다운로드</string>
+    <string name="queue">대기열</string>
+    <string name="set">세트</string>
+    <string name="assign">할당</string>
+    <string name="edit">수정</string>
+    <string name="artist">예술가</string>
+    <string name="pre">예약</string>
+    <string name="next">다음</string>
+    <string name="top_tracks">톱 트랙</string>
+    <string name="lyrics_search_warning">가사를 얻을 모두 제목과 아티스트가 필요</string>    
 
 </resources>

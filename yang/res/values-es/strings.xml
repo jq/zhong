@@ -78,5 +78,25 @@
 	 -->
 	 <string name="notification_text_finish">Descargar acabado</string>
 	 <string name="notification_text_failed">Error en la descarga. Por favor, inténtelo más tarde.</string>
+	 
+	 <!--  new  -->
+    <string name="order">Ordenar por:</string>
+    <string name="menu_rate">Tasa</string>
+    <string name="title">Título</string>
+    <string name="title">Título</string>
+    <string name="lyrics">Lírica</string>
+    <string name="loading">Cargando...</string>
+    <string name="input_artist">Quién: por favor, introduzca el nombre del artista completo o nombre de la banda para conseguir su / su / sus mejores canciones populares</string>
+    <string name="preview">Prevista</string>
+    <string name="download">Descargar</string>
+    <string name="queue">Cola</string>
+    <string name="set">Set</string>
+    <string name="assign">Asignar</string>
+    <string name="edit">Editar</string>
+    <string name="artist">Artista</string>
+    <string name="pre">pre</string>
+    <string name="next">siguiente</string>
+    <string name="top_tracks">Los mejores temas</string>
+    <string name="lyrics_search_warning">Necesita tanto título y el artista para conseguir letras</string>   
     
 </resources>

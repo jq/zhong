@@ -79,5 +79,24 @@
 	 <string name="notification_text_finish">Download fertig</string>
 	 <string name="notification_text_failed">Download fehlgeschlagen. Bitte später erneut versuchen.</string>
 
+<!--  new  -->
+    <string name="order">Ordnen nach</string>
+    <string name="menu_rate">Bewerten</string>
+    <string name="title">Titel</string>
+    <string name="title">Titel</string>
+    <string name="lyrics">Lyrics</string>
+    <string name="loading">Loading...</string>
+    <string name="input_artist">Wer: Bitte geben Sie Ihre vollständige Name des Interpreten oder Bandnamen zu bekommen seinen / ihren oberen Volkslieder</string>
+    <string name="preview">Vorschau</string>
+    <string name="download">Download</string>
+    <string name="queue">Warteschlange</string>
+    <string name="set">Set</string>
+    <string name="assign">Zuweisen</string>
+    <string name="edit">Bearbeiten</string>
+    <string name="artist">Künstler</string>
+    <string name="pre">vor</string>
+    <string name="next">nächste</string>
+    <string name="top_tracks">Top Tracks</string>
+    <string name="lyrics_search_warning">Brauchen Sie sowohl Titel und Interpret Lied bekommen</string> 
     
 </resources>

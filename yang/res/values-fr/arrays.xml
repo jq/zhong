@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!-- Used in RingActivity/share -->
+    <string-array name="select_share_methods">
+        <item>SMS</item>
+        <item>Email</item>
+        <item>D\'autres</item>
+    </string-array>
+    
+  <!-- Used in Ring/menu_unsetRingtone -->
+    <string-array name="select_unset_ringtone">
+        <item>Réglage du téléphone pour vibrer</item>
+        <item>Pour régler le téléphone sur silence</item>
+    </string-array>
+    
+  <!-- used in local activity --> 
+     <string-array name="play_mode">
+    	<item>Répétition de toutes les musiques</item>
+    	<item>jouer Shuffling</item>
+    	<item>Répétez la musique unique</item>
+    </string-array>
+    <string-array name="local_music_option">
+    	<item>Écouter</item>
+    	<item>Modifier</item>
+    	<item>Supprimer</item>
+    </string-array>
+    
+    <string-array name="order_option">
+    	<item>télécharger</item>
+    	<item>note</item>
+    	<item>date</item>
+    </string-array>
+  
+ </resources>

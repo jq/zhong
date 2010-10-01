@@ -70,5 +70,25 @@
 	 -->
 	 <string name="notification_text_finish">ダウンロードが完了</string>
 	 <string name="notification_text_failed">ダウンロードに失敗しました。後ほど再試行します。</string>
+	 
+	  <!--  new  -->
+    <string name="order">政令で</string>
+    <string name="menu_rate">レート</string>
+    <string name="title">タイトル</string>
+    <string name="title">タイトル</string>
+    <string name="lyrics">歌詞</string>
+    <string name="loading">ロード...</string>
+    <string name="input_artist">誰が：彼女/彼/彼らのトップの人気曲を入力完全なアーティスト名やバンド名をご取得する</string>
+    <string name="preview">プレビュー</string>
+    <string name="download">ダウンロード</string>
+    <string name="queue">キュー</string>
+    <string name="set">設定</string>
+    <string name="assign">割り当てます</string>
+    <string name="edit">編集する</string>
+    <string name="artist">アーティスト</string>
+    <string name="pre">中古</string>
+    <string name="next">次の</string>
+    <string name="top_tracks">ベストトラック</string>
+    <string name="lyrics_search_warning">歌詞を取得するために両方のタイトルやアーティストが必要です</string>    
     
 </resources>
