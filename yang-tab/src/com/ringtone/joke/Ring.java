@@ -1,4 +1,4 @@
-package com.feebe.rings;
+package com.ringtone.joke;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,14 +17,16 @@ import android.view.Window;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 
-import com.connect.facebook.Login;
-import com.facebook.android.Facebook;
 import com.feebe.lib.ImgThread;
-import com.feebe.lib.TabCreator;
-import com.feebe.lib.TabSDKCreator;
 import com.feebe.lib.Util;
+import com.feebe.rings.Const;
+import com.feebe.rings.HotList;
+import com.feebe.rings.R;
+import com.feebe.rings.RingUtil;
+import com.feebe.rings.SearchTab;
+import com.feebe.rings.StringList;
+import com.feebe.rings.local;
 import com.lib.RingSelect;
-import com.ringdroid.RingdroidSelectActivity;
 
 public class Ring extends TabActivity implements OnTabChangeListener {
     @Override
@@ -47,7 +48,6 @@ public class Ring extends TabActivity implements OnTabChangeListener {
       Intent search = new Intent(this, SearchTab.class);
       TabCreator.createTab(this, tabHost, search, getString(R.string.tab_search), R.drawable.tab_search);
       setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
-      //throw new RuntimeException("exc");
       Util.runFeed(4, this, R.raw.feed);     
     }
     
@@ -175,5 +175,4 @@ public class Ring extends TabActivity implements OnTabChangeListener {
       }
       return super.onOptionsItemSelected(item);
     }
-    
 }

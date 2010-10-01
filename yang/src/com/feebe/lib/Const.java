@@ -39,9 +39,6 @@ public class Const {
   // resources
 	protected static int AdsViewID;
 	protected static int LAYOUT_LIST = R.layout.list;
-	protected static int tabheader = R.layout.tabheader;
-	protected static int tab_label = R.id.tab_label;
-	protected static int tab_image= R.id.tab_image;;
 	protected static int no_result = R.string.no_result;
 	protected static int no_sd;
 	protected static int dlprogress_message= R.string.dlprogress_message;

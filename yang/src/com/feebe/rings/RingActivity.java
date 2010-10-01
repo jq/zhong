@@ -34,8 +34,6 @@ import com.feebe.lib.DefaultDownloadListener;
 import com.feebe.lib.DownloadImg;
 import com.feebe.lib.DownloadFile;
 import com.feebe.lib.Util;
-import com.lib.RingSelect;
-import com.ringdroid.RingdroidSelectActivity;
 
 import entagged.audioformats.AudioFile;
 import entagged.audioformats.AudioFileIO;
@@ -840,7 +838,8 @@ public class RingActivity extends Activity {
             // save json file
             Toast.makeText(
                 RingActivity.this, R.string.queue, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(RingActivity.this ,RingSelect.class);
+            Intent intent = new Intent();//RingActivity.this);// ,"com.lib.RingSelect");
+            intent.setClassName(RingActivity.this, "com.lib.RingSelect");
             ringDownloadListener = new RingDownloadListener(RingActivity.this, intent, true);
             download(ringDownloadListener);
             saveArtist();

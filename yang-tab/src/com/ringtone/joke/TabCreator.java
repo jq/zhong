@@ -1,4 +1,6 @@
-package com.feebe.lib;
+package com.ringtone.joke;
+
+import com.feebe.lib.Const;
 
 import android.app.Activity;
 import android.content.Context;

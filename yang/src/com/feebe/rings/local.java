@@ -487,7 +487,7 @@ public class local extends Activity {
             intent.putExtra("was_get_content_intent",
                             false);
             intent.setClassName(
-            	"com.feebe.rings",
+            	this,
                 "com.lib.RingEditor");
             startActivity(intent);
         } catch (Exception e) {
