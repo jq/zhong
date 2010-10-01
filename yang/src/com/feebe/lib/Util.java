@@ -11,10 +11,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -31,7 +29,6 @@ import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -682,10 +679,9 @@ public class Util {
 	  }
 	}
 	public static void addNotification(Context _context, Intent intent, String title, int resTitle, int resText, int resExpandedTitle, int resExpandedText) {
-    	int icon = Const.icon;
     	String tickerText ="\""+title+"\""+  _context.getString(resTitle);
     	long when = System.currentTimeMillis();
-    	Notification notification = new Notification(icon, tickerText, when);
+    	Notification notification = new Notification(com.feebe.rings.R.drawable.ring, tickerText, when);
     	Context context = _context.getApplicationContext();
     	String expandedText ="\""+title+"\""+  context.getString(resExpandedText);
     	String expandedTitle = context.getString(resExpandedTitle);
