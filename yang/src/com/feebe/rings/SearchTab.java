@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 import com.feebe.lib.DbAdapter;
 import com.feebe.lib.SearchAdapter;
+import com.lib.RingSelect;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.KeyListener;
 import android.util.Log;
@@ -19,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SearchTab extends Activity{
@@ -109,6 +112,51 @@ public class SearchTab extends Activity{
         }
       }
     });
+		
+    TextView myfavor = (TextView)findViewById(R.id.myfavor);
+    myfavor.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View arg0) {
+            Intent intent = new Intent(SearchTab.this, MyfovorList.class);
+            startActivity(intent);
+        }
+    });
+    TextView hot = (TextView)findViewById(R.id.hot);
+    hot.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View arg0) {
+            Intent intent = new Intent(SearchTab.this, HotList.class);
+            startActivity(intent);
+        }
+    });
+    TextView rank = (TextView)findViewById(R.id.rank);
+    rank.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View arg0) {
+            Intent intent = new Intent(SearchTab.this, StringList.class);
+            startActivity(intent);
+        }
+    });
+		
+    TextView ringtone = (TextView)findViewById(R.id.ringtone);
+    ringtone.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View arg0) {
+            Intent intent = new Intent(SearchTab.this, RingSelect.class);
+            startActivity(intent);
+        }
+    });
+    TextView rate = (TextView)findViewById(R.id.rate);
+    rate.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View arg0) {
+          Intent i = new Intent(
+              Intent.ACTION_VIEW,
+              Uri.parse("market://details?id=" + SearchTab.this.getPackageName()));
+          startActivity(i);
+        }
+    });
+
 	}
 	
 	private void actionListener(){

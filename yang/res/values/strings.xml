@@ -122,4 +122,9 @@
     <string name="next">next</string>
     <string name="top_tracks">Top Tracks</string>
     <string name="lyrics_search_warning">Need both title and artist to get lyrics</string>    
+    
+    <!-- new2 -->
+    <string name="favor">My favorite</string>
+    <string name="rate">Rate 5 star if you like it</string>
+    
 </resources>

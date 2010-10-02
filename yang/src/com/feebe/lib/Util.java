@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -570,7 +572,7 @@ public class Util {
 		// if we have feedsFile then read it, otherwise read from resource
 		InputStream feeds;
 		try {
-			if (run(3)) {
+			if (run(5)) {
 			  feeds = new FileInputStream(Const.homedir + feedsFile);
 			} else {
 				feeds = at.getResources().openRawResource(resource);
@@ -674,6 +676,28 @@ public class Util {
 	    
 	  }
 	}
+  
+  public static void loadBrowser(Activity act, String url) {
+    Intent intent;
+    try {
+      intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+    } catch (URISyntaxException ex) {
+      return;
+    }
+    // sanitize the Intent, ensuring web pages can not bypass browser
+    // security (only access to BROWSABLE activities).
+    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+    intent.setComponent(null);
+    try {
+        act.startActivityIfNeeded(intent, -1);
+    } catch (ActivityNotFoundException ex) {
+        // ignore the error. If no application can handle the URL,
+        // eg about:blank, assume the browser can handle it.
+    }
+  }
+  
+
+
 	public static void addNotification(Context _context, Intent intent, String title, int resTitle, int resText, int resExpandedTitle, int resExpandedText) {
     	String tickerText ="\""+title+"\""+  _context.getString(resTitle);
     	long when = System.currentTimeMillis();

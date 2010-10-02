@@ -110,7 +110,7 @@ public class Ring extends TabActivity implements OnTabChangeListener {
         case R.string.menu_rate:
           Intent i = new Intent(
               Intent.ACTION_VIEW,
-              Uri.parse("market://details?id=pname:com.feebe.rings"));
+              Uri.parse("market://details?id=com.feebe.rings"));
           startActivity(i);
           return true;
         case R.string.alertdialog_share:
@@ -120,7 +120,7 @@ public class Ring extends TabActivity implements OnTabChangeListener {
           Const.trimCache();
           return true;
         case R.string.upload:
-          TabSDKCreator.loadBrowser(this, "http://ggapp.appspot.com/mobile/upload/");
+          com.feebe.lib.Util.loadBrowser(this, "http://ggapp.appspot.com/mobile/upload/");
           return true;
         case R.string.menu_search:
            startSearch(this.getString(R.string.search_hint), true, null, false);

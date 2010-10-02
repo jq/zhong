@@ -24,6 +24,7 @@ public abstract class StringListBase extends BaseList {
       super(context, resource);
       useDedup_ = false;
       key_ = key;
+      if (url != null)
       runAsyn(url, expire);
     }
 
