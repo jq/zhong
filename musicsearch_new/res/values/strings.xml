@@ -25,4 +25,6 @@
     <string name="hide">Hide</string>
     <string name="show">Show</string>
     <string name="play">Play</string>
+    <string name="cancel">Cancel</string>
+    <string name="streaming">Streaming...</string>
 </resources>

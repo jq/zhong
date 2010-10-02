@@ -19,6 +19,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -46,6 +47,7 @@ public class MusicPageActivity extends ListActivity {
 	
 	private static MusicSearcher sFetcher;
 	private static FetchDownloadLinkTask sFetchDownloadLinkTask;
+	private static PreviewTask sPreviewTask;
 	
 	private static int sIndex;
 	
@@ -85,6 +87,7 @@ public class MusicPageActivity extends ListActivity {
 		mRetryButton.setOnClickListener(new RetryClickLister());
 		initData(getIntent());
 		initView();
+		mPreviewButton.setOnClickListener(new PreviewClickListener());
 		mDownloadButton.setOnClickListener(new DownloadClickListener());
 		fetchDownloadLink();
 	}
@@ -100,8 +103,12 @@ public class MusicPageActivity extends ListActivity {
 	private void initData(Intent intent) {
 		sIndex = intent.getIntExtra(Const.INDEX, 0);
 		Utils.D("sIndex: "+sIndex);
+		mIsBackground = false;
+		mDownloadedMusicPath = null;
 		mMusicInfo = SearchActivity.sData.get(sIndex);
 		mAdapter = null;
+		mCurLinkIndex = -1;
+		mDownloadMusicTask = null;
 		setListAdapter(mAdapter);
 		setLoadingStatus();
 	}
@@ -170,8 +177,9 @@ public class MusicPageActivity extends ListActivity {
 	private class DownloadMusicTask extends AsyncTask<Void, Integer, File> {
 		private Context mContext;
 		private MusicInfo mDownloadMusicInfo;
-		private boolean mIsBackGround = false;
+		private boolean mIsDownloadBackGround = false;
 		private DownloadProgressDialogListerner mDownloadProgressDialogListerner;
+		private String mMusicPath;
 		private String mUrl;
 		public DownloadMusicTask(Context context, MusicInfo musicInfo, String url) {
 			mContext = context;
@@ -202,6 +210,7 @@ public class MusicPageActivity extends ListActivity {
 				is = new DataInputStream(stream);
 				int len;
 				File f = new File(Const.sMusicDir+mDownloadMusicInfo.getTitle()+".mp3");
+				mMusicPath = f.getAbsolutePath();
 				FileOutputStream file =  new FileOutputStream(f);
 				while ((len = is.read(buff)) > 0) {
 					file.write(buff, 0, len);
@@ -232,26 +241,37 @@ public class MusicPageActivity extends ListActivity {
 				mDownloadButton.setText(R.string.play);
 				mDownloadedMusicPath = result.getAbsolutePath();
 			}
-			if (!mIsBackGround) {
+			if (!mIsDownloadBackGround) {
 				mDownloadProgressDialogListerner.onDownloadFinish();
+			}
+			if (mIsDownloadBackGround) {
+				//add notification to lead user to lib actitivity.
 			}
 		}
 		@Override
 		protected void onProgressUpdate(Integer... values) {
-			if (!mIsBackGround) {
+			if (!mIsDownloadBackGround) {
 				mDownloadProgressDialogListerner.onProgressUpdate(values[0]);
 			}
 		}
 		@Override
 		protected void onCancelled() {
-
-			super.onCancelled();
+			mDownloadMusicTask = null;
+			if (mDownloadedMusicPath != null) {
+				Utils.deleteFile(mMusicPath);
+			}
+			if (!mIsDownloadBackGround) {
+				mDownloadProgressDialogListerner.cancelDownload();
+			}
 		}
 		public void showProgressDialog() {
 			mDownloadProgressDialogListerner.showProgressDialog();
 		}
 		public void hideProgressDialog() {
 			mDownloadProgressDialogListerner.hideProgressDialog();
+		}
+		public void setBackground(boolean isBackground) {
+			mIsDownloadBackGround = isBackground;
 		}
 	}
 	
@@ -268,7 +288,8 @@ public class MusicPageActivity extends ListActivity {
 			mDownloadProgressDialog.setMax(100);
 			mDownloadProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 			mDownloadProgressDialog.setProgress(0);
-			mDownloadProgressDialog.setButton(MusicPageActivity.this.getString(R.string.hide), new HideProgressDialogClickListener());
+			mDownloadProgressDialog.setButton(DialogInterface.BUTTON1, MusicPageActivity.this.getString(R.string.hide), new HideProgressDialogClickListener());
+			mDownloadProgressDialog.setButton(DialogInterface.BUTTON2, MusicPageActivity.this.getString(R.string.cancel), new cancelProgressDialogClickListener());
 			mDownloadProgressDialog.setCancelable(true);
 			mDownloadProgressDialog.show();
 		}
@@ -284,6 +305,66 @@ public class MusicPageActivity extends ListActivity {
 		public void showProgressDialog() {
 			mDownloadProgressDialog.show();
 		}
+		public void cancelDownload() {
+			mDownloadProgressDialog.cancel();
+		}
+	}
+	
+	private class PreviewTask extends AsyncTask<Void, Void, Integer> {
+		private ProgressDialog mStreamProgressDialog;
+		private MediaPlayer sPreviewMediaPlayer;
+		@Override
+		protected void onPreExecute() {
+			mStreamProgressDialog = new ProgressDialog(MusicPageActivity.this);
+			mStreamProgressDialog.setTitle(R.string.streaming);
+			mStreamProgressDialog.setIndeterminate(true);
+			mStreamProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			mStreamProgressDialog.setCancelable(true);
+			mStreamProgressDialog.setOnDismissListener(new dismissPreviewDialogClickListener());
+			mStreamProgressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, MusicPageActivity.this.getString(R.string.cancel), new cancelPreviewDialogClickListener());
+			mStreamProgressDialog.show();
+		}
+		@Override
+		protected Integer doInBackground(Void... params) {
+			sPreviewMediaPlayer = new MediaPlayer();
+			try {
+				if (mDownloadedMusicPath == null) {
+					sPreviewMediaPlayer.setDataSource(mMusicInfo.getDownloadUrl().get(mCurLinkIndex));
+				} else {
+					sPreviewMediaPlayer.setDataSource(mDownloadedMusicPath);
+				}
+				sPreviewMediaPlayer.prepare();
+				sPreviewMediaPlayer.start();
+			} catch (Exception e) {
+				return null;
+			}
+			return 1;
+		}
+		@Override
+		protected void onPostExecute(Integer result) {
+			Utils.D("in postExecute of PreviewTask.");
+			//mStreamProgressDialog.cancel();
+		}
+		@Override
+		protected void onCancelled() {
+			Utils.D("in onCancel of PreviewTask");
+			mStreamProgressDialog.cancel();
+			stopPreviewPlayer();
+			sPreviewTask = null;
+		}
+		public void stopPreviewPlayer() {
+			sPreviewMediaPlayer.stop();
+			sPreviewMediaPlayer.release();
+			sPreviewMediaPlayer = null;
+		}
+	}
+	
+	private void previewTask() {
+		if (sPreviewTask != null) {
+			sPreviewTask.cancel(true);
+		}
+		sPreviewTask = new PreviewTask();
+		sPreviewTask.execute();
 	}
 	
 	private class DownloadLinkListAdapter extends BaseAdapter {
@@ -369,10 +450,7 @@ public class MusicPageActivity extends ListActivity {
 			} else if (mDownloadMusicTask!=null && mDownloadedMusicPath==null){
 				mDownloadMusicTask.hideProgressDialog();
 			} else if (mDownloadedMusicPath!=null) {
-	    		Intent intent = new Intent(Intent.ACTION_VIEW);
-	    		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-	    		intent.setDataAndType(Uri.parse("file://" + mDownloadedMusicPath), "audio");
-	    		startActivity(intent);
+				Utils.startMusicPlayer(MusicPageActivity.this, mDownloadedMusicPath);
 			}
 		}
 	}
@@ -380,7 +458,7 @@ public class MusicPageActivity extends ListActivity {
 	private class PreviewClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
-			
+			previewTask();
 		}
 	}
 	
@@ -416,6 +494,38 @@ public class MusicPageActivity extends ListActivity {
 				mDownloadMusicTask.hideProgressDialog();
 			}
 		}
+	}
+	
+	private class cancelProgressDialogClickListener implements DialogInterface.OnClickListener {
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			if (mDownloadMusicTask != null) {
+				mDownloadMusicTask.cancel(true);
+			}
+		}
+	}
+	
+	private class cancelPreviewDialogClickListener implements DialogInterface.OnClickListener {
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			cancelPreviewDialog();
+		}
+	}
+	
+	private class dismissPreviewDialogClickListener implements DialogInterface.OnDismissListener {
+		@Override
+		public void onDismiss(DialogInterface dialog) {
+			cancelPreviewDialog();
+		}
+	}
+	
+	private void cancelPreviewDialog() {
+		if (sPreviewTask != null) {
+			sPreviewTask.stopPreviewPlayer();
+			sPreviewTask.cancel(true);
+			Utils.D("previewTask.isCanceled?="+sPreviewTask.isCancelled());
+		}
+		sPreviewTask = null;
 	}
 
 	private void setLoadingStatus() {

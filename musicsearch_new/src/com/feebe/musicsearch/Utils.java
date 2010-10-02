@@ -1,6 +1,8 @@
 package com.feebe.musicsearch;
 
 import java.util.ArrayList;
+import java.io.File;
+import java.net.ContentHandler;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
@@ -18,6 +20,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.text.Layout;
 import android.text.TextUtils;
@@ -190,5 +193,30 @@ public class Utils {
     		return true;
     	}
     	return false;
+    }
+    
+    public static void startMusicPlayer(Context context, String musicPath) {
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.setDataAndType(Uri.parse("file://" + musicPath), "audio");
+		context.startActivity(intent);
+    }
+    
+    public static void startMusicPlayerPreview(Context context, String musicUrl) {
+    	Intent intent = new Intent(Intent.ACTION_VIEW);
+    	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    	intent.setDataAndType(Uri.parse(musicUrl), "audio");
+    	context.startActivity(intent);
+    }
+    
+    public static void deleteFile(String path) {
+    	try {
+    		File file = new File(path);
+    		if (file.exists()) {
+    			file.delete();
+    		}
+    	} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 }
