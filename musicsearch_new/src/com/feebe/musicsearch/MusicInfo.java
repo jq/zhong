@@ -87,7 +87,7 @@ public class MusicInfo {
 	
 	public void setDisplayFileSize(String displaySize) {
 		mDisplaySize = displaySize;
-		setFileSize(Utils.getSizeInM(displaySize));
+		setFileSize(1024*1024*Utils.getSizeInM(displaySize));
 	}
 	
 	public String getDisplayFileSize() {

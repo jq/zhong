@@ -1,32 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   	xmlns:android="http://schemas.android.com/apk/res/android"
-  	android:layout_width="wrap_content"
+  	android:layout_width="fill_parent"
   	android:layout_height="wrap_content"
-  	android:orientation="horizontal">
+  	android:orientation="vertical">
   	
   	<TextView
   		android:id="@+id/title"
-  		android:layout_width="wrap_content"
-  		android:layout_height="wrap_content">
+  		android:layout_width="fill_parent"
+  		android:layout_height="wrap_content"
+  		android:gravity="center_vertical"
+  		android:drawableLeft="@drawable/ic_song"
+  		android:singleLine="true"
+  		android:textSize="20sp">
   	</TextView>
   	
-  	<TextView
-  		android:id="@+id/artist"
-  		android:layout_width="wrap_content"
-  		android:layout_height="wrap_content">
-  	</TextView>
-  	
-  	<TextView
-  		android:id="@+id/album"
-  		android:layout_width="wrap_content"
-  		android:layout_height="wrap_content">
-  	</TextView>
-  	
-  	<TextView
-  		android:id="@+id/size"
-  		android:layout_width="wrap_content"
-  		android:layout_height="wrap_content">
-  	</TextView>
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+	  	<TextView
+	  		android:id="@+id/artist"
+	  		android:layout_width="fill_parent"
+	  		android:layout_height="wrap_content"
+	  		android:gravity="center_vertical"
+	  		android:singleLine="true"
+	  		android:drawableLeft="@drawable/ic_artist"
+	  		android:layout_weight="2">
+	  	</TextView>
+	  	
+	  	<TextView
+	  		android:id="@+id/album"
+	  		android:layout_width="fill_parent"
+	  		android:layout_height="wrap_content"
+	  		android:singleLine="true"
+	  		android:gravity="center_vertical"
+	  		android:drawableLeft="@drawable/ic_album"
+	  		android:layout_weight="2">
+	  	</TextView>
+	  	
+	  	<TextView
+	  		android:id="@+id/size"
+	  		android:layout_width="fill_parent"
+	  		android:layout_height="wrap_content"
+	  		android:singleLine="true"
+	  		android:gravity="center_vertical"
+	  		android:drawableLeft="@drawable/ic_size"
+	  		android:layout_weight="1">
+	  	</TextView>
+	</LinearLayout>
   	
 </LinearLayout>

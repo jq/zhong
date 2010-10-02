@@ -51,12 +51,17 @@ public class MusicPageActivity extends ListActivity {
 	
 	private static int sIndex;
 	
+	private static TextView sArtistTextView;
+	private static TextView sAlbumTextView;
+	private static TextView sSizeTextView;
+	private static TextView sSongTextView;
+	
 	private MusicInfo mMusicInfo;
 	private String mDownloadedMusicPath;
 	private boolean mIsBackground;
 	private DownloadMusicTask mDownloadMusicTask;
 	
-	private int mCurLinkIndex = -1;
+	private int mCurLinkIndex = 0;
 	
 	private ProgressBar	mProgressBar;
 	private TextView mMessage;
@@ -64,9 +69,6 @@ public class MusicPageActivity extends ListActivity {
 	
 	private Button mPreviewButton;
 	private Button mDownloadButton;
-	
-	private ImageButton mPrevButton;
-	private ImageButton mNextButton;
 	
 	private DownloadLinkListAdapter mAdapter;
 	
@@ -79,16 +81,17 @@ public class MusicPageActivity extends ListActivity {
 		mMessage = (TextView) findViewById(R.id.search_message);
 		mRetryButton = (Button) findViewById(R.id.retry_button);
 		mPreviewButton = (Button) findViewById(R.id.preview_button);
+		mPreviewButton.setOnClickListener(new PreviewClickListener());
 		mDownloadButton = (Button) findViewById(R.id.download_button);
-		mPrevButton = (ImageButton) findViewById(R.id.btn_prev);
-		mNextButton = (ImageButton) findViewById(R.id.btn_next);
-		mPrevButton.setOnClickListener(new PrevClickListener());
-		mNextButton.setOnClickListener(new NextClickListener());
+		mDownloadButton.setOnClickListener(new DownloadClickListener());
 		mRetryButton.setOnClickListener(new RetryClickLister());
+		sAlbumTextView = (TextView) findViewById(R.id.album);
+		sArtistTextView = (TextView) findViewById(R.id.artist);
+		sSizeTextView = (TextView) findViewById(R.id.size);
+		sSongTextView = (TextView) findViewById(R.id.song);
 		initData(getIntent());
 		initView();
-		mPreviewButton.setOnClickListener(new PreviewClickListener());
-		mDownloadButton.setOnClickListener(new DownloadClickListener());
+		
 		fetchDownloadLink();
 	}
 	
@@ -107,29 +110,17 @@ public class MusicPageActivity extends ListActivity {
 		mDownloadedMusicPath = null;
 		mMusicInfo = SearchActivity.sData.get(sIndex);
 		mAdapter = null;
-		mCurLinkIndex = -1;
+		mCurLinkIndex = 0;
 		mDownloadMusicTask = null;
 		setListAdapter(mAdapter);
 		setLoadingStatus();
 	}
 	
 	private void initView() {
-		mDownloadButton.setText(R.string.download);
-		if (sIndex == 0) {
-			mPrevButton.setEnabled(false);
-			mPrevButton.setClickable(false);
-		} else {
-			mPrevButton.setEnabled(true);
-			mPrevButton.setEnabled(true);
-		}
-		Utils.D("PrevbuttonEnable? "+mPrevButton.isEnabled());
-		if (sIndex == SearchActivity.sData.size()-1) {
-			mNextButton.setEnabled(false);
-			mNextButton.setClickable(false);
-		} else {
-			mNextButton.setEnabled(true);
-			mNextButton.setClickable(true);
-		}
+		sAlbumTextView.setText(mMusicInfo.getAlbum());
+		sArtistTextView.setText(mMusicInfo.getArtist());
+		sSizeTextView.setText(mMusicInfo.getDisplayFileSize());
+		sSongTextView.setText(mMusicInfo.getTitle());
 		mDownloadButton.setText(R.string.download);
 	}
 
@@ -190,6 +181,7 @@ public class MusicPageActivity extends ListActivity {
 		protected void onPreExecute() {
 			mDownloadProgressDialogListerner = new DownloadProgressDialogListerner(mContext);
 			mDownloadProgressDialogListerner.onDownloadStart();
+			mDownloadButton.setText(R.string.show_progress);
 		}
 		@Override
 		protected File doInBackground(Void... params) {
@@ -212,17 +204,19 @@ public class MusicPageActivity extends ListActivity {
 				File f = new File(Const.sMusicDir+mDownloadMusicInfo.getTitle()+".mp3");
 				mMusicPath = f.getAbsolutePath();
 				FileOutputStream file =  new FileOutputStream(f);
+				int percent = 0;
+				int last_percent = 0;
 				while ((len = is.read(buff)) > 0) {
 					file.write(buff, 0, len);
 					count = count + len;
-					int percent = 0;
-					int last_percent = 0;
-					if (mDownloadMusicInfo.getFilesize() != 0)
+					if (mDownloadMusicInfo.getFilesize() != 0) {
 						percent = (int) ((count*100)/mDownloadMusicInfo.getFilesize());
 						if (percent != last_percent) {
+							Utils.D("percent: "+percent);
 							publishProgress(percent);
 							last_percent = percent;
 						}
+					}
 				}
 				urlConn.disconnect();
 				return f;
@@ -256,7 +250,9 @@ public class MusicPageActivity extends ListActivity {
 		}
 		@Override
 		protected void onCancelled() {
+			Utils.D("onCancel of DownloadTask called.......");
 			mDownloadMusicTask = null;
+			mDownloadButton.setText(R.string.download);
 			if (mDownloadedMusicPath != null) {
 				Utils.deleteFile(mMusicPath);
 			}
@@ -269,6 +265,9 @@ public class MusicPageActivity extends ListActivity {
 		}
 		public void hideProgressDialog() {
 			mDownloadProgressDialogListerner.hideProgressDialog();
+		}
+		public boolean isProgressDialogShowing() {
+			return mDownloadProgressDialogListerner.isShowing();
 		}
 		public void setBackground(boolean isBackground) {
 			mIsDownloadBackGround = isBackground;
@@ -291,7 +290,7 @@ public class MusicPageActivity extends ListActivity {
 			mDownloadProgressDialog.setButton(DialogInterface.BUTTON1, MusicPageActivity.this.getString(R.string.hide), new HideProgressDialogClickListener());
 			mDownloadProgressDialog.setButton(DialogInterface.BUTTON2, MusicPageActivity.this.getString(R.string.cancel), new cancelProgressDialogClickListener());
 			mDownloadProgressDialog.setCancelable(true);
-			mDownloadProgressDialog.show();
+			showProgressDialog();
 		}
 		public void onProgressUpdate(int progress) {
 			mDownloadProgressDialog.setProgress(progress);
@@ -300,13 +299,17 @@ public class MusicPageActivity extends ListActivity {
 			mDownloadProgressDialog.cancel();
 		}
 		public void hideProgressDialog() {
-			mDownloadProgressDialog.hide();
+			mDownloadProgressDialog.dismiss();
 		}
 		public void showProgressDialog() {
 			mDownloadProgressDialog.show();
 		}
 		public void cancelDownload() {
 			mDownloadProgressDialog.cancel();
+		}
+		public boolean isShowing() {
+			Utils.D("mDownloadProgressDialog.isShowing: "+mDownloadProgressDialog.isShowing());
+			return mDownloadProgressDialog.isShowing();
 		}
 	}
 	
@@ -416,9 +419,10 @@ public class MusicPageActivity extends ListActivity {
 			RadioButton rb = (RadioButton) v.findViewById(R.id.is_checked);
 			rb.setText(link);
 			rb.setOnClickListener(new LinkItemClickListener(position));
-			if (position == 0) {
-				mCurLinkIndex = 0;
+			if (position == mCurLinkIndex) {
 				rb.setChecked(true);
+			} else {
+				rb.setChecked(false);
 			}
 			return v;
 		}
@@ -431,12 +435,8 @@ public class MusicPageActivity extends ListActivity {
 		}
 		@Override
 		public void onClick(View v) {
-			ListView lv = getListView();
-			for (int i=0; i<lv.getChildCount(); i++) {
-				((RadioButton) lv.getChildAt(i).findViewById(R.id.is_checked)).setChecked(false);
-			}
-			((RadioButton) lv.getChildAt(mPosition).findViewById(R.id.is_checked)).setChecked(true);
 			mCurLinkIndex = mPosition;
+			mAdapter.notifyDataSetChanged();
 		}
 	}
 	
@@ -447,8 +447,10 @@ public class MusicPageActivity extends ListActivity {
 			Utils.D("mDownloadedMusicPath == "+mDownloadedMusicPath);
 			if (mDownloadMusicTask == null && mDownloadedMusicPath == null) {
 				downloadMusic();
-			} else if (mDownloadMusicTask!=null && mDownloadedMusicPath==null){
+			} else if (mDownloadMusicTask!=null && mDownloadedMusicPath==null && mDownloadMusicTask.isProgressDialogShowing()){
 				mDownloadMusicTask.hideProgressDialog();
+			} else if (mDownloadMusicTask!=null && mDownloadedMusicPath==null && !mDownloadMusicTask.isProgressDialogShowing()) {
+				mDownloadMusicTask.showProgressDialog();
 			} else if (mDownloadedMusicPath!=null) {
 				Utils.startMusicPlayer(MusicPageActivity.this, mDownloadedMusicPath);
 			}
@@ -469,24 +471,6 @@ public class MusicPageActivity extends ListActivity {
 		}
 	}
 	
-	private class PrevClickListener implements View.OnClickListener {
-		@Override
-		public void onClick(View v) {
-			Intent intent = new Intent(MusicPageActivity.this, MusicPageActivity.class);
-			intent.putExtra(Const.INDEX, sIndex-1);
-			startActivity(intent);
-		}
-	}
-	
-	private class NextClickListener implements View.OnClickListener {
-		@Override
-		public void onClick(View v) {
-			Intent intent = new Intent(MusicPageActivity.this, MusicPageActivity.class);
-			intent.putExtra(Const.INDEX, sIndex+1);
-			startActivity(intent);
-		}
-	}
-	
 	private class HideProgressDialogClickListener implements DialogInterface.OnClickListener {
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
@@ -500,9 +484,10 @@ public class MusicPageActivity extends ListActivity {
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
 			if (mDownloadMusicTask != null) {
-				mDownloadMusicTask.cancel(true);
+				boolean isCanceled = mDownloadMusicTask.cancel(true);
+				Utils.D("isCanceled?:"+isCanceled);
 			}
-		}
+		}               
 	}
 	
 	private class cancelPreviewDialogClickListener implements DialogInterface.OnClickListener {
