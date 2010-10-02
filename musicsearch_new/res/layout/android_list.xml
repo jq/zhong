@@ -11,6 +11,7 @@
       	android:layout_height="0px"
       	android:layout_weight="1"
       	android:choiceMode="singleChoice"
+      	android:fastScrollEnabled="true"
       	android:stackFromBottom="false">
     </ListView>
     

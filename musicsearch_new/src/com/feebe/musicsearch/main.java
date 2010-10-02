@@ -9,18 +9,25 @@ import android.widget.Button;
 
 public class main extends Activity {
 
-	private Button mButton;
+	private Button mSearchButton;
+	private Button mLibraryButton;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        mButton = (Button)findViewById(R.id.search);
-        mButton.setOnClickListener(new OnClickListener() {
-			
+        mSearchButton = (Button)findViewById(R.id.search);
+        mSearchButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(main.this, SearchActivity.class));
+			}
+		});
+        mLibraryButton = (Button) findViewById(R.id.library);
+        mLibraryButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(main.this, DownloadedActivity.class));
 			}
 		});
     }

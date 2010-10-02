@@ -28,4 +28,7 @@
     <string name="cancel">Cancel</string>
     <string name="streaming">Streaming...</string>
     <string name="show_progress">Show progress</string>
+    <string name="loading_downloaded_music">Please wait while loading downloaded musics...</string>
+    <string name="load_downloaded_music_failed">Load downloaded musics failed. Please retry again...</string>
+    <string name="library">Library</string>
 </resources>

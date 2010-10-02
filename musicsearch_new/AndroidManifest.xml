@@ -20,6 +20,9 @@
         	  	  
        	<activity android:name=".MusicPageActivity"
         	 	  android:launchMode="singleTop"/>
+        	 	  
+       	<activity android:name=".DownloadedActivity"
+        	 	  android:launchMode="singleTop"/>
 
     </application>
     <uses-sdk android:minSdkVersion="3" />

@@ -10,5 +10,12 @@
 		android:layout_height="wrap_content"
 		android:text="@string/search">
 	</Button>
+	
+	<Button
+		android:id="@+id/library"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/library">
+	</Button>
 
 </LinearLayout>

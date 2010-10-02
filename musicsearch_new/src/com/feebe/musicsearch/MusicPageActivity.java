@@ -517,7 +517,7 @@ public class MusicPageActivity extends ListActivity {
 		mProgressBar.setVisibility(View.VISIBLE);
 		mMessage.setVisibility(View.VISIBLE);
 		mRetryButton.setVisibility(View.GONE);
-		mMessage.setText(R.string.loading_download_link);
+		mMessage.setText(R.string.loading_downloaded_music);
 	}
 	
 	private void setErrorStatus() {
