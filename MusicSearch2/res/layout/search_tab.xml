@@ -68,7 +68,7 @@
 					android:textColor="#eeeeee"
 					android:background="@android:drawable/list_selector_background"
 					android:layout_width="fill_parent"
-					android:layout_height="wrap_content" android:text="Hot Music"
+					android:layout_height="wrap_content" android:text="@string/tab_hot"
 					android:layout_margin="6.0dip"/>
  		  		   
 			<View android:layout_height="1dip"
@@ -82,7 +82,7 @@
 					android:textColor="#eeeeee"
 					android:background="@android:drawable/list_selector_background"
 					android:layout_width="fill_parent"
-					android:layout_height="wrap_content" android:text="Ringtone Lib"
+					android:layout_height="wrap_content" android:text="@string/tab_lib"
 					android:layout_margin="6.0dip"/>
  		  		   
 			<View android:layout_height="1dip"
@@ -96,7 +96,22 @@
 					android:textColor="#eeeeee"
 					android:background="@android:drawable/list_selector_background"
 					android:layout_width="fill_parent"
-					android:layout_height="wrap_content" android:text="play"
+					android:layout_height="wrap_content" android:text="@string/play"
+					android:layout_margin="6.0dip"/>
+ 		  		   
+			<View android:layout_height="1dip"
+			      android:layout_width="fill_parent"
+		 		  android:background="#FF909090" />
+     
+
+			<TextView android:id="@+id/rate"
+			    android:gravity="center"
+			    android:textSize="20.0sp"
+					android:typeface="sans"
+					android:textColor="#eeeeee"
+					android:background="@android:drawable/list_selector_background"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content" android:text="@string/rate"
 					android:layout_margin="6.0dip"/>
  		  		   
 			<View android:layout_height="1dip"

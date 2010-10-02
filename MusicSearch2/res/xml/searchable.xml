@@ -10,6 +10,6 @@
     android:includeInGlobalSearch="true"
 
     
-    android:searchSuggestAuthority="mp3musicsearch"
+    android:searchSuggestAuthority="mp3musicsearch1"
     android:searchSuggestIntentAction="android.intent.action.VIEW"
 />

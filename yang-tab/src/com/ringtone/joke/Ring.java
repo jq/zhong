@@ -110,7 +110,7 @@ public class Ring extends TabActivity implements OnTabChangeListener {
         case R.string.menu_rate:
           Intent i = new Intent(
               Intent.ACTION_VIEW,
-              Uri.parse("market://search?q=pname:com.feebe.rings"));
+              Uri.parse("market://details?id=pname:com.feebe.rings"));
           startActivity(i);
           return true;
         case R.string.alertdialog_share:

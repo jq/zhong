@@ -9,10 +9,10 @@
     <string name="no_sd">Need sd card to run the program</string>
     <string name="search_hint">Search</string>
     
-    <string name="tab_hot">Hot</string>
+    <string name="tab_hot">Hot Music</string>
     <string name="tab_find">Find</string>
     <string name="tab_lib">Lib</string>
-    <string name="tab_downlaod">Music</string>
+    <string name="tab_downlaod">Downloaded Music</string>
     <string name="downloaded_files">Download files</string>
   	
    <string name="queue_message">The song has been queued</string>
@@ -66,4 +66,8 @@
     <string name="delete_warning">Are you sure to delete</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    
+    <!-- new -->
+    <string name="rate">Rate 5 star if you like the software</string>
+     
 </resources>

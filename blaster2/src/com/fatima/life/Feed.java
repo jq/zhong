@@ -218,7 +218,9 @@ public class Feed {
                 // market://search?q=pname:
                 // market://search?q= 18
                 String pkg;
-                if (uri.charAt(23) == ':') {
+                if (uri.charAt(20) == ':') {
+                  pkg = uri.substring(21);
+                } else if (uri.charAt(23) == ':') {
                     pkg = uri.substring(24);
                 } else {
                     pkg = uri.substring(18);

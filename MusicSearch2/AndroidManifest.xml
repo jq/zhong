@@ -118,7 +118,7 @@
                    android:value="com.trans.music.search.SearchList" />
         <!-- Provides search suggestions . -->
         <provider android:name="com.trans.music.search.Search"
-                android:authorities="mp3musicsearch"
+                android:authorities="mp3musicsearch1"
                 android:syncable="false" />
         
     <activity android:name="com.trans.music.search.MusicPage"

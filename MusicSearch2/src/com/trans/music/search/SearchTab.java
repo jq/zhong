@@ -4,6 +4,7 @@ import com.ringtone.music.search1.R;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -83,6 +84,17 @@ public class SearchTab  extends Activity {
         @Override
         public void onClick(View arg0) {
             loadDefaultMusicApp();
+        }
+    });
+    
+    TextView rate = (TextView)findViewById(R.id.rate);
+    rate.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View arg0) {
+          Intent i = new Intent(
+              Intent.ACTION_VIEW,
+              Uri.parse("market://details?id=pname:com.ringtone.music.search1"));
+          startActivity(i);
         }
     });
   }

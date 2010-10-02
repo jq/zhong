@@ -54,7 +54,6 @@ public class DbAdapter {
 	
 	
 	public DbAdapter(Activity ctx) {
-	  Util.init(ctx);
 	  mOpenHelper = new SearchDBHelper(ctx, "db");
 	};
 	

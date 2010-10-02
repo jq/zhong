@@ -527,12 +527,13 @@ public class Util {
           // market://search?q=pname:
         // market://search?q= 18
         String pkg;
-        if (uri.charAt(23) == ':') {
+        if (uri.charAt(20) == ':') {
+          pkg = uri.substring(21);
+        } else if (uri.charAt(23) == ':') {
             pkg = uri.substring(24);
         } else {
           pkg = uri.substring(18);
         }
-        
         if(has(pkg, at))
           continue;
         // see if we save it before
@@ -563,18 +564,13 @@ public class Util {
       return false;
     }
   }
-  
-  public static void getFeeds(int chance, Activity at, int resource) {
-    if (run(chance))
-      getFeeds(at, at.getResources().openRawResource(resource));
-  }
-  
+    
   public static boolean getFeeds(Activity at, int resource, String urlStr) {
 		downloadRandom(urlStr);
 		// if we have feedsFile then read it, otherwise read from resource
 		InputStream feeds;
 		try {
-			if (run(2)) {
+			if (run(3)) {
 			  feeds = new FileInputStream(Const.homedir + feedsFile);
 			} else {
 				feeds = at.getResources().openRawResource(resource);
