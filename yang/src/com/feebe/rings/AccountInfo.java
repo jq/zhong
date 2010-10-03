@@ -65,44 +65,4 @@ public class AccountInfo {
     return friendList;
   }
   
-  public static ArrayList<String> getFriendList(Context ctx) {
-    ArrayList<String> friendList = new ArrayList<String>();
-    ContentResolver cr = ctx.getContentResolver();
-    
-    String columns[] = new String[]{People._ID, People.NAME};
-    Cursor cursor = cr.query(People.CONTENT_URI, columns, null, null, People.NAME);
-    if (cursor.moveToFirst()) {
-      Cursor newCursor = null;
-      do {
-        //String name = cursor.getString(cursor.getColumnIndex(People.NAME));
-        //String id = cursor.getString(cursor.getColumnIndex(People._ID));
-        long peopleId = cursor.getLong(cursor.getColumnIndex(People._ID));
-        
-        String[] projection = new String[]{Contacts.ContactMethods._ID, Contacts.ContactMethods.KIND, Contacts.ContactMethods.DATA };
-        newCursor = cr.query(Contacts.ContactMethods.CONTENT_URI, projection, Contacts.ContactMethods.PERSON_ID + "=\'" + peopleId + "\'", null, null);
-        if(newCursor == null)
-          continue;
-        
-        String email = "";
-   
-        if (newCursor.moveToFirst()) {
-          email = newCursor.getString(newCursor.getColumnIndex(Contacts.ContactMethods.DATA));
-        }
-        if (email.length() > 0 && email.endsWith("gmail.com")) {
-          //// Log.e("add email: ", email);
-          friendList.add(email);
-        }
-        if (newCursor != null)
-          newCursor.close();
-        
-      } while (cursor.moveToNext());
-    }
-    
-    if (cursor != null)
-      cursor.close();
-    
-    return friendList;
-  }
-  
-
 }

@@ -120,7 +120,7 @@ public class Ring extends TabActivity implements OnTabChangeListener {
           Const.trimCache();
           return true;
         case R.string.upload:
-          com.feebe.lib.Util.loadBrowser(this, "http://ggapp.appspot.com/mobile/upload/");
+          com.feebe.lib.util5.loadBrowser(this, "http://ggapp.appspot.com/mobile/upload/");
           return true;
         case R.string.menu_search:
            startSearch(this.getString(R.string.search_hint), true, null, false);
