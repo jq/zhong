@@ -41,7 +41,7 @@ public class MusicSearcher {
 				info.setArtist(entry.getString(Const.JSON.Singer));
 				JSONArray downlinkEntries = entry.getJSONArray(Const.JSON.Downlink);
 				info.setDownloadUrl(getLinkListFromJsonArray(downlinkEntries));
-				info.setAlbum("test");
+				info.setAlbum(entry.getString(Const.JSON.Album));
 				info.setDisplayFileSize(entry.getString(Const.JSON.Size));
 				info.setType("mp3Test");
 				musicList.add(info);
@@ -106,8 +106,8 @@ public class MusicSearcher {
 	}
 	
 	public void setMusicDownloadUrl(MusicInfo info) {
-		String key = info.getDownloadUrl().get(0);
 		try {
+			String key = info.getDownloadUrl().get(0);
 			if (Utils.isUrl(key)) {
 				return;
 			} else {

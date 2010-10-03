@@ -28,6 +28,7 @@ public class Const {
 		public static final String Singer = "singer";
 		public static final String Size = "size";
 		public static final String Songname = "songname";
+		public static final String Album = "album";
 	}
 	
 	

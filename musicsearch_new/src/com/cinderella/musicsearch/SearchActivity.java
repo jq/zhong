@@ -156,7 +156,8 @@ public class SearchActivity extends ListActivity {
 			MusicInfo info = (MusicInfo) item;
 			((TextView) v.findViewById(R.id.title)).setText(info.getTitle());
 			((TextView) v.findViewById(R.id.artist)).setText(info.getArtist());
-            ((TextView) v.findViewById(R.id.size)).setText(info.getDisplayFileSize());
+			((TextView) v.findViewById(R.id.album)).setText(info.getAlbum());
+            ((TextView) v.findViewById(R.id.size)).setText("Size: "+info.getDisplayFileSize());
             return v;
 		}	
 	}

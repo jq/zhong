@@ -119,7 +119,7 @@ public class MusicPageActivity extends ListActivity {
 	private void initView() {
 		sAlbumTextView.setText(mMusicInfo.getAlbum());
 		sArtistTextView.setText(mMusicInfo.getArtist());
-		sSizeTextView.setText(mMusicInfo.getDisplayFileSize());
+		sSizeTextView.setText("Size: "+mMusicInfo.getDisplayFileSize());
 		sSongTextView.setText(mMusicInfo.getTitle());
 		mDownloadButton.setText(R.string.download);
 	}

@@ -10,7 +10,6 @@
   		android:layout_width="fill_parent"
   		android:layout_height="wrap_content"
   		android:gravity="center_vertical"
-  		android:drawableLeft="@drawable/ic_song"
   		android:singleLine="true"
   		android:textSize="20sp">
   	</TextView>
@@ -45,8 +44,7 @@
 	  		android:layout_height="wrap_content"
 	  		android:singleLine="true"
 	  		android:gravity="center_vertical"
-	  		android:drawableLeft="@drawable/ic_size"
-	  		android:layout_weight="1">
+	  		android:layout_weight="2">
 	  	</TextView>
 	</LinearLayout>
   	
