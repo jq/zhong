@@ -17,11 +17,13 @@ import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Log;
@@ -196,17 +198,11 @@ public class Utils {
     }
     
     public static void startMusicPlayer(Context context, String musicPath) {
+    	Utils.D("Start Media Player: "+musicPath);
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.setDataAndType(Uri.parse("file://" + musicPath), "audio");
 		context.startActivity(intent);
-    }
-    
-    public static void startMusicPlayerPreview(Context context, String musicUrl) {
-    	Intent intent = new Intent(Intent.ACTION_VIEW);
-    	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    	intent.setDataAndType(Uri.parse(musicUrl), "audio");
-    	context.startActivity(intent);
     }
     
     public static void deleteFile(String path) {
@@ -216,6 +212,22 @@ public class Utils {
     			file.delete();
     		}
     	} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+    
+    public static void deleteFromMediaStore(Context context, String path) {
+    	try {
+			ContentResolver cr = context.getContentResolver();
+    		Uri musics = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+    		int n = 0;
+    		if (!path.startsWith("/mnt")) {
+        		cr.delete(musics, MediaStore.MediaColumns.DATA + "=?", new String[] { "/mnt" + path });
+    		}
+    		if (n == 0) {
+    			cr.delete(musics, MediaStore.MediaColumns.DATA + "=?", new String[] { path });
+    		}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     }

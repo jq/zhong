@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,16 +16,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class DownloadedActivity extends ListActivity {
+	
+	private static final int DIALOG_LIBRARY_ITEM_OPTION = 1;
+	private static final int DIALOG_DELETE_CONFIRMATION = 2;
+	
+	private static final int MUSIC_OPTION_PLAY = 0;
+	private static final int MUSIC_OPTION_EDIT = 1;
+	private static final int MUSIC_OPTION_DELETE = 2;
 
 	private static ArrayList<DownloadedMusicInfo> sDownloadedMusicInfoList;
 	private static FetchDownloadedMusicTask sFetchDownloadedMusicTask;
 	private static TextView sLoadingMessage;
 	private static ProgressBar sProgressBar;
 	private static Button sRetryButton;
+	private static DownloadedMusicInfo sCurDownloadedMusicInfo;
 	
 	private DownloadedAdapter mAdapter;
 	
@@ -38,6 +50,64 @@ public class DownloadedActivity extends ListActivity {
 		fetchDownloadedMusiTask();
 	}
 	
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		if (sDownloadedMusicInfoList!=null && position<sDownloadedMusicInfoList.size()) {
+			sCurDownloadedMusicInfo = sDownloadedMusicInfoList.get(position);
+			showDialog(DIALOG_LIBRARY_ITEM_OPTION);
+		} 
+	}
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case DIALOG_LIBRARY_ITEM_OPTION:
+			return new AlertDialog.Builder(this)
+				.setTitle(R.string.options)
+				.setItems(R.array.music_library_item_options, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						if (sCurDownloadedMusicInfo == null) {
+							return;
+						}
+						switch (which) {
+						case MUSIC_OPTION_PLAY:
+							Utils.startMusicPlayer(DownloadedActivity.this, sCurDownloadedMusicInfo.getFullPath());
+							break;
+						case MUSIC_OPTION_EDIT:
+							//edit, start ringdroid
+							break;
+						case MUSIC_OPTION_DELETE:
+							showDialog(DIALOG_DELETE_CONFIRMATION);
+						default:
+							break;
+						}
+					}
+				}).create();
+		case DIALOG_DELETE_CONFIRMATION:
+			return new AlertDialog.Builder(this)
+				.setTitle(this.getString(R.string.alert_delet)+sCurDownloadedMusicInfo.getFileName())
+				.setIcon(R.drawable.alert_dialog_icon)
+				.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Utils.deleteFile(sCurDownloadedMusicInfo.getFullPath());
+						Utils.deleteFromMediaStore(DownloadedActivity.this, sCurDownloadedMusicInfo.getFullPath());
+						sDownloadedMusicInfoList.remove(sCurDownloadedMusicInfo);
+						sCurDownloadedMusicInfo = null;
+						mAdapter.notifyDataSetChanged();
+					}
+				}).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+					}
+				}).create();
+		default:
+			break;
+		}
+		return null;
+	}
+
 	private void fetchDownloadedMusiTask() {
 		if (sFetchDownloadedMusicTask != null) {
 			sFetchDownloadedMusicTask.cancel(true);
@@ -113,6 +183,9 @@ public class DownloadedActivity extends ListActivity {
 		public long getLastModified() {
 			return mLastModified;
 		}
+		public String getFullPath() {
+			return Const.sMusicDir+mFileName;
+		}
 	}
 	
 	private class DownloadedAdapter extends BaseAdapter {
@@ -176,4 +249,28 @@ public class DownloadedActivity extends ListActivity {
 		sLoadingMessage.setText(R.string.load_download_link_failed);
 	}
 	
+	private void sortByName(boolean isAscending) {
+		if (sDownloadedMusicInfoList == null) {
+			return;
+		}
+		for (int i=0; i<sDownloadedMusicInfoList.size()-1; i++) {
+			for (int j=i+1; j<sDownloadedMusicInfoList.size(); j++) {
+				DownloadedMusicInfo temp = null;
+				if (isAscending) {
+					if (sDownloadedMusicInfoList.get(i).getFileName().compareTo(sDownloadedMusicInfoList.get(j).getFileName()) > 0) {
+						temp = sDownloadedMusicInfoList.get(i);
+						sDownloadedMusicInfoList.set(i, sDownloadedMusicInfoList.get(j));
+						sDownloadedMusicInfoList.set(j, temp);
+					} 
+				} else {
+					if (sDownloadedMusicInfoList.get(i).getFileName().compareTo(sDownloadedMusicInfoList.get(j).getFileName()) < 0) {
+						temp = sDownloadedMusicInfoList.get(i);
+						sDownloadedMusicInfoList.set(i, sDownloadedMusicInfoList.get(j));
+						sDownloadedMusicInfoList.set(j, temp);
+					} 
+				}
+			}
+		}
+		mAdapter.notifyDataSetChanged();
+	}
 }

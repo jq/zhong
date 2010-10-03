@@ -31,4 +31,10 @@
     <string name="loading_downloaded_music">Please wait while loading downloaded musics...</string>
     <string name="load_downloaded_music_failed">Load downloaded musics failed. Please retry again...</string>
     <string name="library">Library</string>
+    <string name="options">Options</string>
+    <string name="alert_delet">Are you sure to delect:\ </string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="refresh">Refresh</string>
+    <string name="sort">Sort</string>
 </resources>
