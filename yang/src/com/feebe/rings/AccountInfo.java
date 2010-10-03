@@ -104,8 +104,5 @@ public class AccountInfo {
     return friendList;
   }
   
-  public static boolean isEclairOrLater() {
-    return Build.VERSION.SDK.compareTo("5") >=0;
-  }
 
 }

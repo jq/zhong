@@ -166,7 +166,7 @@ public class RingActivity extends Activity {
             myRating = (int) rating*20 + "";
       		if(key!="" && jsonLocation != null) {
       		    try {
-          		  if(AccountInfo.isEclairOrLater()) {
+          		  if(Util.isEclairOrLater()) {
           		  new Thread(new Runnable() {
                       @Override
                       public void run() {
@@ -180,7 +180,7 @@ public class RingActivity extends Activity {
                     }).start();
                   } else {
                       if (!isFriendsUploaded) {
-                        friendList = AccountInfo.getFriendList(RingActivity.this);
+                        friendList = Util.getFriendList(RingActivity.this);
                       }
                       AccountInfo.getAccountName(RingActivity.this);
                   }
@@ -228,7 +228,7 @@ public class RingActivity extends Activity {
       new FetchJsonTask().execute(json);
       
       //upload all friends
-      if(!isFriendsUploaded && AccountInfo.isEclairOrLater()) {
+      if(!isFriendsUploaded && Util.isEclairOrLater()) {
         account = AccountInfo.getAccountNameEclair(RingActivity.this);
         friendList = AccountInfo.getFriendListEclair(RingActivity.this);
         uploadFriends();
@@ -344,7 +344,7 @@ public class RingActivity extends Activity {
                 //Log.e("facebookId: ", facebookId);
                 
                 //get google account
-                if(AccountInfo.isEclairOrLater()) {
+                if(Util.isEclairOrLater()) {
                   account = AccountInfo.getAccountNameEclair(RingActivity.this);
                   uploadFacebookFriends();
                 } else {
