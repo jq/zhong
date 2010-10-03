@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.feebe.musicsearch"
+      package="com.cinderella.musicsearch"
       android:versionCode="1"
       android:versionName="1.0">
     <application 
@@ -22,7 +22,29 @@
         	 	  android:launchMode="singleTop"/>
         	 	  
        	<activity android:name=".DownloadedActivity"
-        	 	  android:launchMode="singleTop"/>
+        	 	  android:launchMode="singleTop">
+       	</activity>
+       	
+       	<activity android:name="com.libhy.RingSelect" android:label=""
+                  android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
+        	<intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+                <data android:mimeType="audio/*" />
+            </intent-filter> 
+        </activity>
+        <activity android:name="com.libhy.RingEditor"
+           		  android:launchMode="singleTop" 
+                  android:configChanges="orientation|keyboardHidden">
+            <intent-filter android:label="@string/edit_intent">
+            	  <action android:name="android.intent.action.EDIT" />
+                  <data android:mimeType="audio/*" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.ringdroid.ChooseContactActivity"
+                  android:configChanges="orientation|keyboardHidden">
+        </activity>
 
     </application>
     <uses-sdk android:minSdkVersion="3" />

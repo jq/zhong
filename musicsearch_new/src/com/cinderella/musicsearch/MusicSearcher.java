@@ -1,4 +1,4 @@
-package com.feebe.musicsearch;
+package com.cinderella.musicsearch;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

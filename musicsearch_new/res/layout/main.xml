@@ -17,5 +17,12 @@
 		android:layout_height="wrap_content"
 		android:text="@string/library">
 	</Button>
+	
+	<Button
+		android:id="@+id/edit"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/edit">
+	</Button>
 
 </LinearLayout>

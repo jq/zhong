@@ -1,4 +1,4 @@
-package com.feebe.musicsearch;
+package com.cinderella.musicsearch;
 
 import java.util.ArrayList;
 import java.io.File;

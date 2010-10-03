@@ -1,4 +1,7 @@
-package com.feebe.musicsearch;
+package com.cinderella.musicsearch;
+
+import com.libhy.RingSelect;
+import com.ringdroid.RingdroidSelectActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +14,7 @@ public class main extends Activity {
 
 	private Button mSearchButton;
 	private Button mLibraryButton;
+	private Button mRingdroidButton;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,13 @@ public class main extends Activity {
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(main.this, DownloadedActivity.class));
+			}
+		});
+        mRingdroidButton = (Button) findViewById(R.id.edit);
+        mRingdroidButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(main.this, com.libhy.RingSelect.class));
 			}
 		});
     }

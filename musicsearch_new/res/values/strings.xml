@@ -8,7 +8,7 @@
     <string name="searching_wait">Please wait while searching:\ </string>
     <string name="network_error_retry">Network error. Please retry.</string>
     <string name="retry">Retry</string>
-    <string name="no_result_sorry">Sorry, we didn't find any music match the keys words:\ </string>
+    <string name="no_result_sorry">Sorry, we didn\'t find any music match the keys words: </string>
     <string name="music_information">Music Information</string>
     <string name="about">About</string>
     <string name="search_more_about">Search More About:\ </string>
@@ -39,4 +39,6 @@
     <string name="sort">Sort</string>
     <string name="downloaded_empty">You have not downloaded any musics yet...</string>
     <string name="sort_by">Sort by</string>
+    <string name="edit">Make your own ringtone!</string>
+    <string name="edit_intent">Edit</string>
 </resources>
