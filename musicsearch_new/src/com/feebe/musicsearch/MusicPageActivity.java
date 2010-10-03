@@ -229,7 +229,7 @@ public class MusicPageActivity extends ListActivity {
 		protected void onPostExecute(File result) {
 			mDownloadMusicTask = null;
 			if (result == null) {
-				Utils.D("result==null");
+				mDownloadButton.setText(R.string.download);
 			} else {
 				Utils.D("result!=null");
 				mDownloadButton.setText(R.string.play);

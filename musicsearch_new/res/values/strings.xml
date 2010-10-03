@@ -37,4 +37,6 @@
     <string name="no">No</string>
     <string name="refresh">Refresh</string>
     <string name="sort">Sort</string>
+    <string name="downloaded_empty">You have not downloaded any musics yet...</string>
+    <string name="sort_by">Sort by</string>
 </resources>

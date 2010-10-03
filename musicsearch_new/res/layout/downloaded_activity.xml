@@ -7,7 +7,8 @@
   	<LinearLayout
   		android:id="@+id/button_group"
   		android:layout_width="fill_parent"
-  		android:layout_height="wrap_content">
+  		android:layout_height="wrap_content"
+  		android:layout_alignParentBottom="true">
   		<Button
   			android:id="@+id/refresh_button"
   			android:layout_width="fill_parent"
@@ -24,6 +25,12 @@
   		</Button>
   	</LinearLayout>
   	
-  	<include android:layout_width="fill_parent" android:layout_height="wrap_content" layout="@layout/android_list"></include>
+  	<include 
+  		android:layout_width="fill_parent" 
+  		android:layout_height="wrap_content" 
+  		android:layout_alignParentTop="true"
+  		android:layout_above="@id/button_group"
+  		layout="@layout/android_list">
+  	</include>
 	
 </RelativeLayout>

@@ -24,10 +24,16 @@ public class DownloadedActivity extends ListActivity {
 	
 	private static final int DIALOG_LIBRARY_ITEM_OPTION = 1;
 	private static final int DIALOG_DELETE_CONFIRMATION = 2;
+	private static final int DIALOG_SORT = 3;
 	
 	private static final int MUSIC_OPTION_PLAY = 0;
 	private static final int MUSIC_OPTION_EDIT = 1;
 	private static final int MUSIC_OPTION_DELETE = 2;
+	
+	private static final int SORT_TIME_DES = 0;
+	private static final int SORT_TIME_AES = 1;
+	private static final int SORT_NAME_AES = 2;
+	private static final int SORT_NAME_DES = 3;
 
 	private static ArrayList<DownloadedMusicInfo> sDownloadedMusicInfoList;
 	private static FetchDownloadedMusicTask sFetchDownloadedMusicTask;
@@ -35,6 +41,8 @@ public class DownloadedActivity extends ListActivity {
 	private static ProgressBar sProgressBar;
 	private static Button sRetryButton;
 	private static DownloadedMusicInfo sCurDownloadedMusicInfo;
+	private static Button sRefreshButton;
+	private static Button sSortButton;
 	
 	private DownloadedAdapter mAdapter;
 	
@@ -46,7 +54,11 @@ public class DownloadedActivity extends ListActivity {
 		sProgressBar = (ProgressBar) findViewById(R.id.search_progress);
 		sLoadingMessage = (TextView) findViewById(R.id.search_message);
 		sRetryButton = (Button) findViewById(R.id.retry_button);
-		
+		sRetryButton.setOnClickListener(new retryClickListener());
+		sRefreshButton = (Button) findViewById(R.id.refresh_button);
+		sRefreshButton.setOnClickListener(new refreshClickListener());
+		sSortButton = (Button) findViewById(R.id.sort_button);
+		sSortButton.setOnClickListener(new sortClickListener());
 		fetchDownloadedMusiTask();
 	}
 	
@@ -96,10 +108,37 @@ public class DownloadedActivity extends ListActivity {
 						sDownloadedMusicInfoList.remove(sCurDownloadedMusicInfo);
 						sCurDownloadedMusicInfo = null;
 						mAdapter.notifyDataSetChanged();
+						if (sDownloadedMusicInfoList.size() == 0) {
+							setEmptyStatus();
+						}
 					}
 				}).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+					}
+				}).create();
+		case DIALOG_SORT:
+			return new AlertDialog.Builder(this)
+				.setTitle(R.string.sort_by)
+				.setItems(R.array.sort_by_items, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						switch (which) {
+						case SORT_TIME_DES:
+							sortByDate(false);
+							break;
+						case SORT_TIME_AES:
+							sortByDate(true);
+							break;
+						case SORT_NAME_AES:
+							sortByName(true);
+							break;
+						case SORT_NAME_DES:
+							sortByName(false);
+							break;
+						default:
+							break;
+						}
 					}
 				}).create();
 		default:
@@ -114,6 +153,12 @@ public class DownloadedActivity extends ListActivity {
 		}
 		sFetchDownloadedMusicTask = new FetchDownloadedMusicTask();
 		sFetchDownloadedMusicTask.execute();
+	}
+	
+	private void refreshDownloadedList() {
+		mAdapter = null;
+		mAdapter = new DownloadedAdapter(DownloadedActivity.this, R.layout.downloaded_item);
+		fetchDownloadedMusiTask();
 	}
 
 	private class FetchDownloadedMusicTask extends AsyncTask<Void, Void, ArrayList<DownloadedMusicInfo>> {
@@ -147,7 +192,9 @@ public class DownloadedActivity extends ListActivity {
 				setListAdapter(mAdapter);
 			}
 			mAdapter.notifyDataSetChanged();
-			Utils.D("sDownloadedMusicInfoList.size(): "+sDownloadedMusicInfoList.size());
+			if (sDownloadedMusicInfoList.size() == 0) {
+				setEmptyStatus();
+			}
 			sFetchDownloadedMusicTask = null;
 		}
 	}
@@ -235,6 +282,27 @@ public class DownloadedActivity extends ListActivity {
 		}
 	}
 	
+	private class refreshClickListener implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			refreshDownloadedList();
+		}
+	}
+	
+	private class retryClickListener implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			refreshDownloadedList();
+		}
+	}
+	
+	private class sortClickListener implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			showDialog(DIALOG_SORT);
+		}		
+	}
+ 	
 	private void setLoadingStatus() {
 		sProgressBar.setVisibility(View.VISIBLE);
 		sLoadingMessage.setVisibility(View.VISIBLE);
@@ -249,28 +317,57 @@ public class DownloadedActivity extends ListActivity {
 		sLoadingMessage.setText(R.string.load_download_link_failed);
 	}
 	
+	private void setEmptyStatus() {
+		sProgressBar.setVisibility(View.GONE);
+		sLoadingMessage.setVisibility(View.VISIBLE);
+		sRetryButton.setVisibility(View.GONE);
+		sLoadingMessage.setText(R.string.downloaded_empty);
+	}
+	
 	private void sortByName(boolean isAscending) {
 		if (sDownloadedMusicInfoList == null) {
 			return;
 		}
 		for (int i=0; i<sDownloadedMusicInfoList.size()-1; i++) {
 			for (int j=i+1; j<sDownloadedMusicInfoList.size(); j++) {
-				DownloadedMusicInfo temp = null;
 				if (isAscending) {
 					if (sDownloadedMusicInfoList.get(i).getFileName().compareTo(sDownloadedMusicInfoList.get(j).getFileName()) > 0) {
-						temp = sDownloadedMusicInfoList.get(i);
-						sDownloadedMusicInfoList.set(i, sDownloadedMusicInfoList.get(j));
-						sDownloadedMusicInfoList.set(j, temp);
+						swapMusicInfos(i, j);
 					} 
 				} else {
 					if (sDownloadedMusicInfoList.get(i).getFileName().compareTo(sDownloadedMusicInfoList.get(j).getFileName()) < 0) {
-						temp = sDownloadedMusicInfoList.get(i);
-						sDownloadedMusicInfoList.set(i, sDownloadedMusicInfoList.get(j));
-						sDownloadedMusicInfoList.set(j, temp);
+						swapMusicInfos(i, j);
 					} 
 				}
 			}
 		}
 		mAdapter.notifyDataSetChanged();
+	}
+	
+	private void sortByDate(boolean isAscending) {
+		if (sDownloadedMusicInfoList == null) {
+			return;
+		}
+		for (int i=0; i<sDownloadedMusicInfoList.size()-1; i++) {
+			for (int j=i+1; j<sDownloadedMusicInfoList.size(); j++) {
+				if (isAscending) {
+					if (sDownloadedMusicInfoList.get(i).getLastModified() > sDownloadedMusicInfoList.get(j).getLastModified()) {
+						swapMusicInfos(i, j);
+					}
+				} else {
+					if (sDownloadedMusicInfoList.get(i).getLastModified() < sDownloadedMusicInfoList.get(j).getLastModified()) {
+						swapMusicInfos(i, j);
+					}
+				}
+			}
+		}
+		mAdapter.notifyDataSetChanged();
+	}
+	
+	private void swapMusicInfos(int i, int j) {
+		DownloadedMusicInfo temp = null;
+		temp = sDownloadedMusicInfoList.get(i);
+		sDownloadedMusicInfoList.set(i, sDownloadedMusicInfoList.get(j));
+		sDownloadedMusicInfoList.set(j, temp);
 	}
 }

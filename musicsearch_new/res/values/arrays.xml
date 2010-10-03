@@ -5,4 +5,10 @@
         <item>Edit</item>
         <item>Delete</item>
     </string-array>
+    <string-array name="sort_by_items">
+    	<item>Add Time (Latest first)</item>
+    	<item>Add Time (Oldest first)</item>
+    	<item>Name (Ascending)</item>
+    	<item>Name (Descending)</item>
+    </string-array>
 </resources>
