@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
    android:installLocation="auto"
       package="com.ringtones.joke"
-      android:versionName="1.1" android:versionCode="3">
+      android:versionName="1.2" android:versionCode="4">
     <application android:icon="@drawable/app" android:label="@string/app_name">
         <activity android:name="com.feebe.rings.SearchTab"
                   android:label="@string/app_name"

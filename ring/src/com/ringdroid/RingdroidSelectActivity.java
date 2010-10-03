@@ -516,9 +516,6 @@ public class RingdroidSelectActivity
 
         String[] argsArray = args.toArray(new String[args.size()]);
 
-        Cursor external = getExternalAudioCursor(selection, argsArray);
-        Cursor internal = getInternalAudioCursor(selection, argsArray);
-
         Cursor c = new MergeCursor(new Cursor[] {
             getExternalAudioCursor(selection, argsArray),
             getInternalAudioCursor(selection, argsArray)});
