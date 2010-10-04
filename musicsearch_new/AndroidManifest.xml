@@ -15,18 +15,29 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".SearchActivity"
-        	  	  android:launchMode="singleTop"/>
+        <activity 
+        	android:name=".SearchActivity"
+        	android:launchMode="singleTop"
+        	android:configChanges="orientation|keyboardHidden">
+        </activity>
         	  	  
-       	<activity android:name=".MusicPageActivity"
-        	 	  android:launchMode="singleTop"/>
+       	<activity 
+       		android:name=".MusicPageActivity"
+        	android:launchMode="singleTop"
+        	android:configChanges="orientation|keyboardHidden">
+       	</activity>
         	 	  
-       	<activity android:name=".DownloadedActivity"
-        	 	  android:launchMode="singleTop">
+       	<activity 
+       		android:name=".DownloadedActivity"
+        	android:launchMode="singleTop"
+        	android:configChanges="orientation|keyboardHidden">
        	</activity>
        	
-       	<activity android:name="com.libhy.RingSelect" android:label=""
-                  android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
+       	<activity 
+       		android:name="com.libhy.RingSelect" 
+       		android:label=""
+            android:launchMode="singleTop" 
+            android:configChanges="orientation|keyboardHidden">
         	<intent-filter>
                 <action android:name="android.intent.action.GET_CONTENT" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -34,16 +45,20 @@
                 <data android:mimeType="audio/*" />
             </intent-filter> 
         </activity>
-        <activity android:name="com.libhy.RingEditor"
-           		  android:launchMode="singleTop" 
-                  android:configChanges="orientation|keyboardHidden">
+        
+        <activity 
+        	android:name="com.libhy.RingEditor"
+           	android:launchMode="singleTop" 
+            android:configChanges="orientation|keyboardHidden">
             <intent-filter android:label="@string/edit_intent">
             	  <action android:name="android.intent.action.EDIT" />
                   <data android:mimeType="audio/*" />
             </intent-filter>
         </activity>
-        <activity android:name="com.ringdroid.ChooseContactActivity"
-                  android:configChanges="orientation|keyboardHidden">
+        
+        <activity 
+        	android:name="com.ringdroid.ChooseContactActivity"
+            android:configChanges="orientation|keyboardHidden">
         </activity>
 
     </application>

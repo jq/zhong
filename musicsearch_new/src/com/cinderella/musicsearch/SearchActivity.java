@@ -323,7 +323,7 @@ public class SearchActivity extends ListActivity {
     	mProgressBar.setVisibility(View.VISIBLE);
     	mSearchMessage.setVisibility(View.VISIBLE);
     	mRetryButton.setVisibility(View.GONE);
-    	mSearchMessage.setText(this.getString(R.string.searching_wait) + sQuery);
+    	mSearchMessage.setText(this.getString(R.string.searching_wait)+ " " + sQuery);
     }
     
     public void setNoResultStatus() {

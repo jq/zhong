@@ -45,4 +45,5 @@
     <string name="toast_download_failed">Download failed: </string>
     <string name="toast_download_finish">Download finish: </string>
     <string name="click_to_view_music">Click here to view the music.</string>
+    <string name="music_artist_album">music, artist or album</string>
 </resources>

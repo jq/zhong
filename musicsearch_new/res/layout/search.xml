@@ -6,7 +6,7 @@
 	<EditText android:id="@+id/q"
     	      android:layout_width="wrap_content"
     	      android:layout_height="wrap_content"
-    	      android:hint="@string/search"
+    	      android:hint="@string/music_artist_album"
     	      android:singleLine="true"
     	      android:layout_weight="1"/>
     <Button android:id="@+id/go"
