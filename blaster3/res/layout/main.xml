@@ -51,5 +51,12 @@ xmlns:app="http://schemas.android.com/apk/res/com.happy.life"
 	        android:text="@string/ring"
 		    android:layout_gravity="right" />
 	</LinearLayout>
+	
+	<Button android:id="@+id/rate"
+	        android:layout_height="wrap_content"
+	        android:layout_width="fill_parent"
+	        android:drawablePadding="2dip"
+	        android:text="Rate this free app!"
+		    android:layout_gravity="center" />
 </LinearLayout>
 </ScrollView>
