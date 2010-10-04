@@ -12,6 +12,8 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import com.libhy.RingSelect;
+
 import android.R.integer;
 import android.app.Activity;
 import android.app.ListActivity;
@@ -69,6 +71,7 @@ public class MusicPageActivity extends ListActivity {
 	
 	private Button mPreviewButton;
 	private Button mDownloadButton;
+	private Button mEditButton;
 	
 	private DownloadLinkListAdapter mAdapter;
 	
@@ -84,6 +87,8 @@ public class MusicPageActivity extends ListActivity {
 		mPreviewButton.setOnClickListener(new PreviewClickListener());
 		mDownloadButton = (Button) findViewById(R.id.download_button);
 		mDownloadButton.setOnClickListener(new DownloadClickListener());
+		mEditButton = (Button) findViewById(R.id.edit_button);
+		mEditButton.setOnClickListener(new EditClickListener());
 		mRetryButton.setOnClickListener(new RetryClickLister());
 		sAlbumTextView = (TextView) findViewById(R.id.album);
 		sArtistTextView = (TextView) findViewById(R.id.artist);
@@ -233,6 +238,7 @@ public class MusicPageActivity extends ListActivity {
 			} else {
 				Utils.D("result!=null");
 				mDownloadButton.setText(R.string.play);
+				mEditButton.setVisibility(View.VISIBLE);
 				mDownloadedMusicPath = result.getAbsolutePath();
 			}
 			if (!mIsDownloadBackGround) {
@@ -461,6 +467,13 @@ public class MusicPageActivity extends ListActivity {
 		@Override
 		public void onClick(View v) {
 			previewTask();
+		}
+	}
+	
+	private class EditClickListener implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			RingSelect.startPureEditor(MusicPageActivity.this, mDownloadedMusicPath);
 		}
 	}
 	

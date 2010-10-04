@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 
+import com.libhy.RingSelect;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
@@ -87,7 +89,7 @@ public class DownloadedActivity extends ListActivity {
 							Utils.startMusicPlayer(DownloadedActivity.this, sCurDownloadedMusicInfo.getFullPath());
 							break;
 						case MUSIC_OPTION_EDIT:
-							//edit, start ringdroid
+							RingSelect.startPureEditor(DownloadedActivity.this, sCurDownloadedMusicInfo.getFullPath());
 							break;
 						case MUSIC_OPTION_DELETE:
 							showDialog(DIALOG_DELETE_CONFIRMATION);
@@ -337,7 +339,7 @@ public class DownloadedActivity extends ListActivity {
 				} else {
 					if (sDownloadedMusicInfoList.get(i).getFileName().compareTo(sDownloadedMusicInfoList.get(j).getFileName()) < 0) {
 						swapMusicInfos(i, j);
-					} 
+					}
 				}
 			}
 		}

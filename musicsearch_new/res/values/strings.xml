@@ -39,6 +39,7 @@
     <string name="sort">Sort</string>
     <string name="downloaded_empty">You have not downloaded any musics yet...</string>
     <string name="sort_by">Sort by</string>
-    <string name="edit">Make your own ringtone!</string>
+    <string name="make_your_ringtone">Make your own ringtone!</string>
+    <string name="edit">Edit</string>
     <string name="edit_intent">Edit</string>
 </resources>
