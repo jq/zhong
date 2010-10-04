@@ -40,6 +40,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.SimpleAdapter.ViewBinder;
 
@@ -60,7 +61,6 @@ public class MusicPageActivity extends ListActivity {
 	
 	private MusicInfo mMusicInfo;
 	private String mDownloadedMusicPath;
-	private boolean mIsBackground;
 	private DownloadMusicTask mDownloadMusicTask;
 	
 	private int mCurLinkIndex = 0;
@@ -101,6 +101,17 @@ public class MusicPageActivity extends ListActivity {
 	}
 	
 	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if (mDownloadMusicTask != null) {
+			mDownloadMusicTask.setBackground(true);
+		}
+		if (sFetchDownloadLinkTask != null) {
+			sFetchDownloadLinkTask.cancel(true);
+		}
+	}
+
+	@Override
 	protected void onNewIntent(Intent intent) {
 		Utils.D("onNewIntent()");
 		initData(intent);
@@ -111,7 +122,6 @@ public class MusicPageActivity extends ListActivity {
 	private void initData(Intent intent) {
 		sIndex = intent.getIntExtra(Const.INDEX, 0);
 		Utils.D("sIndex: "+sIndex);
-		mIsBackground = false;
 		mDownloadedMusicPath = null;
 		mMusicInfo = SearchActivity.sData.get(sIndex);
 		mAdapter = null;
@@ -235,17 +245,24 @@ public class MusicPageActivity extends ListActivity {
 			mDownloadMusicTask = null;
 			if (result == null) {
 				mDownloadButton.setText(R.string.download);
+				Toast.makeText(MusicPageActivity.this, MusicPageActivity.this.getString(R.string.toast_download_failed)+mMusicInfo.getTitle(), Toast.LENGTH_LONG);
 			} else {
 				Utils.D("result!=null");
+				Toast.makeText(MusicPageActivity.this, MusicPageActivity.this.getString(R.string.toast_download_finish)+mMusicInfo.getTitle(), Toast.LENGTH_LONG);
 				mDownloadButton.setText(R.string.play);
 				mEditButton.setVisibility(View.VISIBLE);
 				mDownloadedMusicPath = result.getAbsolutePath();
-			}
-			if (!mIsDownloadBackGround) {
-				mDownloadProgressDialogListerner.onDownloadFinish();
-			}
-			if (mIsDownloadBackGround) {
-				//add notification to lead user to lib actitivity.
+				if (!mIsDownloadBackGround) {
+					mDownloadProgressDialogListerner.onDownloadFinish();
+				} else if (mIsDownloadBackGround) {
+					Intent intent = new Intent(MusicPageActivity.this, DownloadedActivity.class);
+					String title = getString(R.string.app_name);
+					String resTitle = mMusicInfo.getTitle();
+					String resText = getString(R.string.toast_download_finish)+mMusicInfo.getTitle();
+					String resExpandedTitle = resText;
+					String resExpandedText = getString(R.string.click_to_view_music);
+					Utils.addNotification(MusicPageActivity.this, intent, title, resTitle, resText, resExpandedTitle, resExpandedText);
+				}
 			}
 		}
 		@Override

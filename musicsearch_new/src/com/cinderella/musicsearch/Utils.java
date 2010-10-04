@@ -1,5 +1,6 @@
 package com.cinderella.musicsearch;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.io.File;
 import java.net.ContentHandler;
@@ -230,5 +231,12 @@ public class Utils {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+    }
+    
+    public static String lengthToDisplaySize(long length) {
+    	Double sizeInM = (double)length/(double)(1024*1024);
+    	java.text.DecimalFormat   df=new   java.text.DecimalFormat("#0.00");
+    	String sizeString = df.format(sizeInM)+"M";
+    	return sizeString;
     }
 }

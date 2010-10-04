@@ -37,9 +37,19 @@
 			<locationURI>_android_ring_base/src</locationURI>
 		</link>
 		<link>
+			<name>ring_src</name>
+			<type>2</type>
+			<locationURI>_android_ring/src</locationURI>
+		</link>
+		<link>
 			<name>util</name>
 			<type>2</type>
 			<locationURI>util</locationURI>
+		</link>
+		<link>
+			<name>util_src</name>
+			<type>2</type>
+			<location>/home/hy/workspace/util/src</location>
 		</link>
 	</linkedResources>
 </projectDescription>

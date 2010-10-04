@@ -42,4 +42,7 @@
     <string name="make_your_ringtone">Make your own ringtone!</string>
     <string name="edit">Edit</string>
     <string name="edit_intent">Edit</string>
+    <string name="toast_download_failed">Download failed: </string>
+    <string name="toast_download_finish">Download finish: </string>
+    <string name="click_to_view_music">Click here to view the music.</string>
 </resources>

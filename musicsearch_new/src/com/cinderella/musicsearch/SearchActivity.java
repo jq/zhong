@@ -68,7 +68,10 @@ public class SearchActivity extends ListActivity {
 	}
 
 	private void handleSearchResult(ArrayList<MusicInfo> mp3List) {
-    	if (sFetcher.getCurPage() == 1) {
+		Utils.D("curPage: "+sFetcher.getCurPage());
+		mFooter.getBtnNext().setPressed(false);
+		mFooter.getBtnPre().setPressed(false);
+    	if (sFetcher.getCurPage() <= 1) {
     		mFooter.getBtnPre().setEnabled(false);
     	} else {
     		mFooter.getBtnPre().setEnabled(true);
@@ -331,7 +334,7 @@ public class SearchActivity extends ListActivity {
     }
     
     public void setErrorStatus() {
-    	mProgressBar.setVisibility(View.VISIBLE);
+    	mProgressBar.setVisibility(View.GONE);
     	mSearchMessage.setVisibility(View.VISIBLE);
     	mRetryButton.setVisibility(View.VISIBLE);
     	mSearchMessage.setText(R.string.network_error_retry);

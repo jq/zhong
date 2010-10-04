@@ -10,42 +10,44 @@
   		android:layout_width="fill_parent"
   		android:layout_height="wrap_content"
   		android:gravity="center_vertical"
+  		android:textColor="#ffffff"
   		android:singleLine="true"
   		android:textSize="20sp">
   	</TextView>
   	
-	<LinearLayout
+  	<RelativeLayout
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+		android:gravity="center_vertical">
+		<TextView
+	  		android:id="@+id/size"
+	  		android:layout_width="fill_parent"
+	  		android:layout_height="wrap_content"
+	  		android:gravity="right"
+	  		android:layout_alignParentRight="true"
+	  		android:singleLine="true">
+	  	</TextView>
 	  	<TextView
 	  		android:id="@+id/artist"
 	  		android:layout_width="fill_parent"
 	  		android:layout_height="wrap_content"
+	  		android:layout_alignParentLeft="true"
+	  		android:layout_alignParentTop="true"
 	  		android:gravity="center_vertical"
 	  		android:singleLine="true"
-	  		android:drawableLeft="@drawable/ic_artist"
-	  		android:layout_weight="2">
+	  		android:drawableLeft="@drawable/ic_artist">
 	  	</TextView>
-	  	
 	  	<TextView
 	  		android:id="@+id/album"
 	  		android:layout_width="fill_parent"
 	  		android:layout_height="wrap_content"
+	  		android:layout_alignParentLeft="true"
+	  		android:layout_below="@id/artist"
 	  		android:singleLine="true"
 	  		android:gravity="center_vertical"
-	  		android:drawableLeft="@drawable/ic_album"
-	  		android:layout_weight="2">
+	  		android:drawableLeft="@drawable/ic_album">
 	  	</TextView>
 	  	
-	  	<TextView
-	  		android:id="@+id/size"
-	  		android:layout_width="fill_parent"
-	  		android:layout_height="wrap_content"
-	  		android:singleLine="true"
-	  		android:gravity="center_vertical"
-	  		android:layout_weight="2">
-	  	</TextView>
-	</LinearLayout>
+	</RelativeLayout>
   	
 </LinearLayout>

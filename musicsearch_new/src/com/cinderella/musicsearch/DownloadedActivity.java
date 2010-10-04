@@ -193,6 +193,7 @@ public class DownloadedActivity extends ListActivity {
 				mAdapter = new DownloadedAdapter(DownloadedActivity.this, R.layout.downloaded_item);
 				setListAdapter(mAdapter);
 			}
+			sortByDate(false);
 			mAdapter.notifyDataSetChanged();
 			if (sDownloadedMusicInfoList.size() == 0) {
 				setEmptyStatus();
@@ -278,8 +279,9 @@ public class DownloadedActivity extends ListActivity {
 				v = convertView;
 			}
 			TextView song = (TextView) v.findViewById(R.id.song);
-			Utils.D("song: "+song);
+			TextView size = (TextView) v.findViewById(R.id.size);
 			song.setText(sDownloadedMusicInfoList.get(position).getFileName());
+			size.setText("Siez: "+Utils.lengthToDisplaySize(sDownloadedMusicInfoList.get(position).getSize()));
 			return v;
 		}
 	}

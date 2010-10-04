@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<!-- Disable state -->
+	<item android:state_enabled="false" android:drawable="@drawable/btn_pre_disable"/>
+	
+	<!-- Press state -->
+	<item android:state_pressed="true" android:drawable="@drawable/btn_pre_pressed" />
+	
+	<!-- Focus state -->
+	<item android:state_focused="true" android:drawable="@drawable/btn_pre_normal" />
+
+	<!-- Normal state -->
+	<item android:drawable="@drawable/btn_pre_normal" />
+
+</selector>
