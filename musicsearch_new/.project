@@ -32,14 +32,14 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>ring_src</name>
+			<name>ring_base_src</name>
 			<type>2</type>
-			<location>/home/hy/workspace/ring/src</location>
+			<locationURI>_android_ring_base/src</locationURI>
 		</link>
 		<link>
-			<name>util_src</name>
+			<name>util</name>
 			<type>2</type>
-			<location>/home/hy/workspace/util/src</location>
+			<locationURI>util</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
