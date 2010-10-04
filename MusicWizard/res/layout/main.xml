@@ -75,6 +75,21 @@
 	<View android:layout_height="1dip"
 	      android:layout_width="fill_parent"
  		  android:background="#FF909090" />
+ 		  
+	<TextView android:id="@+id/rate"
+	    android:gravity="center"
+	    android:textSize="18.0sp"
+		android:typeface="sans"
+		android:textColor="#eeeeee"
+		android:background="@android:drawable/list_selector_background"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="Please support this free app by rating it"
+		android:layout_margin="6.0dip"
+	/>
+ 		  		   
+	<View android:layout_height="1dip"
+	      android:layout_width="fill_parent"
+ 		  android:background="#FF909090" />
 
      
      </LinearLayout>
