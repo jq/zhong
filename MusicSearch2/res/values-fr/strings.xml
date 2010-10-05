@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Paroles de recherche</string>
+    <string name="local_service_started">Télécharger a commencé</string>
+    <string name="ringtone">Ringtone</string>
+    
+    <string name="network_error">Réseau d\'erreur!</string>
+    <string name="no_result">Aucun résultat, S\'il vous plaît réessayer plus tard</string>
+    <string name="no_sd">Besoin d\'une carte SD pour exécuter le programme</string>
+    <string name="search_hint">Rechercher</string>
+    
+    <string name="tab_hot">Hot Music</string>
+    <string name="tab_find">Trouver</string>
+    <string name="tab_lib">Lib</string>
+    <string name="tab_downlaod">Téléchargé de la musique</string>
+    <string name="downloaded_files">Télécharger des fichiers</string>
+  	
+   <string name="queue_message">La chanson a été mis en attente</string>
+    <string name="download_finished">Téléchargement terminé</string>
+		<string name="myreview">Mon examen</string>
+		<string name="info">Information sur la Musique</string>
+		<string name="about">A propos</string>
+		<string name="artist">Artiste: </string>
+		<string name="title">Titre: </string>
+		<string name="search_more">Recherche Plus</string>
+		<string name="search_more_by">En Recherche Plus</string>
+		<string name="search_more_in">Recherche Plus d\'</string>
+	<!-- 
+	  Music activity
+	 -->
+	 <string name="play">Écouter</string>
+	 	 <string name="play_error">Erreur</string>
+	 	 	 <string name="save_success_message">Ajoutez le succès</string>
+	 
+	 <!-- 
+	 	getLinkProgressDialog
+	  -->
+    <string name="download_failed">téléchargement a échoué</string>
+	  <string name="get_download_link">Obtenez lien de téléchargement, S\'il vous plaît patienter ...</string>
+    <!--	new ringdroid-->
+    <string name="menu_about">A propos</string>
+     <string name="about_title">About Ringdroid</string>
+    <string name="about_text"><![CDATA[Use Ringdroid to edit MP3, WAV, AAC, and AMR audio files and create ringtones, alarms, and notifications from them.\n\nTip: copy audio files to your SD card using a USB cable, or get MP3s using the Amazon MP3 application.\n\nTip: long-press on an audio file from the main screen to delete it.  More below...\n\nTip: tap anywhere on the waveform to start playing at that position.\n\nTip: while playing, tap the word Start or End to quickly set the start and end markers to the current playback time.\n\nTip: Use the jog wheel for more precise adjustments.\n\nVersion 2.3\n\nDeveloper: Dominic Mazzoni\nGraphics: Joseph Wain\nSupport and evangelizing: Eugene Koh\n\nRingdroid is free software, distributed under the Apache 2.0 license.  Source code is on code.google.com\n]]></string>
+        <!--
+     Sending information to server
+     -->
+    <string name="server_title">Partagez vos données!</string>
+    <string name="server_prompt">\'accord pour envoyer des données anonymes sur les sonneries et autres sons que vous créez pour Ringdroid.com afin que nous puissions recueillir des statistiques?</string>
+    <string name="server_yes">OK pour envoyer</string>
+    <string name="server_later">Demandez plus tard</string>
+    <string name="server_never">Ne jamais</string>
+    <string name="error_server_prompt">D\'accord pour envoyer des données anonymes sur cette erreur de Ringdroid.com afin que nous puissions essayer de résoudre ce problème à l\'avenir?</string>
+    <string name="confirm_delete_non_ringdroid">Etes-vous sûr? Ce fichier n\'a pas été créé à l\'aide Ringdroid!</string>
+    <string name="rate_low">Le débit de cette musique est trop faible. Il peut être déformée après édition. Il est recommandé d\'utiliser vous la musique tout en cliquant sur "Utiliser tout".</string>
+    <string name="use_all">Utilisez tous les</string>
+    <string name="edit">Modifier</string>
+    <string name="artist_name">Music Search</string>
+    <string name="ring_picker_title">Sélectionnez Ring</string>
+    <string name="play_mode">mode de lecture</string>
+    <string name="current_music">la musique actuelle</string>
+    <string name="select_play_mode">Sélectionnez le mode de lecture.</string>
+    <string name="play_mode_set_to">Play mode réglé sur</string>
+    <string name="have_no_valide_music">Vous n\'avez pas de fichier de musique disponibles.</string>
+    <string name="select_opration">Sélectionnez une opération.</string>
+    <string name="delete_warning">Êtes-vous sûr de vouloir supprimer</string>
+    <string name="yes">Oui</string>
+    <string name="no">N</string>
+    
+    <!-- new -->
+    <string name="rate">aux de 5 étoiles si vous l\'aimez</string>
+     
+</resources>

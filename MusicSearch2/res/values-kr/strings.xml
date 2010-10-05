@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">벨소리 검색</string>
+    <string name="local_service_started">다운로드 시작</string>
+    <string name="ringtone">벨소리</string>
+    
+    <string name="network_error">네트워크 오류!</string>
+    <string name="no_result">아니 결과, 나중에 다시 시도하십시오</string>
+    <string name="no_sd">프로그램을 실행하는 SD 카드가 필요</string>
+    <string name="search_hint">검색</string>
+    
+    <string name="tab_hot">핫 뮤직</string>
+    <string name="tab_find">찾기</string>
+    <string name="tab_lib">Lib</string>
+    <string name="tab_downlaod">다운로드한 음악</string>
+    <string name="downloaded_files">다운로드 파일</string>
+  	
+   <string name="queue_message">그 노래가 대기열되었습니다</string>
+    <string name="download_finished">다운로드 완료</string>
+		<string name="myreview">나의 리뷰</string>
+		<string name="info">음악 정보</string>
+		<string name="about">소개</string>
+		<string name="artist">예술가: </string>
+		<string name="title">제목: </string>
+		<string name="search_more">추가 검색</string>
+		<string name="search_more_by">더보기으로 검색</string>
+		<string name="search_more_in">더많은 검색을</string>
+	<!-- 
+	  Music activity
+	 -->
+	 <string name="play">놀이</string>
+	 	 <string name="play_error">오류</string>
+	 	 	 <string name="save_success_message">저장 성공</string>
+	 
+	 <!-- 
+	 	getLinkProgressDialog
+	  -->
+    <string name="download_failed">다운로드 실패</string>
+	  <string name="get_download_link">잠시 기다려주십시오, 링크를 다운로드 받으세요...</string>
+    <!--	new ringdroid-->
+    <string name="menu_about">소개</string>
+     <string name="about_title">소개 Ringdroid</string>
+    <string name="about_text"><![CDATA[Use Ringdroid to edit MP3, WAV, AAC, and AMR audio files and create ringtones, alarms, and notifications from them.\n\nTip: copy audio files to your SD card using a USB cable, or get MP3s using the Amazon MP3 application.\n\nTip: long-press on an audio file from the main screen to delete it.  More below...\n\nTip: tap anywhere on the waveform to start playing at that position.\n\nTip: while playing, tap the word Start or End to quickly set the start and end markers to the current playback time.\n\nTip: Use the jog wheel for more precise adjustments.\n\nVersion 2.3\n\nDeveloper: Dominic Mazzoni\nGraphics: Joseph Wain\nSupport and evangelizing: Eugene Koh\n\nRingdroid is free software, distributed under the Apache 2.0 license.  Source code is on code.google.com\n]]></string>
+        <!--
+     Sending information to server
+     -->
+    <string name="server_title">공유 데이터!</string>
+    <string name="server_prompt">좋아, 당신은 그래서 우리는 통계를 수집할 수 있습니다 Ringdroid.com 만드는 벨소리 및 기타 소리에 대해 익명으로 데이터를 보내는가?</string>
+    <string name="server_yes">확인을 보낼 수</string>
+    <string name="server_later">나중에 확인</string>
+    <string name="server_never">절대</string>
+    <string name="error_server_prompt">우리는 앞으로이 문제를 해결하려고 할 수 있도록 좋아요 Ringdroid.com이 오류에 대한 익명의 데이터를 보내는가?</string>
+    <string name="confirm_delete_non_ringdroid">당신은 확실한가요? 이 파일은 Ringdroid을 사용하여 만들어지지 않았습니다!</string>
+    <string name="rate_low">이 음악의 비트 레이트가 너무 낮습니다. 이것은 수정 후 왜곡 수 있습니다. 그것은 버튼을 "전체 사용"을 클릭하여 전체 음악을 사용하는 방법을 권장합니다.</string>
+    <string name="use_all">모든 사용</string>
+    <string name="edit">수정</string>
+    <string name="artist_name">음악 검색</string>
+    <string name="ring_picker_title">반지를 선택하십시오</string>
+    <string name="play_mode">재생 모드</string>
+    <string name="current_music">현재 음악</string>
+    <string name="select_play_mode">선택 모드를 재생할 수 있습니다.</string>
+    <string name="play_mode_set_to">재생 모드로 설정</string>
+    <string name="have_no_valide_music">당신은 가능한 음악 파일이 있습니다.</string>
+    <string name="select_opration">작업을 선택합니다.</string>
+    <string name="delete_warning">삭제할시겠습니까</string>
+    <string name="yes">예</string>
+    <string name="no">없음</string>
+    
+    <!-- new -->
+    <string name="rate">평가 5 성급 당신이 그것을 원한다면</string>
+     
+</resources>
