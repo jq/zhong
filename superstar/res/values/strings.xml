@@ -16,6 +16,7 @@
     <string name="clear_finished">Clear Finished</string>
     <string name="show_finished">Show Finished</string>
     <string name="no_download_data">No downloading data,you can press \"show finished\" button to show the musics which have been download.</string>
+    <string name="help_rate">This free app is published by Social Games Team. If you like it, please help rate in Android Market. Thanks :-)</string>
     <string name="hide">Hide Downloads</string>
     <string name="finished">Finished</string>
     <string name="pending">Pending...</string>

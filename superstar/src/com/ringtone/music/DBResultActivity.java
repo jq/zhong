@@ -31,6 +31,7 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -908,6 +909,9 @@ public class DBResultActivity extends ListActivity {
 		case R.id.refresh:
 			mAdapter.refresh();
 			return true;
+		case R.id.showmore:
+			showAboutDialog();
+			return true;
 		}
 		return false;
 	}
@@ -926,5 +930,39 @@ public class DBResultActivity extends ListActivity {
                 })
             .setCancelable(false)
             .show();
+    }
+    
+    private void showAboutDialog(){
+    	new AlertDialog.Builder(DBResultActivity.this)
+    		.setTitle("About")
+    		.setMessage(getString(R.string.help_rate))
+    		.setPositiveButton("Rate",
+    				new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							String url = "market://search?q=pname:" + getPackageName();
+			    			
+							try {
+								Uri uri = Uri.parse(url);
+								Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+					    		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+								startActivity(intent);
+							} catch (Exception ex) {
+								ex.printStackTrace();
+							}
+						}
+    			
+    		})
+    		.setNegativeButton("Cancel",
+    				new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							
+						}
+    			
+    		})
+    		.show();
     }
 }
