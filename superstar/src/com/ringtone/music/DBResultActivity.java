@@ -934,9 +934,9 @@ public class DBResultActivity extends ListActivity {
     
     private void showAboutDialog(){
     	new AlertDialog.Builder(DBResultActivity.this)
-    		.setTitle("About")
+    		.setTitle("Rate")
     		.setMessage(getString(R.string.help_rate))
-    		.setPositiveButton("Rate",
+    		.setPositiveButton("OK",
     				new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {

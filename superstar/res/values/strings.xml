@@ -31,6 +31,7 @@
     <string name="stop">Stop</string>
     <string name="refresh">Refresh</string>
     <string name="delete">Delete</string>
+    <string name="rate">Rate</string>
     <string name="resume">Resume</string>
     <string name="preview">Preview</string>
     <string name="assign">Assign</string>
