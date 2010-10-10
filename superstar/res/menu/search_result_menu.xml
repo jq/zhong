@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+	<item android:id="@+id/getmore"
+        android:title="@string/getmore"
+        android:icon="@drawable/ic_menu_my_share"/>
+	<item android:id="@+id/rate"
+        android:title="@string/rate"
+        android:icon="@drawable/ic_menu_my_about"/>
     <item android:id="@+id/refresh"
         android:title="@string/refresh"
         android:icon="@drawable/ic_menu_my_refresh"/>
 	<item android:id="@+id/dowloads"
         android:title="@string/downloads"
         android:icon="@drawable/ic_menu_my_downloads"/>
-	<item android:id="@+id/showmore"
-        android:title="@string/rate"
-        android:icon="@drawable/ic_menu_my_about"/>
 </menu>

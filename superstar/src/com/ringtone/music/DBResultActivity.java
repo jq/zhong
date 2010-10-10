@@ -909,8 +909,28 @@ public class DBResultActivity extends ListActivity {
 		case R.id.refresh:
 			mAdapter.refresh();
 			return true;
-		case R.id.showmore:
-			showAboutDialog();
+		case R.id.rate:
+			String url = "market://search?q=pname:" + getPackageName();		
+			try {
+				Uri uri = Uri.parse(url);
+				Intent intent2 = new Intent(Intent.ACTION_VIEW, uri);
+	    		intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(intent2);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			return true;
+		case R.id.getmore:
+//			String url = "market://search?q=pub:\"Google Inc.\"";
+			String url1 = "market://search?q=pub:\"Social Games\"";	
+			try {
+				Uri uri = Uri.parse(url1);
+				Intent intent1 = new Intent(Intent.ACTION_VIEW, uri);
+	    		intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(intent1);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
 			return true;
 		}
 		return false;
@@ -932,37 +952,37 @@ public class DBResultActivity extends ListActivity {
             .show();
     }
     
-    private void showAboutDialog(){
-    	new AlertDialog.Builder(DBResultActivity.this)
-    		.setTitle("Rate")
-    		.setMessage(getString(R.string.help_rate))
-    		.setPositiveButton("OK",
-    				new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							// TODO Auto-generated method stub
-							String url = "market://search?q=pname:" + getPackageName();
-			    			
-							try {
-								Uri uri = Uri.parse(url);
-								Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-					    		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-								startActivity(intent);
-							} catch (Exception ex) {
-								ex.printStackTrace();
-							}
-						}
-    			
-    		})
-    		.setNegativeButton("Cancel",
-    				new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							// TODO Auto-generated method stub
-							
-						}
-    			
-    		})
-    		.show();
-    }
+//    private void showAboutDialog(){
+//    	new AlertDialog.Builder(DBResultActivity.this)
+//    		.setTitle("Rate")
+//    		.setMessage(getString(R.string.help_rate))
+//    		.setPositiveButton("OK",
+//    				new DialogInterface.OnClickListener() {
+//						@Override
+//						public void onClick(DialogInterface dialog, int which) {
+//							// TODO Auto-generated method stub
+//							String url = "market://search?q=pname:" + getPackageName();
+//			    			
+//							try {
+//								Uri uri = Uri.parse(url);
+//								Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//					    		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//								startActivity(intent);
+//							} catch (Exception ex) {
+//								ex.printStackTrace();
+//							}
+//						}
+//    			
+//    		})
+//    		.setNegativeButton("Cancel",
+//    				new DialogInterface.OnClickListener() {
+//						@Override
+//						public void onClick(DialogInterface dialog, int which) {
+//							// TODO Auto-generated method stub
+//							
+//						}
+//    			
+//    		})
+//    		.show();
+//    }
 }

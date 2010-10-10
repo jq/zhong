@@ -302,7 +302,7 @@
     		    <param name="package_name" value="ladygaga"/>
     		    <param name="drawable" value="app_icons\\ladygaga_large.png"/>
     			<param name="head" value="app_icons\\ladygaga_small.png"/>
-    			<param name="app_name" value="lady gaga"/>
+    			<param name="app_name" value="Lady GaGa"/>
     		</antcall> 
     		<antcall target="package-apk">
     		    <param name="package_name" value="leehom"/>
