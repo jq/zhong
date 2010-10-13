@@ -915,7 +915,7 @@ public class RingActivity extends Activity {
                     if(pin.length() > 0){
                       accessToken = twitter.getOAuthAccessToken(requestToken, pin);
                     }else{
-                      accessToken = twitter.getOAuthAccessToken();
+                      //accessToken = twitter.getOAuthAccessToken();
                     }
                     if(accessToken != null) {
                       storeTwitterAccessToken(twitter.verifyCredentials().getId() , accessToken);
@@ -946,8 +946,12 @@ public class RingActivity extends Activity {
   private void storeTwitterAccessToken(int useId, AccessToken accessToken){
     SharedPreferences s = getSharedPreferences("twitter", 0);
     Editor e = s.edit();
-    e.putString("twitterToken", accessToken.getToken());
-    e.putString("twitterTokenSecret", accessToken.getTokenSecret());
+    try {
+      e.putString("twitterToken", accessToken.getToken());
+      e.putString("twitterTokenSecret", accessToken.getTokenSecret());
+    } catch (Exception ex) {
+      
+    }
     e.commit();
   }
   
