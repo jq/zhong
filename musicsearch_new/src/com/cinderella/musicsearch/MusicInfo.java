@@ -58,6 +58,9 @@ public class MusicInfo {
 	}
 	
 	public String getAlbum() {
+		if (TextUtils.isEmpty(mAlbum)) {
+			return "Unknown";
+		}
 		return mAlbum;
 	}
 	

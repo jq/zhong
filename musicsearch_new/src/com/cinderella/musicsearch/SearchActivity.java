@@ -23,7 +23,7 @@ public class SearchActivity extends ListActivity {
 	
 	public static Mp3ListWrapper sData;
 	
-	private static MusicSearcher sFetcher;
+	private static QQMusicSearcher sFetcher;
 	
 	private static FetchMp3ListTask sFetchMp3ListTask;
 	
@@ -45,6 +45,8 @@ public class SearchActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		sSearchActivity = this;
 		setContentView(R.layout.search_list);
+		
+		AdListener.createAds(this);
 		
 		mProgressBar = (ProgressBar) findViewById(R.id.search_progress);
 		mSearchMessage = (TextView) findViewById(R.id.search_message);
@@ -297,7 +299,7 @@ public class SearchActivity extends ListActivity {
 			sData = null;
 			if (sSearchActivity != null)
 				sSearchActivity.notifyDataSetInvalidated();
-            sFetcher = new MusicSearcher();
+            sFetcher = new QQMusicSearcher();
 			sFetcher.setQuery(keyWords);
 			fetchNextMp3ListBatch();
 		} else {

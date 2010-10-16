@@ -53,6 +53,8 @@ public class DownloadedActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.downloaded_activity);
 		
+		AdListener.createAds(this);
+		
 		sProgressBar = (ProgressBar) findViewById(R.id.search_progress);
 		sLoadingMessage = (TextView) findViewById(R.id.search_message);
 		sRetryButton = (Button) findViewById(R.id.retry_button);

@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 public class MusicSearcher {
 	private static final String URL_SEARCH = Const.Search_Url_Base;
@@ -109,6 +110,7 @@ public class MusicSearcher {
 		try {
 			String key = info.getDownloadUrl().get(0);
 			if (Utils.isUrl(key)) {
+				Utils.D("isUrl: "+Utils.isUrl(key));
 				return;
 			} else {
 				String html = NetUtils.fetchHtmlPage(mCookie_id, URL_DOWNLINK+key, CODING);

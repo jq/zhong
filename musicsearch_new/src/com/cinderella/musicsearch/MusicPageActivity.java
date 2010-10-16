@@ -48,7 +48,7 @@ public class MusicPageActivity extends ListActivity {
 	
 	private static MusicPageActivity sMusicPageActivity;
 	
-	private static MusicSearcher sFetcher;
+	private static QQMusicSearcher sFetcher;
 	private static FetchDownloadLinkTask sFetchDownloadLinkTask;
 	private static PreviewTask sPreviewTask;
 	
@@ -80,6 +80,9 @@ public class MusicPageActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		Utils.D("onCreate()");
 		setContentView(R.layout.music_page);
+		
+		AdListener.createAds(this);
+		
 		mProgressBar = (ProgressBar) findViewById(R.id.search_progress);
 		mMessage = (TextView) findViewById(R.id.search_message);
 		mRetryButton = (Button) findViewById(R.id.retry_button);
@@ -152,7 +155,7 @@ public class MusicPageActivity extends ListActivity {
 		@Override
 		protected Void doInBackground(Void... params) {
 			if (sFetcher == null) {
-				sFetcher = new MusicSearcher();
+				sFetcher = new QQMusicSearcher();
 			} 
 			sFetcher.setMusicDownloadUrl(mMusicInfo);
 			return null;

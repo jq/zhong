@@ -4,11 +4,19 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 	
+	<include 
+		android:layout_height="wrap_content"
+		android:layout_width="fill_parent"
+		android:layout_alignParentBottom="true"
+		android:id="@+id/ad"
+		layout="@layout/ads">
+	</include>
+	
 	<LinearLayout
 		android:id="@+id/button_group"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true"
+		android:layout_above="@id/ads_view"
 		android:orientation="horizontal">
 		<Button
 			android:id="@+id/preview_button"

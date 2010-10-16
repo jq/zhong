@@ -13,6 +13,7 @@ public class Const {
 	public static final String INDEX = "INDEX";
 	public static final String Search_Url_Base = "http://msearchtest.appspot.com/search?key=";
 	public static final String Link_Url_Base = "http://msearchtest.appspot.com/downloadlink?key=";
+	public static final String QQ_Search_Url_Base = "http://cgi.music.soso.com/fcgi-bin/m.q?t=1&w=";
 	public static String app_name;
 	private static final String MusicDir = "music";
 	private static final String JsonDir = "json";
