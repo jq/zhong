@@ -24,6 +24,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.feebe.rings.SearchTab;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -62,7 +64,6 @@ public class Util {
 	private static Random generator = new Random();
 	public static void runFeed(int chance, Activity at, int resource) {
 	  if (run(chance)) {
-      mSetting = at.getPreferences(0);
 	    getFeeds(at, resource, urlString);
 	  }
 	}
@@ -492,7 +493,23 @@ public class Util {
     return null;
 	}
 	
-  private static SharedPreferences mSetting;
+  static SharedPreferences mSetting;
+  private static String RATING = "rate";
+  public static String FULLSEARCH = "com.ringtone.music.search1";
+  public static boolean hasRate() {
+    return hasKey(RATING);
+  }
+  public static void startRate(Activity act) {
+    setBoolKey(RATING);
+    startMarket(act, act.getPackageName());
+  }
+  
+  public static void startMarket(Activity act, String pkg) {
+    Intent i = new Intent(
+        Intent.ACTION_VIEW,
+        Uri.parse("market://details?id=" + pkg));
+    act.startActivity(i);
+  }
 
   public static boolean hasKey(String key) {
       return mSetting.getBoolean(key, false);

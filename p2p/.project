@@ -36,5 +36,10 @@
 			<type>2</type>
 			<locationURI>_android_ring_base/src</locationURI>
 		</link>
+		<link>
+			<name>ringdroid-base_src</name>
+			<type>2</type>
+			<locationURI>_android_ringdroid_base/src</locationURI>
+		</link>
 	</linkedResources>
 </projectDescription>

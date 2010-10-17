@@ -61,6 +61,8 @@ public class Const {
   }
   public static void init(Activity c) {
 	  main = c;
+    Util.mSetting = c.getPreferences(0);
+
     File sdcardRoot = Environment.getExternalStorageDirectory();
     dbAdapter = new DbAdapter(c);
     File homeDir = new File(sdcardRoot, appname);

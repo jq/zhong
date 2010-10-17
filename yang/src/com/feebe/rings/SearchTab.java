@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.feebe.lib.DbAdapter;
 import com.feebe.lib.SearchAdapter;
+import com.feebe.lib.Util;
 import com.lib.RingSelect;
 
 import android.app.Activity;
@@ -147,16 +148,12 @@ public class SearchTab extends Activity{
         }
     });
     TextView rate = (TextView)findViewById(R.id.rate);
-    rate.setOnClickListener(new OnClickListener() {
-        @Override
-        public void onClick(View arg0) {
-          Intent i = new Intent(
-              Intent.ACTION_VIEW,
-              Uri.parse("market://details?id=" + SearchTab.this.getPackageName()));
-          startActivity(i);
-        }
-    });
-
+      rate.setOnClickListener(new OnClickListener() {
+          @Override
+          public void onClick(View arg0) {
+            Util.startRate(SearchTab.this);
+          }
+      });
 	}
 	
 	private void actionListener(){

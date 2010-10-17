@@ -703,7 +703,19 @@ public class RingActivity extends Activity {
                       return;
                     case 2: Search.getCate(RingActivity.this, category);
                       return;
-                    case 3: Search.getTitleRing(RingActivity.this, title);
+                    case 3: 
+                      if (Util.has(Util.FULLSEARCH, RingActivity.this)) {
+                        Intent i = new Intent(Intent.ACTION_MAIN);
+                        i.setClassName(Util.FULLSEARCH, "com.trans.music.search.SearchTab");
+                        i.putExtra("key", title);
+                        startActivity(i);
+                      } else {
+                        try {
+                        Util.startMarket(RingActivity.this, Util.FULLSEARCH);
+                        } catch (Exception e) {
+                          Search.getTitleRing(RingActivity.this, title);
+                        }
+                      }
                       return;
                     case 4: 
                       Intent intent = new Intent();

@@ -87,10 +87,10 @@ public class Ring extends TabActivity implements OnTabChangeListener {
           android.R.drawable.ic_menu_search);
       menu.add(0, R.string.menu_downloaded, 0, R.string.menu_downloaded).setIcon(
           android.R.drawable.ic_menu_gallery);
-      
-      menu.add(0, R.string.menu_rate, 0, R.string.menu_rate).setIcon(
+      if (!Util.hasRate()) {
+        menu.add(0, R.string.menu_rate, 0, R.string.menu_rate).setIcon(
           android.R.drawable.ic_menu_help);
-      
+      }
       menu.add(0, R.string.menu_unset_ringtone, 0, R.string.menu_unset_ringtone).setIcon(
           android.R.drawable.ic_lock_silent_mode);
       menu.add(0, R.string.clear_cache, 0, R.string.clear_cache).setIcon(
@@ -108,10 +108,7 @@ public class Ring extends TabActivity implements OnTabChangeListener {
     public boolean onOptionsItemSelected(MenuItem item) {
       switch (item.getItemId()) {
         case R.string.menu_rate:
-          Intent i = new Intent(
-              Intent.ACTION_VIEW,
-              Uri.parse("market://details?id=com.feebe.rings"));
-          startActivity(i);
+          Util.startRate(this);
           return true;
         case R.string.alertdialog_share:
           RingUtil.startShare(this);

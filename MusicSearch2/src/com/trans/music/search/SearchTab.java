@@ -21,13 +21,24 @@ import android.widget.TextView;
 public class SearchTab  extends Activity {
   private EditText searchTitle;
   private ImageButton searchButton;
+  @Override
+  public void onNewIntent(Intent intent) {
+    Intent i = this.getIntent();
+    String key = i.getStringExtra("key");
+    if (key != null && key.length() > 0)
+      searchTitle.setText(key);
+  }
   
   @Override
   public void onCreate(Bundle savedInstanceState){
     super.onCreate(savedInstanceState);
     setContentView(R.layout.search_tab);
+    Intent i = this.getIntent();
+    String key = i.getStringExtra("key");
     
     searchTitle = (EditText) findViewById(R.id.search_query_words);
+    if (key != null && key.length() > 0)
+      searchTitle.setText(key);
     searchButton = (ImageButton) findViewById(R.id.search_button);
     
     AdListener.createAds(this);

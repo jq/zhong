@@ -1418,7 +1418,7 @@ public class RingdroidEditActivity extends Activity implements
 			showFinalAlert(exception, errorString);
 			return;
 		}
-
+		try {
 		new AlertDialog.Builder(this).setTitle(R.string.alert_title_failure)
 				.setMessage(
 						errorString
@@ -1456,6 +1456,10 @@ public class RingdroidEditActivity extends Activity implements
 								finish();
 							}
 						}).setCancelable(false).show();
+		} catch (Exception e) {
+			// .show(); crashes sometime due to no window token, 
+			// I guess it is android bug
+		}
 	}
 
 	private void onSave() {
