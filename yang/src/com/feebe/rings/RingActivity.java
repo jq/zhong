@@ -65,6 +65,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -736,15 +737,20 @@ public class RingActivity extends Activity {
               long id) {
             switch (position) {
             case 0:
+              LayoutInflater inflater = LayoutInflater.from(RingActivity.this);
+              final View commentView = inflater.inflate(R.layout.comment_dialog, (ViewGroup) findViewById(R.id.comment_dialog));
               AlertDialog.Builder builder = new AlertDialog.Builder(RingActivity.this);
               builder.setTitle("Input comment:");
-              commentEditText = new EditText(RingActivity.this);
-              builder.setView(commentEditText);
+              builder.setView(commentView);
               builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                  EditText userEditText = (EditText) commentView.findViewById(R.id.comment_dialog_user);
+                  commentUser = userEditText.getText().toString();
+                  EditText commentEditText = (EditText) commentView.findViewById(R.id.comment_dialog_comment);
                   commentString = commentEditText.getText().toString();
-                  comment("user", commentString);
+                  //Log.e("user  comment ::", commentUser + "   " + commentString);
+                  comment(commentUser, commentString);
                   twitter = new TwitterFactory().getInstance();
                   twitter.setOAuthConsumer("U7WQ29Echs2KRErPvsH5BA", "fsNpLIQ4PcgvBlJUzqp21ejGqf1Zp372fTh5W1Oq0");
                   requestToken = null;
@@ -780,6 +786,11 @@ public class RingActivity extends Activity {
               
               break;
             case 1:
+              Intent intent = new Intent();
+              String realKey = key.substring(key.lastIndexOf("/")+1, key.indexOf("?"));
+              intent.putExtra("Ring", realKey);
+              intent.setClass(RingActivity.this, CommentList.class);
+              startActivity(intent);
               break;
             }
           }
@@ -968,7 +979,8 @@ public class RingActivity extends Activity {
   private void commentToTwitter(String comment) {
     Status status = null;
     try {
-      status = twitter.updateStatus(comment);
+      String statusString = "The ringtone " + title + " is " + comment;
+      status = twitter.updateStatus(statusString);
       //Log.e(TAG,"Successfully updated the status to [" + status.getText() + "].");
     } catch (Exception e) {
       e.printStackTrace();
@@ -1192,7 +1204,6 @@ public class RingActivity extends Activity {
   private RatingBar ratingBar;
   private RatingBar largeRatingBar;
   private LinearLayout layoutMyReview; 
-  private EditText commentEditText;
   
   MediaPlayer mPlayer = new MediaPlayer();;
   MediaPlayer previewPlayer = new MediaPlayer();
@@ -1228,6 +1239,7 @@ public class RingActivity extends Activity {
   private Twitter twitter;
   private RequestToken requestToken;
   private AccessToken accessToken; 
+  private String commentUser = "user";
   private String commentString = "";
   
   public static final int GET_TWITTER_KEY_REQUEST_CODE = 300;
