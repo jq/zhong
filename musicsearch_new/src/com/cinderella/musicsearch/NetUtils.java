@@ -1,10 +1,14 @@
 package com.cinderella.musicsearch;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -81,5 +85,46 @@ public class NetUtils {
 			builder.append(line + "\n");
 		}
 		return builder.toString();
+	}
+	
+	public static String fetchHtmlPagePost(String link, String data, String coding) throws IOException {
+		URL url = new URL(link);
+		HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+		connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3");
+		connection.setRequestProperty("Accept", "application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5");
+		connection.setRequestProperty("Accept-Language", "en-us");
+		connection.setRequestProperty("Accept-Charset", "utf-8, iso-8859-1, utf-16, *;q=0.7");
+		connection.setRequestProperty("Keep-Alive", "300");
+		connection.setRequestProperty("Connection", "keep-alive");
+		connection.setRequestMethod("POST");
+		connection.setUseCaches(false);
+		connection.setDoInput(true);
+		connection.setDoOutput(true);
+		String encodedData =  null;
+		try {
+			encodedData = URLEncoder.encode(data, coding);
+		} catch (UnsupportedEncodingException e) {
+			encodedData = URLEncoder.encode(data);
+		}
+		System.out.println("Data: " + encodedData);
+		encodedData = "f=" + encodedData;
+		DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+		wr.writeBytes(encodedData);
+		wr.flush();
+		wr.close();
+		InputStream is = connection.getInputStream();
+		BufferedReader rd = null;
+		try {
+			rd = new BufferedReader(new InputStreamReader(is, coding));
+		} catch (UnsupportedEncodingException e) {
+			rd = new BufferedReader(new InputStreamReader(is));
+		}
+		String line;
+		StringBuffer response = new StringBuffer();
+		while((line = rd.readLine()) != null) {
+			response.append(line);
+		}
+		rd.close();
+		return response.toString();
 	}
 }

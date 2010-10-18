@@ -1,7 +1,6 @@
 package com.cinderella.musicsearch;
 
 import com.libhy.RingSelect;
-import com.ringdroid.RingdroidSelectActivity;
 
 import android.app.Activity;
 import android.content.Intent;

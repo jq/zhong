@@ -81,7 +81,7 @@ public class MusicPageActivity extends ListActivity {
 		Utils.D("onCreate()");
 		setContentView(R.layout.music_page);
 		
-		AdListener.createAds(this);
+//		AdListener.createAds(this);
 		
 		mProgressBar = (ProgressBar) findViewById(R.id.search_progress);
 		mMessage = (TextView) findViewById(R.id.search_message);

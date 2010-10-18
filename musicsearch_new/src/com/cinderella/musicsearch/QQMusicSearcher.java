@@ -55,11 +55,9 @@ public class QQMusicSearcher {
 			Matcher m = PATTERN.matcher(matcherRow.group(1));
 			while (m.find()) {
 				MusicInfo info = new MusicInfo();
-				info.setDownloadUrl(getLinksFromData(m.group(1)));
-				Utils.D("Data: "+m.group(1));
-				for (String link : info.getDownloadUrl()) {
-					Utils.D("Links: "+link);
-				}
+				ArrayList<String> fakeLinkList = new ArrayList<String>();
+				fakeLinkList.add(m.group(1));
+				info.setDownloadUrl(fakeLinkList);
 				info.setTitle(getInnerText(m.group(2)));
 				info.setArtist(m.group(4));
 				info.setAlbum(m.group(7));
@@ -76,16 +74,6 @@ public class QQMusicSearcher {
 		Matcher matcher = PATTERN_TAG.matcher(html);
 		String innerText = matcher.replaceAll(" ");
 		return innerText;
-	}
-	
-	public ArrayList<String> getLinksFromData(String data) {
-		final Pattern PATTERN_LINK = Pattern.compile(".*?(http://[^;]*).*?");
-		ArrayList<String> links = new ArrayList<String>();
-		Matcher matcher = PATTERN_LINK.matcher(data);
-		while(matcher.find()) {
-			links.add(matcher.group(1));
-		}
-		return links;
 	}
 	
 	// Returns null when something wrong happens.
@@ -146,6 +134,69 @@ public class QQMusicSearcher {
 	}
 	
 	public void setMusicDownloadUrl(MusicInfo info) {
-
+		try {
+			String key = info.getDownloadUrl().get(0);
+			if (Utils.isUrl(key)) {
+				Utils.D("isUrl: "+Utils.isUrl(key));
+				return;
+			} else {
+				String html = NetUtils.fetchHtmlPagePost(Const.QQ_Link_Url, processData(key), CODING);
+				info.setDownloadUrl(getLinksFromHtml(html));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private ArrayList<String> getLinksFromHtml(String html) {
+		ArrayList<String> links = new ArrayList<String>();
+		final Pattern PATTERN_LINK = Pattern.compile("'(http://[^']*)'\\);");
+		Matcher matcher = PATTERN_LINK.matcher(html);
+		while(matcher.find()) {
+			boolean is_in = false;
+			for (String link : links) {
+				if (link.equalsIgnoreCase(matcher.group(1))) {
+					is_in = true;
+					break;
+				}
+			}
+			if (!is_in) {
+				links.add(matcher.group(1));
+			}
+			Utils.D("Links: "+matcher.group(1));
+		}
+		return links;
+	}
+	
+	private static String processData(String data) {
+		String[] pieces = data.split("@@");
+		String post_data = pieces[0];
+		for (String piece : pieces) {
+			System.out.println(piece);
+		}
+		post_data = pieces[0];
+		for (int i=1; i<pieces.length-3; i++) {
+			post_data += "@@" + pieces[i];
+			if (i == 3) {
+				post_data += "@@" + pieces[pieces.length-2] + "@@";
+			}
+		}
+		post_data += "@@";
+		StringBuilder sb = new StringBuilder();
+		System.out.println("Post data1: "+post_data);
+		for (int i=0; i<post_data.length(); i++) {
+			if ((post_data.charAt(i)<'Z') && (post_data.charAt(i)>'A')) {
+				
+			} else {
+				sb.append(post_data.charAt(i));
+			}
+		}
+		pieces = sb.toString().split("http");
+		post_data = pieces[0];
+		for (int i=1; i<pieces.length; i++) {
+			post_data += "@@" + "http" + pieces[i];
+		}
+		System.out.println("Post_DATA: " + post_data);
+		return post_data;
 	}
 }
