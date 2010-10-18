@@ -1025,7 +1025,7 @@ public class RingActivity extends Activity {
   
   private void rate() {
     String realKey = key.substring(key.lastIndexOf("/")+1, key.indexOf("?"));
-    final String ratingUrl2 =  "http://ringtonesns2.appspot.com/rate?user=" + account + "&song=" + realKey + "&rate=" + myRating;
+    final String ratingUrl2 =  Const.RingtonesnsBase + "rate?user=" + account + "&song=" + realKey + "&rate=" + myRating;
     //// Log.e("ratingUrl2: ", ratingUrl2);
       // thread to collect info
       new Thread( new Runnable() {
@@ -1054,7 +1054,7 @@ public class RingActivity extends Activity {
     new Thread(new Runnable() {
       @Override
       public void run() {
-        String updateFriendsUrl = "http://ringtonesns2.appspot.com/friend";
+        String updateFriendsUrl = Const.RingtonesnsBase + "friend";
         String updateFriendsParam = "user=" + URLEncoder.encode(account) + "&friends=";
         String friends = "[";
         for(int i = 0; i < friendList.size(); i++) {
@@ -1100,7 +1100,7 @@ public class RingActivity extends Activity {
     new Thread(new Runnable() {
       @Override
       public void run() {
-        String updateFriendsUrl = "http://ringtonesns2.appspot.com/fbfriends";
+        String updateFriendsUrl = Const.RingtonesnsBase + "fbfriends";
         String updateFriendsParam = "f_id=" + URLEncoder.encode(facebookId) + "&g_id=" + URLEncoder.encode(account) + "&friends=";
         String[] facebookFriendsArray = facebookFriends.substring(facebookFriends.indexOf("[")+1, facebookFriends.lastIndexOf("]")).split(",");
         String facebookFriendsFormated = "[";

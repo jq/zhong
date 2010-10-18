@@ -43,6 +43,7 @@ public class Const extends com.feebe.lib.Const {
   public static final String RatingBase = "http://ggapp.appspot.com/ringtone/rate/";
   public static final String SearchBase = "http://ggapp.appspot.com/ringtone/search/?json=1&";
   public static final String CommentBase = "http://ggapp.appspot.com/ringtone/addcm/";
+  public static final String RingtonesnsBase = "http://ringtonesns3.appspot.com/";
 
   public static final String TableHistory = "histories";
   
