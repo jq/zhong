@@ -150,12 +150,6 @@ public class Ring extends TabActivity implements OnTabChangeListener {
 							case 1:
 								audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
 								break;
-//							case 2:
-//								RingtoneManager.setActualDefaultRingtoneUri(Ring.this, RingtoneManager.TYPE_ALARM, (Uri)null);
-//								break;
-//							case 3:
-//								RingtoneManager.setActualDefaultRingtoneUri(Ring.this, RingtoneManager.TYPE_RINGTONE, (Uri)null);
-//								break;
 							}
 							
 						}
