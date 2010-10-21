@@ -59,9 +59,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mp3download.music.Utils;
 import com.ringdroid.soundfile.CheapSoundFile;
 import com.fungame.music.R;
-import com.fungame.music.Utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

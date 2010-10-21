@@ -46,9 +46,9 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mp3download.music.Utils;
 import com.ringdroid.soundfile.CheapSoundFile;
 import com.fungame.music.R;
-import com.fungame.music.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -115,7 +115,7 @@ public class RingdroidSelectActivity
 
         // Inflate our UI from its XML layout description.
         setContentView(R.layout.media_select);
-		com.fungame.music.Utils.addAds(this);
+		com.mp3download.music.Utils.addAds(this);
         Button recordButton = (Button) findViewById(R.id.record);
         recordButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View clickedButton) {
