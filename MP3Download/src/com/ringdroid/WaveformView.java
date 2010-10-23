@@ -26,7 +26,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.ringdroid.soundfile.CheapSoundFile;
-import com.fungame.music.R;
+import com.mp3download.music.R;
 
 import java.util.Map;
 

@@ -32,7 +32,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.fungame.music.R;
+import com.mp3download.music.R;
 
 
 public class FileSaveDialog extends Dialog {
