@@ -34,6 +34,7 @@ import com.feebe.lib.DefaultDownloadListener;
 import com.feebe.lib.DownloadImg;
 import com.feebe.lib.DownloadFile;
 import com.feebe.lib.Util;
+import com.ringdroid.R;
 
 import entagged.audioformats.AudioFile;
 import entagged.audioformats.AudioFileIO;
@@ -500,7 +501,7 @@ public class RingActivity extends Activity {
       })
       .setPositiveButton(R.string.alertdialog_ok, new DialogInterface.OnClickListener() {
           public void onClick(DialogInterface dialog, int whichButton) {
-            int ring_type;
+            final int ring_type;
             if (ring_button_type == 0) {
               ring_type = RingtoneManager.TYPE_RINGTONE;
             } else if (ring_button_type == 1) {
@@ -514,41 +515,91 @@ public class RingActivity extends Activity {
               if (mCurrentFileUri == null) {
                 mCurrentFileUri = Uri.parse(ring_.getString(Const.mp3));
               }
-              RingtoneManager.setActualDefaultRingtoneUri(RingActivity.this, ring_type, mCurrentFileUri);
-              //add to system library
-              if(ring_type == RingtoneManager.TYPE_RINGTONE) {
-                Settings.System.putString(getContentResolver(), Settings.System.RINGTONE, mCurrentFileUri.toString());
-                try {
-                  ContentValues values = new ContentValues(2);
-                  values.put(MediaStore.Audio.Media.IS_RINGTONE, "1");
-                  values.put(MediaStore.Audio.Media.IS_ALARM, "1");
-                  getContentResolver().update(mCurrentFileUri, values, null, null);
-                } catch (UnsupportedOperationException ex) {
-                  // most likely the card just got unmounted
-                  return;
+              if(Util.isCupcakeOrBefore()) {
+                new Thread() {
+                  public void run() {
+                    //copy mp3 to ringtone directory
+                    File file = new File(mp3Location);
+                    String newFileName;
+                    if(ring_type == RingtoneManager.TYPE_ALARM)
+                      newFileName = "/sdcard/media/audio/alarms/" + file.getName();
+                    else if(ring_type == RingtoneManager.TYPE_NOTIFICATION)
+                      newFileName = "/sdcard/media/audio/notifications/" + file.getName();
+                    else
+                      newFileName = "/sdcard/media/audio/ringtones/" + file.getName();;
+                    File newFile = new File(newFileName);
+                    try {
+                      java.io.FileInputStream in = new java.io.FileInputStream(file);
+                      java.io.FileOutputStream out = new java.io.FileOutputStream(newFile);
+                      byte bt[] = new byte[1024];
+                      int c;
+                      while ( (c = in.read(bt)) > 0) {
+                        out.write(bt, 0, c);
+                      }
+                      in.close();
+                      out.close();
+                    }catch (Exception e) {
+                      
+                    }
+                    //set ringtone
+                    long fileSize = newFile.length();
+                    String mimeType = "audio/mpeg";
+                    
+                    String artist = "Ringtone";
+                    
+                    ContentValues values = new ContentValues();
+                    values.put(MediaStore.MediaColumns.DATA, newFile.getAbsolutePath());
+                    values.put(MediaStore.MediaColumns.TITLE, title.toString());
+                    values.put(MediaStore.MediaColumns.SIZE, fileSize);
+                    values.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);
+                    
+                    values.put(MediaStore.Audio.Media.IS_RINGTONE, true);
+                    
+                    // Insert it into the database
+                    Uri uri = MediaStore.Audio.Media.getContentUriForPath(newFile.getAbsolutePath());
+                    final Uri newUri = getContentResolver().insert(uri, values);
+                    RingtoneManager.setActualDefaultRingtoneUri(RingActivity.this, ring_type, newUri);
+                  }
+                  
+                }.start();
+              } else {
+                RingtoneManager.setActualDefaultRingtoneUri(RingActivity.this, ring_type, mCurrentFileUri);
+                //add to system library
+                if(ring_type == RingtoneManager.TYPE_RINGTONE) {
+                  Settings.System.putString(getContentResolver(), Settings.System.RINGTONE, mCurrentFileUri.toString());
+                  try {
+                    ContentValues values = new ContentValues(2);
+                    values.put(MediaStore.Audio.Media.IS_RINGTONE, true);
+                    values.put(MediaStore.Audio.Media.IS_ALARM, true);
+                    getContentResolver().update(mCurrentFileUri, values, null, null);
+                  } catch (UnsupportedOperationException ex) {
+                    // most likely the card just got unmounted
+                    return;
+                  }
+                  
                 }
-              }
-              if(ring_type == RingtoneManager.TYPE_NOTIFICATION) {
-                Settings.System.putString(getContentResolver(), Settings.System.NOTIFICATION_SOUND, mCurrentFileUri.toString());
-                try {
-                  ContentValues values = new ContentValues(2);
-                  values.put(MediaStore.Audio.Media.IS_NOTIFICATION, "1");
-                  values.put(MediaStore.Audio.Media.IS_ALARM, "1");
-                  getContentResolver().update(mCurrentFileUri, values, null, null);
-                } catch (UnsupportedOperationException ex) {
-                  // most likely the card just got unmounted
-                  return;
+                if(ring_type == RingtoneManager.TYPE_NOTIFICATION) {
+                  Settings.System.putString(getContentResolver(), Settings.System.NOTIFICATION_SOUND, mCurrentFileUri.toString());
+                  try {
+                    ContentValues values = new ContentValues(2);
+                    values.put(MediaStore.Audio.Media.IS_NOTIFICATION, true);
+                    values.put(MediaStore.Audio.Media.IS_ALARM, true);
+                    getContentResolver().update(mCurrentFileUri, values, null, null);
+                  } catch (UnsupportedOperationException ex) {
+                    // most likely the card just got unmounted
+                    return;
+                  }
                 }
-              }
-              if(ring_type == RingtoneManager.TYPE_ALARM) {
-                Settings.System.putString(getContentResolver(), Settings.System.ALARM_ALERT, mCurrentFileUri.toString());
-                try {
-                  ContentValues values = new ContentValues(2);
-                  values.put(MediaStore.Audio.Media.IS_ALARM, "1");
-                  getContentResolver().update(mCurrentFileUri, values, null, null);
-                } catch (UnsupportedOperationException ex) {
-                  // most likely the card just got unmounted
-                  return;
+                if(ring_type == RingtoneManager.TYPE_ALARM) {
+                  Settings.System.putString(getContentResolver(), Settings.System.ALARM_ALERT, mCurrentFileUri.toString());
+                  try {
+                    ContentValues values = new ContentValues(2);
+                    values.put(MediaStore.Audio.Media.IS_ALARM, true);
+                    getContentResolver().update(mCurrentFileUri, values, null, null);
+                  } catch (UnsupportedOperationException ex) {
+                    // most likely the card just got unmounted
+                    return;
+                  }
                 }
               }
             } catch (JSONException e) {

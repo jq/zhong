@@ -701,6 +701,10 @@ public class Util {
   public static boolean isEclairOrLater() {
     return Build.VERSION.SDK.compareTo("5") >=0;
   }
+  
+  public static boolean isCupcakeOrBefore() {
+    return Build.VERSION.SDK.compareTo("3") <=0;
+  }
 
   public static ArrayList<String> getFriendList(Context ctx) {
     ArrayList<String> friendList = new ArrayList<String>();
