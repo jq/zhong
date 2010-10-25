@@ -1,0 +1,7 @@
+1_fetch.py:  fetch ringtone and related attributes from www.mabilo.com and store them to local folder.
+
+2_check.py:  check if ring file and image file are valid(can be docoded) according to record xml fetched in step 1.
+
+3_uploadToS3.java:	upload ring file to ringtone_ring bucket and image file to ringtone_image bucket in S3 of Amazon
+
+4_storeDB.java: store records to database whose corresponding ring and image file have been sent to s3 successfully in step 3. 
