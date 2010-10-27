@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
    android:installLocation="auto"
       package="com.ringtones.joke"
-      android:versionName="2.1" android:versionCode="6">
+      android:versionName="2.1" android:versionCode="7">
     <application android:icon="@drawable/app" android:label="@string/app_name">
         <activity android:name="com.feebe.rings.SearchTab"
                   android:label="@string/app_name"
@@ -111,12 +111,9 @@
                    android:value=".SearchList" />
         <!-- Provides search suggestions . -->
         <provider android:name="com.feebe.rings.RingSearch"
-                android:authorities="jokerings"
+                android:authorities="jokeringsf3"
                 android:syncable="false" />
-<!-- <meta-data android:value="a14b682bb64f3fc" android:name="ADMOB_PUBLISHER_ID" />-->
-<!--	 <meta-data android:value="a14bdefc6a0071a" android:name="ADMOB_PUBLISHER_ID" /> -->
 
-<meta-data android:value="a14bfb324fe0515" android:name="ADMOB_PUBLISHER_ID" />
     </application>
     <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4" />
   <uses-permission android:name="android.permission.INTERNET"></uses-permission>

@@ -577,6 +577,9 @@ public class RingActivity extends Activity {
                     return;
                   }
                   
+                } catch (IllegalArgumentException e) {
+                  Toast.makeText(RingActivity.this, R.string.notification_text_failed, Toast.LENGTH_SHORT);
+                  return;
                 }
                 if(ring_type == RingtoneManager.TYPE_NOTIFICATION) {
                   Settings.System.putString(getContentResolver(), Settings.System.NOTIFICATION_SOUND, mCurrentFileUri.toString());
@@ -589,6 +592,9 @@ public class RingActivity extends Activity {
                     // most likely the card just got unmounted
                     return;
                   }
+                } catch (IllegalArgumentException e) {
+                  Toast.makeText(RingActivity.this, R.string.notification_text_failed, Toast.LENGTH_SHORT);
+                  return;
                 }
                 if(ring_type == RingtoneManager.TYPE_ALARM) {
                   Settings.System.putString(getContentResolver(), Settings.System.ALARM_ALERT, mCurrentFileUri.toString());
@@ -600,6 +606,9 @@ public class RingActivity extends Activity {
                     // most likely the card just got unmounted
                     return;
                   }
+                } catch (IllegalArgumentException e) {
+                  Toast.makeText(RingActivity.this, R.string.notification_text_failed, Toast.LENGTH_SHORT);
+                  return;
                 }
               }
             } catch (JSONException e) {

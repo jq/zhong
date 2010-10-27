@@ -9,6 +9,6 @@
     
     android:includeInGlobalSearch="true"
     
-    android:searchSuggestAuthority="jokesrings"
+    android:searchSuggestAuthority="jokeringsf3"
     android:searchSuggestIntentAction="android.intent.action.VIEW"
 />

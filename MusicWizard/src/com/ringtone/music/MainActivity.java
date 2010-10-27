@@ -88,7 +88,7 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				String url = "market://search?q=pname:" + getPackageName();
+				String url = "market://details?id=" + getPackageName();
     			
 				try {
 					Uri uri = Uri.parse(url);
@@ -160,10 +160,10 @@ public class MainActivity extends Activity {
         case R.id.share_app:
         	String url = AppUpdater.getNewUpdateUrl(this);
         	if (TextUtils.isEmpty(url)) {
-        		url = "market://search?q=pname:" + getPackageName();
+        		url = "market://details?id=" + getPackageName();
         	}
         	StringBuilder sb = new StringBuilder();
-        	final String prefix = "market://search?q=";
+        	final String prefix = "market://details?id=";
         	
         	if (url.startsWith(prefix)) {
         		sb.append("<html><body>");

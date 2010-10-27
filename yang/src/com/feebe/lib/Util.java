@@ -516,9 +516,11 @@ public class Util {
   }
 
   public static void setBoolKey(String key) {
+    if (mSetting != null) {
       Editor e = mSetting.edit();
       e.putBoolean(key, true);
       e.commit();
+    }
   }
   public static final int DOWNLOAD_APP_DIG = 10000;
   
@@ -614,12 +616,15 @@ public class Util {
         new DialogInterface.OnClickListener() {
           public void onClick(DialogInterface dialog,
               int whichButton) {
-
-            Intent i = new Intent(
-                Intent.ACTION_VIEW,
-                intent);
-            at.startActivity(i);
-            at.removeDialog(DOWNLOAD_APP_DIG);
+            try {
+              Intent i = new Intent(
+                  Intent.ACTION_VIEW,
+                  intent);
+              at.startActivity(i);
+              at.removeDialog(DOWNLOAD_APP_DIG);
+            } catch (Exception e) {
+              
+            }
           }
         }).setNegativeButton("Ignore Forever",
         new DialogInterface.OnClickListener() {
