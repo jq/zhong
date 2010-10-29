@@ -113,7 +113,15 @@ public class SearchTab extends Activity{
         }
       }
     });
-		
+
+	TextView billboard = (TextView) findViewById(R.id.billboard);
+	billboard.setOnClickListener(new OnClickListener() {   
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(SearchTab.this, BillBoardCate.class);
+            startActivity(intent);
+        }
+    });
     TextView myfavor = (TextView)findViewById(R.id.myfavor);
     myfavor.setOnClickListener(new OnClickListener() {
         @Override

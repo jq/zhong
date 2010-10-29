@@ -19,7 +19,10 @@
          
         <activity android:name="MyfovorList" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden"/>
-                  
+        <activity android:name="BillBoardCate" android:label=""
+                  android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden"/>       
+				<activity android:name="BillBoardList" android:label=""
+                  android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden"/>                  
         <activity android:name="HotList" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
                   

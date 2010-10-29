@@ -126,5 +126,6 @@
     <!-- new2 -->
     <string name="favor">My favorite</string>
     <string name="rate">Rate 5 star if you like it</string>
+    <string name="billboard">Billboard</string>
     
 </resources>
