@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	<servlet>
+		<servlet-name>RingtoneServer</servlet-name>
+		<servlet-class>com.ringtone.server.RingtoneServerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RingtoneServer</servlet-name>
+		<url-pattern>/ringtoneserver</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>InsertSongServlet</servlet-name>
+		<servlet-class>com.ringtone.server.InsertSongServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InsertSongServlet</servlet-name>
+		<url-pattern>/ringtoneserver/insertsong</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SearchServlet</servlet-name>
+		<servlet-class>com.ringtone.server.SearchServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SearchServlet</servlet-name>
+		<url-pattern>/ringtoneserver/search</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CountAllServlet</servlet-name>
+		<servlet-class>com.ringtone.server.CountAllServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CountAllServlet</servlet-name>
+		<url-pattern>/ringtoneserver/allsong</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+    	<servlet-name>RemoteApi</servlet-name>
+    	<servlet-class>com.google.apphosting.utils.remoteapi.RemoteApiServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+    	<servlet-name>RemoteApi</servlet-name>
+    	<url-pattern>/remote_api</url-pattern>
+	</servlet-mapping>
+
+	
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>
