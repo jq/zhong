@@ -22,6 +22,11 @@
         <activity android:name=".EulaActivity"/>
         <activity android:name=".ViewDownloadedActivity"/>
         
+        <activity android:name=".BillBoardCate"
+							android:launchMode="singleTop"/>
+        <activity android:name=".BillBoardList"
+							android:launchMode="singleTop"/>
+							
        	<meta-data android:value="a14be74083938a7" android:name="ADMOB_PUBLISHER_ID" />
        	<!-- 
        	<meta-data android:value="true" android:name="ADMOB_ALLOW_LOCATION_FOR_ADS" />

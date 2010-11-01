@@ -13,11 +13,18 @@ public class App extends Application {
 	
 	private static File sBaseDirPath;
 	private static File sMp3Path;
+	private static File sJsonPath;
 	
 	public static String getMp3Path() {
 		if (sMp3Path != null)
 			return sMp3Path.getAbsolutePath();
 		return null;
+	}
+	
+	public static String getJsonPath() {
+	  if (sJsonPath != null)
+	    return sJsonPath.getAbsolutePath();
+	  return null;
 	}
 	
 	public static File getBaseDir() {
@@ -38,6 +45,12 @@ public class App extends Application {
 		if (!sMp3Path.exists() && !sMp3Path.mkdir()) {
 			Toast.makeText(this, R.string.create_mp3_dir_error, Toast.LENGTH_LONG).show();
 			return;
+		}
+		
+		sJsonPath = new File(sBaseDirPath, "json");
+		if (!sJsonPath.exists() && !sJsonPath.mkdir()) {
+		    Toast.makeText(this, R.string.create_mp3_dir_error, Toast.LENGTH_LONG).show();
+		    return;
 		}
 		
 		// Start service

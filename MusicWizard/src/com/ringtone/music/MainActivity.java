@@ -51,6 +51,16 @@ public class MainActivity extends Activity {
         
         mSearch = new SearchBar(this);
         
+        TextView billboard = (TextView) findViewById(R.id.billboard);
+        billboard.setOnClickListener(new OnClickListener() {
+          
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, BillBoardCate.class); 
+                startActivity(intent);
+            }
+        });
+        
         TextView downloads = (TextView)findViewById(R.id.downloads);
         downloads.setOnClickListener(new OnClickListener() {
 
