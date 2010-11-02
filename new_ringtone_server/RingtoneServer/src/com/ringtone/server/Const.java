@@ -15,5 +15,5 @@ public class Const {
 	public static final String RECORD = "record";
 	
 	public static final String QUREY = "q";
-	public static final String PAGE = "p";
+	public static final String START = "start";
 }

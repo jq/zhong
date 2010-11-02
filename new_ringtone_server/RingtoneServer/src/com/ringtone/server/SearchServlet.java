@@ -21,13 +21,13 @@ public class SearchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String key = req.getParameter(Const.QUREY);
-		String pageStr = req.getParameter(Const.PAGE);
-		int page = 0;
-		if (pageStr != null) {
-			page = Integer.parseInt(pageStr);
+		String startStr = req.getParameter(Const.START);
+		int start = 0;
+		if (startStr != null) {
+			start = Integer.parseInt(startStr);
 		}
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		List<SongEntry> searchResults = SearchJanitor.searchSongEntries(key, pm, page);
+		List<SongEntry> searchResults = SearchJanitor.searchSongEntries(key, pm, start);
 		JSONArray jsonArray = new JSONArray();
 		for (SongEntry songEntry : searchResults) {
 			Map<String, String> songMap = new HashMap<String, String>();
@@ -43,7 +43,9 @@ public class SearchServlet extends HttpServlet {
 			jsonArray.put(songMap);
 		}
 		DebugUtils.D("results size: "+searchResults.size());
-		QueryUtils.insertQuery(key, searchResults.size());
+		if (start == 0) {
+			QueryUtils.insertQuery(key, searchResults.size());
+		}
 		String response = null;
 		response = jsonArray.toString();
 		resp.getOutputStream().write(response.getBytes());

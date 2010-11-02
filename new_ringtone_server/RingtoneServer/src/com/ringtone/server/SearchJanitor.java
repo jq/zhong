@@ -22,11 +22,11 @@ public class SearchJanitor {
 	public static final int MAX_NUMBER_OF_WORDS_TO_PUT_IN_INDEX = 200;
 	
 	public static final int RESULTS_PER_PAGE = 10;
-	
+
 	public static List<SongEntry> searchSongEntries(
 			String queryString, 
 			PersistenceManager pm, 
-			int page) {
+			int start) {
 
 		StringBuffer queryBuffer = new StringBuffer();
 
@@ -57,11 +57,12 @@ public class SearchJanitor {
 
 		}
 
-	
+		System.out.println("QueryBuffer: "+queryBuffer.toString());
 		Query query = pm.newQuery(queryBuffer.toString());
 
-		query.setRange(page*RESULTS_PER_PAGE, (page+1)*RESULTS_PER_PAGE);
-		
+		query.setRange(start, start+RESULTS_PER_PAGE);
+//		query.setOrdering("download_count desc");
+
 		query.declareParameters(declareParametersBuffer.toString());
 
 		List<SongEntry> result = null;
@@ -81,11 +82,7 @@ public class SearchJanitor {
 		return result;
 
 	}
-	
-	
-	
-	
-	
+
 	public static void updateFTSStuffForSongEntry(
 			SongEntry songEntry) {
 
@@ -107,5 +104,4 @@ public class SearchJanitor {
 
 			}		
 	}
-	
 }
