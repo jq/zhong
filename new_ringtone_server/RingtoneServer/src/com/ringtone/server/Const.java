@@ -16,4 +16,5 @@ public class Const {
 	
 	public static final String QUREY = "q";
 	public static final String START = "start";
+	public static final String JSON = "json";
 }
