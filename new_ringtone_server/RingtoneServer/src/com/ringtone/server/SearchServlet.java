@@ -22,19 +22,19 @@ public class SearchServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String isJson = req.getParameter(Const.JSON);
 		if (isJson==null || !isJson.equalsIgnoreCase("1")) {
-			RequestDispatcher dispatcher = req.getRequestDispatcher("/home.jsp");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/search.jsp");
 			dispatcher.forward(req, resp);
 			resp.flushBuffer();
 			return;
 		} else {
-			String key = req.getParameter(Const.QUREY);
+			String key = req.getParameter(Const.QUERY);
 			String startStr = req.getParameter(Const.START);
 			int start = 0;
 			if (startStr != null) {
 				start = Integer.parseInt(startStr);
 			}
-			PersistenceManager pm = PMF.get().getPersistenceManager();
-			List<SongEntry> searchResults = SearchJanitor.searchSongEntries(key, pm, start);
+			
+			List<SongEntry> searchResults = SearchUtils.getResultsByKeyword(key, start);
 			JSONArray jsonArray = new JSONArray();
 			for (SongEntry songEntry : searchResults) {
 				Map<String, String> songMap = new HashMap<String, String>();

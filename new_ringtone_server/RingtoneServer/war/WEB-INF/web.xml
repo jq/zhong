@@ -51,6 +51,33 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>MobileSearchServlet</servlet-name>
+		<servlet-class>com.ringtone.server.MobileSearchServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MobileSearchServlet</servlet-name>
+		<url-pattern>/ringtoneserver/mobile/search</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>MobileShowServlet</servlet-name>
+		<servlet-class>com.ringtone.server.MobileShowServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MobileShowServlet</servlet-name>
+		<url-pattern>/ringtoneserver/mobile/show</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AllCategoryServlet</servlet-name>
+		<servlet-class>com.ringtone.server.AllCategoryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AllCategoryServlet</servlet-name>
+		<url-pattern>/ringtoneserver/mobile/cateall</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
     	<servlet-name>RemoteApi</servlet-name>
     	<servlet-class>com.google.apphosting.utils.remoteapi.RemoteApiServlet</servlet-class>
 	</servlet>
