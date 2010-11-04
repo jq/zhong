@@ -63,13 +63,13 @@
 			<tr>
 				<td width="22"><img src="/images/play_22.gif" alt="img" width="22" height="22"/></td>
 				<td>
-					<a href="/ringtoneserver/mobile/search/?artist=<%= songEntry.getArtist() %>">More by <%= songEntry.getArtist() %></a>
+					<a href="/ringtoneserver/mobile/search?artist=<%= songEntry.getArtist() %>&<%= Const.TYPE %>=<%=Const.ARTIST %>">More by <%= songEntry.getArtist() %></a>
 				</td>
 			</tr>
 			<tr>
 				<td width="22"><img src="/images/play_22.gif" alt="img" width="22" height="22"/></td>
 				<td>
-					<a href="/ringtoneserver/mobile/search/?category=<%= songEntry.getCategory() %>">More from <%= songEntry.getCategory() %></a>
+					<a href="/ringtoneserver/mobile/search?category=<%= songEntry.getCategory() %>&<%=Const.TYPE %>=<%=Const.CATEGORY %>">More from <%= songEntry.getCategory() %></a>
 				</td>
 			</tr>
 		</table>
