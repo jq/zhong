@@ -48,7 +48,7 @@ public class MusicPageActivity extends ListActivity {
 	
 	private static MusicPageActivity sMusicPageActivity;
 	
-	private static QQMusicSearcher sFetcher;
+	private static SogouMusicSearcher sFetcher;
 	private static FetchDownloadLinkTask sFetchDownloadLinkTask;
 	private static PreviewTask sPreviewTask;
 	
@@ -155,7 +155,7 @@ public class MusicPageActivity extends ListActivity {
 		@Override
 		protected Void doInBackground(Void... params) {
 			if (sFetcher == null) {
-				sFetcher = new QQMusicSearcher();
+				sFetcher = new SogouMusicSearcher();
 			} 
 			sFetcher.setMusicDownloadUrl(mMusicInfo);
 			return null;
@@ -520,7 +520,7 @@ public class MusicPageActivity extends ListActivity {
 				boolean isCanceled = mDownloadMusicTask.cancel(true);
 				Utils.D("isCanceled?:"+isCanceled);
 			}
-		}               
+		}
 	}
 	
 	private class cancelPreviewDialogClickListener implements DialogInterface.OnClickListener {

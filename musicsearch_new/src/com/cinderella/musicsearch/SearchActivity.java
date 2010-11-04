@@ -23,7 +23,7 @@ public class SearchActivity extends ListActivity {
 	
 	public static Mp3ListWrapper sData;
 	
-	private static QQMusicSearcher sFetcher;
+	private static SogouMusicSearcher sFetcher;
 	
 	private static FetchMp3ListTask sFetchMp3ListTask;
 	
@@ -299,7 +299,7 @@ public class SearchActivity extends ListActivity {
 			sData = null;
 			if (sSearchActivity != null)
 				sSearchActivity.notifyDataSetInvalidated();
-            sFetcher = new QQMusicSearcher();
+            sFetcher = new SogouMusicSearcher();
 			sFetcher.setQuery(keyWords);
 			fetchNextMp3ListBatch();
 		} else {
