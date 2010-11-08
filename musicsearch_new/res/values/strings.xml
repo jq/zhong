@@ -18,6 +18,8 @@
     <string name="size">Size</string>
     <string name="download_link_list">Download Link List </string>
     <string name="preview">Preview</string>
+    <string name="preview_wait">Streaming, press Cancel button to stop.</string>
+    <string name="preview_failed">Preview music failed. Please try another link.</string>
     <string name="download">Download</string>
     <string name="loading_download_link">Loading download links. Please wait...</string>
     <string name="load_download_link_failed">Loading download links failed. Please retry later.</string>
@@ -30,6 +32,7 @@
     <string name="show_progress">Show progress</string>
     <string name="loading_downloaded_music">Please wait while loading downloaded musics...</string>
     <string name="load_downloaded_music_failed">Load downloaded musics failed. Please retry again...</string>
+    <string name="link_broken">The link is broken, please try another link.</string>
     <string name="library">Library</string>
     <string name="options">Options</string>
     <string name="alert_delet">Are you sure to delect:\ </string>

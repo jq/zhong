@@ -210,6 +210,7 @@ public class MusicPageActivity extends ListActivity {
 			InputStream stream = null;
 			DataInputStream is = null;
 			try {
+				Utils.D("Download url: "+mUrl);
 				url = new URL(mUrl);
 				urlConn = (HttpURLConnection)url.openConnection();
 				urlConn.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3 -Java");
@@ -247,11 +248,18 @@ public class MusicPageActivity extends ListActivity {
 		protected void onPostExecute(File result) {
 			mDownloadMusicTask = null;
 			if (result == null) {
+				mDownloadProgressDialogListerner.onDownloadFinish();
 				mDownloadButton.setText(R.string.download);
-				Toast.makeText(MusicPageActivity.this, MusicPageActivity.this.getString(R.string.toast_download_failed)+mMusicInfo.getTitle(), Toast.LENGTH_LONG);
+				Toast.makeText(MusicPageActivity.this, MusicPageActivity.this.getString(R.string.toast_download_failed)+mMusicInfo.getTitle(), Toast.LENGTH_LONG).show();
+			} if (result.length() < Const.MIN_MP3_LENGTH) {
+				Utils.D("file size too small.");
+				mDownloadProgressDialogListerner.onDownloadFinish();
+				mDownloadButton.setText(R.string.download);
+				Toast.makeText(MusicPageActivity.this, R.string.link_broken, Toast.LENGTH_LONG).show();
+				result.delete();
 			} else {
 				Utils.D("result!=null");
-				Toast.makeText(MusicPageActivity.this, MusicPageActivity.this.getString(R.string.toast_download_finish)+mMusicInfo.getTitle(), Toast.LENGTH_LONG);
+				Toast.makeText(MusicPageActivity.this, MusicPageActivity.this.getString(R.string.toast_download_finish)+mMusicInfo.getTitle(), Toast.LENGTH_LONG).show();
 				mDownloadButton.setText(R.string.play);
 				mEditButton.setVisibility(View.VISIBLE);
 				mDownloadedMusicPath = result.getAbsolutePath();
@@ -346,6 +354,7 @@ public class MusicPageActivity extends ListActivity {
 		protected void onPreExecute() {
 			mStreamProgressDialog = new ProgressDialog(MusicPageActivity.this);
 			mStreamProgressDialog.setTitle(R.string.streaming);
+			mStreamProgressDialog.setMessage(MusicPageActivity.this.getText(R.string.preview_wait));
 			mStreamProgressDialog.setIndeterminate(true);
 			mStreamProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 			mStreamProgressDialog.setCancelable(true);
@@ -372,7 +381,10 @@ public class MusicPageActivity extends ListActivity {
 		@Override
 		protected void onPostExecute(Integer result) {
 			Utils.D("in postExecute of PreviewTask.");
-			//mStreamProgressDialog.cancel();
+			if (result == null) {
+				mStreamProgressDialog.cancel();
+				Toast.makeText(MusicPageActivity.this, R.string.preview_failed, Toast.LENGTH_LONG).show();
+			}
 		}
 		@Override
 		protected void onCancelled() {

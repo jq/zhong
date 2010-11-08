@@ -20,6 +20,8 @@ public class Const {
 	private static final String JsonDir = "json";
 	private static final String CacheDir = "cache";
 	
+	public static final long MIN_MP3_LENGTH = 1024*100;	//100k
+	
 	private static String sHomeDir;
 	public static String sMusicDir;
 	public static String sJsonDir;
