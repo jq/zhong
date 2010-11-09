@@ -1,24 +1,9 @@
-<!-- Indices written at Tue, 9 Nov 2010 08:13:27 UTC -->
+<!-- Indices written at Tue, 9 Nov 2010 13:05:56 UTC -->
 
 <datastore-indexes>
 
     <!-- Used 1 time in query history -->
     <datastore-index kind="SongEntry" ancestor="false" source="auto">
-        <property name="fts" direction="asc"/>
-        <property name="download_count" direction="desc"/>
-    </datastore-index>
-
-    <!-- Used 1 time in query history -->
-    <datastore-index kind="SongEntry" ancestor="false" source="auto">
-        <property name="fts" direction="asc"/>
-        <property name="fts" direction="asc"/>
-        <property name="download_count" direction="desc"/>
-    </datastore-index>
-
-    <!-- Used 1 time in query history -->
-    <datastore-index kind="SongEntry" ancestor="false" source="auto">
-        <property name="fts" direction="asc"/>
-        <property name="fts" direction="asc"/>
         <property name="fts" direction="asc"/>
         <property name="download_count" direction="desc"/>
     </datastore-index>

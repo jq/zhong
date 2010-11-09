@@ -17,12 +17,13 @@ Blue Hightlight	: background-color: #2768f9;
 
 body {
 background-color:#000;
-font-family: verdana, sans-serif; 
+font-family: Helvetica;
 font-size: small;  
 margin:0px;
 text-align: left; 
 border-width:0px;
 padding:0px;
+-webkit-text-size-adjust:none;
 }
 
 p, a, h1, h2, h3, li, label {
@@ -658,3 +659,9 @@ font-family:arial;
 font-size:12px;
 line-height:1.5em;
 }
+
+ #page_wrapper{  
+     padding-top:20px;  
+     background:#000 url(images/page_background.gif) repeat-x;  
+     overflow:auto;  
+     }  
