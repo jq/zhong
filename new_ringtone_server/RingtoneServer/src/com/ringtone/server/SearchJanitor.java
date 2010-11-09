@@ -61,6 +61,10 @@ public class SearchJanitor {
 		Query query = pm.newQuery(queryBuffer.toString());
 
 		query.setRange(start, start+RESULTS_PER_PAGE);
+		
+		if (parameterCounter <=3) {
+			query.setOrdering("download_count desc");
+		}
 //		query.setOrdering("download_count desc");
 
 		query.declareParameters(declareParametersBuffer.toString());
