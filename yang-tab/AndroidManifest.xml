@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
    android:installLocation="auto"
       package="com.feebe.rings"
-      android:versionName="3.9.4" android:versionCode="101">
+      android:versionName="3.9.6" android:versionCode="103">
     <application android:icon="@drawable/ring" android:label="@string/app_name">
         <activity android:name="com.ringtone.joke.Ring"
                   android:label="@string/app_name"
@@ -116,6 +116,14 @@
         <activity android:name="com.ringdroid.ChooseContactActivity"
                   android:configChanges="orientation|keyboardHidden">
         </activity>
+        
+	 <activity android:name="com.millennialmedia.android.MMAdViewOverlayActivity" 
+       		android:theme="@android:style/Theme.Translucent.NoTitleBar">
+ 	</activity>
+	 <activity android:name="com.millennialmedia.android.VideoPlayer" 
+                    android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                    android:configChanges="keyboardHidden|orientation|keyboard" >
+        </activity>
 
         <meta-data android:name="android.app.default_searchable"
                    android:value=".SearchList" />
@@ -123,10 +131,7 @@
         <provider android:name="RingSearch"
                 android:authorities="rings"
                 android:syncable="false" />
-<!-- <meta-data android:value="a14b682bb64f3fc" android:name="ADMOB_PUBLISHER_ID" />-->
-<!--	 <meta-data android:value="a14bdefc6a0071a" android:name="ADMOB_PUBLISHER_ID" /> -->
 
-<meta-data android:value="a14bfb324fe0515" android:name="ADMOB_PUBLISHER_ID" />
     </application>
     <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4" />
   <uses-permission android:name="android.permission.INTERNET"></uses-permission>
