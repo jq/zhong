@@ -1,0 +1,11 @@
+TODO:
+
+- Authentication
+- Automatic scripts for uploading ringtones, ringtone meta data, solr updates
+  etc.
+- Better web UI
+- Solr integration
+  * segmenation for Chinese queries
+  * benchmarks
+  * quality
+  * communication between solr and appengine

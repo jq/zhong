@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <title>Ringtones</title>
+  </head>
+  <body>
+    <p>
+    <a href={%url upload_csv %}>Upload</a> | <a href={%url search %}>Search</a>
+    </p>
+    <h2>Ringtones</h2>
+    <table border="1">
+      <tr>
+        <th> key </th>
+        <th> title </th>
+        <th> artist </th>
+        <th> album </th>
+        <th> release_date </th>
+        <th> duration </th>
+        <th> size </th>
+        <th> location </th>
+        <th> small_image </th>
+        <th> medium_image </th>
+        <th> large_image </th>
+        <th> extra_large_image </th>
+        <th> tags </th>
+        <th> description </th>
+        <th> creation_time </th>
+        <th> modification_time </th>
+        <th> is_deleted </th>
+      </tr>
+      {% for r in ringtones %}
+      <tr>
+        <td><a href={% url ringtone_details r.key %}>{{ r.key }}</a></td>
+        <td>{{ r.title }}</td>
+        <td>{{ r.artist }}</td>
+        <td>{{ r.album }}</td>
+        <td>{{ r.release_date }}</td>
+        <td>{{ r.duration }}</td>
+        <td>{{ r.size }}</td>
+        <td>{{ r.location }}</td>
+        <td>{{ r.small_image }}</td>
+        <td>{{ r.medium_image }}</td>
+        <td>{{ r.large_image }}</td>
+        <td>{{ r.extra_large_image }}</td>
+        <td>{{ r.tags }}</td>
+        <td>{{ r.description }}</td>
+        <td>{{ r.creation_time }}</td>
+        <td>{{ r.modification_time }}</td>
+        <td>{{ r.is_deleted }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

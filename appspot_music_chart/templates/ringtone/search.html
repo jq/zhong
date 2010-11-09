@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>Ringtones</title>
+  </head>
+  <body>
+
+  <p>
+  <a href={% url list_ringtones %}>Main</a>
+  </p>
+
+  <form id="searchform" name="searchform" method="get" action=""> 
+    <label for="query" title="Search"><b>Search:</b></label> 
+    <input type="text" id="query" name="q" size="20" /> 
+    <input type="submit" id="submit" value="Go" /> 
+  </form> 
+
+  <br>
+  
+  {% if results %}
+    {% for r in results.response.docs %}
+    <ul>
+      <li><b>key:</b> <a href={% url ringtone_details r.key %}>{{ r.key }}</a></li>
+      <li><b>title: </b>{{ r.title }}</li>
+      <li><b>artist: </b>{{ r.artist }}</li>
+    </ul>
+    {% endfor %} 
+    {% if prev_url %}
+    <a href="{{ prev_url }}">&lt;&lt; Prev</a>
+    {% endif %}
+    {% if next_url %}
+      {% if prev_url %}
+      |
+      {% endif %}
+      <a href="{{ next_url }}">Next &gt;&gt;</a>
+    {% endif %}
+  {% endif %}
+
+  </body>
+</html>
