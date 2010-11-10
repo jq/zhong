@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
    android:installLocation="auto"
       package="com.ringtones.joke"
-      android:versionName="2.1" android:versionCode="7">
+      android:versionName="2.2" android:versionCode="8">
     <application android:icon="@drawable/app" android:label="@string/app_name">
         <activity android:name="com.feebe.rings.SearchTab"
                   android:label="@string/app_name"
@@ -105,6 +105,13 @@
 	 <!-- Activity for choosing a contact to assign a ringtone to. -->
         <activity android:name="com.ringdroid.ChooseContactActivity"
                   android:configChanges="orientation|keyboardHidden">
+        </activity>
+	 <activity android:name="com.millennialmedia.android.MMAdViewOverlayActivity" 
+       		android:theme="@android:style/Theme.Translucent.NoTitleBar">
+ 	</activity>
+	 <activity android:name="com.millennialmedia.android.VideoPlayer" 
+                    android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                    android:configChanges="keyboardHidden|orientation|keyboard" >
         </activity>
 
         <meta-data android:name="android.app.default_searchable"
