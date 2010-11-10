@@ -10,7 +10,11 @@ public class SearchUtils {
 	public static List<SongEntry> getResultsByKeyword(String key, int start) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		List<SongEntry> searchResults = SearchJanitor.searchSongEntries(key, pm, start);
-		return searchResults;
+		if (searchResults != null) {
+			return searchResults;
+		} else {
+			return new ArrayList<SongEntry>();
+		}
 	}
 	
 	public static SongEntry getSongEntryByUUID(String uuid) {
