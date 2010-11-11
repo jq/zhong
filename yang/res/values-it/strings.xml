@@ -83,13 +83,12 @@
     <string name="order">Ordina</string>
     <string name="menu_rate">Vota</string>
     <string name="title">Titolo</string>
-    <string name="title">Titolo</string>
     <string name="lyrics">Lirica</string>
     <string name="loading">Caricamento...</string>
     <string name="input_artist">Chi: per favore il nome dell\'artista o il nome completo di ingresso band per ottenere la sua / il suo / loro canzoni popolari top</string>
     <string name="preview">Anteprima</string>
     <string name="download">Download</string>
-    <string name="queue">Coda</string>
+    <string name="queue_btn">Coda</string>
     <string name="set">Set</string>
     <string name="assign">Assegnare</string>
     <string name="edit">Modifica</string>

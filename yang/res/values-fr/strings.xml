@@ -83,14 +83,13 @@
     <string name="order">Trier par</string>
     <string name="menu_rate">Taux</string>
     <string name="title">Titre</string>
-    <string name="title">Titre</string>
     <string name="lyrics">Lyrics</string>
     <string name="loading">Chargement...</string>
     <string name="input_artist">
     Qui: s\'il vous plaît nom de l\'artiste ou le nom complet d\'entrée de bande pour obtenir son / haut de leurs chansons populaires</string>
     <string name="preview">Extrait</string>
     <string name="download">Télécharger</string>
-    <string name="queue">File d\'attente</string>
+    <string name="queue_btn">File d\'attente</string>
     <string name="set">Set</string>
     <string name="assign">Attribuer</string>
     <string name="edit">Modifier</string>

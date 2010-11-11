@@ -83,13 +83,12 @@
     <string name="order">Ordnen nach</string>
     <string name="menu_rate">Bewerten</string>
     <string name="title">Titel</string>
-    <string name="title">Titel</string>
     <string name="lyrics">Lyrics</string>
     <string name="loading">Loading...</string>
     <string name="input_artist">Wer: Bitte geben Sie Ihre vollständige Name des Interpreten oder Bandnamen zu bekommen seinen / ihren oberen Volkslieder</string>
     <string name="preview">Vorschau</string>
     <string name="download">Download</string>
-    <string name="queue">Warteschlange</string>
+    <string name="queue_btn">Warteschlange</string>
     <string name="set">Set</string>
     <string name="assign">Zuweisen</string>
     <string name="edit">Bearbeiten</string>

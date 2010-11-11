@@ -84,13 +84,12 @@
     <string name="order">排序</string>
     <string name="menu_rate">评分</string>
     <string name="title">标题</string>
-    <string name="title">标题</string>
     <string name="lyrics">歌词</string>
     <string name="loading">加载中...</string>
     <string name="input_artist">Who: 请输入完整的艺术家或者乐队名称以获取他/她/他们 的流行乐曲</string>
     <string name="preview">试听</string>
     <string name="download">下载</string>
-    <string name="queue">队列</string>
+    <string name="queue_btn">队列</string>
     <string name="set">设置</string>
     <string name="assign">分配</string>
     <string name="edit">编辑</string>

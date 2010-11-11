@@ -75,13 +75,12 @@
     <string name="order">政令で</string>
     <string name="menu_rate">レート</string>
     <string name="title">タイトル</string>
-    <string name="title">タイトル</string>
     <string name="lyrics">歌詞</string>
     <string name="loading">ロード...</string>
     <string name="input_artist">誰が：彼女/彼/彼らのトップの人気曲を入力完全なアーティスト名やバンド名をご取得する</string>
     <string name="preview">プレビュー</string>
     <string name="download">ダウンロード</string>
-    <string name="queue">キュー</string>
+    <string name="queue_btn">キュー</string>
     <string name="set">設定</string>
     <string name="assign">割り当てます</string>
     <string name="edit">編集する</string>
