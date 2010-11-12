@@ -23,14 +23,15 @@ public class RingDownloadFile extends DownloadFile {
     this.ring = ring;
   }
 
-  protected Uri downloadFinish(File file) {
-    Uri u = super.downloadFinish(file);
+  protected Uri downloadFinish(File file) {    
     try {
+      Uri u = super.downloadFinish(file);
       ring.put("filePath", file.getAbsolutePath());
       ring.put(Const.mp3, u.toString());
       Util.saveFile(ring.toString(), Const.jsondir + file.getName());
+      return u;
     } catch (Exception e) {
     }
-    return u;
+    return null;
   }
 }

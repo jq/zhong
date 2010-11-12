@@ -281,7 +281,9 @@ public class local extends Activity {
 						runOnUiThread(new Runnable() {
 							@Override
 							public void run() {
-								mController.show();
+							  if (!local.this.isFinishing()) {
+								  mController.show();
+							  }
 							}
 						});
 					}

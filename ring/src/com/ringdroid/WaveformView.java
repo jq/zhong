@@ -210,7 +210,10 @@ public class WaveformView extends View {
     }
 
     public int maxPos() {
+      if (mLenByZoomLevel != null)
         return mLenByZoomLevel[mZoomLevel];
+      else 
+        return 0;
     }
 
     public int secondsToFrames(double seconds) {

@@ -670,11 +670,16 @@ public class Util {
     
     // Insert it into the database
     Uri uri = MediaStore.Audio.Media.getContentUriForPath(outPath);
+    try {
     final Uri newUri = cr.insert(uri, values);
     // // // Log.e("save", " ok ");
     // TODO: do we need this?
     //setResult(RESULT_OK, new Intent().setData(newUri));
     return newUri;
+    } catch (Exception e) {
+      
+    }
+    return null;
   }
   
 	public static void post(String url, String data) {

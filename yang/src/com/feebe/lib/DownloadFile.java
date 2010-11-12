@@ -94,13 +94,13 @@ public class DownloadFile extends AsyncTask<String, Integer, File> {
       audioFile.getTag().setArtist(artist);
       audioFile.getTag().setGenre(category);
       audioFile.commit();
-    } catch (CannotReadException e1) {
-    } catch (CannotWriteException e) {
-    }
-
-    Uri u = Util.saveToMediaLib(title, file.getAbsolutePath(), file.length(), 
-        artist, fileKinds, cr);
-    return u;
+      Uri u = Util.saveToMediaLib(title, file.getAbsolutePath(), file.length(), 
+          artist, fileKinds, cr);
+      return u;
+   } catch (CannotReadException e1) {
+   } catch (CannotWriteException e) {
+   }
+   return null;
   }
   @Override
   protected void onPostExecute(File file) {
@@ -111,7 +111,13 @@ public class DownloadFile extends AsyncTask<String, Integer, File> {
 		    if (dlhander != null)	dlhander.onDownloadFail();
 			} else {
 			  Uri u = downloadFinish(file);
-		    if (dlhander != null) dlhander.onDownloadFinish(file, u);
+		    if (dlhander != null) {
+	        if (u == null) {
+	          dlhander.onDownloadFail();
+	        } else {
+		        dlhander.onDownloadFinish(file, u);
+	        }
+		    }
 			}
   	} else if (dlhander != null){
   		dlhander.onDownloadFail();

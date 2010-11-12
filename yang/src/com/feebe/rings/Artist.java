@@ -191,7 +191,8 @@ public class Artist extends Activity {
 	private void ShowToastMessage(final String message) {
 		this.runOnUiThread(new Runnable() {
 			public void run() {
-				Toast.makeText(Artist.this, message, Toast.LENGTH_SHORT).show();
+			  if (!isFinishing())
+				  Toast.makeText(Artist.this, message, Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
