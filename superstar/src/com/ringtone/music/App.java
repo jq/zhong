@@ -13,6 +13,7 @@ public class App extends Application {
 	
 	private static File sBaseDirPath;
 	private static File sMp3Path;
+	private static File sJsonPath;
 	
 	public static String getMp3Path() {
 		if (sMp3Path != null)
@@ -46,10 +47,23 @@ public class App extends Application {
 			return;
 		}
 		
+		sJsonPath = new File(sBaseDirPath, "json");
+		if (!sJsonPath.exists() && !sJsonPath.mkdir()) {
+		    Toast.makeText(this, R.string.create_mp3_dir_error, Toast.LENGTH_LONG).show();
+		    return;
+		}
+		
 		// Start service
 		Intent intent = new Intent(this, DownloadService.class);
 		startService(intent);
     }
+
+	public static String getJsonPath() {
+		// TODO Auto-generated method stub
+		  if (sJsonPath != null)
+			    return sJsonPath.getAbsolutePath();
+		return null;
+	}
 }
 
 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<LinearLayout    
+        android:layout_width="fill_parent"    
+        xmlns:android="http://schemas.android.com/apk/res/android"    
+        android:orientation="vertical"  
+        android:layout_height="wrap_content"    
+        android:id="@+id/billboardList"    
+        android:paddingBottom="3dip"    
+        android:paddingLeft="10dip">  
+        <TextView    
+                android:layout_height="wrap_content"    
+                android:layout_width="fill_parent"    
+                android:id="@+id/billboardListItem1"    
+				android:singleLine="true"
+				android:ellipsize="marquee"
+				android:paddingLeft="4dip"
+				android:textColor="#ffffff"
+				android:layout_marginBottom="3dip"
+                android:textSize="14sp">  
+        </TextView>  
+        
+        <TextView    
+                android:layout_height="wrap_content"    
+                android:layout_width="fill_parent"    
+                android:id="@+id/billboardListItem2"    
+	              android:singleLine="true"
+	              android:ellipsize="marquee"
+	              android:paddingLeft="4dip"
+	              android:focusableInTouchMode="true"
+                android:textSize="18sp">  
+        </TextView>  
+
+</LinearLayout>

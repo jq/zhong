@@ -299,34 +299,34 @@
         </target>
     	<target name="package-apks" depends="clean-apks, init-all" description="Package applications.">
     		<antcall target="package-apk">
-    		    <param name="package_name" value="brokenbells"/>
-    		    <param name="drawable" value="app_icons\\brokenbells_large.png"/>
-    			<param name="head" value="app_icons\\brokenbells_small.png"/>
-    			<param name="app_name" value="Broken Bells"/>
+    		    <param name="package_name" value="kesha"/>
+    		    <param name="drawable" value="app_icons\\kesha_large.png"/>
+    			<param name="head" value="app_icons\\kesha_small.png"/>
+    			<param name="app_name" value="Kesha"/>
     		</antcall> 
     		<antcall target="package-apk">
-    		    <param name="package_name" value="nickiminaj"/>
-    		    <param name="drawable" value="app_icons\\nickiminaj_large.png"/>
-    			<param name="head" value="app_icons\\nickiminaj_small.png"/>
-    			<param name="app_name" value="Nicki Minaj"/>
+    		    <param name="package_name" value="mikeposner"/>
+    		    <param name="drawable" value="app_icons\\mikeposner_large.png"/>
+    			<param name="head" value="app_icons\\mikeposner_small.png"/>
+    			<param name="app_name" value="Mike Posner"/>
     		</antcall> 
     		<antcall target="package-apk">
-    		    <param name="package_name" value="jasonderulo"/>
-    		    <param name="drawable" value="app_icons\\jasonderulo_large.png"/>
-    			<param name="head" value="app_icons\\jasonderulo_small.png"/>
-    			<param name="app_name" value="Jason Derulo"/>
-        	</antcall> 
-	    	<antcall target="package-apk">
-	    	    <param name="package_name" value="kingsofleon"/>
-	    	    <param name="drawable" value="app_icons\\kingsofleon_large.png"/>
-	    		<param name="head" value="app_icons\\kingsofleon_small.png"/>
-	    		<param name="app_name" value="Kings of Leon"/>
-	    	</antcall> 
-	    	<antcall target="package-apk">
-	    	    <param name="package_name" value="beyonce"/>
-	    	    <param name="drawable" value="app_icons\\beyonce_large.png"/>
-	    		<param name="head" value="app_icons\\beyonce_small.png"/>
-	    		<param name="app_name" value="Beyonce"/>
-	        </antcall> 
+    		    <param name="package_name" value="kanyewest"/>
+    		    <param name="drawable" value="app_icons\\kanyewest_large.png"/>
+    			<param name="head" value="app_icons\\kanyewest_small.png"/>
+    			<param name="app_name" value="Kanye West"/>
+    		</antcall> 
+    		<antcall target="package-apk">
+    		    <param name="package_name" value="chrisbrown"/>
+    		    <param name="drawable" value="app_icons\\chrisbrown_large.png"/>
+    			<param name="head" value="app_icons\\chrisbrown_small.png"/>
+    			<param name="app_name" value="Chris Brown"/>
+    		</antcall> 
+    		<antcall target="package-apk">
+    		    <param name="package_name" value="florida"/>
+    		    <param name="drawable" value="app_icons\\florida_large.png"/>
+    			<param name="head" value="app_icons\\florida_small.png"/>
+    			<param name="app_name" value="Flo Rida"/>
+    		</antcall> 
     	</target>
 </project>

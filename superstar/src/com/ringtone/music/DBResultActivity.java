@@ -71,6 +71,8 @@ public class DBResultActivity extends ListActivity {
 
 	private static final int MUSIC_OPTION_PREVIEW = 0;
 	private static final int MUSIC_OPTION_DOWNLOAD = 1;
+	private static final int MUSIC_OPTION_MORESINGERS = 2;
+	private static final int MUSIC_OPTION_BILLBOARD = 3;
 
 	private static Mp3ListWrapper sData;
 	private static String sQuery;
@@ -279,6 +281,7 @@ public class DBResultActivity extends ListActivity {
 				startActivity(intent);
 	    	}
 		});
+		
 	}
 
 	@Override
@@ -710,6 +713,21 @@ public class DBResultActivity extends ListActivity {
 									return;
 								download(mCurrentMusic);
 								break;
+							case MUSIC_OPTION_MORESINGERS:
+								String url1 = "market://search?q=pub:\"Social Games\"";	
+								try {
+									Uri uri = Uri.parse(url1);
+									Intent intent1 = new Intent(Intent.ACTION_VIEW, uri);
+						    		intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+									startActivity(intent1);
+								} catch (Exception ex) {
+									ex.printStackTrace();
+								}
+								break;
+							case MUSIC_OPTION_BILLBOARD:
+					            Intent intent_bill = new Intent(DBResultActivity.this, BillBoardCate.class);
+								startActivity(intent_bill);
+								break;
 							}
 						}
                 })
@@ -905,6 +923,10 @@ public class DBResultActivity extends ListActivity {
 		case R.id.dowloads:
             Intent intent = new Intent(DBResultActivity.this, DownloadActivity.class);
 			startActivity(intent);
+			return true;
+		case R.id.billboard:
+            Intent intent_bill = new Intent(DBResultActivity.this, BillBoardCate.class);
+			startActivity(intent_bill);
 			return true;
 		case R.id.refresh:
 			mAdapter.refresh();
