@@ -7,7 +7,7 @@
       
 	<ListView android:id="@+android:id/list"
             android:layout_width="fill_parent"
-            android:textSize="18sp"
+            android:textSize="4sp"
 			android:textColor="#ffffff"
 			android:paddingLeft="4dip"
             android:layout_height="0px"

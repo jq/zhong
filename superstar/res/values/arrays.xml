@@ -3,8 +3,6 @@
     <string-array name="music_item_options">
         <item>Preview</item>
         <item>Download</item>
-        <item>More singers</item>
-        <item>Billboard</item>
     </string-array>
     
     <string-array name="music_library_item_options">

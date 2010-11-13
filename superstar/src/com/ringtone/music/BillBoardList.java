@@ -9,10 +9,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.ringtone.music.download.DownloadActivity;
 import com.ringtone.music.download.DownloadJson;
 
 import android.app.ListActivity;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
@@ -30,8 +36,9 @@ public class BillBoardList extends ListActivity implements OnItemClickListener {
   public void onCreate(android.os.Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     url = getIntent().getStringExtra("url");
+    setContentView(R.layout.billboard_detail_list);
     
-    SimpleAdapter adapter = new SimpleAdapter(this, getData(), R.layout.billboard_list_item, new String[]{"artist","title"}, new int[]{R.id.billboardListItem1,R.id.billboardListItem2});
+    SimpleAdapter adapter = new SimpleAdapter(this, getData(), R.layout.billboard_detail_item, new String[]{"artist","title"}, new int[]{R.id.billboardListItem1,R.id.billboardListItem2});
     setListAdapter(adapter);
     getListView().setOnItemClickListener(this);
   };
@@ -94,5 +101,36 @@ public class BillBoardList extends ListActivity implements OnItemClickListener {
     Toast.makeText(getApplicationContext(), "No data", Toast.LENGTH_SHORT).show();
     BillBoardList.this.finish();
   }
+  
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.getmore_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.bill_dowloads:
+            Intent intent = new Intent(BillBoardList.this, DownloadActivity.class);
+			startActivity(intent);
+			return true;
+		
+		case R.id.bill_getmore:
+			String url1 = "market://search?q=pub:\"Social Games\"";	
+			try {
+				Uri uri = Uri.parse(url1);
+				Intent intent1 = new Intent(Intent.ACTION_VIEW, uri);
+	    		intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(intent1);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			return true;
+		}
+
+		return false;
+	}
 
 }
