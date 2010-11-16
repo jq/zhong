@@ -2,15 +2,26 @@ package com.ringtone.music;
 
 import java.util.ArrayList;
 
+import com.ringtone.music.download.DownloadActivity;
+
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 
@@ -34,35 +45,104 @@ public class BillBoardCate extends ListActivity implements OnItemClickListener {
       "http://music-chart.appspot.com/chart/billboard_hot_adult_top_40_tracks_singles",};
   
   private ArrayAdapter<String> mAdapter;
+  private ArrayList<String> mItems = new ArrayList<String>();
+  private CatAdapter mCatAdapter;
+  
   @Override
   public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      requestWindowFeature(Window.FEATURE_NO_TITLE);
-      setContentView(R.layout.list); 
+//      requestWindowFeature(Window.FEATURE_NO_TITLE);
+      setContentView(R.layout.billboard_cat_list);
+      Utils.addAds(this);
+      
+      for(int i = 0; i < 10; i++) {
+    	  mItems.add(billboardString[i]);
+      }
+      
+      mCatAdapter = new CatAdapter(BillBoardCate.this,R.layout.billboard_cat_item);
+      
       final ListView list = getListView();
-      setListAdapter(getAdapter());
+      setListAdapter(mCatAdapter);
       list.setDividerHeight(1);
       list.setFocusable(true);
       // list.setOnCreateContextMenuListener(this);
       list.setTextFilterEnabled(true);
       list.setOnItemClickListener(this);
+
   }
   
-  public ListAdapter getAdapter() {
-      ArrayList<String> items = new ArrayList<String>();
-      for(int i = 0; i < 10; i++) {
-          items.add(billboardString[i]);
-      }
-      mAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,items);
-      return mAdapter;
-  }
-
   @Override
   public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
     Intent intent = new Intent(BillBoardCate.this, BillBoardList.class);
     intent.putExtra("url", billboardUrl[pos]);
     startActivity(intent);
+  }
+  
+private final class CatAdapter extends BaseAdapter {
+	private int mResource;
+	private LayoutInflater mInflater;
 
+	  
+	public CatAdapter(Context context, int resource) {
+		mResource = resource;
+        mInflater = (LayoutInflater)context.getSystemService(
+                Context.LAYOUT_INFLATER_SERVICE);
+	}
+
+	@Override
+	public int getCount() {
+		// TODO Auto-generated method stub
+		return mItems.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		// TODO Auto-generated method stub
+		return mItems.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		// TODO Auto-generated method stub
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		// TODO Auto-generated method stub
+		View v;
+		String item = mItems.get(position);
+		
+		if (convertView == null) {
+			v = mInflater.inflate(mResource, parent, false);
+		} else {
+			v = convertView;
+		}
+
+		((TextView) v.findViewById(R.id.cat_name)).setText(item);
+
+		return v;
+	}
+	  
   }
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.billboard_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.bill_dowloads:
+	        Intent intent = new Intent(BillBoardCate.this, DownloadActivity.class);
+			startActivity(intent);
+			return true;
+
+		}
+	
+		return false;
+	}
 }

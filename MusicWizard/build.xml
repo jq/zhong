@@ -37,8 +37,6 @@
 			<mkdir dir="temp/res/menu"/>
 			<mkdir dir="temp/res/raw"/>
 			<mkdir dir="temp/res/values"/>
-			<mkdir dir="temp/res/values-ja"/>
-			<mkdir dir="temp/res/values-zh-rCN"/>
 			<mkdir dir="temp/res/layout-land"/>
 			<mkdir dir="temp/src/com/ringtone/${package_name}"/>
 			<mkdir dir="temp/src/org/apache"/>
@@ -46,12 +44,6 @@
 		</target>
 		
 		<target name="generate-new-res">
-			<copy todir="temp/res/values-ja" filtering="false" encoding="UTF-8">
-				<fileset dir="res/values-ja"/>
-			</copy>
-			<copy todir="temp/res/values-zh-rCN" filtering="false" encoding="UTF-8">
-				<fileset dir="res/values-zh-rCN"/>
-			</copy>
 			<copy todir="temp/res/layout-land" filtering="false">
 				<fileset dir="res/layout-land"/>
 			</copy>
@@ -86,12 +78,7 @@
 				<regexp pattern="Ringtone Mp3"/>
 				<substitution expression="${app_name}"/>
 			</replaceregexp>
-			
-			<replaceregexp file="temp/res/values-zh-rCN/strings.xml" byline="true">
-				<regexp pattern="Ringtone Mp3"/>
-				<substitution expression="${app_name}"/>
-			</replaceregexp>
-			
+					
 			<!-- 去除includeInGlobalSearch -->
 			<!--replaceregexp file="temp/res/xml/searchable.xml" byline="true">
 			<regexp pattern="android:includeInGlobalSearch.*($)"/>
@@ -207,7 +194,7 @@
                 <arg value="-S"/>
                 <arg file="temp/res"/>
                 <arg value="-I"/>
-                <arg file="${android-home}/platforms/android-2.1/android.jar"/>
+                <arg file="${android-home}/platforms/android-7/android.jar"/>
             </android:aapt>
 		</target>
 	
@@ -221,7 +208,7 @@
         	<mkdir dir="temp/bin"/>
             <javac encoding="utf-8" target="1.6" debug="false" extdirs=""
                    srcdir="temp/src" destdir="temp/bin"
-                   bootclasspath="${android-home}/platforms/android-2.1/android.jar">
+                   bootclasspath="${android-home}/platforms/android-7/android.jar">
                    <classpath>
                 		<fileset refid="main.jars"/>
                 	</classpath>
@@ -258,7 +245,7 @@
 				<arg value="-S"/>
 				<arg file="temp/res"/>
 				<arg value="-I"/>
-				<arg file="${android-home}/platforms/android-2.1/android.jar"/>
+				<arg file="${android-home}/platforms/android-7/android.jar"/>
 				<arg value="-F"/>
 				<arg file="temp/bin/resources.ap_"/>
         	</android:aapt>

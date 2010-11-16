@@ -10,9 +10,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.ringtone.music.download.DownloadJson;
+import com.ringtone.music.download.DownloadActivity;
 
 import android.app.ListActivity;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
@@ -30,8 +36,10 @@ public class BillBoardList extends ListActivity implements OnItemClickListener {
   public void onCreate(android.os.Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     url = getIntent().getStringExtra("url");
+    setContentView(R.layout.billboard_detail_list);
+    Utils.addAds(this);
     
-    SimpleAdapter adapter = new SimpleAdapter(this, getData(), R.layout.billboard_list_item, new String[]{"artist","title"}, new int[]{R.id.billboardListItem1,R.id.billboardListItem2});
+    SimpleAdapter adapter = new SimpleAdapter(this, getData(), R.layout.billboard_detail_item, new String[]{"artist","title"}, new int[]{R.id.billboardListItem1,R.id.billboardListItem2});
     setListAdapter(adapter);
     getListView().setOnItemClickListener(this);
   };
@@ -45,7 +53,7 @@ public class BillBoardList extends ListActivity implements OnItemClickListener {
     url = getIntent().getStringExtra("url");
     //Log.e("URL: ", url);
     
-    JSONObject jObject = DownloadJson.getJsonFromUrl(url, DownloadJson.OneMonth);
+    JSONObject jObject = DownloadJson.getJsonFromUrl(url, DownloadJson.ThreeAndAHalfDays);
     if(jObject == null) {
       NoDataError();
     }
@@ -88,13 +96,29 @@ public class BillBoardList extends ListActivity implements OnItemClickListener {
     } catch (JSONException e) {
       e.printStackTrace();
     }
-    
-
   }
   
   private void NoDataError() {
     Toast.makeText(getApplicationContext(), "No data", Toast.LENGTH_SHORT).show();
     BillBoardList.this.finish();
   }
+  
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.billboard_menu, menu);
+		return true;
+	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.bill_dowloads:
+            Intent intent = new Intent(BillBoardList.this, DownloadActivity.class);
+			startActivity(intent);
+			return true;
+		}
+
+		return false;
+	}
 }

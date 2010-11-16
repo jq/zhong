@@ -19,6 +19,7 @@ import android.util.Log;
 
 public class DownloadJson {
   public static final long OneDay = 1000 * 3600 * 24;
+  public static final long ThreeAndAHalfDays = 1000 * 3600 * 84;
   public static final long OneWeek = OneDay * 7;
   public static final long OneMonth = OneDay * 30;
   public static final long OneYear = OneDay * 365;

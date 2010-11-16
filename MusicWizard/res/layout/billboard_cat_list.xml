@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-			android:layout_width="fill_parent" 
+	android:layout_width="fill_parent" 
       android:layout_height="fill_parent"
       android:orientation="vertical"
       android:id="@+id/list_main" >
       
-			<ListView android:id="@+android:id/list"
+	<ListView android:id="@+android:id/list"
             android:layout_width="fill_parent"
+            android:textSize="4sp"
+			android:textColor="#ffffff"
+			android:paddingLeft="4dip"
             android:layout_height="0px"
             android:layout_weight="1">
             <requestFocus />
-      </ListView>
-            
+	</ListView>
 
+	<include layout="@layout/adsw"/>
  </LinearLayout>
-
-
