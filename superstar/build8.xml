@@ -299,34 +299,34 @@
         </target>
     	<target name="package-apks" depends="clean-apks, init-all" description="Package applications.">
     		<antcall target="package-apk">
-    		    <param name="package_name" value="pink"/>
-    		    <param name="drawable" value="app_icons\\pink_large.png"/>
-    			<param name="head" value="app_icons\\pink_small.png"/>
-    			<param name="app_name" value="Pink"/>
+    		    <param name="package_name" value="jasonaldean"/>
+    		    <param name="drawable" value="app_icons\\jasonaldean_large.png"/>
+    			<param name="head" value="app_icons\\jasonaldean_small.png"/>
+    			<param name="app_name" value="Jason Aldean"/>
     		</antcall> 
     		<antcall target="package-apk">
-    		    <param name="package_name" value="treysongz"/>
-    		    <param name="drawable" value="app_icons\\treysongz_large.png"/>
-    			<param name="head" value="app_icons\\treysongz_small.png"/>
-    			<param name="app_name" value="Trey Songz"/>
-    		</antcall>
-    		<antcall target="package-apk">
-    		    <param name="package_name" value="fareastmovement"/>
-    		    <param name="drawable" value="app_icons\\fareastmovement_large.png"/>
-    			<param name="head" value="app_icons\\fareastmovement_small.png"/>
-    			<param name="app_name" value="Far East Movement"/>
-    		</antcall>
-    		<antcall target="package-apk">
-    		    <param name="package_name" value="jayz"/>
-    		    <param name="drawable" value="app_icons\\jayz_large.png"/>
-    			<param name="head" value="app_icons\\jayz_small.png"/>
-    			<param name="app_name" value="JAY-Z"/>
-    		</antcall>
-    		<antcall target="package-apk">
-    		    <param name="package_name" value="sarabareilles"/>
-    		    <param name="drawable" value="app_icons\\sarabareilles_large.png"/>
-    			<param name="head" value="app_icons\\sarabareilles_small.png"/>
-    			<param name="app_name" value="Sara Bareilles"/>
+    		    <param name="package_name" value="daughtry"/>
+    		    <param name="drawable" value="app_icons\\daughtry_large.png"/>
+    			<param name="head" value="app_icons\\daughtry_small.png"/>
+    			<param name="app_name" value="Daughtry"/>
     		</antcall> 
+    		<antcall target="package-apk">
+    		    <param name="package_name" value="bob"/>
+    		    <param name="drawable" value="app_icons\\bob_large.png"/>
+    			<param name="head" value="app_icons\\bob_small.png"/>
+    			<param name="app_name" value="B.o.B"/>
+    		</antcall> 
+    		<antcall target="package-apk">
+    		    <param name="package_name" value="drake"/>
+    		    <param name="drawable" value="app_icons\\drake_large.png"/>
+    			<param name="head" value="app_icons\\drake_small.png"/>
+    			<param name="app_name" value="Drake"/>
+    		</antcall>
+    		<antcall target="package-apk">
+    		    <param name="package_name" value="pitbull"/>
+    		    <param name="drawable" value="app_icons\\pitbull_large.png"/>
+    			<param name="head" value="app_icons\\pitbull_small.png"/>
+    			<param name="app_name" value="Pitbull"/>
+    		</antcall>     		
     	</target>
 </project>

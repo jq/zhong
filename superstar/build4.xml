@@ -308,7 +308,7 @@
     		    <param name="package_name" value="taiocruz"/>
     		    <param name="drawable" value="app_icons\\taiocruz_large.png"/>
     			<param name="head" value="app_icons\\taiocruz_small.png"/>
-    			<param name="app_name" value="Taio cruz"/>
+    			<param name="app_name" value="Taio Cruz"/>
     		</antcall> 
     		<antcall target="package-apk">
     		    <param name="package_name" value="rihanna"/>
