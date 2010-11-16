@@ -53,6 +53,7 @@ public class BillBoardCate extends ListActivity implements OnItemClickListener {
       super.onCreate(savedInstanceState);
 //      requestWindowFeature(Window.FEATURE_NO_TITLE);
       setContentView(R.layout.billboard_cat_list);
+      Utils.addAds(this);
       
       for(int i = 0; i < 10; i++) {
     	  mItems.add(billboardString[i]);

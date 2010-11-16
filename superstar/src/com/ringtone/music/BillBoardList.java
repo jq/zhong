@@ -37,6 +37,7 @@ public class BillBoardList extends ListActivity implements OnItemClickListener {
     super.onCreate(savedInstanceState);
     url = getIntent().getStringExtra("url");
     setContentView(R.layout.billboard_detail_list);
+    Utils.addAds(this);
     
     SimpleAdapter adapter = new SimpleAdapter(this, getData(), R.layout.billboard_detail_item, new String[]{"artist","title"}, new int[]{R.id.billboardListItem1,R.id.billboardListItem2});
     setListAdapter(adapter);
@@ -52,7 +53,7 @@ public class BillBoardList extends ListActivity implements OnItemClickListener {
     url = getIntent().getStringExtra("url");
     //Log.e("URL: ", url);
     
-    JSONObject jObject = DownloadJson.getJsonFromUrl(url, DownloadJson.OneMonth);
+    JSONObject jObject = DownloadJson.getJsonFromUrl(url, DownloadJson.ThreeAndAHalfDays);
     if(jObject == null) {
       NoDataError();
     }
