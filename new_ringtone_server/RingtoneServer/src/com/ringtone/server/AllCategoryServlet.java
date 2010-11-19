@@ -13,7 +13,7 @@ public class AllCategoryServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/categories.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/iphone_categories.jsp");
 		dispatcher.forward(req, resp);
 		resp.flushBuffer();
 	}

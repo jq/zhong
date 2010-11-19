@@ -23,12 +23,20 @@ public class SearchServlet extends HttpServlet {
 		String isJson = req.getParameter(Const.JSON);
 		String key = req.getParameter(Const.QUERY);
 		String startStr = req.getParameter(Const.START);
+		String type = req.getParameter(Const.TYPE);
 		int start = 0;
 		if (startStr != null) {
 			start = Integer.parseInt(startStr);
 		}
-			
-		List<SongEntry> searchResults = SearchUtils.getResultsByKeyword(key, start);
+		
+		List<SongEntry> searchResults = null;
+		if (type == null) {
+			searchResults = SearchUtils.getResultsByKeyword(key, start);
+		} else if (type.equalsIgnoreCase(Const.CATEGORY)) {
+			searchResults = SearchUtils.getResultsByCategory(key, start);
+		} else if (type.equalsIgnoreCase(Const.DOWNLOAD_COUNT)) {
+			searchResults = SearchUtils.getResultsByDownloadCount(start);
+		}
 		JSONArray jsonArray = new JSONArray();
 		for (SongEntry songEntry : searchResults) {
 			Map<String, String> songMap = new HashMap<String, String>();
@@ -44,7 +52,7 @@ public class SearchServlet extends HttpServlet {
 			jsonArray.put(songMap);
 		}
 		DebugUtils.D("results size: "+searchResults.size());
-		if (start == 0) {
+		if (start==0 && type==null) {
 			QueryUtils.insertQuery(key, searchResults.size());
 		}
 		String response = null;

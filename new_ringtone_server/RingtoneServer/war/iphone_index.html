@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>FreeRingtone</title>
+        <style type="text/css" media="screen">@import "/jqtouch/jqtouch.min.css";</style>
+        <style type="text/css" media="screen">@import "/themes/jqt/theme.min.css";</style>
+        <script src="/jqtouch/jquery.1.3.2.min.js" type="text/javascript" charset="utf-8"></script> 
+        <script src="/jqtouch/jqtouch.min.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="/js/iphone_search.js" type="application/x-javascript" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            var jQT = new $.jQTouch({
+                icon: '/images/ringtone_icon.png',
+                addGlossToIcon: false,
+                startupScreen: 'jqt_startup.png',
+                statusBar: 'black',
+                preloadImages: [
+                    '/themes/jqt/img/back_button.png',
+                    '/themes/jqt/img/back_button_clicked.png',
+                    '/themes/jqt/img/button_clicked.png',
+                    '/themes/jqt/img/grayButton.png',
+                    '/themes/jqt/img/whiteButton.png',
+                    '/themes/jqt/img/loading.gif'
+                    ]
+            });
+            // Some sample Javascript functions:
+            $(function(){
+                // Orientation callback event
+                $('body').bind('turn', function(e, data){
+                    $('#orient').html('Orientation: ' + data.orientation);
+                });
+            });
+        </script>
+        <style type="text/css" media="screen">
+            body.fullscreen #home .info {
+                display: none;
+            }
+            #about {
+                padding: 100px 10px 40px;
+                text-shadow: rgba(255, 255, 255, 0.3) 0px -1px 0;
+                font-size: 13px;
+                text-align: center;
+                background: #161618;
+            }
+            #about p {
+                margin-bottom: 8px;
+            }
+            #about a {
+                color: #fff;
+                font-weight: bold;
+                text-decoration: none;
+            }
+        </style>
+        <style type="text/css" media="screen">
+        	.store {
+        		border-top: 1px solid #878787;
+        		height: 50px;
+        		overflow: hidden;
+        		position: relative;
+        	}
+        	.store a {
+        		display: block;
+        		height: 50px;
+        		position: absolute;
+        		text-decoration: none;
+        		width: 100%
+        	}
+        	.store .image {
+        		display: block;
+        		height : 200%;
+    			width: 200%;
+        		left: 0;
+        		position: absolute;
+        		top :4;
+        	}
+        	.store img {
+        		display: block;
+        		height: 50px;
+        		width: 50px;
+        		left: 0;
+        		position: absolute;
+        		top: 4;
+        	}
+        	.store .title {
+        		left: 55px;
+        		position: absolute;
+        		top: 24px;
+        		display: block;
+        		font-size: 15px;
+        		font-weight: bold;
+        		max-width: 60%
+        		overflow: hidden;
+        		white-space: nowrap;
+        	}
+        	.store .artist {
+        		margin: 0 0 0 45px;
+        		display: block;
+        		font-size: 12px;
+        		font-weight: bold;
+        		overflow: hidden;
+        		white-space: nowrap;
+        		width: 60;
+        	}
+        	.store .arrow {
+        		background-image: url("/themes/jqt/img/chevron.png");
+        		background-position: 100% 50%;
+        		background-repeat: no-repeat;
+        	}
+        	.store .stars0 {
+        		background: url("/images/0stars.png") repeat scroll 0 0 transparent;
+        	}
+        	.store .stars1 {
+        		background: url("/images/1stars.png") repeat scroll 0 0 transparent;
+        	}
+        	.store .stars2 {
+        		background: url("/images/2stars.png") repeat scroll 0 0 transparent;
+        	}
+        	.store .stars3 {
+        		background: url("/images/3stars.png") repeat scroll 0 0 transparent;
+        	}
+        	.store .stars4 {
+        		background: url("/images/4stars.png") repeat scroll 0 0 transparent;
+        	}
+        	.store .stars5 {
+        		background: url("/images/5stars.png") repeat scroll 0 0 transparent;
+        	}
+        	.store .stars0, .store .stars1, .store .stars2, .store .stars3, .store .stars4, .store .stars5 {
+        		display: block;
+        		height: 18px;
+        		left: 55px;
+        		position: absolute;
+        		top: 40px;
+        		width: 65px;
+        	}
+        </style>
+    </head>
+    
+    <body>
+		<div id="home" class="current">
+    		<div class="toolbar">
+        		<h1>Searcher</h1>
+    		</div>
+    		<ul class="rounded">
+        		<li class="arrow"><a href="#search">Search</a></li>
+        		<li class="arrow"><a href="#categories">All Categories</a></li>
+        		<li class="arrow"><a href="#top_download">Top Donwload</a></li>
+    		</ul>
+		</div>
+		
+		<form id="search" action="">
+    		<div class="toolbar">
+        		<h1>Search</h1>
+        		<a href="#" class="back">Back</a>
+    		</div>
+    		<ul class="rounded">
+      			<li><input type="text" name="search-text" placeholder="Search" id="search-text" />
+    		</ul>
+	        <ul class="rounded" id="results">
+	        </ul>
+		</form>
+		
+		<div id="categories">
+		    <div class="toolbar">
+        		<h1>Categories</h1>
+        		<a href="#" class="back">Back</a>
+    		</div>
+			<ul class="rounded" id="all_categories">
+				                  
+			</ul>
+		</div>
+		
+		<div id="category">
+			<div class="toolbar">
+				<h1></h1>
+				<a href="#categories" class="back">Back</a>
+			</div>
+			<ul class="rounded" id="results">
+				
+			</ul>
+		</div>
+		
+		<div id="top_download">
+			<div class="toolbar">
+				<h1>Top Download</h1>
+				<a href="#" class="back">Back</a>
+			</div>
+			<ul class="rounded" id="results">
+				
+			</ul>
+		</div>
+		
+    </body>
+</html>

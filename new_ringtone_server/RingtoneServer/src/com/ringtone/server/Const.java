@@ -60,4 +60,6 @@ public class Const {
 												"Gangsta", "Oldies", "Heavy", "Southern", "Classic", "Disco",
 												"Alt", "Reggae", "Funk"};
 	
+	public static final String[] HOME_CATEGORIES = { "Country", "Hip-Hop", "Rock", "Pop"};
+	
 }
