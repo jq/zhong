@@ -1,30 +1,53 @@
 (function($) {
 	$(function() {
 		$("#search").submit(function(event, info) {
-			var text = $("input[id=search-text]", this);
-			text.blur();
-			var results = $("#results", this).empty();
+			var div_search_result = $("#search_result");
+			jQT.goTo(div_search_result);
+			var text = $("input[id=search-text]", this).attr("value");
+//			text.blur();
+			var results = $("#results", div_search_result).empty();
 			var load_more = "Tap to load more";
 			var url = "/ringtoneserver/search?q="+text;
+
+			$(".loader", div_search_result).bind("ajaxSend", function(){
+				var length = $(".store", div_search_result).length;
+				if (length == 0) {
+					$(this).show();
+				}
+			}).bind("ajaxComplete", function(){
+				$(this).hide();
+			});
+			
 			$.getJSON(url, 
 				function(data) {
+				if (data.length == 0) {
+					window.alert("No result");
+					return;
+				}
 				$.each(data, function(i, item) {
-//					var str = "<a class=\"song_item\"><span class=\"name\">"+item.artist + " - " + item.title+"</span></a>";
-//					$("<li class=\"arrow\" song_id=\""+item.uuid+"\">").html(str).appendTo(results);
 					var li = jsonToListItem(item);
 					li.appendTo(results);
 				});
+				
+
+				
 				$("<li id=\"load_more\">").text(load_more).appendTo(results);
-				$("#load_more", $("#search")).click(function() {
-					append_more($("#search"), url);
+				$("#load_more", div_search_result).click(function() {
+//					jQT.goTo("#categories", 'slide');
+					append_more(div_search_result, url);
 				});
-				$("#load_more", $("#search")).bind("ajaxSend", function(){
+				$("#load_more", div_search_result).bind("ajaxSend", function(){
 					$(this).text("Loading...");
 				 }).bind("ajaxComplete", function(){
-					 $(this).text("Top to load more");
+					 $(this).text("Tap to load more");
 					 $(this).appendTo(results);
 				 });
+				
+
+
 			});
+			
+
 			return false;
 		});
 	});
@@ -51,8 +74,22 @@ function fill_cate_page(cate) {
 	var results = $("#results", div_cate);
 	results.empty();
 	var url = "/ringtoneserver/search?q="+cate+"&type=category";
+	
+	$(".loader", div_cate).bind("ajaxSend", function(){
+		var length = $(".store", div_cate).length;
+		if (length == 0) {
+			$(this).show();
+		}
+	}).bind("ajaxComplete", function(){
+		$(this).hide();
+	});
+	
 	$.getJSON(url, 
 			function(data) {
+		if (data.length == 0) {
+			window.alert("No result");
+			return;
+		}
 			$.each(data, function(i, item) {
 				var li = jsonToListItem(item);
 				li.appendTo(results);
@@ -72,7 +109,7 @@ function fill_cate_page(cate) {
 };
 
 $(document).ready(function(e){
-    $('#categories').bind('pageAnimationEnd', function(event, info) {
+    $('#categories').bind('pageAnimationStart', function(event, info) {
         if (info.direction == 'in') {
         	var all_categories = $("#all_categories", this).empty();
         	var all_cate_array = [ "Christian", "Metal", "Holiday", "R&B", "World Music",
@@ -83,25 +120,38 @@ $(document).ready(function(e){
 					"Avantgarde", "unknown", "Acid", "Soundtrack", "Soul", 
 					"Progressive", "Acoustic", "Ska", "Booty", "Easy", "Satire",
 					"Gangsta", "Oldies", "Heavy", "Southern", "Classic", "Disco",
-					"Alt", "Reggae", "Funk"];
+					"Alt", "Reggae", "Funk" ];
         	for (cate in all_cate_array) {
         		var a = $("<a></a>").attr("class", "cate_link_item").attr("href", "#category").attr("value", all_cate_array[cate]).text(all_cate_array[cate]);
         		var str = $("<li></li>").attr("class", "arrow").append(a);
         		str.appendTo(all_categories);
         	}
         }
-        
     })
 });
 
 $(document).ready(function(e){
-    $('#top_download').bind('pageAnimationEnd', function(event, info) {
+    $('#top_download').bind('pageAnimationStart', function(event, info) {
         if (info.direction == 'in') {
 			var results = $("#results", this).empty();
 			var load_more = "Tap to load more";
 			var url = "/ringtoneserver/search?type=download_count";
+			
+			$(".loader", this).bind("ajaxSend", function(){
+				var length = $(".store", "#top_download").length;
+				if (length == 0) {
+					$(this).show();
+				}
+			}).bind("ajaxComplete", function(){
+				$(this).hide();
+			});
+			
 			$.getJSON(url, 
 				function(data) {
+				if (data.length == 0) {
+					window.alert("No result");
+					return;
+				}
 				$.each(data, function(i, item) {
 					var li = jsonToListItem(item);
 					li.appendTo(results);
