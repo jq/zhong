@@ -3,40 +3,106 @@
     <head>
         <meta charset="UTF-8" />
         <title>FreeRingtone</title>
-        <style type="text/css" media="screen">@import "/jqtouch/jqtouch.min.css";</style>
+        <style type="text/css" media="screen">@import "/jqtouch/jqtouch.css";</style>
         
         <style type="text/css" media="screen">@import "themes/apple/theme.css";</style>
+        <style type="text/css" media="screen">@import "themes/apple/addition.css";</style>
         
-        <script src="/jqtouch/jquery.1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/jqtouch/jqtouch.min.js" type="application/x-javascript" charset="utf-8"></script>
-        <script src="/js/iphone_search.js" type="application/x-javascript" charset="utf-8"></script>
+        
+        <script src="/jqtouch/jquery-1.4.4.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="/js/iscroll.js" type="application/x-javascript" charset="utf-8"></script>
+        <!--<script src="/js/iphone_search.js" type="application/x-javascript" charset="utf-8"></script>-->
         <script type="text/javascript" charset="utf-8">
             var jQT = new $.jQTouch({
-                icon: '/images/ringtone_icon.png',
-                addGlossToIcon: false,
-                startupScreen: 'jqt_startup.png',
-                statusBar: 'black',
-                preloadImages: [
-                    '/themes/jqt/img/back_button.png',
-                    '/themes/jqt/img/back_button_clicked.png',
-                    '/themes/jqt/img/button_clicked.png',
-                    '/themes/jqt/img/grayButton.png',
-                    '/themes/jqt/img/whiteButton.png',
-                    '/themes/jqt/img/loading.gif'
-                    ]
+                icon: 'ringtone_icon.png',
+                debug: false,
             });
-            // Some sample Javascript functions:
-            $(function(){
-                // Orientation callback event
-                $('body').bind('turn', function(e, data){
-                    $('#orient').html('Orientation: ' + data.orientation);
-                });
-            });
-        </script>
-        <style type="text/css" media="screen">
-            body.fullscreen #home .info {
-                display: none;
+            
+            // iscroll, 部分代码需要加到你动态生成的result的代码结尾处，用于计算实际的内容高度。
+            function setHeight($item) {
+              var $wrapper = $item.find('.s-scrollwrapper');
+              if ($wrapper.length > 0) {
+                var headerH = 0;
+                var footerH = 0;
+                var tabbarH = 0;
+                var wrapperH = 320;
+  
+                var $header = $item.find('.toolbar');
+                headerH = $header.length > 0 ? ($header.outerHeight() > 0 ? $header.outerHeight() : 0) : 0;
+  
+                var $footer = $item.find('.navibar'); // page footer
+                var $tabbar = $('#tabbar'); // global tabbar
+                if ($footer.length > 0) {
+                  footerH = $footer.outerHeight();
+                } else if ($tabbar.length > 0) {
+                  tabbarH = $tabbar.outerHeight(); 
+                }
+
+                // workaround limitation on outerHeight (ie, returns zero until animation ended)
+                if (headerH > 0 || footerH > 0 || tabbarH > 0) {
+                  wrapperH = window.innerHeight - headerH - footerH - tabbarH;
+                  $wrapper.height(wrapperH);
+                }
+
+                // refresh scroll
+                var scroll = $item.data('iscroll_object');
+                if (scroll !== undefined && scroll !== null) {
+                  scroll.refresh();
+                }
+              }
             }
+
+            function setCurrentHeight() {
+              setHeight($('.current'));
+            }
+
+            function loaded() {
+              $('#jqt').children().each(function () {
+                var $this = $(this);
+                var $wrapper = $this.find('.s-scrollwrapper');
+                var $pane = $wrapper.find('.s-scrollpane'); 
+                if ($wrapper.length > 0) {
+                  var scroll = new iScroll($pane[0].id, {desktopCompatibility: true});
+                  $this.data('iscroll_object', scroll); 
+
+                  // workaround limitation on outerHeight (ie, returns zero until animation ended)
+                  // set a default for most common case to avoid resize being seen
+                  wrapperH = window.innerHeight - 88;
+                  $wrapper.height(wrapperH);
+
+                  scroll.refresh();
+
+                  $this.bind('pageAnimationEnd', function(event, info) {
+                    if (info.direction == 'in') {
+                      setHeight($(this));
+                    }
+                  });
+                }
+              });
+            }
+            
+            // 非全屏模式时，不修改touchmove事件监听器
+            document.addEventListener('touchmove', function(e){ e.preventDefault(); }, true);
+            
+            
+            $(window).resize(function() {
+              $('#jqt').children().each(function () {
+                setHeight($(this));
+              });
+            });
+            $(document).ready(function(){
+              loaded();
+              $(window).resize();
+
+              setTimeout(function() {
+                $(window).resize();
+              }, 1500);
+            });
+        
+        </script>
+        
+        <style type="text/css" media="screen">
             #about {
                 padding: 100px 10px 40px;
                 text-shadow: rgba(255, 255, 255, 0.3) 0px -1px 0;
@@ -54,127 +120,11 @@
             }
         </style>
         <style type="text/css" media="screen">
-        	.searchbox {
-        		height: 44px;
-        		margin: 0;
-        		width: 100%;
-        	}
-        	.searchbox form {
-        		border-width: 4px 14px 1px 24px;
-        		display: block;
-        		height: 30px;
-        		width: 300px;
-        		margin: auto;
-        		position: relative;
-        		top: 8px;
-        	}
-        	.searchbox input[type="text"] {
-        		border: 0 none;
-        		float: left;
-        		font-size: 13px;
-        		height: 30px;
-        		width: 300px;
-        		left: 2px;
-        		padding: 0;
-        		position: relative;
-        	}
-        	fieldset {
-        		border: 0 none;
-        		margin: 0;
-        		padding: 0;
-        	}
-        	.store {
-        		border-top: 1px solid #878787;
-        		height: 50px;
-        		overflow: hidden;
-        		position: relative;
-        	}
-        	.store a {
-        		display: block;
-        		height: 50px;
-        		position: absolute;
-        		text-decoration: none;
-        		width: 100%
-        	}
-        	.store .image {
-        		display: block;
-        		height : 200%;
-    			width: 200%;
-        		left: 0;
-        		position: absolute;
-        		top :4;
-        	}
-        	.store img {
-        		display: block;
-        		height: 50px;
-        		width: 50px;
-        		left: 0;
-        		position: absolute;
-        		top: 4;
-        	}
-        	.store .title {
-        		left: 55px;
-        		position: absolute;
-        		top: 24px;
-        		display: block;
-        		font-size: 15px;
-        		font-weight: bold;
-        		max-width: 60%
-        		overflow: hidden;
-        		white-space: nowrap;
-        	}
-        	.store .artist {
-        		margin: 0 0 0 45px;
-        		display: block;
-        		font-size: 12px;
-        		font-weight: bold;
-        		overflow: hidden;
-        		white-space: nowrap;
-        		width: 60;
-        	}
-        	.store .arrow {
-        		background-image: url("/themes/jqt/img/chevron.png");
-        		background-position: 100% 50%;
-        		background-repeat: no-repeat;
-        	}
-        	.store .stars0 {
-        		background: url("/images/0stars.png") repeat scroll 0 0 transparent;
-        	}
-        	.store .stars1 {
-        		background: url("/images/1stars.png") repeat scroll 0 0 transparent;
-        	}
-        	.store .stars2 {
-        		background: url("/images/2stars.png") repeat scroll 0 0 transparent;
-        	}
-        	.store .stars3 {
-        		background: url("/images/3stars.png") repeat scroll 0 0 transparent;
-        	}
-        	.store .stars4 {
-        		background: url("/images/4stars.png") repeat scroll 0 0 transparent;
-        	}
-        	.store .stars5 {
-        		background: url("/images/5stars.png") repeat scroll 0 0 transparent;
-        	}
-        	.store .stars0, .store .stars1, .store .stars2, .store .stars3, .store .stars4, .store .stars5 {
-        		display: block;
-        		height: 18px;
-        		left: 55px;
-        		position: absolute;
-        		top: 40px;
-        		width: 65px;
-        	}
-        	div .loader {
-        		background: transparent url(images/loading.gif) no-repeat center center;
-        		position: absolute;
-        		top: 200px;
-        		width: 100%;
-        		left: 0px;
-        		height: 24px;
-        	}
         </style>
     </head>
     
     <body>
+    <div id="jqt">
 		<div id="home" class="current">
     		<div class="toolbar">
         		<h1>Free Ringtone</h1>
@@ -186,33 +136,22 @@
       			</form>
     		</div>
     		<ul class="rounded">
-<!--    			<li class="arrow"><a href="#search">Search</a></li>-->
-        		<li class="arrow"><a href="#categories">All Categories</a></li>
-        		<li class="arrow"><a href="#top_download">Top Donwload</a></li>
+    		    <li class="textbox"><span class="header">Featured</span></li> 
+        		<li class="arrow"><a class="slide" href="#categories">All Categories</a></li>
+        		<li class="arrow"><a class="slide" href="#top_download">Top Donwload</a></li>
+        		<li class="arrow"><a class="slide" href="#top_download">Bla Bla Bla</a></li>
     		</ul>
 		</div>
-		
-<!--		<form id="search" action="">-->
-<!--    		<div class="toolbar">-->
-<!--        		<h1>Search</h1>-->
-<!--        		<a href="#" class="back">Back</a>-->
-<!--    		</div>-->
-<!--    		<ul class="rounded">-->
-<!--      			<li><input type="text" name="search-text" placeholder="Search" id="search-text" />-->
-<!--    		</ul>-->
-<!--	        <ul class="rounded" id="results">-->
-<!--	        </ul>-->
-<!--		</form>-->
 
 		<div id="search_result">
 		    <div class="toolbar">
-        		<h1>Search Ringtone</h1>
+        		<h1>Search Result</h1>
         		<a href="#" class="back">Back</a>
     		</div>
     		<div class="loader" style="display:none;"></div>
-			<ul class="rounded" id="results">
+			  <ul class="rounded" id="results">
 				
-			</ul>
+			  </ul>
 		</div>
 		
 		<div id="categories">
@@ -220,7 +159,9 @@
         		<h1>Categories</h1>
         		<a href="#" class="back">Back</a>
     		</div>
+    	<div id="target-wrapper-categories" class="s-scrollwrapper"><div id="target-pane-categories" class="s-scrollpane">
 			<ul class="rounded" id="all_categories">
+			</div></div>
 				
 			</ul>
 		</div>
@@ -231,7 +172,9 @@
 				<a href="#categories" class="back">Back</a>
 			</div>
 			<div class="loader" style="display:none;"></div>
+			<div id="target-wrapper-results" class="s-scrollwrapper"><div id="target-pane-results" class="s-scrollpane">
 			<ul class="rounded" id="results">
+			</div></div>
 				
 			</ul>
 		</div>
@@ -242,10 +185,12 @@
 				<a href="#" class="back">Back</a>
 			</div>
 			<div class="loader" style="display:none;"></div>
+			<div id="target-wrapper-results" class="s-scrollwrapper"><div id="target-pane-results" class="s-scrollpane">
 			<ul class="rounded" id="results">
+			</div></div>
 				
 			</ul>
 		</div>
-		
+		</div>
     </body>
 </html>
