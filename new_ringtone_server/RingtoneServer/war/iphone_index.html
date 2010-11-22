@@ -11,95 +11,39 @@
         
         <script src="/jqtouch/jquery-1.4.4.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="/jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
-        <script src="/js/iscroll.js" type="application/x-javascript" charset="utf-8"></script>
         <script src="/js/iphone_search.js" type="application/x-javascript" charset="utf-8"></script>
         <script type="text/javascript" charset="utf-8">
-            var jQT = new $.jQTouch({
-                icon: 'ringtone_icon.png',
-                debug: false,
+        var jQT = new $.jQTouch({
+            icon: 'jqtouch.png',
+            icon4: 'jqtouch4.png',
+            addGlossToIcon: false,
+            startupScreen: 'jqt_startup.png',
+            statusBar: 'black',
+            useFastTouch: false,
+            preloadImages: [
+                '/themes/jqt/img/back_button.png',
+                '/themes/jqt/img/back_button_clicked.png',
+                '/themes/jqt/img/button_clicked.png',
+                '/themes/jqt/img/grayButton.png',
+                '/themes/jqt/img/whiteButton.png',
+                '/themes/jqt/img/loading.gif'
+                ]
+        });
+        $(function(){
+            $(".cate_link_item").tap( function(e) {
+            	jQT.goTo("#category");
+            	var cate = $(this).attr("value");
+            	fill_cate_page(cate);
             });
             
-            // iscroll, 部分代码需要加到你动态生成的result的代码结尾处，用于计算实际的内容高度。
-            function setHeight($item) {
-              var $wrapper = $item.find('.s-scrollwrapper');
-              if ($wrapper.length > 0) {
-                var headerH = 0;
-                var footerH = 0;
-                var tabbarH = 0;
-                var wrapperH = 320;
-  
-                var $header = $item.find('.toolbar');
-                headerH = $header.length > 0 ? ($header.outerHeight() > 0 ? $header.outerHeight() : 0) : 0;
-  
-                var $footer = $item.find('.navibar'); // page footer
-                var $tabbar = $('#tabbar'); // global tabbar
-                if ($footer.length > 0) {
-                  footerH = $footer.outerHeight();
-                } else if ($tabbar.length > 0) {
-                  tabbarH = $tabbar.outerHeight(); 
+            $('a[target="_blank"]').tap(function(e) {
+                if (confirm('This link opens in a new window.')) {
+                    return true;
+                } else {
+                    return false;
                 }
-
-                // workaround limitation on outerHeight (ie, returns zero until animation ended)
-                if (headerH > 0 || footerH > 0 || tabbarH > 0) {
-                  wrapperH = window.innerHeight - headerH - footerH - tabbarH;
-                  $wrapper.height(wrapperH);
-                }
-
-                // refresh scroll
-                var scroll = $item.data('iscroll_object');
-                if (scroll !== undefined && scroll !== null) {
-                  scroll.refresh();
-                }
-              }
-            }
-
-            function setCurrentHeight() {
-              setHeight($('.current'));
-            }
-
-            function loaded() {
-              $('#jqt').children().each(function () {
-                var $this = $(this);
-                var $wrapper = $this.find('.s-scrollwrapper');
-                var $pane = $wrapper.find('.s-scrollpane'); 
-                if ($wrapper.length > 0) {
-                  var scroll = new iScroll($pane[0].id, {desktopCompatibility: true});
-                  $this.data('iscroll_object', scroll); 
-
-                  // workaround limitation on outerHeight (ie, returns zero until animation ended)
-                  // set a default for most common case to avoid resize being seen
-                  wrapperH = window.innerHeight - 88;
-                  $wrapper.height(wrapperH);
-
-                  scroll.refresh();
-
-                  $this.bind('pageAnimationEnd', function(event, info) {
-                    if (info.direction == 'in') {
-                      setHeight($(this));
-                    }
-                  });
-                }
-              });
-            }
-            
-            // 非全屏模式时，不修改touchmove事件监听器
-            document.addEventListener('touchmove', function(e){ e.preventDefault(); }, true);
-            
-            
-            $(window).resize(function() {
-              $('#jqt').children().each(function () {
-                setHeight($(this));
-              });
             });
-            $(document).ready(function(){
-              loaded();
-              $(window).resize();
-
-              setTimeout(function() {
-                $(window).resize();
-              }, 1500);
-            });
-        
+        });
         </script>
         
         <style type="text/css" media="screen">
@@ -124,71 +68,62 @@
     </head>
     
     <body>
-    <div id="jqt">
-		<div id="home" class="current">
-    		<div class="toolbar">
-        		<h1>Free Ringtone</h1>
-    		</div>
-    		<div class="searchbox">
-      			<form id="search" action="" method="">
-        			<fieldset><input id="search-text" placeholder="search" type="text" />
-        			<input id="submit" type="hidden" /></fieldset>
-      			</form>
-    		</div>
-    		<ul class="rounded">
-    		    <li class="textbox"><span class="header">Featured</span></li> 
-        		<li class="arrow"><a class="slide" href="#categories">All Categories</a></li>
-        		<li class="arrow"><a class="slide" href="#top_download">Top Donwload</a></li>
-        		<li class="arrow"><a class="slide" href="#top_download">Bla Bla Bla</a></li>
-    		</ul>
-		</div>
-
-		<div id="search_result">
-		    <div class="toolbar">
-        		<h1>Search Result</h1>
-        		<a href="#" class="back">Back</a>
-    		</div>
-    		<div class="loader" style="display:none;"></div>
-        <div id="target-wrapper-results" class="s-scrollwrapper"><div id="target-pane-results" class="s-scrollpane">
-			  <ul class="rounded" id="results">
-			  </ul>
-			  </div></div>
-		</div>
-		
-		<div id="categories">
-		    <div class="toolbar">
-        		<h1>Categories</h1>
-        		<a href="#" class="back">Back</a>
-    		</div>
-    	<div id="target-wrapper-categories" class="s-scrollwrapper"><div id="target-pane-categories" class="s-scrollpane">
-			<ul class="rounded" id="all_categories">
-			</ul>
-      </div></div>
-		</div>
-		
-		<div id="category">
-			<div class="toolbar">
-				<h1></h1>
-				<a href="#categories" class="back">Back</a>
+    	<div id="jqt">
+			<div id="home" class="current">
+	    		<div class="toolbar">
+	        		<h1>Free Ringtone</h1>
+	    		</div>
+	    		<div class="searchbox">
+	      			<form id="search" action="" method="">
+	        			<fieldset><input id="search-text" placeholder="search" type="text" />
+	        			<input id="submit" type="hidden" /></fieldset>
+	      			</form>
+	    		</div>
+	    		<ul class="rounded">
+	        		<li class="arrow"><a href="#categories">All Categories</a></li>
+	        		<li class="arrow"><a href="#top_download">Top Donwload</a></li>
+	    		</ul>
 			</div>
-			<div class="loader" style="display:none;"></div>
-			<div id="target-wrapper-results" class="s-scrollwrapper"><div id="target-pane-results" class="s-scrollpane">
-			<ul class="rounded" id="results">
-			</ul>
-			</div></div>
-		</div>
-		
-		<div id="top_download">
-			<div class="toolbar">
-				<h1>Top Download</h1>
-				<a href="#" class="back">Back</a>
+	
+			<div id="search_result">
+			    <div class="toolbar">
+	        		<h1>Search Result</h1>
+	        		<a href="#home" class="back">Back</a>
+	    		</div>
+	    		<div class="loader" style="display:none;"></div>
+				 	 <ul class="rounded" id="results">
+				 	 </ul>
 			</div>
-			<div class="loader" style="display:none;"></div>
-			<div id="target-wrapper-results" class="s-scrollwrapper"><div id="target-pane-results" class="s-scrollpane">
-			<ul class="rounded" id="results">
-			</ul>
-			</div></div>
-		</div>
+			
+			<div id="categories">
+			    <div class="toolbar">
+	        		<h1>Categories</h1>
+	        		<a href="#home" class="back">Back</a>
+	    		</div>
+	    	
+				<ul class="rounded" id="all_categories">
+				</ul>
+	      	</div>
+			
+			<div id="category">
+				<div class="toolbar">
+					<h1></h1>
+					<a href="#categories" class="back">Back</a>
+				</div>
+				<div class="loader" style="display:none;"></div>
+				<ul class="rounded" id="results">
+				</ul>
+			</div>
+			
+			<div id="top_download">
+				<div class="toolbar">
+					<h1>Top Download</h1>
+					<a href="#" class="back">Back</a>
+				</div>
+				<div class="loader" style="display:none;"></div>
+				<ul class="rounded" id="results">
+				</ul>
+			</div>
 		</div>
     </body>
 </html>

@@ -1,3 +1,5 @@
+
+
 (function($) {
 	$(function() {
 		$("#search").submit(function(event, info) {
@@ -12,9 +14,11 @@
 			$(".loader", div_search_result).bind("ajaxSend", function(){
 				var length = $(".store", div_search_result).length;
 				if (length == 0) {
+					$("ul" ,div_search_result).hide();
 					$(this).show();
 				}
 			}).bind("ajaxComplete", function(){
+				$("ul" ,div_search_result).show();
 				$(this).hide();
 			});
 			
@@ -53,20 +57,15 @@
 	});
 })(jQuery);
 
-$(function(){
-    $('.cate_link_item').tap( function(e) {
-    	var cate = $(this).attr("value");
-    	fill_cate_page(cate);
-    });
-});
+//$(function(){
+//    $(".song_item").click( function(e) {
+//    	var link = $(this).attr("href");
+//    	//window.location = link;
+//    	window.open(link);
+//    });
+//});
 
-$(function(){
-    $(".song_item").tap( function(e) {
-    	var link = $(this).attr("href");
-    	//window.location = link;
-    	window.open(link);
-    });
-});
+
 
 function fill_cate_page(cate) {
 	var div_cate = $("#category");
@@ -78,10 +77,12 @@ function fill_cate_page(cate) {
 	$(".loader", div_cate).bind("ajaxSend", function(){
 		var length = $(".store", div_cate).length;
 		if (length == 0) {
+			$("ul" ,div_cate).hide();
 			$(this).show();
 		}
 	}).bind("ajaxComplete", function(){
 		$(this).hide();
+		$("ul" ,div_cate).show();
 	});
 	
 	$.getJSON(url, 
@@ -122,10 +123,13 @@ $(document).ready(function(e){
 					"Gangsta", "Oldies", "Heavy", "Southern", "Classic", "Disco",
 					"Alt", "Reggae", "Funk" ];
         	for (cate in all_cate_array) {
-        		var a = $("<a></a>").attr("class", "cate_link_item").attr("href", "#category").attr("value", all_cate_array[cate]).text(all_cate_array[cate]);
+        		var a = $("<a></a>").attr("class", "cate_link_item").attr("href", "#").attr("value", all_cate_array[cate]).text(all_cate_array[cate]);
         		var str = $("<li></li>").attr("class", "arrow").append(a);
         		str.appendTo(all_categories);
         	}
+        }
+        else if (info.direction == 'out') {
+        	var all_categories = $("#all_categories", this).empty();
         }
     })
 });
@@ -140,9 +144,11 @@ $(document).ready(function(e){
 			$(".loader", this).bind("ajaxSend", function(){
 				var length = $(".store", "#top_download").length;
 				if (length == 0) {
+					$("ul" , results).hide();
 					$(this).show();
 				}
 			}).bind("ajaxComplete", function(){
+				$("ul" , results).show();
 				$(this).hide();
 			});
 			
@@ -206,8 +212,9 @@ function jsonToListItem(item) {
 	var download_count = $("<span></span>").attr("target", "_blank").attr("class", "download_count").attr("value", item.download_count).text(item.down);
 //	var image = $("<span></span>").attr("class", "image").attr("style", "background-image: url('"+item.image+"'); background-position:center; background-repeat:no-repeat;").attr("value", item.image);
 	var image = $("<img></img>").attr("src", item.image);
-	var a = $("<a></a>").attr("href", item.s3url).attr("class", "song_item").attr("song_id", item.uuid);
+	var a = $("<a></a>").attr("href", item.s3url).attr("target", "_blank").attr("class", "song_item").attr("song_id", item.uuid);
 	var li = $("<li></li>").attr("class", "store");
 	var div_a = a.append(image).append(artist).append(title).append(rate).append(arrow);
 	return li.append(div_a);
 };
+
