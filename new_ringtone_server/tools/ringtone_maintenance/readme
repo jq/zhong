@@ -1,0 +1,10 @@
+1. login name:abc password:abc.
+2. choose a writeable directory where to put downloaded images and music.
+3. put a image named  default.jpg to the directory in case of no related image found, thus we still can transfer the image to Amazon S3.
+
+
+not done yet:
+1. good ringtone cut algorithm.
+2. only support google music search currently, so only runnable in China...
+3. consider format other than .mp3 and .jpg, related code included, but not tested.
+4. current they are upload to ringtone_test_2010 bucket
