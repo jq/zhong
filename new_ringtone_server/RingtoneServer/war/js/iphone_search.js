@@ -138,11 +138,11 @@ $(document).ready(function(e){
 			$(".loader", this).bind("ajaxSend", function(){
 				var length = $(".store", "#top_download").length;
 				if (length == 0) {
-					$("ul" , results).hide();
+					$("ul" , "#top_download").hide();
 					$(this).show();
 				}
 			}).bind("ajaxComplete", function(){
-				$("ul" , results).show();
+				$("ul" , "#top_download").show();
 				$(this).hide();
 			});
 			
