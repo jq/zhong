@@ -607,6 +607,7 @@
                     // Internal href
                     $el.addClass('active');
                     goTo($(hash).data('referrer', $el), animation, $(this).hasClass('reverse'));
+                    $el.trigger({type:"tapped"});
                     return false;
 
                 } else {

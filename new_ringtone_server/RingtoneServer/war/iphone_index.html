@@ -12,6 +12,8 @@
         <script src="/jqtouch/jquery-1.4.4.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="/jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
         <script src="/js/iphone_search.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="/js/iscroll.js" type="application/x-javascript" charset="utf-8"></script>
+        
         <script type="text/javascript" charset="utf-8">
         var jQT = new $.jQTouch({
             icon: 'jqtouch.png',
@@ -29,21 +31,91 @@
                 '/themes/jqt/img/loading.gif'
                 ]
         });
-        $(function(){
-            $(".cate_link_item").tap( function(e) {
-            	jQT.goTo("#category");
-            	var cate = $(this).attr("value");
+
+        $(function(){            
+            $('.cate_link_item').bind('tapped', function(e){
+            	var cate = $(e.target).attr("value");
             	fill_cate_page(cate);
             });
-            
-            $('a[target="_blank"]').tap(function(e) {
-                if (confirm('This link opens in a new window.')) {
-                    return true;
-                } else {
-                    return false;
-                }
-            });
         });
+        
+        
+            function setHeight($item) {
+              var $wrapper = $item.find('.s-scrollwrapper');
+              if ($wrapper.length > 0) {
+                var headerH = 0;
+                var footerH = 0;
+                var tabbarH = 0;
+                var wrapperH = 320;
+  
+                var $header = $item.find('.toolbar');
+                headerH = $header.length > 0 ? ($header.outerHeight() > 0 ? $header.outerHeight() : 0) : 0;
+  
+                var $footer = $item.find('.navibar'); // page footer
+                var $tabbar = $('#tabbar'); // global tabbar
+                if ($footer.length > 0) {
+                  footerH = $footer.outerHeight();
+                } else if ($tabbar.length > 0) {
+                  tabbarH = $tabbar.outerHeight(); 
+                }
+
+                // workaround limitation on outerHeight (ie, returns zero until animation ended)
+                if (headerH > 0 || footerH > 0 || tabbarH > 0) {
+                  wrapperH = window.innerHeight - headerH - footerH - tabbarH;
+                  $wrapper.height(wrapperH);
+                }
+
+                // refresh scroll
+                var scroll = $item.data('iscroll_object');
+                if (scroll !== undefined && scroll !== null) {
+                  scroll.refresh();
+                }
+              }
+            }
+
+            function setCurrentHeight() {
+              setHeight($('.current'));
+            }
+
+            function loaded() {
+              $('#jqt').children().each(function () {
+                var $this = $(this);
+                var $wrapper = $this.find('.s-scrollwrapper');
+                var $pane = $wrapper.find('.s-scrollpane'); 
+                if ($wrapper.length > 0) {
+                  var scroll = new iScroll($pane[0].id, {desktopCompatibility: true});
+                  $this.data('iscroll_object', scroll); 
+
+                  // workaround limitation on outerHeight (ie, returns zero until animation ended)
+                  // set a default for most common case to avoid resize being seen
+                  wrapperH = window.innerHeight - 88;
+                  $wrapper.height(wrapperH);
+
+                  scroll.refresh();
+
+                  $this.bind('pageAnimationEnd', function(event, info) {
+                    if (info.direction == 'in') {
+                      setHeight($(this));
+                    }
+                  });
+                }
+              });
+            }
+
+            //document.addEventListener('touchmove', function(e){ e.preventDefault(); }, true);
+            $(window).resize(function() {
+              $('#jqt').children().each(function () {
+                setHeight($(this));
+              });
+            });
+            $(document).ready(function(){
+              loaded();
+              $(window).resize();
+
+              setTimeout(function() {
+                $(window).resize();
+              }, 1500);
+            });
         </script>
         
         <style type="text/css" media="screen">
@@ -61,6 +133,23 @@
                 color: #fff;
                 font-weight: bold;
                 text-decoration: none;
+            }
+            
+            .s-scrollwrapper {
+              height:200px;       /* Of course you need to specify the object height */
+              position:relative;  /* On older OS versions "position" and "z-index" must be defined, */
+              z-index:1;          /* it seems that recent webkit is less picky and works anyway. */
+              width:100%;
+              background:#FFFFF;
+              overflow:hidden;
+            }
+
+            .s-scrollpane {      
+              float:left;
+              width:100%;
+              padding:0;
+              background:#FFFFF;
+              min-height: 100%;
             }
         </style>
         <style type="text/css" media="screen">
@@ -80,7 +169,7 @@
 	      			</form>
 	    		</div>
 	    		<ul class="rounded">
-	        		<li class="arrow"><a href="#categories">All Categories</a></li>
+	        		<li class="arrow"><a id="cates" href="#categories">All Categories</a></li>
 	        		<li class="arrow"><a href="#top_download">Top Donwload</a></li>
 	    		</ul>
 			</div>
@@ -96,14 +185,15 @@
 			</div>
 			
 			<div id="categories">
-			    <div class="toolbar">
-	        		<h1>Categories</h1>
-	        		<a href="#home" class="back">Back</a>
-	    		</div>
-	    	
+			  <div class="toolbar">
+			    <h1>Categories</h1>
+	        <a href="#home" class="back">Back</a>
+	    	</div>
+	    	<div id="target-wrapper-Cates" class="s-scrollwrapper"><div id="target-pane-Cates" class="s-scrollpane">
 				<ul class="rounded" id="all_categories">
 				</ul>
-	      	</div>
+				</div></div>
+	   </div>
 			
 			<div id="category">
 				<div class="toolbar">
@@ -111,8 +201,10 @@
 					<a href="#categories" class="back">Back</a>
 				</div>
 				<div class="loader" style="display:none;"></div>
+				<div id="target-wrapper-Cate" class="s-scrollwrapper"><div id="target-pane-Cate" class="s-scrollpane">
 				<ul class="rounded" id="results">
 				</ul>
+				</div></div>
 			</div>
 			
 			<div id="top_download">

@@ -105,13 +105,12 @@ function fill_cate_page(cate) {
 			 }).bind("ajaxComplete", function(){
 				 $(this).text("Tap to load more");
 				 $(this).appendTo(results);
+				 setHeight($(this));
 			 });
 		});
 };
 
 $(document).ready(function(e){
-    $('#categories').bind('pageAnimationStart', function(event, info) {
-        if (info.direction == 'in') {
         	var all_categories = $("#all_categories", this).empty();
         	var all_cate_array = [ "Christian", "Metal", "Holiday", "R&B", "World Music",
 					"Pop", "Rock", "Games", "Dance", "Rap", "Jazz", "Hip-Hop",
@@ -123,15 +122,10 @@ $(document).ready(function(e){
 					"Gangsta", "Oldies", "Heavy", "Southern", "Classic", "Disco",
 					"Alt", "Reggae", "Funk" ];
         	for (cate in all_cate_array) {
-        		var a = $("<a></a>").attr("class", "cate_link_item").attr("href", "#").attr("value", all_cate_array[cate]).text(all_cate_array[cate]);
+        		var a = $("<a></a>").attr("class", "cate_link_item").attr("href", "#category").attr("value", all_cate_array[cate]).text(all_cate_array[cate]);
         		var str = $("<li></li>").attr("class", "arrow").append(a);
         		str.appendTo(all_categories);
         	}
-        }
-        else if (info.direction == 'out') {
-        	var all_categories = $("#all_categories", this).empty();
-        }
-    })
 });
 
 $(document).ready(function(e){
