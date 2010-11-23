@@ -22,6 +22,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.sql.rowset.spi.SyncFactoryException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -31,6 +32,7 @@ import music.info.MusicInfo;
 import music.search.MusicSearcher;
 import music.threads.DownloadThread;
 import music.threads.ImageThread;
+import music.threads.SyncThread;
 
 /**
  * 
@@ -87,7 +89,7 @@ public class MyFrame extends javax.swing.JFrame implements ActionListener
 		jScrollPane2 = new javax.swing.JScrollPane();
 		logTextArea = new javax.swing.JTextArea();
 		clearButton = new javax.swing.JButton();
-		saveButton = new javax.swing.JButton();
+		syncButton = new javax.swing.JButton();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -124,8 +126,8 @@ public class MyFrame extends javax.swing.JFrame implements ActionListener
 			}
 		});
 
-		saveButton.setText("Save");
-		saveButton.addActionListener(this);
+		syncButton.setText("Sync Mabilo");
+		syncButton.addActionListener(this);
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(
 				getContentPane());
@@ -156,7 +158,7 @@ public class MyFrame extends javax.swing.JFrame implements ActionListener
 																										layout.createParallelGroup(
 																												javax.swing.GroupLayout.Alignment.LEADING)
 																												.addComponent(
-																														saveButton,
+																														syncButton,
 																														javax.swing.GroupLayout.PREFERRED_SIZE,
 																														118,
 																														javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -208,7 +210,7 @@ public class MyFrame extends javax.swing.JFrame implements ActionListener
 																.addContainerGap()))));
 
 		layout.linkSize(javax.swing.SwingConstants.HORIZONTAL,
-				new java.awt.Component[] { clearButton, saveButton });
+				new java.awt.Component[] { clearButton, syncButton });
 
 		layout.setVerticalGroup(layout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,7 +264,7 @@ public class MyFrame extends javax.swing.JFrame implements ActionListener
 																		33,
 																		Short.MAX_VALUE)
 																.addComponent(
-																		saveButton,
+																		syncButton,
 																		javax.swing.GroupLayout.PREFERRED_SIZE,
 																		35,
 																		javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -298,7 +300,7 @@ public class MyFrame extends javax.swing.JFrame implements ActionListener
 	private javax.swing.JButton searchButton;
 	private javax.swing.JButton makeButton;
 	private javax.swing.JButton clearButton;
-	private javax.swing.JButton saveButton;
+	private javax.swing.JButton syncButton;
 	private javax.swing.JComboBox keywordList;
 	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JScrollPane jScrollPane2;
@@ -395,27 +397,9 @@ public class MyFrame extends javax.swing.JFrame implements ActionListener
 					}
 			}
 		}
-		else if(e.getSource() == saveButton)
+		else if(e.getSource() == syncButton)
 		{
-			JFileChooser chooser = new JFileChooser();
-			chooser.showOpenDialog(this);
-			File file = chooser.getSelectedFile();
-			if(file != null)
-				try
-				{
-					FileWriter writer = new FileWriter(file);
-					BufferedWriter bufferedWriter = new BufferedWriter(writer);
-					bufferedWriter.write(logTextArea.getText());
-					bufferedWriter.flush();
-					writer.close();
-					JOptionPane.showMessageDialog(this, "store success!");
-				}
-				catch (IOException e1)
-				{
-					JOptionPane.showMessageDialog(this, "store fail.");
-					e1.printStackTrace();
-				}
-			
+			new Thread(new SyncThread(this)).start();
 		}
 	}
 	

@@ -1,5 +1,7 @@
 package music.info;
 
+import java.util.Date;
+
 public class MusicInfo
 {
 	
@@ -14,13 +16,47 @@ public class MusicInfo
 	private String  mDownloadUrl;
 	private String 	mDisplaySize;
 	private int    	mFileSize;
-	
+	private Date    mAddDate;
 	private String 	mImageUrl;
 	private String  mImageFilename;
-
-	private int mIndex;
-	private boolean  mIsValid = true;
+	private int     mCounts;
 	
+	public int getmCounts()
+	{
+		return mCounts;
+	}
+
+	public void setmCounts(int mCounts)
+	{
+		this.mCounts = mCounts;
+	}
+
+	public int getmScore()
+	{
+		return mScore;
+	}
+
+	public void setmScore(int mScore)
+	{
+		this.mScore = mScore;
+	}
+
+	private int 	mScore;
+	
+	
+
+	private int mIndex;					// in which row of table
+	private boolean  mIsValid = true;	// true if it's show in the table
+	
+	public void setDate(Date date)
+	{
+		mAddDate = date;
+	}
+	
+	public Date getDate()
+	{
+		return mAddDate;
+	}
 	
 	public void setIndex(int idx) 
 	{

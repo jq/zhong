@@ -58,7 +58,7 @@ public class ToS3Thread	implements Runnable
 			s3.setObjectAcl(bucketName, key, CannedAccessControlList.PublicRead);	// 设置权限		
 		
 			// record result
-			record();
+			record(uuid);
 			return true;
 		}
 		catch (IOException e)
@@ -68,7 +68,7 @@ public class ToS3Thread	implements Runnable
 		}
 	}
 	
-	public void record()
+	public void record(String uuid)
 	{
 		File file = new File(Constants.DOWNLOAD_DIR+Constants.RECORD_FILE);
 		if(!file.exists())
@@ -93,6 +93,9 @@ public class ToS3Thread	implements Runnable
 				out.write("<Title>"+music.getTitle()+"</Title>\n");
 				out.write("<Artist>"+music.getArtist()+"</Artist>\n");
 				out.write("<Album>"+music.getAlbum()+"</Album>\n");
+				out.write("<Score>"+music.getmScore()+"</Score>\n");
+				out.write("<Count>"+music.getmCounts()+"</Count>\n");
+				out.write("<UUID>"+uuid+"</UUID>\n");
 				out.write("<Ring>"+music.getRingName()+"</Ring>\n");
 				out.write("<Image>"+music.getImageName()+"</Image>\n");
 				out.write("</Record>\n\n");

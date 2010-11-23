@@ -184,6 +184,7 @@ public class DownloadThread	implements Runnable
                 fs.write(buffer, 0, byteread);
                 pm.setProgress(bytesum*95/music.getFilesize());
 	        }
+	        fs.flush();
 	        // add music format postfix 
 	        music.setFileSize(bytesum);
 	        File   file=new   File(pathname);
@@ -196,6 +197,7 @@ public class DownloadThread	implements Runnable
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			return false;
 		}
 		
