@@ -110,23 +110,23 @@ function fill_cate_page(cate) {
 		});
 };
 
-$(document).ready(function(e){
-        	var all_categories = $("#all_categories", this).empty();
-        	var all_cate_array = [ "Christian", "Metal", "Holiday", "R&B", "World Music",
-					"Pop", "Rock", "Games", "Dance", "Rap", "Jazz", "Hip-Hop",
-					"Gospel", "TV", "Hard Rock", "Electronic", "Latin Music",
-					"Blues", "Sound Effects", "Classical", "Comedy", "Country",
-					"Movie", "Other", "Hip", "Vocal", "Folk", "Hard", "Gothic",
-					"Avantgarde", "unknown", "Acid", "Soundtrack", "Soul", 
-					"Progressive", "Acoustic", "Ska", "Booty", "Easy", "Satire",
-					"Gangsta", "Oldies", "Heavy", "Southern", "Classic", "Disco",
-					"Alt", "Reggae", "Funk" ];
-        	for (cate in all_cate_array) {
-        		var a = $("<a></a>").attr("class", "cate_link_item").attr("href", "#category").attr("value", all_cate_array[cate]).text(all_cate_array[cate]);
-        		var str = $("<li></li>").attr("class", "arrow").append(a);
-        		str.appendTo(all_categories);
-        	}
-});
+//$(document).ready(function(e){
+//        	var all_categories = $("#all_categories", this).empty();
+//        	var all_cate_array = [ "Christian", "Metal", "Holiday", "R&B", "World Music",
+//					"Pop", "Rock", "Games", "Dance", "Rap", "Jazz", "Hip-Hop",
+//					"Gospel", "TV", "Hard Rock", "Electronic", "Latin Music",
+//					"Blues", "Sound Effects", "Classical", "Comedy", "Country",
+//					"Movie", "Other", "Hip", "Vocal", "Folk", "Hard", "Gothic",
+//					"Avantgarde", "unknown", "Acid", "Soundtrack", "Soul", 
+//					"Progressive", "Acoustic", "Ska", "Booty", "Easy", "Satire",
+//					"Gangsta", "Oldies", "Heavy", "Southern", "Classic", "Disco",
+//					"Alt", "Reggae", "Funk" ];
+//        	for (cate in all_cate_array) {
+//        		var a = $("<a></a>").attr("class", "cate_link_item").attr("href", "#category").attr("value", all_cate_array[cate]).text(all_cate_array[cate]);
+//        		var str = $("<li></li>").attr("class", "arrow").append(a);
+//        		str.appendTo(all_categories);
+//        	}
+//});
 
 $(document).ready(function(e){
     $('#top_download').bind('pageAnimationStart', function(event, info) {
