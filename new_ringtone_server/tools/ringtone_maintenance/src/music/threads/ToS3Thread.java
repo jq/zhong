@@ -68,7 +68,7 @@ public class ToS3Thread	implements Runnable
 		}
 	}
 	
-	public void record(String uuid)
+	public synchronized void record(String uuid)
 	{
 		File file = new File(Constants.DOWNLOAD_DIR+Constants.RECORD_FILE);
 		if(!file.exists())

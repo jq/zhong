@@ -14,10 +14,14 @@ import java.net.URLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.xml.crypto.Data;
 
 import music.gui.MyFrame;
 import music.info.MusicInfo;
@@ -26,37 +30,55 @@ import util.Constants;
 
 public class SyncThread implements Runnable
 {
-	public final static String Mabilo = "http://www.mabilo.com/ringtones.htm";
-	public final static String updateFile = "mabilo.txt";
+	//public final static String Mabilo = "http://www.mabilo.com/ringtones.htm";
+	public final static String updateFile = "mabilo";
 	public final static String prefix = "http://www.mabilo.com/";
 	
 	public final static String EncodeStyle = "utf-8";
-	private static final Pattern TOTAL_PATTERN = Pattern.compile(
+	/*private static final Pattern TOTAL_PATTERN = Pattern.compile(
 								"New Ringtones</h4>(.*?)<h4>Categories", Pattern.DOTALL);
+	*/
+	private static final Pattern TOTAL_PATTERN = Pattern.compile(
+			"row2.*?src=\"(.*?)\".*?"		// image 
+		+	"href=\"(.*?)\">"				// url
+		+	"(.*?)</a>.*?"					// title
+		+	"Artist.*?>(.*?)</a>.*?"		// artist
+		+	"Category.*?>(.*?)</a>.*?"		// category
+		+	"style=\"width:(.*?)%;.*?"		// rating
+		+	"<span>(.*?)\\sdownloads.*?"	// downloads
+		+	"Added:\\s(.*?)</span>"			// date
+			, Pattern.DOTALL);
+	
+	private static final Pattern EACH_PATTERN = Pattern.compile(
+			"det2.*?<a\\shref=\"(.*?)&title="				 // ringtone url
+			, Pattern.DOTALL);
+	
+	/*
 	private static final Pattern EACH_PATTERN = Pattern.compile(
 			"src=\"(.*?)\".*?" 							// image 
 		+	"title\"><a\\shref=\"(.*?)\">"	 			// ringtone
 		+   "(.*?)</a>.*?"								// title						
 		+   "date\">(.*?)</"							// date
 			, Pattern.DOTALL);
-
-	private static final Pattern MUSIC_PATTERN = Pattern.compile(
-			"Artist:\\s<a.*?>(.*?)</a>.*?"	 		 // artist
-		+	"Category:\\s<a.*?>(.*?)</a>.*?"		 //category
-		+	"style=\"width:(.*?)%;\".*?"			 // rating
-		+	"Downloads:</span>(.*?)<br.*?"			 // downloads
-		+	"<a\\shref=\"(.*?)&title="				 // ringtone url
-			, Pattern.DOTALL);
+	*/
 	
 	public static final SimpleDateFormat sdf=new SimpleDateFormat("MMM dd yyyy");
 	public static final String Download_Prefix = "http://music.mabilo.com/dl";
 	private Date newDate = null;
 	private MyFrame frame;
 	
+	private static final String proceeding = "http://www.mabilo.com/search/All-";
+	private static final String exceeding = "-da.htm";
+	private ExecutorService pool;
+	
 	public SyncThread(MyFrame frm)
 	{
 		frame = frm;
+		pool = Executors.newFixedThreadPool(3);
+		
 	}
+	
+	
 	
 	public Date getDate()
 	{
@@ -79,6 +101,12 @@ public class SyncThread implements Runnable
 				e.printStackTrace();
 			}
 		}
+		
+		if(date == null)
+		{
+			date = new Date();
+			date.setDate(date.getDate()-1);
+		}	
 		return date;
 	}
 	
@@ -114,41 +142,59 @@ public class SyncThread implements Runnable
 	
 	public void run()
 	{
-		Date date = getDate();
-		try
-		{
-			Matcher all = TOTAL_PATTERN.matcher(MusicSearcher.fetchHtmlPage(Mabilo, EncodeStyle));
-			while(all.find())
-			{
-				Matcher each = EACH_PATTERN.matcher(all.group(1));
-				while(each.find())
-				{
-				   String time = each.group(4);
-				   int split = time.indexOf(',');
-				   Date temp = sdf.parse(time.substring(0,split-2)+time.substring(split+1));
-				   if(date==null || temp.after(date))
-				   { // need to update
-					   MusicInfo music = new MusicInfo();
-					   music.setDate(temp);
-					   music.setImageUrl(each.group(1));
-					   music.setUrl(prefix+each.group(2));
-					   music.setTitle(each.group(3));
-					   music.inValide();
-					   process(music);
-					   
-					   if(newDate==null || temp.after(newDate))
-						   newDate = temp;
-				   }
-				}
-				JOptionPane.showMessageDialog(frame, "Sync with Mabilo finish!");
-			}
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		// get last sync time
+		Date date = getDate();	
+		newDate = date;
+		boolean running = true;
+		int page = 1;
 		
+		
+		while(running)
+		{
+			try
+			{
+				Matcher all = TOTAL_PATTERN.matcher(MusicSearcher.fetchHtmlPage(proceeding+page+exceeding, EncodeStyle));
+				while(all.find())
+				{
+					String time = all.group(8);
+					int split = time.indexOf(',');
+					Date temp = sdf.parse(time.substring(0,split-2)+time.substring(split+1));
+					//System.out.println(all.group(3));
+					if(temp.after(date))
+					{
+						MusicInfo music = new MusicInfo();
+						music.setDate(temp);
+						music.setImageUrl(all.group(1));
+						music.setUrl(prefix+all.group(2));
+						music.setTitle(all.group(3));
+						music.setArtist(all.group(4));
+						music.setAlbum(all.group(5));
+						music.setmScore(Integer.parseInt(all.group(6)));
+						music.setmCounts(Integer.parseInt(all.group(7)));
+						music.setDate(temp);
+						music.inValide();
+						pool.execute(new MabiloThread(music));
+						
+						// update lastest time
+						if(temp.after(newDate))
+							newDate = temp;
+					}
+					else 
+					{
+						running = false;
+						break;
+					}
+				}
+				if(running)  page++;
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+		}
 		setDate();
+		JOptionPane.showMessageDialog(frame, "sync with mabilo done!");
 	}
 	
 	public static String url2fileName(String url)
@@ -157,38 +203,7 @@ public class SyncThread implements Runnable
 		return que[que.length-1];
 	}
 	
-	public void process(MusicInfo music)
-	{
-		System.out.println("start process "+music.getTitle());
-		music.setImageName(url2fileName(music.getImageUrl()));
-		if(download(music.getImageUrl(), Constants.DOWNLOAD_DIR+music.getImageName()))
-		{ // if image downloaded successfully 
-			try
-			{
-				Matcher matcher = MUSIC_PATTERN.matcher(MusicSearcher.fetchHtmlPage(music.getUrl(), EncodeStyle));
-				while(matcher.find())
-				{
-					music.setArtist(matcher.group(1).trim());
-					music.setAlbum(matcher.group(2).trim());
-					music.setmCounts(Integer.parseInt(matcher.group(3).trim()));
-					music.setmScore(Integer.parseInt(matcher.group(4).trim()));
-					music.setDownloadUrl(Download_Prefix+matcher.group(5).substring(matcher.group(5).indexOf(".php")));
-					music.setRingName(matcher.group(5).substring(matcher.group(5).indexOf("file=")+5));
-					if(download(music.getDownloadUrl(), Constants.DOWNLOAD_DIR+music.getRingName()))
-					{
-						ToS3Thread toS3Thread = new ToS3Thread(music, frame);
-						toS3Thread.run();
-					}
-					break;
-				}
-				
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
-	}
+	
 	
 	public static boolean download(String link, String pathname)
 	{
@@ -201,7 +216,7 @@ public class SyncThread implements Runnable
 			URL url = new URL(link);
 			URLConnection conn;
 			conn = url.openConnection();
-			conn.setConnectTimeout(3000);
+			conn.setConnectTimeout(15000);
 			conn.setReadTimeout(60000);
 	        inStream = conn.getInputStream();
 	        fs = new FileOutputStream(pathname);
@@ -234,45 +249,59 @@ public class SyncThread implements Runnable
 			}
 		}
 	}
-
+	/*
 	public static void main(String[] args)
 	{
-		//new Thread(new SyncThread(null)).start();
-		/*
-		 * Date date;
-		try
+		new Thread(new SyncThread(null)).start();
+	}
+	*/
+	
+	
+	// Inner class
+	// process every valid ringtone: download, upload to S3
+	class MabiloThread implements Runnable
+	{
+		private MusicInfo music;
+	
+		public MabiloThread(MusicInfo msc)
 		{
-			String time = "November 23rd, 2010";
-			int split = time.indexOf(',');
-		    Date temp = sdf.parse(time.substring(0,split-2)+time.substring(split+1));
-			  
-			System.out.println(temp);
+			music = msc;
 		}
-		catch (ParseException e)
+		
+		public void run()
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//System.out.println("start process "+music.getTitle());
+			frame.showMessage("start process "+music.getTitle()+" from mabilo");
+			
+			music.setImageName(url2fileName(music.getImageUrl()));
+			if(download(music.getImageUrl(), Constants.DOWNLOAD_DIR+music.getImageName()))
+			{ // if image downloaded successfully 
+				try
+				{
+					Matcher matcher = EACH_PATTERN.matcher(MusicSearcher.fetchHtmlPage(music.getUrl(), EncodeStyle));
+					while(matcher.find())
+					{
+						music.setDownloadUrl(Download_Prefix+matcher.group(1).substring(matcher.group(1).indexOf(".php")));
+						music.setRingName(matcher.group(1).substring(matcher.group(1).indexOf("file=")+5));
+						//System.out.println(matcher.group(1));
+						
+						if(download(music.getDownloadUrl(), Constants.DOWNLOAD_DIR+music.getRingName()))
+						{
+							ToS3Thread toS3Thread = new ToS3Thread(music, frame);
+							toS3Thread.run();
+						}
+						
+						break;
+					}
+					
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+			}
 		}
-		*/
-		/*
-		Matcher matcher;
-		try
-		{
-			matcher = MUSIC_PATTERN.matcher(MusicSearcher.fetchHtmlPage("http://www.mabilo.com/239201-pnk-raiseyourglass.htm", EncodeStyle));
-			while(matcher.find())
-			{
-				System.out.println(matcher.group(1));
-				System.out.println(matcher.group(2));
-				System.out.println(matcher.group(3));
-				System.out.println(matcher.group(4));
-				System.out.println(Download_Prefix+matcher.group(5).substring(matcher.group(5).indexOf(".php")));
-				System.out.println(matcher.group(5).substring(matcher.group(5).indexOf("file=")+5));
-			}			
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		*/
 	}
 }
+
+

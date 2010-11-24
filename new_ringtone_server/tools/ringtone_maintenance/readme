@@ -8,3 +8,15 @@ not done yet:
 2. only support google music search currently, so only runnable in China...
 3. consider format other than .mp3 and .jpg, related code included, but not tested.
 4. current they are upload to ringtone_test_2010 bucket
+5. try several time before finally fail while downloading.
+
+
+how to use:
+1. push 'Load' button to load keywords user don't found
+2. choose a keywords in combobox and push 'Search' button to search from Google Music.
+3. choose an item in the table and push 'Make' button to download music, make ringtone and upload to S3.
+4. push 'Sync Mabilo' Button to synchronize with www.mabilo.com, it will read time of last synchronization and download, upload to S3 newly ringtone.
+
+
+notice:
+1. we use myid3 jar to extract image from mp3 file, otherwise we will search the related image from www.youdao.com
