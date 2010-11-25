@@ -1,0 +1,31 @@
+<!-- Inject obfuscation support via ProGuard into the build process	-->
+
+<!-- "obfuscate" target performs the obfuscation of application classes. It must run before -dex. -->
+<target name="obfuscate-all" if="obfuscate">
+	<!-- Prepare the input: jar bin/classes into ./AppClasses.jar -->
+	<jar basedir="${out.classes.dir}" destfile="AppClasses.jar"/>
+
+	<!-- Invoke ProGuard -->
+	<java jar="proguard/lib/proguard.jar" fork="true" failonerror="true">
+		<jvmarg value="-Dmaximum.inlined.code.length=16"/>
+		<arg value="@proguard-config.txt"/>
+		<arg value="-injars AppClasses.jar(!META-INF/MANIFEST.MF,!**/*R.java)"/>
+		<arg value="-outjars obfuscated.jar"/>
+		<arg value="-libraryjars ${android.jar}"/>
+	</java>
+
+	<!-- Clean out bin/classes then unzip our obfuscated.jar into the bin/classes. -->
+	<delete dir="${out.classes.dir}"/>
+	<mkdir dir="${out.classes.dir}"/>
+	<unzip src="obfuscated.jar" dest="${out.classes.dir}"/>
+
+	<!-- Remove stale jars -->
+	<delete file="AppClasses.jar"/>
+	<delete file="obfuscated.jar"/>
+</target>
+
+<!-- "-dex" target is a copy of the android_rules.xml target. 
+	It has been modified to run clean-classes before compiling, obfuscation after compiling -->
+<target name="-dex" depends="compile,obfuscate-all">
+	<dex-helper />
+</target>
