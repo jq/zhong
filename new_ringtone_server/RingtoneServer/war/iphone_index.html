@@ -16,20 +16,20 @@
         
         <script type="text/javascript" charset="utf-8">
         var jQT = new $.jQTouch({
-            icon: 'jqtouch.png',
-            icon4: 'jqtouch4.png',
-            addGlossToIcon: false,
-            startupScreen: 'jqt_startup.png',
-            statusBar: 'black',
-            useFastTouch: false,
+            icon: 'ringtone_icon.png',
+            debug: true,
             preloadImages: [
-                '/themes/jqt/img/back_button.png',
-                '/themes/jqt/img/back_button_clicked.png',
-                '/themes/jqt/img/button_clicked.png',
-                '/themes/jqt/img/grayButton.png',
-                '/themes/jqt/img/whiteButton.png',
-                '/themes/jqt/img/loading.gif'
-                ]
+              'themes/apple/img/backButton_clicked.png',
+              'themes/apple/img/backButton.png',
+              'themes/apple/img/blueButton.png',
+              'themes/apple/img/cancel.png',
+              'themes/apple/img/chevron.png',
+              'themes/apple/img/grayButton.png',
+              'themes/apple/img/selection.png',
+              'themes/apple/img/listArrowSel.png',
+              'themes/apple/img/whiteButton.png',
+              'themes/apple/img/loading.gif'
+            ]
         });
 
         $(function(){            
@@ -102,7 +102,10 @@
               });
             }
 
-            //document.addEventListener('touchmove', function(e){ e.preventDefault(); }, true);
+            if (window.navigator.standalone) {
+              document.addEventListener('touchmove', function(e){ e.preventDefault(); }, true);
+            }
+            
             $(window).resize(function() {
               $('#jqt').children().each(function () {
                 setHeight($(this));
