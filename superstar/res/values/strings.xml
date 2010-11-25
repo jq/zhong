@@ -41,6 +41,7 @@
     <string name="music_option_prompt">View more options by long clicking the item.</string>
     <string name="streaming">Streaming music</string>
     <string name="search">Search</string>
+    <string name="wait_search">Please wait while we search</string>
     <string name="options">Options</string>
     <string name="no_result">No result</string>
     <string name="eula_title">End User License Agreement</string>

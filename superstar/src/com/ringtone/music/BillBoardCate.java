@@ -142,15 +142,20 @@ private final class CatAdapter extends BaseAdapter {
 			return true;
 		
 		case R.id.bill_getmore:
-			String url1 = "market://search?q=pub:\"Social Games\"";	
-			try {
-				Uri uri = Uri.parse(url1);
-				Intent intent1 = new Intent(Intent.ACTION_VIEW, uri);
-	    		intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivity(intent1);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
+//			String url1 = "market://search?q=pub:\"Social Games\"";	
+//			try {
+//				Uri uri = Uri.parse(url1);
+//				Intent intent1 = new Intent(Intent.ACTION_VIEW, uri);
+//	    		intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//				startActivity(intent1);
+//			} catch (Exception ex) {
+//				ex.printStackTrace();
+//			}
+			
+			Intent intent1 = new Intent(BillBoardCate.this, SingerList.class);
+			intent1.putExtra("type", "allsingers");
+			startActivity(intent1);
+			
 			return true;
 		}
 	

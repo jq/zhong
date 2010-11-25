@@ -39,6 +39,11 @@
         <item>Set as Alarm</item>
         <item>Assign to contact</item>
 
+    </string-array>
+    
+	<string-array name="search_song_singer">
+        <item>Search for the Song</item>
+        <item>Search for the Singer</item>
     </string-array>  
     
 </resources>
