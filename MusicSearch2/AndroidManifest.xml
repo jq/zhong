@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
    android:installLocation="auto"
 
-      package="com.ringtone.music.search1"
-      android:versionCode="7" android:versionName="1.4">
+      package="com.jokes.search"
+      android:versionCode="1" android:versionName="1">
       <uses-sdk android:minSdkVersion="3" />   
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name="com.trans.music.search.SearchTab"
@@ -113,6 +113,17 @@
         <activity android:name="com.ringdroid.ChooseContactActivity"
                   android:configChanges="orientation|keyboardHidden">
         </activity>
+  	 <activity android:name="com.millennialmedia.android.MMAdViewOverlayActivity" 
+       		android:theme="@android:style/Theme.Translucent.NoTitleBar">
+ 	</activity>
+	 <activity android:name="com.millennialmedia.android.VideoPlayer" 
+                    android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                    android:configChanges="keyboardHidden|orientation|keyboard" >
+        </activity>
+ <activity android:name="com.admob.android.ads.AdMobActivity" 
+              android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+              android:configChanges="orientation|keyboard|keyboardHidden"
+              />
         
         <meta-data android:name="android.app.default_searchable"
                    android:value="com.trans.music.search.SearchList" />

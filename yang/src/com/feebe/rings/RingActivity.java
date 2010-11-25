@@ -153,13 +153,6 @@ public class RingActivity extends Activity {
       mPreview.setClickable(false);
       queue.setClickable(false);
       
-      SharedPreferences sharedPreference  = getSharedPreferences("uploadFriends", 0);
-      isFriendsUploaded =  sharedPreference.getBoolean("isFriendsUploaded", false);
-      isFacebookFriendsUploaded =  sharedPreference.getBoolean("isFacebookFriendsUploaded", false);
-      //Log.e(TAG, "isFriendsUploaded" + isFriendsUploaded + "");
-      //Log.e(TAG, "isFacebookFriendsUploaded" + isFacebookFriendsUploaded + "");
-      
-      
       largeRatingBar.setIsIndicator(true);
       largeRatingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
         @Override
@@ -167,29 +160,7 @@ public class RingActivity extends Activity {
       		  boolean fromUser) {	  		
             myRating = (int) rating*20 + "";
       		if(key!="" && jsonLocation != null) {
-      		    try {
-          		  if(Util.isEclairOrLater()) {
-          		  new Thread(new Runnable() {
-                      @Override
-                      public void run() {
-                        account = AccountInfo.getAccountNameEclair(RingActivity.this);
-                        rate();
-                        if (!isFriendsUploaded) {
-                          friendList = AccountInfo.getFriendListEclair(RingActivity.this);
-                          uploadFriends();
-                        }
-                      }
-                    }).start();
-                  } else {
-                      if (!isFriendsUploaded) {
-                        friendList = Util.getFriendList(RingActivity.this);
-                      }
-                      AccountInfo.getAccountName(RingActivity.this);
-                  }
-      		    } catch (VerifyError e) {
-      		      //ignore VerifyError
-      		    }
-                String realKey = key.substring(key.lastIndexOf("/")+1, key.indexOf("?"));
+            String realKey = key.substring(key.lastIndexOf("/")+1, key.indexOf("?"));
               
       			final String ratingUrl = Const.RatingBase + realKey + "?score=" + (int) rating*20;
       			new Thread(new Runnable() {
@@ -228,14 +199,6 @@ public class RingActivity extends Activity {
         jsonLocation = json;
       }
       new FetchJsonTask().execute(json);
-      
-      //upload all friends
-      if(!isFriendsUploaded && Util.isEclairOrLater()) {
-        account = AccountInfo.getAccountNameEclair(RingActivity.this);
-        friendList = AccountInfo.getFriendListEclair(RingActivity.this);
-        uploadFriends();
-      }
-
   }
   
   private static final int RING_PICKER = 1;
@@ -314,11 +277,6 @@ public class RingActivity extends Activity {
           .setPositiveButton("Yes", new DialogInterface.OnClickListener() {         
             @Override
             public void onClick(DialogInterface dialog, int which) {
-              //post to facebook
-              //com.connect.facebook.SessionEvents.addAuthListener(new SampleAuthListener());
-              //com.connect.facebook.SessionEvents.addLogoutListener(new SampleLogoutListener());
-              //mFacebook.dialog(RingActivity.this, "stream.publish", new SampleDialogListener());
-              String postUrl = "me/feed";
               Bundle params = new Bundle();
               params.putString("method", "links.post");
               params.putString("comment", "share a ringtone with you:");
@@ -326,34 +284,6 @@ public class RingActivity extends Activity {
               params.putString("url", "http://ringtonepromote.appspot.com/?key=" + realKey);
               //params.putString("link", "http://ringtonepromote.appspot.com/?key=" + realKey);
               mAsyncRunner.request(null, params, "POST", new WallPostRequestListener());
-              //mFacebook.dialog(RingActivity.this, "stream.publish", params, new SampleDialogListener());
-              
-              if(!isFacebookFriendsUploaded) {
-                //upload facebookfriends
-                Bundle paramsFriends = new Bundle();
-                paramsFriends.putString("method", "friends.get");
-                Bundle paramsUser = new Bundle();
-                paramsUser.putString("method", "users.getLoggedInUser");
-                try {
-                  facebookFriends = mFacebook.request(paramsFriends);
-                  facebookId = mFacebook.request(paramsUser);
-                } catch (MalformedURLException e) {
-                  e.printStackTrace();
-                } catch (IOException e) {
-                  e.printStackTrace();
-                }
-                //Log.e("facebookFriends: ", facebookFriends);
-                //Log.e("facebookId: ", facebookId);
-                
-                //get google account
-                if(Util.isEclairOrLater()) {
-                  account = AccountInfo.getAccountNameEclair(RingActivity.this);
-                  uploadFacebookFriends();
-                } else {
-                  AccountInfo.getAccountNameFacebook(RingActivity.this);
-                }
-                
-              }
             }
           })
           .setNeutralButton("No", new DialogInterface.OnClickListener() {
@@ -943,43 +873,8 @@ public class RingActivity extends Activity {
   
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-      // TODO Auto-generated method stub
       super.onActivityResult(requestCode, resultCode, data);
-
-      if (requestCode == AccountInfo.GET_ACCOUNT_REQUEST_CODE) {
-          //Log.e("requestcode : ", requestCode+"");
-          String key1 = "accounts";
-          //System.out.println(key1 + ":" + Arrays.toString(data.getExtras().getStringArray(key1)));
-          String accounts[] = data.getExtras().getStringArray(key1);
-          if (accounts != null && accounts.length > 0) {
-              account = accounts[0];
-          } else {
-              account = "noAccountInfo";
-          }
-          //rate
-          rate();
-          if(!isFriendsUploaded && friendList.size() > 0) {
-            uploadFriends();
-          }
-      }
-      
-      if (requestCode == AccountInfo.GET_ACCOUNT_FOR_FACEBOOK_REQUEST_CODE) {
-          //Log.e("requestcode : ", requestCode+"");
-          String key1 = "accounts";
-          //System.out.println(key1 + ":" + Arrays.toString(data.getExtras().getStringArray(key1)));
-          String accounts[] = data.getExtras().getStringArray(key1);
-          if (accounts != null && accounts.length > 0) {
-              account = accounts[0];
-          } else {
-              account = "noAccountInfo";
-          }
-          if (!isFacebookFriendsUploaded) {
-              uploadFacebookFriends();
-          }
-      }
-      
       if (requestCode == GET_TWITTER_KEY_REQUEST_CODE) {
-          //Log.e("requestcode : ", requestCode+"");
           final EditText pinEditText = new EditText(RingActivity.this);
           AlertDialog.Builder builder = new AlertDialog.Builder(this);
           builder.setTitle("Please input Pin:");
@@ -1082,125 +977,6 @@ public class RingActivity extends Activity {
   }
 
   
-  private void rate() {
-    String realKey = key.substring(key.lastIndexOf("/")+1, key.indexOf("?"));
-    final String ratingUrl2 =  Const.RingtonesnsBase + "rate?user=" + account + "&song=" + realKey + "&rate=" + myRating;
-    //// Log.e("ratingUrl2: ", ratingUrl2);
-      // thread to collect info
-      new Thread( new Runnable() {
-        @Override
-        public void run() {               
-          try {
-            URL url = new URL(ratingUrl2);
-            HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
-            urlConn.setConnectTimeout(4000);
-            urlConn.connect();
-            urlConn.getInputStream();
-            urlConn.disconnect();
-          } catch (MalformedURLException e) {
-            //e.printStackTrace();
-          } catch (IOException e) {
-            //e.printStackTrace();
-          }     
-        }
-      }).start();
-  }
-  
-  private void uploadFriends() {
-    SharedPreferences sharedPreference = getSharedPreferences("uploadFriends", 0);
-    if(sharedPreference.edit().putBoolean("isFriendsUploaded", true).commit())
-      isFriendsUploaded = true;
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
-        String updateFriendsUrl = Const.RingtonesnsBase + "friend";
-        String updateFriendsParam = "user=" + URLEncoder.encode(account) + "&friends=";
-        String friends = "[";
-        for(int i = 0; i < friendList.size(); i++) {
-          friends += "'" + friendList.get(i) + "'," ;
-        }
-        friends = friends.substring(0, friends.length()-1) + "]";
-        updateFriendsParam = updateFriendsParam + URLEncoder.encode(friends);
-        //// Log.e("updateFriendURL", updateFriendsUrl);
-        //// Log.e("updateFriendsParam", updateFriendsParam);
-        try {
-          URL url = new URL(updateFriendsUrl);
-          HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
-          urlConn.setConnectTimeout(4000);
-          urlConn.setRequestMethod("POST");
-          urlConn.setDoOutput(true);
-          urlConn.connect();
-          OutputStreamWriter out = new OutputStreamWriter(urlConn.getOutputStream());
-          out.write(updateFriendsParam);
-          out.flush();
-          //get response
-          BufferedReader in = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
-          //String line;
-          //while ((line = in.readLine()) != null) {
-          //  // Log.e("HTTP POST RESPONSE: ", line);
-          //}
-          out.close();
-          in.close();
-          urlConn.disconnect();
-        } catch (MalformedURLException e) {
-          //e.printStackTrace();
-        } catch (IOException e) {
-          //e.printStackTrace();
-        }
-        
-      }
-    }).start();
-  }
-  
-  private void uploadFacebookFriends() {
-    SharedPreferences sharedPreference = getSharedPreferences("uploadFriends", 0);
-    if(sharedPreference.edit().putBoolean("isFacebookFriendsUploaded", true).commit())
-      isFacebookFriendsUploaded = true;
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
-        String updateFriendsUrl = Const.RingtonesnsBase + "fbfriends";
-        String updateFriendsParam = "f_id=" + URLEncoder.encode(facebookId) + "&g_id=" + URLEncoder.encode(account) + "&friends=";
-        String[] facebookFriendsArray = facebookFriends.substring(facebookFriends.indexOf("[")+1, facebookFriends.lastIndexOf("]")).split(",");
-        String facebookFriendsFormated = "[";
-        for(int i = 0; i < facebookFriendsArray.length; i++) {
-          facebookFriendsFormated += "'" + facebookFriendsArray[i] + "',";
-        }
-        facebookFriendsFormated = facebookFriendsFormated.substring(0, facebookFriendsFormated.length()-1) + "]";
-        updateFriendsParam = updateFriendsParam + URLEncoder.encode(facebookFriendsFormated);
-        Log.e("Friend", facebookFriends);
-        Log.e("updateFriendURL", updateFriendsUrl);
-        Log.e("updateFriendsParam", updateFriendsParam);
-        try {
-          URL url = new URL(updateFriendsUrl);
-          HttpURLConnection urlConn = (HttpURLConnection)url.openConnection();
-          urlConn.setConnectTimeout(4000);
-          urlConn.setRequestMethod("POST");
-          urlConn.setDoOutput(true);
-          urlConn.connect();
-          OutputStreamWriter out = new OutputStreamWriter(urlConn.getOutputStream());
-          out.write(updateFriendsParam);
-          out.flush();
-          //get response
-          BufferedReader in = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
-          //String line;
-          //while ((line = in.readLine()) != null) {
-          //   Log.e("HTTP POST RESPONSE: ", line);
-          //}
-          out.close();
-          in.close();
-          urlConn.disconnect();
-        } catch (MalformedURLException e) {
-          //e.printStackTrace();
-        } catch (IOException e) {
-          //e.printStackTrace();
-        }
-        
-      }
-    }).start();
-    
-  }
-  
   public class SampleAuthListener implements com.connect.facebook.SessionEvents.AuthListener {
     
     public void onAuthSucceed() {
@@ -1281,9 +1057,6 @@ public class RingActivity extends Activity {
   
   boolean isPaused = false;
   
-  boolean isFriendsUploaded = false;
-  boolean isFacebookFriendsUploaded = false;
-  
   String category = "";
   String download = "";
   String artist = "";
@@ -1295,12 +1068,7 @@ public class RingActivity extends Activity {
   String myRating = "";
   String filePath = "";
   int mp3Size;
-  
-  private String account = "";
-  private ArrayList<String> friendList = new ArrayList<String>();
-  private String facebookId = "";
-  private String facebookFriends = "";
-  
+ 
   private Intent notificationIntent;
   RingDownloadListener ringDownloadListener;	
   

@@ -23,7 +23,7 @@ import java.util.Collections;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.ringtone.music.search1.R;
+import com.jokes.search.R;
 
 public abstract class UrlArrayAdapter<T, W> extends ArrayAdapter<T> {
   /**

@@ -102,7 +102,7 @@ public class BbHotChart extends Activity {
            }
         });
         
-		if (hottype.equals("yahootop")) {
+		//if (hottype.equals("yahootop")) {
 			findViewById(R.id.center_text).setVisibility(View.GONE);
 			showDialog(CONNECTING);
 			(new Thread() {
@@ -112,11 +112,12 @@ public class BbHotChart extends Activity {
 
 				}
 			}).start();
+			/*
 		} else {
 			downloadFeeds();
 			updatFeedList();
 		}
-		
+		*/
     }
 
 
@@ -126,7 +127,6 @@ public class BbHotChart extends Activity {
         private LayoutInflater mInflater;
 		
         public TrackListAdapter(Context c) {
-            mContext = c;
 			mInflater = LayoutInflater.from(c);
         }
 
@@ -207,7 +207,7 @@ public class BbHotChart extends Activity {
             ImageView icon;
         }
 
-        private Context mContext;
+       // private Context mContext;
 
         public void clear() {
             mMp3Title.clear();
@@ -217,9 +217,8 @@ public class BbHotChart extends Activity {
         public void add(String name) {
 
             mMp3Title.add(name);
-            notifyDataSetChanged();
         }
-
+        
     }
 	private String urlString = "http://ggapp.appspot.com/mp3/";
 	
@@ -251,21 +250,14 @@ public class BbHotChart extends Activity {
 	}
 	
 	private void updatFeedList() {
-
-		if (hottype.equals("yahootop")) {
 			this.runOnUiThread(new Runnable() {
 
 				@Override
 				public void run() {
 					updateData();
-					mProgressDialog.dismiss();
 				}
 
 			});
-		} else {
-			findViewById(R.id.center_text).setVisibility(View.GONE);
-			updateData();
-		}
 	}
 	
 	private void showMsg(int msg) {
@@ -273,6 +265,8 @@ public class BbHotChart extends Activity {
 	}
 	
 	private void updateData() {
+		if (BbHotChart.this.isFinishing()) return;
+
 		if(networkError) {
 			showMsg(R.string.network_error);
 			return ;
@@ -300,6 +294,9 @@ public class BbHotChart extends Activity {
 				
 				feedEntries2.put(mp3);
 			}
+					    mTrackAdapter.notifyDataSetChanged();
+					   // BbHotChart.this.dismissDialog(CONNECTING);
+						mProgressDialog.dismiss();
 		}catch(JSONException e) {
 			e.printStackTrace();
 		} 

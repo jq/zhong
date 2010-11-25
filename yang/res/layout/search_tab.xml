@@ -4,7 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-<LinearLayout android:id="@+id/AdsView" android:layout_width="fill_parent" android:layout_height="wrap_content" ></LinearLayout>
+	 <include layout_height="wrap_content" 
+ 				layout="@layout/ads"/>  
 	<LinearLayout
 		android:orientation="horizontal"
 		android:layout_width="fill_parent"

@@ -1,6 +1,6 @@
 /*
  * Entagged Audio Tag library
- * Copyright (c) 2003-2005 Raphaël Slinckx <raphael@slinckx.net>
+ 
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,7 +23,7 @@ package entagged.audioformats.generic;
  * {@link entagged.audioformats.generic.AbstractTag}.<br>
  * The identifiers of commonly used fields is defined by {@link #keys}.<br>
  * 
- * @author Raphaël Slinckx
+ * @author Raphaï¿½l Slinckx
  */
 public class GenericTag extends AbstractTag {
 
@@ -31,7 +31,7 @@ public class GenericTag extends AbstractTag {
 	 * Implementations of {@link TagTextField} for use with
 	 * &quot;ISO-8859-1&quot; strings.
 	 * 
-	 * @author Raphaël Slinckx
+	 * @author Raphaï¿½l Slinckx
 	 */
 	private class GenericTagTextField implements TagTextField {
 

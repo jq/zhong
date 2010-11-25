@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.ringtone.music.search1.R;
+import com.jokes.search.R;
 
 import android.app.ProgressDialog;
 import android.app.SearchManager;

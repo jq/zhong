@@ -15,7 +15,7 @@ import android.util.Log;
 import android.net.Uri;
 import android.graphics.Bitmap;
 
-import com.ringtone.music.search1.R;
+import com.jokes.search.R;
 
 public class ArtistList extends Activity {
 	

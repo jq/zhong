@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
    android:installLocation="auto"
-      package="com.feebe.rings"
-      android:versionName="3.9.7" android:versionCode="104">
+      package="com.game.rings"
+      android:versionName="1.1" android:versionCode="6">
     <application android:icon="@drawable/ring" android:label="@string/app_name">
         <activity android:name="com.ringtone.joke.Ring"
                   android:label="@string/app_name"
@@ -17,21 +17,21 @@
             
         </activity>
          
-        <activity android:name="MyfovorList" android:label=""
+        <activity android:name="com.feebe.rings.MyfovorList" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden"/>
-        <activity android:name="BillBoardCate" android:label=""
+        <activity android:name="com.feebe.rings.BillBoardCate" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden"/>       
-				<activity android:name="BillBoardList" android:label=""
+		<activity android:name="com.feebe.rings.BillBoardList" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden"/>                  
-        <activity android:name="HotList" android:label=""
+        <activity android:name="com.feebe.rings.HotList" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
                   
         </activity>
-        <activity android:name="SearchTab" android:label=""
+        <activity android:name="com.feebe.rings.SearchTab" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
                   
         </activity>
-        <activity android:name="SearchList" android:label=""
+        <activity android:name="com.feebe.rings.SearchList" android:label=""
                   android:configChanges="orientation|keyboardHidden"
                   android:launchMode="singleTop"
                   android:alwaysRetainTaskState="true">
@@ -42,54 +42,54 @@
             <meta-data android:name="android.app.searchable"
                        android:resource="@xml/searchable" />
         </activity>
-        <activity android:name="RingActivity" android:label=""
+        <activity android:name="com.feebe.rings.RingActivity" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
             <intent-filter>
               <action android:name="android.intent.action.SEARCH" />
               <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name="StringList" android:label=""
+        <activity android:name="com.feebe.rings.StringList" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
         </activity>
-        <activity android:name="TopArtistList" android:label=""
+        <activity android:name="com.feebe.rings.TopArtistList" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
         </activity>
         
         
-        <activity android:name="SingerLibrary" android:label="Singer Library"
+        <activity android:name="com.feebe.rings.SingerLibrary" android:label="Singer Library"
                   android:configChanges="keyboardHidden|orientation"
 				  >
      		</activity>    
-        <activity android:name="SLMale" android:label="Singer Library: Male Artist"
+        <activity android:name="com.feebe.rings.SLMale" android:label="Singer Library: Male Artist"
                   android:configChanges="keyboardHidden|orientation"
 				  >
      		</activity>    
-        <activity android:name="SLFemale" android:label="Singer Library: Female Artist"
+        <activity android:name="com.feebe.rings.SLFemale" android:label="Singer Library: Female Artist"
                   android:configChanges="keyboardHidden|orientation"
 				  >
 	     	</activity>    
-	     	<activity android:name="SLBand" android:label="Singer Library: Band"
+	     	<activity android:name="com.feebe.rings.SLBand" android:label="Singer Library: Band"
                   android:configChanges="keyboardHidden|orientation"
 				  >
 	     	</activity>  
-	     	<activity android:name="Artist" android:label="Artist Information"
+	     	<activity android:name="com.feebe.rings.Artist" android:label="Artist Information"
                   android:configChanges="keyboardHidden|orientation"
 				  >
      		</activity>
-     		<activity android:name=".BbHotChart" android:label="The most popular songs"
+     		<activity android:name="com.feebe.rings.BbHotChart" android:label="The most popular songs"
                   android:configChanges="keyboardHidden|orientation"
 				  >
      		</activity>   
-				<activity android:name="local" android:label="Downloaded"
+				<activity android:name="com.feebe.rings.local" android:label="Downloaded"
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
                   
         </activity>
-        <activity android:name="WebViewActivity" android:label=""
+        <activity android:name="com.feebe.rings.WebViewActivity" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
                   
         </activity>
-        <activity android:name="CommentList" android:label=""
+        <activity android:name="com.feebe.rings.CommentList" android:label=""
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
                   
         </activity>
@@ -129,10 +129,10 @@
               android:configChanges="orientation|keyboard|keyboardHidden"
               />
         <meta-data android:name="android.app.default_searchable"
-                   android:value=".SearchList" />
+                   android:value="com.feebe.rings.SearchList" />
         <!-- Provides search suggestions . -->
-        <provider android:name="RingSearch"
-                android:authorities="rings"
+        <provider android:name="com.feebe.rings.RingSearch"
+                android:authorities="rings1"
                 android:syncable="false" />
 
     </application>
@@ -145,6 +145,4 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH"/>
 </manifest> 

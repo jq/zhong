@@ -512,6 +512,8 @@ public class RingdroidSelectActivity
             args.add(filter);
             args.add(filter);
             args.add(filter);
+        } else {
+        	selection += " top 100"; 
         }
 
         String[] argsArray = args.toArray(new String[args.size()]);

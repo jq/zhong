@@ -7,7 +7,7 @@ import java.util.Random;
 
 import org.json.JSONArray;
 
-import com.ringtone.music.search1.R;
+import com.jokes.search.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;

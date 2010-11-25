@@ -44,7 +44,7 @@ public class StringList extends BaseList {
   }
   
   private static final String[] BbHotChartStr = {
-    "yahootop", "bhot100","bhiphop", "bcountry", "bmodernrock", "bdanceclub","brap","bpop","bmainrock"
+    "bhot100","bhiphop", "bcountry", "bmodernrock", "bdanceclub","brap","bpop","bmainrock","yahootop" 
   };
 
   @Override
@@ -56,7 +56,7 @@ public class StringList extends BaseList {
         startActivityForResult(intent, 1);
     } else if (cate.type == BBHOTCHART_TYPE) {
         Intent intent = new Intent();
-        intent.putExtra("type", BbHotChartStr[pos - 1]);
+        intent.putExtra("type", BbHotChartStr[pos - 2]);
         intent.setClass(this, BbHotChart.class);
         startActivityForResult(intent, 1);
     } else if (cate.type == TOP_ARTIST_TYPE) {
@@ -99,14 +99,20 @@ public class StringList extends BaseList {
   };
     
   public class StringAdapter extends UrlArrayAdapter<Item, TextView> {
-
     public StringAdapter(Context context, int resource) {
       super(context, resource);
       useDedup_ = false;
       add(new Item("Top Artist", TOP_ARTIST_TYPE));
       add(new Item("Artist Library", ARTIST_LIB_TYPE));
-      add(new Item("Yahoo! Music Top Songs", BBHOTCHART_TYPE));
       add(new Item("Billboard Top 100", BBHOTCHART_TYPE));
+      add(new Item("Billboard hip hop", BBHOTCHART_TYPE));
+      add(new Item("Billboard country", BBHOTCHART_TYPE));
+      add(new Item("Billboard rock", BBHOTCHART_TYPE));
+      add(new Item("Billboard dance", BBHOTCHART_TYPE));
+      add(new Item("Billboard rap", BBHOTCHART_TYPE));
+      add(new Item("Billboard pop", BBHOTCHART_TYPE));
+      add(new Item("Billboard main rock", BBHOTCHART_TYPE));
+      add(new Item("Yahoo! Music Top Songs", BBHOTCHART_TYPE));
       add(new Item("Top download today", TOP_TODAY_TYPE));
       add(new Item("Top download this week", TOP_WEEK_TYPE));
       add(new Item("Top download this month", TOP_MONTH_TYPE));

@@ -22,7 +22,7 @@ import android.util.Log;
 import org.json.JSONObject;
 import org.json.JSONException;
 
-import com.ringtone.music.search1.R;
+import com.jokes.search.R;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;

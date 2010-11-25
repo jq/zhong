@@ -18,7 +18,6 @@ import android.util.Log;
 
 public class AccountInfo {
   
-  public static final int GET_ACCOUNT_REQUEST_CODE = 123;
   public static final int GET_ACCOUNT_FOR_FACEBOOK_REQUEST_CODE = 124;
   public static String getAccountNameEclair(Context ctx) {
     AccountManager accountManager = AccountManager.get(ctx);
@@ -28,14 +27,6 @@ public class AccountInfo {
       return accounts[0].name;
     }
     return "noAccountInfo";
-  }
-  
-  public static void getAccountName(Activity act) {
-    com.google.android.googlelogin.GoogleLoginServiceHelper.getAccount(act, GET_ACCOUNT_REQUEST_CODE, true);
-  }
-  
-  public static void getAccountNameFacebook(Activity act) {
-    com.google.android.googlelogin.GoogleLoginServiceHelper.getAccount(act, GET_ACCOUNT_FOR_FACEBOOK_REQUEST_CODE, true);
   }
   
   public static ArrayList<String> getFriendListEclair(Context ctx) {

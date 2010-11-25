@@ -21,7 +21,6 @@ public class Const {
   public static final long OneYear = OneDay * 365;
 
   // resources
-	protected static int AdsViewID;
 	protected static int LAYOUT_LIST = R.layout.list;
 	protected static int no_result = R.string.no_result;
 	protected static int no_sd;
@@ -33,9 +32,6 @@ public class Const {
 	protected static int notification_text_failed= R.string.notification_text_failed;;
 	protected static int notification_text_finish = R.string.notification_text_finish;
 	
-	// other changed const var
-	public static String QWName;
-	public static String QWID;
 	protected static Activity main = null;
 	
   public static final int NO_FILE_KIND = -1;
@@ -121,7 +117,7 @@ public class Const {
     }).start();
   }
 
-  public static String pkg;
+  //public static String pkg;
   /*
   private static void reportCrash(Throwable ex) {
     try {

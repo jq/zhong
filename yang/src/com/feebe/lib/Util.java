@@ -11,7 +11,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -24,15 +23,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.feebe.rings.SearchTab;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -51,27 +47,25 @@ import android.os.Build;
 import android.provider.Contacts;
 import android.provider.MediaStore;
 import android.provider.Contacts.People;
-import android.text.StaticLayout;
 import android.util.Log;
-import android.widget.Toast;
 
 public class Util {
      
-	private static final String urlString = " http://ggapp.appspot.com/mobile/getfeed/";
+	//private static final String urlString = " http://ggapp.appspot.com/mobile/getfeed/";
 	private static final String feedsFile = "feeds";
 
-	//urlString = "http://192.168.1.180/mp3/getfeed/";
-	private static Random generator = new Random();
+	//private static Random generator = new Random();
 	public static void runFeed(int chance, Activity at, int resource) {
-	  if (run(chance)) {
-	    getFeeds(at, resource, urlString);
-	  }
+	  //if (run(chance)) {
+	  //  getFeeds(at, resource, urlString);
+	  //}
 	}
-	public static boolean run(int chance) {
+	/*
+	private static boolean run(int chance) {
 		int t = generator.nextInt();
 		return t % chance == 0;
 	}
-	
+	*/
 	private static void downloadRandom(final String urlStr) {
 		(new Thread() {
 			public void run() {
@@ -495,7 +489,7 @@ public class Util {
 	
   static SharedPreferences mSetting;
   private static String RATING = "rate";
-  public static String FULLSEARCH = "com.ringtone.music.search1";
+  public static String FULLSEARCH = "com.jokes.search";
   public static boolean hasRate() {
     return hasKey(RATING);
   }
@@ -591,18 +585,18 @@ public class Util {
   }
     
   public static boolean getFeeds(Activity at, int resource, String urlStr) {
-		downloadRandom(urlStr);
+		//downloadRandom(urlStr);
 		// if we have feedsFile then read it, otherwise read from resource
 		InputStream feeds;
-		try {
-			if (run(5)) {
-			  feeds = new FileInputStream(Const.homedir + feedsFile);
-			} else {
+		//try {
+			//if (run(5)) {
+			//  feeds = new FileInputStream(Const.homedir + feedsFile);
+			//} else {
 				feeds = at.getResources().openRawResource(resource);
-			}
-		} catch (FileNotFoundException e) {
-			feeds = at.getResources().openRawResource(resource);
-		}
+			//}
+		//} catch (FileNotFoundException e) {
+		//	feeds = at.getResources().openRawResource(resource);
+		//}
 		return getFeeds(at, feeds);
 	}
 	

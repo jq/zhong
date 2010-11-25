@@ -1,6 +1,6 @@
 package com.trans.music.search;
 
-import com.ringtone.music.search1.R;
+import com.jokes.search.R;
 
 import android.app.Activity;
 import android.content.Intent;

@@ -1,6 +1,6 @@
 /*
  * Entagged Audio Tag library
- * Copyright (c) 2003-2005 Raphaël Slinckx <raphael@slinckx.net>
+ 
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,7 +31,7 @@ import entagged.audioformats.Tag;
  * {@link entagged.audioformats.Tag} and introduces some more useful
  * functionality to be implemented.<br>
  * 
- * @author Raphaël Slinckx
+ * @author Raphaï¿½l Slinckx
  */
 public abstract class AbstractTag implements Tag {
 

@@ -1,29 +1,22 @@
 package com.feebe.rings;
 
-import java.util.ArrayList;
-
-import com.feebe.lib.DbAdapter;
-import com.feebe.lib.SearchAdapter;
-import com.feebe.lib.Util;
-import com.lib.RingSelect;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.method.KeyListener;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.feebe.lib.AdListener;
+import com.feebe.lib.DbAdapter;
+import com.feebe.lib.SearchAdapter;
+import com.feebe.lib.Util;
+import com.lib.RingSelect;
 
 public class SearchTab extends Activity{
 	
@@ -36,7 +29,7 @@ public class SearchTab extends Activity{
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.search_tab);
-		AdsView.createAdsenseAds(this, AdsView.CHANNEL_ID);
+		AdListener.createAds(this);
 		searchArtist = (AutoCompleteTextView) findViewById(R.id.input_artist);
 		searchArtist.setOnKeyListener(new OnKeyListener(){
 			@Override

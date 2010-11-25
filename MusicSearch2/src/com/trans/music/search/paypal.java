@@ -29,7 +29,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLContext;
 
-import com.ringtone.music.search1.R;
+import com.jokes.search.R;
 
 import java.io.File;
 import java.io.FileOutputStream;

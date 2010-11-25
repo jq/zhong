@@ -6,15 +6,21 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout.LayoutParams;
  
 import com.adwhirl.AdWhirlLayout;
+import com.adwhirl.AdWhirlTargeting;
 import com.feebe.rings.R;
 
 public class AdListener {
   private static final boolean blackscreen = isBlackScreen();
-  
+  public static final String key = "366e6bc811204d1a9861b6149f05c22f";
   private static boolean isBlackScreen() {
     // http://since2006.com/blog/google-io2010-android-devices/
+    // 6318c8e4e86d4732b08a67a89618f391 366e6bc811204d1a9861b6149f05c22f
+    // bcb2a6fca76c487e9662890bd595c127
     return Build.VERSION.SDK.equalsIgnoreCase("3");
-
+  }
+  public static final String keywords = "game music sex gambling girl news cell house car computer laptop";
+  static {
+    AdWhirlTargeting.setKeywords(keywords);
   }
   public static void createAds(Activity activity) {
     createAds(activity, R.id.ads_view);
@@ -27,7 +33,7 @@ public class AdListener {
     } else {
       w = LayoutParams.WRAP_CONTENT;
     }
-    AdWhirlLayout adWhirlLayout = new AdWhirlLayout(activity, "bcb2a6fca76c487e9662890bd595c127");
+    AdWhirlLayout adWhirlLayout = new AdWhirlLayout(activity, key);
     LayoutParams adWhirlLayoutParams = new LayoutParams(LayoutParams.FILL_PARENT, w);
     ViewGroup layout = (ViewGroup) activity.findViewById(id);
     if (layout != null) {
