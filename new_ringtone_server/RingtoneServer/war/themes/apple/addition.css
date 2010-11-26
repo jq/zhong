@@ -59,6 +59,9 @@ fieldset {
 }
 
 .store {
+  background-image: url(/themes/apple/img/chevron.png);
+  background-position: 100% 50%;
+  background-repeat: no-repeat;
   border-top: 1px solid #878787;
   height: 50px;
   overflow: hidden;
@@ -177,3 +180,32 @@ div .loader {
   background:#FFFFF;
   min-height: 100%;
 }
+
+			.music_info audio {
+				display: block;
+				top: 70px;
+				position: absolute;
+			}
+			.music_info .stars0 {
+			  	background: url("img/0stars.png") repeat scroll 0 0 transparent;
+			}
+			
+			.music_info .stars1 {
+			  	background: url("img/1stars.png") repeat scroll 0 0 transparent;
+			}
+			
+			.music_info .stars2 {
+			  	background: url("img/2stars.png") repeat scroll 0 0 transparent;
+			}
+			
+			.music_info .stars3 {
+			  	background: url("img/3stars.png") repeat scroll 0 0 transparent;
+			}
+			
+			.music_info .stars4 {
+			  	background: url("img/4stars.png") repeat scroll 0 0 transparent;
+			}
+			
+			.music_info .stars5 {
+			  	background: url("img/5stars.png") repeat scroll 0 0 transparent;
+			}

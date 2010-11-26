@@ -146,7 +146,7 @@
               background:#FFFFF;
               overflow:hidden;
             }
-
+			
             .s-scrollpane {      
               float:left;
               width:100%;
@@ -154,6 +154,66 @@
               background:#FFFFF;
               min-height: 100%;
             }
+            
+            .music_info {
+            	height: 80px;
+            	overflow: hidden;
+            	position: relative;
+            }
+            
+            .music_info img {
+            	display: block;
+  				height: 50px;
+  				width: 50px;
+  				left: 0;
+  				position: absolute;
+  				top: 4;
+            }
+            
+            .music_info .title {
+			  	left: 55px;
+			  	position: absolute;
+			  	top: 24px;
+			  	display: block;
+			  	font-size: 15px;
+			  	font-weight: bold;
+			  	max-width: 60%
+			  	overflow: hidden;
+			  	white-space: nowrap;
+			}
+			
+			.music_info .artist {
+				margin: 0 0 0 45px;
+				display: block;
+				font-size: 12px;
+				font-weight: bold;
+				overflow: hidden;
+				white-space: nowrap;
+				width: 60;
+			}
+			
+			.music_info .download_count {
+				margin: 0 0 0 45px;
+				display: block;
+				font-size: 12px;
+				font-weight: bold;
+				top: 50px;
+				position: absolute;
+				white-space: nowrap;
+				width: 40;
+			}
+			
+
+			
+			.music_info .stars0, .music_info .stars1, .music_info .stars2, .music_info .stars3, .music_info .stars4, .music_info .stars5 {
+			  	display: block;
+			  	height: 18px;
+			  	left: 55px;
+			  	position: absolute;
+			  	top: 40px;
+			  	width: 65px;
+			}
+			
         </style>
         <style type="text/css" media="screen">
         </style>
@@ -196,7 +256,7 @@
 	    	</div>
 	    	<div id="target-wrapper-Cates" class="s-scrollwrapper"><div id="target-pane-Cates" class="s-scrollpane">
 				<ul class="rounded" id="all_categories">
-					<li class="arrow"><a class="cate_link_item" href="#category" value="Christian">Christian</a></li>
+					<li class="arrow"><a class="cate_link_item" href="#details" value="Christian">Christian</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Metal">Metal</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Holiday">Holiday</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="R&B">R&B</a></li>
@@ -271,6 +331,30 @@
 				<ul class="rounded" id="results">
 				</ul>
 				</div></div>
+			</div>
+			
+			<div id="details">
+				<div class="toolbar">
+					<h1></h1>
+					<a href="#" class="back">Back</a>
+				</div>
+				<ul class="rounded" id="info">
+					<li class="music_info">
+						<a href="#">
+							<img src="http://ringtone_image.s3.amazonaws.com/017d578d-baef-4ce0-8d07-aafdf15d7521thumb_122754_50.jpg">
+							<span class="artist">artist</span>
+							<span class="title">title</span>
+							<span class="download_count">8989898</span>
+							<span class="stars4"></span>
+							<audio src="http://ringtone_ring.s3.amazonaws.com/02faa9b9-6745-4504-a103-f3a08cb45833132538_cat_power_-_Woman_Left_Lonely.mp3" controls="controls">
+								Your browser does not support the audio element.
+							</audio>
+						</a>
+					</li>
+				</ul>
+				<ul class="rounded" id="operate">
+					<li><a href="mailto:">Email</a></li>
+				</ul>
 			</div>
 		</div>
     </body>
