@@ -62,4 +62,15 @@ public class Const {
 	
 	public static final String[] HOME_CATEGORIES = { "Country", "Hip-Hop", "Rock", "Pop"};
 	
+	public static final String EMAIL = "email";
+	public static final String DOWNLOAD_LINK = "download_link";
+	public static final String FROM_EMAIL = "huangyang001@gmail.com";
+	public static final String EMAIL_BODY1 =   "Hello, you have requested to download a ringtone using m9 ringtone for iPhone. Follow these instructions to install:\n"
+											+ "1. On your computer, click ";
+	public static final String EMAIL_BODY2 = " and save the file.\n"
+											+ "2. Double click on the file to launch iTunes. The file will automatically be placed in the \"Ringtone\" folder.\n"
+											+ "3. Make sure your iPhone is connected with your computer and sync your iPhone with iTunes.\n"
+											+ "4. On your iPhone, choose Settings > Sounds > Ringtone, then set this as the new ringtone.\n"
+											+ "If you need more help, please contact huangyag001@gmail.com";
+	public static final String EMAIL_SUBJECT = "Download Free Ringtone For Your iPhone";
 }

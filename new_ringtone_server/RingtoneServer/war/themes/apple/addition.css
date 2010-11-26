@@ -209,3 +209,73 @@ div .loader {
 			.music_info .stars5 {
 			  	background: url("img/5stars.png") repeat scroll 0 0 transparent;
 			}
+            
+            .music_info {
+            	height: 90px;
+            	overflow: hidden;
+            	position: relative;
+            }
+            
+            .music_info img {
+            	display: block;
+  				height: 50px;
+  				width: 50px;
+  				left: 0;
+  				position: absolute;
+  				top: 4;
+            }
+            
+            .music_info .title {
+			  	left: 55px;
+			  	position: absolute;
+			  	top: 24px;
+			  	display: block;
+			  	font-size: 15px;
+			  	font-weight: bold;
+			  	max-width: 60%
+			  	overflow: hidden;
+			  	white-space: nowrap;
+			}
+			
+			.music_info .artist {
+				margin: 0 0 0 45px;
+				display: block;
+				font-size: 12px;
+				font-weight: bold;
+				overflow: hidden;
+				white-space: nowrap;
+				width: 60;
+			}
+			
+			.music_info .download_count {
+				margin: 0 0 0 45px;
+				display: block;
+				font-size: 12px;
+				font-weight: bold;
+				top: 52px;
+				position: absolute;
+				white-space: nowrap;
+				width: 40;
+			}
+
+			.music_info .stars0, .music_info .stars1, .music_info .stars2, .music_info .stars3, .music_info .stars4, .music_info .stars5 {
+			  	display: block;
+			  	height: 18px;
+			  	left: 55px;
+			  	position: absolute;
+			  	top: 40px;
+			  	width: 65px;
+			}
+
+			.music_info .player {
+				display: block;
+				bottom: 10px;
+				position: absolute;
+				margin: 4px 4px 4px 4px;
+			}
+			
+			#jqt h3 {
+				color: #4C566C;
+				font: normal normal 10px/normal 'Helvetica Neue', Helvetica;
+				margin: 10px 20px 6px;
+			}

@@ -36,6 +36,8 @@ public class SearchServlet extends HttpServlet {
 			searchResults = SearchUtils.getResultsByCategory(key, start);
 		} else if (type.equalsIgnoreCase(Const.DOWNLOAD_COUNT)) {
 			searchResults = SearchUtils.getResultsByDownloadCount(start);
+		} else if (type.equalsIgnoreCase(Const.ADD_DATE)) {
+			searchResults = SearchUtils.getResultsByDate(start);
 		}
 		JSONArray jsonArray = new JSONArray();
 		for (SongEntry songEntry : searchResults) {

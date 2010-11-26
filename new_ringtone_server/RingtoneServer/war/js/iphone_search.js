@@ -47,8 +47,6 @@
 					 $(this).appendTo(results);
 				 });
 				
-
-
 			});
 			
 
@@ -65,6 +63,16 @@
 //    });
 //});
 
+//rate is "stars4" which to be set as class, etc...
+function fill_details_page(artist, title, rate, download_count, download_link, img_link) {
+	var div_details = $("#details");
+	$("img", div_details).attr("src", img_link);
+	$(".artist", div_details).text(artist);
+	$(".title", div_details).text(title);
+	$(".download_count", div_details).text("Downloaded "+download_count+" times");
+	$("#rate_star", div_details).attr("class", rate);
+	$("audio", div_details).attr("src", download_link);
+}
 
 
 function fill_cate_page(cate) {
@@ -131,6 +139,11 @@ function fill_cate_page(cate) {
 $(document).ready(function(e){
     $('#top_download').bind('pageAnimationStart', function(event, info) {
         if (info.direction == 'in') {
+        	var div_top_download = this;
+        	var item_count = $(".store", this).length;
+        	if (item_count > 0) {
+        		return;
+        	}
 			var results = $("#results", this).empty();
 			var load_more = "Tap to load more";
 			var url = "/ringtoneserver/search?type=download_count";
@@ -156,11 +169,60 @@ $(document).ready(function(e){
 					var li = jsonToListItem(item);
 					li.appendTo(results);
 				});
-				$("<li id=\"load_more\">").text(load_more).appendTo(results);
+				$("<li id=\"load_more\">", div_top_download).text(load_more).appendTo(results);
 				$("#load_more", $("#top_download")).click(function() {
 					append_more($("#top_download"), url);
 				});
 				$("#load_more", $("#top_download")).bind("ajaxSend", function(){
+					$(this).text("Loading...");
+				 }).bind("ajaxComplete", function(){
+					$(this).text("Tap to load more");
+					$(this).appendTo(results);
+				 });
+			});
+        }
+    })
+});
+
+
+$(document).ready(function(e){
+    $('#newest_add').bind('pageAnimationStart', function(event, info) {
+        if (info.direction == 'in') {
+        	var div_newest_add = this;
+        	var item_count = $(".store", this).length;
+        	if (item_count > 0) {
+        		return;
+        	}
+			var results = $("#results", this).empty();
+			var load_more = "Tap to load more";
+			var url = "/ringtoneserver/search?type=add_date";
+			
+			$(".loader", this).bind("ajaxSend", function(){
+				var length = $(".store", "#newest_add").length;
+				if (length == 0) {
+					$("ul" , "#newest_add").hide();
+					$(this).show();
+				}
+			}).bind("ajaxComplete", function(){
+				$("ul" , "#newest_add").show();
+				$(this).hide();
+			});
+			
+			$.getJSON(url, 
+				function(data) {
+				if (data.length == 0) {
+					window.alert("No result");
+					return;
+				}
+				$.each(data, function(i, item) {
+					var li = jsonToListItem(item);
+					li.appendTo(results);
+				});
+				$("<li id=\"load_more\">", div_newest_add).text(load_more).appendTo(results);
+				$("#load_more", $("#newest_add")).click(function() {
+					append_more($("#newest_add"), url);
+				});
+				$("#load_more", $("#newest_add")).bind("ajaxSend", function(){
 					$(this).text("Loading...");
 				 }).bind("ajaxComplete", function(){
 					$(this).text("Tap to load more");
@@ -191,24 +253,47 @@ function jsonToListItem(item) {
 	var title = $("<span></span>").attr("class", "title").attr("value", item.title).text(item.title);
 	var rate;
 	if (item.avg_rate == 0) {
-		rate = $("<span></span>").attr("class", "stars0");
+		rate = $("<span></span>").attr("class", "stars0").attr("value", item.avg_rate);
 	} else if (item.avg_rate <= 20) {
-		rate = $("<span></span>").attr("class", "stars1");
+		rate = $("<span></span>").attr("class", "stars1").attr("value", item.avg_rate);
 	} else if (item.avg_rate <= 40) {
-	 	rate = $("<span></span>").attr("class", "stars2");
+	 	rate = $("<span></span>").attr("class", "stars2").attr("value", item.avg_rate);
 	} else if (item.avg_rate <= 60) {
-		rate = $("<span></span>").attr("class", "stars3");
+		rate = $("<span></span>").attr("class", "stars3").attr("value", item.avg_rate);
 	} else if (item.avg_rate <= 90) {
-		rate = $("<span></span>").attr("class", "stars4");
+		rate = $("<span></span>").attr("class", "stars4").attr("value", item.avg_rate);
 	} else if (item.avg_rate <= 100) {
-		rate = $("<span></span>").attr("class", "stars5");
+		rate = $("<span></span>").attr("class", "stars5").attr("value", item.avg_rate);
 	}
-	var download_count = $("<span></span>").attr("target", "_blank").attr("class", "download_count").attr("value", item.download_count).text(item.down);
+	var download_count = $("<span></span>").attr("style", "display:none;").attr("class", "download_count").attr("value", item.download_count).text(item.down);
 //	var image = $("<span></span>").attr("class", "image").attr("style", "background-image: url('"+item.image+"'); background-position:center; background-repeat:no-repeat;").attr("value", item.image);
 	var image = $("<img></img>").attr("src", item.image);
-	var a = $("<a></a>").attr("href", item.s3url).attr("target", "_blank").attr("class", "song_item").attr("song_id", item.uuid);
+//	var a = $("<a></a>").attr("href", item.s3url).attr("target", "_blank").attr("class", "song_item").attr("song_id", item.uuid);
+	var onclick = "javascript:fill_details_page(\""+item.artist+"\",\""+item.title+"\",\""+rate.attr("class")+"\",\""+item.download_count+"\",\""+item.s3url+"\",\""+item.image+"\");";
+	var a = $("<a></a>").attr("href", "#details").attr("class", "song_item").attr("onClick", onclick).attr("song_id", item.uuid).attr("value", item.s3url);
 	var li = $("<li></li>").attr("class", "store");
-	var div_a = a.append(image).append(artist).append(title).append(rate).append(arrow);
+	var div_a = a.append(image).append(artist).append(title).append(rate).append(download_count).append(arrow);
 	return li.append(div_a);
 };
 
+function sendEmail(email, link) {
+	if (!isEmail(email)) {
+		confirm("The format is not correct.");
+		return;
+	} else {
+		var url = "/ringtoneserver/sendemail?download_link="+link+"&email="+email;
+		$.get(url,
+			function(data){
+				if (data == "ok") {
+					confirm("The email has been sent, please download the ringtone from your computer and read the instructions.");
+				}
+		});
+	}
+}
+
+function isEmail(strEmail) {
+	if (strEmail.search(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/) != -1)
+		return true;
+	else
+		return false;
+};

@@ -33,6 +33,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>SendMailServlet</servlet-name>
+		<servlet-class>com.ringtone.server.SendMailServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SendMailServlet</servlet-name>
+		<url-pattern>/ringtoneserver/sendemail</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>CountAllServlet</servlet-name>
 		<servlet-class>com.ringtone.server.CountAllServlet</servlet-class>
 	</servlet>
@@ -76,6 +85,8 @@
 		<servlet-name>AllCategoryServlet</servlet-name>
 		<url-pattern>/ringtoneserver/mobile/cateall</url-pattern>
 	</servlet-mapping>
+	
+
 	
 	<servlet>
     	<servlet-name>RemoteApi</servlet-name>
