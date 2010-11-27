@@ -4,8 +4,13 @@
 	$(function() {
 		$("#search").submit(function(event, info) {
 			var div_search_result = $("#search_result");
-			jQT.goTo(div_search_result);
+			
 			var text = $("input[id=search-text]", this).attr("value");
+			if (text==null || text.length==0) {
+				confirm("The search key word should not be empty.");
+				return;
+			}
+			jQT.goTo(div_search_result);
 //			text.blur();
 			var results = $("#results", div_search_result).empty();
 			var load_more = "Tap to load more";
@@ -32,8 +37,6 @@
 					var li = jsonToListItem(item);
 					li.appendTo(results);
 				});
-				
-
 				
 				$("<li id=\"load_more\">").text(load_more).appendTo(results);
 				$("#load_more", div_search_result).click(function() {
@@ -63,15 +66,23 @@
 //    });
 //});
 
+var last_email;
 //rate is "stars4" which to be set as class, etc...
 function fill_details_page(artist, title, rate, download_count, download_link, img_link) {
 	var div_details = $("#details");
+	if (last_email!=null) {
+		$("#email_text", div_details).attr("value", last_email);
+	}
+	$("audio", div_details).remove();
 	$("img", div_details).attr("src", img_link);
 	$(".artist", div_details).text(artist);
 	$(".title", div_details).text(title);
 	$(".download_count", div_details).text("Downloaded "+download_count+" times");
 	$("#rate_star", div_details).attr("class", rate);
-	$("audio", div_details).attr("src", download_link);
+	var audio = $("<audio>").attr("src", download_link).attr("class", "player").attr("controls", "controls");
+	var div_music_info_a = $("a", ".music_info", div_details);
+	audio.appendTo(div_music_info_a);
+//	$("audio", div_details).attr("src", download_link);
 }
 
 
@@ -244,6 +255,9 @@ function append_more(parent, url) {
 			var str = jsonToListItem(item);
 			str.appendTo(results);
 		});
+		if ($('.store', parent).length > 50) {
+			loading.hide();
+		}
 	});
 };
 
@@ -281,19 +295,24 @@ function sendEmail(email, link) {
 		confirm("The format is not correct.");
 		return;
 	} else {
+		lastEmail = email;
 		var url = "/ringtoneserver/sendemail?download_link="+link+"&email="+email;
 		$.get(url,
 			function(data){
 				if (data == "ok") {
-					confirm("The email has been sent, please download the ringtone from your computer and read the instructions.");
+					confirm("The email will be send in several minutes, please download the ringtone from your computer and read the instructions which will tell you how to install the ringtone with iTunes.");
+				} else {
+					confirm("The request for sending email failed. Please try again.");
 				}
 		});
 	}
-}
+};
 
 function isEmail(strEmail) {
-	if (strEmail.search(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/) != -1)
+	if (strEmail.search(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/) != -1) {
 		return true;
-	else
+	}
+	else {
 		return false;
+	}
 };

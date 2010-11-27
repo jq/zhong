@@ -185,6 +185,8 @@ div .loader {
 				display: block;
 				top: 70px;
 				position: absolute;
+				height: 50px;
+				width: 200px;
 			}
 			.music_info .stars0 {
 			  	background: url("img/0stars.png") repeat scroll 0 0 transparent;
@@ -276,6 +278,22 @@ div .loader {
 			
 			#jqt h3 {
 				color: #4C566C;
-				font: normal normal 10px/normal 'Helvetica Neue', Helvetica;
+				font: normal normal 14px/normal 'Helvetica Neue', Helvetica;
 				margin: 10px 20px 6px;
 			}
+			
+			           #about {
+                padding: 100px 10px 40px;
+                text-shadow: rgba(255, 255, 255, 0.3) 0px -1px 0;
+                font-size: 13px;
+                text-align: center;
+                background: #161618;
+            }
+            #about p {
+                margin-bottom: 8px;
+            }
+            #about a {
+                color: #fff;
+                font-weight: bold;
+                text-decoration: none;
+            }

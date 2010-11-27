@@ -3,21 +3,21 @@
     <head>
         <meta charset="UTF-8" />
         <title>FreeRingtone</title>
-        <style type="text/css" media="screen">@import "/jqtouch/jqtouch.css";</style>
+        <style type="text/css" media="screen">@import "/jqtouch/jqtouch.min.css";</style>
         
-        <style type="text/css" media="screen">@import "themes/apple/theme.css";</style>
-        <style type="text/css" media="screen">@import "themes/apple/addition.css";</style>
+        <style type="text/css" media="screen">@import "themes/apple/theme.min.css";</style>
+        <style type="text/css" media="screen">@import "themes/apple/addition.min.css";</style>
         
         
         <script src="/jqtouch/jquery-1.4.4.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
-        <script src="/js/iphone_search.js" type="application/x-javascript" charset="utf-8"></script>
-        <script src="/js/iscroll.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="/jqtouch/jqtouch.min.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="/js/iphone_search.min.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="/js/iscroll.min.js" type="application/x-javascript" charset="utf-8"></script>
         
         <script type="text/javascript" charset="utf-8">
         var jQT = new $.jQTouch({
             icon: 'ringtone_icon.png',
-            debug: true,
+            debug: false,
             preloadImages: [
               'themes/apple/img/backButton_clicked.png',
               'themes/apple/img/backButton.png',
@@ -51,13 +51,17 @@
               var $wrapper = $item.find('.s-scrollwrapper');
               if ($wrapper.length > 0) {
                 var headerH = 0;
-                var footerH = 0;
+                var footerH = 50;
                 var tabbarH = 0;
                 var wrapperH = 320;
-  
+		
                 var $header = $item.find('.toolbar');
                 headerH = $header.length > 0 ? ($header.outerHeight() > 0 ? $header.outerHeight() : 0) : 0;
-  
+
+                if ($item.attr("id") == "home") {
+					headerH += $item.find('.searchbox').outerHeight();
+                }
+				  
                 var $footer = $item.find('.navibar'); // page footer
                 var $tabbar = $('#tabbar'); // global tabbar
                 if ($footer.length > 0) {
@@ -107,6 +111,8 @@
                   });
                 }
               });
+
+              
             }
 
             if (window.navigator.standalone) {
@@ -125,28 +131,20 @@
               setTimeout(function() {
                 $(window).resize();
               }, 1500);
+              
+              if (!window.navigator.standalone) {
+              	$('#hint').show();
+              } else {
+  				$('#hint').hide();
+              }
+              
             });
+
+            
         </script>
         
         <style type="text/css" media="screen">
-            #about {
-                padding: 100px 10px 40px;
-                text-shadow: rgba(255, 255, 255, 0.3) 0px -1px 0;
-                font-size: 13px;
-                text-align: center;
-                background: #161618;
-            }
-            #about p {
-                margin-bottom: 8px;
-            }
-            #about a {
-                color: #fff;
-                font-weight: bold;
-                text-decoration: none;
-            }
-            
-            
-			
+ 
         </style>
         <style type="text/css" media="screen">
         </style>
@@ -164,11 +162,37 @@
 	        			<input id="submit" type="hidden" /></fieldset>
 	      			</form>
 	    		</div>
+	    		<div id="target-wrapper-Home" class="s-scrollwrapper"><div id="target-pane-Home" class="s-scrollpane">
 	    		<ul class="rounded">
 	        		<li class="arrow"><a id="cates" href="#categories">All Categories</a></li>
 	        		<li class="arrow"><a href="#top_download">Top Donwload</a></li>
 	        		<li class="arrow"><a href="#newest_add">Newest Add</a></li>
 	    		</ul>
+	    	    <div class="info">
+      				<p>This is an iPhone Web application for download free ringtones!.</p>
+      				<p>Version: 0.1beta</p>
+      				<p id="hint" style="color:rgb(200,0,0);">Please add me into your home screen!</p>
+    			</div>
+	    		</div></div>
+	    		<div id="footer">
+	    		<script type="text/javascript"><!--
+					window.googleAfmcRequest = {
+					client: 'ca-mb-pub-8798798908578754',
+					ad_type: 'text_image',
+					output: 'html',
+					channel: '',
+					format: '320x50_mb',
+					oe: 'utf8',
+					color_border: '336699',
+					color_bg: 'FFFFFF',
+					color_link: '0000FF',
+					color_text: '000000',
+					color_url: '008000',
+				};
+				//--></script>
+				<script type="text/javascript"
+				src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
+				</div>
 			</div>
 	
 			<div id="search_result">
@@ -181,6 +205,25 @@
 				 	 <ul class="rounded" id="results">
 				 	 </ul>
 				</div></div>
+					    		<div id="footer">
+	    		<script type="text/javascript"><!--
+					window.googleAfmcRequest = {
+					client: 'ca-mb-pub-8798798908578754',
+					ad_type: 'text_image',
+					output: 'html',
+					channel: '',
+					format: '320x50_mb',
+					oe: 'utf8',
+					color_border: '336699',
+					color_bg: 'FFFFFF',
+					color_link: '0000FF',
+					color_text: '000000',
+					color_url: '008000',
+				};
+				//--></script>
+				<script type="text/javascript"
+				src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
+				</div>
 			</div>
 			
 			<div id="categories">
@@ -241,6 +284,25 @@
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Funk">Funk</a></li>
 				</ul>
 				</div></div>
+				<div id="footer">
+	    		<script type="text/javascript"><!--
+					window.googleAfmcRequest = {
+					client: 'ca-mb-pub-8798798908578754',
+					ad_type: 'text_image',
+					output: 'html',
+					channel: '',
+					format: '320x50_mb',
+					oe: 'utf8',
+					color_border: '336699',
+					color_bg: 'FFFFFF',
+					color_link: '0000FF',
+					color_text: '000000',
+					color_url: '008000',
+				};
+				//--></script>
+				<script type="text/javascript"
+				src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
+				</div>
 	   </div>
 			
 			<div id="category">
@@ -253,6 +315,25 @@
 				<ul class="rounded" id="results">
 				</ul>
 				</div></div>
+				<div id="footer">
+	    		<script type="text/javascript"><!--
+					window.googleAfmcRequest = {
+					client: 'ca-mb-pub-8798798908578754',
+					ad_type: 'text_image',
+					output: 'html',
+					channel: '',
+					format: '320x50_mb',
+					oe: 'utf8',
+					color_border: '336699',
+					color_bg: 'FFFFFF',
+					color_link: '0000FF',
+					color_text: '000000',
+					color_url: '008000',
+				};
+				//--></script>
+				<script type="text/javascript"
+				src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
+				</div>
 			</div>
 			
 			<div id="top_download">
@@ -264,7 +345,27 @@
 				<div id="target-wrapper-TopDownload" class="s-scrollwrapper"><div id="target-pane-TopDownload" class="s-scrollpane">
 				<ul class="rounded" id="results">
 				</ul>
-				</div></div>
+				</div>
+				</div>
+				<div id="footer">
+	    		<script type="text/javascript"><!--
+					window.googleAfmcRequest = {
+					client: 'ca-mb-pub-8798798908578754',
+					ad_type: 'text_image',
+					output: 'html',
+					channel: '',
+					format: '320x50_mb',
+					oe: 'utf8',
+					color_border: '336699',
+					color_bg: 'FFFFFF',
+					color_link: '0000FF',
+					color_text: '000000',
+					color_url: '008000',
+				};
+				//--></script>
+				<script type="text/javascript"
+				src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
+				</div>
 			</div>
 			
 			<div id="newest_add">
@@ -277,6 +378,25 @@
 				<ul class="rounded" id="results">
 				</ul>
 				</div></div>
+				<div id="footer">
+	    		<script type="text/javascript"><!--
+					window.googleAfmcRequest = {
+					client: 'ca-mb-pub-8798798908578754',
+					ad_type: 'text_image',
+					output: 'html',
+					channel: '',
+					format: '320x50_mb',
+					oe: 'utf8',
+					color_border: '336699',
+					color_bg: 'FFFFFF',
+					color_link: '0000FF',
+					color_text: '000000',
+					color_url: '008000',
+				};
+				//--></script>
+				<script type="text/javascript"
+				src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
+				</div>
 			</div>
 			
 			<div id="details">
@@ -284,6 +404,7 @@
 					<h1>Download</h1>
 					<a href="#" class="back">Back</a>
 				</div>
+				<div id="target-wrapper-Details" class="s-scrollwrapper"><div id="target-pane-Details" class="s-scrollpane">
 				<ul class="rounded" id="info">
 					<li class="music_info">
 						<a href="#">
@@ -300,9 +421,29 @@
 				</ul>
 				<h3>Please input your email address and we will send you the link the the ringtone and the instructions to install it on your computer.</h3>
 				<ul class="edit rounded" id="operate">
-					<li><input type="email" name="email" placeholder="Email" id="email_text" /></li>
+					<li><input type="email" name="email" placeholder="Please input your email here" id="email_text" /></li>
 					<li><a href="#" class="whiteButton" id="email_button">Send Email</a></li>
 				</ul>
+				</div></div>
+				<div id="footer">
+	    		<script type="text/javascript"><!--
+					window.googleAfmcRequest = {
+					client: 'ca-mb-pub-8798798908578754',
+					ad_type: 'text_image',
+					output: 'html',
+					channel: '',
+					format: '320x50_mb',
+					oe: 'utf8',
+					color_border: '336699',
+					color_bg: 'FFFFFF',
+					color_link: '0000FF',
+					color_text: '000000',
+					color_url: '008000',
+				};
+				//--></script>
+				<script type="text/javascript"
+				src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
+				</div>
 			</div>
 		</div>
     </body>
