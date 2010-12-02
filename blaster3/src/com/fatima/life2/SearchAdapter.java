@@ -19,7 +19,7 @@ public class SearchAdapter {
 	
 	// Provide a list view for representation.
 	private ArrayList<SearchResultBuffer> mResultBuffers = new ArrayList<SearchResultBuffer>();
-	private final byte[] mGuid;
+	private byte[] mGuid;
 	
 	// For displaying.
 	private int mCurrentBatch;
@@ -31,6 +31,10 @@ public class SearchAdapter {
 	
 	public byte[] getGuid() {
 		return mGuid;
+	}
+	
+	public void setGuid(byte[] guid) {
+		mGuid = guid;
 	}
 
 	public boolean sameGuid(byte[] guid) {

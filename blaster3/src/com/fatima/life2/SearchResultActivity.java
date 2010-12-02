@@ -590,6 +590,8 @@ public class SearchResultActivity extends Activity {
         	mQuery = StringUtils.removeIllegalChars(intent.getStringExtra(Constants.QUERY));
 	    }
 	    
+    	mSearchAdapter = new SearchAdapter(null);
+    	
 		sWaitForRouterServiceTask = new WaitForRouterServiceTask(intent, mQuery);
 		sWaitForRouterServiceTask.execute();
 	    
@@ -797,12 +799,10 @@ public class SearchResultActivity extends Activity {
 		@Override
 		public synchronized void handleQueryResult(
 		        final RemoteFileDesc rfd, final HostData data, final Set<Endpoint> locs) {
-			//Utils.D("handleQueryResult");
 			if (mGuid == null)
 				return;
 			
 			if (data == null || rfd == null) {
-			    //LOG.logSp("handleQueryResult null");
 				return;
 			}
  			
@@ -1067,9 +1067,9 @@ public class SearchResultActivity extends Activity {
             if (!TextUtils.isEmpty(mQuery) ||
             	!TextUtils.isEmpty(xml)) {
             	stopQuery();
-            	mGuid = RouterService.newQueryGUID();
-            	mSearchAdapter = new SearchAdapter(mGuid);
             	mAdapter.notifyDataSetChanged();
+		    	mGuid = RouterService.newQueryGUID();
+		    	mSearchAdapter.setGuid(mGuid);
         		RouterService.query(mGuid, mQuery, xml, MediaType.TYPE_MP3);
             }
         }

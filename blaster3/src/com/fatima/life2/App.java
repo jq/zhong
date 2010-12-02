@@ -7,6 +7,7 @@ import com.limegroup.gnutella.Connection;
 import com.limegroup.gnutella.Downloader;
 import com.limegroup.gnutella.Endpoint;
 import com.limegroup.gnutella.ErrorCallback;
+import com.limegroup.gnutella.ErrorService;
 import com.limegroup.gnutella.GUID;
 import com.limegroup.gnutella.RemoteFileDesc;
 import com.limegroup.gnutella.RouterService;
@@ -30,7 +31,7 @@ public class App extends Application {
 		return sRouterService;
 	}
 	
-	ErrorCallback sErrorCallback = new ErrorCallback() {
+	static ErrorCallback sErrorCallback = new ErrorCallback() {
 
 		@Override
 		public void error(Throwable t) {
@@ -54,6 +55,8 @@ public class App extends Application {
         SharingSettings.setSaveDirectory();
         
         Utils.copyConfigFile(context);
+        
+        ErrorService.setErrorCallback(sErrorCallback);
 
 		// Start service
 		Intent intent = new Intent(context, DownloadService.class);

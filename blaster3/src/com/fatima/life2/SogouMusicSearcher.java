@@ -31,7 +31,7 @@ public class SogouMusicSearcher {
 			// TODO(zyu): In some cases, lyrics are empty. Temporily ignore lyrics.
 //			"<td.*?href=\"([^\"]*)\".*?" +  // 5
 			"<td>(.*?)</td>.*?" +  // 5
-			"<td.*?</td>.*?" +  // Ignore
+//			"<td.*?</td>.*?" +  // Ignore
 			"<td.*?>([^<]*)<.*?" +   // 6
 			"<td.*?>([^<]*)<" +   // 7
 			""
@@ -70,6 +70,9 @@ public class SogouMusicSearcher {
 			while (matcherRow.find()) {
 				Matcher m = PATTERN.matcher(matcherRow.group(1));
 				while (m.find()) {
+				  Utils.D("--------------");
+				  Utils.D("Found: " + m.group(1));
+				  Utils.D("--------------");
 				  SogouSearchResult searchResult = new SogouSearchResult();
 				  searchResult.setTitle(StringEscapeUtils.unescapeHtml(m.group(1).trim()));
 				  searchResult.setArtist(StringEscapeUtils.unescapeHtml(URLDecoder.decode(m.group(2), "gb2312").trim()));
