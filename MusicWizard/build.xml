@@ -289,13 +289,13 @@
     	<target name="package-apks" depends="clean-apks, init-all" description="Package applications.">
     		
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Music1"/>
+    		    <param name="package_name" value="Music11"/>
     		    <param name="drawable" value="app_icons\\player1.png"/>
     			<param name="app_name" value="Music Ringtone"/>
     		</antcall> 
 
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Music2"/>
+    		    <param name="package_name" value="Music12"/>
     		    <param name="drawable" value="app_icons\\player2.png"/>
     			<param name="app_name" value="Music Wizzard"/>
     		</antcall> 
@@ -307,38 +307,38 @@
     		</antcall> 
     		
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Music4"/>
+    		    <param name="package_name" value="Music14"/>
     		    <param name="drawable" value="app_icons\\player4.png"/>
     			<param name="app_name" value="Ringtone Music"/>
     		</antcall> 
     		
 			
 			<antcall target="package-apk">
-    		    <param name="package_name" value="Music5"/>
+    		    <param name="package_name" value="Music15"/>
     		    <param name="drawable" value="app_icons\\player5.png"/>
     			<param name="app_name" value="Mp3 Music"/>
     		</antcall> 
     		
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Music6"/>
+    		    <param name="package_name" value="Music16"/>
     		    <param name="drawable" value="app_icons\\icon6.png"/>
     			<param name="app_name" value="Mp3 Ringtone"/>
     		</antcall> 
 			
 			<antcall target="package-apk">
-    		    <param name="package_name" value="Music7"/>
+    		    <param name="package_name" value="Music17"/>
     		    <param name="drawable" value="app_icons\\icon7.png"/>
     			<param name="app_name" value="Mp3 Player"/>
     		</antcall> 
     		
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Music8"/>
+    		    <param name="package_name" value="Music18"/>
     		    <param name="drawable" value="app_icons\\icon8.png"/>
     			<param name="app_name" value="Music Player"/>
     		</antcall> 
     		
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Music9"/>
+    		    <param name="package_name" value="Music19"/>
     		    <param name="drawable" value="app_icons\\icon9.png"/>
     			<param name="app_name" value="Ringtone Player"/>
     		</antcall> 
