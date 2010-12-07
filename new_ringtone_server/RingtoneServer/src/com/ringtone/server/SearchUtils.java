@@ -40,6 +40,7 @@ public class SearchUtils {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		Query query = pm.newQuery(SongEntry.class);
 		query.setFilter("artist == lastParam");
+		query.declareParameters("String lastParam");
 		query.setRange(start, start+Const.MAX_RESULTS_PER_QUERY);
 		List<SongEntry> results = null;
 		try {
@@ -55,6 +56,7 @@ public class SearchUtils {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		Query query = pm.newQuery(SongEntry.class);
 		query.setFilter("category == lastParam");
+		query.declareParameters("String lastParam");
 		query.setRange(start, start+Const.MAX_RESULTS_PER_QUERY);
 		List<SongEntry> results = null;
 		try {
