@@ -17,6 +17,7 @@ public class Const {
 	public static final String S3URL = "s3url";
 	public static final String RECORD = "record";
 	public static final String ADD_DATE = "add_date";
+	public static final String RATE = "rate";
 	
 	public static final String QUERY = "q";
 	public static final String START = "start";

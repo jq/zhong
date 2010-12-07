@@ -17,23 +17,34 @@ public class SearchUtils {
 		}
 	}
 	
+//	public static SongEntry getSongEntryByUUID(String uuid) {
+//		PersistenceManager pm = PMF.get().getPersistenceManager();
+//		Query query = pm.newQuery(SongEntry.class);
+//		query.setFilter("uuid == lastParam");
+//		query.setRange(0, 1);
+//		query.declareParameters("String lastParam");
+//		List<SongEntry> results = null;
+//		SongEntry result = null;
+//		try {
+//			results = (List<SongEntry>)query.execute(uuid);
+//			if (results.size() > 0) {
+//				result = results.get(0);
+//			}
+//		} finally {
+//			query.closeAll();
+//		}
+//		return result;
+//	}
+	
 	public static SongEntry getSongEntryByUUID(String uuid) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Query query = pm.newQuery(SongEntry.class);
-		query.setFilter("uuid == lastParam");
-		query.setRange(0, 1);
-		query.declareParameters("String lastParam");
-		List<SongEntry> results = null;
-		SongEntry result = null;
+		SongEntry songEntry = null;
 		try {
-			results = (List<SongEntry>)query.execute(uuid);
-			if (results.size() > 0) {
-				result = results.get(0);
-			}
+			songEntry = (SongEntry)pm.getObjectById(SongEntry.class, uuid);
 		} finally {
-			query.closeAll();
+			pm.close();
 		}
-		return result;
+		return songEntry;
 	}
 	
 	public static List<SongEntry> getResultsByArtist(String artist, int start) {

@@ -86,7 +86,23 @@
 		<url-pattern>/ringtoneserver/mobile/cateall</url-pattern>
 	</servlet-mapping>
 	
-
+	<servlet>
+		<servlet-name>DownloadCountIncServlet</servlet-name>
+		<servlet-class>com.ringtone.server.DownloadCountIncServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DownloadCountIncServlet</servlet-name>
+		<url-pattern>/ringtoneserver/download</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RateServlet</servlet-name>
+		<servlet-class>com.ringtone.server.RateServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RateServlet</servlet-name>
+		<url-pattern>/ringtoneserver/rate</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
     	<servlet-name>RemoteApi</servlet-name>
