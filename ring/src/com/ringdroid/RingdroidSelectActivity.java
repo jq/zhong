@@ -47,7 +47,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ringdroid.soundfile.CheapSoundFile;
-import com.util.Utils;
+import com.util.RUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -182,7 +182,7 @@ public class RingdroidSelectActivity
                     if (id == R.id.row_artist ||
                     	id == R.id.row_album ||
                     	id == R.id.row_title) {
-                    	((TextView) view).setText(Utils.convertGBK(cursor.getString(columnIndex)));
+                    	((TextView) view).setText(RUtils.convertGBK(cursor.getString(columnIndex)));
                     	return true;
                     }
                     return false;
@@ -288,7 +288,7 @@ public class RingdroidSelectActivity
         Cursor c = mAdapter.getCursor();
         String title = c.getString(c.getColumnIndexOrThrow(
             MediaStore.Audio.Media.TITLE));
-        title = Utils.convertGBK(title);
+        title = RUtils.convertGBK(title);
         menu.setHeaderTitle(title);
 
         menu.add(0, CMD_EDIT, 0, R.string.context_menu_edit);
@@ -367,7 +367,7 @@ public class RingdroidSelectActivity
         }
 
         new AlertDialog.Builder(RingdroidSelectActivity.this)
-            .setTitle(Utils.convertGBK(title.toString()))
+            .setTitle(RUtils.convertGBK(title.toString()))
             .setMessage(message)
             .setPositiveButton(
                 R.string.delete_ok_button,
@@ -479,7 +479,7 @@ public class RingdroidSelectActivity
             EXTERNAL_COLUMNS,
             selection,
             selectionArgs,
-            MediaStore.Audio.Media.DATE_ADDED + " DESC");
+            MediaStore.Audio.Media.DATE_ADDED + " DESC LIMIT 100");
     }
 
     Cursor createCursor(String filter) {
@@ -512,8 +512,6 @@ public class RingdroidSelectActivity
             args.add(filter);
             args.add(filter);
             args.add(filter);
-        } else {
-        	selection += " top 100"; 
         }
 
         String[] argsArray = args.toArray(new String[args.size()]);

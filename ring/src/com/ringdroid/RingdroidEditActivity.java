@@ -59,7 +59,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.ringdroid.soundfile.CheapSoundFile;
-import com.util.Utils;
+import com.util.RUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -676,7 +676,7 @@ public class RingdroidEditActivity extends Activity implements
 		if (mArtist != null && mArtist.length() > 0) {
 			titleLabel += " - " + mArtist;
 		}
-		setTitle(Utils.convertGBK(titleLabel));
+		setTitle(RUtils.convertGBK(titleLabel));
 
 		mLoadingStartTime = System.currentTimeMillis();
 		mLoadingLastUpdateTime = System.currentTimeMillis();
@@ -1481,7 +1481,7 @@ public class RingdroidEditActivity extends Activity implements
 			}
 		};
 		Message message = Message.obtain(handler);
-		FileSaveDialog dlog = new FileSaveDialog(this, getResources(), Utils.convertGBK(mTitle),
+		FileSaveDialog dlog = new FileSaveDialog(this, getResources(), RUtils.convertGBK(mTitle),
 				message);
 		dlog.show();
 	}
