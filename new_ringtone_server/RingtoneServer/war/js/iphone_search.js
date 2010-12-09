@@ -87,9 +87,9 @@ function fill_details_page(artist, title, rate, download_count, download_link, i
 }
 
 
-function fill_cate_page(cate) {
+function fill_cate_page(cate, cate_name) {
 	var div_cate = $("#category");
-	$("h1", div_cate).text(cate);
+	$("h1", div_cate).text(cate_name);
 	var results = $("#results", div_cate);
 	results.empty();
 	var url = "/ringtoneserver/search?q="+cate+"&type=category";

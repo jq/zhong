@@ -36,7 +36,8 @@
         $(function(){   
             $('.cate_link_item').bind('tapped', function(e){
             	var cate = $(e.target).attr("value");
-            	fill_cate_page(cate);
+            	var cate_name = $(e.target).text();
+            	fill_cate_page(cate, cate_name);
             });
         });
 
