@@ -70,6 +70,7 @@ var last_email;
 //rate is "stars4" which to be set as class, etc...
 function fill_details_page(artist, title, rate, download_count, download_link, img_link, uuid) {
 	var div_details = $("#details");
+	clearRate();
 	if (last_email!=null) {
 		$("#email_text", div_details).attr("value", last_email);
 	}
@@ -336,12 +337,18 @@ function isEmail(strEmail) {
 	}
 };
 
+function clearRate() {
+	for (i=1; i<=5; i++) {
+		$("#star"+i).html("<img src='/images/empty_star.png'></img>");
+	}
+}
+
 function doRate(num) {
 	for (i=1; i<=num; i++) {
-		$("#star"+i).html("<img src='/images/star_big.gif'></img>");
+		$("#star"+i).html("<img src='/images/full_star.png'></img>");
 	}
 	for (i=num+1; i<=5; i++) {
-		$("#star"+i).html("<img src='/images/star_empty_big.gif'></img>")
+		$("#star"+i).html("<img src='/images/empty_star.png'></img>")
 	}
 	var uuid = $("#uuid").attr("value");
 	var rate_url = "/ringtoneserver/rate?uuid="+uuid+"&rate="+num*20
