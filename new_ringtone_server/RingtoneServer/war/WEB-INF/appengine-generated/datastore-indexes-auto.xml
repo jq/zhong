@@ -1,11 +1,4 @@
-<!-- Indices written at Mon, 6 Dec 2010 12:55:34 UTC -->
+<!-- Indices written at Thu, 9 Dec 2010 05:44:52 UTC -->
 
-<datastore-indexes>
+<datastore-indexes/>
 
-    <!-- Used 4 times in query history -->
-    <datastore-index kind="SongEntry" ancestor="false" source="auto">
-        <property name="fts" direction="asc"/>
-        <property name="download_count" direction="desc"/>
-    </datastore-index>
-
-</datastore-indexes>

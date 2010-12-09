@@ -8,6 +8,8 @@
         <style type="text/css" media="screen">@import "themes/apple/theme.css";</style>
         <style type="text/css" media="screen">@import "themes/apple/addition.css";</style>
         
+        <link rel="apple-touch-startup-image" href="ringtone_splash_460.png">
+        
         <script src="/jqtouch/jquery-1.4.4.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="/jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
         <script src="/js/iphone_search.js" type="application/x-javascript" charset="utf-8"></script>
@@ -58,8 +60,7 @@
                 headerH = $header.length > 0 ? ($header.outerHeight() > 0 ? $header.outerHeight() : 0) : 0;
 
                 if ($item.attr("id") == "home") {
-					headerH += $item.find('.searchbox').outerHeight();
-					footerH = 50;
+					headerH += $item.find('.searchbox').outerHeight()+50;
 	            }
 				  
                 var $footer = $item.find('.navibar'); // page footer
@@ -137,10 +138,7 @@
               } else {
   				$('#hint').hide();
               }
-              
             });
-
-            
         </script>
         
         <style type="text/css" media="screen">
@@ -165,7 +163,6 @@
 			    text-decoration: none;
 			    white-space: nowrap;
 			    background: none;
-			    -webkit-border-image: url(img/toolButton.png) 0 5 0 5;
 			}
 			
 			#jqt .top {
@@ -173,11 +170,38 @@
 			    position: absolute;
 			    padding: 0;
 			    max-width: 55px;
-			    border-width: 0 8px 0 14px;
-			    -webkit-border-image: url(/themes/apple/img/toolButton.png) 0 5 0 5;
+			    border-width: 0 5px 0 5px;
+				padding: 0px 10px 0px 10px;
+			    -webkit-border-image: url(/images/navbutton.png) 0 5 0 5;
 			}
 			
-			
+			.music_info .rate_stars{
+				display: block;
+				height: 16px;
+				width: 200px;
+				color: #ff8a00;
+				text-align: center;
+				top: 130px;
+				left: 55px;
+				position: absolute;
+			}
+			.tap_star {
+				border-width: 0;
+				padding: 0 0 0 0;
+				margin: 0 0 0 0;
+			}
+			.stars span{
+				display: block;
+				overflow: hidden;
+				padding: 0 0 0 0;
+				margin: 0 0 0 0;
+			}
+			#email_button {
+				margin: 0 10px 0px 10px;
+			}
+			#jqt #email_ul {
+				margin-bottom: 0;
+			}
         </style>
         <style type="text/css" media="screen">
         </style>
@@ -186,33 +210,8 @@
     <body>
     	<div id="jqt">
 			<div id="home" class="current">
-	    		<div class="toolbar">
-	        		<h1>Free Ringtone</h1>
-	    		</div>
-	    		<div class="searchbox">
-	      			<form id="search" action="" method="">
-	        			<fieldset><input id="search-text" placeholder="search" type="text" />
-	        			<input id="submit" type="hidden" /></fieldset>
-	      			</form>
-	    		</div>
-	    		<div id="target-wrapper-Home" class="s-scrollwrapper"><div id="target-pane-Home" class="s-scrollpane">
-	    		<ul class="rounded">
-	        		<li class="arrow"><a id="cates" href="#categories">All Categories</a></li>
-	        		<li class="arrow"><a href="#top_download">Top Donwload</a></li>
-	        		<li class="arrow"><a href="#newest_add">Newest Add</a></li>
-	    		</ul>
-	    		
-	    		<ul class="rounded">
-	    			<li class="forward"><a href="http://www.baidu.com/" target="_blank">baidu</a></li>
-	    		</ul>
-	    	    <div class="info">
-      				<p>This is an iPhone Web application for download free ringtones!.</p>
-      				<p>Version: 0.1beta</p>
-      				<p id="hint" style="color:rgb(200,0,0);">Please add me into your home screen!</p>
-    			</div>
-	    		</div></div>
-	    		<div id="footer">
-	    		<script type="text/javascript"><!--
+				<div>
+	    		<script type="text/javascript">
 					window.googleAfmcRequest = {
 					client: 'ca-mb-pub-8798798908578754',
 					ad_type: 'text_image',
@@ -226,9 +225,36 @@
 					color_text: '000000',
 					color_url: '008000',
 				};
-				//--></script>
+				</script>
 				<script type="text/javascript"
 					src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
+				</div>
+	    		<div class="toolbar">
+	        		<h1>Free Ringtone</h1>
+	    		</div>
+	    		
+	    		<div class="searchbox">
+	      			<form id="search" action="" method="">
+	        			<fieldset><input id="search-text" placeholder="search" type="text" />
+	        			<input id="submit" type="hidden" /></fieldset>
+	      			</form>
+	    		</div>
+
+	    		<div id="target-wrapper-Home" class="s-scrollwrapper"><div id="target-pane-Home" class="s-scrollpane">
+	    		<ul class="rounded">
+	        		<li class="arrow"><a id="cates" href="#categories">All Categories</a></li>
+	        		<li class="arrow"><a href="#top_download">Top Donwload</a></li>
+	        		<li class="arrow"><a href="#newest_add">Newest Add</a></li>
+	    		</ul>
+	    	
+	    	    <div class="info">
+      				<p>This is an iPhone Web application for download free ringtones!.</p>
+      				<p>Version: 0.1beta</p>
+      				<p id="hint" style="color:rgb(200,0,0);">Please add me into your home screen!</p>
+    			</div>
+	    		</div></div>
+	    		<div id="footer">
+
 				</div>
 			</div>
 	
@@ -257,7 +283,7 @@
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Christian and Gospel">Christian and Gospel</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Metal">Metal</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Holiday">Holiday</a></li>
-					<li class="arrow"><a class="cate_link_item" href="#category" value="Rnb_Soul">R&B</a></li>
+					<li class="arrow"><a class="cate_link_item" href="#category" value="Rnb_Soul">R&B Soul</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="World Music">World Music</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Techno">Techno</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Pop">Pop</a></li>
@@ -266,7 +292,6 @@
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Jazz">Jazz</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="International">International</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Hip-Hop">Hip-Hop</a></li>
-					<li class="arrow"><a class="cate_link_item" href="#category" value="Gospel">Gospel</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Movies and TV">Movies and TV</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Latin">Latin</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Blues">Blues</a></li>
@@ -274,7 +299,6 @@
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Classical">Classical</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Comedy">Comedy</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Country">Country</a></li>
-					<li class="arrow"><a class="cate_link_item" href="#category" value="Rnb_Soul">Soul</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Reggae">Reggae</a></li>
 				</ul>
 				</div></div>
@@ -337,22 +361,43 @@
 				<ul class="rounded" id="info">
 					<li class="music_info">
 						<a href="#">
-							<img src="http://ringtone_image.s3.amazonaws.com/017d578d-baef-4ce0-8d07-aafdf15d7521thumb_122754_50.jpg">
+							<img id="s3_image"/>
 							<span class="artist"></span>
 							<span class="title"></span>
 							<span class="download_count"></span>
 							<span id="rate_star"></span>
+							<span id="uuid" value=""></span>
 							<audio controls="controls" class="player">
 								Your browser does not support the audio element.
 							</audio>
 						</a>
 					</li>
+					<li style="text-align:center;">
+						<h3>Rate this ringtone</h3>
+						<span class="rate_stars">
+							<span id="star1" onclick="doRate(1)" class="tap_star">
+								<img height="32" src="/images/star_empty_big.gif"></img>
+							</span>
+							<span id="star2" onclick="doRate(2)" class="tap_star">
+								<img height="32" src="/images/star_empty_big.gif"></img>
+							</span>
+							<span id="star3" onclick="doRate(3)" class="tap_star">
+								<img height="32" src="/images/star_empty_big.gif"></img>
+							</span>
+							<span id="star4" onclick="doRate(4)" class="tap_star">
+								<img height="32" src="/images/star_empty_big.gif"></img>
+							</span>
+							<span id="star5" onclick="doRate(5)" class="tap_star">
+								<img height="32" src="/images/star_empty_big.gif"></img>
+							</span>
+						</span>
+					</li>
 				</ul>
-				<h3>Please input your email address and we will send you the link the the ringtone and the instructions to install it on your computer.</h3>
-				<ul class="edit rounded" id="operate">
+				<h3>Please input your email address and we will send you the link of the ringtone and the instructions to install it on your computer.</h3>
+				<ul class="edit rounded" id="email_ul">
 					<li><input type="email" name="email" placeholder="Please input your email here" id="email_text" /></li>
-					<li><a href="#" class="whiteButton" id="email_button">Send Email</a></li>
 				</ul>
+				<a href="#" class="whiteButton" id="email_button">Send Email</a>
 				</div></div>
 				<div id="footer">
 				</div>

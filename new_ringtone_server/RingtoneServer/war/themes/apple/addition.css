@@ -185,7 +185,7 @@ div .loader {
 				display: block;
 				top: 70px;
 				position: absolute;
-				height: 50px;
+				height: 40px;
 				width: 200px;
 			}
 			.music_info .stars0 {
@@ -218,7 +218,7 @@ div .loader {
             	position: relative;
             }
             
-            .music_info img {
+            .music_info #s3_image {
             	display: block;
   				height: 50px;
   				width: 50px;

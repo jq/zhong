@@ -10,7 +10,7 @@
 				confirm("The search key word should not be empty.");
 				return;
 			}
-			jQT.goTo(div_search_result);
+//			jQT.goTo(div_search_result);
 //			text.blur();
 			var results = $("#results", div_search_result).empty();
 			var load_more = "Tap to load more";
@@ -68,17 +68,18 @@
 
 var last_email;
 //rate is "stars4" which to be set as class, etc...
-function fill_details_page(artist, title, rate, download_count, download_link, img_link) {
+function fill_details_page(artist, title, rate, download_count, download_link, img_link, uuid) {
 	var div_details = $("#details");
 	if (last_email!=null) {
 		$("#email_text", div_details).attr("value", last_email);
 	}
 	$("audio", div_details).remove();
-	$("img", div_details).attr("src", img_link);
+	$("#s3_image", div_details).attr("src", img_link);
 	$(".artist", div_details).text(artist);
 	$(".title", div_details).text(title);
 	$(".download_count", div_details).text("Downloaded "+download_count+" times");
 	$("#rate_star", div_details).attr("class", rate);
+	$("#uuid", div_details).attr("value", uuid);
 	var audio = $("<audio>").attr("src", download_link).attr("class", "player").attr("controls", "controls");
 	var div_music_info_a = $("a", ".music_info", div_details);
 	audio.appendTo(div_music_info_a);
@@ -195,6 +196,14 @@ $(document).ready(function(e){
     })
 });
 
+$(document).ready(function(e){
+	$("#details").bind('pageAnimationStart', function(event, info) {
+		if (info.direction == 'out') {
+			$("audio", this).remove();
+		}
+	});
+});
+
 
 $(document).ready(function(e){
     $('#newest_add').bind('pageAnimationStart', function(event, info) {
@@ -293,7 +302,7 @@ function jsonToListItem(item) {
 		loading_img.attr("src", "/images/load_failed.png");
 	});
 //	var a = $("<a></a>").attr("href", item.s3url).attr("target", "_blank").attr("class", "song_item").attr("song_id", item.uuid);
-	var onclick = "javascript:fill_details_page(\""+item.artist+"\",\""+item.title+"\",\""+rate.attr("class")+"\",\""+item.download_count+"\",\""+item.s3url+"\",\""+item.image+"\");";
+	var onclick = "javascript:fill_details_page(\""+item.artist+"\",\""+item.title+"\",\""+rate.attr("class")+"\",\""+item.download_count+"\",\""+item.s3url+"\",\""+item.image+"\",\""+item.uuid+"\");";
 	var a = $("<a></a>").attr("href", "#details").attr("class", "song_item").attr("onClick", onclick).attr("song_id", item.uuid).attr("value", item.s3url);
 	var li = $("<li></li>").attr("class", "store");
 	var div_a = a.append(loading_img).append(image).append(artist).append(title).append(rate).append(download_count).append(arrow);
@@ -325,4 +334,19 @@ function isEmail(strEmail) {
 	else {
 		return false;
 	}
+};
+
+function doRate(num) {
+	for (i=1; i<=num; i++) {
+		$("#star"+i).html("<img src='/images/star_big.gif'></img>");
+	}
+	for (i=num+1; i<=5; i++) {
+		$("#star"+i).html("<img src='/images/star_empty_big.gif'></img>")
+	}
+	var uuid = $("#uuid").attr("value");
+	var rate_url = "/ringtoneserver/rate?uuid="+uuid+"&rate="+num*20
+	$.get(rate_url,
+		function(data){
+
+		});
 };
