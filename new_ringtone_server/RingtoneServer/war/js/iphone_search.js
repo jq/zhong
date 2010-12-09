@@ -10,7 +10,7 @@
 				confirm("The search key word should not be empty.");
 				return;
 			}
-//			jQT.goTo(div_search_result);
+			jQT.goTo(div_search_result);
 //			text.blur();
 			var results = $("#results", div_search_result).empty();
 			var load_more = "Tap to load more";

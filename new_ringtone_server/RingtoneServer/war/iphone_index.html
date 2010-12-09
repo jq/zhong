@@ -40,6 +40,10 @@
             });
         });
 
+        window.onload = function() {
+            window.scrollTo(0, 1);
+      	}
+
         $(function(){   
             $('#email_button').bind('tap', function(e) {
 				var email = $("#email_text").attr("value");
@@ -59,9 +63,9 @@
                 var $header = $item.find('.toolbar');
                 headerH = $header.length > 0 ? ($header.outerHeight() > 0 ? $header.outerHeight() : 0) : 0;
 
-                if ($item.attr("id") == "home") {
-					headerH += $item.find('.searchbox').outerHeight()+50;
-	            }
+//                if ($item.attr("id") == "home") {
+//					headerH += $item.find('.searchbox').outerHeight()+50;
+//	            }
 				  
                 var $footer = $item.find('.navibar'); // page footer
                 var $tabbar = $('#tabbar'); // global tabbar
@@ -139,6 +143,19 @@
   				$('#hint').hide();
               }
             });
+
+            $(function(){
+                $('body').bind('turn', function(event, info){
+                    if (info.orientation == 'portrait') {
+						$('.info').show();
+						$('.toolbar>h1').attr('style', 'left:46%;');
+                    } else {
+						$('.info').hide();
+						$('.toolbar>h1').attr('style', 'left:50%;');
+	                }
+                });
+            });
+                        
         </script>
         
         <style type="text/css" media="screen">
@@ -173,6 +190,10 @@
 			    border-width: 0 5px 0 5px;
 				padding: 0px 10px 0px 10px;
 			    -webkit-border-image: url(/images/navbutton.png) 0 5 0 5;
+			}
+			
+			#jqt .toolbar h1{
+				left: 46%;
 			}
 			
 			.music_info .rate_stars{
@@ -211,6 +232,31 @@
     	<div id="jqt">
 			<div id="home" class="current">
 				<div>
+
+				</div>
+	    		<div class="toolbar">
+	        		<h1>Free Ringtone</h1>
+	    		</div>
+	    		
+	    		<div class="searchbox">
+	      			<form id="search" action="" method="">
+	        			<fieldset><input id="search-text" placeholder="search" type="text" />
+	        			<input id="submit" type="hidden" /></fieldset>
+	      			</form>
+	    		</div>
+
+	    		<ul class="rounded">
+	        		<li class="arrow"><a id="cates" href="#categories">All Categories</a></li>
+	        		<li class="arrow"><a href="#top_download">Top Donwload</a></li>
+	        		<li class="arrow"><a href="#newest_add">Newest Add</a></li>
+	    		</ul>
+	    	
+	    	    <div class="info">
+      				<p>This is an iPhone Web application for download free ringtones!.</p>
+      				<p>Version: 0.1beta</p>
+      				<p id="hint" style="color:rgb(200,0,0);">Please add me into your home screen!</p>
+    			</div>
+	    		<div id="footer" style="margin-top:10px;">
 	    		<script type="text/javascript">
 					window.googleAfmcRequest = {
 					client: 'ca-mb-pub-8798798908578754',
@@ -227,34 +273,8 @@
 				};
 				</script>
 				<script type="text/javascript"
-					src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
-				</div>
-	    		<div class="toolbar">
-	        		<h1>Free Ringtone</h1>
-	    		</div>
-	    		
-	    		<div class="searchbox">
-	      			<form id="search" action="" method="">
-	        			<fieldset><input id="search-text" placeholder="search" type="text" />
-	        			<input id="submit" type="hidden" /></fieldset>
-	      			</form>
-	    		</div>
-
-	    		<div id="target-wrapper-Home" class="s-scrollwrapper"><div id="target-pane-Home" class="s-scrollpane">
-	    		<ul class="rounded">
-	        		<li class="arrow"><a id="cates" href="#categories">All Categories</a></li>
-	        		<li class="arrow"><a href="#top_download">Top Donwload</a></li>
-	        		<li class="arrow"><a href="#newest_add">Newest Add</a></li>
-	    		</ul>
-	    	
-	    	    <div class="info">
-      				<p>This is an iPhone Web application for download free ringtones!.</p>
-      				<p>Version: 0.1beta</p>
-      				<p id="hint" style="color:rgb(200,0,0);">Please add me into your home screen!</p>
-    			</div>
-	    		</div></div>
-	    		<div id="footer">
-
+					src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js">
+				</script>
 				</div>
 			</div>
 	
@@ -268,7 +288,7 @@
 				 	 <ul class="rounded" id="results">
 				 	 </ul>
 				</div></div>
-					    		<div id="footer">
+				<div id="footer">
 				</div>
 			</div>
 			
@@ -284,7 +304,6 @@
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Metal">Metal</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Holiday">Holiday</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Rnb_Soul">R&B Soul</a></li>
-					<li class="arrow"><a class="cate_link_item" href="#category" value="World Music">World Music</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Techno">Techno</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Pop">Pop</a></li>
 					<li class="arrow"><a class="cate_link_item" href="#category" value="Rock">Rock</a></li>
