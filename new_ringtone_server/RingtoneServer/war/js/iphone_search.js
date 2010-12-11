@@ -66,12 +66,12 @@
 //    });
 //});
 
-var last_email;
 //rate is "stars4" which to be set as class, etc...
 function fill_details_page(artist, title, rate, download_count, download_link, img_link, uuid) {
 	var div_details = $("#details");
+	last_email = localStorage.last_email;
 	clearRate();
-	if (last_email!=null) {
+	if (last_email) {
 		$("#email_text", div_details).attr("value", last_email);
 	}
 	$("audio", div_details).remove();
@@ -315,7 +315,7 @@ function sendEmail(email, link) {
 		confirm("The format is not correct.");
 		return;
 	} else {
-		lastEmail = email;
+		localStorage.last_email = email;
 		var url = "/ringtoneserver/sendemail?download_link="+link+"&email="+email;
 		$.get(url,
 			function(data){

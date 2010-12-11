@@ -98,7 +98,11 @@
               $('#jqt').children().each(function () {
                 var $this = $(this);
                 var $wrapper = $this.find('.s-scrollwrapper');
-                var $pane = $wrapper.find('.s-scrollpane'); 
+                var $pane = $wrapper.find('.s-scrollpane');
+//                if ($this.attr('id')=='home') {
+//                    window.alert('home');
+//					continue;
+//                } 
                 if ($wrapper.length > 0) {
                   var scroll = new iScroll($pane[0].id, {desktopCompatibility: true});
                   $this.data('iscroll_object', scroll); 
@@ -396,19 +400,19 @@
 						<h3>Rate this ringtone</h3>
 						<span class="rate_stars">
 							<span id="star1" onclick="doRate(1)" class="tap_star">
-								<img height="32" src="/images/empty_star.png"></img>
+								<img height="32" src="/images/empty_star.png"/>
 							</span>
 							<span id="star2" onclick="doRate(2)" class="tap_star">
-								<img height="32" src="/images/empty_star.png"></img>
+								<img height="32" src="/images/empty_star.png"/>
 							</span>
 							<span id="star3" onclick="doRate(3)" class="tap_star">
-								<img height="32" src="/images/empty_star.png"></img>
+								<img height="32" src="/images/empty_star.png"/>
 							</span>
 							<span id="star4" onclick="doRate(4)" class="tap_star">
-								<img height="32" src="/images/empty_star.png"></img>
+								<img height="32" src="/images/empty_star.png"/>
 							</span>
 							<span id="star5" onclick="doRate(5)" class="tap_star">
-								<img height="32" src="/images/empty_star.png"></img>
+								<img height="32" src="/images/empty_star.png"/>
 							</span>
 						</span>
 					</li>
