@@ -459,7 +459,7 @@ public class RingdroidSelectActivity
             INTERNAL_COLUMNS,
             selection,
             selectionArgs,
-            MediaStore.Audio.Media.DEFAULT_SORT_ORDER);
+            MediaStore.Audio.Media.DEFAULT_SORT_ORDER + " LIMIT 100");
     }
 
     private Cursor getExternalAudioCursor(String selection,
@@ -469,7 +469,7 @@ public class RingdroidSelectActivity
             EXTERNAL_COLUMNS,
             selection,
             selectionArgs,
-            MediaStore.Audio.Media.DATE_ADDED + " DESC");
+            MediaStore.Audio.Media.DATE_ADDED + " DESC LIMIT 100");
     }
 
     Cursor createCursor(String filter) {
