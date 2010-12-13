@@ -170,7 +170,7 @@
                 <arg value="-S"/>
                 <arg file="temp/res"/>
                 <arg value="-I"/>
-                <arg file="${android-home}/platforms/android-2.1/android.jar"/>
+                <arg file="${android-home}/platforms/android-7/android.jar"/>
             </android:aapt>
 		</target>
 	
@@ -184,7 +184,7 @@
         	<mkdir dir="temp/bin"/>
             <javac encoding="ascii" target="1.6" debug="false" extdirs=""
                    srcdir="temp/src" destdir="temp/bin"
-                   bootclasspath="${android-home}/platforms/android-2.1/android.jar">
+                   bootclasspath="${android-home}/platforms/android-7/android.jar">
                    <classpath>
                 		<fileset refid="main.jars"/>
                 	</classpath>
@@ -202,7 +202,7 @@
 			<proguard>
 				-injars temp/temp.jar
 				-outjars temp/obfuscate.jar
-				-libraryjars  ${android-home}/platforms/android-2.1/android.jar;lib/admob-sdk-android.jar;lib/AdWhirlSDK_Android_2.5.4.jar;lib/MMAdView.jar;lib/zestadz_android_sdkv1.2.jar
+				-libraryjars  ${android-home}/platforms/android-7/android.jar;lib/admob-sdk-android.jar;lib/AdWhirlSDK_Android_2.5.4.jar;lib/MMAdView.jar;lib/zestadz_android_sdkv1.2.jar
 				-dontpreverify
 				-dontskipnonpubliclibraryclasses
 				-dontusemixedcaseclassnames
@@ -254,7 +254,7 @@
 				<arg value="-S"/>
 				<arg file="temp/res"/>
 				<arg value="-I"/>
-				<arg file="${android-home}/platforms/android-2.1/android.jar"/>
+				<arg file="${android-home}/platforms/android-7/android.jar"/>
 				<arg value="-F"/>
 				<arg file="temp/bin/resources.ap_"/>
         	</android:aapt>
@@ -290,12 +290,6 @@
         	  <flattenmapper />
         	</signjar>
 
-        	<android:zipalign>
-                <arg value="-fv"/>
-                <arg value="4"/>
-	            <arg file="targets/signed/${package_name}.apk"/>
-                <arg file="targets/zipaligned/${package_name}.apk"/>
-            </android:zipalign>
 
         	<sleep  seconds="2"/>
         	
