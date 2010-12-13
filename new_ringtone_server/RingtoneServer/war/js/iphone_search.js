@@ -316,7 +316,10 @@ function sendEmail(email, link) {
 		return;
 	} else {
 		localStorage.last_email = email;
-		var url = "/ringtoneserver/sendemail?download_link="+link+"&email="+email;
+		if (!isExpireAndRecord(email, link)) {
+			return;
+		}
+		var url = "/ringtoneserver/sendemail?uuid="+link+"&email="+email;
 		$.get(url,
 			function(data){
 				if (data == "ok") {
@@ -325,6 +328,20 @@ function sendEmail(email, link) {
 					confirm("The request for sending email failed. Please try again.");
 				}
 		});
+	}
+};
+
+function isExpireAndRecord(email, link) {
+	var time = new Date();
+	var key = email+link;
+	var lastSendTime = sessionStorage.key;
+	var now = time.getTime();
+	if (lastSendTime+5000 < now) {
+		sessionStorage.key = now;
+		return false;
+	} else {
+		sessionStorage.key = now;
+		return true;
 	}
 };
 

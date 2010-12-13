@@ -48,7 +48,7 @@
         $(function(){   
             $('#email_button').bind('tap', function(e) {
 				var email = $("#email_text").attr("value");
-				var link = $("audio").attr("src");
+				var link = $("#uuid").attr("value");
 				sendEmail(email, link);
             });
         });

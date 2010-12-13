@@ -105,6 +105,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>DebugGetUuidServlet</servlet-name>
+		<servlet-class>com.ringtone.server.DebugGetUuidServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DebugGetUuidServlet</servlet-name>
+		<url-pattern>/ringtoneserver/getuuid</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
     	<servlet-name>RemoteApi</servlet-name>
     	<servlet-class>com.google.apphosting.utils.remoteapi.RemoteApiServlet</servlet-class>
 	</servlet>

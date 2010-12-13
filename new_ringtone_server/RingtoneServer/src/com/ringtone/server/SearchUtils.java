@@ -36,6 +36,25 @@ public class SearchUtils {
 //		return result;
 //	}
 	
+	public static SongEntry getSongEntryByFileName(String fileName) {
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		Query query = pm.newQuery(SongEntry.class);
+		query.setFilter("file_name == lastParam");
+		query.setRange(0, 1);
+		query.declareParameters("String lastParam");
+		List<SongEntry> results = null;
+		SongEntry result = null;
+		try {
+			results = (List<SongEntry>)query.execute(fileName);
+			if (results.size() > 0) {
+				result = results.get(0);
+			}
+		} finally {
+			query.closeAll();
+		}
+		return result;
+	}
+	
 	public static SongEntry getSongEntryByUUID(String uuid) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		SongEntry songEntry = null;

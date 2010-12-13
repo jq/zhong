@@ -51,6 +51,8 @@ public class Const {
 	public static final String CATE_COMEDY = "Comedy";
 	public static final String CATE_COUNTRY = "Country";
 	
+	public static final String S3_PREFIX_M4R = "https://s3.amazonaws.com/ringtone_m4r/";
+	
 	public static final String[] CATEGORIES = { "Christian", "Metal", "Holiday", "R&B", "World Music",
 												"Pop", "Rock", "Games", "Dance", "Rap", "Jazz", "Hip-Hop",
 												"Gospel", "TV", "Hard Rock", "Electronic", "Latin Music",
@@ -66,12 +68,13 @@ public class Const {
 	public static final String EMAIL = "email";
 	public static final String DOWNLOAD_LINK = "download_link";
 	public static final String FROM_EMAIL = "huangyang001@gmail.com";
-	public static final String EMAIL_BODY1 =   "Hello, you have requested to download a ringtone using m9 ringtone for iPhone. Follow these instructions to install:\n"
+	public static final String EMAIL_BODY1 =   "Hello, you have requested to download a ringtone ";
+	public static final String EMAIL_BODY2 = " using Free Ringtones for iPhone. Follow these instructions to install:\n"
 											+ "1. On your computer, click ";
-	public static final String EMAIL_BODY2 = " and save the file.\n"
+	public static final String EMAIL_BODY3 = " and save the file.\n"
 											+ "2. Double click on the file to launch iTunes. The file will automatically be placed in the \"Ringtone\" folder.\n"
 											+ "3. Make sure your iPhone is connected with your computer and sync your iPhone with iTunes.\n"
 											+ "4. On your iPhone, choose Settings > Sounds > Ringtone, then set this as the new ringtone.\n"
 											+ "If you need more help, please contact huangyag001@gmail.com";
-	public static final String EMAIL_SUBJECT = "Download Free Ringtone For Your iPhone";
+	public static final String EMAIL_SUBJECT = "Download Free Ringtone For Your iPhone ";
 }
