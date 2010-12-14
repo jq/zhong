@@ -101,7 +101,7 @@ fieldset {
   display: block;
   font-size: 15px;
   font-weight: bold;
-  max-width: 60%
+  max-width: 60%;
   overflow: hidden;
   white-space: nowrap;
 }
@@ -234,7 +234,7 @@ div .loader {
 			  	display: block;
 			  	font-size: 15px;
 			  	font-weight: bold;
-			  	max-width: 60%
+			  	max-width: 60%;
 			  	overflow: hidden;
 			  	white-space: nowrap;
 			}

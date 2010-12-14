@@ -306,7 +306,7 @@ function jsonToListItem(item) {
 	var onclick = "javascript:fill_details_page(\""+item.artist+"\",\""+item.title+"\",\""+rate.attr("class")+"\",\""+item.download_count+"\",\""+item.s3url+"\",\""+item.image+"\",\""+item.uuid+"\");";
 	var a = $("<a></a>").attr("href", "#details").attr("class", "song_item").attr("onClick", onclick).attr("song_id", item.uuid).attr("value", item.s3url);
 	var li = $("<li></li>").attr("class", "store");
-	var div_a = a.append(loading_img).append(image).append(artist).append(title).append(rate).append(download_count).append(arrow);
+	var div_a = a.append(loading_img).append(arrow).append(image).append(artist).append(title).append(rate).append(download_count);
 	return li.append(div_a);
 };
 

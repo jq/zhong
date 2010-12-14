@@ -67,14 +67,14 @@ public class Const {
 	
 	public static final String EMAIL = "email";
 	public static final String DOWNLOAD_LINK = "download_link";
-	public static final String FROM_EMAIL = "huangyang001@gmail.com";
+	public static final String FROM_EMAIL = "support@ringdroid.me";
 	public static final String EMAIL_BODY1 =   "Hello, you have requested to download a ringtone ";
-	public static final String EMAIL_BODY2 = " using Free Ringtones for iPhone. Follow these instructions to install:\n"
+	public static final String EMAIL_BODY2 = " using Ringtones for iPhone. Follow these instructions to install:\n"
 											+ "1. On your computer, click ";
 	public static final String EMAIL_BODY3 = " and save the file.\n"
 											+ "2. Double click on the file to launch iTunes. The file will automatically be placed in the \"Ringtone\" folder.\n"
 											+ "3. Make sure your iPhone is connected with your computer and sync your iPhone with iTunes.\n"
 											+ "4. On your iPhone, choose Settings > Sounds > Ringtone, then set this as the new ringtone.\n"
-											+ "If you need more help, please contact huangyag001@gmail.com";
-	public static final String EMAIL_SUBJECT = "Download Free Ringtone For Your iPhone ";
+											+ "If you need more help, please contact support@ringdroid.me";
+	public static final String EMAIL_SUBJECT = "Download Ringtones For Your iPhone ";
 }

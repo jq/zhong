@@ -111,9 +111,11 @@
         }
         function clickHandler(e) {
             _debug();
-            
             // Prevent the default click behavior for links
             if (e.target.nodeName === 'A') {
+            	if ($(e.target).attr('href').search('mailto:') == 0) {
+            		return true;
+            	}
                 e.preventDefault();
             }
 
@@ -542,7 +544,6 @@
         };
         function tapHandler(e){
             _debug();
-            
             // Grab the target element
             var $el = $(e.target);
 
@@ -567,6 +568,7 @@
 
             if ($el.isExternalLink()) {
                 $el.removeClass('active');
+                window.location = $el.attr('href');	//for test
                 return true;
             }
 

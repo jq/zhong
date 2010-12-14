@@ -31,7 +31,7 @@ public class SendMailServlet extends HttpServlet {
 		String msgSubject = Const.EMAIL_SUBJECT+"("+songEntry.getTitle()+")";
 		try {
 			Message msg = new MimeMessage(session);
-			msg.setFrom(new InternetAddress(fromEmail, "Free Ringtone Team"));
+			msg.setFrom(new InternetAddress(fromEmail, "Ringtone Team"));
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail, "Dear User"));
 			msg.setSubject(msgSubject);
 			msg.setText(msgBody);

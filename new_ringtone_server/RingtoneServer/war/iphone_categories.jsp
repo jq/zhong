@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Free Ringtones For Your Phone.</title>
+		<title>Ringtones For Your Phone.</title>
 		<jsp:include page="iphone_meta_data.html"></jsp:include>
 	</head>
 	
