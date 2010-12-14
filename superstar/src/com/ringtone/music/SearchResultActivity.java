@@ -333,7 +333,7 @@ public class SearchResultActivity extends ListActivity {
 		mSearchMessage = (TextView) findViewById(R.id.bill_search_message);
 		mProgressBar = (ProgressBar) findViewById(R.id.bill_search_progress);
 
-//		mSearch = new SearchBar(this);
+		mSearch = new SearchBar(this);
 	}
 	
 	

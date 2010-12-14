@@ -59,7 +59,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.admob.android.ads.AdView;
 import com.ringdroid.soundfile.CheapSoundFile;
 import com.ringtone.music.R;
 import com.ringtone.music.Utils;
@@ -1140,10 +1139,12 @@ public class RingdroidEditActivity extends Activity implements
 		for (int i = 0; i < 100; i++) {
 			String testPath;
 			if (i > 0)
-				testPath = parentdir + "/" + filename + i + extension;
+				testPath = parentdir + "/" + filename + i;
 			else
-				testPath = parentdir + "/" + filename + extension;
-
+				testPath = parentdir + "/" + filename;
+      if (extension != null) {
+        testPath += extension;
+      }
 			try {
 				RandomAccessFile f = new RandomAccessFile(new File(testPath),
 						"r");
@@ -1739,7 +1740,11 @@ public class RingdroidEditActivity extends Activity implements
 	 * Return extension including dot, like ".mp3"
 	 */
 	private String getExtensionFromFilename(String filename) {
-		return filename.substring(filename.lastIndexOf('.'), filename.length());
+    int start = filename.lastIndexOf('.');
+    if (start > 0)
+      return filename.substring(start, filename.length());
+    else 
+      return null;
 	}
 
 	private String getFilenameFromUri(Uri uri) {

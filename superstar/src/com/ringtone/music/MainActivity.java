@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         sActivity = this;
         
-        Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(this));
+//        Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(this));
         
         setContentView(R.layout.main); 
 		Utils.addAds(this);
@@ -50,6 +50,16 @@ public class MainActivity extends Activity {
 		}
         
         mSearch = new SearchBar(this);
+        
+        TextView billboard = (TextView) findViewById(R.id.billboard);
+        billboard.setOnClickListener(new OnClickListener() {
+          
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, BillBoardCate.class); 
+                startActivity(intent);
+            }
+        });
         
         TextView downloads = (TextView)findViewById(R.id.downloads);
         downloads.setOnClickListener(new OnClickListener() {
@@ -79,6 +89,47 @@ public class MainActivity extends Activity {
 			public void onClick(View arg0) {
 	        	Intent i = new Intent(MainActivity.this, RingdroidSelectActivity.class);
 	        	startActivity(i);
+			}
+        });
+        
+        TextView superstar = (TextView) findViewById(R.id.superstar);
+        superstar.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent(MainActivity.this,DBResultActivity.class);
+				startActivity(i);
+			}
+		});
+        
+        TextView moresingers = (TextView) findViewById(R.id.moresingers);
+        moresingers.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent(MainActivity.this, SingerList.class);
+				i.putExtra("type", "allsingers");
+				startActivity(i);
+			}
+		});
+        
+        TextView rate = (TextView)findViewById(R.id.rate);
+        rate.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				String url = "market://details?id=" + getPackageName();
+    			
+				try {
+					Uri uri = Uri.parse(url);
+					Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+		    		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					startActivity(intent);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 			}
         });
         
@@ -141,10 +192,10 @@ public class MainActivity extends Activity {
         case R.id.share_app:
         	String url = AppUpdater.getNewUpdateUrl(this);
         	if (TextUtils.isEmpty(url)) {
-        		url = "market://search?q=pname:" + getPackageName();
+        		url = "market://details?id=" + getPackageName();
         	}
         	StringBuilder sb = new StringBuilder();
-        	final String prefix = "market://search?q=";
+        	final String prefix = "market://details?id=";
         	
         	if (url.startsWith(prefix)) {
         		sb.append("<html><body>");

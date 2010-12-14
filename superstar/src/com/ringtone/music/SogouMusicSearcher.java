@@ -33,7 +33,7 @@ public class SogouMusicSearcher implements IMusicSearcher {
 			// TODO(zyu): In some cases, lyrics are empty. Temporily ignore lyrics.
 //			"<td.*?href=\"([^\"]*)\".*?" +  // 5
 			"<td>(.*?)</td>.*?" +  // 5
-			"<td.*?</td>.*?" +  // Ignore
+//			"<td.*?</td>.*?" +  // Ignore
 			"<td.*?>([^<]*)<.*?" +   // 6
 			"<td.*?>([^<]*)<" +   // 7
 			""

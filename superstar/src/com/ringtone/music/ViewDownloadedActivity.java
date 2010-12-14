@@ -245,7 +245,7 @@ public class ViewDownloadedActivity extends ListActivity {
 
 		@Override
 		protected File[] doInBackground(Void... params) {
-			File[] files = App.getBaseDir().listFiles(mFilter);
+			File[] files = new File(App.getMp3Path()).listFiles(mFilter);
 			if (files != null)
 				Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
 			return files;
