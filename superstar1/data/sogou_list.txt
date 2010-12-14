@@ -1,0 +1,2171 @@
+ 
+ 
+ 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd"> 
+<html> 
+<head> 
+<title>GaGamp3靠靠,GaGa靠-靠靠</title><!--pagetitle:GaGa--> 
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312"> 
+<meta name="Description" content="靠靠靠靠:GaGamp3靠靠,GaGa靠"/> 
+<meta name="Keywords" content="GaGamp3靠,GaGa靠,GaGa靠"/> 
+<meta http-equiv="X-UA-Compatible" content="IE=7"> 
+<link href="/style/musicSo_2.0.css?5" rel="stylesheet" type="text/css"> 
+</head> 
+<body onload="init()"> 
+<script> 
+  var enQuery = "GaGa";
+  var hasresult = true;
+</script> 
+ 
+ 
+<script> 
+function dde_dispatch(num){
+  var fm = document.getElementById("searchForm"+num);
+  var which = document.getElementsByTagName("input");
+  var you_check = 0;
+  for(i=0;i<which.length;i++){
+    if(which[i].name==("class"+num)&&which[i].checked){
+    you_check=which[i].value;
+    break;
+    }
+  }
+  switch(you_check){
+    case "2":
+      if(fm.st.value=="")fm.st.value="heat";
+      break;
+    default:
+      fm.st.value="";
+  }
+  fm.action = {2:"/album.so",3:"/lyric.so",4:"/ring.so"}[you_check] ||
+"/music.so";
+  //alert(fm.name+"--"+fm.action);
+  if(fm.rd_music && !fm.rd_music.checked) fm.ac.value=""; 
+  // added by hanxu for stat. initiative search
+  filterForInitiativeSearch(fm);
+}
+ 
+// added by hanxu for stat. initiative search
+function filterForInitiativeSearch(fm)
+{
+  if(typeof(fm)=='undefined' || !fm){
+    return false;
+  }
+ 
+  // the pages such as geci.so ,gecisearch.so and ring.so do not need mark for
+  // initiative search
+   var actionStr = fm.action;
+   if(typeof(actionStr)=='undefined')
+          return false;
+  if(actionStr.indexOf("geci.so")>=0 || actionStr.indexOf("gecisearch.so")>=0
+|| actionStr.indexOf("ring.so")>=0 || actionStr.indexOf("lyric.so")>=0)
+    return false;
+ 
+  // add _asf
+  var input = document.getElementById("_asf");
+  input.value = window.location.host;
+ 
+  // add _ast
+  nowDate = new Date();
+  utcTimeMills = nowDate.getTime();
+ 
+  var input = document.getElementById("_ast");
+  input.value = Math.round(utcTimeMills/1000);
+ 
+  // add w
+  var isHave = false;
+  // if the original parameters has the param "w" , so change the "w"
+  // parameter's value
+  for(var i=0;i<fm.childNodes.length;i++)
+  {
+    var paramName = fm.childNodes[i].name;
+    if( paramName=="w")
+    {
+      fm.childNodes[i].value = "02009900";
+      isHave = "true";
+    }
+  }
+ 
+  // the original parameters do not have the param "w" 
+  if(!isHave)
+  {
+    var input = document.createElement("INPUT");
+    input.name = "w";
+    input.value = "02009900";
+    input.type="hidden";
+    fm.appendChild(input);
+  } 
+  return(false);
+}
+ 
+function selectRadio(type,value,num){
+  var f=document.getElementById("searchForm"+num);
+        if(type=="all"){
+                f.pf.value="";
+                f.st.value="";
+        }else if(type=="pf"){
+                f.pf.value=value;
+                f.st.value="";
+        }else if(type=="album"){
+                f.pf.value="";
+                f.st.value="time";
+  }else{
+                f.pf.value="";
+                f.st.value="";
+  }
+  dde_dispatch(num);
+  document.getElementById("searchForm"+num).submit();
+ 
+}
+</script> 
+<!--topbar--> 
+<div class="topbar"><a target="_blank"
+href="http://www.sogou.com/feedback/?product=%CB%D1%B9%B7%D2%F4%C0%D6%CB%D1%CB%F7"
+uigs="result_feedback">靠靠</a> | <a target="_blank"
+href="http://bbs.sogou.com/t?s=%CB%D1%B9%B7%D2%F4%C0%D6&page=1"
+uigs="result_musicbbs">靠靠</a></div> 
+ 
+<div id="header"> 
+<!--logo--> 
+<a href="http://mp3.sogou.com/" uigs="result_logo"><img
+src="/images/query_logo.gif" alt="靠靠" width="150" height="45"
+class="logo"></a> 
+<!--navigator--> 
+<div class="hnav"> 
+<a href="http://news.sogou.com/news?query=GaGa"
+uigs="result_nav_news">靠</a><a
+href="http://www.sogou.com/web?query=GaGa&p=41240100"
+uigs="result_nav_web">靠</a><strong>靠</strong><a
+href="http://pic.sogou.com/pics?query=GaGa" uigs="result_nav_pic">靠</a><a
+href="http://v.sogou.com/v?query=GaGa" uigs="result_nav_video">靠</a><a
+href="http://map.sogou.com" uigs="result_nav_map">靠</a><a
+href="http://wenda.sogou.com/search?query=GaGa"
+uigs="result_nav_wenda">靠</a><a
+href="http://bbs.sogou.com/say?md=listTopics&name=GaGa"
+uigs="result_nav_bbs">靠</a><a href="http://www.sogou.com/docs/more.htm"
+target="_blank" uigs="result_nav_more">靠</a> 
+</div> 
+ 
+<form id="searchForm" name="searchForm" action="music.so" method="get"
+onsubmit="dde_dispatch('');return true;"> 
+<div class="querybox"> 
+<input id="query" name="query" class="query" size="35" maxlength="100"
+value="GaGa" autocomplete="off" type="text"> 
+<input id="stb" value="靠靠" type="submit" class="sbtn1"> 
+</div> 
+<div class="radiobox"> 
+  <input id="rd_music" name="class" value=1 type="radio"
+onclick='selectRadio("all","","")'  uigs="result_radio_all"> 
+  <label for="rd_music">靠靠</label> 
+  <input id="rd_musicMp3" name="class" value=1 type="radio"
+onclick='selectRadio("pf","mp3","")' checked uigs="result_radio_mp3"> 
+  <label for="rd_musicMp3">mp3</label> 
+  <input id="rd_musicWma" name="class" value=1 type="radio"
+onclick='selectRadio("pf","wma","")'  uigs="result_radio_wma"> 
+  <label for="rd_musicWma">wma</label> 
+  <input id="rd_musicRm" name="class" value=1 type="radio"
+onclick='selectRadio("pf","rm","")'  uigs="result_radio_rm"> 
+  <label for="rd_musicRm">rm</label> 
+  <input id="rd_album" name="class" type="radio" value=2
+onclick='selectRadio("album","","")'  uigs="result_radio_album"> 
+  <label for="rd_album">靠</label> 
+  <input id="rd_g/?w=02040900">靠�</a></li> 
+<li><a href="http://music.sogou.com/tag/tag.html?w=02040900">靠靠</a></li> 
+<li><a
+href="http://music.sogou.com/song/topsinger.html?w=02040900">靠</a></li> 
+<li><a
+href="http://music.sogou.com/song/topalbum_1.html?w=02040900">靠</a></li> 
+<li><a
+href="http://music.sogou.com/topic/topic_index.html?w=02040900">靠靠</a></li> 
+<li><a href="http://mbox.sogou.com/?w=02040900"
+target="_blank">靠�</a></li> 
+</ul> 
+</div> 
+ 
+<!--靠�--> 
+<div id="crumbnavigator" class="bcnav"></div> 
+<!--qc--> 
+<div id="qc" style="display:none"></div> 
+ 
+  <div id="sidebar"> 
+  <!--靠--> 
+  <div id="ilike" style="display:none"></div> 
+  <!--靠靠--> 
+  <div id="ialbum"></div> 
+</div> 
+ 
+  
+ 
+  
+ 
+ 
+  
+ 
+ 
+  <div id="mainwrap"><div id="main"> 
+  
+  
+    <!--靠--> 
+<script> 
+var rid = "02020900";
+if (typeof(newPid) != "undefined") {
+    rid = newPid;
+}
+//靠onload靠靠靠靠init�
+function getilike() {
+  var title = "GaGa";
+  if( title=="" ) {
+      if (typeof(clearRecommendRighter) != "undefined") {
+    clearRecommendRighter();
+      }
+    return;
+  }
+ 
+  var url = "/coo/common/ajax_ilike.jsp";
+  var params = "title="+escape(title);
+  params += "&num=40";
+  params += "&type=all";
+  params += "&random="+random();
+  url += "?" + params;
+  var ajax = new Ajax(
+    {
+        url: url,
+        method: 'get',
+        onLoading: loading(),
+        onComplete: showilike
+    }
+  );
+}
+ 
+function loading() {
+    document.getElementById('ilike').innerHTML = "Loading...";
+}
+ 
+function showilike( req ) {
+  var recObj = eval(req.responseText);
+ 
+  var m = "";
+  var query = "gaga";
+  var artist = "";
+ 
+  recObj= filter(recObj,"###",10);
+    
+  if( recObj==null || recObj.length==0 ) {
+      document.getElementById('ilike').innerHTML = "";
+  } else {
+    uigsPB('music_ilike_num_'+recObj.length);
+    for( var i=0; i<recObj.length; i++) {
+      m = m + "<dd><a uigs='music_ilike_"+(i+1)+"'
+title='"+formatStr_m(getdisplaydata(recObj[i]))+"'
+href=http://mp3.sogou.com/music.so?query="+escape(geturldata(recObj[i]))+"&w="+rid+"&sourcetype=ilike_"+(i+1);
+      m += " target=_blank>";
+      m += formatStr_m(sub_str(getdisplaydata(recObj[i]),22,"left"));
+      m += "</a></dd>";
+    }
+      m='<h2 class="title1">靠靠靠靠靠</h2><dl class="recommend1"
+id="recommendlist">'+m+'</dl>';
+    var ilikediv = document.getElementById('ilike');
+    ilikediv.innerHTML = m;
+    showRecommendRighter();
+    ilikediv.className ="box1";
+    ilikediv.style.display="";
+  }
+ 
+}
+function sub_str(str,len,place)
+{
+  if(str.replace(/[^\x00-\xff]/gi,'xx').length<=len) return str;
+ 
+  if(place=='left')
+  {
+     var temp_len=len;
+     str=str.substr(0,len);
+     while(str.replace(/[^\x00-\xff]/gi,'xx').length>len)
+     {
+        str=str.substr(0,--temp_len);
+     }
+  }
+  if(place=='right')
+  {
+     var temp_startn=0;
+     str=str.substr(str.length-len,len);
+     while(str.replace(/[^\x00-\xff]/gi,'xx').length>len)
+     {    
+        str=str.substr(1,len);
+     }    
+  }
+  return str+"..";
+}
+ 
+function clearRecommendRighter() {
+  document.getElementById('ilike').style.display = "none";
+}
+ 
+function showRecommendRighter() {
+        document.getElementById('ilike').style.display = "";
+}
+ 
+function formatStr(s, AFindText, ARepText) {
+        raRegExp = new RegExp(AFindText,"g");
+        return s.replace(raRegExp,ARepText);
+}
+//array靠縮eparator靠靠靠
+function filter(array,separator,num){
+        var ret =new Array();
+        var j=0;
+        if(!array||!array.length||typeof(separator)!="string")
+                return "";
+        for(var i=0;i<array.length;i++){
+                if(array[i].indexOf(separator)!=-1){
+                        ret[j]=array[i];
+                        if(++j>=num) break;
+                }
+        }
+        return ret;
+}
+//get url data 
+function geturldata(data){
+  if(!data||typeof(data)!="string"||data.indexOf("###")==-1){
+    return "";
+  }
+  var start=data.indexOf("###");
+  var artist = data.substring(0,start);
+  var title = data.substring(start+3);
+  return title+" "+artist;
+}
+//get display data
+function getdisplaydata(data){
+   if(!data||typeof(data)!="string"||data.indexOf("###")==-1){
+                return "";
+        }
+        var start=data.indexOf("###");
+        var artist = data.substring(0,start);
+        var title = data.substring(start+3);
+        return title+" <"+artist +">";
+  
+}
+//靠靠靠space/</>
+function formatStr_m(str){
+  str=formatStr(str," ","&nbsp;");
+  str=formatStr(str,"<","&lt;");
+  str=formatStr(str,">","&gt;");
+  return str;
+}
+function random(){
+  return Math.random() * 1999;
+}
+</script> 
+<!--靠靠--> 
+<script> 
+function getrelatedalbum(){
+  var querya="GaGa";
+  if(""==querya) return;
+  var vmv = new Ajaj(
+                "http://mp3.sogou.com/coo/common/ajaj_getAlbum.jsp",
+                {
+                        "parameters":{"query":escape(querya)},
+                        "onComplete":function(json) {
+                          if(!json||""==json){
+          return;
+                          }
+        showalbum(json);
+                        }
+                }
+  );
+}
+function markred(text){
+  if(!text||""==text) return "";
+  text = text.replace(/[\ue40a]/gi,'<font color="red">');
+  text = text.replace(/[\ue40b]/gi,'</font>');
+  return text
+}
+function filterc(text){
+  if(!text||""==text) return "";
+  text = text.replace(/[\ue40a\ue40b]/gi,'');
+  return text;
+}
+function showalbum(json){
+  if(!json||""==json){
+    return;
+  }
+  var query=json.query;
+  if(!json.albumlist||json.albumlist.length==0){
+    return;
+  }
+  var divalbum = document.getElementById('ialbum');
+  var albumlist = json.albumlist;
+  var moreurl =
+"http://mp3.sogou.com/album.so?w=02021700&st=time&query="+escape(query);
+  var ihtml = '<h2 class="title1"><span><a href="'+moreurl+'" target="_blank"
+uigs="music_relavent_album_more">靠</a></span>靠靠</h2><ul
+class="related">'; 
+  for(var i=0;i<albumlist.length;i++){
+    var ele = albumlist[i];
+    var album = ele.album;
+    var ralbum =ele.ralbum;
+    var singer = ele.singer;
+    var rsinger = ele.rsinger;
+    var urlsinger = ele.urlsinger;
+    var urlalbum = ele.urlalbum;
+    var photo = ele.photo;
+    var publishtime = ele.publishtime;
+    ihtml = ihtml + '<li><div><a href="' + urlalbum + '?w=02021700"
+target="_blank"><img src="'+photo+'" width="88" height="88" class="pic1"
+onerror="this.src=\'http://mp3.sogou.com/images/noalbum.gif\';this.onerror=null;"></a></div>';
+    ihtml = ihtml + '<div><a target="_blank" href="'+urlalbum+'?w=02020403"
+title="'+formatStr_m(album)+'">'+markred(ralbum)+'</a><br>';
+    ihtml = ihtml + '<a target="_blank" style="font-size:12px;"
+href="'+urlsinger+'?w=02020302"
+title="'+formatStr_m(singer)+'">'+markred(rsinger)+'</a><br>'+publishtime+'</div>';
+    ihtml = ihtml + '</li>'
+  }
+  ihtml = ihtml + '</ul>';
+  divalbum.innerHTML = ihtml; 
+  divalbum.className = "box1";
+}
+ 
+</script> 
+ 
+  <table id="songlist"> 
+ 
+  <tr> 
+  <th width="55">&nbsp;</th> 
+  <th width="28%" class="songname">靠</th> 
+  <th width="13%" class="singger">靠</th> 
+  <th width="17%" class="singger">靠</th> 
+  <th>靠</th> 
+ 
+  <th>靠</th> 
+  <th>靠</th> 
+  <th>靠</th> 
+  <th>靠</th> 
+  <th>靠</th> 
+  <th>靠靠</th> 
+</tr> 
+ 
+ 
+<!--m--><tr id="musicmc_0"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_0"
+type="checkbox" name="batchlistenm" section="bl" t="Chillin%27"
+s="Lady+Gaga+Wale" gid="1072c404abb6bbdf" cid="127F072790F5F9AA"
+lyricid="7875962d01db379f" lyricoffset="0.0" onclick="_s_ld()"
+uigs="music_checkbox_1" /><![endif]-->1</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=127F072790F5F9AA&gid=1072c404abb6bbdf&s=Lady+Gaga+Wale&t=Chillin%27&lid=7875962d01db379f&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_0',0);uigsPB('consume=music_song&music_song=1');return(false);"
+entitle="Chillin%27" title="Chillin'" action="listen">Chillin'</a><span
+class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga+Wale" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=1">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;<a
+showSinger=t singer="Wale"
+href="http://music.sogou.com/singer/12/detailSinger_wale.html"
+entitle="Lady+Gaga+Wale" title="Wale" target=_blank
+uigs="consume=music_singer&music_singer=1">Wale</a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/b4/detailAlbum_lady%20gaga%20wale!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=1" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=127F072790F5F9AA&gid=1072c404abb6bbdf&s=Lady+Gaga+Wale&t=Chillin%27&lid=7875962d01db379f&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_0',0);uigsPB('consume=music_listen&music_listen=1');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=127F072790F5F9AA&globalId=1072c404abb6bbdf&query=Chillin%27&tgid=e19d08a6336b041a&pf=mp3&s=Lady+Gaga+Wale&t=Chillin%27&size=4790733&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=1');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Chillin%27%20Lady+Gaga+Wale" target=_blank
+class="lyrics" uigs="consume=music_lyric&music_lyric=1" title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>4.57M<!--size:4.57M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_1"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_1"
+type="checkbox" name="batchlistenm" section="bl" t="gaga" s=""
+gid="140936a73bc03612" cid="10EADE8265FB8106" lyricid="0000000000000000"
+lyricoffset="0.0" onclick="_s_ld()" uigs="music_checkbox_2"
+/><![endif]-->2</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=10EADE8265FB8106&gid=140936a73bc03612&s=&t=gaga&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_1',0);uigsPB('consume=music_song&music_song=2');return(false);"
+entitle="gaga" title="gaga" action="listen"><font
+style="color:red;text-decoration:underline;">gaga</font></a><span
+class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer=""
+href="http://music.sogou.com/singer/null" entitle="" title="" target=_blank
+uigs="consume=music_singer&music_singer=2"></a>&nbsp;</td> 
+  <td class="singger"><a href="http://mp3.sogou.com/music.so?a=" entitle="+"
+title=" " target=_blank uigs="consume=music_album&music_album=2" >
+</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=10EADE8265FB8106&gid=140936a73bc03612&s=&t=gaga&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_1',0);uigsPB('consume=music_listen&music_listen=2');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=10EADE8265FB8106&globalId=140936a73bc03612&query=gaga&tgid=00f669cfc7a11f99&pf=mp3&s=&t=gaga&size=1873293&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=2');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=gaga%20" target=_blank class="lyrics"
+uigs="consume=music_lyric&music_lyric=2" title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>1.79M<!--size:1.79M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_2"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_2"
+type="checkbox" name="batchlistenm" section="bl" t="Let+Them+Hoes+Fight"
+s="Lady+Gaga+Trina" gid="1cab6055e046c307" cid="10DC51B211E867A3"
+lyricid="0000000000000000" lyricoffset="0.0" onclick="_s_ld()"
+uigs="music_checkbox_3" /><![endif]-->3</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=10DC51B211E867A3&gid=1cab6055e046c307&s=Lady+Gaga+Trina&t=Let+Them+Hoes+Fight&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_2',0);uigsPB('consume=music_song&music_song=3');return(false);"
+entitle="Let+Them+Hoes+Fight" title="Let Them Hoes Fight" action="listen">Let
+Them Hoes Fight</a><span class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga+Trina" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=3">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;<a
+showSinger=t singer="Trina"
+href="http://music.sogou.com/singer/3a/detailSinger_trina.html"
+entitle="Lady+Gaga+Trina" title="Trina" target=_blank
+uigs="consume=music_singer&music_singer=3">Trina</a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga%20trina!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=3" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=10DC51B211E867A3&gid=1cab6055e046c307&s=Lady+Gaga+Trina&t=Let+Them+Hoes+Fight&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_2',0);uigsPB('consume=music_listen&music_listen=3');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=10DC51B211E867A3&globalId=1cab6055e046c307&query=Let+Them+Hoes+Fight&tgid=71edec9fdb49e5d7&pf=mp3&s=Lady+Gaga+Trina&t=Let+Them+Hoes+Fight&size=8894464&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=3');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Let+Them+Hoes+Fight%20Lady+Gaga+Trina"
+target=_blank class="lyrics" uigs="consume=music_lyric&music_lyric=3"
+title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>8.48M<!--size:8.48M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_3"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_3"
+type="checkbox" name="batchlistenm" section="bl" t="Telephone" s="Lady+Gaga"
+gid="120ea29323d7fc5d" cid="1BF075729C074D67" lyricid="0000000000000000"
+lyricoffset="0.0" onclick="_s_ld()" uigs="music_checkbox_4"
+/><![endif]-->4</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=1BF075729C074D67&gid=120ea29323d7fc5d&s=Lady+Gaga&t=Telephone&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_3',0);uigsPB('consume=music_song&music_song=4');return(false);"
+entitle="Telephone" title="Telephone" action="listen">Telephone</a><span
+class="tag"></span><sup class="sup">�!</sup> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=4">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga!!the%20fame%20monster.html"
+entitle="The+Fame+Monster" title="The Fame Monster" target=_blank
+uigs="consume=music_album&music_album=4" >The Fame Monster</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=1BF075729C074D67&gid=120ea29323d7fc5d&s=Lady+Gaga&t=Telephone&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_3',0);uigsPB('consume=music_listen&music_listen=4');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=1BF075729C074D67&globalId=120ea29323d7fc5d&query=Telephone&tgid=461bd8387ed049bb&pf=mp3&s=Lady+Gaga&t=Telephone&size=5581286&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=4');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Telephone%20Lady+Gaga" target=_blank class="lyrics"
+uigs="consume=music_lyric&music_lyric=4" title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>5.32M<!--size:5.32M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_4"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_4"
+type="checkbox" name="batchlistenm" section="bl" t="Bad+Romance" s="Lady+Gaga"
+gid="159e025db739c668" cid="19E025DB739C668B" lyricid="760fc7a1b4a6b6e7"
+lyricoffset="0.0" onclick="_s_ld()" uigs="music_checkbox_5"
+/><![endif]-->5</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=19E025DB739C668B&gid=159e025db739c668&s=Lady+Gaga&t=Bad+Romance&lid=760fc7a1b4a6b6e7&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_4',0);uigsPB('consume=music_song&music_song=5');return(false);"
+entitle="Bad+Romance" title="Bad Romance" action="listen">Bad Romance</a><span
+class="tag"></span><sup class="sup">�!</sup> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=5">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga!!the%20fame%20monster.html"
+entitle="The+Fame+Monster" title="The Fame Monster" target=_blank
+uigs="consume=music_album&music_album=5" >The Fame Monster</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=19E025DB739C668B&gid=159e025db739c668&s=Lady+Gaga&t=Bad+Romance&lid=760fc7a1b4a6b6e7&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_4',0);uigsPB('consume=music_listen&music_listen=5');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=19E025DB739C668B&globalId=159e025db739c668&query=Bad+Romance&tgid=a295afe76778a6ec&pf=mp3&s=Lady+Gaga&t=Bad+Romance&size=4800512&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=5');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Bad+Romance%20Lady+Gaga" target=_blank
+class="lyrics" uigs="consume=music_lyric&music_lyric=5" title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>4.58M<!--size:4.58M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_5"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_5"
+type="checkbox" name="batchlistenm" section="bl" t="Alejandro" s="Lady+Gaga"
+gid="14771dbbd46f9fae" cid="1ED432FB7C8370D5" lyricid="0000000000000000"
+lyricoffset="0.0" onclick="_s_ld()" uigs="music_checkbox_6"
+/><![endif]-->6</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=1ED432FB7C8370D5&gid=14771dbbd46f9fae&s=Lady+Gaga&t=Alejandro&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_5',0);uigsPB('consume=music_song&music_song=6');return(false);"
+entitle="Alejandro" title="Alejandro" action="listen">Alejandro</a><span
+class="tag"></span><sup class="sup">�!</sup> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=6">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga!!the%20fame%20monster.html"
+entitle="The+Fame+Monster" title="The Fame Monster" target=_blank
+uigs="consume=music_album&music_album=6" >The Fame Monster</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=1ED432FB7C8370D5&gid=14771dbbd46f9fae&s=Lady+Gaga&t=Alejandro&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_5',0);uigsPB('consume=music_listen&music_listen=6');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=1ED432FB7C8370D5&globalId=14771dbbd46f9fae&query=Alejandro&tgid=a98b356cb44d70fb&pf=mp3=Alejandro&size=7690272&ac=0&c','','width=428,height=394,scrollbaume=music_down&music_down=6');return(false);"
+class="link" actioaga" target=_blank class="lyrics"
+uigs="consume=music_lyric&musi  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>7.33M<!--size:7.33M--></t="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n-->  
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_9"
+cid="114151C97E16929E" lyricid="0000000000000000"
+lyricoffse6929E&gid=1714151c97e16929&s=Lady+Gaga+Space+Cowboy&t=Christmasntitle="Christmas+Tree"
+title="Christmas Tree" action="listen">tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t
+sin="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.htmnk
+uigs="consume=music_singer&music_singer=7">Lady <font
+style=9f/detailSinger_space%20cowboy.html" entitle="Lady+Gaga+Space+Cowboy"
+title="Space Cowboy" target=_blank
+uigs="consume=music_singer&music_singer=7">Space Cowboy</a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/38/detailAlbum_lady%20gaga%20space%20cowboy!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=7" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=114151C97E16929E&gid=1714151c97e16929&s=Lady+Gaga+Space+Cowboy&t=Christmas+Tree&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_6',0);uigsPB('consume=music_listen&music_listen=7');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=114151C97E16929E&globalId=1714151c97e16929&query=Christmas+Tree&tgid=cc840e76b1bf874b&pf=mp3&s=Lady+Gaga+Space+Cowboy&t=Christmas+Tree&size=2908160&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=7');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Christmas+Tree%20Lady+Gaga+Space+Cowboy"
+target=_blank class="lyrics" uigs="consume=music_lyric&music_lyric=7"
+title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>2.77M<!--size:2.77M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_7"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_7"
+type="checkbox" name="batchlistenm" section="bl" t="Filthy+Pop" s="Lady+Gaga"
+gid="1210204a69f928bb" cid="110204A69F928BB3" lyricid="0000000000000000"
+lyricoffset="0.0" onclick="_s_ld()" uigs="music_checkbox_8"
+/><![endif]-->8</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=110204A69F928BB3&gid=1210204a69f928bb&s=Lady+Gaga&t=Filthy+Pop&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_7',0);uigsPB('consume=music_song&music_song=8');return(false);"
+entitle="Filthy+Pop" title="Filthy Pop" action="listen">Filthy Pop</a><span
+class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=8">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=8" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=110204A69F928BB3&gid=1210204a69f928bb&s=Lady+Gaga&t=Filthy+Pop&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_7',0);uigsPB('consume=music_listen&music_listen=8');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=110204A69F928BB3&globalId=1210204a69f928bb&query=Filthy+Pop&tgid=907417d5bb3a1e4f&pf=mp3&s=Lady+Gaga&t=Filthy+Pop&size=3489792&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=8');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Filthy+Pop%20Lady+Gaga" target=_blank
+class="lyrics" uigs="consume=music_lyric&music_lyric=8" title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>3.33M<!--size:3.33M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_8"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_8"
+type="checkbox" name="batchlistenm" section="bl" t="Chillin%27+remix"
+s="Lady+Gaga+Wale" gid="1cdbd5a9b2b85923" cid="1DBD5A9B2B859233"
+lyricid="7875962d01db379f" lyricoffset="0.0" onclick="_s_ld()"
+uigs="music_checkbox_9" /><![endif]-->9</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=1DBD5A9B2B859233&gid=1cdbd5a9b2b85923&s=Lady+Gaga+Wale&t=Chillin%27+remix&lid=7875962d01db379f&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_8',0);uigsPB('consume=music_song&music_song=9');return(false);"
+entitle="Chillin%27+remix" title="Chillin' remix" action="listen">Chillin'
+remix</a><span class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga+Wale" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=9">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;<a
+showSinger=t singer="Wale"
+href="http://music.sogou.com/singer/12/detailSinger_wale.html"
+entitle="Lady+Gaga+Wale" title="Wale" target=_blank
+uigs="consume=music_singer&music_singer=9">Wale</a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/b4/detailAlbum_lady%20gaga%20wale!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=9" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=1DBD5A9B2B859233&gid=1cdbd5a9b2b85923&s=Lady+Gaga+Wale&t=Chillin%27+remix&lid=7875962d01db379f&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_8',0);uigsPB('consume=music_listen&music_listen=9');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=1DBD5A9B2B859233&globalId=1cdbd5a9b2b85923&query=Chillin%27+remix&tgid=e19d08a6336b041a&pf=mp3&s=Lady+Gaga+Wale&t=Chillin%27+remix&size=7536640&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=9');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Chillin%27+remix%20Lady+Gaga+Wale" target=_blank
+class="lyrics" uigs="consume=music_lyric&music_lyric=9" title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>7.19M<!--size:7.19M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar5"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_9"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_9"
+type="checkbox" name="batchlistenm" section="bl" t="Let+Them+Hoes+Fight"
+s="Lady+Gaga+Trina" gid="194c4248ee985b11" cid="14C4248EE985B110"
+lyricid="0000000000000000" lyricoffset="0.0" onclick="_s_ld()"
+uigs="music_checkbox_10" /><![endif]-->10</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=14C4248EE985B110&gid=194c4248ee985b11&s=Lady+Gaga+Trina&t=Let+Them+Hoes+Fight&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_9',0);uigsPB('consume=music_song&music_song=10');return(false);"
+entitle="Let+Them+Hoes+Fight" title="Let Them Hoes Fight" action="listen">Let
+Them Hoes Fight</a><span class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga+Trina" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=10">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;<a
+showSinger=t singer="Trina"
+href="http://music.sogou.com/singer/3a/detailSinger_trina.html"
+entitle="Lady+Gaga+Trina" title="Trina" target=_blank
+uigs="consume=music_singer&music_singer=10">Trina</a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga%20trina!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=10" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=14C4248EE985B110&gid=194c4248ee985b11&s=Lady+Gaga+Trina&t=Let+Them+Hoes+Fight&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_9',0);uigsPB('consume=music_listen&music_listen=10');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=14C4248EE985B110&globalId=194c4248ee985b11&query=Let+Them+Hoes+Fight&tgid=71edec9fdb49e5d7&pf=mp3&s=Lady+Gaga+Trina&t=Let+Them+Hoes+Fight&size=8396800&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=10');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Let+Them+Hoes+Fight%20Lady+Gaga+Trina"
+target=_blank class="lyrics" uigs="consume=music_lyric&music_lyric=10"
+title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>8.01M<!--size:8.01M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar5"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_10"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_10"
+type="checkbox" name="batchlistenm" section="bl" t="Paparazzi" s="Lady+Gaga"
+gid="17a31f5233c034c1" cid="1F63BED43DD1B83D" lyricid="7e54b1deb3d472af"
+lyricoffset="0.0" onclick="_s_ld()" uigs="music_checkbox_11"
+/><![endif]-->11</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=1F63BED43DD1B83D&gid=17a31f5233c034c1&s=Lady+Gaga&t=Paparazzi&lid=7e54b1deb3d472af&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_10',0);uigsPB('consume=music_song&music_song=11');return(false);"
+entitle="Paparazzi" title="Paparazzi" action="listen">Paparazzi</a><span
+class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=11">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=11" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=1F63BED43DD1B83D&gid=17a31f5233c034c1&s=Lady+Gaga&t=Paparazzi&lid=7e54b1deb3d472af&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_10',0);uigsPB('consume=music_listen&music_listen=11');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=1F63BED43DD1B83D&globalId=17a31f5233c034c1&query=Paparazzi&tgid=58b76570f2853ca0&pf=mp3&s=Lady+Gaga&t=Paparazzi&size=4091463&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=11');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Paparazzi%20Lady+Gaga" target=_blank class="lyrics"
+uigs="consume=music_lyric&music_lyric=11" title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>3.90M<!--size:3.90M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_11"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_11"
+type="checkbox" name="batchlistenm" section="bl" t="Chillin%27"
+s="Lady+Gaga+Wale" gid="18ea119855dff8ba" cid="1EA119855DFF8BA8"
+lyricid="7875962d01db379f" lyricoffset="0.0" onclick="_s_ld()"
+uigs="music_checkbox_12" /><![endif]-->12</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=1EA119855DFF8BA8&gid=18ea119855dff8ba&s=Lady+Gaga+Wale&t=Chillin%27&lid=7875962d01db379f&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_11',0);uigsPB('consume=music_song&music_song=12');return(false);"
+entitle="Chillin%27" title="Chillin'" action="listen">Chillin'</a><span
+class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga+Wale" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=12">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;<a
+showSinger=t singer="Wale"
+href="http://music.sogou.com/singer/12/detailSinger_wale.html"
+entitle="Lady+Gaga+Wale" title="Wale" target=_blank
+uigs="consume=music_singer&music_singer=12">Wale</a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/b4/detailAlbum_lady%20gaga%20wale!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=12" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=1EA119855DFF8BA8&gid=18ea119855dff8ba&s=Lady+Gaga+Wale&t=Chillin%27&lid=7875962d01db379f&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_11',0);uigsPB('consume=music_listen&music_listen=12');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=1EA119855DFF8BA8&globalId=18ea119855dff8ba&query=Chillin%27&tgid=e19d08a6336b041a&pf=mp3&s=Lady+Gaga+Wale&t=Chillin%27&size=4839482&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=12');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Chillin%27%20Lady+Gaga+Wale" target=_blank
+class="lyrics" uigs="consume=music_lyric&music_lyric=12" title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>4.62M<!--size:4.62M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_12"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_12"
+type="checkbox" name="batchlistenm" section="bl" t="Wonderland" s="Lady+Gaga"
+gid="1ad2097e1cd394d8" cid="1A40BFEA3EE4B8C2" lyricid="0000000000000000"
+lyricoffset="0.0" onclick="_s_ld()" uigs="music_checkbox_13"
+/><![endif]-->13</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=1A40BFEA3EE4B8C2&gid=1ad2097e1cd394d8&s=Lady+Gaga&t=Wonderland&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_12',0);uigsPB('consume=music_song&music_song=13');return(false);"
+entitle="Wonderland" title="Wonderland" action="listen">Wonderland</a><span
+class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=13">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=13" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=1A40BFEA3EE4B8C2&gid=1ad2097e1cd394d8&s=Lady+Gaga&t=Wonderland&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_12',0);uigsPB('consume=music_listen&music_listen=13');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=1A40BFEA3EE4B8C2&globalId=1ad2097e1cd394d8&query=Wonderland&tgid=71f82b2a2ceb7706&pf=mp3&s=Lady+Gaga&t=Wonderland&size=3833856&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=13');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Wonderland%20Lady+Gaga" target=_blank
+class="lyrics" uigs="consume=music_lyric&music_lyric=13" title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>3.66M<!--size:3.66M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_13"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_13"
+type="checkbox" name="batchlistenm" section="bl" t="Glamour+Zombie"
+s="Lady+Gaga" gid="109457cf568d1b89" cid="19DBC147A54EB243"
+lyricid="0000000000000000" lyricoffset="0.0" onclick="_s_ld()"
+uigs="music_checkbox_14" /><![endif]-->14</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=19DBC147A54EB243&gid=109457cf568d1b89&s=Lady+Gaga&t=Glamour+Zombie&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_13',0);uigsPB('consume=music_song&music_song=14');return(false);"
+entitle="Glamour+Zombie" title="Glamour Zombie" action="listen">Glamour
+Zombie</a><span class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=14">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=14" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=19DBC147A54EB243&gid=109457cf568d1b89&s=Lady+Gaga&t=Glamour+Zombie&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_13',0);uigsPB('consume=music_listen&music_listen=14');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=19DBC147A54EB243&globalId=109457cf568d1b89&query=Glamour+Zombie&tgid=0db30e2e910d847b&pf=mp3&s=Lady+Gaga&t=Glamour+Zombie&size=3538944&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=14');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Glamour+Zombie%20Lady+Gaga" target=_blank
+class="lyrics" uigs="consume=music_lyric&music_lyric=14" title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>3.38M<!--s<!--m--><tr id="musicmc_14"> 
+  <td  class="cbbox"><label><!--[ie="batchlistenm" section="bl"
+t="Big+Girl+Now" s="Lady+Gaga+ew+12c2478527ee5c2e" cid="1779F26C30511EA9"
+lyricid="0000000000000ndif]-->15</label></td> 
+ 
+  <td class="songname"><a pb=t
+href=",'checkboxmc_14',0);uigsPB('consume=music_song&music_song=15');tle="Lady
+Gaga" target=_blank uigs="consume=music_singer&music__singer=15">ew Kids on
+the Block</a>&nbsp;</td> 
+  <td
+class="siu.com/singer/ac/detailAlbum_lady%20gaga%20ew%20kids%20on%20the%20block!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=15" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=1779F26C30511EA9&gid=12c2478527ee5c2e&s=Lady+Gaga+ew+Kids+on+the+Block&t=Big+Girl+Now&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_14',0);uigsPB('consume=music_listen&music_listen=15');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=1779F26C30511EA9&globalId=12c2478527ee5c2e&query=Big+Girl+Now&tgid=93ca917a9e6b1fe6&pf=mp3&s=Lady+Gaga+ew+Kids+on+the+Block&t=Big+Girl+Now&size=3440640&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=15');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Big+Girl+Now%20Lady+Gaga+ew+Kids+on+the+Block"
+target=_blank class="lyrics" uigs="consume=music_lyric&music_lyric=15"
+title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>3.28M<!--size:3.28M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_15"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_15"
+type="checkbox" name="batchlistenm" section="bl" t="Shake+Ure+Kitty"
+s="Lady+Gaga" gid="139f59c9d313ecc4" cid="125D7F2002734632"
+lyricid="0000000000000000" lyricoffset="0.0" onclick="_s_ld()"
+uigs="music_checkbox_16" /><![endif]-->16</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=125D7F2002734632&gid=139f59c9d313ecc4&s=Lady+Gaga&t=Shake+Ure+Kitty&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_15',0);uigsPB('consume=music_song&music_song=16');return(false);"
+entitle="Shake+Ure+Kitty" title="Shake Ure Kitty" action="listen">Shake Ure
+Kitty</a><span class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=16">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=16" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=125D7F2002734632&gid=139f59c9d313ecc4&s=Lady+Gaga&t=Shake+Ure+Kitty&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_15',0);uigsPB('consume=music_listen&music_listen=16');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=125D7F2002734632&globalId=139f59c9d313ecc4&query=Shake+Ure+Kitty&tgid=9454c9e35b903f22&pf=mp3&s=Lady+Gaga&t=Shake+Ure+Kitty&size=3309568&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=16');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Shake+Ure+Kitty%20Lady+Gaga" target=_blank
+class="lyrics" uigs="consume=music_lyric&music_lyric=16" title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>3.16M<!--size:3.16M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_16"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_16"
+type="checkbox" name="batchlistenm" section="bl"
+t="Fashion_%CA%D4%CC%FD%B0%E6" s="Lady+Gaga" gid="1122543cf34f5e9c"
+cid="1E80E02B01D8E06C" lyricid="0000000000000000" lyricoffset="0.0"
+onclick="_s_ld()" uigs="music_checkbox_17" /><![endif]-->17</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=1E80E02B01D8E06C&gid=1122543cf34f5e9c&s=Lady+Gaga&t=Fashion_%CA%D4%CC%FD%B0%E6&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_16',0);uigsPB('consume=music_song&music_song=17');return(false);"
+entitle="Fashion_%CA%D4%CC%FD%B0%E6" title="Fashion_靠�"
+action="listen">Fashion_靠�</a><span class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=17">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=17" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=1E80E02B01D8E06C&gid=1122543cf34f5e9c&s=Lady+Gaga&t=Fashion_%CA%D4%CC%FD%B0%E6&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_16',0);uigsPB('consume=music_listen&music_listen=17');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=1E80E02B01D8E06C&globalId=1122543cf34f5e9c&query=Fashion_%CA%D4%CC%FD%B0%E6&tgid=14775b7f38abbed2&pf=mp3&s=Lady+Gaga&t=Fashion_%CA%D4%CC%FD%B0%E6&size=3194880&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=17');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Fashion_%CA%D4%CC%FD%B0%E6%20Lady+Gaga"
+target=_blank class="lyrics" uigs="consume=music_lyric&music_lyric=17"
+title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>3.05M<!--size:3.05M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_17"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_17"
+type="checkbox" name="batchlistenm" section="bl"
+t="Bad+Romance_%CA%D4%CC%FD%B0%E6" s="Lady+Gaga" gid="1c0a193dced015ff"
+cid="1545ADF0E3CF5020" lyricid="760fc7a1b4a6b6e7" lyricoffset="0.0"
+onclick="_s_ld()" uigs="music_checkbox_18" /><![endif]-->18</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=1545ADF0E3CF5020&gid=1c0a193dced015ff&s=Lady+Gaga&t=Bad+Romance_%CA%D4%CC%FD%B0%E6&lid=760fc7a1b4a6b6e7&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_17',0);uigsPB('consume=music_song&music_song=18');return(false);"
+entitle="Bad+Romance_%CA%D4%CC%FD%B0%E6" title="Bad Romance_靠�"
+action="listen">Bad Romance_靠�</a><span class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=18">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=18" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=1545ADF0E3CF5020&gid=1c0a193dced015ff&s=Lady+Gaga&t=Bad+Romance_%CA%D4%CC%FD%B0%E6&lid=760fc7a1b4a6b6e7&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_17',0);uigsPB('consume=music_listen&music_listen=18');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=1545ADF0E3CF5020&globalId=1c0a193dced015ff&query=Bad+Romance_%CA%D4%CC%FD%B0%E6&tgid=4c1e1ba8215d94f6&pf=mp3&s=Lady+Gaga&t=Bad+Romance_%CA%D4%CC%FD%B0%E6&size=4702208&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=18');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Bad+Romance_%CA%D4%CC%FD%B0%E6%20Lady+Gaga"
+target=_blank class="lyrics" uigs="consume=music_lyric&music_lyric=18"
+title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>4.48M<!--size:4.48M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_18"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_18"
+type="checkbox" name="batchlistenm" section="bl"
+t="Out+Of+Control_%CA%D4%CC%FD%B0%E6" s="Lady+Gaga" gid="1547a234498d2267"
+cid="110FA1D866461F6D" lyricid="0000000000000000" lyricoffset="0.0"
+onclick="_s_ld()" uigs="music_checkbox_19" /><![endif]-->19</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=110FA1D866461F6D&gid=1547a234498d2267&s=Lady+Gaga&t=Out+Of+Control_%CA%D4%CC%FD%B0%E6&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_18',0);uigsPB('consume=music_song&music_song=19');return(false);"
+entitle="Out+Of+Control_%CA%D4%CC%FD%B0%E6" title="Out Of Control_靠�"
+action="listen">Out Of Control_靠�</a><span class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=19">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=19" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=110FA1D866461F6D&gid=1547a234498d2267&s=Lady+Gaga&t=Out+Of+Control_%CA%D4%CC%FD%B0%E6&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_18',0);uigsPB('consume=music_listen&music_listen=19');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=110FA1D866461F6D&globalId=1547a234498d2267&query=Out+Of+Control_%CA%D4%CC%FD%B0%E6&tgid=3c1e802a17d472c9&pf=mp3&s=Lady+Gaga&t=Out+Of+Control_%CA%D4%CC%FD%B0%E6&size=1064960&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=19');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Out+Of+Control_%CA%D4%CC%FD%B0%E6%20Lady+Gaga"
+target=_blank class="lyrics" uigs="consume=music_lyric&music_lyric=19"
+title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>1.02M<!--size:1.02M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_19"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_19"
+type="checkbox" name="batchlistenm" section="bl" t="Kaboom"
+s="Lady+Gaga+Kalenna" gid="1144dc1b138283d9" cid="1F2F4F276F91FFEA"
+lyricid="0000000000000000" lyricoffset="0.0" onclick="_s_ld()"
+uigs="music_checkbox_20" /><![endif]-->20</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=1F2F4F276F91FFEA&gid=1144dc1b138283d9&s=Lady+Gaga+Kalenna&t=Kaboom&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_19',0);uigsPB('consume=music_song&music_song=20');return(false);"
+entitle="Kaboom" title="Kaboom" action="listen">Kaboom</a><span
+class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga+Kalenna" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=20">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;<a
+showSinger=t singer="Kalenna"
+href="http://music.sogou.com/singer/83/detailSinger_kalenna.html"
+entitle="Lady+Gaga+Kalenna" title="Kalenna" target=_blank
+uigs="consume=music_singer&music_singer=20">Kalenna</a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/5c/detailAlbum_lady%20gaga%20kalenna!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=20" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=1F2F4F276F91FFEA&gid=1144dc1b138283d9&s=Lady+Gaga+Kalenna&t=Kaboom&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_19',0);uigsPB('consume=music_listen&music_listen=20');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=1F2F4F276F91FFEA&globalId=1144dc1b138283d9&query=Kaboom&tgid=dd804711f4968d1b&pf=mp3&s=Lady+Gaga+Kalenna&t=Kaboom&size=2916352&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=20');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Kaboom%20Lady+Gaga+Kalenna" target=_blank
+class="lyrics" uigs="consume=music_lyric&music_lyric=20" title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>2.78M<!--size:2.78M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_20"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_20"
+type="checkbox" name="batchlistenm" section="bl"
+t="Greatest_%CA%D4%CC%FD%B0%E6" s="Lady+Gaga" gid="1bdf1821df70a85d"
+cid="12747286A2E1BF57" lyricid="0000000000000000" lyricoffset="0.0"
+onclick="_s_ld()" uigs="music_checkbox_21" /><![endif]-->21</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=12747286A2E1BF57&gid=1bdf1821df70a85d&s=Lady+Gaga&t=Greatest_%CA%D4%CC%FD%B0%E6&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_20',0);uigsPB('consume=music_song&music_song=21');return(false);"
+entitle="Greatest_%CA%D4%CC%FD%B0%E6" title="Greatest_靠�"
+action="listen">Greatest_靠�</a><span class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=21">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=21" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=12747286A2E1BF57&gid=1bdf1821df70a85d&s=Lady+Gaga&t=Greatest_%CA%D4%CC%FD%B0%E6&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_20',0);uigsPB('consume=music_listen&music_listen=21');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=12747286A2E1BF57&globalId=1bdf1821df70a85d&query=Greatest_%CA%D4%CC%FD%B0%E6&tgid=2964046db4caeddd&pf=mp3&s=Lady+Gaga&t=Greatest_%CA%D4%CC%FD%B0%E6&size=786432&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=21');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Greatest_%CA%D4%CC%FD%B0%E6%20Lady+Gaga"
+target=_blank class="lyrics" uigs="consume=music_lyric&music_lyric=21"
+title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>0.75M<!--size:0.75M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_21"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_21"
+type="checkbox" name="batchlistenm" section="bl" t="Fountain+Of+Truth"
+s="Lady+Gaga" gid="1c3509d00d7ebebc" cid="171B9CEF5C515AAA"
+lyricid="0000000000000000" lyricoffset="0.0" onclick="_s_ld()"
+uigs="music_checkbox_22" /><![endif]-->22</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=171B9CEF5C515AAA&gid=1c3509d00d7ebebc&s=Lady+Gaga&t=Fountain+Of+Truth&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_21',0);uigsPB('consume=music_song&music_song=22');return(false);"
+entitle="Fountain+Of+Truth" title="Fountain Of Truth" action="listen">Fountain
+Of Truth</a><span class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=22">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=22" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=171B9CEF5C515AAA&gid=1c3509d00d7ebebc&s=Lady+Gaga&t=Fountain+Of+Truth&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_21',0);uigsPB('consume=music_listen&music_listen=22');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=171B9CEF5C515AAA&globalId=1c3509d00d7ebebc&query=Fountain+Of+Truth&tgid=43bcf421d59d5956&pf=mp3&s=Lady+Gaga&t=Fountain+Of+Truth&size=3883008&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=22');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Fountain+Of+Truth%20Lady+Gaga" target=_blank
+class="lyrics" uigs="consume=music_lyric&music_lyric=22" title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>3.70M<!--size:3.70M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_22"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_22"
+type="checkbox" name="batchlistenm" section="bl" t="RockShow" s="Lady+Gaga"
+gid="18d6f7968b47ec6f" cid="1A9EE4305E04AC5E" lyricid="0000000000000000"
+lyricoffset="0.0" onclick="_s_ld()" uigs="music_checkbox_23"
+/><![endif]-->23</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=1A9EE4305E04AC5E&gid=18d6f7968b47ec6f&s=Lady+Gaga&t=RockShow&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_22',0);uigsPB('consume=music_song&music_song=23');return(false);"
+entitle="RockShow" title="RockShow" action="listen">RockShow</a><span
+class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=23">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=23" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=1A9EE4305E04AC5E&gid=18d6f7968b47ec6f&s=Lady+Gaga&t=RockShow&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_22',0);uigsPB('consume=music_listen&music_listen=23');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=1A9EE4305E04AC5E&globalId=18d6f7968b47ec6f&query=RockShow&tgid=8497c6e56481f14c&pf=mp3&s=Lady+Gaga&t=RockShow&size=3244032&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=23');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=RockShow%20Lady+Gaga" target=_blank class="lyrics"
+uigs="consume=music_lyric&music_lyric=23" title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>3.09M<!--size:3.09M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_23"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_23"
+type="checkbox" name="batchlistenm" section="bl" t="Just+Dance" s="Lady+Gaga"
+gid="1993a8a49beb2005" cid="1032B194D48F0929" lyricid="7b9774abdbd4115c"
+lyricoffset="0.0" onclick="_s_ld()" uigs="music_checkbox_24"
+/><![endif]-->24</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=1032B194D48F0929&gid=1993a8a49beb2005&s=Lady+Gaga&t=Just+Dance&lid=7b9774abdbd4115c&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_23',0);uigsPB('consume=mu_song&music_song=24');return(false);"
+entitle="Just+Dance" title="Juan class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a
+showSingeref="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.ht_blank
+uigs="consume=music_singer&music_singer=24">Lady <font stnt></a>&nbsp;</td> 
+  <td class="singger"><a href="http://music.sentitle="IAAS+DPRMTV3"
+title="IAAS DPRMTV3" target=_blank uigs="TV3</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+o1993a8a49beb2005&s=Lady+Gaga&t=Just+Dance&lid=7b9774abdbd4115c&23',0);uigsPB('consume=music_listen&music_listen=24');return(face&tgid=c2dc15987a72e81a&pf=mp3&s=Lady+Gaga&t=Just+Dance&size=5"consume=music_lyric&music_lyric=24"
+title="靠"></a> 
+  </td></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_24"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_24"
+type="checkbox" name="batchlistenm" section="bl" t="Retro+Physical"
+s="Lady+Gaga" gid="1d672c7d88553b3c" cid="1672C7D88553B3C2"
+lyricid="7c579b01594acc00" lyricoffset="0.0" onclick="_s_ld()"
+uigs="music_checkbox_25" /><![endif]-->25</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=1672C7D88553B3C2&gid=1d672c7d88553b3c&s=Lady+Gaga&t=Retro+Physical&lid=7c579b01594acc00&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_24',0);uigsPB('consume=music_song&music_song=25');return(false);"
+entitle="Retro+Physical" title="Retro Physical" action="listen">Retro
+Physical</a><span class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=25">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=25" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=1672C7D88553B3C2&gid=1d672c7d88553b3c&s=Lady+Gaga&t=Retro+Physical&lid=7c579b01594acc00&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_24',0);uigsPB('consume=music_listen&music_listen=25');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=1672C7D88553B3C2&globalId=1d672c7d88553b3c&query=Retro+Physical&tgid=aacd1c9a15a39fe5&pf=mp3&s=Lady+Gaga&t=Retro+Physical&size=5145588&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=25');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Retro+Physical%20Lady+Gaga" target=_blank
+class="lyrics" uigs="consume=music_lyric&music_lyric=25" title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>4.91M<!--size:4.91M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_25"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_25"
+type="checkbox" name="batchlistenm" section="bl" t="Poker+face" s="Lady+Gaga"
+gid="1ff91a766771fc17" cid="1F91A766771FC177" lyricid="7b21dafb88dd2123"
+lyricoffset="0.0" onclick="_s_ld()" uigs="music_checkbox_26"
+/><![endif]-->26</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=1F91A766771FC177&gid=1ff91a766771fc17&s=Lady+Gaga&t=Poker+face&lid=7b21dafb88dd2123&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_25',0);uigsPB('consume=music_song&music_song=26');return(false);"
+entitle="Poker+face" title="Poker face" action="listen">Poker face</a><span
+class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=26">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga!!2009%20hit%20fm%20%C4%EA%B6%C8%B0%D9%CA%D7%B5%A5%C7%FA%C6%B1%D1%A1.html"
+entitle="2009+Hit+Fm+%C4%EA%B6%C8%B0%D9%CA%D7%B5%A5%C7%FA%C6%B1%D1%A1"
+title="2009 Hit Fm 靠靠靠靠" target=_blank
+uigs="consume=music_album&music_album=26" >2009 Hit Fm
+靠靠靠靠</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=1F91A766771FC177&gid=1ff91a766771fc17&s=Lady+Gaga&t=Poker+face&lid=7b21dafb88dd2123&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_25',0);uigsPB('consume=music_listen&music_listen=26');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=1F91A766771FC177&globalId=1ff91a766771fc17&query=Poker+face&tgid=ddb368f81159673e&pf=mp3&s=Lady+Gaga&t=Poker+face&size=3834401&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=26');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Poker+face%20Lady+Gaga" target=_blank
+class="lyrics" uigs="consume=music_lyric&music_lyric=26" title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>3.66M<!--size:3.66M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_26"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_26"
+type="checkbox" name="batchlistenm" section="bl" t="Dirty+Ice+Cream"
+s="Lady+Gaga" gid="1d1e44dcde7739de" cid="11E44DCDE7739DE6"
+lyricid="0000000000000000" lyricoffset="0.0" onclick="_s_ld()"
+uigs="music_checkbox_27" /><![endif]-->27</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=11E44DCDE7739DE6&gid=1d1e44dcde7739de&s=Lady+Gaga&t=Dirty+Ice+Cream&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_26',0);uigsPB('consume=music_song&music_song=27');return(false);"
+entitle="Dirty+Ice+Cream" title="Dirty Ice Cream" action="listen">Dirty Ice
+Cream</a><span class="tag"></span><sup class="sup">�!</sup> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=27">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga!!the%20fame%20%3A%20unreleased%20hits.html"
+entitle="The+Fame+%3A+Unreleased+Hits" title="The Fame : Unreleased Hits"
+target=_blank uigs="consume=music_album&music_album=27" >The Fame : Unreleased
+Hits</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=11E44DCDE7739DE6&gid=1d1e44dcde7739de&s=Lady+Gaga&t=Dirty+Ice+Cream&lid=0000000000000000&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_26',0);uigsPB('consume=music_listen&music_listen=27');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=11E44DCDE7739DE6&globalId=1d1e44dcde7739de&query=Dirty+Ice+Cream&tgid=69ee7640ec3b5628&pf=mp3&s=Lady+Gaga&t=Dirty+Ice+Cream&size=6729044&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=27');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Dirty+Ice+Cream%20Lady+Gaga" target=_blank
+class="lyrics" uigs="consume=music_lyric&music_lyric=27" title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>6.42M<!--size:6.42M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_27"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_27"
+type="checkbox" name="batchlistenm" section="bl" t="Greatest" s="Lady++GaGa"
+gid="16e84709ad33abdf" cid="16E84709AD33ABDF" lyricid="7e41925077aeb2bc"
+lyricoffset="0.0" onclick="_s_ld()" uigs="music_checkbox_28"
+/><![endif]-->28</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=16E84709AD33ABDF&gid=16e84709ad33abdf&s=Lady++GaGa&t=Greatest&lid=7e41925077aeb2bc&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_27',0);uigsPB('consume=music_song&music_song=28');return(false);"
+entitle="Greatest" title="Greatest" action="listen">Greatest</a><span
+class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady++GaGa"
+href="http://music.sogou.com/singer/82/detailSinger_lady%20%20gaga.html"
+entitle="Lady++GaGa" title="Lady  GaGa" target=_blank
+uigs="consume=music_singer&music_singer=28">Lady  <font
+style="color:red;text-decoration:underline;">GaGa</font></a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/82/detailAlbum_lady%20%20gaga!!%BD%C5%DF%B9%CA%D5%B2%D8.html"
+entitle="%BD%C5%DF%B9%CA%D5%B2%D8" title="靠靠" target=_blank
+uigs="consume=music_album&music_album=28" >靠靠</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=16E84709AD33ABDF&gid=16e84709ad33abdf&s=Lady++GaGa&t=Greatest&lid=7e41925077aeb2bc&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_27',0);uigsPB('consume=music_listen&music_listen=28');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=16E84709AD33ABDF&globalId=16e84709ad33abdf&query=Greatest&tgid=08d55631325d2bf3&pf=mp3&s=Lady++GaGa&t=Greatest&size=9912320&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=28');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Greatest%20Lady++GaGa" target=_blank class="lyrics"
+uigs="consume=music_lyric&music_lyric=28" title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>9.45M<!--size:9.45M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar5"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_28"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_28"
+type="checkbox" name="batchlistenm" section="bl" t="Eh%2CEh" s="Lady+Gaga"
+gid="1ae3f64807d66bbf" cid="1E3F64807D66BBF6" lyricid="74ff36ff0892c62f"
+lyricoffset="0.0" onclick="_s_ld()" uigs="music_checkbox_29"
+/><![endif]-->29</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=1E3F64807D66BBF6&gid=1ae3f64807d66bbf&s=Lady+Gaga&t=Eh%2CEh&lid=74ff36ff0892c62f&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_28',0);uigsPB('consume=music_song&music_song=29');return(false);"
+entitle="Eh%2CEh" title="Eh,Eh" action="listen">Eh,Eh</a><span
+class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+Gaga"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+Gaga" title="Lady Gaga" target=_blank
+uigs="consume=music_singer&music_singer=29">Lady <font
+style="color:red;text-decoration:underline;">Gaga</font></a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/f4/detailAlbum_lady%20gaga!!pure%20songs.html"
+entitle="Pure+Songs" title="Pure Songs" target=_blank
+uigs="consume=music_album&music_album=29" >Pure Songs</a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=1E3F64807D66BBF6&gid=1ae3f64807d66bbf&s=Lady+Gaga&t=Eh%2CEh&lid=74ff36ff0892c62f&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_28',0);uigsPB('consume=music_listen&music_listen=29');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=1E3F64807D66BBF6&globalId=1ae3f64807d66bbf&query=Eh%2CEh&tgid=680122fd28f0de1a&pf=mp3&s=Lady+Gaga&t=Eh%2CEh&size=2883584&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=29');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Eh%2CEh%20Lady+Gaga" target=_blank class="lyrics"
+uigs="consume=music_lyric&music_lyric=29" title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>2.75M<!--size:2.75M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+ 
+<!--m--><tr id="musicmc_29"> 
+  <td  class="cbbox"><label><!--[if IE]><input id="checkboxmc_29"
+type="checkbox" name="batchlistenm" section="bl" t="Just+Dance"
+s="Lady+GaGa+Colby+O%27Donis" gid="18eca312c0a08e53" cid="177358F3EA50893A"
+lyricid="7bbf43a80b6b9c26" lyricoffset="0.0" onclick="_s_ld()"
+uigs="music_checkbox_30" /><![endif]-->30</label></td> 
+ 
+  <td class="songname"><a pb=t href="javascript:void(null);"
+onClick="o2('cid=177358F3EA50893A&gid=18eca312c0a08e53&s=Lady+GaGa+Colby+O%27Donis&t=Just+Dance&lid=7bbf43a80b6b9c26&lyricoffset=0.0&ac=0&from=search&pp=txt','checkboxmc_29',0);uigsPB('consume=music_song&music_song=30');return(false);"
+entitle="Just+Dance" title="Just Dance" action="listen">Just Dance</a><span
+class="tag"></span> 
+ 
+</td> 
+  <td class="singger"><a showSinger=t singer="Lady+GaGa"
+href="http://music.sogou.com/singer/f4/detailSinger_lady%20gaga.html"
+entitle="Lady+GaGa+Colby+O%27Donis" title="Lady GaGa" target=_blank
+uigs="consume=music_singer&music_singer=30">Lady <font
+style="color:red;text-decoration:underline;">GaGa</font></a>&nbsp;<a
+showSinger=t singer="Colby+O%27Donis"
+href="http://music.sogou.com/singer/6f/detailSinger_colby%20o%27donis.html"
+entitle="Lady+GaGa+Colby+O%27Donis" title="Colby O'Donis" target=_blank
+uigs="consume=music_singer&music_singer=30">Colby O'Donis</a>&nbsp;</td> 
+  <td class="singger"><a
+href="http://music.sogou.com/singer/0d/detailAlbum_lady%20gaga%20colby%20o%27donis!!iaas%20dprmtv3%20.html"
+entitle="IAAS+DPRMTV3+" title="IAAS DPRMTV3 " target=_blank
+uigs="consume=music_album&music_album=30" >IAAS DPRMTV3 </a>&nbsp;</td> 
+  <td><a pb=t href="javascript:void(null)"
+onClick="o2('cid=177358F3EA50893A&gid=18eca312c0a08e53&s=Lady+GaGa+Colby+O%27Donis&t=Just+Dance&lid=7bbf43a80b6b9c26&lyricoffset=0.0&ac=0&from=search&pp=bnt','checkboxmc_29',0);uigsPB('consume=music_listen&music_listen=30');return(false);"
+title="靠" class="play" action="listen"></a><!--listen--></td> 
+ 
+  <td><a pb=t href="javascript:void(null);"
+onclick="window.open('/down.so?gid=177358F3EA50893A&globalId=18eca312c0a08e53&query=Just+Dance&tgid=8a7160ea6e027045&pf=mp3&s=Lady+GaGa+Colby+O%27Donis&t=Just+Dance&size=6225880&ac=0&c','','width=428,height=394,scrollbars=no');uigsPB('consume=music_down&music_down=30');return(false);"
+class="link" action="down" title="靠"></a></td> 
+  <td> 
+  <a href="/lyric.so?query=Just+Dance%20Lady+GaGa+Colby+O%27Donis"
+target=_blank class="lyrics" uigs="consume=music_lyric&music_lyric=30"
+title="靠"></a> 
+  </td> 
+  <td> 
+  
+  &nbsp;
+  </td> 
+  <td>5.94M<!--size:5.94M--></td> 
+  <td>mp3</td> 
+  <td><div class="spd"><span class="spdbar6"></span></div></td> 
+</tr><!--n--> 
+ 
+</table> 
+<!--[if lte IE 6]>
+<script type="text/javascript">
+var sfEls = document.getElementById("songlist").getElementsByTagName("TR");
+for (var i=0; i<sfEls.length; i++) {
+  sfEls[i].onmouseover=function() {
+    this.className+=" sfhover";
+  }
+  sfEls[i].onmouseout=function() {
+    this.className=this.className.replace(new RegExp(" sfhover\\b"), "");
+  }
+}
+</script><![endif]--> 
+ 
+<!--[if IE]>
+<ul class="btnarea">
+<input id="userdatainput" type="hidden"/>
+<li class="selectall"><label for="selectallcheckbox"><input
+id="selectallcheckbox" type="checkbox" onclick="selectall(this)">
+靠</label></li>
+<li id=listen_selected class="disbtn2"><a id=listen_selecteda
+>靠靠</a></li>
+<li id=download_selected class="disbtn3"><a id=download_selecteda
+class="btn3l">靠靠</a><a class="btn3r" id="download_lyrica">&nbsp;</a>
+  <div id=download_lyric class="btnpop1" style="display:none"
+onmouseover="_o_lyric(true)" onmouseout="_o_lyric(false)">
+  <label><input id="isdownloadlyric" name="isdownloadlyric" type="checkbox"
+style="vertical-align:middle" uigs="music_lyric_checkbox">靠靠�</label>
+  </div>
+  <div id="no_thunder"></div>
+</li>
+</ul>
+<![endif]--> 
+ 
+<form method="post" target="bdown" action="/coo/common/batchdown_result.jsp"
+id=bdownform name=bdownform> 
+<input type=hidden id="query" name="query"/> 
+<input type=hidden id="param" name="param" /> 
+</form> 
+<iframe width=0 height=0 id="bdown" name="bdown"></iframe> 
+<!--靠--> 
+<div class="pagebar"> 
+ 
+&nbsp;
+&nbsp;&nbsp;1&nbsp;&nbsp;
+<a href=?pf=mp3&query=GaGa&page=2 uigs="music_page_2" >2</a> 
+<a href=?pf=mp3&query=GaGa&page=3 uigs="music_page_3" >3</a> 
+<a href=?pf=mp3&query=GaGa&page=4 uigs="music_page_4" >4</a> 
+<a href=?pf=mp3&query=GaGa&page=5 uigs="music_page_5" >5</a> 
+<a href=?pf=mp3&query=GaGa&page=6 uigs="music_page_6" >6</a> 
+<a href=?pf=mp3&query=GaGa&page=7 uigs="music_page_7" >7</a> 
+<a href=?pf=mp3&query=GaGa&page=2 uigs="music_page_down">靠�&gt;</a> 
+ 
+ 
+</div> 
+<script> 
+function highlight(id){
+  if(typeof(id)!="undefined"){
+    if(navigator.userAgent.indexOf("MSIE")==-1){
+      var musicmc=document.getElementById("musicmc_"+id);
+      var lyricmc=document.getElementById("lyricmc_"+id);
+      if(musicmc) musicmc.className="musicmchl";
+      if(lyricmc) lyricmc.className="lyricsboxhl";
+    }else{
+      var checkboxmc=document.getElementById("checkboxmc_"+id);
+      if(!checkboxmc.checked){
+        var musicmc=document.getElementById("musicmc_"+id);
+        var lyricmc=document.getElementById("lyricmc_"+id);
+        if(musicmc) musicmc.className="musicmchl";
+        if(lyricmc) lyricmc.className="lyricsboxhl";
+      }
+    }       
+  }
+}
+function nohighlight(id){
+  if(typeof(id)!="undefined"){
+    if(navigator.userAgent.indexOf("MSIE")==-1){
+      var musicmc=document.getElementById("musicmc_"+id);
+      var lyricmc=document.getElementById("lyricmc_"+id);
+      if(musicmc) musicmc.className="";
+      if(lyricmc) lyricmc.className="lyricsbox";
+    }else{
+      var checkboxmc=document.getElementById("checkboxmc_"+id);
+      if(!checkboxmc.checked){
+        var musicmc=document.getElementById("musicmc_"+id);
+        var lyricmc=document.getElementById("lyricmc_"+id);
+        if(musicmc) musicmc.className="";
+        if(lyricmc) lyricmc.className="lyricsbox";
+      }
+    }       
+  } 
+ 
+}
+var sfEls = document.getElementById("songlist").getElementsByTagName("tr");
+for (var i=0; i<sfEls.length; i++) {
+  sfEls[i].onmouseover=function (){
+    if(this.id){
+      var iid=this.id.split("_")[1];
+      if(navigator.userAgent.indexOf("MSIE")==-1){
+        var musicmc=document.getElementById("musicmc_"+iid);
+        var lyricmc=document.getElementById("lyricmc_"+iid);
+        if(musicmc) musicmc.className="musicmchl";
+        if(lyricmc) lyricmc.className="lyricsboxhl";
+      }else{
+      var checkboxmc=document.getElementById("checkboxmc_"+iid);
+      if(!checkboxmc.checked){
+        var musicmc=document.getElementById("musicmc_"+iid);
+        var lyricmc=document.getElementById("lyricmc_"+iid);
+        if(musicmc) musicmc.className="musicmchl";
+        if(lyricmc) lyricmc.className="lyricsboxhl";
+      }
+      } 
+    }
+  };
+  sfEls[i].onmouseout=function(){
+  if(this.id){
+                        var iid=this.id.split("_")[1];
+                        if(navigator.userAgent.indexOf("MSIE")==-1){
+                                var
+musicmc=document.getElementById("musicmc_"+iid);
+                                var
+lyricmc=document.getElementById("lyricmc_"+iid);
+                                if(musicmc) musicmc.className="";
+                                if(lyricmc) lyricmc.className="lyricsbox";
+                        }else{
+                          var
+checkboxmc=document.getElementById("checkboxmc_"+iid);
+                          if(!checkboxmc.checked){
+                                  var
+musicmc=document.getElementById("musicmc_"+iid);
+                                  var
+lyricmc=document.getElementById("lyricmc_"+iid);
+                                  if(musicmc) musicmc.className="";
+                                  if(lyricmc) lyricmc.className="lyricsbox";
+                          }
+                        }       
+                } 
+  };
+}
+function _s_ld(){
+  var carray=document.getElementsByName("batchlistenm");
+  var cnum=false;
+  for(var i=0;i<carray.length;i++){
+    if(carray[i].checked) {cnum=true;break;}
+  }
+  ablebatchfunc(cnum);
+}
+function _o_lyric(open){
+  var downloadlyric=document.getElementById("download_lyric");
+  if(open) downloadlyric.style.display="";
+  else downloadlyric.style.display="none";
+}
+//靠靠靠靠
+function ablebatchfunc(able){
+  var listenselected = document.getElementById("listen_selected");
+  var listenselecteda = document.getElementById("listen_selecteda");
+  var downloadselected = document.getElementById("download_selected");
+  var downloadselecteda = document.getElementById("download_selecteda");
+  var downloadlyrica = document.getElementById("download_lyrica");
+  if(able){
+    listenselecteda.setAttribute("href","javascript:void(0);");
+    listenselecteda.onclick=function(){playselectedProxy();uigsPB('music_selected_listen&query=GaGa&consume=music_selected_listen');};
+    listenselected.className="btn2";
+ 
+    if (downloadselected &&ecteda && downloadlyrica) {
+      downloadselecteda.setAttribute(dselecteda.onclick=function(){downselected();uigsPB('music_seln');}
+      downloadlyrica.setAttribute("href","javascript:void(0=function(){_o_lyric(true);}
+      downloadlyrica.onmouseout=funcelected.className="btn3";
+    }
+  }
+  else {
+    listenselecteda.remok=null;
+    listenselected.className="disbtn2";
+ 
+    if (downloadsdlyrica) {
+      downloadselecteda.removeAttribute("href");
+      dowoadlyrica.onmouseover=null;
+      downloadlyrica.onmouseout=null;
+熆靠
+function selectall(checkbox){
+  var check=checkbox.chentById("checkboxmc_"+i);
+    if(checkboxmc){
+      if(check){
+        hd=true;
+        ablebatchfunc(true);
+      }else{
+        checkboxmc.check    }
+  }
+}
+function playselectedProxy() {
+  if (openNewListen()) {kboxmc_"+i;
+      var checkboxmc=document.getElementById(key);
+      sicBox(ids, 0);
+  } else {
+    playselected();
+  }
+}
+</script> 
+ 
+  > 
+<table class="etcquery"> 
+<tr><td><a uigs="music_hint_1" hrecetype=hint_1'>gaga lady</a></td><td><a
+uigs="music_hint_2"
+hreery=the+fame+lady+gaga&w=02020800&sourcetype=hint_2'>the fame lady
+gaga</a></td><td><a uigs="music_hint_3"
+href='/music.so?query=alejandro+lady+gaga&w=02020800&sourcetype=hint_3'>alejandro
+lady gaga</a></td><td><a uigs="music_hint_4"
+href='/music.so?query=lady+gaga+2010&w=02020800&sourcetype=hint_4'>lady gaga
+2010</a></td><td><a uigs="music_hint_5"
+href='/music.so?query=lady+gaga+poker&w=02020800&sourcetype=hint_5'>lady gaga
+poker</a></td></tr><tr> 
+<td><a uigs="music_hint_6"
+href='/music.so?query=monster+lady+gaga&w=02020800&sourcetype=hint_6'>monster
+lady gaga</a></td><td><a uigs="music_hint_7"
+href='/music.so?query=telephone+lady+gaga&w=02020800&sourcetype=hint_7'>telephone
+lady gaga</a></td><td><a uigs="music_hint_8"
+href='/music.so?query=poker+face+gaga&w=02020800&sourcetype=hint_8'>poker face
+gaga</a></td><td><a uigs="music_hint_9"
+href='/music.so?query=lovegame+lady+gaga&w=02020800&sourcetype=hint_9'>lovegame
+lady gaga</a></td><td><a uigs="music_hint_10"
+href='/music.so?query=eh+lady+gaga&w=02020800&sourcetype=hint_10'>eh lady
+gaga</a></td></tr> 
+</table> 
+<!--hints:gaga lady$$##the fame lady gaga$$##alejandro lady gaga$$##lady gaga
+2010$$##lady gaga poker$$##monster lady gaga$$##telephone lady gaga$$##poker
+face gaga$$##lovegame lady gaga$$##eh lady gaga--> 
+ 
+ 
+  
+ 
+ 
+ 
+<h2 class="title2">靠靠�<a
+href="http://v.sogou.com/v?query=gaga&p=41330601"
+target="_blank">靠靠&gt;&gt;</a></h2> 
+  <table class="videolist"><tr> 
+ 
+  <td><div class="videobox"><a
+href="http://v.sogou.com/rp?query=gaga&idx=0&tiny=1&p=41330601"
+target="_blank"><img
+src="http://tn04.v.sogou.com/6735e2604b759c9c-92c5c177ab6cc660.jpg" title="55
+Let Them Hoes Fight (Feat. Trina)"
+onerror="this.src='http://v.sogou.com/images/err/err.gif';onerror=null"
+width="128" height="96"></a></div> 
+            <div class="videoinfo"><a
+href="http://v.sogou.com/rp?query=gaga&idx=0&tiny=1&p=41330601"
+target="_blank" title="55 Let Them Hoes Fight (Feat. Trina)">55 Let Them Hoes
+Fight (Feat. Trina)</a></div></td> 
+  
+  <td><div class="videobox"><a
+href="http://v.sogou.com/rp?query=gaga&idx=1&tiny=1&p=41330601"
+target="_blank"><img
+src="http://tn02.v.sogou.com/074ba45ad56c6fb1-278a04d85ff04030.jpg"
+title="Wale.-.[Chillin.(feat.Lady.gaga)].MV.(DVDRip)"
+onerror="this.src='http://v.sogou.com/images/err/err.gif';onerror=null"
+width="128" height="96"></a></div> 
+            <div class="videoinfo"><a
+href="http://v.sogou.com/rp?query=gaga&idx=1&tiny=1&p=41330601"
+target="_blank"
+title="Wale.-.[Chillin.(feat.Lady.gaga)].MV.(DVDRip)">Wale.-.[Chillin.(feat.Lady.<font
+color="red">gaga</font>)].MV.(DVDRip)</a></div></td> 
+  
+  <td><div class="videobox"><a
+href="http://v.sogou.com/rp?query=gaga&idx=2&tiny=1&p=41330601"
+target="_blank"><img
+src="http://tn04.v.sogou.com/00a9703ebb759c9c-92c5c177ab6cc660_i.jpg"
+title="Lady gaga - Bad Romance"
+onerror="this.src='http://v.sogou.com/images/err/err.gif';onerror=null"
+width="128" height="96"></a></div> 
+            <div class="videoinfo"><a
+href="http://v.sogou.com/rp?query=gaga&idx=2&tiny=1&p=41330601"
+target="_blank" title="Lady gaga - Bad Romance">Lady <font
+color="red">gaga</font> - Bad Romance</a></div></td> 
+  
+  <td><div class="videobox"><a
+href="http://v.sogou.com/rp?query=gaga&idx=3&tiny=1&p=41330601"
+target="_blank"><img
+src="http://tn03.v.sogou.com/09bd62642a8a71a2-b9f42f71826112e0_i.jpg"
+title="靠 Telephone Lady gaga Beyonce"
+onerror="this.src='http://v.sogou.com/images/err/err.gif';onerror=null"
+width="128" height="96"></a></div> 
+            <div class="videoinfo"><a
+href="http://v.sogou.com/rp?query=gaga&idx=3&tiny=1&p=41330601"
+target="_blank" title="靠 Telephone Lady gaga Beyonce">靠 Telephone Lady
+<font color="red">gaga</font> Beyonce</a></div></td> 
+  
+  <td><div class="videobox"><a
+href="http://v.sogou.com/rp?query=gaga&idx=4&tiny=1&p=41330601"
+target="_blank"><img
+src="http://tn03.v.sogou.com/3a8b9814d28a71a2-b9f42f71826112e0.jpg"
+title="縇ady gaga靠靠靠�-靠 - Filthy Pop"
+onerror="this.src='http://v.sogou.com/images/err/err.gif';onerror=null"
+width="128" height="96"></a></div> 
+            <div class="videoinfo"><a
+href="http://v.sogou.com/rp?query=gaga&idx=4&tiny=1&p=41330601"
+target="_blank" title="縇ady gaga靠靠靠�-靠 - Filthy Pop">縇ady
+<font color="red">gaga</font>靠靠靠�-靠 - Filthy Pop</a></div></td> 
+  
+        </tr></table> 
+ 
+ 
+  </div></div> 
+</div> 
+  <div id="search-box2"> 
+  <form id="searchForm2" name="searchForm2" action="music.so" method="get"
+onsubmit="dde_dispatch('2');return true;"> 
+  <div class="f_con"> 
+  <img src="/images/so_icon.gif" width="25" height="22"> 
+  <input type="text" size="32" class="query" name="query" autocomplete="off"
+maxlength="100" value="GaGa"/> 
+  <input type="submit" value="靠靠" class="sbtn1"/> 
+  </div> 
+  <div class="mp3_sogou_radio"> 
+  <input type="radio" onclick='selectRadio("all","","2")' id="rd_music2"
+checked="" value="1" name="class2"  uigs="result_bradio_all"/> 
+  <label for="rd_music2">靠靠</label> 
+  <input type="radio" onclick='selectRadio("pf","mp3","2")' id="rd_musicMp32"
+value="1" name="class2" checked uigs="result_bradio_mp3"/> 
+  <label for="rd_musicMp32">mp3</label> 
+  <input type="radio" onclick='selectRadio("pf","wma","2")' id="rd_musicWma2"
+value="1" name="class2"  uigs="result_bradio_wma"/> 
+  <label for="rd_musicWma2">wma</label> 
+  <input type="radio" onclick='selectRadio("pf","rm","2")' id="rd_musicRm2"
+value="1" name="class2"   uigs="result_bradio_rm"/> 
+  <label for="rd_musicRm2">rm</label> 
+  <input type="radio" onclick='selectRadio("album","","2")' id="rd_album2"
+value="2" name="class2"  uigs="result_bradio_album"/> 
+  <label for="rd_album2">靠</label> 
+  <input type="radio" onclick='selectRadio("","","2")' id="rd_geci2" value="3"
+name="class2"  uigs="result_bradio_lyric"/> 
+  <label for="rd_geci2">靠</label> 
+  <input type="radio" onclick='selectRadio("","","2")' id="rd_ring2" value="4"
+name="class2"  uigs="result_bradio_ring"/> 
+  <label for="rd_ring2">靠</label> 
+  <input type=hidden name="st" id="st" value=""> 
+  <input type=hidden name="ac" id="ac" value="1"> 
+  <input type=hidden name="pf" id="pf" value="mp3"> 
+  <input type=hidden name="_asf" id="_asf"> 
+  <input type=hidden name="_ast" id="_ast"> 
+  <input type=hidden name="p" id="p"> 
+  </div> 
+  </form> 
+</div> 
+ 
+  <div
+id="duty">靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠靠�<a
+href="http://mp3.sogou.com/duty.html" target="_blank"
+uigs="result_duty">靠</a>靠</div> 
+<div id="footer"> 
+  <!--[if IE]><a href="#"
+onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.sogou.com');uigsPB('result_fav');">靠靠靠�</a>
+| <![endif]--> 
+  <a href="http://www.sogou.com/docs/help/help.htm" target="_blank"
+uigs="result_help">靠靠</a> | <a target="_blank"
+href="http://www.sogou.com/feedback/?product=%CB%D1%B9%B7%D2%F4%C0%D6%CB%D1%CB%F7"
+uigs="result_not_satisfied"> 靠靠靠?</a> &copy; 2010 SOGOU.COM <a
+class="terms" target="_blank" href="http://www.sogou.com/docs/terms.htm"
+uigs="result_terms">靠靠</a> 
+</div> 
+ 
+</body> 
+</html> 
+<script src="/js/app/music_ad.js" language="javascript"
+type="text/javascript"></script> 
+<script>showAD([1,2]);</script> 
+<script> 
+  //靠�
+        var crumbnav = document.getElementById("crumbnavigator");
+  crumbnav.innerHTML='<a href="http://mp3.sogou.com"
+uigs="result_crumbnav_index">靠靠</a> &gt;&gt;
+縂aGa靠靠靠靠靠1,345<!--resultbarnum:1,345-->靠靠�0.029<!--resultbartime:0.029-->�';
+ 
+  //靠靠UA
+  var ua = navigator.userAgent.toLowerCase();  
+  var s,browser;  
+  (s = ua.match(/msie ([\d.]+)/)) ? browser = s[0] :  
+  (s = ua.match(/firefox\/([\d.]+)/)) ? browser = s[0] :  
+  (s = ua.match(/chrome\/([\d.]+)/)) ? browser = s[0]  :  
+  (s = ua.match(/opera.([\d.]+)/)) ? browser = s[0] :  
+  (s = ua.match(/version\/([\d.]+).*safari/)) ? browser = s[0] : 0;
+  
+  var pf ="mp3";
+  var page = 1;
+  var resultcnt="1345";
+  var ctime = 29;
+        var qcnum = 1;
+  var hintnum = 10;
+  var showQcHTML = "true";
+  var qcHtml = "靠靠靠靠<a style='font-size:14px;color:blue'
+uigs='music_qc'
+href=/music.so?query=%B8%C2%B8%C2&sourcetype=qc&originalq=GaGa>靠</a><!--qc:靠-->";
+  //靠縫ingback靠
+  window.uigs_para = new Array();
+  window.uigs_para["uigs_productid"]="music";
+  window.uigs_para["uigs_page"]="music";
+  window.uigs_para["query"] = enQuery;
+        window.uigs_para["pf"] = pf;
+        window.uigs_para["page"] = page;
+        window.uigs_para["resultcnt"] = resultcnt;
+        window.uigs_para["ctime"] = ctime;
+        window.uigs_para["qcnum"] = qcnum;
+        window.uigs_para["hintnum"] = hintnum;
+        window.uigs_para["browser"] = browser;
+  if(typeof(marshal)!="undefined"&&marshal!="")
+  {
+    window.uigs_para["noresult"] = marshal;
+  }
+  if(typeof(originalq)!="undefined"&&originalq!="")
+  {
+    window.uigs_para["originalq"] = originalq;
+  }
+</script> 
+<script src="/js/musicSo_2.0.js?v=4" language="javascript"
+type="text/javascript"></script> 
+<script src="http://www.sogou.com/js/sugg_ajaj_v.1.10.js"
+language="javascript" type="text/javascript"></script> 
+<script src="http://pb.sogou.com/pb.js" language="javascript"
+type="text/javascript"></script> 
+<script>var spv;if(!spv)m_s();spv=1;</script> 
+ 
+ 
+ 
+ 
+ 
+<!--zly--> 

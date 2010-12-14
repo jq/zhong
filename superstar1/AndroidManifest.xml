@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.ringtone.music"
+      android:versionName="1.0.7" android:versionCode="8">
+    <application 
+    	android:name=".App"
+    	android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
+        <!--  <activity android:name=".MainActivity"
+                  android:label="@string/app_name">
+
+        </activity> -->
+        <activity android:name=".DBResultActivity"
+        		  android:launchMode="singleTop">
+        	<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SearchResultActivity" android:launchMode="singleTop"/> 
+        <activity android:name=".BillBoardList" android:launchMode="singleTop"/>
+        <activity android:name="BillBoardCate" android:launchMode="singleTop"/>
+       	<activity android:name=".download.DownloadActivity"
+       			  android:launchMode="singleTop"
+       	/>
+        <service android:name=".download.DownloadService" />
+        <activity android:name=".EulaActivity"/>
+        <activity android:name=".ViewDownloadedActivity"/>
+       	<!-- 
+       	<meta-data android:value="true" android:name="ADMOB_ALLOW_LOCATION_FOR_ADS" />
+        -->
+        
+        
+                <!-- Main activity that's launched when the user opens Ringdroid. -->
+        <activity android:name="com.ringdroid.RingdroidSelectActivity"
+           			android:launchMode="singleTop" 
+                  android:label="@string/main_activity_label">
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+              -->
+
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+                <data android:mimeType="audio/*" />
+            </intent-filter>
+
+        </activity>
+
+        <activity android:name="com.ringdroid.RingdroidEditActivity"
+           			android:launchMode="singleTop" 
+                  android:configChanges="orientation|keyboardHidden">
+            <intent-filter android:label="@string/edit_intent">
+                <action android:name="android.intent.action.EDIT" />
+                <data android:mimeType="audio/*" />
+            </intent-filter>
+        </activity>
+
+	<!-- Activity for choosing a contact to assign a ringtone to. -->
+        <activity android:name="com.ringdroid.ChooseContactActivity"
+                  android:configChanges="orientation|keyboardHidden">
+        </activity>
+    </application>
+    <uses-sdk android:minSdkVersion="3"  android:targetSdkVersion="4"  />
+
+	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+
+<uses-permission android:name="android.permission.READ_CONTACTS"></uses-permission>
+<uses-permission android:name="android.permission.WRITE_SETTINGS"></uses-permission>
+<uses-permission android:name="android.permission.WRITE_CONTACTS"></uses-permission>
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+</manifest> 

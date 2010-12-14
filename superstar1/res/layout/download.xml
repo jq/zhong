@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent" 
+        android:layout_height="fill_parent"
+        >
+
+    <ListView android:id="@id/android:list"
+              android:layout_width="fill_parent" 
+              android:layout_height="0px"
+              android:layout_weight="1">
+              <requestFocus />
+              </ListView>
+              
+    <TextView android:id="@id/android:empty"
+    		   android:layout_width="fill_parent"
+    		   android:layout_height="fill_parent"
+    		   android:layout_margin="8dip"
+    		   android:layout_marginBottom="10dip"
+    		   android:layout_weight="1"
+    		   android:text="@string/no_download_data"/>
+    <include layout_height="wrap_content" layout="@layout/adsw"/>          
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dip"
+        android:paddingLeft="4dip"
+        android:paddingRight="4dip"
+        android:paddingBottom="1dip"  
+        android:background="@android:drawable/bottom_bar"
+        android:orientation="horizontal">
+
+	<Button android:id="@+id/clear_finished_button"
+		android:layout_width="0dip"
+		android:layout_height="wrap_content"
+        android:text="@string/clear_finished"
+        android:layout_weight="1" />
+      
+	<Button android:id="@+id/show_finished_button"
+		android:layout_width="0dip"
+		android:layout_height="wrap_content"
+        android:text="@string/show_finished"
+        android:layout_weight="1" />
+              
+    <Button android:id="@+id/hide_button"
+    	android:layout_width="0dip"
+    	android:layout_height="wrap_content"
+    	android:text="@string/hide"
+    	android:layout_weight="1" /> 
+  
+    </LinearLayout>
+
+</LinearLayout>
+
