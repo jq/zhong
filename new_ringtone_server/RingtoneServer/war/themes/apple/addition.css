@@ -7,6 +7,10 @@
   .searchbox input[type="text"] {
     width: 275px;
   }
+  
+  div .loader {
+    left: 40px;
+  }
 
 }
 
@@ -19,6 +23,10 @@
 
   .searchbox input[type="text"] {
     width: 435px;
+  }
+  
+  div .loader {
+    left: 120px;
   }
 
 }
@@ -155,7 +163,7 @@ fieldset {
   width: 65px;
 }
 
-div .loader {
+div .loader_old {
   background: transparent url(img/loading.gif) no-repeat center center;
   position: absolute;
   top: 200px;
@@ -163,6 +171,24 @@ div .loader {
   left: 0px;
   height: 24px;
 }
+
+div .loader {
+  -webkit-border-radius: 10px;
+  background-color: rgba(0,0,0,.7);
+  background-image: url(img/loading.gif);
+  background-repeat: no-repeat;
+  background-position: 40px center;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  height: 80px;
+  line-height: 80px;
+  margin: 0 auto;
+  position: absolute;
+  text-align: center;
+  width: 240px;
+  top: 120px;
+}	
 
 .s-scrollwrapper {
   height:200px;       /* Of course you need to specify the object height */
