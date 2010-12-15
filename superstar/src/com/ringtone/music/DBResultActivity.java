@@ -907,13 +907,16 @@ public class DBResultActivity extends ListActivity {
             Intent intent = new Intent(DBResultActivity.this, DownloadActivity.class);
 			startActivity(intent);
 			return true;
+/*			
 		case R.id.billboard:
             Intent intent_bill = new Intent(DBResultActivity.this, BillBoardCate.class);
 			startActivity(intent_bill);
 			return true;
+*/			
 		case R.id.refresh:
 			mAdapter.refresh();
 			return true;
+/*			
 		case R.id.rate:
 			String url = "market://search?q=pname:" + getPackageName();		
 			try {
@@ -925,6 +928,7 @@ public class DBResultActivity extends ListActivity {
 				ex.printStackTrace();
 			}
 			return true;
+*/			
 		case R.id.getmore:
 //			String url = "market://search?q=pub:\"Google Inc.\"";
 //			String url1 = "market://search?q=pub:\"Social Games\"";	

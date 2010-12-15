@@ -12,6 +12,8 @@
 		      android:orientation="horizontal">
   </com.ringtone.music.ControlBarView>
   
+  <include layout="@layout/adsw"/> 
+  
   <ListView android:id="@id/android:list"
  	  android:layout_width="fill_parent"
       android:layout_height="0px"
@@ -43,6 +45,6 @@
                 android:textSize="18dip"/>
 
     </LinearLayout>
-<include layout="@layout/adsw"/> 
+
 </LinearLayout>
   

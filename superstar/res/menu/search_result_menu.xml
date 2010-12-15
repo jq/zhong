@@ -3,12 +3,14 @@
 	<item android:id="@+id/getmore"
         android:title="@string/getmore"
         android:icon="@drawable/ic_menu_my_share"/>
+<!-- 
 	<item android:id="@+id/rate"
         android:title="@string/rate"
         android:icon="@drawable/ic_menu_my_about"/>
 	<item android:id="@+id/billboard"
         android:title="@string/billboard"
         android:icon="@drawable/ic_menu_my_billboard"/>
+ -->        
     <item android:id="@+id/refresh"
         android:title="@string/refresh"
         android:icon="@drawable/ic_menu_my_refresh"/>
