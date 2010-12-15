@@ -231,7 +231,7 @@
 			  <div class="toolbar">
 			    <h1>Categories</h1>
 	        	<a href="#home" class="back">Back</a>
-	        	<a href="#" class="top" onclick="var iscroll = new iScroll($(this).parent().parent().find('.s-scrollpane').attr('id'), {desktopCompatibility: true}); iscroll.refresh();">Top</a>
+	        	<a href="#" class="top" onclick="$(this).parent().parent().data('iscroll_object').scrollTo(0,0,'400ms');">Top</a>
 	    	</div>
 	    	<div id="target-wrapper-Cates" class="s-scrollwrapper"><div id="target-pane-Cates" class="s-scrollpane">
 				<ul class="rounded" id="all_categories">
@@ -264,7 +264,7 @@
 				<div class="toolbar">
 					<h1></h1>
 					<a href="#categories" class="back">Back</a>
-					<a href="#" class="top" onclick="var iscroll = new iScroll($(this).parent().parent().find('.s-scrollpane').attr('id'), {desktopCompatibility: true}); iscroll.scrollTo();">Top</a>
+					<a href="#" class="top" onclick="$(this).parent().parent().data('iscroll_object').scrollTo(0,0,'400ms');">Top</a>
 				</div>
 				<div class="loader" style="display:none;">Loading</div>
 				<div id="target-wrapper-Cate" class="s-scrollwrapper"><div id="target-pane-Cate" class="s-scrollpane">
@@ -279,7 +279,7 @@
 				<div class="toolbar">
 					<h1>Top Download</h1>
 					<a href="#" class="back">Back</a>
-					<a href="#" class="top" onclick="var iscroll = new iScroll($(this).parent().parent().find('.s-scrollpane').attr('id'), {desktopCompatibility: true}); iscroll.refresh();">Top</a>
+					<a href="#" class="top" onclick="$(this).parent().parent().data('iscroll_object').scrollTo(0,0,'400ms');">Top</a>
 				</div>
 				<div class="loader" style="display:none;">Loading</div>
 				<div id="target-wrapper-TopDownload" class="s-scrollwrapper"><div id="target-pane-TopDownload" class="s-scrollpane">
@@ -295,7 +295,7 @@
 				<div class="toolbar">
 					<h1>Newest Add</h1>
 					<a href="#" class="back">Back</a>
-					<a href="#" class="top" onclick="var iscroll = new iScroll($(this).parent().parent().find('.s-scrollpane').attr('id'), {desktopCompatibility: true}); iscroll.refresh();">Top</a>
+					<a href="#" class="top" onclick="$(this).parent().parent().data('iscroll_object').scrollTo(0,0,'400ms');">Top</a>
 				</div>
 				<div class="loader" style="display:none;">Loading</div>
 				<div id="target-wrapper-NewestAdd" class="s-scrollwrapper"><div id="target-pane-NewestAdd" class="s-scrollpane">
