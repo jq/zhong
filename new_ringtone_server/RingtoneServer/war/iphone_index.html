@@ -5,7 +5,7 @@
         <title>Ringtone</title>
         <style type="text/css" media="screen">@import "/jqtouch/jqtouch.min.css";</style>
         
-        <style type="text/css" media="screen">@import "themes/apple/theme.css";</style>
+        <style type="text/css" media="screen">@import "themes/apple/theme.min.css";</style>
         <style type="text/css" media="screen">@import "themes/apple/addition.css";</style>
         
         <link rel="apple-touch-startup-image" href="/images/ringtone_splash_460.png">
@@ -54,6 +54,13 @@
 				sendEmail(email, link);
             });
         });
+        
+        function send_email_click() {
+			var email = $("#email_text").attr("value");
+			var link = $("#uuid").attr("value");
+			sendEmail(email, link);
+			
+        }
         
             function setHeight($item) {
               var $wrapper = $item.find('.s-scrollwrapper');
@@ -344,7 +351,7 @@
 				<ul class="edit rounded" id="email_ul">
 					<li><input type="email" name="email" placeholder="Please input your email here" id="email_text" /></li>
 				</ul>
-				<div class="whiteButton" id="email_button">Send Email</div>
+				<div class="whiteButton" id="email_button" onclick="send_email_click();">Send Email</div>
 				</div></div>
 				<div id="footer">
 				</div>

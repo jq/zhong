@@ -6,13 +6,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Properties;
+import java.util.logging.Logger;
+
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.google.appengine.tools.util.Logging;
+
 public class SendMailServlet extends HttpServlet {
+	
+	private static final Logger sLog = Logger.getLogger(SendMailServlet.class.getName());
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -37,7 +43,7 @@ public class SendMailServlet extends HttpServlet {
 			msg.setText(msgBody);
 			Transport.send(msg);
 		} catch (Exception e) {
-			e.printStackTrace();
+			sLog.warning(e.getMessage());
 		}
 		resp.getOutputStream().write("ok".getBytes());
 		resp.flushBuffer();

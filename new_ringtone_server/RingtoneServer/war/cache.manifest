@@ -1,8 +1,6 @@
 CACHE MANIFEST
 
 /jqtouch/jqtouch.min.css
-/themes/apple/theme.min.css
-/themes/apple/addition.min.css
 /jqtouch/jquery-1.4.4.min.js
 /js/iphone_search.min.js
 /js/iscroll.min.js
