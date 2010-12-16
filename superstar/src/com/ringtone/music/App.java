@@ -53,6 +53,8 @@ public class App extends Application {
 		    return;
 		}
 		
+		Constants.init(this);
+		
 		// Start service
 		Intent intent = new Intent(this, DownloadService.class);
 		startService(intent);

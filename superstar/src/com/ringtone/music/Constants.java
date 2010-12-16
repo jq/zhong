@@ -17,9 +17,9 @@ public class Constants {
 	public static final String UPDATE_VERSION = "version";
 	public static final String UPDATE_MESSAGE = "message";
 	public static final String UPDATE_SEQ = "seq";
-	public static DbAdapter dbAdapter;
+	public static DbAdapter dbAdapter = null;
 	
 	public static void init(Context c) {
-	    dbAdapter = new DbAdapter(c);
+		if (dbAdapter == null) dbAdapter = new DbAdapter(c);
 	}	
 }

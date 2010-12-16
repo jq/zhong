@@ -82,9 +82,9 @@ public class DBResultActivity extends ListActivity {
 	private static boolean sHasMoreData = true;
 
 	private MusicInfo mCurrentMusic;
-	private int mPageNum ;
+	private static int mPageNum = 1;
 	private boolean mIsFling;
-	private boolean mHint;
+//	private static boolean mHint=false;
 
 	@SuppressWarnings("unused")
 //	private SearchBar mSearch;
@@ -93,15 +93,15 @@ public class DBResultActivity extends ListActivity {
 	private ProgressDialog mProgressDialog;
 
 	private ProgressBar mProgressBar;
-	private TextView mSearchMessage;
+	private static TextView mSearchMessage;
 
-	private static Mp3ListAdapter mAdapter;
+	private static Mp3ListAdapter mAdapter=null;
 
 	private DownloadService mDownloadService;
 
 	private ProgressDialog mStreaming;
 	private static String sStreamingTitle;
-	private ControlBarView mControlBarView;
+	private static ControlBarView mControlBarView = null;
 	
 	private static volatile MediaPlayer sPlayer;
 	private static Thread sPreviewThread;
@@ -187,9 +187,7 @@ public class DBResultActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Constants.init(this);
 		sSearchActivity = this;
-		mHint=false;
         
         String status = Environment.getExternalStorageState();
         if (status.equals(Environment.MEDIA_MOUNTED_READ_ONLY)) {
@@ -222,13 +220,13 @@ public class DBResultActivity extends ListActivity {
 		mControlBarView = (ControlBarView) findViewById(R.id.control_bar);
 		
 		setListener();
-		getListView().setOnTouchListener(new MyGesture());
+//		getListView().setOnTouchListener(new MyGesture());
 		
 //		Constants.dbAdapter.initCache();
-		mPageNum=1;
 		sData = new Mp3ListWrapper();
 //		startQuery(this,getString(R.string.singer));
-        mAdapter = new Mp3ListAdapter(
+		if (mAdapter == null)
+			mAdapter = new Mp3ListAdapter(
 	            DBResultActivity.this,
 					R.layout.result_item);
 		setListAdapter(mAdapter);
@@ -264,10 +262,10 @@ public class DBResultActivity extends ListActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				mAdapter.getNextPage();
-				if (mHint==false){
-					Toast.makeText(getBaseContext(), "You can fling right to get next page or fling left to get pre page on the list", Toast.LENGTH_LONG).show();
-					mHint=true;
-				}
+//				if (mHint==false){
+//					Toast.makeText(getBaseContext(), "You can fling right to get next page or fling left to get pre page on the list", Toast.LENGTH_LONG).show();
+//					mHint=true;
+//				}
 			}
 			
 		});
