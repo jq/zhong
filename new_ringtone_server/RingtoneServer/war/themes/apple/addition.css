@@ -9,6 +9,7 @@
   }
   
   div .loader {
+    top: 200px;
     left: 40px;
   }
 
@@ -26,6 +27,7 @@
   }
   
   div .loader {
+    top: 120px;
     left: 120px;
   }
 
@@ -174,7 +176,7 @@ div .loader_old {
 
 div .loader {
   -webkit-border-radius: 10px;
-  background-color: rgba(0,0,0,.7);
+  background-color: rgba(0,0,0,.6);
   background-image: url(img/loading.gif);
   background-repeat: no-repeat;
   background-position: 40px center;
@@ -187,7 +189,6 @@ div .loader {
   position: absolute;
   text-align: center;
   width: 240px;
-  top: 120px;
 }	
 
 .s-scrollwrapper {

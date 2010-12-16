@@ -5,7 +5,7 @@
         <title>Ringtone</title>
         <style type="text/css" media="screen">@import "/jqtouch/jqtouch.min.css";</style>
         
-        <style type="text/css" media="screen">@import "themes/apple/theme.min.css";</style>
+        <style type="text/css" media="screen">@import "themes/apple/theme.css";</style>
         <style type="text/css" media="screen">@import "themes/apple/addition.css";</style>
         
         <link rel="apple-touch-startup-image" href="/images/ringtone_splash_460.png">
@@ -72,10 +72,6 @@
 		
                 var $header = $item.find('.toolbar');
                 headerH = $header.length > 0 ? ($header.outerHeight() > 0 ? $header.outerHeight() : 0) : 0;
-
-//                if ($item.attr("id") == "home") {
-//					headerH += $item.find('.searchbox').outerHeight()+50;
-//	            }
 				  
                 var $footer = $item.find('.navibar'); // page footer
                 var $tabbar = $('#tabbar'); // global tabbar
@@ -108,10 +104,6 @@
                 var $this = $(this);
                 var $wrapper = $this.find('.s-scrollwrapper');
                 var $pane = $wrapper.find('.s-scrollpane');
-//                if ($this.attr('id')=='home') {
-//                    window.alert('home');
-//					continue;
-//                } 
                 if ($wrapper.length > 0) {
                   var scroll = new iScroll($pane[0].id, {desktopCompatibility: true});
                   $this.data('iscroll_object', scroll); 
