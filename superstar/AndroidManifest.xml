@@ -28,6 +28,7 @@
         <service android:name=".download.DownloadService" />
         <activity android:name=".EulaActivity"/>
         <activity android:name=".ViewDownloadedActivity"/>
+       	<meta-data android:value="a14c8c7ef374c00" android:name="ADMOB_PUBLISHER_ID" />
        	<!-- 
        	<meta-data android:value="true" android:name="ADMOB_ALLOW_LOCATION_FOR_ADS" />
         -->
@@ -63,6 +64,18 @@
             </intent-filter>
         </activity>
 
+	 <activity android:name="com.millennialmedia.android.MMAdViewOverlayActivity" 
+       		android:theme="@android:style/Theme.Translucent.NoTitleBar">
+ 	</activity>
+	 <activity android:name="com.millennialmedia.android.VideoPlayer" 
+                    android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                    android:configChanges="keyboardHidden|orientation|keyboard" >
+        </activity>
+        
+	<activity android:name="com.admob.android.ads.AdMobActivity"
+					android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+					android:configChanges="orientation|keyboard|keyboardHidden"/>
+					
 	<!-- Activity for choosing a contact to assign a ringtone to. -->
         <activity android:name="com.ringdroid.ChooseContactActivity"
                   android:configChanges="orientation|keyboardHidden">
