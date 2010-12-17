@@ -3,7 +3,6 @@ package com.ringtone.server;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import quicktime.std.sg.VideoDigitizer;
 
 public class Const {
 	public static final String ID = "id";
