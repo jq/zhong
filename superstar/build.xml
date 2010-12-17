@@ -381,7 +381,7 @@
     		    <param name="file_name" value="kesha"/>
     		    <param name="drawable" value="app_icons\\kesha_large.png"/>
     			<param name="head" value="app_icons\\kesha_small.png"/>
-    			<param name="app_name" value="Ke$Ha"/>
+    			<param name="app_name" value="Ke$ha"/>
     		</antcall> 
     		<antcall target="package-apk">
     		    <param name="package_name" value="madonna"/>

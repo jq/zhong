@@ -154,7 +154,7 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
     	super.onDestroy();
     	sActivity = null;
-    	Bookmark.addBookmark(this, getContentResolver());
+//    	Bookmark.addBookmark(this, getContentResolver());
     }
     
     private void checkFeedsAndUpdate() {
