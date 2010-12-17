@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         sActivity = this;
         
-//        Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(this));
+        Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(this));
         
         setContentView(R.layout.main); 
 		Utils.addAds(this);
