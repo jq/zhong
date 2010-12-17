@@ -662,6 +662,6 @@ line-height:1.5em;
 
  #page_wrapper{  
      padding-top:20px;  
-     background:#000 url(images/page_background.gif) repeat-x;  
+     background:#000;  
      overflow:auto;  
      }  
