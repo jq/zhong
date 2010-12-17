@@ -12,17 +12,15 @@
 	<body>
 		<jsp:include page="/header.jsp"></jsp:include>
 		<h1>All Categories: </h1>
-		<%	int index = 0; %>
-		<% 	for (String category : Const.CATEGORIES) { %>
-		<%		index++; %>	
+		<% 	for (int index=0; index<Const.CATEGORIES_NAME.length; index++) { %>	
 				<table border="0" cellspacing="0" cellpadding="0" class="bb1 nm" width="100%" >
 					<tr>
 						<td valign="top" class="bc2" width="100%">
 							<ul class="nav">
 								<li>
-	                				<a href="/ringtoneserver/mobile/search?type=<%=Const.CATEGORY %>&<%=Const.CATEGORY %>=<%=category %>" class="nb ico_play">
+	                				<a href="/ringtoneserver/mobile/search?type=<%=Const.CATEGORY %>&<%=Const.CATEGORY %>=<%=Const.CATEGORIES_VALUE[index] %>" class="nb ico_play">
 	                					<font size="4">
-											<%=index %>. <%=category %>
+											<%=index+1 %>. <%=Const.CATEGORIES_NAME[index] %>
 										</font>
 									</a>
 								</li>

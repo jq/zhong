@@ -43,12 +43,11 @@
 			</ul>
 			<span class="graytitle">Categories</span>
 			<ul class="pageitem">
-				<% 	int i = 0; %>
-				<% 	for (String cate : Const.HOME_CATEGORIES) { %>
+				<% 	for (int i=0; i<6; i++) { %>
 						<li class="menu">
-							<a href="/ringtoneserver/mobile/search?type=category&category=<%= cate%>">
+							<a href="/ringtoneserver/mobile/search?type=category&category=<%= Const.CATEGORIES_VALUE[i]%>">
 								<span class="name">
-									<%= cate %>
+									<%= Const.CATEGORIES_NAME[i] %>
 								</span>
 								</span><span class="arrow"></span>
 							</a>

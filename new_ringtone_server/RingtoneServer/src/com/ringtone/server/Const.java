@@ -3,6 +3,8 @@ package com.ringtone.server;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import quicktime.std.sg.VideoDigitizer;
+
 public class Const {
 	public static final String ID = "id";
 	public static final String UUID = "uuid";
@@ -53,16 +55,17 @@ public class Const {
 	
 	public static final String S3_PREFIX_M4R = "https://s3.amazonaws.com/ringtone_m4r/";
 	
-	public static final String[] CATEGORIES = { "Christian", "Metal", "Holiday", "R&B", "World Music",
-												"Pop", "Rock", "Games", "Dance", "Rap", "Jazz", "Hip-Hop",
-												"Gospel", "TV", "Hard Rock", "Electronic", "Latin Music",
-												"Blues", "Sound Effects", "Classical", "Comedy", "Country",
-												"Movie", "Other", "Hip", "Vocal", "Folk", "Hard", "Gothic",
-												"Avantgarde", "unknown", "Acid", "Soundtrack", "Soul", 
-												"Progressive", "Acoustic", "Ska", "Booty", "Easy", "Satire",
-												"Gangsta", "Oldies", "Heavy", "Southern", "Classic", "Disco",
-												"Alt", "Reggae", "Funk"};
+	public static final String[] CATEGORIES_NAME = { "Christian and Gospel", "Metal", "Holiday", "R&B Soul",
+													 "Techno", "Pop", "Rock", "Video Games", "Jazz", "International",
+													 "Hip-Hop", "Movies and TV", "Latin", "Blues", "Sound Effects",
+													 "Classical", "Comedy", "Country", "Reggae"};
 	
+	public static final String[] CATEGORIES_VALUE = { "Christian and Gospel", "Metal", "Holiday", "Rnb_Soul",
+													  "Techno", "Pop", "Rock", "Vedio Games", "Jazz", "Internation",
+													  "Hip-Hop", "Movies and TV", "Latin", "Blues", "Sound Effects", 
+													  "Classical", "Comedy", "Country", "Reggae"};
+
+ 	
 	public static final String[] HOME_CATEGORIES = { "Country", "Hip-Hop", "Rock", "Pop"};
 	
 	public static final String EMAIL = "email";

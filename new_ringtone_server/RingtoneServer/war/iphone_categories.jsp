@@ -18,12 +18,11 @@
 		</div>
 		<div id="content">
 			<ul>
-				<%	int i=0; %>
-				<%	for (String cate : Const.CATEGORIES) { %>
+				<%	for (int i=0; i<Const.CATEGORIES_NAME.length; i++) { %>
 					<li>
-						<a href="/ringtoneserver/mobile/search?type=category&category=<%=cate%>">
-							<span class="number"><%= ++i %></span>
-							<span class="name"><%= cate %></span>
+						<a href="/ringtoneserver/mobile/search?type=category&category=<%=Const.CATEGORIES_VALUE[i]%>">
+							<span class="number"><%= i+1 %></span>
+							<span class="name"><%= Const.CATEGORIES_NAME[i] %></span>
 							<span class="arrow"></span>
 						</a>
 					</li>
