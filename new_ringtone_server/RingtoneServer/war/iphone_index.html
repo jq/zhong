@@ -100,6 +100,16 @@
             }
 
             function loaded() {
+              $('#home').bind('pageAnimationStart', function(event, info) {
+                if (info.direction == 'out') {
+                  $('#ad_footer', '#home').hide();
+                }
+                
+                if (info.direction == 'in') {
+                  //$('#ad_footer', '#home').show();
+                }
+              });
+                          
               $('#jqt').children().each(function () {
                 var $this = $(this);
                 var $wrapper = $this.find('.s-scrollwrapper');
@@ -197,7 +207,7 @@
       				<p>Please contact with us: <a target='_blank' href="mailto:support@ringdroid.me">support@ringdroid.me</a></p>
       				<p id="hint" style="color:rgb(200,0,0);">Please add me into your home screen!</p>
     			</div>
-	    		<div id="footer">
+	    		<div id="ad_footer">
 					<script type="text/javascript"><!--
 						window.googleAfmcRequest = {
 						client: 'ca-mb-pub-8798798908578754',
