@@ -12,6 +12,10 @@
     top: 200px;
     left: 40px;
   }
+  
+  div .ad_footer {
+    left: 0;
+  }
 
 }
 
@@ -31,6 +35,10 @@
     left: 120px;
   }
 
+	  div .ad_footer {
+    left: 80px;
+  }
+	
 }
 
 .searchbox {
@@ -165,13 +173,11 @@ fieldset {
   width: 65px;
 }
 
-div .loader_old {
-  background: transparent url(img/loading.gif) no-repeat center center;
-  position: absolute;
-  top: 200px;
-  width: 100%;
-  left: 0px;
-  height: 24px;
+div .ad_footer {
+  height: 50px;
+  width: 320px;
+  display: block;
+  margin: 0 auto;
 }
 
 div .loader {

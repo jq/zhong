@@ -100,17 +100,7 @@
               setHeight($('.current'));
             }
 
-            function loaded() {
-              $('#home').bind('pageAnimationStart', function(event, info) {
-                if (info.direction == 'out') {
-                  $('#ad_footer', '#home').hide();
-                }
-                
-                if (info.direction == 'in') {
-                  //$('#ad_footer', '#home').show();
-                }
-              });
-                          
+            function loaded() {            
               $('#jqt').children().each(function () {
                 var $this = $(this);
                 var $wrapper = $this.find('.s-scrollwrapper');
@@ -157,7 +147,7 @@
               if (!window.navigator.standalone) {
               	$('#hint').show();
               } else {
-  				$('#hint').hide();
+  				      $('#hint').hide();
               }
             });
 
@@ -188,10 +178,13 @@
 	    		
 	    		<div class="searchbox">
 	      			<form id="search" action="" method="">
-	        			<fieldset><input id="search-text" placeholder="search" type="text" />
+	        			<fieldset><input id="search-text" placeholder="search from 185,742 ringtones" type="text" />
 	        			<input id="submit" type="hidden" /></fieldset>
 	      			</form>
 	    		</div>
+	    		
+          <iframe src ="iphone_ad.html" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="50" scrolling="no">
+          </iframe>
 
 	    		<ul class="rounded">
 	        		<li class="arrow"><a id="cates" href="#categories">All Categories</a></li>
@@ -199,30 +192,14 @@
 	        		<li class="arrow"><a href="#newest_add">Newest Add</a></li>
 	    		</ul>
 	    	
-	    	    <div class="info">
-      				<p>This is an iPhone Web application for downloading ringtones!</p>
-      				<p>Version: 1.0</p>
-      				<p>Please contact with us: <a target='_blank' href="mailto:support@ringdroid.me">support@ringdroid.me</a></p>
-      				<p id="hint" style="color:rgb(200,0,0);">Please add me into your home screen!</p>
+	    	  <div class="info">
+      		  <p>Ringtones for iPhone</p>
+      			<p>Version: 1.0</p>
+      			<p>Please contact with us: <a target='_blank' href="mailto:support@ringdroid.me">support@ringdroid.me</a></p>
+      			<p id="hint" style="color:rgb(200,0,0);">Please add me into your home screen!</p>
     			</div>
-          <div id="ad_footer">
-          <script type="text/javascript"><!--
-            window.googleAfmcRequest = {
-            client: 'ca-mb-pub-8798798908578754',
-            ad_type: 'text_image',
-            output: 'html',
-            channel: '',
-            format: '320x50_mb',
-            oe: 'utf8',
-            color_border: '336699',
-            color_bg: 'FFFFFF',
-            color_link: '0000FF',
-            color_text: '000000',
-            color_url: '008000',
-            };
-          //--></script>
-          <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
-        </div>
+	    		
+
 			</div>
 	
 			<div id="search_result">
