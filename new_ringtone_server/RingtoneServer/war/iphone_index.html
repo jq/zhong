@@ -103,7 +103,13 @@
               setHeight($('.current'));
             }
 
-            function loaded() {            
+            function loaded() {
+              $('#home').bind('pageAnimationStart', function(event, info) {
+                if (info.direction == 'in') {
+                  $('iframe')[0].contentWindow.location.reload(true);
+                }
+              });
+                        
               $('#jqt').children().each(function () {
                 var $this = $(this);
                 var $wrapper = $this.find('.s-scrollwrapper');
@@ -186,7 +192,7 @@
 	      			</form>
 	    		</div>
 	    		
-          <iframe src ="iphone_ad.html" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="50" scrolling="no">
+          <iframe id="ad_holder" src ="iphone_ad.html" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="50" scrolling="no">
           </iframe>
 
 	    		<ul class="rounded">
