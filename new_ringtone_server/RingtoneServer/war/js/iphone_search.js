@@ -1,5 +1,3 @@
-
-
 (function($) {
 	$(function() {
 		$("#search").submit(function(event, info) {
@@ -7,11 +5,10 @@
 			
 			var text = $("input[id=search-text]", this).attr("value");
 			if (text==null || text.length==0) {
-				confirm("The search key word should not be empty.");
+				alert("The search key word should not be empty.");
 				return;
 			}
 			jQT.goTo(div_search_result);
-//			text.blur();
 			var results = $("#results", div_search_result).empty();
 			var load_more = "Tap to load more";
 			var url = "/ringtoneserver/search?q="+text;
@@ -40,7 +37,6 @@
 				
 				$("<li id=\"load_more\">").text(load_more).appendTo(results);
 				$("#load_more", div_search_result).click(function() {
-//					jQT.goTo("#categories", 'slide');
 					append_more(div_search_result, url);
 				});
 				$("#load_more", div_search_result).bind("ajaxSend", function(){
@@ -51,20 +47,11 @@
 				 });
 				
 			});
-			
 
 			return false;
 		});
 	});
 })(jQuery);
-
-//$(function(){
-//    $(".song_item").click( function(e) {
-//    	var link = $(this).attr("href");
-//    	//window.location = link;
-//    	window.open(link);
-//    });
-//});
 
 //rate is "stars4" which to be set as class, etc...
 function fill_details_page(artist, title, rate, download_count, download_link, img_link, uuid) {
@@ -84,9 +71,7 @@ function fill_details_page(artist, title, rate, download_count, download_link, i
 	var audio = $("<audio>").attr("src", download_link).attr("class", "player").attr("controls", "controls");
 	var div_music_info_a = $("a", ".music_info", div_details);
 	audio.appendTo(div_music_info_a);
-//	$("audio", div_details).attr("src", download_link);
 }
-
 
 function fill_cate_page(cate, cate_name) {
 	var div_cate = $("#category");
@@ -130,24 +115,6 @@ function fill_cate_page(cate, cate_name) {
 			 });
 		});
 };
-
-//$(document).ready(function(e){
-//        	var all_categories = $("#all_categories", this).empty();
-//        	var all_cate_array = [ "Christian", "Metal", "Holiday", "R&B", "World Music",
-//					"Pop", "Rock", "Games", "Dance", "Rap", "Jazz", "Hip-Hop",
-//					"Gospel", "TV", "Hard Rock", "Electronic", "Latin Music",
-//					"Blues", "Sound Effects", "Classical", "Comedy", "Country",
-//					"Movie", "Other", "Hip", "Vocal", "Folk", "Hard", "Gothic",
-//					"Avantgarde", "unknown", "Acid", "Soundtrack", "Soul", 
-//					"Progressive", "Acoustic", "Ska", "Booty", "Easy", "Satire",
-//					"Gangsta", "Oldies", "Heavy", "Southern", "Classic", "Disco",
-//					"Alt", "Reggae", "Funk" ];
-//        	for (cate in all_cate_array) {
-//        		var a = $("<a></a>").attr("class", "cate_link_item").attr("href", "#category").attr("value", all_cate_array[cate]).text(all_cate_array[cate]);
-//        		var str = $("<li></li>").attr("class", "arrow").append(a);
-//        		str.appendTo(all_categories);
-//        	}
-//});
 
 $(document).ready(function(e){
     $('#top_download').bind('pageAnimationStart', function(event, info) {
@@ -254,9 +221,6 @@ $(document).ready(function(e){
     })
 });
 
-
-
-
 function append_more(parent, url) {
 	var results = $("#results", parent);
 	var loading = $("#load_more", parent);
@@ -292,7 +256,6 @@ function jsonToListItem(item) {
 		rate = $("<span></span>").attr("class", "stars5").attr("value", item.avg_rate);
 	}
 	var download_count = $("<span></span>").attr("style", "display:none;").attr("class", "download_count").attr("value", item.download_count).text(item.down);
-//	var image = $("<span></span>").attr("class", "image").attr("style", "background-image: url('"+item.image+"'); background-position:center; background-repeat:no-repeat;").attr("value", item.image);
 	var loading_img = $("<img></img>").attr("src", "/images/spinner.gif");
 	var image = $("<img></img>").attr("src", item.image).hide();
 	image.load(function(e) {
@@ -302,7 +265,6 @@ function jsonToListItem(item) {
 	image.error(function(e) {
 		loading_img.attr("src", "/images/load_failed.png");
 	});
-//	var a = $("<a></a>").attr("href", item.s3url).attr("target", "_blank").attr("class", "song_item").attr("song_id", item.uuid);
 	var onclick = "javascript:fill_details_page(\""+item.artist+"\",\""+item.title+"\",\""+rate.attr("class")+"\",\""+item.download_count+"\",\""+item.s3url+"\",\""+item.image+"\",\""+item.uuid+"\");";
 	var a = $("<a></a>").attr("href", "#details").attr("class", "song_item").attr("onClick", onclick).attr("song_id", item.uuid).attr("value", item.s3url);
 	var li = $("<li></li>").attr("class", "store");
@@ -312,7 +274,7 @@ function jsonToListItem(item) {
 
 function sendEmail(email, link) {
 	if (!isEmail(email)) {
-		confirm("The format is not correct.");
+		alert("The format is not correct.");
 		return;
 	} else {
 		localStorage.last_email = email;
@@ -323,9 +285,9 @@ function sendEmail(email, link) {
 		$.get(url,
 			function(data){
 				if (data == "ok") {
-					confirm("The email will be send in several minutes, please download the ringtone from your computer and read the instructions which will tell you how to install the ringtone with iTunes.");
+					alert("The email will be send in several minutes, please download the ringtone from your computer and read the instructions which will tell you how to install the ringtone with iTunes.");
 				} else {
-					confirm("The request for sending email failed. Please try again.");
+					alert("The request for sending email failed. Please try again.");
 				}
 		});
 	}
@@ -368,7 +330,7 @@ function doRate(num) {
 		$("#star"+i).html("<img src='/images/empty_star.png'></img>")
 	}
 	var uuid = $("#uuid").attr("value");
-	var rate_url = "/ringtoneserver/rate?uuid="+uuid+"&rate="+num*20
+	var rate_url = "/ringtoneserver/rate?uuid="+uuid+"&rate="+num*20;
 	$.get(rate_url,
 		function(data){
 
