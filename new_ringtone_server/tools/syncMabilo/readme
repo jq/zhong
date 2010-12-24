@@ -1,0 +1,33 @@
+1.FetchDataFromMabilo
+download ring and image and related info from www.mabilo.com
+every ring task is a java thread, if it success
+
+
+2.Mp3ToM4R
+convert downloaded mp3 to m4r format, if it success
+
+
+3.UploadAmazonS3
+ upload mp3,m4r ring and image to AmazonS3 
+
+
+4.UpdateDB 
+update database after uploading ring and image to Amazon S3, put records information into database on google app engine, 
+which url is like: 
+http://bingliu630.appspot.com/ringtoneserver/insertsong?uuid=XXX&title=XXX&artist=XXX&category=XXX&download_count=10000&avg_rate=100&size=333&file_name=XXX&image=XXX&s3url=XXX&record=XX
+
+this program process xml file in a directory of format:  
+<Record>
+<UUID>a5c63db0-f561-4931-82a6-1c35d7b43017</UUID>
+<Title>Unretrofied</Title>
+<Image>thumb_15028_50.jpg</Image>
+<Artist>The Dillinger Escape Plan</Artist>
+<Category>Rock</Category>
+<Downloads>103</Downloads>
+<Size>235kb</Size>
+<Date>March 29th, 2009</Date>
+<Mark>100</Mark>
+<Ring>15028_The_Dillinger_Escape_Plan_Unretrofied.mp3</Ring>
+</Record>
+
+!!attention:  UUID must stay first among all propery in xml file.
