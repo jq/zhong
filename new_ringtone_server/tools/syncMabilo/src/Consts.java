@@ -10,7 +10,7 @@ import java.net.URLConnection;
 
 
 public class Consts {
-	public static final String SYNC_DIR = "/home/liutao/mabilo/";
+	public static final String SYNC_DIR = "mabilo/";
 	public static final String NEW_DOWNLOAD_DIR = SYNC_DIR+"download/";
 	public static final String M4R_DIR = SYNC_DIR + "m4r/";
 	public static final String LAST_SYNC_TIME_FILENAME = "lasttime";
