@@ -1,5 +1,5 @@
 import java.io.File;
-
+import javazoom.jl.converter.Converter;
 
 public class Mp3ToM4R {
 	public static final String GenTempCmd = "mplayer souPath -ao pcm:file=\"tempPath\"";
@@ -16,9 +16,10 @@ public class Mp3ToM4R {
 		String temp = Consts.NEW_DOWNLOAD_DIR+"temp"+((int)(Math.random()*100))+".wav";
 		String target = source.replace(".mp3", ".m4r");
 		try {
-			Process proc1 = Runtime.getRuntime().exec(GenTempCmd.replace("souPath", source).replace("tempPath", temp));
-			Thread.sleep(1000);
-			if(proc1.exitValue() != 0) return false;
+			//Process proc1 = Runtime.getRuntime().exec(GenTempCmd.replace("souPath", source).replace("tempPath", temp));
+			//Thread.sleep(1000);
+			//if(proc1.exitValue() != 0) return false;
+			new Converter().convert(source, temp);
 			
 			Process proc2 = Runtime.getRuntime().exec(GenTarCmd.replace("tempPath", temp).replace("tarPath", target));
 			Thread.sleep(1000);
