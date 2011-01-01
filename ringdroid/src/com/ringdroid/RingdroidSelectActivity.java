@@ -136,10 +136,10 @@ public class RingdroidSelectActivity
                 createCursor(""),
                 // Map from database columns...
                 new String[] {
-                    "_id",
-                    "_id",
-                    "_id",                    
-                	"_id" },
+                  MediaStore.Audio.Media.ARTIST,
+                  MediaStore.Audio.Media.ALBUM,
+                  MediaStore.Audio.Media.TITLE,
+                  MediaStore.Audio.Media._ID },
                 // To widget ids in the row layout...
                 new int[] {
                     R.id.row_artist,
@@ -158,88 +158,77 @@ public class RingdroidSelectActivity
                     }
                 });
 
-        } catch (SecurityException e) {
-            // No permission to retrieve audio?
-            Log.e("Ringdroid", e.toString());
-            throw e;
-
-            // todo error 1
-        } catch (IllegalArgumentException e) {
-            // No permission to retrieve audio?
-            Log.e("Ringdroid", e.toString());
-            throw e;
-
-            // todo error 2
+            mAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+              public boolean setViewValue(View view,
+                                          Cursor cursor,
+                                          int columnIndex) {
+                int id = view.getId();
+                  if (id == R.id.row_icon) {
+                      setSoundIconFromCursor((ImageView) view, cursor);
+                      return true;
+                  }
+                  
+               if (id == R.id.row_title){
+                    int dataIndex=-1;
+                    String displayname="";
+                    try{
+                      dataIndex= cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE);
+                      displayname = cursor.getString(dataIndex);
+                    }catch(IllegalArgumentException e){
+                      dataIndex= cursor.getColumnIndexOrThrow(People.DISPLAY_NAME);
+                      displayname = cursor.getString(dataIndex)+"\'s ringtone";
+                    }                   
+                    ((TextView) view).setText(Utils.convertGBK(displayname));
+                    return true;
+                  }
+                  
+                  if (id == R.id.row_artist){
+                    int dataIndex=-1;
+                    String filename="";
+                    try{
+                      dataIndex= cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST);
+                        filename = cursor.getString(dataIndex);
+                    }catch(IllegalArgumentException e){
+                      dataIndex= cursor.getColumnIndexOrThrow(People.CUSTOM_RINGTONE);
+                      filename=cursor.getString(dataIndex);
+                      if (filename.startsWith("content:")){
+                        Cursor c=managedQuery(Uri.parse(filename),null,null,null,null);
+                        if(c.getCount() > 0) {
+                            c.moveToFirst();
+                            dataIndex=c.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+                            filename=c.getString(dataIndex);
+                        } else {
+                            filename = "ringtone has been deleted";
+                        }
+                      } else {
+                        File file = new File(filename);
+                        if(!file.exists())
+                          filename = "ringtone has been deleted";
+                        file = null;
+                      }
+                    }
+                    ((TextView) view).setText(Utils.convertGBK(filename));
+                    return true;
+                  }
+                  
+                  if (id == R.id.row_album) {
+                    int dataIndex=-1;
+                    try {
+                      dataIndex= cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM);
+                        String row_album = cursor.getString(dataIndex);
+                        ((TextView) view).setText(Utils.convertGBK(row_album));
+                    }catch (IllegalArgumentException e){
+                      ((TextView) view).setText("");
+                    }
+                    return true;
+                  }
+                  
+                  return false;
+              }
+          });
+        } catch (Exception e) {
         }
 
-        mAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
-                public boolean setViewValue(View view,
-                                            Cursor cursor,
-                                            int columnIndex) {
-                	int id = view.getId();
-                    if (id == R.id.row_icon) {
-                        setSoundIconFromCursor((ImageView) view, cursor);
-                        return true;
-                    }
-                    
-                 if (id == R.id.row_title){
-                    	int dataIndex=-1;
-                    	String displayname="";
-                    	try{
-                    		dataIndex= cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE);
-                    		displayname = cursor.getString(dataIndex);
-                    	}catch(IllegalArgumentException e){
-                    		dataIndex= cursor.getColumnIndexOrThrow(People.DISPLAY_NAME);
-                    		displayname = cursor.getString(dataIndex)+"\'s ringtone";
-                    	}                  	
-                    	((TextView) view).setText(Utils.convertGBK(displayname));
-                    	return true;
-                    }
-                    
-                    if (id == R.id.row_artist){
-                    	int dataIndex=-1;
-                    	String filename="";
-                    	try{
-                    		dataIndex= cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST);
-                        	filename = cursor.getString(dataIndex);
-                    	}catch(IllegalArgumentException e){
-                    		dataIndex= cursor.getColumnIndexOrThrow(People.CUSTOM_RINGTONE);
-                    		filename=cursor.getString(dataIndex);
-                    		if (filename.startsWith("content:")){
-                    			Cursor c=managedQuery(Uri.parse(filename),null,null,null,null);
-                    			if(c.getCount() > 0) {
-                        			c.moveToFirst();
-                        			dataIndex=c.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
-                        			filename=c.getString(dataIndex);
-                    			} else {
-                    			    filename = "ringtone has been deleted";
-                    			}
-                    		} else {
-                    		  File file = new File(filename);
-                    		  if(!file.exists())
-                    		    filename = "ringtone has been deleted";
-                    		  file = null;
-                    		}
-                    	}
-                    	((TextView) view).setText(Utils.convertGBK(filename));
-                    	return true;
-                    }
-                    
-                    if (id == R.id.row_album) {
-                    	int dataIndex=-1;
-                    	try {
-                    		dataIndex= cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM);
-                        	String row_album = cursor.getString(dataIndex);
-                        	((TextView) view).setText(Utils.convertGBK(row_album));
-                    	}catch (IllegalArgumentException e){
-                    		((TextView) view).setText("");
-                    	}
-                    	return true;
-                    }
-                    
-                    return false;
-                }
-            });
 
         // Long-press opens a context menu
         registerForContextMenu(getListView());
