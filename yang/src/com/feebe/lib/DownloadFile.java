@@ -94,11 +94,13 @@ public class DownloadFile extends AsyncTask<String, Integer, File> {
       audioFile.getTag().setArtist(artist);
       audioFile.getTag().setGenre(category);
       audioFile.commit();
+    }catch (Exception e1) {
+    }
+    try {
       Uri u = Util.saveToMediaLib(title, file.getAbsolutePath(), file.length(), 
           artist, fileKinds, cr);
       return u;
-   } catch (CannotReadException e1) {
-   } catch (CannotWriteException e) {
+   } catch (Exception e1) {
    }
    return null;
   }

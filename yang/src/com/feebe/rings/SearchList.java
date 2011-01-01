@@ -158,7 +158,6 @@ public ListAdapter getAdapter() {
     } catch (Exception e) {
       return;
     }
-    // Log.e("kye", ring.key);
     Search.startRing(this, Search.getRingUrl(ring.key));
   }
   

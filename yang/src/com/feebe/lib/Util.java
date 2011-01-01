@@ -13,6 +13,11 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -49,8 +54,7 @@ import android.provider.MediaStore;
 import android.provider.Contacts.People;
 import android.util.Log;
 
-public class Util {
-     
+public class Util {     
 	//private static final String urlString = " http://ggapp.appspot.com/mobile/getfeed/";
 	private static final String feedsFile = "feeds";
 

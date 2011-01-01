@@ -10,6 +10,7 @@ import com.feebe.lib.Util;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 public class Search {
   private final static String TAG = "Search";
@@ -71,6 +72,10 @@ public class Search {
   	return keyIDUrl + key + "?json=1";
   }
   public static void startRing(Activity at, String key) {
+	if (key == null) {
+		Toast.makeText(at, R.string.no_result,Toast.LENGTH_SHORT).show();
+		return;
+	}
     Intent intent = new Intent();
     intent.setClass(at, RingActivity.class);
     intent.putExtra(Const.searchurl, key);

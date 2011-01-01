@@ -47,7 +47,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ringdroid.soundfile.CheapSoundFile;
-import com.util.Utils;
+import com.util.RUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -154,40 +154,30 @@ public class RingdroidSelectActivity
                         startRingdroidEditor();
                     }
                 });
+            mAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+              public boolean setViewValue(View view,
+                                          Cursor cursor,
+                                          int columnIndex) {
+                int id = view.getId();
+                  if (id == R.id.row_icon) {
+                      setSoundIconFromCursor((ImageView) view, cursor);
+                      return true;
+                  }
+                  
+                  if (id == R.id.row_artist ||
+                    id == R.id.row_album ||
+                    id == R.id.row_title) {
+                    ((TextView) view).setText(RUtils.convertGBK(cursor.getString(columnIndex)));
+                    return true;
+                  }
+                  return false;
+              }
+          });
 
-        } catch (SecurityException e) {
-            // No permission to retrieve audio?
-            // Log.e("Ringdroid", e.toString());
-            throw e;
 
-            // todo error 1
-        } catch (IllegalArgumentException e) {
-            // No permission to retrieve audio?
-            // Log.e("Ringdroid", e.toString());
-            throw e;
-
-            // todo error 2
+        } catch (Exception e) {
+          // ignore wired no _id error
         }
-
-        mAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
-                public boolean setViewValue(View view,
-                                            Cursor cursor,
-                                            int columnIndex) {
-                	int id = view.getId();
-                    if (id == R.id.row_icon) {
-                        setSoundIconFromCursor((ImageView) view, cursor);
-                        return true;
-                    }
-                    
-                    if (id == R.id.row_artist ||
-                    	id == R.id.row_album ||
-                    	id == R.id.row_title) {
-                    	((TextView) view).setText(Utils.convertGBK(cursor.getString(columnIndex)));
-                    	return true;
-                    }
-                    return false;
-                }
-            });
 
         // Long-press opens a context menu
         registerForContextMenu(getListView());
@@ -288,7 +278,7 @@ public class RingdroidSelectActivity
         Cursor c = mAdapter.getCursor();
         String title = c.getString(c.getColumnIndexOrThrow(
             MediaStore.Audio.Media.TITLE));
-        title = Utils.convertGBK(title);
+        title = RUtils.convertGBK(title);
         menu.setHeaderTitle(title);
 
         menu.add(0, CMD_EDIT, 0, R.string.context_menu_edit);
@@ -367,7 +357,7 @@ public class RingdroidSelectActivity
         }
 
         new AlertDialog.Builder(RingdroidSelectActivity.this)
-            .setTitle(Utils.convertGBK(title.toString()))
+            .setTitle(RUtils.convertGBK(title.toString()))
             .setMessage(message)
             .setPositiveButton(
                 R.string.delete_ok_button,
@@ -469,7 +459,7 @@ public class RingdroidSelectActivity
             INTERNAL_COLUMNS,
             selection,
             selectionArgs,
-            MediaStore.Audio.Media.DEFAULT_SORT_ORDER + " LIMIT 100");
+            MediaStore.Audio.Media.DEFAULT_SORT_ORDER + " LIMIT 1000");
     }
 
     private Cursor getExternalAudioCursor(String selection,
@@ -479,7 +469,7 @@ public class RingdroidSelectActivity
             EXTERNAL_COLUMNS,
             selection,
             selectionArgs,
-            MediaStore.Audio.Media.DATE_ADDED + " DESC LIMIT 100");
+            MediaStore.Audio.Media.DATE_ADDED + " DESC LIMIT 1000");
     }
 
     Cursor createCursor(String filter) {

@@ -18,7 +18,8 @@ public class AdListener {
     // bcb2a6fca76c487e9662890bd595c127
     return Build.VERSION.SDK.equalsIgnoreCase("3");
   }
-  public static final String keywords = "game music sex gambling girl news cell house car computer laptop";
+  public static final String keywords =
+    "game music sex gambling girl news cell house car computer laptop iphone ipad dating shopping health finance job movie sports travel";
   static {
     AdWhirlTargeting.setKeywords(keywords);
   }

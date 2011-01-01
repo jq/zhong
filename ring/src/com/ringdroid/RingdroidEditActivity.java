@@ -16,6 +16,13 @@
 
 package com.ringdroid;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.PrintWriter;
+import java.io.RandomAccessFile;
+import java.util.Random;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -26,24 +33,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
-import android.database.MergeCursor;
 import android.media.AudioManager;
-import android.media.MediaPlayer.OnCompletionListener;
-import android.media.MediaPlayer.OnSeekCompleteListener;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.Contacts.People;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
@@ -53,36 +52,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsoluteLayout;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.ringdroid.soundfile.CheapSoundFile;
-import com.util.Utils;
+import com.util.RUtils;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.io.RandomAccessFile;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.json.JSONException;
+import entagged.audioformats.generic.Utils;
 
 /**
  * The activity for the Ringdroid main editor window. Keeps track of the
@@ -676,7 +653,7 @@ public class RingdroidEditActivity extends Activity implements
 		if (mArtist != null && mArtist.length() > 0) {
 			titleLabel += " - " + mArtist;
 		}
-		setTitle(Utils.convertGBK(titleLabel));
+		setTitle(RUtils.convertGBK(titleLabel));
 
 		mLoadingStartTime = System.currentTimeMillis();
 		mLoadingLastUpdateTime = System.currentTimeMillis();
@@ -1481,7 +1458,7 @@ public class RingdroidEditActivity extends Activity implements
 			}
 		};
 		Message message = Message.obtain(handler);
-		FileSaveDialog dlog = new FileSaveDialog(this, getResources(), Utils.convertGBK(mTitle),
+		FileSaveDialog dlog = new FileSaveDialog(this, getResources(), RUtils.convertGBK(mTitle),
 				message);
 		dlog.show();
 	}
