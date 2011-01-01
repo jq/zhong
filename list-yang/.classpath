@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="_android_util"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="lib" path="/yang/lib/admob-sdk-android.jar"/>
+	<classpathentry kind="lib" path="/yang/lib/MMAdView.jar"/>
+	<classpathentry kind="lib" path="/yang/lib/twitter4j-core-2.1.5-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/yang/lib/zestadz_android_sdkv1.2.jar"/>
+	<classpathentry kind="src" path="yang_src"/>
+	<classpathentry kind="src" path="facebook_android_src"/>
+	<classpathentry kind="src" path="ringdroid-base_src"/>
+	<classpathentry kind="src" path="adwhirl-sdk-android_src"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
