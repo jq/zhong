@@ -6,31 +6,41 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
 public class SearchBar {
 
 	private Activity mActivity;
-	private EditText mQuery;
+	private AutoCompleteTextView mQuery;
 	private Button mGo;
 	
 	public SearchBar(Activity activity) {
 		mActivity = activity;
-        mQuery = (EditText)activity.findViewById(R.id.q);
+        mQuery = (AutoCompleteTextView)activity.findViewById(R.id.q);
         mGo = (Button)activity.findViewById(R.id.go);
         
-        mQuery.setOnKeyListener(new OnKeyListener() {
-
-    		@Override
-    		public boolean onKey(View v, int keyCode, KeyEvent event) {
-    			if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
-    				doSearch();
-    				return true;
-    			}
-    			return false;
-    		}
-        });
+//        mQuery.setOnKeyListener(new OnKeyListener() {
+//
+//    		@Override
+//    		public boolean onKey(View v, int keyCode, KeyEvent event) {
+//    			if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
+//    				doSearch();
+//    				return true;
+//    			}
+//    			return false;
+//    		}
+//        });
+        
+        mQuery.setThreshold(1);
+        
+        try{
+        	SearchAdapter myCursorAdapter = new SearchAdapter(activity.getBaseContext(),Constants.dbadapter.getHistoryByType(DBAdapter.TYPE_SEARCH));
+        	mQuery.setAdapter(myCursorAdapter);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
         
         mGo.setOnClickListener(new OnClickListener() {   
             @Override
@@ -53,6 +63,7 @@ public class SearchBar {
 		Utils.D("start search");
 
 		if (!TextUtils.isEmpty(query)) {
+			Constants.dbadapter.insertHistory(query, DBAdapter.TYPE_SEARCH);
 			SearchResultActivity.startQuery(mActivity.getApplication(), query);
 			SearchResultActivity.handleMp3ListIntent(mActivity, query);
 		}

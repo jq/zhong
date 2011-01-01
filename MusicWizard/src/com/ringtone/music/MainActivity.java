@@ -49,6 +49,9 @@ public class MainActivity extends Activity {
 			return;
 		}
         
+		if (Constants.dbadapter==null)
+			Constants.dbadapter=new DBAdapter(MainActivity.this);
+		
         mSearch = new SearchBar(this);
         
         TextView billboard = (TextView) findViewById(R.id.billboard);

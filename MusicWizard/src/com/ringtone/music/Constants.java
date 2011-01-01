@@ -15,4 +15,6 @@ public class Constants {
 	public static final String UPDATE_VERSION = "version";
 	public static final String UPDATE_MESSAGE = "message";
 	public static final String UPDATE_SEQ = "seq";
+	
+	public static DBAdapter dbadapter;
 }

@@ -3,12 +3,14 @@
 			  android:layout_width="fill_parent"
 			  android:layout_height="wrap_content"
 		      android:orientation="horizontal">
-	<EditText android:id="@+id/q"
+	<AutoCompleteTextView android:id="@+id/q"
     	      android:layout_width="wrap_content"
     	      android:layout_height="wrap_content"
     	      android:hint="@string/search"
     	      android:singleLine="true"
-    	      android:layout_weight="1"/>
+    	      android:layout_weight="1"
+    	      android:scrollHorizontally="true"
+    	      android:capitalize="none"/>
     <Button android:id="@+id/go"
     	    android:text="@string/go"
     	    android:layout_width="wrap_content"
