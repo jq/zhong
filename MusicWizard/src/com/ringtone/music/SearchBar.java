@@ -36,7 +36,7 @@ public class SearchBar {
         mQuery.setThreshold(1);
         
         try{
-        	SearchAdapter myCursorAdapter = new SearchAdapter(activity.getBaseContext(),Constants.dbadapter.getHistoryByType(DBAdapter.TYPE_SEARCH));
+        	SearchAdapter myCursorAdapter = new SearchAdapter(activity.getBaseContext(),null);
         	mQuery.setAdapter(myCursorAdapter);
         } catch (Exception e) {
         	e.printStackTrace();

@@ -69,13 +69,13 @@ public class DBAdapter {
 		if (keyword!=null) keyword=keyword.toLowerCase();
 		String selection = "type = " + type + " and keyword like \'" + keyword +"%\'";
 		SQLiteDatabase db = mOpenHelper.getReadableDatabase();
-		return db.query(TableHistory,projection_key,selection,null,null,null,null);
+		return db.query(TableHistory,projection_key,selection,null,null,null,"count desc");
 	}
 	
 	public Cursor getHistoryByType(int type){
 		String selection = "type = " + type;
 		SQLiteDatabase db = mOpenHelper.getReadableDatabase();
-		return db.query(TableHistory,projection_key,selection,null,null,null,null);
+		return db.query(TableHistory,projection_key,selection,null,null,null,"count desc");
 	}
 	
 	public void insertHistory(String keyword,int type){
