@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, Main!</string>
+    <string name="app_name">Ringtones</string>
+    <string name="search">Search</string>
+    <string name="library">Library</string>
+    <string name="top_download">Top Download</string>
+    <string name="newest">Newset Add</string>
+    <string name="rate_promote">Rate Ringtones 5 stars if you like it!</string>
+    <string name="go">Go</string>
+    <string name="please_wait_search">Please wait while we searching: </string>
+    <string name="load_error_message">Some error occur while search, please retry later.</string>
+    <string name="no_result">No result found for this query.</string>
+    <string name="search_hint_message">Type the key words and hit GO to do a search.</string>
+    <string name="retry">Retry</string>
+    <string name="preview">Preview</string>
+    <string name="download">Download</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="hide">Hide</string>
+    <string name="download_failed">Download failed.</string>
+    <string name="download_finished">Download finished.</string>
+    <string name="download_canceled">Download canceled.</string>
+    <string name="no_sd">No sdcard, please insert sd card.</string>
+    <string name="edit">Edit</string>
+    <string name="play">Play</string>
+    <string name="stop">Stop</string>
+    <string name="show">Show</string>
+    <string name="download_count">Downloads:</string>
+    <string name="ringtone_information">Rintone Information</string>
+    <string name="rate_ringtone">Rate this ringtone</string>
+    <string name="more_about">More about</string>
+    <string name="search_more">Search more</string>
+    <string name="search_more_in">Search more in</string>
+    <string name="set">Set</string>
+    <string name="set_as">Set as</string>
+    <string name="share">Share</string>
+    <string name="assign">Assign</string>
+    <string name="notification_text_failed">Set failed</string>
+    
+    <!--
+    used in share alert_dialog
+    -->
+    <string name="share_sms1">I would like to share this ringtone to you:</string>
+    <string name="share_sms2">from</string>
+    <string name="share_sms3">Send from Ringtone of Android, search com.cinla.ringtone in market</string>
+    
+</resources>
