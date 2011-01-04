@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.provider.Browser;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -25,6 +26,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +46,7 @@ public class MusicPageActivity extends Activity {
 	private Button mAssignButton;
 	private Button mShareButton;
 	private Button mEditButton;
+	private RatingBar mRatingBar;
 	
 	private ListView mSearchMoreList;
 	
@@ -84,6 +87,9 @@ public class MusicPageActivity extends Activity {
 		
 		mEditButton = (Button)findViewById(R.id.edit_button);
 		mEditButton.setOnClickListener(new EditClickListener());
+		
+		mRatingBar = (RatingBar)findViewById(R.id.user_ratingbar);
+		mRatingBar.setOnRatingBarChangeListener(new UserRatingBarChangeListener());
 		
 		updateUI();
 	}
@@ -211,6 +217,13 @@ public class MusicPageActivity extends Activity {
 			intent.putExtra("was_get_content_intent",false);
 			intent.setClassName(MusicPageActivity.this, "com.ringdroidlib.RingEditorActivity");
 			startActivity(intent);
+		}
+	}
+	
+	private class UserRatingBarChangeListener implements OnRatingBarChangeListener {
+		@Override
+		public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+			Utils.D("rate success?: "+Utils.rateSong(mMusicInfo.getmUuid(), rating));
 		}
 	}
 	

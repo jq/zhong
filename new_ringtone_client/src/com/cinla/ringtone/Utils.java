@@ -6,7 +6,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
+
+import javax.net.ssl.HttpsURLConnection;
+
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.net.Uri;
@@ -111,4 +118,18 @@ public class Utils {
 		return objFilePath;
 	}
 
+	public static boolean rateSong(String uuid, float rateValue) {
+		String urlString = Constant.BASE_URL+Constant.RATE_URL+"?uuid="+uuid+"&rate="+rateValue;
+		URL url = null;
+		HttpURLConnection conn = null;
+		try {
+			url = new URL(urlString);
+			conn = (HttpURLConnection) url.openConnection();
+			conn.connect();
+		} catch (Exception e) {
+			Utils.D("rate failed.");
+			return false;
+		} 
+		return true;
+	}
 }

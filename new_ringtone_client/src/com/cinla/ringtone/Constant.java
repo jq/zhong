@@ -22,10 +22,13 @@ public class Constant {
 	public static final String DOWNLOAD_COUNT = "download_count";
 	public static final String SIZE = "size";
 	public static final String ADD_DATE = "add_date";
+	public static final String RATE = "rate";
+	public static final String USER_RATE = "user_rate";
 	
 	public static final String BASE_URL = "http://bingliu630.appspot.com";
 //	public static final String BASE_URL = "http://10.0.2.2:8888";
 	public static final String SEARCH_URL = "/ringtoneserver/search?q=";
+	public static final String RATE_URL = "/ringtoneserver/";
 	
 	public static final String SEARCH_TYPE = "search_type";
 	public static final int TYPE_KEY = 0;
