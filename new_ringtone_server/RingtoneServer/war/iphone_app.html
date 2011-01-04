@@ -97,13 +97,8 @@
             fill_cate_page(cate, cate_name);
           });
             
-          $('#email_button').click(function(event) {
-            var email = $("#email_text").attr("value");
-            var link = $("#uuid").attr("value");
-            $(this).blur();
-            setTimeout(function() {
-              sendEmail(email, link);
-            }, 100);
+          $('#download_button').click(function(event) {
+            window.location = $("#download_button").attr("href");
           });
           
           $('#home').bind('pageAnimationStart', function(event, info) {
