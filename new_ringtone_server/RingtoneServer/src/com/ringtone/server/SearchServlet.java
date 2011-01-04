@@ -38,6 +38,8 @@ public class SearchServlet extends HttpServlet {
 			searchResults = SearchUtils.getResultsByDownloadCount(start);
 		} else if (type.equalsIgnoreCase(Const.ADD_DATE)) {
 			searchResults = SearchUtils.getResultsByDate(start);
+		} else if (type.equalsIgnoreCase(Const.ARTIST)) {
+			searchResults = SearchUtils.getResultsByArtist(key, start);
 		}
 		JSONArray jsonArray = new JSONArray();
 		for (SongEntry songEntry : searchResults) {
