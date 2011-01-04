@@ -68,6 +68,10 @@ function fill_details_page(artist, title, rate, download_count, download_link, i
 	$(".download_count", div_details).text("Downloaded "+download_count+" times");
 	$("#rate_star", div_details).attr("class", rate);
 	$("#uuid", div_details).attr("value", uuid);
+	var m4r_download_link = download_link.replace("ringtone_ring/", "ringtone_m4r/");
+	m4r_download_link = m4r_download_link.replace(".mp3", ".m4r");
+	$("#download_button", div_details).attr("herf", m4r_download_link);
+	
 	var audio = $("<audio>").attr("src", download_link).attr("class", "player").attr("controls", "controls");
 	var div_music_info_a = $("a", ".music_info", div_details);
 	audio.appendTo(div_music_info_a);

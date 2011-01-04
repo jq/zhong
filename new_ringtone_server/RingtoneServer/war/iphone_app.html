@@ -1,0 +1,331 @@
+<!doctype html>
+<html manifest="cache.manifest">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Ringtone</title>
+        <style type="text/css" media="screen">@import "/jqtouch/jqtouch.min.css";</style>
+        
+        <style type="text/css" media="screen">@import "themes/apple/theme.css";</style>
+        <style type="text/css" media="screen">@import "themes/apple/addition.css";</style>
+                
+        <script src="/jqtouch/jquery-1.4.4.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/jqtouch/jqtouch.min.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="/js/iphone_search.min.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="/js/iscroll.min.js" type="application/x-javascript" charset="utf-8"></script>
+                
+        <script type="text/javascript" charset="utf-8">
+        var jQT = new $.jQTouch({
+            icon: 'ringtone_icon.png',
+            debug: false,
+            preloadImages: [
+              'themes/apple/img/backButton_clicked.png',
+              'themes/apple/img/searchfield.png',
+              'themes/apple/img/backButton.png',
+              'themes/apple/img/blueButton.png',
+              'themes/apple/img/cancel.png',
+              'themes/apple/img/chevron.png',
+              'themes/apple/img/grayButton.png',
+              'themes/apple/img/selection.png',
+              'themes/apple/img/listArrowSel.png',
+              'themes/apple/img/whiteButton.png',
+              'themes/apple/img/activeButton.png',
+              'themes/apple/img/newloading.gif',
+              'themes/apple/img/toolButton.png',
+              'themes/apple/img/toolButton_clicked.png',
+              'themes/apple/img/toolbar.png',
+              'themes/apple/img/pinstripes.png',
+              'images/empty_star.png',
+              'images/full_star.png',
+              'images/navbutton.png',
+              'images/spinner.gif'
+            ]
+        });
+
+        window.onload = function() {
+            window.scrollTo(0, 1);
+        }
+        
+        function setHeight($item) {
+          var $wrapper = $item.find('.s-scrollwrapper');
+          if ($wrapper.length > 0) {
+            var headerH = 0;
+            var footerH = 0;
+            var tabbarH = 0;
+            var wrapperH = 320;
+            var $header = $item.find('.toolbar');
+            headerH = $header.length > 0 ? ($header.outerHeight() > 0 ? $header.outerHeight() : 0) : 0;
+            var $footer = $item.find('.navibar'); // page footer
+            var $tabbar = $('#tabbar'); // global tabbar
+            if ($footer.length > 0) {
+              footerH = $footer.outerHeight();
+            } else if ($tabbar.length > 0) {
+              tabbarH = $tabbar.outerHeight(); 
+            }
+
+            // workaround limitation on outerHeight (ie, returns zero until animation ended)
+            if (headerH > 0 || footerH > 0 || tabbarH > 0) {
+              wrapperH = window.innerHeight - headerH - footerH - tabbarH;
+              $wrapper.height(wrapperH);
+            }
+
+            // refresh scroll
+            var scroll = $item.data('iscroll_object');
+            if (scroll !== undefined && scroll !== null) {
+              scroll.refresh();
+            }
+          }
+        }
+
+        function setCurrentHeight() {
+          setHeight($('.current'));
+        }
+
+        function loaded() {
+          $('body').bind('turn', function(event, info){
+            if (info.orientation == 'portrait') {
+              $('.info').show();
+              $('.toolbar>h1').attr('style', 'left:46%;');
+            } else {
+              $('.info').hide();
+              $('.toolbar>h1').attr('style', 'left:50%;');
+            }
+          });
+        
+          $('.cate_link_item').bind('tapped', function(e){
+            var cate = $(e.target).attr("value");
+            var cate_name = $(e.target).text();
+            fill_cate_page(cate, cate_name);
+          });
+            
+          $('#email_button').click(function(event) {
+            var email = $("#email_text").attr("value");
+            var link = $("#uuid").attr("value");
+            $(this).blur();
+            setTimeout(function() {
+              sendEmail(email, link);
+            }, 100);
+          });
+          
+          $('#home').bind('pageAnimationStart', function(event, info) {
+            if (info.direction == 'in') {
+              setTimeout(function() {
+                $('iframe')[0].contentWindow.location.replace('iphone_ad.html');
+              }, 500);
+            }
+            if (info.direction =='out') {
+              $('iframe')[0].contentWindow.location.replace('iphone_ad_blank.html');
+            }
+          });
+                        
+          $('#jqt').children().each(function () {
+            var $this = $(this);
+            var $wrapper = $this.find('.s-scrollwrapper');
+            var $pane = $wrapper.find('.s-scrollpane');
+            if ($wrapper.length > 0) {
+              var scroll = new iScroll($pane[0].id, {desktopCompatibility: true});
+              $this.data('iscroll_object', scroll); 
+
+              // workaround limitation on outerHeight (ie, returns zero until animation ended)
+              // set a default for most common case to avoid resize being seen
+              wrapperH = window.innerHeight - 88;
+              $wrapper.height(wrapperH);
+
+              scroll.refresh();
+
+              $this.bind('pageAnimationEnd', function(event, info) {
+                if (info.direction == 'in') {
+                  setHeight($(this));
+                }
+              });
+             }
+          });
+              
+        }
+
+        if (window.navigator.standalone) {
+          document.addEventListener('touchmove', function(e){ e.preventDefault(); }, true);
+        }
+            
+        $(window).resize(function() {
+          $('#jqt').children().each(function () {
+            setHeight($(this));
+          });
+        });
+        
+        $(document).ready(function(){
+          loaded();
+          $(window).resize();
+
+          setTimeout(function() {
+            $(window).resize();
+          }, 1500);
+              
+          if (!window.navigator.standalone) {
+            $('#hint').show();
+          } else {
+            $('#hint').hide();
+          }
+        });
+
+        </script>
+        <style type="text/css" media="screen">
+        </style>
+    </head>
+    
+    <body>
+      <div id="jqt">
+      <div id="home" class="current">
+          <div class="toolbar">
+              <h1>Ringtone</h1>
+          </div>
+          <div class="searchbox">
+              <form id="search" action="" method="">
+                <fieldset><input id="search-text" placeholder="search from 185,742 ringtones" type="text" />
+                <input id="submit" type="hidden" /></fieldset>
+              </form>
+          </div>
+          <iframe src="iphone_ad.html" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="50" scrolling="no">
+          </iframe>
+          <ul class="rounded">
+              <li class="arrow"><a id="cates" href="#categories">All Categories</a></li>
+              <li class="arrow"><a href="#top_download">Top Donwload</a></li>
+              <li class="arrow"><a href="#newest_add">Newest Add</a></li>
+          </ul>
+          <div class="info">
+            <p>Ringtones for iPhone</p>
+            <p>Version: 1.0</p>
+            <p>Please contact with us: <a target='_blank' href="mailto:support@ringdroid.me">support@ringdroid.me</a></p>
+            <p id="hint" style="color:rgb(200,0,0);">Please add me into your home screen!</p>
+          </div>
+      </div>
+  
+      <div id="search_result">
+          <div class="toolbar">
+              <h1>Search Result</h1>
+              <a href="#home" class="back">Back</a>
+          </div>
+          <div class="loader" style="display:none;">Loading</div>
+          <div id="target-wrapper-Search" class="s-scrollwrapper"><div id="target-pane-Search" class="s-scrollpane">
+           <ul class="rounded" id="results">
+           </ul>
+        </div></div>
+      </div>
+      
+      <div id="categories">
+        <div class="toolbar">
+          <h1>Categories</h1>
+            <a href="#home" class="back">Back</a>
+            <a href="#" class="top" onclick="$(this).parent().parent().data('iscroll_object').scrollTo(0,0,'400ms');">Top</a>
+        </div>
+        <div id="target-wrapper-Cates" class="s-scrollwrapper"><div id="target-pane-Cates" class="s-scrollpane">
+        <ul class="rounded" id="all_categories">
+          <li class="arrow"><a class="cate_link_item" href="#category" value="Christian and Gospel">Christian and Gospel</a></li>
+          <li class="arrow"><a class="cate_link_item" href="#category" value="Metal">Metal</a></li>
+          <li class="arrow"><a class="cate_link_item" href="#category" value="Holiday">Holiday</a></li>
+          <li class="arrow"><a class="cate_link_item" href="#category" value="Rnb_Soul">R&B Soul</a></li>
+          <li class="arrow"><a class="cate_link_item" href="#category" value="Techno">Techno</a></li>
+          <li class="arrow"><a class="cate_link_item" href="#category" value="Pop">Pop</a></li>
+          <li class="arrow"><a class="cate_link_item" href="#category" value="Rock">Rock</a></li>
+          <li class="arrow"><a class="cate_link_item" href="#category" value="Video Games">Video Games</a></li>
+          <li class="arrow"><a class="cate_link_item" href="#category" value="Jazz">Jazz</a></li>
+          <li class="arrow"><a class="cate_link_item" href="#category" value="International">International</a></li>
+          <li class="arrow"><a class="cate_link_item" href="#category" value="Hip-Hop">Hip-Hop</a></li>
+          <li class="arrow"><a class="cate_link_item" href="#category" value="Movies and TV">Movies and TV</a></li>
+          <li class="arrow"><a class="cate_link_item" href="#category" value="Latin">Latin</a></li>
+          <li class="arrow"><a class="cate_link_item" href="#category" value="Blues">Blues</a></li>
+          <li class="arrow"><a class="cate_link_item" href="#category" value="Sound Effects">Sound Effects</a></li>
+          <li class="arrow"><a class="cate_link_item" href="#category" value="Classical">Classical</a></li>
+          <li class="arrow"><a class="cate_link_item" href="#category" value="Comedy">Comedy</a></li>
+          <li class="arrow"><a class="cate_link_item" href="#category" value="Country">Country</a></li>
+          <li class="arrow"><a class="cate_link_item" href="#category" value="Reggae">Reggae</a></li>
+        </ul>
+        </div></div>
+     </div>
+      
+      <div id="category">
+        <div class="toolbar">
+          <h1></h1>
+          <a href="#categories" class="back">Back</a>
+          <a href="#" class="top" onclick="$(this).parent().parent().data('iscroll_object').scrollTo(0,0,'400ms');">Top</a>
+        </div>
+        <div class="loader" style="display:none;">Loading</div>
+        <div id="target-wrapper-Cate" class="s-scrollwrapper"><div id="target-pane-Cate" class="s-scrollpane">
+        <ul class="rounded" id="results">
+        </ul>
+        </div></div>
+      </div>
+      
+      <div id="top_download">
+        <div class="toolbar">
+          <h1>Top Download</h1>
+          <a href="#" class="back">Back</a>
+          <a href="#" class="top" onclick="$(this).parent().parent().data('iscroll_object').scrollTo(0,0,'400ms');">Top</a>
+        </div>
+        <div class="loader" style="display:none;">Loading</div>
+        <div id="target-wrapper-TopDownload" class="s-scrollwrapper"><div id="target-pane-TopDownload" class="s-scrollpane">
+        <ul class="rounded" id="results">
+        </ul>
+        </div>
+        </div>
+      </div>
+      
+      <div id="newest_add">
+        <div class="toolbar">
+          <h1>Newest Add</h1>
+          <a href="#" class="back">Back</a>
+          <a href="#" class="top" onclick="$(this).parent().parent().data('iscroll_object').scrollTo(0,0,'400ms');">Top</a>
+        </div>
+        <div class="loader" style="display:none;">Loading</div>
+        <div id="target-wrapper-NewestAdd" class="s-scrollwrapper"><div id="target-pane-NewestAdd" class="s-scrollpane">
+        <ul class="rounded" id="results">
+        </ul>
+        </div></div>
+      </div>
+      
+      <div id="details">
+        <div class="toolbar">
+          <h1>Download</h1>
+          <a href="#" class="back">Back</a>
+        </div>
+        <div id="target-wrapper-Details" class="s-scrollwrapper"><div id="target-pane-Details" class="s-scrollpane">
+        <ul class="rounded" id="info">
+          <li class="music_info">
+            <a href="#">
+              <img id="s3_image"/>
+              <span class="artist"></span>
+              <span class="title"></span>
+              <span class="download_count"></span>
+              <span id="rate_star"></span>
+              <span id="uuid" value=""></span>
+              <audio controls="controls" class="player">
+                Your browser does not support the audio element.
+              </audio>
+            </a>
+          </li>
+          <li style="text-align:center;">
+            <h3>Rate this ringtone</h3>
+            <span class="rate_stars">
+              <span id="star1" onclick="doRate(1)" class="tap_star">
+                <img height="32" width="32" src="/images/empty_star.png"/>
+              </span>
+              <span id="star2" onclick="doRate(2)" class="tap_star">
+                <img height="32" width="32" src="/images/empty_star.png"/>
+              </span>
+              <span id="star3" onclick="doRate(3)" class="tap_star">
+                <img height="32" width="32" src="/images/empty_star.png"/>
+              </span>
+              <span id="star4" onclick="doRate(4)" class="tap_star">
+                <img height="32" width="32" src="/images/empty_star.png"/>
+              </span>
+              <span id="star5" onclick="doRate(5)" class="tap_star">
+                <img height="32" width="32" src="/images/empty_star.png"/>
+              </span>
+            </span>
+          </li>
+        </ul>
+        <a herf="#" class="whiteButton" id="download_button">Download</a>
+        </div></div>
+      </div>
+    </div>
+    </body>
+</html>
