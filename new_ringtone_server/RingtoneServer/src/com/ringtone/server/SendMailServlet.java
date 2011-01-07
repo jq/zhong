@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+import javax.jdo.PersistenceManager;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -27,6 +28,16 @@ public class SendMailServlet extends HttpServlet {
 		String uuid = req.getParameter(Const.UUID);
 		String fromEmail = Const.FROM_EMAIL;
 		SongEntry songEntry = SearchUtils.getSongEntryByUUID(uuid);
+		// add mail record here 
+		RecordEntry mailRecord = new RecordEntry(toEmail, uuid, songEntry.getFile_name());
+		PersistenceManager pm  = PMF.get().getPersistenceManager();
+		try {
+			pm.makePersistent(mailRecord);
+		} catch (Exception e) {
+			sLog.warning(e.getMessage());
+		} finally {
+			pm.close();
+		}
 		String fileName = songEntry.getFile_name();
 		fileName = songEntry.getUuid()+fileName.substring(0, fileName.lastIndexOf('.'));
 		fileName += ".m4r";
