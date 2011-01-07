@@ -4,14 +4,66 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 	
-	<ScrollView
-		android:layout_height="wrap_content"
-		android:layout_width="fill_parent">
 	
+  	<LinearLayout
+  		android:id="@+id/button_group"
+  		android:layout_width="fill_parent"
+  		android:layout_height="wrap_content"
+  		android:orientation="horizontal"
+  		android:layout_alignParentBottom="true">
+	  	<Button
+	  		android:id="@+id/preview_button"
+	 		android:layout_width="wrap_content"
+	  		android:layout_height="wrap_content"
+	  		android:text="@string/preview"
+	 		android:layout_weight="1">
+	  	</Button>
+		<Button
+  			android:id="@+id/download_button"
+	  		android:layout_width="wrap_content"
+	  		android:layout_height="wrap_content"
+	  		android:text="@string/download"
+	 		android:layout_weight="1">
+	  	</Button>
+	  	<Button
+	  		android:id="@+id/edit_button"
+	  		android:layout_width="wrap_content"
+	  		android:layout_height="wrap_content"
+	  		android:text="@string/edit"
+	  		android:layout_weight="1">
+	  	</Button>
+  		<Button
+  			android:id="@+id/set_button"
+  			android:layout_width="wrap_content"
+  			android:layout_height="wrap_content"
+  			android:text="@string/set_as"
+  			android:visibility="gone"
+  			android:layout_weight="1">
+  		</Button>
+		<Button
+  			android:id="@+id/assign_button"
+  			android:layout_width="wrap_content"
+  			android:layout_height="wrap_content"
+  			android:text="@string/assign"
+  			android:visibility="gone"
+  			android:layout_weight="1">
+  		</Button>  		
+  		<Button
+  			android:id="@+id/share_button"
+  			android:layout_width="wrap_content"
+  			android:layout_height="wrap_content"
+  			android:text="@string/share"
+  			android:visibility="gone"
+  			android:layout_weight="1">
+  		</Button>
+  	</LinearLayout>
+		
 	<LinearLayout
 	  	android:layout_width="fill_parent"
 	  	android:layout_height="wrap_content"
-	  	android:orientation="vertical">
+	  	android:orientation="vertical"
+	  	android:layout_above="@id/button_group"
+	  	android:layout_alignParentTop="true">
 	  	
 	  	<View
 			android:layout_height="1dip"
@@ -138,65 +190,9 @@
 	  	<ListView
 	  		android:id="@+id/search_more_list"
 	  		android:layout_width="fill_parent"
-	  		android:layout_height="wrap_content">
+	  		android:layout_height="fill_parent">
 	  	</ListView>
-	  	
 	</LinearLayout>
-	
-	</ScrollView>
   	
-  	<LinearLayout
-  		android:id="@+id/button_group"
-  		android:layout_width="fill_parent"
-  		android:layout_height="wrap_content"
-  		android:orientation="horizontal"
-  		android:layout_alignParentBottom="true">
-	  	<Button
-	  		android:id="@+id/preview_button"
-	 		android:layout_width="wrap_content"
-	  		android:layout_height="wrap_content"
-	  		android:text="@string/preview"
-	 		android:layout_weight="1">
-	  	</Button>
-		<Button
-  			android:id="@+id/download_button"
-	  		android:layout_width="wrap_content"
-	  		android:layout_height="wrap_content"
-	  		android:text="@string/download"
-	 		android:layout_weight="1">
-	  	</Button>
-	  	<Button
-	  		android:id="@+id/edit_button"
-	  		android:layout_width="wrap_content"
-	  		android:layout_height="wrap_content"
-	  		android:text="@string/edit"
-	  		android:layout_weight="1">
-	  	</Button>
-  		<Button
-  			android:id="@+id/set_button"
-  			android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
-  			android:text="@string/set_as"
-  			android:visibility="gone"
-  			android:layout_weight="1">
-  		</Button>
-		<Button
-  			android:id="@+id/assign_button"
-  			android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
-  			android:text="@string/assign"
-  			android:visibility="gone"
-  			android:layout_weight="1">
-  		</Button>  		
-  		<Button
-  			android:id="@+id/share_button"
-  			android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
-  			android:text="@string/share"
-  			android:visibility="gone"
-  			android:layout_weight="1">
-  		</Button>
-  	</LinearLayout>
-
 </RelativeLayout>
 

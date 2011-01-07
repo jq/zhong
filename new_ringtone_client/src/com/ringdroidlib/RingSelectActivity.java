@@ -1,6 +1,7 @@
 package com.ringdroidlib;
 
 import java.io.File;
+import java.io.IOException;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -32,6 +33,10 @@ public class RingSelectActivity extends RingdroidSelectActivity {
 			objFilePath = Utils.musicPathToObjPath(filename);
 			if (objFilePath != null) {
 				MusicInfo musicInfo = Utils.readMusicInfoFromFile(objFilePath);
+				File testMusicFile = new File(musicInfo.getFilePath());
+				if (!testMusicFile.exists()) {
+					throw new IOException();
+				}
 				MusicPageActivity.startMusicPageActivity(RingSelectActivity.this, musicInfo);
 				return;
 			}
