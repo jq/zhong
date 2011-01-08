@@ -24,6 +24,12 @@
         	android:configChanges="orientation|keyboardHidden">
        	</activity>
        	
+       	<activity
+       		android:name=".CategriesListActivity"
+        	android:launchMode="singleTop"
+        	android:configChanges="orientation|keyboardHidden">
+       	</activity>
+       	
        	<!-- Activity for choosing a contact to assign a ringtone to. -->
         <activity 
         	android:name="com.ringdroid.ChooseContactActivity"

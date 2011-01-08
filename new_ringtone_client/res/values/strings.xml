@@ -37,6 +37,7 @@
     <string name="share">Share</string>
     <string name="assign">Assign</string>
     <string name="notification_text_failed">Set failed</string>
+    <string name="all_categories">All Categories</string>
     
     <!--
     used in share alert_dialog

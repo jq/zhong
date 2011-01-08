@@ -28,6 +28,9 @@ public class Main extends Activity {
         
         Button topDownlaodButton = (Button) findViewById(R.id.home_topdownload_button);
         topDownlaodButton.setOnClickListener(new TopDownloadButtonClickListener());
+        
+        Button allCategoryButton = (Button) findViewById(R.id.home_all_categories_button);
+        allCategoryButton.setOnClickListener(new AllCategoryButtonClickListener());
     }
 
     private class SearchButtonClickListener implements View.OnClickListener {
@@ -52,6 +55,13 @@ public class Main extends Activity {
 		public void onClick(View v) {
 			SearchListActivity.startQueryByDownloadcount(Main.this);
 		}
-    	
+    }
+    
+    private class AllCategoryButtonClickListener implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			Intent intent = new Intent(Main.this, CategriesListActivity.class);
+			startActivity(intent);
+		}
     }
 }

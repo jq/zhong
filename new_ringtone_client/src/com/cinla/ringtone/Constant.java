@@ -60,6 +60,16 @@ public class Constant {
 	public static String sMusicDir;
 	public static String sCacheDir;
 	
+	public static final String[] CATEGORIES_NAME = { "Christian and Gospel", "Metal", "Holiday", "R&B Soul",
+		 "Techno", "Pop", "Rock", "Video Games", "Jazz", "International",
+		 "Hip-Hop", "Movies and TV", "Latin", "Blues", "Sound Effects",
+		 "Classical", "Comedy", "Country", "Reggae"};
+
+	public static final String[] CATEGORIES_VALUE = { "Christian and Gospel", "Metal", "Holiday", "Rnb_Soul",
+		  "Techno", "Pop", "Rock", "Vedio Games", "Jazz", "Internation",
+		  "Hip-Hop", "Movies and TV", "Latin", "Blues", "Sound Effects", 
+		  "Classical", "Comedy", "Country", "Reggae"};
+	
 	public static void init(Context context) {
 		sAppName = context.getString(R.string.app_name);
 		File sdCardRoot = Environment.getExternalStorageDirectory();
