@@ -16,7 +16,8 @@ public class Mp3ToM4R{
 			return false;
 		}
 
-		String temp = Consts.NEW_DOWNLOAD_DIR+"temp"+((int)(Math.random()*100))+".wav";
+		//String temp = Consts.NEW_DOWNLOAD_DIR+"temp"+((int)(Math.random()*100))+".wav";
+		String temp = source.replace(".mp3", ".wav");
 		String target = source.replace(".mp3", ".m4r");
 		try {
 			CPListener cpl = new CPListener();
@@ -34,7 +35,7 @@ public class Mp3ToM4R{
 				proc2 = Runtime.getRuntime().exec(GenTarCmd.replace("tempPath", temp).replace("tarPath", target));
 			}
 			
-  			Thread.sleep(1000);
+  			Thread.sleep(2000);
   			if(proc2.exitValue() != 0) return false;
 						
 			return new File(temp).delete();
