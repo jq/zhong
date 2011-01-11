@@ -55,6 +55,14 @@
   			android:visibility="gone"
   			android:layout_weight="1">
   		</Button>
+  		<ImageButton
+  			android:id="@+id/shear_facebook_button"
+  			android:layout_height="wrap_content"
+  			android:layout_width="wrap_content"
+  			android:src="@drawable/facebook_logo"
+  			android:background="#00000000"
+  			android:visibility="gone">
+  		</ImageButton>
   	</LinearLayout>
 		
 	<LinearLayout

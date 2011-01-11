@@ -4,7 +4,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.cinla.imageloader.ImageLoader;
+import com.connect.facebook.Login;
+import com.facebook.android.AsyncFacebookRunner;
+import com.facebook.android.Facebook;
+import com.facebook.android.FacebookError;
 import com.ringdroid.R;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -20,9 +27,11 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -46,7 +55,11 @@ public class MusicPageActivity extends Activity {
 	private Button mAssignButton;
 	private Button mShareButton;
 	private Button mEditButton;
+	private ImageButton mFacebookButton;
 	private RatingBar mRatingBar;
+	
+	private Facebook mFacebook;
+	private AsyncFacebookRunner mAsyncRunner;
 	
 	private ListView mSearchMoreList;
 	
@@ -90,6 +103,46 @@ public class MusicPageActivity extends Activity {
 		
 		mRatingBar = (RatingBar)findViewById(R.id.user_ratingbar);
 		mRatingBar.setOnRatingBarChangeListener(new UserRatingBarChangeListener());
+		
+		mFacebookButton = (ImageButton) findViewById(R.id.shear_facebook_button);
+		mFacebookButton.setOnClickListener(new OnClickListener() {
+		      @Override
+		      public void onClick(View v) {
+		        mFacebook = new Facebook();
+		        mAsyncRunner = new AsyncFacebookRunner(mFacebook);
+		        com.connect.facebook.SessionStore.restore(mFacebook, MusicPageActivity.this);
+		        if (!mFacebook.isSessionValid()) {
+		          final String[] PERMISSIONS = new String[] {"publish_stream", "read_stream", "offline_access"};                   
+		          Login loginFacbook = new Login(mFacebook, PERMISSIONS, MusicPageActivity.this);
+		          loginFacbook.LoginFacebook();
+		        } else {
+		        new AlertDialog.Builder(MusicPageActivity.this)
+		          .setMessage("Post ringtone to your Facebook?")
+		          .setCancelable(false)
+		          .setPositiveButton("Yes", new DialogInterface.OnClickListener() {         
+		            @Override
+		            public void onClick(DialogInterface dialog, int which) {
+		              Bundle params = new Bundle();
+		              params.putString("method", "links.post");
+		              params.putString("comment", "share a ringtone with you:");
+		              //String realKey = key.substring(key.lastIndexOf("/")+1, key.indexOf("?"));
+		              String realKey = "test";
+		              params.putString("url", "http://ringtonepromote.appspot.com/?key=" + realKey);
+		              //params.putString("link", "http://ringtonepromote.appspot.com/?key=" + realKey);
+		              mAsyncRunner.request(null, params, "POST", new WallPostRequestListener());
+		            }
+		          })
+		          .setNeutralButton("No", new DialogInterface.OnClickListener() {
+		            @Override
+		            public void onClick(DialogInterface dialog, int which) {
+		              dialog.dismiss();
+		            }
+		          }).show();
+		        
+		        }
+		          
+		      }
+		    });
 		
 		updateUI();
 	}
@@ -401,5 +454,24 @@ public class MusicPageActivity extends Activity {
 			mAssignButton.setVisibility(View.GONE);
 		}
 	}
+	
+	//facebook
+	  public class WallPostRequestListener extends com.connect.facebook.BaseRequestListener {
+		    
+		    public void onComplete(final String response) {
+		        Utils.D("Facebook-Example"+" Got response: " + response);
+		        String message = "<empty>";
+		        try {
+		            JSONObject json = com.facebook.android.Util.parseJson(response);
+		            message = json.getString("message");
+		        } catch (JSONException e) {
+		            Utils.D("Facebook-Example "+" JSON Error in response");
+		        } catch (FacebookError e) {
+		            Utils.D("Facebook-Example" +" Facebook Error: " + e.getMessage());
+		        }
+		        final String text = "Your Wall Post: " + message;
+		        Utils.D(text);
+		    }
+		  }
 	
 }
