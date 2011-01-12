@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.SimpleAdapter.ViewBinder;
 
 public class Main extends Activity {
+	
+	private SearchBar mSearchBar;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -19,6 +22,8 @@ public class Main extends Activity {
         
         //init. should use a background thread and splash screen...
         Constant.init(this);
+        
+        mSearchBar = new SearchBar(this);
 
         Button searchButton = (Button) findViewById(R.id.home_search_button);
         searchButton.setOnClickListener(new SearchButtonClickListener());
@@ -37,7 +42,7 @@ public class Main extends Activity {
 		@Override
 		public void onClick(View v) {
 			Intent intent = new Intent(Main.this, SearchListActivity.class);
-			intent.putExtra(Constant.SEARCH_TYPE, Constant.TYPE_KEY);
+			intent.putExtra(Constant.SEARCH_TYPE, Constant.TYPE_EMPTY);
 			Main.this.startActivity(intent);
 		}
     }
@@ -60,7 +65,7 @@ public class Main extends Activity {
     private class AllCategoryButtonClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
-			Intent intent = new Intent(Main.this, CategriesListActivity.class);
+			Intent intent = new Intent(Main.this, CategoriesListActivity.class);
 			startActivity(intent);
 		}
     }

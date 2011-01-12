@@ -31,11 +31,12 @@ public class Constant {
 	public static final String RATE_URL = "/ringtoneserver/";
 	
 	public static final String SEARCH_TYPE = "search_type";
-	public static final int TYPE_KEY = 0;
-	public static final int TYPE_TOP_DOWNLOAD = 1;
-	public static final int TYPE_NEWEST = 2;
-	public static final int TYPE_ARTIST = 3;
-	public static final int TYPE_CATEGORY = 4;
+	public static final int TYPE_EMPTY = 0;
+	public static final int TYPE_KEY = 1;
+	public static final int TYPE_TOP_DOWNLOAD = 2;
+	public static final int TYPE_NEWEST = 3;
+	public static final int TYPE_ARTIST = 4;
+	public static final int TYPE_CATEGORY = 5;
 	
 	public static final String QUERY = "query";
 	

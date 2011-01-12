@@ -62,21 +62,29 @@ public class SearchListActivity extends ListActivity {
 		
 		mSearchBar = new SearchBar(this);
 		adjustSearchType(getIntent());
-		if (mSearchType != Constant.TYPE_KEY) {
+		if (mSearchType==Constant.TYPE_KEY) {
+			mSearchBar.setQueryKeyWord(mSearchKey);
+		}
+		if (mSearchType!=Constant.TYPE_EMPTY) {
 			startQuery(getIntent().getStringExtra(Constant.QUERY));
 			setLoadingStatus();
-		} else {
+		} else if (mSearchType==Constant.TYPE_EMPTY){
 			setHintStatus();
-		}
+		} 
 	}
+	
+	
 	
 	private void adjustSearchType(Intent intent) {
 		Utils.D("in on NewIntent()");
 		mSearchType = intent.getIntExtra(Constant.SEARCH_TYPE, -1);
 		mSearchKey = intent.getStringExtra(Constant.QUERY);
 		switch (mSearchType) {
+		case Constant.TYPE_EMPTY:
+			
+			break;
 		case Constant.TYPE_KEY:
-
+			
 			break;
 		case Constant.TYPE_ARTIST:
 			
@@ -280,6 +288,9 @@ public class SearchListActivity extends ListActivity {
 			super.onPreExecute();
 			setLoadingStatus();
 			mStartPosTemp = mStartPos;
+			if (mData!=null) {
+				mStartPosTemp += mData.size();
+			}
 			if (mData != null) {
 				mData.clear();
 			}
@@ -313,13 +324,9 @@ public class SearchListActivity extends ListActivity {
 		}
 		
 		private ArrayList<MusicInfo> getNextMp3List(String keyWord) {
-			if (mData==null || mData.size()==0) {
-				mStartPosTemp = 0;
-			} else {
-				mStartPosTemp += mData.size();
-			}
 			ArrayList<MusicInfo> results = null;
-			if (mSearchType == Constant.TYPE_KEY) {
+			if (mSearchType==Constant.TYPE_KEY || mSearchType==Constant.TYPE_EMPTY) {
+				Utils.D("Position: "+mStartPosTemp);
 				results = mFetcher.getMusicListByQueryKey(keyWord, mStartPosTemp);
 			} else if (mSearchType == Constant.TYPE_ARTIST) {
 				results = mFetcher.getMusicListByArtist(keyWord, mStartPosTemp);
@@ -332,16 +339,14 @@ public class SearchListActivity extends ListActivity {
 			}
 			return results;
 		}
+		
 		private ArrayList<MusicInfo> getPrevMp3List(String keyWord) {
-			if (mStartPosTemp == 0) {
-				return mData.mMp3List;
-			}
 			mStartPosTemp -= Constant.EACH_MAX_RESULTS_NUM;
 			if (mStartPosTemp < 0) {
 				mStartPosTemp = 0;
 			}
 			ArrayList<MusicInfo> results = null;
-			if (mSearchType == Constant.TYPE_KEY) {
+			if (mSearchType==Constant.TYPE_KEY || mSearchType==Constant.TYPE_EMPTY) {
 				results = mFetcher.getMusicListByQueryKey(keyWord, mStartPosTemp);
 			} else if (mSearchType == Constant.TYPE_ARTIST) {
 				results = mFetcher.getMusicListByArtist(keyWord, mStartPosTemp);
@@ -360,7 +365,7 @@ public class SearchListActivity extends ListActivity {
 		mProgressBar.setVisibility(View.VISIBLE);
 		mRetryButton.setVisibility(View.GONE);
 		mSearchMessage.setVisibility(View.VISIBLE);
-		mSearchMessage.setText(SearchListActivity.this.getString(R.string.please_wait_search)+" "+mSearchBar.getQuery());
+		mSearchMessage.setText(SearchListActivity.this.getString(R.string.please_wait_search)+" "+mSearchBar.getQuery().trim());
 	}
 	
 	private void setErrorStatus() {
@@ -387,50 +392,45 @@ public class SearchListActivity extends ListActivity {
 	private class RetryButtonClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
-			if (mSearchType == Constant.TYPE_KEY) {
-				SearchListActivity.this.startQuery(mSearchBar.getQuery());
-			} else {
-				SearchListActivity.this.startQuery(mSearchKey);
-			}
+			SearchListActivity.this.startQuery(mSearchBar.getQuery().trim());
 		}
 	}
 	
 	private class PrevButtonClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
-			if (mSearchType == Constant.TYPE_KEY) {
-				continueFetch(mSearchBar.getQuery(), false);
-			} else {
-				SearchListActivity.this.startQuery(mSearchKey);
-			}
+			continueFetch(mSearchBar.getQuery().trim(), false);
 		}
 	}
 	
 	private class NextButtonClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
-			if (mSearchType == Constant.TYPE_KEY) {
-				continueFetch(mSearchBar.getQuery(), true);
-			} else {
-				SearchListActivity.this.startQuery(mSearchKey);
-			}
+			continueFetch(mSearchBar.getQuery().trim(), true);
 		}
 	}
-	
+
+	public static void startQeuryByKey(Context context, String keyWord) {
+		Intent intent = new Intent(context, SearchListActivity.class);
+		intent.putExtra(Constant.SEARCH_TYPE, Constant.TYPE_KEY);
+		intent.putExtra(Constant.QUERY, keyWord);
+		context.startActivity(intent);
+	}
+
 	public static void startQueryByCategory(Context context, String keyWord) {
 		Intent intent = new Intent(context, SearchListActivity.class);
 		intent.putExtra(Constant.SEARCH_TYPE, Constant.TYPE_CATEGORY);
 		intent.putExtra(Constant.QUERY, keyWord);
-		context.startActivity(intent);
+		context.startActivity(intent); 
 	}
-	
+
 	public static void startQueryByArtist(Context context, String keyWord) {
 		Intent intent = new Intent(context, SearchListActivity.class);
 		intent.putExtra(Constant.SEARCH_TYPE, Constant.TYPE_ARTIST);
 		intent.putExtra(Constant.QUERY, keyWord);
 		context.startActivity(intent);
 	}
-	
+
 	public static void startQueryByDownloadcount(Context context) {
 		Intent intent = new Intent(context, SearchListActivity.class);
 		intent.putExtra(Constant.SEARCH_TYPE, Constant.TYPE_TOP_DOWNLOAD);

@@ -446,12 +446,14 @@ public class MusicPageActivity extends Activity {
 			mEditButton.setVisibility(View.VISIBLE);
 			mSetButton.setVisibility(View.VISIBLE);
 			mAssignButton.setVisibility(View.VISIBLE);
+			mFacebookButton.setVisibility(View.VISIBLE);
 		} else {
 			mPreviewButton.setText(R.string.preview);
 			mDownloadButton.setVisibility(View.VISIBLE);
 			mEditButton.setVisibility(View.GONE);
 			mSetButton.setVisibility(View.GONE);
 			mAssignButton.setVisibility(View.GONE);
+			mFacebookButton.setVisibility(View.GONE);
 		}
 	}
 	

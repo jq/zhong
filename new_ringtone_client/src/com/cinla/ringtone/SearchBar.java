@@ -44,6 +44,10 @@ public class SearchBar {
         
 	}
 	
+	public void setQueryKeyWord(String keyWord) {
+		mQuery.setText(keyWord);
+	}
+	
 	public String getQuery() {
 		if (mQuery != null) {
 			return mQuery.getText().toString();
@@ -57,11 +61,8 @@ public class SearchBar {
 	
 	private void doSearch() {
 		String query = mQuery.getText().toString();
-
 		if (!TextUtils.isEmpty(query)) {
-//			SearchListActivity.startQuery(query);
-//			SearchListActivity.handleMp3ListIntent(mActivity, query);
-			((SearchListActivity)mActivity).startQuery(query);
+			SearchListActivity.startQeuryByKey(mActivity, query);
 		}
 	}
 }
