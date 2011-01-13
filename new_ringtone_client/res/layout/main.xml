@@ -5,35 +5,11 @@
     android:layout_height="fill_parent">
     
     <include layout="@layout/search_bar"></include>
-   
-   	<Button
-    	android:id="@+id/home_search_button"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:text="@string/search"
-    ></Button>
-    <Button
-    	android:id="@+id/home_lib_button"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:text="@string/library"
-    ></Button>
-    <Button
-    	android:id="@+id/home_topdownload_button"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:text="@string/top_download"
-    ></Button>
-    <Button
-    	android:id="@+id/home_ratepromote_button"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:text="@string/rate_promote"
-    ></Button>
-    <Button
-    	android:id="@+id/home_all_categories_button"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:text="@string/all_categories">
-    </Button>
+   	
+   	<ListView
+   		android:id="@id/android:list"
+   		android:layout_width="fill_parent"
+   		android:layout_height="fill_parent">
+   	</ListView>
+   	
 </LinearLayout>

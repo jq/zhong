@@ -437,5 +437,12 @@ public class SearchListActivity extends ListActivity {
 		intent.putExtra(Constant.QUERY, "");
 		context.startActivity(intent);
 	}
+	
+	public static void startQueryByDate(Context context) {
+		Intent intent = new Intent(context, SearchListActivity.class);
+		intent.putExtra(Constant.SEARCH_TYPE, Constant.TYPE_NEWEST);
+		intent.putExtra(Constant.QUERY, "");
+		context.startActivity(intent);
+	}
 
 }
