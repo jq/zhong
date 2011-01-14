@@ -14,11 +14,13 @@
         <script src="/jqtouch/jqtouch.min.js" type="application/x-javascript" charset="utf-8"></script>
         <script src="/js/iphone_search.min.js" type="application/x-javascript" charset="utf-8"></script>
         <script src="/js/iscroll.min.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="/js/facebook.js" type="text/javascript" ></script>
                 
         <script type="text/javascript" charset="utf-8">
         var jQT = new $.jQTouch({
             icon: 'ringtone_icon.png',
             debug: false,
+            slideSelector: '.slide',
             preloadImages: [
               'themes/apple/img/backButton_clicked.png',
               'themes/apple/img/searchfield.png',
@@ -39,7 +41,8 @@
               'images/empty_star.png',
               'images/full_star.png',
               'images/navbutton.png',
-              'images/spinner.gif'
+              'images/spinner.gif',
+              'images/fb_button.png'
             ]
         });
 
@@ -169,6 +172,24 @@
           }
         });
 
+		// facebook
+        window.fbAsyncInit = function() {
+            FB.init({appId: '185159498179248', status: true, cookie: true, xfbml: true});
+        };
+	    function share(){
+	        	 var share = {
+	             	method: 'stream.share',
+	             	u: 'http://bingliu630.appspot.com'
+	        	 };
+	        FB.ui(share);
+	     }
+
+	    // twitter 
+	    function tweet() {
+	    	 //var url = "http://njunewfish.appspot.com/twitter?msg=" + "abcdefg";
+	    	 var url = "http://twitter.com/home?status=http://bingliu630.appspot.com - Ringtones For Your Phone!";
+	    	 window.open(url, "null", "height=600px,width=640px,top=50px, left=165px,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes");  
+		}
         </script>
         <style type="text/css" media="screen">
         </style>
@@ -329,7 +350,27 @@
 				<ul class="edit rounded" id="email_ul">
 					<li><input type="email" name="email" placeholder="Please input your email here" id="email_text" /></li>
 				</ul>
-				<div class="whiteButton" id="email_button">Send Email</div>
+			    
+			   <div><table cellspacing="0" cellpadding="0" style="margin: 0 auto;">
+				<tr>
+					<td class="app_share_cell" >
+      					<div style="margin: 0 15px">
+        					<a href="#" onclick="share()"><img src="/images/fb_button.png" alt="Tweet this app" border="0" align="absmiddle"/></a>
+      					</div>
+    				</td>
+		    	 	<td class="app_share_cell">
+      					<div style="margin: 0 15px">
+        					<a href="#" onclick="tweet()"><img src="/images/twitter-b.png" alt="Tweet this app" border="0" align="absmiddle"/></a>
+      					</div>
+    				</td>
+    				<td class="app_share_cell" >
+      					<div style="margin: 0 15px">
+        					<img src="/images/email_button.png" alt="Tweet this app" id="email_button" border="0" align="absmiddle"/>
+      					</div>
+    				</td>
+				</tr>
+				</table></div>
+			    
 				</div></div>
 			</div>
 		</div>

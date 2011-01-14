@@ -19,6 +19,7 @@
 
 }
 
+
 @media screen and (min-width: 321px)
 {
 
@@ -196,6 +197,19 @@ div .loader {
   text-align: center;
   width: 240px;
 }	
+
+/* facebook and twitter tag */
+.app_share_cell {
+    background-color: rgb(246,249,250);
+    border-top: 1px solid rgb(210,220,224);
+    border-bottom: 1px solid rgb(210,220,224);
+    border: 1px solid rgb(210,210,210); 
+    border-left: none;
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    margin: 0 15px;
+}
+
 
 .s-scrollwrapper {
   height:200px;       /* Of course you need to specify the object height */
