@@ -6,10 +6,45 @@
     
     <include layout="@layout/search_bar"></include>
    	
-   	<ListView
-   		android:id="@id/android:list"
-   		android:layout_width="fill_parent"
-   		android:layout_height="fill_parent">
-   	</ListView>
+	<TextView
+		android:id="@+id/home_top_download"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/top_download"
+		android:textSize="20sp">
+	</TextView>
+	
+	<TextView
+		android:id="@+id/home_newest"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/newest"
+		android:textSize="20sp">
+	</TextView>
+	
+	<TextView
+		android:id="@+id/home_all_category"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/all_categories"
+		android:textSize="20sp">
+	</TextView>
+	
+	<TextView
+		android:id="@+id/home_library"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/library"
+		android:textSize="20sp">
+	</TextView>
+	
+	<TextView
+		android:id="@+id/home_rate_promote"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/rate_promote"
+		android:textSize="20sp">
+	</TextView>
+	
    	
 </LinearLayout>

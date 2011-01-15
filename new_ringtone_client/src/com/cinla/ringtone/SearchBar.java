@@ -9,6 +9,7 @@ import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class SearchBar {
 
@@ -60,7 +61,11 @@ public class SearchBar {
 	}
 	
 	private void doSearch() {
-		String query = mQuery.getText().toString();
+		String query = mQuery.getText().toString().trim();
+		if (query.length() == 0) {
+			Toast.makeText(mActivity, R.string.input_key, Toast.LENGTH_SHORT).show();
+			return;
+		}
 		if (!TextUtils.isEmpty(query)) {
 			SearchListActivity.startQeuryByKey(mActivity, query);
 		}

@@ -38,7 +38,7 @@
     <string name="assign">Assign</string>
     <string name="notification_text_failed">Set failed</string>
     <string name="all_categories">All Categories</string>
-    
+	<string name="input_key">The search key word should not be empty.</string>    
     <!--
     used in share alert_dialog
     -->
