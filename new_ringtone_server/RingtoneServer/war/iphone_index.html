@@ -3,19 +3,21 @@
     <head>
         <meta charset="UTF-8" />
         <title>Ringtone</title>
-        <style type="text/css" media="screen">@import "/jqtouch/jqtouch.min.css";</style>
+        <style type="text/css" media="screen">@import "jqtouch/jqtouch.min.css";</style>
         
         <style type="text/css" media="screen">@import "themes/apple/theme.css";</style>
         <style type="text/css" media="screen">@import "themes/apple/addition.css";</style>
         
-        <link rel="apple-touch-startup-image" href="/images/ringtone_splash_460.png">
+        <link rel="apple-touch-startup-image" href="images/ringtone_splash_460.png">
         
-        <script src="/jqtouch/jquery-1.4.4.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/jqtouch/jqtouch.min.js" type="application/x-javascript" charset="utf-8"></script>
-        <script src="/js/iphone_search.min.js" type="application/x-javascript" charset="utf-8"></script>
-        <script src="/js/iscroll.min.js" type="application/x-javascript" charset="utf-8"></script>
-        <script src="/js/facebook.js" type="text/javascript" ></script>
-                
+        <script src="jqtouch/jquery-1.4.4.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="jqtouch/jqtouch.min.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="jqtouch/jqt.floaty.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="js/iphone_search.min.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="js/iscroll.min.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="js/facebook.js" type="text/javascript" ></script>
+      
+      
         <script type="text/javascript" charset="utf-8">
         var jQT = new $.jQTouch({
             icon: 'ringtone_icon.png',
@@ -46,9 +48,24 @@
             ]
         });
 
+		
         window.onload = function() {
             window.scrollTo(0, 1);
       	}
+
+     	// float window
+        $(function(){
+        	$('#email_button').click(function(){
+        		$('.floaty').css({visibility:"visible"});
+                $('.floaty').toggleFloaty();
+                $(this).removeClass('active');
+                return false;
+            });
+        	$('.floaty').makeFloaty({
+                spacing: 20,
+                time: '0.5s'
+            });
+        });
         
         function setHeight($item) {
           var $wrapper = $item.find('.s-scrollwrapper');
@@ -102,10 +119,11 @@
             fill_cate_page(cate, cate_name);
           });
             
-          $('#email_button').click(function(event) {
+          $('#send_button').click(function(event) {
             var email = $("#email_text").attr("value");
             var link = $("#uuid").attr("value");
             $(this).blur();
+            $('.floaty').toggleFloaty();
             setTimeout(function() {
               sendEmail(email, link);
             }, 100);
@@ -168,7 +186,7 @@
           if (!window.navigator.standalone) {
             $('#hint').show();
           } else {
-  				  $('#hint').hide();
+  			 $('#hint').hide();
           }
         });
 
@@ -186,13 +204,22 @@
 
 	    // twitter 
 	    function tweet() {
-	    	 //var url = "http://njunewfish.appspot.com/twitter?msg=" + "abcdefg";
 	    	 var url = "http://twitter.com/home?status=http://bingliu630.appspot.com - Ringtones For Your Phone!";
 	    	 window.open(url, "null", "height=600px,width=640px,top=50px, left=165px,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes");  
 		}
         </script>
+        
         <style type="text/css" media="screen">
-        </style>
+	    	.floaty {
+	            -webkit-border-radius: 10px;
+	            -webkit-box-shadow: rgba(0,0,0, .5) 0px 1px 1px;
+	            width: 80%;
+	            margin: 0 0;
+	            padding: 5px 10px;
+	            background: rgba(255,255,255,.7);
+	            color: #000;
+	        }
+    	</style>
     </head>
     
     <body>
@@ -346,11 +373,7 @@
 						</span>
 					</li>
 				</ul>
-				<h3>Please input your email address and we will send you the link of the ringtone and the instructions to install it on your computer.</h3>
-				<ul class="edit rounded" id="email_ul">
-					<li><input type="email" name="email" placeholder="Please input your email here" id="email_text" /></li>
-				</ul>
-			    
+				
 			   <div><table cellspacing="0" cellpadding="0" style="margin: 0 auto;">
 				<tr>
 					<td class="app_share_cell" >
@@ -365,7 +388,7 @@
     				</td>
     				<td class="app_share_cell" >
       					<div style="margin: 0 15px">
-        					<img src="/images/email_button.png" alt="Tweet this app" id="email_button" border="0" align="absmiddle"/>
+        					<img src="/images/email_button.png" id="email_button" border="0" align="absmiddle"/>
       					</div>
     				</td>
 				</tr>
@@ -373,6 +396,15 @@
 			    
 				</div></div>
 			</div>
+			
+			<div id="floaty" class="floaty" style="visibility:hidden">
+	            	<h3>Please input your email address and we will send you the link of the ringtone and the instructions to install it on your computer.</h3>
+					<ul class="rounded" id="email_ul">
+						<li><input type="email" placeholder="Please input your email here" id="email_text" /></li>
+						<li><a href="#" class="whiteButton" style="margin:10px" id="send_button">Send</a></li>
+					</ul>
+        	</div>
+			
 		</div>
     </body>
 </html>
