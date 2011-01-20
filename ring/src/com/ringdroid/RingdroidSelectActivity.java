@@ -47,7 +47,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ringdroid.soundfile.CheapSoundFile;
-import com.util.RUtils;
+import com.util.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -167,7 +167,7 @@ public class RingdroidSelectActivity
                   if (id == R.id.row_artist ||
                     id == R.id.row_album ||
                     id == R.id.row_title) {
-                    ((TextView) view).setText(RUtils.convertGBK(cursor.getString(columnIndex)));
+                    ((TextView) view).setText(Utils.convertGBK(cursor.getString(columnIndex)));
                     return true;
                   }
                   return false;
@@ -278,7 +278,7 @@ public class RingdroidSelectActivity
         Cursor c = mAdapter.getCursor();
         String title = c.getString(c.getColumnIndexOrThrow(
             MediaStore.Audio.Media.TITLE));
-        title = RUtils.convertGBK(title);
+        title = Utils.convertGBK(title);
         menu.setHeaderTitle(title);
 
         menu.add(0, CMD_EDIT, 0, R.string.context_menu_edit);
@@ -357,7 +357,7 @@ public class RingdroidSelectActivity
         }
 
         new AlertDialog.Builder(RingdroidSelectActivity.this)
-            .setTitle(RUtils.convertGBK(title.toString()))
+            .setTitle(Utils.convertGBK(title.toString()))
             .setMessage(message)
             .setPositiveButton(
                 R.string.delete_ok_button,
