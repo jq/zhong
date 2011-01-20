@@ -34,14 +34,14 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>facebook_android_src</name>
+			<name>android_facebook_src</name>
 			<type>2</type>
-			<locationURI>_android_facebook_android_1d8d51f6/src</locationURI>
+			<locationURI>facebook_src</locationURI>
 		</link>
 		<link>
 			<name>ring_src</name>
 			<type>2</type>
-			<locationURI>_android_ring_356a30/src</locationURI>
+			<locationURI>ring_src</locationURI>
 		</link>
 		<link>
 			<name>util</name>
