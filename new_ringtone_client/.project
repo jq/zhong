@@ -3,6 +3,8 @@
 	<name>new_ringtone_client</name>
 	<comment></comment>
 	<projects>
+		<project>facebook_android</project>
+		<project>ring</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -44,7 +46,7 @@
 		<link>
 			<name>util</name>
 			<type>2</type>
-			<location>/Users/admin/workspace/util/src</location>
+			<locationURI>util_src</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

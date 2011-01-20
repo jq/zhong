@@ -1,15 +1,15 @@
 配置new_ringtone_client
 
-1)检出代码
-	new_ringtone_client
-	facebook_android
-	ring
-	util
+1)检出代码，按如下顺序checkout
+  1.1 util
+  1.2 ring
+  1.3 facebook_android
+  1.4 new_ringtone_client
 	
-2)配置ring
-	link util代码：右键ring project->Property->java build path->Source tab->Link source
-	选中util的src目录，将其链接进来
+2)创建目录变量
+	例如，在ring项目中，右键ring project->Property->java build path->Source tab->Link source
+	新建一个Variable，名为util_src，指向你本地的util中src的绝对路径。
+	例如， util_src = "D:\workspace\util\src" 或者， util_src = "C:\workspace\util\src"
 	
-2配置new_ringtone_client
-	a)按2)中方法，link util代码
-	b）加入共享库：右键new_ringtone_client->Property->Android,在libary中分别加入facebook_android,和ring。
+	
+
