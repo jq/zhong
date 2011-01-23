@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-
 import com.cinla.imageloader.ImageLoaderHandler;
+import com.cinla.ringtone.ListStatusView.Status;
 
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.SimpleAdapter.ViewBinder;
 
 public class SearchListActivity extends ListActivity {
 	
@@ -38,6 +41,8 @@ public class SearchListActivity extends ListActivity {
 	
 	private MusicParser mFetcher;
 	private FetchMp3ListTask mFetchMp3ListTask;
+	
+	private Handler mHandler = new Handler();
 
 	private int mSearchType;
 	private String mSearchKey;
@@ -55,7 +60,7 @@ public class SearchListActivity extends ListActivity {
 		mRetryButton.setOnClickListener(new RetryButtonClickListener());
 		
 		mFooter = new SearchListFooterView(this);
-		getListView().addFooterView(mFooter);
+//		getListView().addFooterView(mFooter);
 		mFooter.setFocusable(false);
 		mFooter.getBtnNext().setOnClickListener(new NextButtonClickListener());
 		mFooter.getBtnPre().setOnClickListener(new PrevButtonClickListener());
@@ -72,8 +77,6 @@ public class SearchListActivity extends ListActivity {
 			setHintStatus();
 		} 
 	}
-	
-	
 	
 	private void adjustSearchType(Intent intent) {
 		Utils.D("in on NewIntent()");
@@ -212,12 +215,13 @@ public class SearchListActivity extends ListActivity {
 			}
 		}
 	}
-	
+
 	private final class Mp3ListAdapter extends BaseAdapter {
 
 		private int mResource;
 		private LayoutInflater mInflater;
-		
+		private ListStatusView.Status mStatus;
+
 		public Mp3ListAdapter(Context context, int resource) {
 			mResource = resource;
             mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -253,12 +257,34 @@ public class SearchListActivity extends ListActivity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View v;
-			Object item = mData.get(position);
-			if (convertView == null) {
-				v = mInflater.inflate(mResource, parent, false);
-			} else {
-				v = convertView;
+			if (position == mData.size()-1) {
+//				ListStatusView footerView = (ListStatusView) convertView;
+				ListStatusView footerView = null;
+//				if (footerView == null) {
+					footerView = (ListStatusView) mInflater.inflate(R.layout.liststatus, null);
+					TextView text = (TextView)footerView.findViewById(R.id.prompt);
+					text.setText(R.string.loading_more);
+//				}
+				if (mStatus == ListStatusView.Status.LOADING) {
+					footerView.setLoadingStatus();
+				} else if (mStatus == ListStatusView.Status.ERROR) {
+					footerView.setErrorStatus(new RetryLoadingClickListener());
+				}
+				mHandler.post(new Runnable() {
+					@Override
+					public void run() {
+						continueFetch(mSearchBar.getQuery().trim(), true);
+					}
+				});
+				return footerView;
 			}
+			
+			Object item = mData.get(position);
+//			if (convertView == null) {
+				v = mInflater.inflate(mResource, parent, false);
+//			} else {
+//				v = convertView;
+//			}
 			MusicInfo info = (MusicInfo) item;
 			ImageView imageView = (ImageView) v.findViewById(R.id.image);
 //			new ImageLoader(info.getmImageUrl(), imageView).startLoadImage();
@@ -271,6 +297,10 @@ public class SearchListActivity extends ListActivity {
 			((TextView) v.findViewById(R.id.download_count)).setText(Integer.toString(info.getmDownloadCount()));
             ((RatingBar) v.findViewById(R.id.ratebar_indicator)).setRating(50);
             return v;
+		}
+		
+		protected void setStatus(ListStatusView.Status status) {
+			mStatus = status;
 		}
 	}
 	
@@ -291,9 +321,12 @@ public class SearchListActivity extends ListActivity {
 			if (mData!=null) {
 				mStartPosTemp += mData.size();
 			}
-			if (mData != null) {
-				mData.clear();
+			if (mAdapter != null) {
+				mAdapter.setStatus(com.cinla.ringtone.ListStatusView.Status.LOADING);
 			}
+//			if (mData != null) {
+//				mData.clear();
+//			}
 		}
 
 		@Override
@@ -311,13 +344,20 @@ public class SearchListActivity extends ListActivity {
 		@Override
 		protected void onPostExecute(ArrayList<MusicInfo> result) {
 			super.onPostExecute(result);
-			if (result == null) {
-				setErrorStatus();
-				return;
-			}
-			if (result.size() == 0) {
-				setNoResultStatus();
-				return;
+			if ((mData!=null && mData.size()==0)||mData==null) {
+				if (result == null) {
+					setErrorStatus();
+					return;
+				}
+				if (result.size() == 0) {
+					setNoResultStatus();
+					return;
+				}
+			} else {
+				if (result == null) {
+					mAdapter.setStatus(com.cinla.ringtone.ListStatusView.Status.ERROR);
+					mAdapter.notifyDataSetChanged();
+				}
 			}
 			mStartPos = mStartPosTemp;
 			SearchListActivity.this.handleSearchResults(result);
@@ -393,6 +433,15 @@ public class SearchListActivity extends ListActivity {
 		@Override
 		public void onClick(View v) {
 			SearchListActivity.this.startQuery(mSearchBar.getQuery().trim());
+		}
+	}
+	
+	private class RetryLoadingClickListener implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			mAdapter.setStatus(Status.LOADING);
+			mAdapter.notifyDataSetChanged();
+			continueFetch(mSearchBar.getQuery().trim(), true);
 		}
 	}
 	

@@ -45,5 +45,9 @@
     <string name="share_sms1">I would like to share this ringtone to you:</string>
     <string name="share_sms2">from</string>
     <string name="share_sms3">Send from Ringtone of Android, search com.cinla.ringtone in market</string>
+    <string name="error_network">Network connection error!</string>
+    
+    
+    <string name="loading_more">Loading more results...</string>
     
 </resources>
