@@ -116,56 +116,6 @@ public class NetUtils {
 		return bitmap;
 	}
 	
-    // TODO: we could probably improve performance by re-using connections instead of closing them
-	// after each and every download
-	public static Bitmap downloadImage(String imageUrl) {
-
-		try {
-			byte[] imageData = retrieveImageData(imageUrl);
-
-			return BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
-
-		} catch (Throwable e) {
-			e.printStackTrace();
-			SystemClock.sleep(DEFAULT_RETRY_HANDLER_SLEEP_TIME);
-		}
-
-		return null;
-	}
-
-    private static byte[] retrieveImageData(String imageUrl) throws IOException {
-        URL url = new URL(imageUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-        byte[] cachedImageData = null;
-        cachedImageData = readImageData(imageUrl.trim(), Constant.ONE_YEAR);
-        if (cachedImageData != null) {
-        	return cachedImageData;
-        }
-        
-        // determine the image size and allocate a buffer
-        int fileSize = connection.getContentLength();
-        byte[] imageData = new byte[fileSize];
-
-        // download the file
-        BufferedInputStream istream = new BufferedInputStream(connection.getInputStream());
-        int bytesRead = 0;
-        int offset = 0;
-        while (bytesRead != -1 && offset < fileSize) {
-            bytesRead = istream.read(imageData, offset, fileSize - offset);
-            offset += bytesRead;
-        }
-
-        // clean up
-        istream.close();
-        connection.disconnect();
-        if (imageData != null) {
-        	cacheImageInThread(imageUrl, imageData);
-        }
-        return imageData;
-    }
-    
-    
     private static File downloadFile(String filePath) {
     	File file = new File(filePath);
     	
@@ -219,7 +169,7 @@ public class NetUtils {
 		return null;
     }
     
-    private static void cacheImageInThread(final String url, final byte[] imageData) {
+    public static void cacheImageInThread(final String url, final byte[] imageData) {
     	new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -237,7 +187,7 @@ public class NetUtils {
 		}).start();
     }
     
-    private static byte[] readImageData(String url, long expire) {
+    public static byte[] readImageData(String url, long expire) {
     	String fileName = getFileNameFromUrl(url);
     	String filePath = Constant.sCacheDir + fileName;
     	File file = new File(filePath);
@@ -261,6 +211,16 @@ public class NetUtils {
 		return null;
     }
 
+    public static boolean isInCache(String url) {
+    	String fileName = getFileNameFromUrl(url);
+    	String filePath = Constant.sCacheDir + fileName;
+    	File file = new File(filePath);
+    	if (!file.exists()) {
+    		return false;
+    	}
+    	return true;
+    }
+    
     public static String getFileNameFromUrl(String url) {
         // replace all special URI characters with a single + symbol
         return url.replaceAll("[.:/,%?&=]", "+").replaceAll("[+]+", "+");

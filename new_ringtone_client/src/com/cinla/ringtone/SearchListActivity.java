@@ -32,7 +32,7 @@ public class SearchListActivity extends ListActivity {
 	private ProgressBar mProgressBar;
 	private TextView mSearchMessage;
 	private Button mRetryButton;
-	private SearchListFooterView mFooter;
+//	private SearchListFooterView mFooter;
 	
 	private SearchBar mSearchBar;
 	
@@ -60,11 +60,11 @@ public class SearchListActivity extends ListActivity {
 		mRetryButton = (Button) findViewById(R.id.retry_button);
 		mRetryButton.setOnClickListener(new RetryButtonClickListener());
 		
-		mFooter = new SearchListFooterView(this);
+//		mFooter = new SearchListFooterView(this);
 //		getListView().addFooterView(mFooter);
-		mFooter.setFocusable(false);
-		mFooter.getBtnNext().setOnClickListener(new NextButtonClickListener());
-		mFooter.getBtnPre().setOnClickListener(new PrevButtonClickListener());
+//		mFooter.setFocusable(false);
+//		mFooter.getBtnNext().setOnClickListener(new NextButtonClickListener());
+//		mFooter.getBtnPre().setOnClickListener(new PrevButtonClickListener());
 		
 		mSearchBar = new SearchBar(this);
 		adjustSearchType(getIntent());
@@ -122,7 +122,7 @@ public class SearchListActivity extends ListActivity {
 	
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
+//		super.onListItemClick(l, v, position, id);
 		MusicInfo clickedMusicInfo = mData.get(position);
 		MusicPageActivity.startMusicPageActivity(this, clickedMusicInfo);
 	}
@@ -290,13 +290,17 @@ public class SearchListActivity extends ListActivity {
 			ImageView imageView = (ImageView) v.findViewById(R.id.image);
 //			new ImageLoader(info.getmImageUrl(), imageView).startLoadImage();
 			
+			if (!NetUtils.isInCache(info.getmImageUrl())) {
+				imageView.setBackgroundResource(R.drawable.image_loading);
+			}
+
 			com.cinla.imageloader.ImageLoader.initialize(SearchListActivity.this);
 			com.cinla.imageloader.ImageLoader.start(info.getmImageUrl(), imageView);
 			
 			((TextView) v.findViewById(R.id.title)).setText(info.getmTitle());
 			((TextView) v.findViewById(R.id.artist)).setText(info.getmArtist());
-			((TextView) v.findViewById(R.id.download_count)).setText(Integer.toString(info.getmDownloadCount()));
-            ((RatingBar) v.findViewById(R.id.ratebar_indicator)).setRating(50);
+			((TextView) v.findViewById(R.id.download_count)).setText(getString(R.string.download_count)+" "+Integer.toString(info.getmDownloadCount()));
+            ((RatingBar) v.findViewById(R.id.ratebar_indicator)).setRating((float)info.getmRate()/20);
             return v;
 		}
 		

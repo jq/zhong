@@ -79,7 +79,7 @@ public class MusicPageActivity extends Activity {
 		
 		((TextView)findViewById(R.id.title)).setText(mMusicInfo.getmTitle());
 		((TextView)findViewById(R.id.artist)).setText(mMusicInfo.getmArtist());
-		((TextView)findViewById(R.id.download_count)).setText(Integer.toString(mMusicInfo.getmDownloadCount()));
+		((TextView)findViewById(R.id.download_count)).setText(getString(R.string.download_count)+" "+Integer.toString(mMusicInfo.getmDownloadCount()));
 		((RatingBar)findViewById(R.id.avg_ratingbar)).setRating((int)mMusicInfo.getmRate()/20);
 		
 		mSearchMoreList = (ListView)findViewById(R.id.search_more_list);

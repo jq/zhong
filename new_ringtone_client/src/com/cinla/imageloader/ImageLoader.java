@@ -22,6 +22,8 @@ import java.net.URL;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
+import com.cinla.ringtone.Constant;
+import com.cinla.ringtone.NetUtils;
 import com.cinla.ringtone.Utils;
 
 import android.content.Context;
@@ -218,6 +220,12 @@ public class ImageLoader implements Runnable {
         URL url = new URL(imageUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
+        byte[] cachedImageData = null;
+        cachedImageData = NetUtils.readImageData(imageUrl.trim(), Constant.ONE_YEAR);
+        if (cachedImageData != null) {
+        	return cachedImageData;
+        }
+        
         // determine the image size and allocate a buffer
         int fileSize = connection.getContentLength();
         byte[] imageData = new byte[fileSize];
@@ -235,6 +243,10 @@ public class ImageLoader implements Runnable {
         // clean up
         istream.close();
         connection.disconnect();
+
+        if (imageData != null) {
+        	NetUtils.cacheImageInThread(imageUrl, imageData);
+        }
 
         return imageData;
     }
