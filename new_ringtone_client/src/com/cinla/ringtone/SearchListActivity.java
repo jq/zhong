@@ -6,7 +6,6 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import com.cinla.imageloader.ImageLoaderHandler;
 import com.cinla.ringtone.ListStatusView.Status;
-
 import android.R.integer;
 import android.app.ListActivity;
 import android.content.Context;
@@ -219,6 +218,9 @@ public class SearchListActivity extends ListActivity {
 
 	private final class Mp3ListAdapter extends BaseAdapter {
 
+		private final static int VIEW_TYPE_NORMAL = 0;
+		private final static int VIEW_TYPE_FOOTER = 1;
+		
 		private int mResource;
 		private LayoutInflater mInflater;
 		private ListStatusView.Status mStatus;
@@ -230,83 +232,112 @@ public class SearchListActivity extends ListActivity {
 
 		@Override
 		public int getCount() {
-			if (mData == null) {
-				return 0;
-			} else {
-				return mData.size();
-			}
+			 boolean showFooter =
+	                mStatus == ListStatusView.Status.ERROR ||
+	                mStatus == ListStatusView.Status.LOADING;
+
+			int footerCount = showFooter ? 1 : 0;
+
+			if (mData == null)
+				return footerCount;
+			return mData.size() + footerCount;
 		}
 
 		@Override
 		public Object getItem(int position) {
-			if (mData == null) {
+			if (mData == null)
 				return null;
-			} else {
+
+			if (position <mData.size())
 				return mData.get(position);
-			}
+			return null; // footer.
 		}
 
 		@Override
 		public long getItemId(int position) {			
-			if (mData == null) {
+			if (mData == null)
 				return -1;
-			} else {
+			if (position < mData.size())
 				return position;
+			return -1; // footer.
+		}
+
+		@Override
+		public int getViewTypeCount() {
+			return 2;
+		}
+
+		@Override
+		public int getItemViewType(int position) {
+			if (mData == null || position == mData.size()) {
+				return VIEW_TYPE_FOOTER;
 			}
+			return VIEW_TYPE_NORMAL;
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			View v;
-			if (position == mData.size()-1) {
-//				ListStatusView footerView = (ListStatusView) convertView;
-				ListStatusView footerView = null;
-//				if (footerView == null) {
+			boolean isFooter = (mData == null || position == mData.size());
+
+			if (isFooter) {
+				ListStatusView footerView = (ListStatusView) convertView;
+				if (footerView == null) {
 					footerView = (ListStatusView) mInflater.inflate(R.layout.liststatus, null);
 					TextView text = (TextView)footerView.findViewById(R.id.prompt);
 					text.setText(R.string.loading_more);
-//				}
+				}
 				if (mStatus == ListStatusView.Status.LOADING) {
 					footerView.setLoadingStatus();
 				} else if (mStatus == ListStatusView.Status.ERROR) {
 					footerView.setErrorStatus(new RetryLoadingClickListener());
 				}
+				return footerView;
+			}
+			if (position == mData.size()-1) {
 				mHandler.post(new Runnable() {
 					@Override
 					public void run() {
 						continueFetch(mSearchBar.getQuery().trim(), true);
 					}
 				});
-				return footerView;
 			}
 			
+			ViewHolder holder = new ViewHolder();
 			Object item = mData.get(position);
-//			if (convertView == null) {
-				v = mInflater.inflate(mResource, parent, false);
-//			} else {
-//				v = convertView;
-//			}
-			MusicInfo info = (MusicInfo) item;
-			ImageView imageView = (ImageView) v.findViewById(R.id.image);
-//			new ImageLoader(info.getmImageUrl(), imageView).startLoadImage();
-			
-			if (!NetUtils.isInCache(info.getmImageUrl())) {
-				imageView.setBackgroundResource(R.drawable.image_loading);
+			if (convertView == null) {
+				convertView = mInflater.inflate(mResource, parent, false);
+				holder.image = ((ImageView)convertView.findViewById(R.id.image));
+				holder.title = ((TextView)convertView.findViewById(R.id.title));
+				holder.artist = ((TextView)convertView.findViewById(R.id.artist));
+				holder.downloadCount = ((TextView)convertView.findViewById(R.id.download_count));
+				holder.rating = ((RatingBar)convertView.findViewById(R.id.ratebar_indicator));
+				convertView.setTag(holder);
+			} else {
+				holder = (ViewHolder)convertView.getTag();
 			}
-
-			com.cinla.imageloader.ImageLoader.initialize(SearchListActivity.this);
-			com.cinla.imageloader.ImageLoader.start(info.getmImageUrl(), imageView);
+			MusicInfo info = (MusicInfo) item;
 			
-			((TextView) v.findViewById(R.id.title)).setText(info.getmTitle());
-			((TextView) v.findViewById(R.id.artist)).setText(info.getmArtist());
-			((TextView) v.findViewById(R.id.download_count)).setText(getString(R.string.download_count)+" "+Integer.toString(info.getmDownloadCount()));
-            ((RatingBar) v.findViewById(R.id.ratebar_indicator)).setRating((float)info.getmRate()/20);
-            return v;
+			com.cinla.imageloader.ImageLoader.initialize(SearchListActivity.this);
+			com.cinla.imageloader.ImageLoader.start(info.getmImageUrl(), holder.image);
+			
+			holder.title.setText(info.getmTitle());
+			holder.artist.setText(info.getmArtist());
+			holder.downloadCount.setText(getString(R.string.download_count)+" "+Integer.toString(info.getmDownloadCount()));
+            holder.rating.setRating((float)info.getmRate()/20);
+            return convertView;
 		}
 		
 		protected void setStatus(ListStatusView.Status status) {
 			mStatus = status;
 		}
+	}
+	
+	private static class ViewHolder {
+		ImageView image;
+		TextView title;
+		TextView artist;
+		TextView downloadCount;
+		RatingBar rating;
 	}
 	
 	public class FetchMp3ListTask extends AsyncTask<String, Void, ArrayList<MusicInfo>> {
