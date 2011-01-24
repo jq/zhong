@@ -203,8 +203,10 @@ public class MusicPageActivity extends Activity {
 				sPreviewMusic.stopPlay();
 				sPreviewMusic = null;
 				sPreviewMusic = new PreviewMusic(MusicPageActivity.this, mMusicInfo, mMusicInfo.getmDownloadedPath());
+			} else {
+				if (sPreviewMusic==null) sPreviewMusic = new PreviewMusic(MusicPageActivity.this, mMusicInfo, mMusicInfo.getmDownloadedPath());
 			}
-			sPreviewMusic = new PreviewMusic(MusicPageActivity.this, mMusicInfo, mMusicInfo.getmDownloadedPath());
+			Utils.D("Downloaded path: "+mMusicInfo.getmDownloadedPath());
 			sPreviewMusic.startPlay();
 		}
 	}

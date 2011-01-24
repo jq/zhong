@@ -17,7 +17,7 @@ public class MusicParser {
 	private static ArrayList<MusicInfo> getMusicList(String url) {
 		ArrayList<MusicInfo> musicList = new ArrayList<MusicInfo>();
 		try {
-			String response = NetUtils.fetchHtmlPage(url, CODING);
+			String response = NetUtils.fetchHtmlPage(url, CODING, Constant.ONE_WEEK);
 			Utils.D("response: "+response);
 			JSONArray entries = new JSONArray(response);
 			for (int i=0; i<entries.length(); i++) {

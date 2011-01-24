@@ -48,6 +48,14 @@ public class Constant {
 	public static final int FILE_KIND_NOTIFICATION = 2;
 	public static final int FILE_KIND_RINGTONE = 3;
 	
+	public static final long ONE_HOUR = 60*60*1000;
+	public static final long ONE_DAY = ONE_HOUR*24;
+	public static final long ONE_WEEK = ONE_DAY*7;
+	public static final long ONE_MONTH = ONE_DAY*30;
+	public static final long ONE_YEAR = ONE_DAY*365;
+	
+	public static final int MIN_RESPONSE_LENGTH = 10;
+	
 	//key of intent for MusicInfo object
 	public static final String MUSIC_INFO = "music_info";
 	

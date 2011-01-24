@@ -7,6 +7,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import com.cinla.imageloader.ImageLoaderHandler;
 import com.cinla.ringtone.ListStatusView.Status;
 
+import android.R.integer;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -48,7 +49,7 @@ public class SearchListActivity extends ListActivity {
 	private String mSearchKey;
 	
 	private int mStartPos;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

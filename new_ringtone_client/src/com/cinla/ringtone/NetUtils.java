@@ -4,6 +4,8 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -78,7 +80,7 @@ public class NetUtils {
 //				sCookie.put(id, cookie);
 //			}
 //		}
-
+		
 		StringBuilder builder = new StringBuilder(INITIAL_BUFFER_SIZE);
 
 		InputStreamReader is = coding != null ? new InputStreamReader(connection.getInputStream(), coding) :
@@ -92,6 +94,21 @@ public class NetUtils {
 		}
 		return builder.toString();
 	}
+	
+	// with cache
+	public static String fetchHtmlPage(String link, String coding, long expire) throws IOException {
+		String response = null;
+		response = readStringFromCache(link.trim(), expire);
+		if (response != null) {
+			return response;
+		}
+		response = fetchHtmlPage(link, coding);
+		if (response!=null && response.length()>Constant.MIN_RESPONSE_LENGTH) {
+			cacheStringInThread(link.trim(), response);
+		}
+		return response;
+	}
+
 	
 	public static Bitmap getBitmapFromUrl(String url) {
 		Bitmap bitmap = null;
@@ -120,6 +137,12 @@ public class NetUtils {
         URL url = new URL(imageUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
+        byte[] cachedImageData = null;
+        cachedImageData = readImageData(imageUrl.trim(), Constant.ONE_YEAR);
+        if (cachedImageData != null) {
+        	return cachedImageData;
+        }
+        
         // determine the image size and allocate a buffer
         int fileSize = connection.getContentLength();
         byte[] imageData = new byte[fileSize];
@@ -136,7 +159,9 @@ public class NetUtils {
         // clean up
         istream.close();
         connection.disconnect();
-
+        if (imageData != null) {
+        	cacheImageInThread(imageUrl, imageData);
+        }
         return imageData;
     }
     
@@ -146,5 +171,99 @@ public class NetUtils {
     	
     	return file;
     }
+    
+    private static void cacheStringInThread(final String url, final String content) {
+    	new Thread(new Runnable() {
+			@Override
+			public void run() {
+				String fileName = getFileNameFromUrl(url);
+		    	String filePath = Constant.sCacheDir + fileName;
+		    	FileOutputStream file = null;
+		    	try {
+		    		file = new FileOutputStream(filePath);
+		    		file.write(content.getBytes());
+		    		file.close();
+		    	} catch (Exception e) {
+		    		Utils.D("error in save cache");
+		    	} 
+			}
+		}).start();
+    	
+    }
+    
+    public static String readStringFromCache(String url, long expire) {
+    	String fileName = getFileNameFromUrl(url);
+    	String filePath = Constant.sCacheDir + fileName;
+    	File file = new File(filePath);
 
+    	if (!file.exists()) {
+    		return null;
+    	}
+    	if (System.currentTimeMillis()-file.lastModified() > expire) {
+    		file.delete();
+    		return null;
+    	}
+		try {
+			InputStreamReader f = new InputStreamReader(new FileInputStream(file));
+			StringBuilder builder = new StringBuilder(4096);
+			char[] buff = new char[4096];
+			int len;
+			while ((len = f.read(buff)) > 0) {
+				builder.append(buff, 0, len);
+			}
+			f.close();
+			return builder.toString();
+		} catch (Exception e) {
+			Utils.D("error read string from cache");
+		}
+		return null;
+    }
+    
+    private static void cacheImageInThread(final String url, final byte[] imageData) {
+    	new Thread(new Runnable() {
+			@Override
+			public void run() {
+		    	String fileName = getFileNameFromUrl(url);
+		    	String filePath = Constant.sCacheDir + fileName;
+		    	FileOutputStream file = null;
+		    	try {
+		    		file = new FileOutputStream(filePath);
+		    		file.write(imageData);
+		    		file.close();
+		    	} catch (Exception e) {
+		    		Utils.D("error in cache image");
+		    	}
+			}
+		}).start();
+    }
+    
+    private static byte[] readImageData(String url, long expire) {
+    	String fileName = getFileNameFromUrl(url);
+    	String filePath = Constant.sCacheDir + fileName;
+    	File file = new File(filePath);
+    	if (!file.exists()) {
+    		return null;
+    	}
+    	if (System.currentTimeMillis()-file.lastModified() > expire) {
+    		file.delete();
+    		return null;
+    	}
+    	long fileSize = file.length();
+    	byte[] imageData = new byte[(int)fileSize];
+		try {
+			BufferedInputStream istream = new BufferedInputStream(new FileInputStream(file));
+			istream.read(imageData);
+			istream.close();
+			return imageData;
+		} catch (Exception e) {
+			Utils.D("error read string from cache");
+		}
+		return null;
+    }
+
+    public static String getFileNameFromUrl(String url) {
+        // replace all special URI characters with a single + symbol
+        return url.replaceAll("[.:/,%?&=]", "+").replaceAll("[+]+", "+");
+    }
+    
 }
