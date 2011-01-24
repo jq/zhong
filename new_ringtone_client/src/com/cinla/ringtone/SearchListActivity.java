@@ -1,5 +1,6 @@
 package com.cinla.ringtone;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -124,6 +125,12 @@ public class SearchListActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 //		super.onListItemClick(l, v, position, id);
 		MusicInfo clickedMusicInfo = mData.get(position);
+		String filePath = clickedMusicInfo.getFilePath();
+		String objPath = Utils.musicPathToObjPath(filePath);
+		File file = new File(objPath);
+		if (file.exists()) {
+			clickedMusicInfo = Utils.readMusicInfoFromFile(objPath);
+		}
 		MusicPageActivity.startMusicPageActivity(this, clickedMusicInfo);
 	}
 
