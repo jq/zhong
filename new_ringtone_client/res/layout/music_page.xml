@@ -111,6 +111,7 @@
 	  				style="?android:attr/ratingBarStyleSmall"
 	  				android:isIndicator="true"
 	  				android:numStars="5"
+	  				android:layout_alignParentTop="true"
 	  				android:layout_centerVertical="true">
 	  			</RatingBar>
 		  		<LinearLayout
