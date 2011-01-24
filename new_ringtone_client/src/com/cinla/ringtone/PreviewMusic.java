@@ -11,6 +11,7 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.os.AsyncTask;
 import android.view.View;
+import android.widget.Toast;
 
 public class PreviewMusic {
 	
@@ -32,6 +33,7 @@ public class PreviewMusic {
 		mProgressDialog.setCancelable(true);
 		mProgressDialog.setIndeterminate(true);
 		mProgressDialog.setOnCancelListener(new ProgressDialogCancelListener());
+		mProgressDialog.setTitle(R.string.streaming_wait);
 		mProgressDialog.setButton(mActivity.getString(R.string.stop), new StopClickListener());
 		mProgressDialog.show();
 		new Thread(new Runnable() {
@@ -53,6 +55,7 @@ public class PreviewMusic {
 					mMediaPlayer.prepare();
 					mMediaPlayer.start();
 				} catch (Exception e) {
+					Toast.makeText(mActivity, R.string.streaming_failed, Toast.LENGTH_SHORT).show();
 					previewFailed();
 				}
 			}

@@ -441,7 +441,7 @@ public class SearchListActivity extends ListActivity {
 		mProgressBar.setVisibility(View.VISIBLE);
 		mRetryButton.setVisibility(View.GONE);
 		mSearchMessage.setVisibility(View.VISIBLE);
-		mSearchMessage.setText(SearchListActivity.this.getString(R.string.please_wait_search)+" "+mSearchBar.getQuery().trim());
+		mSearchMessage.setText(SearchListActivity.this.getString(R.string.please_wait_search));
 	}
 	
 	private void setErrorStatus() {

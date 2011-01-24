@@ -11,15 +11,20 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-
 import javax.net.ssl.HttpsURLConnection;
-
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class Utils {
 	
@@ -132,4 +137,18 @@ public class Utils {
 		} 
 		return true;
 	}
+	
+	public static void showFormattedImageToast(Context context, int id, Drawable drawable, Object... args) {
+
+        final View view = LayoutInflater.from(context).inflate(R.layout.book_notification, null);
+        ((TextView) view.findViewById(R.id.message)).setText(
+                String.format(context.getText(id).toString(), args));
+        ((ImageView) view.findViewById(R.id.image)).setImageDrawable(drawable);
+
+        Toast toast = new Toast(context);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(view);
+
+        toast.show();
+    }
 }
