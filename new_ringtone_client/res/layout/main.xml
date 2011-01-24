@@ -5,6 +5,8 @@
     android:layout_height="fill_parent">
     
     <include layout="@layout/search_bar"></include>
+    
+    <include layout_height="wrap_content" layout="@layout/ads"/>         
    	
    	<View android:layout_height="1dip"
 	      	android:layout_width="fill_parent"

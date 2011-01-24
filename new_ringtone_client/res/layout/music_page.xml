@@ -64,7 +64,9 @@
   			android:visibility="gone">
   		</ImageButton>
   	</LinearLayout>
-		
+	
+	<include layout_height="wrap_content" android:id="@+id/ad" android:layout_above="@id/button_group" layout="@layout/ads"/>         
+	
 	<LinearLayout
 	  	android:layout_width="fill_parent"
 	  	android:layout_height="wrap_content"

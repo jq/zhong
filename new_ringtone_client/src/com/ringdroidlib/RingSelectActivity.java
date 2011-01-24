@@ -4,15 +4,18 @@ import java.io.File;
 import java.io.IOException;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 
+import com.cinla.ringtone.AdListener;
 import com.cinla.ringtone.Constant;
 import com.cinla.ringtone.MusicInfo;
 import com.cinla.ringtone.MusicPageActivity;
 import com.cinla.ringtone.Utils;
+import com.ringdroid.R;
 import com.ringdroid.RingdroidSelectActivity;
 
 public class RingSelectActivity extends RingdroidSelectActivity {
@@ -21,6 +24,13 @@ public class RingSelectActivity extends RingdroidSelectActivity {
 	  public void onCreate(Bundle icicle) {
 		  RingdroidSelectActivity.EDITOR = "com.ringdroidlib.RingEditorActivity";
 		  super.onCreate(icicle);
+		  AdListener.createAds(this, R.id.mediaselect);
+	  }
+	 
+	  @Override
+	  public void onConfigurationChanged(Configuration newConfig) {
+	    super.onConfigurationChanged(newConfig);
+	    AdListener.createAds(this, R.id.mediaselect);
 	  }
 
 	  protected void startRingdroidEditor() {

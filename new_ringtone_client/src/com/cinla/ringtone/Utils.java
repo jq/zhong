@@ -12,6 +12,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import javax.net.ssl.HttpsURLConnection;
+import com.adwhirl.AdWhirlLayout;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -22,7 +24,9 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -151,4 +155,12 @@ public class Utils {
 
         toast.show();
     }
+	
+	private static final boolean blackscreen = isBlackScreen();
+    
+    private static boolean isBlackScreen() {
+        // http://since2006.com/blog/google-io2010-android-devices/
+        return Build.VERSION.SDK.equalsIgnoreCase("3");
+    }
+	
 }

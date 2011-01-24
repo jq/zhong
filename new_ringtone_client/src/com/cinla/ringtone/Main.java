@@ -27,6 +27,7 @@ public class Main extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        AdListener.createAds(this);
         
         //init. should use a background thread and splash screen...
         Constant.init(this);

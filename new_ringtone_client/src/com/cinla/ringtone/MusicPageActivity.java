@@ -69,6 +69,7 @@ public class MusicPageActivity extends Activity {
 		super.onCreate(savedInstanceState);
 	    requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.music_page);
+		AdListener.createAds(this);
 		
 		mMusicInfo = (MusicInfo) getIntent().getSerializableExtra(Constant.MUSIC_INFO);
 		
@@ -126,10 +127,9 @@ public class MusicPageActivity extends Activity {
 		            public void onClick(DialogInterface dialog, int which) {
 		              Bundle params = new Bundle();
 		              params.putString("method", "links.post");
-		              params.putString("comment", "share a ringtone with you:");
+		              params.putString("comment", "share a ringtone app for Android with you:");
 		              //String realKey = key.substring(key.lastIndexOf("/")+1, key.indexOf("?"));
-		              String realKey = "test";
-		              params.putString("url", "http://ringtonepromote.appspot.com/?key=" + realKey);
+		              params.putString("url", "http://www.android.com/market/#app=" + "com.cinla.ringtone");
 		              //params.putString("link", "http://ringtonepromote.appspot.com/?key=" + realKey);
 		              mAsyncRunner.request(null, params, "POST", new WallPostRequestListener());
 		            }

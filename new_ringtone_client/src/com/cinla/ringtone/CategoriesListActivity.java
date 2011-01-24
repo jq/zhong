@@ -24,6 +24,7 @@ public class CategoriesListActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.categories_page);
+		AdListener.createAds(this);
 		init();
 	}
 	
