@@ -34,11 +34,6 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>android_facebook_src</name>
-			<type>2</type>
-			<locationURI>facebook_src</locationURI>
-		</link>
-		<link>
 			<name>facebook_android_src</name>
 			<type>2</type>
 			<locationURI>_android_facebook_android_1d8d51f6/src</locationURI>
@@ -51,12 +46,7 @@
 		<link>
 			<name>util</name>
 			<type>2</type>
-			<locationURI>util_src</locationURI>
-		</link>
-		<link>
-			<name>util_src</name>
-			<type>2</type>
-			<location>/Users/admin/workspace/util/src</location>
+			<location>/Users/julian/feebe/feebe_ring/util/src</location>
 		</link>
 	</linkedResources>
 </projectDescription>
