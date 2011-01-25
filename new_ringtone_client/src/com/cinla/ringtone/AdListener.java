@@ -11,6 +11,7 @@ import com.adwhirl.AdWhirlTargeting;
 public class AdListener {
   private static final boolean blackscreen = isBlackScreen();
   public static final String key = "492746e7df3b4cf7a163063a0474b7fd";
+//  public static final String key = "e383f83acfec4f34b591486a93c4da96";
   private static boolean isBlackScreen() {
     // http://since2006.com/blog/google-io2010-android-devices/
     return Build.VERSION.SDK.equalsIgnoreCase("3");

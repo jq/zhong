@@ -56,6 +56,8 @@ public class Constant {
 	
 	public static final int MIN_RESPONSE_LENGTH = 10;
 	
+	public static final int MIN_FILE_LENGTH = 1024;
+	
 	//key of intent for MusicInfo object
 	public static final String MUSIC_INFO = "music_info";
 	

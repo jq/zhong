@@ -55,7 +55,12 @@ public class PreviewMusic {
 					mMediaPlayer.prepare();
 					mMediaPlayer.start();
 				} catch (Exception e) {
-					Toast.makeText(mActivity, R.string.streaming_failed, Toast.LENGTH_SHORT).show();
+					mActivity.runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							Toast.makeText(mActivity, R.string.streaming_failed, Toast.LENGTH_SHORT).show();
+						}
+					});
 					previewFailed();
 				}
 			}

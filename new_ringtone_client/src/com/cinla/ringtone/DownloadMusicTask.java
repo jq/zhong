@@ -106,7 +106,7 @@ public class DownloadMusicTask extends AsyncTask<Void, Integer, File> {
 	@Override
 	protected void onPostExecute(File result) {
 		mProgressDialog.cancel();
-		if (result == null) {
+		if (result==null || result.length()<Constant.MIN_FILE_LENGTH) {
 			Toast.makeText(mContext, R.string.download_failed, Toast.LENGTH_SHORT).show();
 		} else {
 			Toast.makeText(mContext, R.string.download_finished, Toast.LENGTH_SHORT).show();
