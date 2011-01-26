@@ -43,26 +43,28 @@ public class SearchListActivity extends ListActivity {
 
 	private int mSearchType;
 	private String mSearchKey;
-	
+
 	private int mStartPos;
+
+	private boolean mKeepFetching = true;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.search_list_activity);
 		AdListener.createAds(this);
-		
+
 		mProgressBar = (ProgressBar) findViewById(R.id.search_progress);
 		mSearchMessage = (TextView) findViewById(R.id.search_message);
 		mRetryButton = (Button) findViewById(R.id.retry_button);
 		mRetryButton.setOnClickListener(new RetryButtonClickListener());
-		
+
 //		mFooter = new SearchListFooterView(this);
 //		getListView().addFooterView(mFooter);
 //		mFooter.setFocusable(false);
 //		mFooter.getBtnNext().setOnClickListener(new NextButtonClickListener());
 //		mFooter.getBtnPre().setOnClickListener(new PrevButtonClickListener());
-		
+
 		mSearchBar = new SearchBar(this);
 		adjustSearchType(getIntent());
 		if (mSearchType==Constant.TYPE_KEY) {
@@ -75,28 +77,28 @@ public class SearchListActivity extends ListActivity {
 			setHintStatus();
 		} 
 	}
-	
+
 	private void adjustSearchType(Intent intent) {
 		Utils.D("in on NewIntent()");
 		mSearchType = intent.getIntExtra(Constant.SEARCH_TYPE, -1);
 		mSearchKey = intent.getStringExtra(Constant.QUERY);
 		switch (mSearchType) {
 		case Constant.TYPE_EMPTY:
-			
+	
 			break;
 		case Constant.TYPE_KEY:
-			
+	
 			break;
 		case Constant.TYPE_ARTIST:
-			
+	
 			mSearchBar.hide();
 			break;
 		case Constant.TYPE_CATEGORY:
-			
+
 			mSearchBar.hide();
 			break;
 		case Constant.TYPE_NEWEST:
-			
+
 			mSearchBar.hide();
 			break;
 		case Constant.TYPE_TOP_DOWNLOAD:
@@ -140,6 +142,7 @@ public class SearchListActivity extends ListActivity {
 		}
 		mData = null;
 		mAdapter = null;
+		mKeepFetching = true;
 		continueFetch(keyWord, true);
 	}
 	
@@ -289,7 +292,7 @@ public class SearchListActivity extends ListActivity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			boolean isFooter = (mData == null || position == mData.size());
+			boolean isFooter = (mData == null || position == mData.size()) && mKeepFetching;
 
 			if (isFooter) {
 				ListStatusView footerView = (ListStatusView) convertView;
@@ -305,7 +308,7 @@ public class SearchListActivity extends ListActivity {
 				}
 				return footerView;
 			}
-			if (position == mData.size()-1) {
+			if (position==mData.size()-1 && mStatus!=Status.LOADED && mKeepFetching) {
 				mHandler.post(new Runnable() {
 					@Override
 					public void run() {
@@ -356,7 +359,7 @@ public class SearchListActivity extends ListActivity {
 
 		private int mStartPosTemp;
 		private boolean mIsNext;
-		
+
 		public FetchMp3ListTask(boolean isNext) {
 			mIsNext = isNext;
 		}
@@ -424,6 +427,9 @@ public class SearchListActivity extends ListActivity {
 				results = mFetcher.getMusicListByAddDate(mStartPosTemp);
 			} else if (mSearchType == Constant.TYPE_TOP_DOWNLOAD) {
 				results = mFetcher.getMusicListByDownloadCount(mStartPosTemp);
+			}
+			if (results!=null && results.size()>0 && results.size()<Constant.EACH_MAX_RESULTS_NUM) {
+				mKeepFetching = false;
 			}
 			return results;
 		}

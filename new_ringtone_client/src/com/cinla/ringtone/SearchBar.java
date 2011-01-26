@@ -86,7 +86,6 @@ public class SearchBar {
 		protected Long doInBackground(Void... params) {
 			String response;
 			try {
-				Thread.sleep(20000);
 				response = NetUtils.fetchHtmlPage(Constant.BASE_URL+Constant.COUNT_URL, CODING, Constant.ONE_WEEK);
 				Utils.D("*************************response of get all: "+response);
 			} catch (Exception e) {
