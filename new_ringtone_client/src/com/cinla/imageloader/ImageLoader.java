@@ -206,7 +206,7 @@ public class ImageLoader implements Runnable {
                 return BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
 
             } catch (Throwable e) {
-                Log.w(LOG_TAG, "download for " + imageUrl + " failed (attempt " + timesTried + ")");
+//                Log.w(LOG_TAG, "download for " + imageUrl + " failed (attempt " + timesTried + ")");
                 e.printStackTrace();
                 SystemClock.sleep(DEFAULT_RETRY_HANDLER_SLEEP_TIME);
                 timesTried++;
@@ -231,7 +231,7 @@ public class ImageLoader implements Runnable {
         byte[] imageData = new byte[fileSize];
 
         // download the file
-        Log.d(LOG_TAG, "fetching image " + imageUrl + " (" + fileSize + ")");
+//        Log.d(LOG_TAG, "fetching image " + imageUrl + " (" + fileSize + ")");
         BufferedInputStream istream = new BufferedInputStream(connection.getInputStream());
         int bytesRead = 0;
         int offset = 0;
