@@ -78,5 +78,11 @@ public class Main extends Activity {
 			}
 		});
     }
+
+	@Override
+	public void onAttachedToWindow() {
+		super.onAttachedToWindow();
+		mSearchBar.setHint();
+	}
     
 }

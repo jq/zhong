@@ -29,6 +29,7 @@ public class Constant {
 //	public static final String BASE_URL = "http://10.0.2.2:8888";
 	public static final String SEARCH_URL = "/ringtoneserver/search?q=";
 	public static final String RATE_URL = "/ringtoneserver/";
+	public static final String COUNT_URL = "/ringtoneserver/allsong";
 	
 	public static final String SEARCH_TYPE = "search_type";
 	public static final int TYPE_EMPTY = 0;

@@ -1,6 +1,10 @@
 package com.cinla.ringtone;
 
+import com.admob.android.ads.m;
+
 import android.app.Activity;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,6 +21,9 @@ public class SearchBar {
 	private EditText mQuery;
 	private Button mGo;
 	LinearLayout mSearchBarLayout;
+	private Handler mHandler = new Handler();
+	
+	private static final String CODING = "utf-8";
 	
 	public SearchBar(Activity activity) {
 		mActivity = activity;
@@ -35,14 +42,17 @@ public class SearchBar {
     			return false;
     		}
         });
-        
+
         mGo.setOnClickListener(new OnClickListener() {   
             @Override
             public void onClick(View v) {
               doSearch();
             }
         });
-        
+	}
+	
+	public void setHint() {
+		new SetSearchBarHintTask().execute(null);
 	}
 	
 	public void setQueryKeyWord(String keyWord) {
@@ -69,5 +79,42 @@ public class SearchBar {
 		if (!TextUtils.isEmpty(query)) {
 			SearchListActivity.startQeuryByKey(mActivity, query);
 		}
+	}
+	
+	private class SetSearchBarHintTask extends AsyncTask<Void, Void, Long> {
+		@Override
+		protected Long doInBackground(Void... params) {
+			String response;
+			try {
+				Thread.sleep(20000);
+				response = NetUtils.fetchHtmlPage(Constant.BASE_URL+Constant.COUNT_URL, CODING, Constant.ONE_WEEK);
+				Utils.D("*************************response of get all: "+response);
+			} catch (Exception e) {
+				Utils.D("*************************Exception in get all. ");
+				Utils.D(e.getMessage());
+				return null;
+			}
+			if (response==null || response.length()==0) {
+				return null;
+			}
+			return Long.parseLong(response);
+		}
+		@Override
+		protected void onPostExecute(final Long result) {
+			super.onPostExecute(result);
+			if (result == null) {
+				return;
+			}
+			mHandler.post(new Runnable() {
+				@Override
+				public void run() {
+					if (mQuery.getText().toString().trim().length()==0) {
+						mQuery.setHint(mActivity.getString(R.string.total_ringtones1)+" "+result.toString()+" "+mActivity.getString(R.string.total_ringtones2));
+					}
+				}
+			});
+
+		}
+		
 	}
 }
