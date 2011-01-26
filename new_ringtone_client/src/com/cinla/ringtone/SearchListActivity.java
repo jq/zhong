@@ -68,7 +68,7 @@ public class SearchListActivity extends ListActivity {
 		mSearchBar = new SearchBar(this);
 		adjustSearchType(getIntent());
 		if (mSearchType==Constant.TYPE_KEY) {
-			mSearchBar.setQueryKeyWord(mSearchKey);
+			getListView().requestFocus();
 		}
 		if (mSearchType!=Constant.TYPE_EMPTY) {
 			startQuery(getIntent().getStringExtra(Constant.QUERY));
@@ -312,7 +312,7 @@ public class SearchListActivity extends ListActivity {
 				mHandler.post(new Runnable() {
 					@Override
 					public void run() {
-						continueFetch(mSearchBar.getQuery().trim(), true);
+						continueFetch(mSearchKey, true);
 					}
 				});
 			}
@@ -486,7 +486,7 @@ public class SearchListActivity extends ListActivity {
 	private class RetryButtonClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
-			SearchListActivity.this.startQuery(mSearchBar.getQuery().trim());
+			SearchListActivity.this.startQuery(mSearchKey.trim());
 		}
 	}
 	
@@ -495,21 +495,21 @@ public class SearchListActivity extends ListActivity {
 		public void onClick(View v) {
 			mAdapter.setStatus(Status.LOADING);
 			mAdapter.notifyDataSetChanged();
-			continueFetch(mSearchBar.getQuery().trim(), true);
+			continueFetch(mSearchKey, true);
 		}
 	}
 	
 	private class PrevButtonClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
-			continueFetch(mSearchBar.getQuery().trim(), false);
+			continueFetch(mSearchKey, false);
 		}
 	}
 	
 	private class NextButtonClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
-			continueFetch(mSearchBar.getQuery().trim(), true);
+			continueFetch(mSearchKey, true);
 		}
 	}
 

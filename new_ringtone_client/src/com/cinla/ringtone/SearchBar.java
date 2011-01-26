@@ -1,7 +1,5 @@
 package com.cinla.ringtone;
 
-import com.admob.android.ads.m;
-
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -10,15 +8,15 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class SearchBar {
 
 	private Activity mActivity;
-	private EditText mQuery;
+	private AutoCompleteTextView mQuery;
 	private Button mGo;
 	LinearLayout mSearchBarLayout;
 	private Handler mHandler = new Handler();
@@ -27,7 +25,7 @@ public class SearchBar {
 	
 	public SearchBar(Activity activity) {
 		mActivity = activity;
-        mQuery = (EditText)activity.findViewById(R.id.query_key);
+        mQuery = (AutoCompleteTextView)activity.findViewById(R.id.query_key);
         mGo = (Button)activity.findViewById(R.id.go);
         mSearchBarLayout = (LinearLayout) activity.findViewById(R.id.search_bar_view);
         
@@ -42,11 +40,21 @@ public class SearchBar {
     			return false;
     		}
         });
-
+        mQuery.setThreshold(1);
+        DbAdapter dbAdapter = new DbAdapter(mActivity);
+        try {
+        	SearchAdapter myCursorAdapterSearch = new SearchAdapter(mActivity, dbAdapter.getHistoryByType(DbAdapter.TYPE_SEARCH), DbAdapter.TYPE_SEARCH);
+        	mQuery.setAdapter(myCursorAdapterSearch);
+        } catch (Exception e) {
+			
+		} finally {
+			dbAdapter.close();
+		}
+        
         mGo.setOnClickListener(new OnClickListener() {   
             @Override
             public void onClick(View v) {
-              doSearch();
+            	doSearch();
             }
         });
 	}
@@ -76,6 +84,9 @@ public class SearchBar {
 			Toast.makeText(mActivity, R.string.input_key, Toast.LENGTH_SHORT).show();
 			return;
 		}
+		DbAdapter db = new DbAdapter(mActivity);
+		db.intsertHistory(query, DbAdapter.TYPE_SEARCH);
+		db.close();
 		if (!TextUtils.isEmpty(query)) {
 			SearchListActivity.startQeuryByKey(mActivity, query);
 		}

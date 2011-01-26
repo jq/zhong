@@ -6,5 +6,7 @@
 	android:orientation="vertical">
 	<include layout_height="wrap_content" layout="@layout/ads"/>         
 	<include layout="@layout/search_bar"></include>
-	<include layout="@layout/android_list"></include>
+	<include layout="@layout/android_list">
+		<requestFocus />
+	</include>
 </LinearLayout>
