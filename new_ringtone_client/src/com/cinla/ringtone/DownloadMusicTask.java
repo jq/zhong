@@ -109,8 +109,12 @@ public class DownloadMusicTask extends AsyncTask<Void, Integer, File> {
 		if (result==null || result.length()<Constant.MIN_FILE_LENGTH) {
 			Toast.makeText(mContext, R.string.download_failed, Toast.LENGTH_SHORT).show();
 		} else {
-			Toast.makeText(mContext, R.string.download_finished, Toast.LENGTH_SHORT).show();
 			Uri uri = Utils.saveToMediaLib(mMusicInfo.getmTitle(), result.getAbsolutePath(), result.length(), mMusicInfo.getmArtist(), mContext.getContentResolver());
+			if (uri == null) {
+				Toast.makeText(mContext, R.string.download_failed, Toast.LENGTH_SHORT).show();
+				return;
+			}
+			Toast.makeText(mContext, R.string.download_finished, Toast.LENGTH_SHORT).show();
 			mMusicInfo.setmDownloadedPath(result.getAbsolutePath());
 			mMusicInfo.setmDownloadedUri(uri.toString());
 			Utils.D("wirteToDisk: "+Utils.writeToDisk(mMusicInfo));
