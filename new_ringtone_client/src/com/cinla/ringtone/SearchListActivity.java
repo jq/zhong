@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-import com.cinla.imageloader.ImageLoaderHandler;
 import com.cinla.ringtone.ListStatusView.Status;
-import android.R.integer;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -24,8 +22,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.SimpleAdapter.ViewBinder;
 
 public class SearchListActivity extends ListActivity {
 	
@@ -136,6 +132,14 @@ public class SearchListActivity extends ListActivity {
 
 	public void startQuery(String keyWord) {
 		mStartPos = 0;
+		if (mData!=null) {
+			mData.clear();
+		}
+		if (mAdapter!=null) {
+			mAdapter.notifyDataSetChanged();
+		}
+		mData = null;
+		mAdapter = null;
 		continueFetch(keyWord, true);
 	}
 	
