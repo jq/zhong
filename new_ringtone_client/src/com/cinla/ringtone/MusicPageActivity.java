@@ -69,7 +69,7 @@ public class MusicPageActivity extends Activity {
 		super.onCreate(savedInstanceState);
 	    requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.music_page);
-		AdListener.createAds(this);
+		AdListener.createAds(this, R.id.button_group);
 		
 		mMusicInfo = (MusicInfo) getIntent().getSerializableExtra(Constant.MUSIC_INFO);
 		

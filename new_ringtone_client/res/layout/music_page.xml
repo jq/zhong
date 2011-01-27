@@ -5,12 +5,19 @@
 	android:layout_height="fill_parent"
 	android:gravity="top">
 	
-  	<LinearLayout
-  		android:id="@+id/button_group"
+<!--	<include android:layout_alignParentBottom="true" layout="@layout/ads"></include>-->
+	
+	<LinearLayout 
+		android:id="@+id/button_group"
   		android:layout_width="fill_parent"
   		android:layout_height="wrap_content"
-  		android:orientation="horizontal"
+  		android:orientation="vertical"
   		android:layout_alignParentBottom="true">
+	
+  	<LinearLayout
+  		android:layout_width="fill_parent"
+  		android:layout_height="wrap_content"
+  		android:orientation="horizontal">
 	  	<Button
 	  		android:id="@+id/preview_button"
 	 		android:layout_width="wrap_content"
@@ -65,15 +72,17 @@
   			android:visibility="gone">
   		</ImageButton>
   	</LinearLayout>
+  	<include android:layout_alignParentBottom="true" layout="@layout/ads"></include>
+  	</LinearLayout>
 	
-	<include layout_height="wrap_content" android:layout_above="@id/button_group" android:layout_marginBottom="1dip" layout="@layout/ads"/>         
+<!--	<include layout_height="wrap_content" android:layout_above="@id/button_group" android:layout_marginBottom="1dip" layout="@layout/ads"/>         -->
 		
 	<LinearLayout
 	  	android:layout_width="fill_parent"
 	  	android:layout_height="wrap_content"
 	  	android:orientation="vertical"
 	  	android:layout_above="@id/button_group"
-	  	android:layout_below="@id/ads_view">
+	  	android:layout_alignParentTop="true">
 	  	
 	  	<View
 			android:layout_height="1dip"

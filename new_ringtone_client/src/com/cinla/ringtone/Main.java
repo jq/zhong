@@ -28,7 +28,7 @@ public class Main extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        AdListener.createAds(this);
+//        AdListener.createAds(this);
         
         //init. should use a background thread and splash screen...
         Constant.init(this);
@@ -77,12 +77,7 @@ public class Main extends Activity {
 				}
 			}
 		});
+        mSearchBar.setHint();
     }
 
-	@Override
-	public void onAttachedToWindow() {
-		super.onAttachedToWindow();
-		mSearchBar.setHint();
-	}
-    
 }
