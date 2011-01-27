@@ -15,7 +15,8 @@
         <activity 
        		android:name=".SearchListActivity"
         	android:launchMode="singleTop"
-        	android:configChanges="orientation|keyboardHidden">
+        	android:configChanges="orientation|keyboardHidden"
+            android:alwaysRetainTaskState="true">
        	</activity>
        	
        	<activity

@@ -48,5 +48,10 @@
 			<type>2</type>
 			<location>/Users/julian/feebe/feebe_ring/util/src</location>
 		</link>
+		<link>
+			<name>util_src</name>
+			<type>2</type>
+			<location>/Users/admin/workspace/util/src</location>
+		</link>
 	</linkedResources>
 </projectDescription>
