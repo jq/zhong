@@ -122,6 +122,9 @@ public class SearchListActivity extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 //		super.onListItemClick(l, v, position, id);
+		if (position >= mData.size()) {
+			return;
+		}
 		MusicInfo clickedMusicInfo = mData.get(position);
 		String filePath = clickedMusicInfo.getFilePath();
 		String objPath = Utils.musicPathToObjPath(filePath);
