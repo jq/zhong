@@ -52,7 +52,7 @@
     <string name="streaming_wait">Streaming, please wait...</string>
     <string name="streaming_failed">Streaming failed. </string>
     
-    <string name="total_ringtones1">We have:</string>
+    <string name="total_ringtones1">Search from:</string>
     <string name="total_ringtones2">Ringtones!</string>
     
 </resources>
