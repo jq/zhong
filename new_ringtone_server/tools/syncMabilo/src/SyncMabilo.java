@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 
 
@@ -14,7 +15,6 @@ import java.util.Date;
 public class SyncMabilo {
 	private Date date;
 	private Date now = null;
-	private final static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 	public static int number = 1;
 	
 	public Date getLastSyncDate() {
@@ -35,7 +35,7 @@ public class SyncMabilo {
 		}else {
 			// default 10 days ago
 			Calendar calendar = Calendar.getInstance();
-			calendar.add(Calendar.DATE, -5);
+			calendar.add(Calendar.DATE, -10);
 			lastDate = calendar.getTime();
 		}
 		return lastDate;
@@ -104,7 +104,7 @@ public class SyncMabilo {
 			e.printStackTrace();
 		}
 		
-		String dirName = Consts.SYNC_DIR+sdf.format(now);
+		String dirName = Consts.SYNC_DIR+Consts.SDF.format(now);
 		File dir = new File(dirName);
 		if(dir.exists()) {
 			System.out.println(dirName+" exist err");

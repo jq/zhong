@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
@@ -12,8 +13,8 @@ public class FetchDataFromMabilo extends Thread{
 	private int numThreadAlive;
 	
 	public FetchDataFromMabilo(Date date) {
-		this.date = date;
-		this.now = date;
+		this.date = date;	// time of last update
+		this.now = date;	// time of today
 		numThreadAlive = 0;
 	}
 	public Date getThisDate() {
@@ -38,8 +39,7 @@ public class FetchDataFromMabilo extends Thread{
 	private static final String PROCEED = "http://www.mabilo.com/search/All-";
 	private static final String EXCEED = "-da.htm";
 	public static final String Ring_Download_Prefix = "http://music.mabilo.com/dl";
-	public static final SimpleDateFormat SDF=new SimpleDateFormat("MMM dd yyyy");
-
+	
 	
 	public void run() {
 		int page = 1;
@@ -54,7 +54,8 @@ public class FetchDataFromMabilo extends Thread{
 				while(all.find())  {
 					String time = all.group(8);
 					int split = time.indexOf(',');
-					Date temp = SDF.parse(time.substring(0,split-2)+time.substring(split+1));
+					Date temp = Consts.SDF.parse(time.substring(0,split-2)+time.substring(split+1));
+					//System.out.println(temp.toString());
 					if(temp.after(date)) {
 						MusicInfo music = new MusicInfo();
 						music.setImageUrl(all.group(1));

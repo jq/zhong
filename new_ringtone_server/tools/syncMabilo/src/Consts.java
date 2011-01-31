@@ -7,10 +7,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 
 public class Consts {
-	public static final String SYNC_DIR = "mabilo/";
+	public static final String SYNC_DIR = "d:/mabilo/";
 	public static final String NEW_DOWNLOAD_DIR = SYNC_DIR+"download/";
 	public static final String M4R_DIR = SYNC_DIR + "m4r/";
 	public static final String LAST_SYNC_TIME_FILENAME = "lasttime";
@@ -18,6 +20,8 @@ public class Consts {
 	public static final String AMAZON_RING_BUCKET = "ringtone_ring";
 	public static final String AMAZON_IMAGE_BUCKET = "ringtone_image";
 	public static final String AMAZON_M4R_BUCKET = "ringtone_m4r";
+	
+	public static final SimpleDateFormat SDF=new SimpleDateFormat("MMM dd yyyy", Locale.US);
 	
 	public static String fetchHtmlPage(String url) throws IOException {
 		return fetchHtmlPage(url, "utf-8");
