@@ -2,7 +2,7 @@
 <resources>
     <string name="hello">Hello World, Main!</string>
     <string name="app_name">Ringtones</string>
-    <string name="search">Search</string>
+    <string name="search">search</string>
     <string name="library">Library</string>
     <string name="top_download">Top Download</string>
     <string name="newest">Newset Add</string>

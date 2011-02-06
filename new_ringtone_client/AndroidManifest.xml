@@ -69,7 +69,7 @@
     </application>
     <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4"/>
 	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
-<!--    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
 	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 	<uses-permission android:name="android.permission.WRITE_SETTINGS" />
@@ -80,5 +80,7 @@
     <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS"/>
     <uses-permission android:name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+   	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> 
+    
     
 </manifest> 
