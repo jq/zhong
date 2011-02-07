@@ -6,6 +6,8 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import com.cinla.ringtone.ListStatusView.Status;
+import com.latest.ringtone.R;
+
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;

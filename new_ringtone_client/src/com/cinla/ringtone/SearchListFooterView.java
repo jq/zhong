@@ -1,5 +1,7 @@
 package com.cinla.ringtone;
 
+import com.latest.ringtone.R;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;

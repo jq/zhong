@@ -3,6 +3,8 @@ package com.cinla.ringtone;
 import java.io.File;
 import java.io.IOException;
 
+import com.latest.ringtone.R;
+
 import android.R.integer;
 import android.content.Context;
 import android.os.Environment;

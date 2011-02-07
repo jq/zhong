@@ -1,5 +1,7 @@
 package com.cinla.ringtone;
 
+import com.latest.ringtone.R;
+
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Handler;

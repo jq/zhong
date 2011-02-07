@@ -13,6 +13,8 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import javax.net.ssl.HttpsURLConnection;
 import com.adwhirl.AdWhirlLayout;
+import com.latest.ringtone.R;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -33,7 +35,7 @@ import android.widget.Toast;
 public class Utils {
 	
 	private static final String TAG = "New Ringtone Client";
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 	
 	public static void D(String msg) {
 		if (DEBUG) {

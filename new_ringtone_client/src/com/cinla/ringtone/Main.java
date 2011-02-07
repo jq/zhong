@@ -1,6 +1,8 @@
 package com.cinla.ringtone;
 
 import java.util.ArrayList;
+
+import com.latest.ringtone.R;
 import com.ringdroid.RingdroidSelectActivity;
 import com.ringdroidlib.RingSelectActivity;
 import android.R.integer;

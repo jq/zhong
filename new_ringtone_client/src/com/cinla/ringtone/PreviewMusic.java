@@ -2,6 +2,8 @@ package com.cinla.ringtone;
 
 import java.io.IOException;
 
+import com.latest.ringtone.R;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;

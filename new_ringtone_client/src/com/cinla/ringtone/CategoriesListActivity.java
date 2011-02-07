@@ -2,6 +2,8 @@ package com.cinla.ringtone;
 
 import java.util.ArrayList;
 
+import com.latest.ringtone.R;
+
 import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;

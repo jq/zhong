@@ -129,7 +129,7 @@ public class MusicPageActivity extends Activity {
 		              params.putString("method", "links.post");
 		              params.putString("comment", "share a ringtone app for Android with you:");
 		              //String realKey = key.substring(key.lastIndexOf("/")+1, key.indexOf("?"));
-		              params.putString("url", "http://www.android.com/market/#app=" + "com.cinla.ringtone");
+		              params.putString("url", "https://market.android.com/details?id=com.latest.ringtone");
 		              //params.putString("link", "http://ringtonepromote.appspot.com/?key=" + realKey);
 		              mAsyncRunner.request(null, params, "POST", new WallPostRequestListener());
 		            }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.cinla.ringtone"
-      android:versionCode="4"
-      android:versionName="1.0.2">
+      package="com.latest.ringtone"
+      android:versionCode="1"
+      android:versionName="1.0">
     <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name=".Main"
+        <activity android:name="com.cinla.ringtone.Main"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -13,20 +13,20 @@
         </activity>
         
         <activity 
-       		android:name=".SearchListActivity"
+       		android:name="com.cinla.ringtone.SearchListActivity"
         	android:launchMode="singleTop"
         	android:configChanges="orientation|keyboardHidden"
             android:alwaysRetainTaskState="true">
        	</activity>
        	
        	<activity
-       		android:name=".MusicPageActivity"
+       		android:name="com.cinla.ringtone.MusicPageActivity"
         	android:launchMode="singleTop"
         	android:configChanges="orientation|keyboardHidden">
        	</activity>
        	
        	<activity
-       		android:name=".CategoriesListActivity"
+       		android:name="com.cinla.ringtone.CategoriesListActivity"
         	android:launchMode="singleTop"
         	android:configChanges="orientation|keyboardHidden">
        	</activity>
@@ -81,6 +81,6 @@
     <uses-permission android:name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
    	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> 
-    
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
     
 </manifest> 

@@ -4,7 +4,8 @@
 	<comment></comment>
 	<projects>
 		<project>facebook_android</project>
-		<project>ring</project>
+		<project>ring2</project>
+		<project>util</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -39,9 +40,9 @@
 			<locationURI>_android_facebook_android_1d8d51f6/src</locationURI>
 		</link>
 		<link>
-			<name>ring_src</name>
+			<name>ring2_src</name>
 			<type>2</type>
-			<locationURI>_android_ring_356a30/src</locationURI>
+			<locationURI>_android_ring2_677dc02/src</locationURI>
 		</link>
 		<link>
 			<name>util</name>

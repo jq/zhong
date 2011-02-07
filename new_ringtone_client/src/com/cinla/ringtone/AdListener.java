@@ -7,6 +7,7 @@ import android.widget.RelativeLayout.LayoutParams;
  
 import com.adwhirl.AdWhirlLayout;
 import com.adwhirl.AdWhirlTargeting;
+import com.latest.ringtone.R;
 
 public class AdListener {
   private static final boolean blackscreen = isBlackScreen();
