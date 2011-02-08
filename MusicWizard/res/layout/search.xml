@@ -9,6 +9,7 @@
     	      android:hint="@string/search"
     	      android:singleLine="true"
     	      android:layout_weight="1"
+    	      android:completionThreshold="1"
     	      android:scrollHorizontally="true"
     	      android:capitalize="none"/>
     <Button android:id="@+id/go"

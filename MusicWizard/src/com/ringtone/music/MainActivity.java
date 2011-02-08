@@ -1,7 +1,5 @@
 package com.ringtone.music;
 
-import com.admob.android.ads.AdManager;
-import com.admob.android.ads.AdView;
 import com.ringdroid.RingdroidSelectActivity;
 import com.ringtone.music.R;
 import com.ringtone.music.download.DownloadActivity;
@@ -48,9 +46,8 @@ public class MainActivity extends Activity {
 		if (!EulaActivity.checkEula(this)) {
 			return;
 		}
-        
-		if (Constants.dbadapter==null)
-			Constants.dbadapter=new DBAdapter(MainActivity.this);
+
+		HistoryAdapter.getInstance(getApplication());
 		
         mSearch = new SearchBar(this);
         

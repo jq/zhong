@@ -33,10 +33,10 @@ public class SearchBar {
 //    		}
 //        });
         
-        mQuery.setThreshold(1);
+//        mQuery.setThreshold(1);
         
         try{
-        	SearchAdapter myCursorAdapter = new SearchAdapter(activity.getBaseContext(),null);
+        	SearchAdapter myCursorAdapter = new SearchAdapter(activity.getApplication(),null);
         	mQuery.setAdapter(myCursorAdapter);
         } catch (Exception e) {
         	e.printStackTrace();
@@ -63,7 +63,9 @@ public class SearchBar {
 		Utils.D("start search");
 
 		if (!TextUtils.isEmpty(query)) {
-			Constants.dbadapter.insertHistory(query, DBAdapter.TYPE_SEARCH);
+			HistoryAdapter adapter = HistoryAdapter.getInstance();
+			if (adapter != null) 
+				adapter.insertHistory(query, HistoryAdapter.TYPE_SEARCH);
 			SearchResultActivity.startQuery(mActivity.getApplication(), query);
 			SearchResultActivity.handleMp3ListIntent(mActivity, query);
 		}

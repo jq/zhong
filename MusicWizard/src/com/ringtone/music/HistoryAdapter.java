@@ -7,19 +7,28 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DBAdapter {
+public class HistoryAdapter {
 	public final static int TYPE_SEARCH = 0;
 	public final static int TYPE_TITLE = 1;
 	public final static int TYPE_ARTIST = 2;
+	private static HistoryAdapter mHistoryAdapter;
 	
 	private final static int DB_VERSION = 4;
-	private static final String TableHistory = "history";
-	private static final String SQLCreateTable = "create table if not exists history "
-		+ "(_id integer primary key autoincrement,"
-		+ " keyword text,"
-		+ " type text,"
-		+ " count integer,"
-		+ " favorite text);";
+	private static final String TABLE_HISTORY = "history";
+	private static final String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS history "
+		+ "(_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+		+ " keyword TEXT UNIQUE,"
+		+ " type TEXT,"
+		+ " count INTEGER);";
+	
+	public static HistoryAdapter getInstance(){
+		return mHistoryAdapter;
+	}
+	
+	public static HistoryAdapter getInstance(Context ctx){
+		if (mHistoryAdapter == null) mHistoryAdapter= new HistoryAdapter(ctx);
+		return mHistoryAdapter;
+	}
 	
 	private static class SearchDBHelper extends SQLiteOpenHelper {
 
@@ -28,12 +37,12 @@ public class DBAdapter {
 		}
 		
 		private void createTable(SQLiteDatabase db) {
-			db.execSQL(SQLCreateTable);
+			db.execSQL(SQL_CREATE_TABLE);
 		}
 
 		private void dropTable(SQLiteDatabase db) {
 			try {
-				db.execSQL("DROP TABLE IF EXISTS " + TableHistory);
+				db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
 			} catch (SQLException ex) {
 			}
 		}
@@ -53,11 +62,11 @@ public class DBAdapter {
 		}
 	}
 	
-	SearchDBHelper mOpenHelper;
+	private SearchDBHelper mOpenHelper;
 	
-	private static final String[] projection_key = new String[] {"_id","keyword", "type", "count", "favorite"};
+	private static final String[] projection_key = new String[] {"_id","keyword", "type", "count"};
 	
-	public DBAdapter(Context ctx) {
+	private HistoryAdapter(Context ctx) {
 		mOpenHelper = new SearchDBHelper(ctx, "history.db");
 	};
 	
@@ -67,37 +76,42 @@ public class DBAdapter {
 	
 	public Cursor getHistoryByType(String keyword, int type){
 		if (keyword!=null) keyword=keyword.toLowerCase();
-		String selection = "type = " + type + " and keyword like \'" + keyword +"%\'";
+		else return null;
+		String selection = "type = " + type + " AND keyword LIKE \'" + keyword +"%\'";
 		SQLiteDatabase db = mOpenHelper.getReadableDatabase();
-		return db.query(TableHistory,projection_key,selection,null,null,null,"count desc");
+		return db.query(TABLE_HISTORY, projection_key, selection, null, null,
+				null, "count DESC");
 	}
 	
 	public Cursor getHistoryByType(int type){
 		String selection = "type = " + type;
 		SQLiteDatabase db = mOpenHelper.getReadableDatabase();
-		return db.query(TableHistory,projection_key,selection,null,null,null,"count desc");
+		return db.query(TABLE_HISTORY, projection_key, selection, null, null,
+				null, "count DESC");
 	}
 	
 	public void insertHistory(String keyword,int type){
 		if (keyword!=null) keyword=keyword.toLowerCase();
+		else return;
 		SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-		String selection = "type = " + type + " and keyword ='" + keyword +"\'";
-		Cursor c=db.query(TableHistory,projection_key,selection,null,null,null,null);
+		String selection = "type = " + type + " AND keyword ='" + keyword +"\'";
+		Cursor c = db.query(TABLE_HISTORY, projection_key, selection, null,
+				null, null, null);
 
 		if (c==null || c.getCount()==0){
 			ContentValues cv = new ContentValues();
 			cv.put("keyword", keyword);
 			cv.put("type", type);
 			cv.put("count", 1);
-			db.insert(TableHistory, null, cv);
+			db.insert(TABLE_HISTORY, null, cv);
 		} else {
-			db.execSQL("update "+TableHistory+ " set count=count+1 where " + selection);
+			db.execSQL("UPDATE "+TABLE_HISTORY+ " SET count=count+1 WHERE " + selection);
 		}
 	}
 	
 	public void clearAll(){
 		SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-		db.execSQL("DROP TABLE IF EXISTS " + TableHistory);
-		db.execSQL(SQLCreateTable);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
+		db.execSQL(SQL_CREATE_TABLE);
 	}
 }
