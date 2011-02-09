@@ -11,6 +11,7 @@ public class HistoryAdapter {
 	public final static int TYPE_SEARCH = 0;
 	public final static int TYPE_TITLE = 1;
 	public final static int TYPE_ARTIST = 2;
+	
 	private static HistoryAdapter mHistoryAdapter;
 	
 	private final static int DB_VERSION = 4;
@@ -21,12 +22,9 @@ public class HistoryAdapter {
 		+ " type TEXT,"
 		+ " count INTEGER);";
 	
-	public static HistoryAdapter getInstance(){
-		return mHistoryAdapter;
-	}
-	
-	public static HistoryAdapter getInstance(Context ctx){
-		if (mHistoryAdapter == null) mHistoryAdapter= new HistoryAdapter(ctx);
+	public static synchronized HistoryAdapter getInstance(Context ctx){
+		if (mHistoryAdapter == null)
+			mHistoryAdapter= new HistoryAdapter(ctx);
 		return mHistoryAdapter;
 	}
 	
@@ -44,19 +42,19 @@ public class HistoryAdapter {
 			try {
 				db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
 			} catch (SQLException ex) {
+				ex.printStackTrace();
 			}
 		}
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			// TODO Auto-generated method stub
 			dropTable(db);
 			createTable(db);
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			// TODO Auto-generated method stub
+			// TODO: We probably should not recreate the table when upgrading. Better keep user data.
 			dropTable(db);
 			createTable(db);
 		}
@@ -64,7 +62,7 @@ public class HistoryAdapter {
 	
 	private SearchDBHelper mOpenHelper;
 	
-	private static final String[] projection_key = new String[] {"_id","keyword", "type", "count"};
+	private static final String[] PROJECTION_KEY = new String[] {"_id", "keyword", "type", "count"};
 	
 	private HistoryAdapter(Context ctx) {
 		mOpenHelper = new SearchDBHelper(ctx, "history.db");
@@ -75,41 +73,47 @@ public class HistoryAdapter {
 	}
 	
 	public Cursor getHistoryByType(String keyword, int type){
-		if (keyword!=null) keyword=keyword.toLowerCase();
-		else return null;
+		if (keyword != null) {
+			keyword = keyword.toLowerCase();
+		} else {
+			return null;
+		}
 		String selection = "type = " + type + " AND keyword LIKE \'" + keyword +"%\'";
 		SQLiteDatabase db = mOpenHelper.getReadableDatabase();
-		return db.query(TABLE_HISTORY, projection_key, selection, null, null,
+		return db.query(TABLE_HISTORY, PROJECTION_KEY, selection, null, null,
 				null, "count DESC");
 	}
 	
 	public Cursor getHistoryByType(int type){
 		String selection = "type = " + type;
 		SQLiteDatabase db = mOpenHelper.getReadableDatabase();
-		return db.query(TABLE_HISTORY, projection_key, selection, null, null,
+		return db.query(TABLE_HISTORY, PROJECTION_KEY, selection, null, null,
 				null, "count DESC");
 	}
 	
-	public void insertHistory(String keyword,int type){
-		if (keyword!=null) keyword=keyword.toLowerCase();
-		else return;
+	public void insertHistory(String keyword, int type){
+		if (keyword != null) {
+			keyword = keyword.toLowerCase();
+		} else {
+			return;
+		}
 		SQLiteDatabase db = mOpenHelper.getWritableDatabase();
 		String selection = "type = " + type + " AND keyword ='" + keyword +"\'";
-		Cursor c = db.query(TABLE_HISTORY, projection_key, selection, null,
+		Cursor c = db.query(TABLE_HISTORY, PROJECTION_KEY, selection, null,
 				null, null, null);
 
-		if (c==null || c.getCount()==0){
+		if (c == null || c.getCount() == 0){
 			ContentValues cv = new ContentValues();
 			cv.put("keyword", keyword);
 			cv.put("type", type);
 			cv.put("count", 1);
 			db.insert(TABLE_HISTORY, null, cv);
 		} else {
-			db.execSQL("UPDATE "+TABLE_HISTORY+ " SET count=count+1 WHERE " + selection);
+			db.execSQL("UPDATE " + TABLE_HISTORY + " SET count=count+1 WHERE " + selection);
 		}
 	}
 	
-	public void clearAll(){
+	public void clearAll() {
 		SQLiteDatabase db = mOpenHelper.getWritableDatabase();
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
 		db.execSQL(SQL_CREATE_TABLE);

@@ -63,9 +63,8 @@ public class SearchBar {
 		Utils.D("start search");
 
 		if (!TextUtils.isEmpty(query)) {
-			HistoryAdapter adapter = HistoryAdapter.getInstance();
-			if (adapter != null) 
-				adapter.insertHistory(query, HistoryAdapter.TYPE_SEARCH);
+			HistoryAdapter adapter = HistoryAdapter.getInstance(mActivity.getApplication());
+			adapter.insertHistory(query, HistoryAdapter.TYPE_SEARCH);
 			SearchResultActivity.startQuery(mActivity.getApplication(), query);
 			SearchResultActivity.handleMp3ListIntent(mActivity, query);
 		}

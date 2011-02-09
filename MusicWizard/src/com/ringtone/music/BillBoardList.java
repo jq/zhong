@@ -90,9 +90,8 @@ public class BillBoardList extends ListActivity implements OnItemClickListener {
       if(title.length() + artist.length() > 0) {
         String query = title; 
         Log.e("query : ", query);
-		HistoryAdapter adapter = HistoryAdapter.getInstance();
-		if (adapter != null) 
-			adapter.insertHistory(query, HistoryAdapter.TYPE_SEARCH);
+		HistoryAdapter adapter = HistoryAdapter.getInstance(getApplication());
+		adapter.insertHistory(query, HistoryAdapter.TYPE_SEARCH);
         SearchResultActivity.startQuery(BillBoardList.this.getApplication(), query);
         SearchResultActivity.handleMp3ListIntent(BillBoardList.this, query);
       }
