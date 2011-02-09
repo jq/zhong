@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -164,6 +165,7 @@ public class SearchListActivity extends ListActivity {
 			mAdapter = new Mp3ListAdapter(SearchListActivity.this, R.layout.result_item);
 			setListAdapter(mAdapter);
 		}
+		int prevSelectionPos = getListView().getSelectedItemPosition();
 		if (mp3List != null) {
 			if (mData == null) {
 				mData = new Mp3ListWrapper();
@@ -171,6 +173,7 @@ public class SearchListActivity extends ListActivity {
 			mData.append(mp3List);
 			mAdapter.notifyDataSetChanged();
 		}
+		getListView().setSelection(prevSelectionPos);
 	}
 	
 	// A thread safe wrapper around ArrayList<MP3Info>.
@@ -374,9 +377,6 @@ public class SearchListActivity extends ListActivity {
 			super.onPreExecute();
 			setLoadingStatus();
 			mStartPosTemp = mStartPos;
-			if (mData!=null) {
-				mStartPosTemp += mData.size();
-			}
 			if (mAdapter != null) {
 				mAdapter.setStatus(com.cinla.ringtone.ListStatusView.Status.LOADING);
 			}
@@ -415,8 +415,11 @@ public class SearchListActivity extends ListActivity {
 					mAdapter.notifyDataSetChanged();
 				}
 			}
-			mStartPos = mStartPosTemp;
 			SearchListActivity.this.handleSearchResults(result);
+			if (result!=null && result.size()>0) {
+				mStartPosTemp += result.size();
+				mStartPos = mStartPosTemp;
+			}
 		}
 		
 		private ArrayList<MusicInfo> getNextMp3List(String keyWord) {
