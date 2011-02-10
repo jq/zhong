@@ -344,7 +344,7 @@
     		<antcall target="package-apk">
     		    <param name="package_name" value="Music12"/>
     		    <param name="drawable" value="app_icons\\player2.png"/>
-    			<param name="app_name" value="Music Wizzard"/>
+    			<param name="app_name" value="Music Wizard"/>
     		</antcall> 
     		
     		<antcall target="package-apk">
