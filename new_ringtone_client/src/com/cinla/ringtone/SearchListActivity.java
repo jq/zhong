@@ -55,7 +55,7 @@ public class SearchListActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.search_list_activity);
-		AdListener.createAds(this);
+//		AdListener.createAds(this);
 
 		mProgressBar = (ProgressBar) findViewById(R.id.search_progress);
 		mSearchMessage = (TextView) findViewById(R.id.search_message);
@@ -256,8 +256,8 @@ public class SearchListActivity extends ListActivity {
 		@Override
 		public int getCount() {
 			 boolean showFooter =
-	                mStatus == ListStatusView.Status.ERROR ||
-	                mStatus == ListStatusView.Status.LOADING;
+	                (mStatus == ListStatusView.Status.ERROR ||
+	                mStatus == ListStatusView.Status.LOADING) && mKeepFetching;
 
 			int footerCount = showFooter ? 1 : 0;
 
