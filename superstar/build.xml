@@ -6,7 +6,13 @@
         <taskdef uri="antlib:com.googlecode.autoandroid.ant" classpath="fixed-android-ant.jar"/>
         
         <android:home/> <!-- Set the detected android-home property to the sdk root. -->
-        
+
+		<property file="build.properties" />
+	
+		<condition property="dx" value="${platform.tools}/dx.bat" else="${platform.tools}/dx">  
+			<os family="windows" />  
+		</condition> 
+	
         <!-- Dependencies -->
 
         <fileset dir="lib" id="main.jars">
@@ -194,8 +200,8 @@
     			<param name="app_name" value="${app_name}"/>
     		</antcall>
 			
-			<android:aapt>
-				<arg value="package"/>
+			<exec executable="${platform.tools}\aapt.exe" failonerror="true">
+			<arg value="package"/>
                 <arg value="-m"/>
                 <arg value="-J"/>
                 <arg file="temp/src"/>
@@ -205,7 +211,7 @@
                 <arg file="temp/res"/>
                 <arg value="-I"/>
                 <arg file="${android-home}/platforms/android-4/android.jar"/>
-            </android:aapt>
+            </exec>
 		</target>
 	
         <target name="compile-main" description="Compile the java source.">
@@ -235,11 +241,14 @@
     		</antcall>        	
         	
         	<property name="classes.dex" location="temp/bin/classes.dex"/>
-            <android:dx inputref="main.jars">
-            	<arg value="--dex"/>
+        	
+        	<apply executable="${dx}" failonerror="true" parallel="true">
+        		<arg value="--dex" />
                 <arg value="--output=${classes.dex}"/>
                 <arg path="temp/bin"/>
-            </android:dx>
+        		<fileset refid="main.jars"/>        		
+        	</apply>
+        	
         </target>
 
         <target name="package-res" description="Put the project's resources into the output package file.">
@@ -250,7 +259,7 @@
     			<param name="app_name" value="${app_name}"/>
     		</antcall>        	
         	
-        	<android:aapt>
+			<exec executable="${platform.tools}\aapt.exe" failonerror="true">
 				<arg value="package"/>
 				<arg value="-f"/>
 				<arg value="-M"/>
@@ -261,7 +270,7 @@
 				<arg file="${android-home}/platforms/android-4/android.jar"/>
 				<arg value="-F"/>
 				<arg file="temp/bin/resources.ap_"/>
-        	</android:aapt>
+        	</exec>
         </target>
 	
         <target name="package-apk" description="Package the application and sign it with a debug key.">
