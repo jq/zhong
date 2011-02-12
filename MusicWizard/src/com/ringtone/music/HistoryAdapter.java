@@ -75,6 +75,7 @@ public class HistoryAdapter {
 	public Cursor getHistoryByType(String keyword, int type){
 		if (keyword != null) {
 			keyword = keyword.toLowerCase();
+			keyword = keyword.replace("'", "''");
 		} else {
 			return null;
 		}
@@ -92,13 +93,15 @@ public class HistoryAdapter {
 	}
 	
 	public void insertHistory(String keyword, int type){
+		String newKeyword;
 		if (keyword != null) {
 			keyword = keyword.toLowerCase();
+			newKeyword = keyword.replace("'", "''");
 		} else {
 			return;
 		}
 		SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-		String selection = "type = " + type + " AND keyword ='" + keyword +"\'";
+		String selection = "type = " + type + " AND keyword ='" + newKeyword +"\'";
 		Cursor c = db.query(TABLE_HISTORY, PROJECTION_KEY, selection, null,
 				null, null, null);
 

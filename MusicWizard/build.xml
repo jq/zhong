@@ -2,18 +2,27 @@
 <project name="SpawnRingdroid" default="package-apks" xmlns:android="antlib:com.googlecode.autoandroid.ant">
 
         <!-- Requires ant 1.7 or better -->
+	
+		<property file="build.properties" />
 
         <taskdef uri="antlib:com.googlecode.autoandroid.ant" classpath="fixed-android-ant.jar"/>
         
         <android:home/> <!-- Set the detected android-home property to the sdk root. -->
-
-        
+	
+		<condition property="dx" value="${platform.tools}/dx.bat" else="${platform.tools}/dx">  
+			<os family="windows" />  
+		</condition> 
+	
+		<condition property="aapt" value="${platform.tools}/aapt.exe" else="${platform.tools}/aapt">  
+			<os family="windows" />  
+		</condition> 
+	
         <!-- Dependencies -->
 
         <fileset dir="lib" id="main.jars">
         	<include name="zestadz_android_sdkv1.2.jar"/>
         	<include name="admob-sdk-android.jar"/>
-        	<include name="AdWhirlSDK_Android_2.5.5.jar"/>
+        	<include name="AdWhirlSDK_Android_2.6.2.jar"/>
         	<include name="MMAdView.jar"/>
         </fileset>
         <!-- Rules -->
@@ -184,8 +193,8 @@
     			<param name="app_name" value="${app_name}"/>
     		</antcall>
 			
-			<android:aapt>
-				<arg value="package"/>
+			<exec executable="${aapt}" failonerror="true">
+			<arg value="package"/>
                 <arg value="-m"/>
                 <arg value="-J"/>
                 <arg file="temp/src"/>
@@ -195,7 +204,7 @@
                 <arg file="temp/res"/>
                 <arg value="-I"/>
                 <arg file="${android-home}/platforms/android-7/android.jar"/>
-            </android:aapt>
+			</exec>
 		</target>
 	
         <target name="compile-main" description="Compile the java source.">
@@ -223,11 +232,14 @@
     		</antcall>        	
         	
         	<property name="classes.dex" location="temp/bin/classes.dex"/>
-            <android:dx inputref="main.jars">
-            	<arg value="--dex"/>
+        	
+        	<apply executable="${dx}" failonerror="true" parallel="true">
+        		<arg value="--dex" />
                 <arg value="--output=${classes.dex}"/>
                 <arg path="temp/bin"/>
-            </android:dx>
+        		<fileset refid="main.jars"/>        		
+        	</apply>
+        	
         </target>
 
         <target name="package-res" description="Put the project's resources into the output package file.">
@@ -237,7 +249,7 @@
     			<param name="app_name" value="${app_name}"/>
     		</antcall>        	
         	
-        	<android:aapt>
+			<exec executable="${aapt}" failonerror="true">
 				<arg value="package"/>
 				<arg value="-f"/>
 				<arg value="-M"/>
@@ -248,7 +260,7 @@
 				<arg file="${android-home}/platforms/android-7/android.jar"/>
 				<arg value="-F"/>
 				<arg file="temp/bin/resources.ap_"/>
-        	</android:aapt>
+        	</exec>
         </target>
 	
         <target name="package-apk" description="Package the application and sign it with a debug key.">
@@ -289,56 +301,56 @@
     	<target name="package-apks" depends="clean-apks, init-all" description="Package applications.">
     		
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Music11"/>
+    		    <param name="package_name" value="Music21"/>
     		    <param name="drawable" value="app_icons\\player1.png"/>
     			<param name="app_name" value="Music Ringtone"/>
     		</antcall> 
 
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Music12"/>
+    		    <param name="package_name" value="Music22"/>
     		    <param name="drawable" value="app_icons\\player2.png"/>
     			<param name="app_name" value="Music Wizard"/>
     		</antcall> 
     		
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Music3"/>
+    		    <param name="package_name" value="Music23"/>
     		    <param name="drawable" value="app_icons\\player3.png"/>
     			<param name="app_name" value="Ringtone Mp3"/>
     		</antcall> 
     		
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Music14"/>
+    		    <param name="package_name" value="Music24"/>
     		    <param name="drawable" value="app_icons\\player4.png"/>
     			<param name="app_name" value="Ringtone Music"/>
     		</antcall> 
     		
 			
 			<antcall target="package-apk">
-    		    <param name="package_name" value="Music15"/>
+    		    <param name="package_name" value="Music25"/>
     		    <param name="drawable" value="app_icons\\player5.png"/>
     			<param name="app_name" value="Mp3 Music"/>
     		</antcall> 
     		
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Music16"/>
+    		    <param name="package_name" value="Music26"/>
     		    <param name="drawable" value="app_icons\\icon6.png"/>
     			<param name="app_name" value="Mp3 Ringtone"/>
     		</antcall> 
 			
 			<antcall target="package-apk">
-    		    <param name="package_name" value="Music17"/>
+    		    <param name="package_name" value="Music27"/>
     		    <param name="drawable" value="app_icons\\icon7.png"/>
     			<param name="app_name" value="Mp3 Player"/>
     		</antcall> 
     		
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Music18"/>
+    		    <param name="package_name" value="Music28"/>
     		    <param name="drawable" value="app_icons\\icon8.png"/>
     			<param name="app_name" value="Music Player"/>
     		</antcall> 
     		
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Music19"/>
+    		    <param name="package_name" value="Music29"/>
     		    <param name="drawable" value="app_icons\\icon9.png"/>
     			<param name="app_name" value="Ringtone Player"/>
     		</antcall> 
