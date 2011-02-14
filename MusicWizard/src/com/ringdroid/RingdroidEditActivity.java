@@ -148,6 +148,8 @@ public class RingdroidEditActivity extends Activity implements
 	private long mWaveformTouchStartMsec;
 	private float mDensity;
 
+    private boolean mGuiLoaded = false;
+
 	private static final int kMarkerLeftInset = 46;
 	private static final int kMarkerRightInset = 48;
 	private static final int kMarkerTopOffset = 10;
@@ -402,6 +404,10 @@ public class RingdroidEditActivity extends Activity implements
 			}
 			return true;
 		case CMD_RESET:
+            if (!mGuiLoaded) {
+                return true;
+            }
+
 			resetPositions();
 			mOffsetGoal = 0;
 			updateDisplay();
@@ -661,6 +667,8 @@ public class RingdroidEditActivity extends Activity implements
 		mEndMarker.setFocusableInTouchMode(true);
 
 		updateDisplay();
+
+        mGuiLoaded = true;
 	}
 
 	private void loadFromFile() {
