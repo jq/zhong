@@ -55,7 +55,8 @@ public class SearchListActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.search_list_activity);
-//		AdListener.createAds(this);
+ 		AdListener.createAds(this);
+		
 
 		mProgressBar = (ProgressBar) findViewById(R.id.search_progress);
 		mSearchMessage = (TextView) findViewById(R.id.search_message);

@@ -76,11 +76,15 @@ public class PreviewMusic {
 				mProgressDialog.cancel();
 			}
 		});
+		if (mMediaPlayer !=null) {
+			mMediaPlayer.stop();
+		}
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				MediaPlayer mediaPlayer = mMediaPlayer;
 				if (mediaPlayer != null) {
+					mediaPlayer.stop();
 					mediaPlayer.release();
 				}
 			}
