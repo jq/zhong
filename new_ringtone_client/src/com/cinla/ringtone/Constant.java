@@ -27,8 +27,8 @@ public class Constant {
 	public static final String RATE = "rate";
 	public static final String USER_RATE = "user_rate";
 	
-	public static final String BASE_URL = "http://bingliu630.appspot.com";
-//	public static final String BASE_URL = "http://10.0.2.2:8888";
+//	public static final String BASE_URL = "http://bingliu630.appspot.com";
+	public static final String BASE_URL = "http://10.0.2.2:8888";
 	public static final String SEARCH_URL = "/ringtoneserver/search?q=";
 	public static final String RATE_URL = "/ringtoneserver/";
 	public static final String COUNT_URL = "/ringtoneserver/allsong";
@@ -54,6 +54,7 @@ public class Constant {
 	public static final long ONE_HOUR = 60*60*1000;
 	public static final long ONE_DAY = ONE_HOUR*24;
 	public static final long ONE_WEEK = ONE_DAY*7;
+//	public static final long ONE_WEEK = 0;
 	public static final long ONE_MONTH = ONE_DAY*30;
 	public static final long ONE_YEAR = ONE_DAY*365;
 	

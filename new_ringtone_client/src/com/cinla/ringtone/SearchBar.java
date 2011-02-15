@@ -98,8 +98,10 @@ public class SearchBar {
 		@Override
 		protected Long doInBackground(Void... params) {
 			String response;
+			Long num = null;
 			try {
 				response = NetUtils.fetchHtmlPage(Constant.BASE_URL+Constant.COUNT_URL, CODING, Constant.ONE_WEEK);
+				num = Long.parseLong(response);
 				Utils.D("*************************response of get all: "+response);
 			} catch (Exception e) {
 				Utils.D("*************************Exception in get all. ");
@@ -109,7 +111,7 @@ public class SearchBar {
 			if (response==null || response.length()==0) {
 				return null;
 			}
-			return Long.parseLong(response);
+			return num;
 		}
 		@Override
 		protected void onPostExecute(final Long result) {
