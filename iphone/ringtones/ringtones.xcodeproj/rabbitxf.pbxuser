@@ -140,8 +140,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 319471121;
-			PBXWorkspaceStateSaveDate = 319471121;
+			PBXPerProjectTemplateStateSaveDate = 319473359;
+			PBXWorkspaceStateSaveDate = 319473359;
 		};
 		perUserProjectItems = {
 			DE3C30B61308182200BCC0C4 = DE3C30B61308182200BCC0C4 /* PBXTextBookmark */;
@@ -153,6 +153,8 @@
 			DE775CAF13092DB200ABC643 = DE775CAF13092DB200ABC643 /* PBXTextBookmark */;
 			DED45466130AB6BC00F8AC45 = DED45466130AB6BC00F8AC45 /* PBXTextBookmark */;
 			DED45483130AB90800F8AC45 = DED45483130AB90800F8AC45 /* PlistBookmark */;
+			DED454EB130AC6E300F8AC45 /* PlistBookmark */ = DED454EB130AC6E300F8AC45 /* PlistBookmark */;
+			DED45502130AC81C00F8AC45 /* PlistBookmark */ = DED45502130AC81C00F8AC45 /* PlistBookmark */;
 		};
 		sourceControlManager = DEC235641306C33600488D86 /* Source Control */;
 		userBuildSettings = {
@@ -305,5 +307,27 @@
 		name = "/Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtones-Info.plist";
 		rLen = 0;
 		rLoc = 9223372036854775808;
+	};
+	DED454EB130AC6E300F8AC45 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* ringtones-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtones-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	DED45502130AC81C00F8AC45 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* ringtones-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtones-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
 	};
 }
