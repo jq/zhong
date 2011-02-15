@@ -1,226 +1,0 @@
-Tringtones
-v7
-r0
-t319213125.084794
-cCheck dependencies
-cProcessInfoPlistFile /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/Info.plist ringtones-Info.plist
-cCompileXIB /Users/rabbitxf/Documents/iphone_workspace/ringtones/MainWindow.xib
-cCpResource build/Release-iphonesimulator/ringtones.app/ringtone_icon.png ringtone_icon.png
-cProcessPCH /var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-hfcoxqfvcmweehdieysxvrjrvvtg/ringtones_Prefix.pch.gch ringtones_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/ringtones.build/Release-iphonesimulator/ringtones.build/Objects-normal/i386/main.o /Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/ringtones.build/Release-iphonesimulator/ringtones.build/Objects-normal/i386/ringtonesAppDelegate.o /Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m normal i386 objective-c com.apple.compilers.gcc.4_2
-cLd /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/ringtones normal i386
-cGenerateDSYMFile /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app.dSYM /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/ringtones
-cTouch /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk
-c000000004CC128950000000000000110
-t1287727253
-s272
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
-c000000004CC12246000000000029B310
-t1287725638
-s2732816
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/System/Library/Frameworks/Foundation.framework/Foundation
-c000000004CC1226D000000000029D5D0
-t1287725677
-s2741712
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
-c000000004CC1225F0000000000001466
-t1287725663
-s5222
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.h
-c000000004CC1281F0000000000000AA1
-t1287727135
-s2721
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/System/Library/Frameworks/UIKit.framework/UIKit
-c000000004CC12883000000000074D7B0
-t1287727235
-s7657392
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.h
-c000000004D568D7E0000000000000167
-t1297517950
-s359
-i<UIKit/UIKit.h>
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m
-c000000004D5695FC0000000000000A85
-t1297520124
-s2693
-i"ringtonesAppDelegate.h"
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/MainWindow.xib
-c000000004D568F550000000000005157
-t1297518421
-s20823
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app
-t1297520325
-s238
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app.dSYM
-t1297520325
-s102
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/Info.plist
-t1297520324
-s644
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/MainWindow.nib
-t1297520324
-s1234
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/PkgInfo
-t1297520324
-s8
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/ringtone_icon.png
-t1297520324
-s12231
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/ringtones
-t1297520325
-s16060
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/Objects-normal/i386/main.o
-t1297520325
-s6316
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/Objects-normal/i386/ringtones.LinkFileList
-c000000004D5696C4000000000000012C
-t1297520324
-s300
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/Objects-normal/i386/ringtonesAppDelegate.o
-t1297520325
-s50788
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m
-c000000004D568BAD0000000000000167
-t1297517485
-s359
-i<UIKit/UIKit.h>
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtone_icon.png
-c000000004CECBA9F0000000000002FC7
-t1290582687
-s12231
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtones_Prefix.pch
-c000000004D568BAD00000000000000BB
-t1297517485
-s187
-i<Foundation/Foundation.h>
-i<UIKit/UIKit.h>
-
-N/var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-hfcoxqfvcmweehdieysxvrjrvvtg/ringtones_Prefix.pch.gch
-t1297520324
-s15113424
-
-Nringtones-Info.plist
-c000000004D569527000000000000039E
-t1297519911
-s926
-
-CCheck dependencies
-r0
-lSLF07#2@18"Check dependencies319213124#319213124#0(0"0(0#1#0"8247620834010738688#0"0#
-
-CCompileC build/ringtones.build/Release-iphonesimulator/ringtones.build/Objects-normal/i386/main.o /Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s319213124.979855
-e319213125.029085
-r1
-xCompileC
-xbuild/ringtones.build/Release-iphonesimulator/ringtones.build/Objects-normal/i386/main.o
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@67"Compile /Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m319213124#319213125#0(0"0(0#0#59"/Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m8606414176#2167"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/ringtones-generated-files.hmap -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/ringtones-own-target-headers.hmap -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/ringtones-all-target-headers.hmap -iquote /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/ringtones-project-headers.hmap -F/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/include -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/DerivedSources/i386 -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/DerivedSources -DNS_BLOCK_ASSERTIONS=1 -include /var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-hfcoxqfvcmweehdieysxvrjrvvtg/ringtones_Prefix.pch -c /Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m -o /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/Objects-normal/i386/main.o0#
-
-CCompileC build/ringtones.build/Release-iphonesimulator/ringtones.build/Objects-normal/i386/ringtonesAppDelegate.o /Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s319213124.980823
-e319213125.053531
-r1
-xCompileC
-xbuild/ringtones.build/Release-iphonesimulator/ringtones.build/Objects-normal/i386/ringtonesAppDelegate.o
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@91"Compile /Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m319213124#319213125#0(0"0(0#0#83"/Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m8606309728#2207"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/ringtones-generated-files.hmap -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/ringtones-own-target-headers.hmap -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/ringtones-all-target-headers.hmap -iquote /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/ringtones-project-headers.hmap -F/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/include -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/DerivedSources/i386 -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/DerivedSources -DNS_BLOCK_ASSERTIONS=1 -include /var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-hfcoxqfvcmweehdieysxvrjrvvtg/ringtones_Prefix.pch -c /Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m -o /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/Objects-normal/i386/ringtonesAppDelegate.o0#
-
-CCompileXIB /Users/rabbitxf/Documents/iphone_workspace/ringtones/MainWindow.xib
-s319213124.128653
-e319213124.474991
-r1
-xCompileXIB
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/MainWindow.xib
-lSLF07#2@25"CompileXIB MainWindow.xib319213124#319213124#0(0"0(0#0#67"/Users/rabbitxf/Documents/iphone_workspace/ringtones/MainWindow.xib8603747328#616"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 4.2    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/MainWindow.nib /Users/rabbitxf/Documents/iphone_workspace/ringtones/MainWindow.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk0#
-
-CCpResource build/Release-iphonesimulator/ringtones.app/ringtone_icon.png ringtone_icon.png
-s319213124.129381
-e319213124.134405
-r1
-xCpResource
-xbuild/Release-iphonesimulator/ringtones.app/ringtone_icon.png
-xringtone_icon.png
-lSLF07#2@22"Copy ringtone_icon.png319213124#319213124#0(0"0(0#0#70"/Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtone_icon.png8599999296#542"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -strip-debug-symbols -resolve-src-symlinks /Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtone_icon.png /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app0#
-
-CGenerateDSYMFile /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app.dSYM /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/ringtones
-s319213125.071953
-e319213125.082494
-r1
-xGenerateDSYMFile
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app.dSYM
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/ringtones
-lSLF07#2@119"GenerateDSYMFile build/Release-iphonesimulator/ringtones.app.dSYM build/Release-iphonesimulator/ringtones.app/ringtones319213125#319213125#0(0"0(0#0#106"/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/ringtones8605887040#435"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/ringtones -o /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app.dSYM0#
-
-CLd /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/ringtones normal i386
-s319213125.053618
-e319213125.071868
-r1
-xLd
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/ringtones
-xnormal
-xi386
-lSLF07#2@111"Link /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/ringtones319213125#319213125#0(0"0(0#0#0"8606102304#988"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -arch i386 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -L/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator -F/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator -filelist /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/Objects-normal/i386/ringtones.LinkFileList -mmacosx-version-min=10.6 -Xlinker -objc_abi_version -Xlinker 2 -framework Foundation -framework UIKit -framework CoreGraphics -o /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/ringtones0#
-
-CProcessInfoPlistFile /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/Info.plist ringtones-Info.plist
-s319213124.122279
-e319213124.128450
-r1
-xProcessInfoPlistFile
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/Info.plist
-xringtones-Info.plist
-lSLF07#2@28"Process ringtones-Info.plist319213124#319213124#0(0"0(0#0#73"/Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtones-Info.plist31525614006435956#531"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility ringtones-Info.plist -genpkginfo /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app/Info.plist0#
-
-CProcessPCH /var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-hfcoxqfvcmweehdieysxvrjrvvtg/ringtones_Prefix.pch.gch ringtones_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
-s319213124.475179
-e319213124.979730
-r1
-xProcessPCH
-x/var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-hfcoxqfvcmweehdieysxvrjrvvtg/ringtones_Prefix.pch.gch
-xringtones_Prefix.pch
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@31"Precompile ringtones_Prefix.pch319213124#319213124#0(0"0(0#0#73"/Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtones_Prefix.pch8606035360#2041"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c-header -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/ringtones-generated-files.hmap -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/ringtones-own-target-headers.hmap -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/ringtones-all-target-headers.hmap -iquote /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/ringtones-project-headers.hmap -F/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/include -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/DerivedSources/i386 -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Release-iphonesimulator/ringtones.build/DerivedSources -DNS_BLOCK_ASSERTIONS=1 -c /Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtones_Prefix.pch -o /var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-hfcoxqfvcmweehdieysxvrjrvvtg/ringtones_Prefix.pch.gch0#
-
-CTouch /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app
-s319213125.082574
-e319213125.084745
-r1
-xTouch
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app
-lSLF07#2@102"Touch /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app319213125#319213125#0(0"0(0#0#0"8605753216#310"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Release-iphonesimulator/ringtones.app0#
-

@@ -1,433 +1,0 @@
-Tringtones
-v7
-r0
-t319367954.956096
-cCheck dependencies
-cCpResource build/Distribution-iphoneos/ringtones.app/ResourceRules.plist /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/ResourceRules.plist
-cProcessInfoPlistFile /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/Info.plist ringtones-Info.plist
-cCompileXIB /Users/rabbitxf/Documents/iphone_workspace/ringtones/MainWindow.xib
-cCopyPNGFile /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ringtone_icon.png ringtone_icon.png
-cCopyPlistFile /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ringtones-Info.plist ringtones-Info.plist
-cCopyPNGFile /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/Default.png Default.png
-cProcessPCH /var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-elfaxpmypskjkfbfuhykctxdblfu/ringtones_Prefix.pch.gch ringtones_Prefix.pch normal armv6 objective-c com.apple.compilers.gcc.4_2
-cProcessPCH /var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-bstpgdeaiskojzazdpvdylxlhtku/ringtones_Prefix.pch.gch ringtones_Prefix.pch normal armv7 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv6/main.o /Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv6/ringtonesAppDelegate.o /Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv7/main.o /Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m normal armv7 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv7/ringtonesAppDelegate.o /Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m normal armv7 objective-c com.apple.compilers.gcc.4_2
-cLd /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv7/ringtones normal armv7
-cLd /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv6/ringtones normal armv6
-cCreateUniversalBinary /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ringtones normal "armv6 armv7"
-cGenerateDSYMFile /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app.dSYM /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ringtones
-cProcessProductPackaging "/Users/rabbitxf/Library/MobileDevice/Provisioning Profiles/A253FF05-0B9F-4A5C-87A1-043773D0A67F.mobileprovision" /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/embedded.mobileprovision
-cTouch /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app
-cProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/Entitlements.plist /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones.xcent
-cCodeSign /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app
-cValidate /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk
-c000000004CC7DC9E0000000000000110
-t1288166558
-s272
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/Entitlements.plist
-c000000004CB3DFCF00000000000001A7
-t1286856655
-s423
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/ResourceRules.plist
-c000000004CB3DFCF00000000000001E5
-t1286856655
-s485
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
-c000000004CC10EF500000000003532B0
-t1287720693
-s3486384
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/System/Library/Frameworks/Foundation.framework/Foundation
-c000000004CC10F4700000000003E1F20
-t1287720775
-s4071200
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
-c000000004CC10F1C0000000000001466
-t1287720732
-s5222
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.h
-c000000004CC11AE60000000000000AA1
-t1287723750
-s2721
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/System/Library/Frameworks/UIKit.framework/UIKit
-c000000004CC11B750000000000C769F0
-t1287723893
-s13068784
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.h
-c000000004D58B98000000000000001F8
-t1297660288
-s504
-i<UIKit/UIKit.h>
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m
-c000000004D58CE2A0000000000000E46
-t1297665578
-s3654
-i"ringtonesAppDelegate.h"
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/Default.png
-c000000004D58D0A5000000000000EF3A
-t1297666213
-s61242
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/MainWindow.xib
-c000000004D58D1780000000000007481
-t1297666424
-s29825
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app
-t1297675154
-s442
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app.dSYM
-t1297675154
-s102
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/Default.png
-t1297675153
-s67565
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/Info.plist
-t1297675153
-s819
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/MainWindow.nib
-t1297675153
-s2367
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/PkgInfo
-t1297675153
-s8
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ResourceRules.plist
-t1297675153
-s485
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/embedded.mobileprovision
-t1297675154
-s7068
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ringtone_icon.png
-t1297675153
-s4259
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ringtones
-t1297675154
-s41472
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ringtones-Info.plist
-t1297675153
-s478
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv6/main.o
-t1297675154
-s6540
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv6/ringtones
-t1297675154
-s16896
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv6/ringtones.LinkFileList
-c000000004D58F391000000000000012A
-t1297675153
-s298
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv6/ringtonesAppDelegate.o
-t1297675154
-s55360
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv7/main.o
-t1297675154
-s6516
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv7/ringtones
-t1297675154
-s16896
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv7/ringtones.LinkFileList
-c000000004D58F391000000000000012A
-t1297675153
-s298
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv7/ringtonesAppDelegate.o
-t1297675154
-s55356
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/com.apple.build-tools.platform.validate
-t2
-s0
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones.xcent
-t1297675154
-s419
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m
-c000000004D568BAD0000000000000167
-t1297517485
-s359
-i<UIKit/UIKit.h>
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtone_icon.png
-c000000004D58F2B10000000000000F8A
-t1297674929
-s3978
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtones-Info.plist
-c000000004D58EF560000000000000377
-t1297674070
-s887
-
-N/Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtones_Prefix.pch
-c000000004D568BAD00000000000000BB
-t1297517485
-s187
-i<Foundation/Foundation.h>
-i<UIKit/UIKit.h>
-
-N/Users/rabbitxf/Library/MobileDevice/Provisioning Profiles/A253FF05-0B9F-4A5C-87A1-043773D0A67F.mobileprovision
-c000000004D58EC960000000000001B9C
-t1297673366
-s7068
-
-N/var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-bstpgdeaiskojzazdpvdylxlhtku/ringtones_Prefix.pch.gch
-t1297675154
-s10249944
-
-N/var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-elfaxpmypskjkfbfuhykctxdblfu/ringtones_Prefix.pch.gch
-t1297675154
-s9783000
-
-Nringtones-Info.plist
-c000000004D58EF560000000000000377
-t1297674070
-s887
-
-CCheck dependencies
-r0
-lSLF07#2@18"Check dependencies319367953#319367953#0(116"[WARN]Warning: The Copy Bundle Resources build phase contains this target's Info.plist file 'ringtones-Info.plist'.1(22@109"Warning: The Copy Bundle Resources build phase contains this target's Info.plist file 'ringtones-Info.plist'.319367953#18446744073709551615#0#0(1@0"0(0#1#0"8609835872#0"0#
-
-CCodeSign /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app
-s319367954.485551
-e319367954.866801
-r1
-xCodeSign
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app
-lSLF07#2@50"CodeSign build/Distribution-iphoneos/ringtones.app319367954#319367954#0(0"0(0#0#94"/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app8603188736#723"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    setenv _CODESIGN_ALLOCATE_ /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate    /usr/bin/codesign -f -s "iPhone Distribution: jiang qian" --resource-rules=/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ResourceRules.plist --entitlements /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones.xcent /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app0#
-
-CCompileC build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv6/main.o /Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-s319367954.311604
-e319367954.373793
-r1
-xCompileC
-xbuild/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv6/main.o
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m
-xnormal
-xarmv6
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@67"Compile /Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m319367954#319367954#0(0"0(0#0#59"/Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m8611539072#2005"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv6 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -Os -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=4.2 -iquote /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-generated-files.hmap -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-own-target-headers.hmap -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-all-target-headers.hmap -iquote /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-project-headers.hmap -F/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/include -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/DerivedSources/armv6 -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/DerivedSources -DNS_BLOCK_ASSERTIONS=1 -include /var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-elfaxpmypskjkfbfuhykctxdblfu/ringtones_Prefix.pch -c /Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m -o /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv6/main.o0#
-
-CCompileC build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv6/ringtonesAppDelegate.o /Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-s319367954.312639
-e319367954.432572
-r1
-xCompileC
-xbuild/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv6/ringtonesAppDelegate.o
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m
-xnormal
-xarmv6
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@91"Compile /Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m319367954#319367954#0(0"0(0#0#83"/Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m8611172128#2045"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv6 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -Os -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=4.2 -iquote /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-generated-files.hmap -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-own-target-headers.hmap -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-all-target-headers.hmap -iquote /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-project-headers.hmap -F/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/include -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/DerivedSources/armv6 -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/DerivedSources -DNS_BLOCK_ASSERTIONS=1 -include /var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-elfaxpmypskjkfbfuhykctxdblfu/ringtones_Prefix.pch -c /Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m -o /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv6/ringtonesAppDelegate.o0#
-
-CCompileC build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv7/main.o /Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m normal armv7 objective-c com.apple.compilers.gcc.4_2
-s319367954.313607
-e319367954.378595
-r1
-xCompileC
-xbuild/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv7/main.o
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m
-xnormal
-xarmv7
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@67"Compile /Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m319367954#319367954#0(0"0(0#0#59"/Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m8610778720#2005"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -Os -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=4.2 -iquote /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-generated-files.hmap -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-own-target-headers.hmap -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-all-target-headers.hmap -iquote /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-project-headers.hmap -F/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/include -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/DerivedSources/armv7 -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/DerivedSources -DNS_BLOCK_ASSERTIONS=1 -include /var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-bstpgdeaiskojzazdpvdylxlhtku/ringtones_Prefix.pch -c /Users/rabbitxf/Documents/iphone_workspace/ringtones/main.m -o /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv7/main.o0#
-
-CCompileC build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv7/ringtonesAppDelegate.o /Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m normal armv7 objective-c com.apple.compilers.gcc.4_2
-s319367954.314645
-e319367954.431575
-r1
-xCompileC
-xbuild/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv7/ringtonesAppDelegate.o
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m
-xnormal
-xarmv7
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@91"Compile /Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m319367954#319367954#0(0"0(0#0#83"/Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m8610519872#2045"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -Os -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=4.2 -iquote /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-generated-files.hmap -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-own-target-headers.hmap -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-all-target-headers.hmap -iquote /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-project-headers.hmap -F/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/include -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/DerivedSources/armv7 -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/DerivedSources -DNS_BLOCK_ASSERTIONS=1 -include /var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-bstpgdeaiskojzazdpvdylxlhtku/ringtones_Prefix.pch -c /Users/rabbitxf/Documents/iphone_workspace/ringtones/Classes/ringtonesAppDelegate.m -o /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv7/ringtonesAppDelegate.o0#
-
-CCompileXIB /Users/rabbitxf/Documents/iphone_workspace/ringtones/MainWindow.xib
-s319367953.321706
-e319367953.798103
-r1
-xCompileXIB
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/MainWindow.xib
-lSLF07#2@25"CompileXIB MainWindow.xib319367953#319367953#0(0"0(0#0#67"/Users/rabbitxf/Documents/iphone_workspace/ringtones/MainWindow.xib8610582112#593"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 4.2    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/MainWindow.nib /Users/rabbitxf/Documents/iphone_workspace/ringtones/MainWindow.xib --sdk /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk0#
-
-CCopyPNGFile /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/Default.png Default.png
-s319367953.323459
-e319367953.465876
-r1
-xCopyPNGFile
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/Default.png
-xDefault.png
-lSLF07#2@77"CopyPNGFile build/Distribution-iphoneos/ringtones.app/Default.png Default.png319367953#319367953#0(0"0(0#0#64"/Users/rabbitxf/Documents/iphone_workspace/ringtones/Default.png8610042624#613"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv COPY_COMMAND /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    "/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Plug-ins/iPhoneOS Build System Support.xcplugin/Contents/Resources/copypng" -compress "" /Users/rabbitxf/Documents/iphone_workspace/ringtones/Default.png /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/Default.png0#
-
-CCopyPNGFile /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ringtone_icon.png ringtone_icon.png
-s319367953.322247
-e319367953.355326
-r1
-xCopyPNGFile
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ringtone_icon.png
-xringtone_icon.png
-lSLF07#2@89"CopyPNGFile build/Distribution-iphoneos/ringtones.app/ringtone_icon.png ringtone_icon.png319367953#319367953#0(0"0(0#0#70"/Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtone_icon.png8610405280#625"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv COPY_COMMAND /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    "/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Plug-ins/iPhoneOS Build System Support.xcplugin/Contents/Resources/copypng" -compress "" /Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtone_icon.png /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ringtone_icon.png0#
-
-CCopyPlistFile /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ringtones-Info.plist ringtones-Info.plist
-s319367953.322761
-e319367953.349823
-r1
-xCopyPlistFile
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ringtones-Info.plist
-xringtones-Info.plist
-lSLF07#2@25"Copy ringtones-Info.plist319367953#319367953#0(0"0(0#0#73"/Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtones-Info.plist8610218944#418"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/Xcode/Plug-ins/CoreBuildTasks.xcplugin/Contents/Resources/copyplist --convert binary1 ringtones-Info.plist --outdir /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app0#
-
-CCpResource build/Distribution-iphoneos/ringtones.app/ResourceRules.plist /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/ResourceRules.plist
-s319367953.317142
-e319367953.321657
-r1
-xCpResource
-xbuild/Distribution-iphoneos/ringtones.app/ResourceRules.plist
-x/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/ResourceRules.plist
-lSLF07#2@94"Copy /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/ResourceRules.plist319367953#319367953#0(0"0(0#0#89"/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/ResourceRules.plist8611121920#552"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -strip-debug-symbols -resolve-src-symlinks /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/ResourceRules.plist /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app0#
-
-CCreateUniversalBinary /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ringtones normal "armv6 armv7"
-s319367954.457677
-e319367954.460549
-r1
-xCreateUniversalBinary
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ringtones
-xnormal
-xarmv6 armv7
-lSLF07#2@94"CreateUniversalBinary build/Distribution-iphoneos/ringtones.app/ringtones normal "armv6 armv7"319367954#319367954#0(0"0(0#0#64"/Users/rabbitxf/Documents/iphone_workspace/ringtones/armv6 armv78606015424#611"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/lipo -create /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv6/ringtones /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv7/ringtones -output /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ringtones0#
-
-CGenerateDSYMFile /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app.dSYM /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ringtones
-s319367954.460641
-e319367954.477375
-r1
-xGenerateDSYMFile
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app.dSYM
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ringtones
-lSLF07#2@115"GenerateDSYMFile build/Distribution-iphoneos/ringtones.app.dSYM build/Distribution-iphoneos/ringtones.app/ringtones319367954#319367954#0(0"0(0#0#104"/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ringtones8604247648#424"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ringtones -o /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app.dSYM0#
-
-CLd /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv6/ringtones normal armv6
-s319367954.432623
-e319367954.457299
-r1
-xLd
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv6/ringtones
-xnormal
-xarmv6
-lSLF07#2@148"Link /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv6/ringtones319367954#319367954#0(0"0(0#0#0"8609283488#969"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv IPHONEOS_DEPLOYMENT_TARGET 4.2    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -arch armv6 -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk -L/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos -F/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos -filelist /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv6/ringtones.LinkFileList -dead_strip -miphoneos-version-min=4.2 -framework Foundation -framework UIKit -framework CoreGraphics -o /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv6/ringtones0#
-
-CLd /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv7/ringtones normal armv7
-s319367954.431679
-e319367954.457617
-r1
-xLd
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv7/ringtones
-xnormal
-xarmv7
-lSLF07#2@148"Link /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv7/ringtones319367954#319367954#0(0"0(0#0#0"8609940256#969"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv IPHONEOS_DEPLOYMENT_TARGET 4.2    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -arch armv7 -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk -L/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos -F/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos -filelist /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv7/ringtones.LinkFileList -dead_strip -miphoneos-version-min=4.2 -framework Foundation -framework UIKit -framework CoreGraphics -o /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/Objects-normal/armv7/ringtones0#
-
-CProcessInfoPlistFile /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/Info.plist ringtones-Info.plist
-s319367953.317923
-e319367953.320775
-r1
-xProcessInfoPlistFile
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/Info.plist
-xringtones-Info.plist
-lSLF07#2@28"Process ringtones-Info.plist319367953#319367953#0(0"0(0#0#73"/Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtones-Info.plist8610983552#647"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility ringtones-Info.plist -genpkginfo /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/PkgInfo -expandbuildsettings -format binary -platform iphoneos -resourcerulesfile /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/ResourceRules.plist -o /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/Info.plist0#
-
-CProcessPCH /var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-bstpgdeaiskojzazdpvdylxlhtku/ringtones_Prefix.pch.gch ringtones_Prefix.pch normal armv7 objective-c com.apple.compilers.gcc.4_2
-s319367953.799247
-e319367954.311512
-r1
-xProcessPCH
-x/var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-bstpgdeaiskojzazdpvdylxlhtku/ringtones_Prefix.pch.gch
-xringtones_Prefix.pch
-xnormal
-xarmv7
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@31"Precompile ringtones_Prefix.pch319367953#319367954#0(0"0(0#0#73"/Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtones_Prefix.pch8610901792#1880"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c-header -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -Os -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=4.2 -iquote /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-generated-files.hmap -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-own-target-headers.hmap -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-all-target-headers.hmap -iquote /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-project-headers.hmap -F/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/include -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/DerivedSources/armv7 -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/DerivedSources -DNS_BLOCK_ASSERTIONS=1 -c /Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtones_Prefix.pch -o /var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-bstpgdeaiskojzazdpvdylxlhtku/ringtones_Prefix.pch.gch0#
-
-CProcessPCH /var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-elfaxpmypskjkfbfuhykctxdblfu/ringtones_Prefix.pch.gch ringtones_Prefix.pch normal armv6 objective-c com.apple.compilers.gcc.4_2
-s319367953.798254
-e319367954.281197
-r1
-xProcessPCH
-x/var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-elfaxpmypskjkfbfuhykctxdblfu/ringtones_Prefix.pch.gch
-xringtones_Prefix.pch
-xnormal
-xarmv6
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@31"Precompile ringtones_Prefix.pch319367953#319367954#0(0"0(0#0#73"/Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtones_Prefix.pch8610289632#1880"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c-header -arch armv6 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -Os -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=4.2 -iquote /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-generated-files.hmap -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-own-target-headers.hmap -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-all-target-headers.hmap -iquote /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones-project-headers.hmap -F/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/include -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/DerivedSources/armv6 -I/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/DerivedSources -DNS_BLOCK_ASSERTIONS=1 -c /Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtones_Prefix.pch -o /var/folders/+j/+jPVOf5iGEC7GuyOys-k0U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ringtones_Prefix-elfaxpmypskjkfbfuhykctxdblfu/ringtones_Prefix.pch.gch0#
-
-CProcessProductPackaging "/Users/rabbitxf/Library/MobileDevice/Provisioning Profiles/A253FF05-0B9F-4A5C-87A1-043773D0A67F.mobileprovision" /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/embedded.mobileprovision
-s319367954.477507
-e319367954.478711
-r1
-xProcessProductPackaging
-x/Users/rabbitxf/Library/MobileDevice/Provisioning Profiles/A253FF05-0B9F-4A5C-87A1-043773D0A67F.mobileprovision
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/embedded.mobileprovision
-lSLF07#2@204"ProcessProductPackaging "/Users/rabbitxf/Library/MobileDevice/Provisioning Profiles/A253FF05-0B9F-4A5C-87A1-043773D0A67F.mobileprovision" build/Distribution-iphoneos/ringtones.app/embedded.mobileprovision319367954#319367954#0(0"0(0#0#119"/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/embedded.mobileprovision8609320064#463"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    <com.apple.tools.product-pkg-utility> "/Users/rabbitxf/Library/MobileDevice/Provisioning Profiles/A253FF05-0B9F-4A5C-87A1-043773D0A67F.mobileprovision" -o /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app/embedded.mobileprovision0#
-
-CProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/Entitlements.plist /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones.xcent
-s319367954.481516
-e319367954.485480
-r1
-xProcessProductPackaging
-x/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/Entitlements.plist
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones.xcent
-lSLF07#2@188"ProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/Entitlements.plist build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones.xcent319367954#319367954#0(0"0(0#0#128"/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones.xcent8608275520#473"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    <com.apple.tools.product-pkg-utility> /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/Entitlements.plist -entitlements -format xml -o /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/ringtones.build/Distribution-iphoneos/ringtones.build/ringtones.xcent0#
-
-CTouch /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app
-s319367954.478755
-e319367954.481447
-r1
-xTouch
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app
-lSLF07#2@100"Touch /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app319367954#319367954#0(0"0(0#0#0"8608866080#301"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app0#
-
-CValidate /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app
-s319367954.867002
-e319367954.956044
-r1
-xValidate
-x/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app
-o2011-02-14 17:19:14.881 Validation[34817:607] *** Warning: Defaulting to the standard codesign tool
-lSLF07#2@50"Validate build/Distribution-iphoneos/ringtones.app319367954#319367954#0(100"2011-02-14 17:19:14.881 Validation[34817:607] *** Warning: Defaulting to the standard codesign tool0(0#0#94"/Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app8609129920#410"    cd /Users/rabbitxf/Documents/iphone_workspace/ringtones    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    setenv PRODUCT_TYPE com.apple.product-type.application    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/Validation /Users/rabbitxf/Documents/iphone_workspace/ringtones/build/Distribution-iphoneos/ringtones.app0#
-
