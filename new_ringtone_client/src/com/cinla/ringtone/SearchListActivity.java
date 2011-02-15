@@ -437,7 +437,7 @@ public class SearchListActivity extends ListActivity {
 			} else if (mSearchType == Constant.TYPE_TOP_DOWNLOAD) {
 				results = mFetcher.getMusicListByDownloadCount(mStartPosTemp);
 			}
-			if (results!=null && results.size()>0 && results.size()<Constant.EACH_MAX_RESULTS_NUM) {
+			if (results!=null && results.size()>=0 && results.size()<Constant.EACH_MAX_RESULTS_NUM) {
 				mKeepFetching = false;
 			}
 			return results;
