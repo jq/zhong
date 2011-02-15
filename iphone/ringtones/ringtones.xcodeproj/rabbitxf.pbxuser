@@ -155,6 +155,7 @@
 			DED45483130AB90800F8AC45 = DED45483130AB90800F8AC45 /* PlistBookmark */;
 			DED454EB130AC6E300F8AC45 /* PlistBookmark */ = DED454EB130AC6E300F8AC45 /* PlistBookmark */;
 			DED45502130AC81C00F8AC45 /* PlistBookmark */ = DED45502130AC81C00F8AC45 /* PlistBookmark */;
+			DED45517130ACAA100F8AC45 /* PlistBookmark */ = DED45517130ACAA100F8AC45 /* PlistBookmark */;
 		};
 		sourceControlManager = DEC235641306C33600488D86 /* Source Control */;
 		userBuildSettings = {
@@ -320,6 +321,17 @@
 		rLoc = 9223372036854775807;
 	};
 	DED45502130AC81C00F8AC45 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* ringtones-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/Users/rabbitxf/Documents/iphone_workspace/ringtones/ringtones-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	DED45517130ACAA100F8AC45 /* PlistBookmark */ = {
 		isa = PlistBookmark;
 		fRef = 8D1107310486CEB800E47090 /* ringtones-Info.plist */;
 		fallbackIsa = PBXBookmark;

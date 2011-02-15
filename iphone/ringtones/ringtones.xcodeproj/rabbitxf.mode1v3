@@ -229,6 +229,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -333,7 +335,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>DED45502130AC81C00F8AC45</string>
+										<string>DED45517130ACAA100F8AC45</string>
 										<key>history</key>
 										<array>
 											<string>DE3C30B61308182200BCC0C4</string>
@@ -541,6 +543,9 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>DED45475130AB73300F8AC45</string>
+		<string>DED45518130ACAA100F8AC45</string>
+		<string>DED45519130ACAA100F8AC45</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>DEC235621306C33600488D86</string>
@@ -1006,11 +1011,11 @@
 									<key>PBXCVSModuleTreeModuleColumnWidthsKey</key>
 									<array>
 										<real>200</real>
-										<real>56.66162109375</real>
+										<real>56</real>
 										<real>63</real>
 										<real>60</real>
 										<real>63</real>
-										<real>139.556640625</real>
+										<real>139</real>
 									</array>
 									<key>PBXCVSModuleTreeModuleColumnsKey</key>
 									<array>
@@ -1055,7 +1060,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>DED45475130AB73300F8AC45</string>
-				<string>DED45476130AB73300F8AC45</string>
+				<string>DED45512130ACA7C00F8AC45</string>
 				<string>1C78EAB2065D492600B07095</string>
 				<string>1CD052920623707200166675</string>
 			</array>
