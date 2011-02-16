@@ -55,6 +55,8 @@
 	hint.text = @"Connecting to ringtone Server";
 	hint.hidden = NO;
 	
+	[webView stopLoading];
+	
 }
 
 
