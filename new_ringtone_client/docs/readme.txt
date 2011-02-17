@@ -17,5 +17,10 @@
 	2.3 util_src，指向你本地的util项目的src绝对路径
       例如， util_src = "D:\workspace\util\src" 或者， util_src = "C:\workspace\util\src"
 	
-	
+update(2011.2.17):
 
+检出代码：
+/lastfm_lib （可能提示有错，不用理睬）
+
+按照2）中的方法
+链接/lastfm_lib的源代码
