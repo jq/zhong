@@ -53,7 +53,7 @@ public class BillBoardList extends ListActivity implements OnItemClickListener {
     url = getIntent().getStringExtra("url");
     //Log.e("URL: ", url);
     
-    JSONObject jObject = DownloadJson.getJsonFromUrl(url, DownloadJson.ThreeAndAHalfDays);
+    JSONObject jObject = DownloadJson.getJsonFromUrl(url, DownloadJson.OneDay);
     if(jObject == null) {
       NoDataError();
     }
