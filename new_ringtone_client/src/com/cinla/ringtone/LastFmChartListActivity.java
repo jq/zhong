@@ -16,6 +16,8 @@ public class LastFmChartListActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lastfm_chart_list);
 		
+		AdListener.createAds(this);
+		
 		TextView topTracks = (TextView) findViewById(R.id.top_tracks);
 		topTracks.setOnClickListener(new OnLastFMListItemClickListener(Constant.CHART_TYPE_TOPTRACKS));
 		

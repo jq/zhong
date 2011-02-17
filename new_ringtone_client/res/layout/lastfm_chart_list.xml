@@ -5,6 +5,8 @@
   	android:layout_height="fill_parent"
   	android:orientation="vertical">
   	
+  	<include layout="@layout/ads"></include>
+  	
   	<View 
 		android:layout_height="1dip"
 		android:layout_width="fill_parent"

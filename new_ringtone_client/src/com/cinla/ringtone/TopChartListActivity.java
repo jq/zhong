@@ -35,6 +35,8 @@ public class TopChartListActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.top_chart_page);
 		
+		AdListener.createAds(this);
+		
 		mProgressBar = (ProgressBar) findViewById(R.id.search_progress);
 		mSearchMessage = (TextView) findViewById(R.id.search_message);
 		mRetryButton = (Button) findViewById(R.id.retry_button);
