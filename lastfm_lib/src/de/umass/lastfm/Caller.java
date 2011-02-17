@@ -254,7 +254,8 @@ public class Caller {
 					cache.remove(cacheEntryName); // if request was failed remove from cache
 				Element error = (Element) root.getElementsByTagName("error").item(0);
 				int errorCode = Integer.parseInt(error.getAttribute("code"));
-				String message = error.getTextContent();
+//				String message = error.getTextContent();
+				String message = error.hasChildNodes() ? error.getFirstChild().getNodeValue() : null;
 				if (debugMode)
 					System.err.printf("Failed. Code: %d, Error: %s%n", errorCode, message);
 				this.lastResult = Result.createRestErrorResult(errorCode, message);
