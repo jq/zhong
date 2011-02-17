@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.latest.ringtone"
-      android:versionCode="4"
-      android:versionName="1.3">
+      android:versionCode="5"
+      android:versionName="1.4">
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name="com.cinla.ringtone.Main"
                   android:label="@string/app_name">
@@ -27,6 +27,18 @@
        	
        	<activity
        		android:name="com.cinla.ringtone.CategoriesListActivity"
+        	android:launchMode="singleTop"
+        	android:configChanges="orientation|keyboardHidden">
+       	</activity>
+       	
+       	<activity
+       		android:name="com.cinla.ringtone.LastFmChartListActivity"
+        	android:launchMode="singleTop"
+        	android:configChanges="orientation|keyboardHidden">
+       	</activity>
+       	
+       	<activity
+       		android:name="com.cinla.ringtone.TopChartListActivity"
         	android:launchMode="singleTop"
         	android:configChanges="orientation|keyboardHidden">
        	</activity>

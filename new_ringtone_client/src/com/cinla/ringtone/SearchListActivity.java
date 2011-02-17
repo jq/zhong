@@ -91,7 +91,9 @@ public class SearchListActivity extends ListActivity {
 	
 			break;
 		case Constant.TYPE_KEY:
-	
+			if (getIntent().getBooleanExtra(Constant.HIDE_SEARCHBAR, false)) {
+				mSearchBar.hide();
+			}
 			break;
 		case Constant.TYPE_ARTIST:
 	
@@ -531,6 +533,15 @@ public class SearchListActivity extends ListActivity {
 		intent.putExtra(Constant.QUERY, keyWord);
 		context.startActivity(intent);
 	}
+	
+	public static void startQeuryByKey(Context context, String keyWord, boolean isHideSearchBar) {
+		Intent intent = new Intent(context, SearchListActivity.class);
+		intent.putExtra(Constant.SEARCH_TYPE, Constant.TYPE_KEY);
+		intent.putExtra(Constant.QUERY, keyWord);
+		intent.putExtra(Constant.HIDE_SEARCHBAR, isHideSearchBar);
+		context.startActivity(intent);
+	}
+	
 
 	public static void startQueryByCategory(Context context, String keyWord) {
 		Intent intent = new Intent(context, SearchListActivity.class);

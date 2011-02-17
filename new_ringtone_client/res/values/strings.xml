@@ -3,6 +3,7 @@
     <string name="hello">Hello World, Main!</string>
     <string name="app_name">Ringtones</string>
     <string name="search">search</string>
+    <string name="top_charts">Top Charts</string>
     <string name="library">Library</string>
     <string name="top_download">Top Download</string>
     <string name="newest">Newset Add</string>
@@ -54,5 +55,19 @@
     
     <string name="total_ringtones1">search from</string>
     <string name="total_ringtones2">ringtones</string>
+    
+    <!-- 
+    used in lastfm top chart.
+    -->
+    
+    <string name="top_tracks">Top Tracks</string>
+    <string name="top_artists">Top Artists</string>
+    <string name="loved_tracks">Loved Tracks</string>
+    <string name="top_tags">Top Tags</string>
+    <string name="hyped_tracks">Hyped Tracks</string>
+    <string name="hyped_artists">Hyped Artists</string>
+    
+    <string name="loading">Loading...</string>
+    <string name="loading_error_message">Some error occur while loading, please retry later.</string>
     
 </resources>

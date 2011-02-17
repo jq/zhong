@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>facebook_android</project>
+		<project>lastfm_java_official</project>
 		<project>ring2</project>
 		<project>util</project>
 	</projects>
@@ -38,6 +39,11 @@
 			<name>facebook_android_src</name>
 			<type>2</type>
 			<locationURI>_android_facebook_android_1d8d51f6/src</locationURI>
+		</link>
+		<link>
+			<name>lastfm_api_src</name>
+			<type>2</type>
+			<location>/Users/admin/workspace/lastfm_java_official/src</location>
 		</link>
 		<link>
 			<name>ring2_src</name>

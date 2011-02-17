@@ -35,7 +35,7 @@ import android.widget.Toast;
 public class Utils {
 	
 	private static final String TAG = "New Ringtone Client";
-	private static final boolean DEBUG = false;
+	private static final boolean DEBUG = true;
 	
 	public static void D(String msg) {
 		if (DEBUG) {

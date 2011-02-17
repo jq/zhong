@@ -40,6 +40,7 @@ public class Constant {
 	public static final int TYPE_NEWEST = 3;
 	public static final int TYPE_ARTIST = 4;
 	public static final int TYPE_CATEGORY = 5;
+	public static final String HIDE_SEARCHBAR = "hide_searchbar";
 	
 	public static final String QUERY = "query";
 	
@@ -84,6 +85,19 @@ public class Constant {
 		  "Techno", "Pop", "Rock", "Vedio Games", "Jazz", "Internation",
 		  "Hip-Hop", "Movies and TV", "Latin", "Blues", "Sound Effects", 
 		  "Classical", "Comedy", "Country", "Reggae"};
+	
+	//for lastfm chart
+//	public static final String LASTFM_API_KEY = "047394ee33f2383f2ea559d4c1d640cb";
+	public static final String LASTFM_API_KEY = "b25b959554ed76058ac220b7b2e0a026";
+	public static final int CHART_TYPE_TOPTRACKS = 0;
+	public static final int CHART_TYPE_TOPARTISTS = 1;
+	public static final int CHART_TYPE_LOVEDTRACKS = 2;
+	public static final int CHART_TYPE_TOPTAGS = 3;
+	public static final int CHART_TYPE_HYPEDTRACKS = 4;
+	public static final int CHART_TYPE_HYPEDARTISTS = 5;
+	public static final String CHART_TYPE = "chart_tpye";
+	public static final String[] CHART_TYPE_NAME = {"Top Tracks", "Top Artist", "Loved Tracks", "Top Tags", "Hyped Tracks", "Hyped Artists"};
+
 	
 	public static void init(Context context) {
 		sAppName = context.getString(R.string.app_name);

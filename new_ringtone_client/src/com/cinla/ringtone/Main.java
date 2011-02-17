@@ -36,6 +36,14 @@ public class Main extends Activity {
         Constant.init(this);
         
         mSearchBar = new SearchBar(this);
+        
+        ((TextView) findViewById(R.id.home_lastfm_top_charts)).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(Main.this, LastFmChartListActivity.class);
+				Main.this.startActivity(intent);
+			}
+		});
 
         ((TextView) findViewById(R.id.home_top_download)).setOnClickListener(new View.OnClickListener() {
 			@Override
