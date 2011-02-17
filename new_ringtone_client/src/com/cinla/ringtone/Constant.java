@@ -87,8 +87,9 @@ public class Constant {
 		  "Classical", "Comedy", "Country", "Reggae"};
 	
 	//for lastfm chart
-//	public static final String LASTFM_API_KEY = "047394ee33f2383f2ea559d4c1d640cb";
-	public static final String LASTFM_API_KEY = "b25b959554ed76058ac220b7b2e0a026";
+//	public static final String LASTFM_API_KEY = "ffffffff";
+	public static final String LASTFM_API_KEY = "047394ee33f2383f2ea559d4c1d640cb";
+//	public static final String LASTFM_API_KEY = "b25b959554ed76058ac220b7b2e0a026";
 	public static final int CHART_TYPE_TOPTRACKS = 0;
 	public static final int CHART_TYPE_TOPARTISTS = 1;
 	public static final int CHART_TYPE_LOVEDTRACKS = 2;

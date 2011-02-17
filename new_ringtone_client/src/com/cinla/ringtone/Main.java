@@ -11,6 +11,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,13 +38,17 @@ public class Main extends Activity {
         
         mSearchBar = new SearchBar(this);
         
-        ((TextView) findViewById(R.id.home_lastfm_top_charts)).setOnClickListener(new View.OnClickListener() {
+        TextView homeTopChartTextView = (TextView) findViewById(R.id.home_lastfm_top_charts);
+        homeTopChartTextView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(Main.this, LastFmChartListActivity.class);
 				Main.this.startActivity(intent);
 			}
 		});
+        if (Build.VERSION.SDK.equalsIgnoreCase("3")) {
+        	homeTopChartTextView.setVisibility(View.GONE);
+        }
 
         ((TextView) findViewById(R.id.home_top_download)).setOnClickListener(new View.OnClickListener() {
 			@Override

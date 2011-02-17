@@ -97,7 +97,7 @@ public class TopChartListActivity extends ListActivity {
 		@Override
 		protected void onPostExecute(ArrayList<TopItem> result) {
 			Utils.D("result: "+result);
-			if (result == null) {
+			if (result==null || result.size()==0) {
 				setErrorStatus();
 				return;
 			} 
@@ -157,13 +157,13 @@ public class TopChartListActivity extends ListActivity {
 				com.cinla.imageloader.ImageLoader.initialize(TopChartListActivity.this);
 				com.cinla.imageloader.ImageLoader.start(topItem.getImageUrl(), holder.image);
 			} else {
-				holder.image.setBackgroundResource(R.drawable.hot);
+				holder.image.setImageResource(R.drawable.hot);
 			}
 			return convertView;
 		}
 	}
 	
-	private class ViewHolder {
+	private static class ViewHolder {
 		ImageView image;
 		TextView title;
 	}

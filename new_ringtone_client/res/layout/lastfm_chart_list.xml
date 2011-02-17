@@ -84,7 +84,8 @@
 		android:textColor="#ffffff"
 		android:layout_margin="3dip"
         android:textSize="24sp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:visibility="gone">
   	</TextView>
   	
   	<View 
