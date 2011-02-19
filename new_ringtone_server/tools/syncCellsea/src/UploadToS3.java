@@ -27,14 +27,13 @@ public class UploadToS3 {
 			File file = new File(Consts.NEW_DOWNLOAD_DIR+music.getRingName());
 			s3.putObject(new PutObjectRequest(Consts.AMAZON_RING_BUCKET, key, file));      			// upload ring    	
 			s3.setObjectAcl(Consts.AMAZON_RING_BUCKET, key, CannedAccessControlList.PublicRead);	// set access 		
-			/*
+			
 			// upload m4r ring
-			String m4r = music.getRingName().replace(".mp3", ".m4r");
-			key = music.getUUID() + m4r;
-			file = new File(Consts.NEW_DOWNLOAD_DIR+m4r);
-			s3.putObject(new PutObjectRequest(Consts.AMAZON_M4R_BUCKET, key, file));      			// upload ring    	
-			s3.setObjectAcl(Consts.AMAZON_M4R_BUCKET, key, CannedAccessControlList.PublicRead);		// set access 		
-			*/
+//			String m4r = music.getRingName().replace(".mp3", ".m4r");
+//			key = music.getUUID() + m4r;
+//			file = new File(Consts.NEW_DOWNLOAD_DIR+m4r);
+//			s3.putObject(new PutObjectRequest(Consts.AMAZON_M4R_BUCKET, key, file));      			// upload ring    	
+//			s3.setObjectAcl(Consts.AMAZON_M4R_BUCKET, key, CannedAccessControlList.PublicRead);		// set access 		
 			
 			// upload image
 			key = music.getUUID() + music.getImageName();

@@ -8,9 +8,9 @@ public class Consts {
 	public static final String SYNC_TIME_FILE = SYNC_DIR + "lasttime";
 	public static final String NEW_DOWNLOAD_DIR = SYNC_DIR+"download/";
 	public static final String LOG_FILE = NEW_DOWNLOAD_DIR+"log";
-	
-	public static final SimpleDateFormat SDF=new SimpleDateFormat("MMM_dd_yyyy");
-	public static final int DEFAULT_SYNC_FROM = 2;  // sync from 2 day ago
+	public final static String DEFAULT_IMGNAME = "0.jpg";
+	public static final SimpleDateFormat SDF=new SimpleDateFormat("MMM_dd_yyyy", Locale.US);
+	public static final int DEFAULT_SYNC_FROM = 1;  // sync from 2 day ago
 	
 	// amazon s3
 	public static final String AMAZON_S3_URL = "http://s3.amazonaws.com/";

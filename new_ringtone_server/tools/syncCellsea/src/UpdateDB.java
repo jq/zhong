@@ -1,7 +1,9 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -44,28 +46,12 @@ public class UpdateDB {
 	}
 	
 	// xml in this directory need to be upload
-	private Logger logger;
-	private DocumentBuilder docBuilder;
 	private int count = 0;
+	private MyLogger logger;
 	
-	
-	private boolean createLoggerAndBuilder() {
-		try {
-			logger = Logger.getLogger("log");
-			FileHandler fileHandler = new FileHandler(Consts.LOG_FILE);
-			fileHandler.setLevel(Level.FINE);
-			fileHandler.setFormatter(new MyLogFormat());
-			logger.addHandler(fileHandler);
-			
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			docBuilder = factory.newDocumentBuilder();
-			
-			return true;
-		} catch (Exception e) {
-			System.out.println("log or builder create err");
-			e.printStackTrace();
-			return false;
-		}
+	private boolean createLogger() {
+		logger = MyLogger.createLogger();
+		return logger != null;
 	}
 	
 	public ArrayList<File> getSortedXmlFiles() {
@@ -107,7 +93,7 @@ public class UpdateDB {
  	}
 	
 	private void startUpdate() {
-		if(!createLoggerAndBuilder())  return ;
+		if(!createLogger())  return ;
 		ArrayList<File> files= getSortedXmlFiles();
 		if(files == null) return ;
 		
@@ -118,6 +104,7 @@ public class UpdateDB {
 		}
 		logger.info("update database finish!");
 		logger.info("success count:"+count);
+		logger.close();
 	}
 
 	private void resolveFile(File file) {
@@ -225,15 +212,38 @@ public class UpdateDB {
 	
 	public void httpGet(String urlString) throws Exception{
 		URL url = new URL(urlString);
-		System.out.println(url);
+		//System.out.println(url);
 		url.openStream().close();
 	}
 	
-	
-	// my logger file format 
-	class MyLogFormat extends Formatter {
-		public String format(LogRecord record) {
-			return record.getMessage()+"\n";
+
+	private static class MyLogger {
+		private BufferedWriter writer = null;
+		public static MyLogger createLogger() {
+			try {
+				MyLogger logger = new MyLogger();
+				logger.writer = new BufferedWriter(
+						new FileWriter(new File(Consts.LOG_FILE)));
+				return logger;
+			} catch (Exception e) {
+				return null;
+			}
+		}
+		
+		public void info(String info) {
+			try {
+				writer.write(info+"\n");
+			} catch (Exception e) { }
+		}
+		
+		public void close() {
+			try {
+				if(writer != null) {
+					writer.flush();
+					writer.close();
+				}
+			} catch (Exception e) {
+			}
 		}
 	}
 	/*

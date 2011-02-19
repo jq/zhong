@@ -25,7 +25,7 @@ import org.w3c.dom.NodeList;
 public class CellseaThread extends Thread{
 	public final static String MUSIC_HOST_PREFIX = "http://www.mabilo.com/search/";
 	public final static String MUSIC_HOST_POSTFIX = "-1-tr.htm";
-	public final static String DEFAULT_IMGNAME = "0.jpg";
+	
 	private String mUrl;
 	private String mRingUrl;
 	private MusicInfo mMusicInfo;
@@ -89,7 +89,7 @@ public class CellseaThread extends Thread{
 	        NodeList nodeList = (NodeList) xpath.evaluate(imgXpath, document, XPathConstants.NODESET);
 	        if(nodeList.getLength() == 0) {
 	        	// use default image instead 
-	        	mMusicInfo.setImgName(DEFAULT_IMGNAME);
+	        	mMusicInfo.setImgName(Consts.DEFAULT_IMGNAME);
 	        }else {
 	        	String imgUrl = ((Element)nodeList.item(0)).getAttribute("src");
 	        	mMusicInfo.setImgName(mMusicInfo.getTitle() + ".jpg");
@@ -140,6 +140,7 @@ public class CellseaThread extends Thread{
 		}
 		
 		String title = str.substring(0, idx1-6).trim();
+		title = filterTitle(title);
 		if(title.equals("")) title = UUID.randomUUID().toString();
 		String artist = str.substring(idx1+2, idx2-6).trim();
 		
@@ -148,9 +149,22 @@ public class CellseaThread extends Thread{
 			format = ".mp3";
 			return new String[]{title, artist, format};
 		}else {
-			System.out.println("music format:"+format);
+			//System.out.println("music format:"+format);
 			return null;
 		}
+	}
+	
+	private static String filterTitle(String in) {
+		StringBuffer sb = new StringBuffer();
+		int i;
+		char ch;
+		for(i=0; i<in.length(); i++) {
+			ch = in.charAt(i);
+			if(Character.isLetterOrDigit(ch) || ch=='-' || ch=='_'
+				|| ch=='(' || ch==')')
+				sb.append(ch);
+		}
+		return sb.toString();
 	}
 	
 	// "File size:?454?KB"

@@ -1,4 +1,10 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
@@ -52,5 +58,65 @@ public class Utils {
 					break;
 		}
 		return in.substring(0, i).trim();
+	}
+	
+	public static void copy(String srcPath, String destPath) {
+		if(!new File(srcPath).exists()) {
+			System.out.println("source file not exist");
+			return ;
+		}
+//		String[] split = srcPath.split("\\.");
+//		if(split[split.length-1].equals("lck")) return ;
+		
+		InputStream reader = null;
+		FileOutputStream writer = null;
+		try {
+			reader = new FileInputStream(srcPath);
+			writer = new FileOutputStream(destPath);
+			byte[] buf = new byte[1024];
+			while(reader.read(buf) != -1) {
+				writer.write(buf);
+			}
+			writer.flush();
+		} catch (Exception e) {
+			System.out.println("copy file err:"+srcPath);
+		}finally {
+			if(reader != null) {
+				try {
+					reader.close();
+				} catch (Exception e2) {}
+			}
+			if(writer != null) {
+				try {
+					writer.close();
+				} catch (Exception e2) {}
+			}
+		}
+	}
+	
+	
+	public static void moveAllFiles(String srcFolder, String destFolder) {
+		if(!new File(srcFolder).exists()) {
+			System.out.println("source folder not exist");
+			return ;
+		}
+		
+		File[] list = new File(srcFolder).listFiles();
+		for(File file: list) {
+			copy(srcFolder+file.getName(), destFolder+file.getName());
+		}
+	}
+	
+	// process folder of depth 1
+	public static void delAllFiles(String folder) {
+		File dir = new File(folder);
+		if(!dir.exists()) {
+			System.out.println("folder to del not exist");
+			return ;
+		}
+		File[] list = dir.listFiles(); 
+		for(File file: list)
+			file.delete();
+		dir.delete();
 	}
 }

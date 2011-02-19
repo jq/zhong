@@ -56,6 +56,10 @@ public class Main {
 		File downDir = new File(Consts.NEW_DOWNLOAD_DIR);
 		if(!downDir.exists()) {
 			downDir.mkdir();
+			if(!new File(Consts.NEW_DOWNLOAD_DIR+Consts.DEFAULT_IMGNAME).exists()) {
+				Utils.copy(Consts.SYNC_DIR+Consts.DEFAULT_IMGNAME, 
+						Consts.NEW_DOWNLOAD_DIR+Consts.DEFAULT_IMGNAME);
+			}
 		}
 		return true;
 	}
@@ -94,18 +98,14 @@ public class Main {
 			}
 		}
 		
-		String dirName = Consts.SYNC_DIR+Consts.SDF.format(now);
-		File dir = new File(dirName);
-		if(dir.exists()) {
-			System.out.println(dirName+" exist err");
-			return ;
-		}
-		File old = new File(Consts.NEW_DOWNLOAD_DIR);
-		old.renameTo(dir);
-		old.mkdir();
+		String destPath = Consts.SYNC_DIR+Consts.SDF.format(now)+"/";
+		new File(destPath).mkdir();
+		Utils.moveAllFiles(Consts.NEW_DOWNLOAD_DIR, destPath);
+		Utils.delAllFiles(Consts.NEW_DOWNLOAD_DIR);
 	}
 	
 	public static void main(String[] args) {
 		new Main();
+		//Utils.delAllFiles(Consts.NEW_DOWNLOAD_DIR);
 	}
 }

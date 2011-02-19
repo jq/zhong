@@ -150,13 +150,14 @@ public class CellseaCategory {
 		return days < timeThreshold;
 	}
 	
-	//public final static String[] CATEGORY = new String[]{"Blues"};
+	public final static String[] CATEGORY = new String[]{"Comedy"};
+	/*
 	public final static String[] CATEGORY = new String[]{"Acoustic", "Alternative", "Anime", 
 		"Blues", "Classical", "Comedy", "Country", "Dance", "Electronic", "Funk", "Game", 
 		"Hard Rock", "Hip-Hop", "Humour", "Indie", "Instrumental", "Jazz", "Latin", "Musical", 
 		"Noise", "Oldies", "Opera", "Pop", "R_B", "Rap", "Rock", "Soundtrack", "Symphony", 
 		"Techno", "Trailer", "Vocal"};
-	
+	*/
 	public static void sync(Date lastSyncDate) {
 		timeThreshold = (int)((new Date().getTime() - lastSyncDate.getTime())/(24*60*60*1000));
 		System.out.println("time threshold:"+timeThreshold);
@@ -164,7 +165,9 @@ public class CellseaCategory {
 		numThreadAlive = 0;
 		
 		pool = Executors.newFixedThreadPool(3);
+		System.out.println("\n");
 		for(int i=0; i<CATEGORY.length; i++) {
+			System.out.println("Category:"+CATEGORY[i]);
 			new CellseaCategory(CATEGORY[i]).parser();
 		}
 		pool.shutdown();
