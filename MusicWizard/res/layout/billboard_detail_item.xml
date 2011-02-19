@@ -12,8 +12,9 @@
 		android:layout_alignParentLeft="true"
 		android:layout_centerVertical="true"
 		android:src="@drawable/music"
-		android:layout_width="40px"
-		android:layout_height="40px"/>
+		android:layout_marginTop="6dip"
+		android:layout_width="48px"
+		android:layout_height="48px"/>
 		
 <LinearLayout
 		android:orientation="vertical"

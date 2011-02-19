@@ -38,7 +38,7 @@
      		   android:background="@android:drawable/list_selector_background"
      		   android:layout_width="fill_parent"
      		   android:layout_height="wrap_content"
-     		   android:text="BillBoard"
+     		   android:text="Billboard"
      		   android:layout_margin="6.0dip"
      		   />
 
@@ -99,7 +99,7 @@
 		android:textColor="#eeeeee"
 		android:background="@android:drawable/list_selector_background"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:text="Please support this free app by rating it"
+		android:layout_height="wrap_content" android:text="Rate this free app!"
 		android:layout_margin="6.0dip"
 	/>
  		  		   
