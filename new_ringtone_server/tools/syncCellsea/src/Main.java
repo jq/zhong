@@ -106,6 +106,5 @@ public class Main {
 	
 	public static void main(String[] args) {
 		new Main();
-		//Utils.delAllFiles(Consts.NEW_DOWNLOAD_DIR);
 	}
 }

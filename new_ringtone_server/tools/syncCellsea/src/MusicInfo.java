@@ -68,6 +68,7 @@ public class MusicInfo {
 		mUUID = uuid;
 	}
 	
+	public MusicInfo() {}
 	public MusicInfo(int index, String category, String title, 
 			String artist, String format, String size) {
 		mIndex = index;

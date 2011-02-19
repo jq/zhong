@@ -202,9 +202,6 @@ public class CellseaThread extends Thread{
 		if(download()) {
 			mMusicInfo.setUUID(UUID.randomUUID().toString());
 			
-			// convert music format
-			// conver music format here
-			
 		if(UploadToS3.upload(mMusicInfo) && 
 			 	StoreRingInfo.storeMusicInfo(mMusicInfo)) {
 				System.out.println(mMusicInfo.getTitle()+" finish!");
