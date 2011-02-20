@@ -24,14 +24,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-
-
 public class BillBoardCate extends ListActivity implements OnItemClickListener {
   
   String[] billboardString = {"Hot 100 Singles","200 Albums","Hot RnB HipHop Songs Singles",
       "Country Songs Singles","Modern Rock Tracks Singles","Dance Club Play Singles",
       "Hot Rap Tracks Singles","Pop 100 Singles","Hot Mainstream Rock Tracks Singles",
-      "Hot Adult Top40 Tracks Singles"};
+      "Hot Adult Top40 Tracks Singles", "UK Billboard", "Japan Billboard"};
   
   String[] billboardUrl = {"http://music-chart.appspot.com/chart/billboard_hot_100_singles",
       "http://music-chart.appspot.com/chart/billboard_200_albums",
@@ -42,20 +40,23 @@ public class BillBoardCate extends ListActivity implements OnItemClickListener {
       "http://music-chart.appspot.com/chart/billboard_hot_rap_tracks_singles",
       "http://music-chart.appspot.com/chart/billboard_pop_100_singles",
       "http://music-chart.appspot.com/chart/billboard_hot_mainstream_rock_tracks_singles",
-      "http://music-chart.appspot.com/chart/billboard_hot_adult_top_40_tracks_singles",};
+      "http://music-chart.appspot.com/chart/billboard_hot_adult_top_40_tracks_singles",
+      "http://music-chart.appspot.com/chart/billboard_uk",
+      "http://music-chart.appspot.com/chart/billboard_japan"
+      };
   
-  private ArrayAdapter<String> mAdapter;
   private ArrayList<String> mItems = new ArrayList<String>();
   private CatAdapter mCatAdapter;
   
   @Override
   public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-//      requestWindowFeature(Window.FEATURE_NO_TITLE);
       setContentView(R.layout.billboard_cat_list);
       Utils.addAds(this);
       
-      for(int i = 0; i < 10; i++) {
+      int numBoards = Math.min(billboardString.length, billboardUrl.length);
+      
+      for (int i = 0; i < numBoards; i++) {
     	  mItems.add(billboardString[i]);
       }
       
@@ -65,10 +66,8 @@ public class BillBoardCate extends ListActivity implements OnItemClickListener {
       setListAdapter(mCatAdapter);
       list.setDividerHeight(1);
       list.setFocusable(true);
-      // list.setOnCreateContextMenuListener(this);
       list.setTextFilterEnabled(true);
       list.setOnItemClickListener(this);
-
   }
   
   @Override
@@ -82,7 +81,6 @@ private final class CatAdapter extends BaseAdapter {
 	private int mResource;
 	private LayoutInflater mInflater;
 
-	  
 	public CatAdapter(Context context, int resource) {
 		mResource = resource;
         mInflater = (LayoutInflater)context.getSystemService(
