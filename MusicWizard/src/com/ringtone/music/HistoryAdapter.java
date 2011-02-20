@@ -24,7 +24,7 @@ public class HistoryAdapter {
 	
 	public static synchronized HistoryAdapter getInstance(Context ctx){
 		if (mHistoryAdapter == null)
-			mHistoryAdapter= new HistoryAdapter(ctx);
+			mHistoryAdapter = new HistoryAdapter(ctx);
 		return mHistoryAdapter;
 	}
 	
