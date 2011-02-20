@@ -402,10 +402,6 @@ public class RingdroidEditActivity extends Activity implements
 			}
 			return true;
 		case CMD_RESET:
-            if (mWaveformView == null ||
-            	!mWaveformView.isInitialized()) {
-                return true;
-            }
 
 			resetPositions();
 			mOffsetGoal = 0;
@@ -923,6 +919,8 @@ public class RingdroidEditActivity extends Activity implements
 	}
 
 	private void resetPositions() {
+        if (mWaveformView == null || !mWaveformView.isInitialized())
+            return;
 		mStartPos = mWaveformView.secondsToPixels(0.0);
 		mEndPos = mWaveformView.secondsToPixels(15.0);
 	}
@@ -1630,7 +1628,7 @@ public class RingdroidEditActivity extends Activity implements
 
 	private OnClickListener mZoomInListener = new OnClickListener() {
 		public void onClick(View sender) {
-			if (!mWaveformView.isInitialized())
+			if (mWaveformView == null || !mWaveformView.isInitialized())
 				return;
 			mWaveformView.zoomIn();
 			mStartPos = mWaveformView.getStart();
@@ -1645,7 +1643,7 @@ public class RingdroidEditActivity extends Activity implements
 
 	private OnClickListener mZoomOutListener = new OnClickListener() {
 		public void onClick(View sender) {
-			if (!mWaveformView.isInitialized())
+			if (mWaveformView == null || !mWaveformView.isInitialized())
 				return;
 			mWaveformView.zoomOut();
 			mStartPos = mWaveformView.getStart();
