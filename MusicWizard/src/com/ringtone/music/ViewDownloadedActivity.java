@@ -132,24 +132,6 @@ public class ViewDownloadedActivity extends ListActivity {
                 		if (n == 0) {
                 			cr.delete(musics, MediaStore.MediaColumns.DATA + "=?", new String[] { mCurrentFile.getAbsolutePath() });
                 		}
-                		
-                		// Debug
-                		/*
-                		Cursor c = managedQuery(musics,
-                				                new String[] { MediaStore.MediaColumns.DATA },
-                				                null,
-                				                null,
-                				                null);
-                		
-            			System.out.println("+++++++++++++++++++++++");
-                		if (c.moveToFirst()) {
-                			System.out.println(c.getString(0));
-                			while (c.moveToNext()) {
-	                			System.out.println(c.getString(0));
-                			}
-                		}
-            			System.out.println("+++++++++++++++++++++++");
-            			*/
                 	}
                 }
             })
