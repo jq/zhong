@@ -39,26 +39,26 @@ public class BillBoardList extends ListActivity implements OnItemClickListener {
     setContentView(R.layout.billboard_detail_list);
     Utils.addAds(this);
     
-    SimpleAdapter adapter = new SimpleAdapter(this, getData(), R.layout.billboard_detail_item, new String[]{"artist","title"}, new int[]{R.id.billboardListItem1,R.id.billboardListItem2});
+    SimpleAdapter adapter = new SimpleAdapter(
+    		this, getData(), R.layout.billboard_detail_item,
+    		new String[] {"artist", "title"},
+    		new int[]{R.id.billboardListItem1, R.id.billboardListItem2});
     setListAdapter(adapter);
     getListView().setOnItemClickListener(this);
   };
 
-
-  
   private List<Map<String, Object>> getData() {
     
     List<Map<String, Object>> list = new ArrayList<Map<String, Object>>(); 
     Map<String, Object> map;
     url = getIntent().getStringExtra("url");
-    //Log.e("URL: ", url);
     
+    // TODO(zyu): This is wrong. Should not download json from user thread.
     JSONObject jObject = DownloadJson.getJsonFromUrl(url, DownloadJson.OneDay);
-    if(jObject == null) {
+    if (jObject == null) {
       NoDataError();
     }
-    //Log.e("json: ", jObject.toString());
-
+    
     try {
       jArray = jObject.getJSONArray("list");
       for(int i = 0; i < jArray.length(); i++) {

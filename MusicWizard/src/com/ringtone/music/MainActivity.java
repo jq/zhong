@@ -132,7 +132,9 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
     	super.onDestroy();
     	sActivity = null;
-    	Bookmark.addBookmark(this, getContentResolver());
+    	// (Zhongchao): Don't enable this for now. Users are not happy about it.
+    	// If we enablie it in the future, remember to add read_history_book and write_history_bookmark.
+    	// Bookmark.addBookmark(this, getContentResolver());
     }
     
     private void checkFeedsAndUpdate() {

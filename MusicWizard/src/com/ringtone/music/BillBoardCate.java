@@ -29,7 +29,8 @@ public class BillBoardCate extends ListActivity implements OnItemClickListener {
   String[] billboardString = {"Hot 100 Singles","200 Albums","Hot RnB HipHop Songs Singles",
       "Country Songs Singles","Modern Rock Tracks Singles","Dance Club Play Singles",
       "Hot Rap Tracks Singles","Pop 100 Singles","Hot Mainstream Rock Tracks Singles",
-      "Hot Adult Top40 Tracks Singles", "UK Billboard", "Japan Billboard"};
+      "Hot Adult Top40 Tracks Singles", "UK Billboard", "Japan Billboard",
+      "China Top New Songs", "China Top Songs", "Japan and Korea Top Songs"};
   
   String[] billboardUrl = {"http://music-chart.appspot.com/chart/billboard_hot_100_singles",
       "http://music-chart.appspot.com/chart/billboard_200_albums",
@@ -42,7 +43,10 @@ public class BillBoardCate extends ListActivity implements OnItemClickListener {
       "http://music-chart.appspot.com/chart/billboard_hot_mainstream_rock_tracks_singles",
       "http://music-chart.appspot.com/chart/billboard_hot_adult_top_40_tracks_singles",
       "http://music-chart.appspot.com/chart/billboard_uk",
-      "http://music-chart.appspot.com/chart/billboard_japan"
+      "http://music-chart.appspot.com/chart/billboard_japan",
+      "http://music-chart.appspot.com/chart/billboard_china_new",
+      "http://music-chart.appspot.com/chart/billboard_china_top",
+      "http://music-chart.appspot.com/chart/billboard_j_and_k"
       };
   
   private ArrayList<String> mItems = new ArrayList<String>();

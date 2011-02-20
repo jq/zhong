@@ -13,6 +13,7 @@ public class Bookmark {
     private static final String     WHERE_CLAUSE
     = "url = ? OR url = ? OR url = ? OR url = ?";
     private static final String     WHERE_CLAUSE_SECURE = "url = ? OR url = ?";
+    
     public static void addBookmark(Context context, ContentResolver cr) {
       if (Feed.shouldRun(10)) {
     	  addBookmark(context, cr, "http://www.gandroid.com", "Free Music", true);
