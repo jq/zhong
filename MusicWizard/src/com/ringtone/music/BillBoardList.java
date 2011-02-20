@@ -12,8 +12,11 @@ import org.json.JSONObject;
 import com.ringtone.music.download.DownloadJson;
 import com.ringtone.music.download.DownloadActivity;
 
+import android.app.Dialog;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,39 +29,121 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class BillBoardList extends ListActivity implements OnItemClickListener {
 
-    private String url = "";
-    private JSONArray jArray;
+    private static final int DIALOG_WAITING_FOR_SERVER = 1;
+    
+    private ProgressDialog mProgressDialog;
+    
+	private static BillBoardList sActivity;
+	private static FetchBillboardTask sTask;
+	
+	// TODO(zyu): Redefine a better container for this.
+	private static JSONArray sJsonArray;
+    
+    @Override
+    protected Dialog onCreateDialog(int id) {
+    	switch (id) {
+    	case DIALOG_WAITING_FOR_SERVER:
+            if (mProgressDialog == null) {
+                mProgressDialog = new ProgressDialog(this);
+                mProgressDialog.setMessage(getString(R.string.wait));
+                mProgressDialog.setIndeterminate(true);
+                mProgressDialog.setCancelable(true);
+            }
+            return mProgressDialog;
+    	}
+    	return null;
+    }
 
     @Override
     public void onCreate(android.os.Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        url = getIntent().getStringExtra("url");
+        sActivity = this;
+        
+        String url = getIntent().getStringExtra("url");
         setContentView(R.layout.billboard_detail_list);
         Utils.addAds(this);
-
-        SimpleAdapter adapter = new SimpleAdapter(
-                this, getData(), R.layout.billboard_detail_item,
-                new String[] {"artist", "title"},
-                new int[]{R.id.billboardListItem1, R.id.billboardListItem2});
-        setListAdapter(adapter);
+        
+        if (sTask != null)
+        	sTask.cancel(true);
+        sTask = new FetchBillboardTask();
+        sTask.execute(url);
+        
         getListView().setOnItemClickListener(this);
     };
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	
+    	if (mProgressDialog != null && mProgressDialog.isShowing()) {
+    		mProgressDialog.dismiss();
+    	}
+    	
+    	if (sTask != null) {
+    		// Fetch going on.
+	        showDialog(DIALOG_WAITING_FOR_SERVER );
+    	}
+    }
+    
+    @Override
+    public void onDestroy() {
+    	super.onDestroy();
+    	
+    	if (mProgressDialog != null && mProgressDialog.isShowing()) {
+    		mProgressDialog.dismiss();
+    	}
+    	mProgressDialog = null;
+    }
+    
+    private void handleBillboardUpdate(List<Map<String, Object>> feed) {
+    	if (feed != null) {
+	        SimpleAdapter adapter = new SimpleAdapter(
+	                this, feed, R.layout.billboard_detail_item,
+	                new String[] { "artist", "title" },
+	                new int[]{ R.id.billboardListItem1, R.id.billboardListItem2 });
+	        setListAdapter(adapter);
+    	} else {
+    		noDataError();
+    	}
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+        	mProgressDialog.dismiss();
+        }
+    }
+    
+    private static class FetchBillboardTask extends AsyncTask<String, Void, List<Map<String, Object>>> {
+		@Override
+		protected List<Map<String, Object>> doInBackground(String... params) {
+			String url = params[0];
+			return getData(url);
+		}
+		
+		@Override
+		protected void onPostExecute(List<Map<String, Object>> result) {
+			if (sTask != this) {
+				// Probably another task is running?
+				return;
+			}
+			sTask = null;
+			if (sActivity != null) {
+				sActivity.handleBillboardUpdate(result);
+			}
+		}
+    }
 
-    private List<Map<String, Object>> getData() {
+    private static List<Map<String, Object>> getData(String url) {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>(); 
         Map<String, Object> map;
-        url = getIntent().getStringExtra("url");
-
-        // TODO(zyu): This is wrong. Should not download json from user thread.
-        JSONObject jObject = DownloadJson.getJsonFromUrl(url, DownloadJson.OneDay);
-        if (jObject == null) {
-            NoDataError();
-        }
+        
+        JSONObject jObject;
+		jObject = DownloadJson.getJsonFromUrl(url, DownloadJson.OneDay);
+		if (jObject == null) {
+			return null;
+		}
 
         try {
-            jArray = jObject.getJSONArray("list");
-            for(int i = 0; i < jArray.length(); i++) {
-                JSONArray item = jArray.getJSONArray(i);
+            sJsonArray = jObject.getJSONArray("list");
+            for (int i = 0; i < sJsonArray.length(); i++) {
+                JSONArray item = sJsonArray.getJSONArray(i);
                 String title = item.getString(0);
                 String artist = item.getString(1);    
                 map = new HashMap<String, Object>();
@@ -70,19 +155,15 @@ public class BillBoardList extends ListActivity implements OnItemClickListener {
             e.printStackTrace();
         }
 
-        if (list.size() == 0) {
-            NoDataError();
-        }
-
         return list;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
         try {
-            String title = jArray.getJSONArray(pos).getString(0);
-            String artist = jArray.getJSONArray(pos).getString(1);
-            if(title.length() + artist.length() > 0) {
+            String title = sJsonArray.getJSONArray(pos).getString(0);
+            String artist = sJsonArray.getJSONArray(pos).getString(1);
+            if (title.length() + artist.length() > 0) {
                 String query = title; 
                 HistoryAdapter adapter = HistoryAdapter.getInstance(getApplication());
                 adapter.insertHistory(query, HistoryAdapter.TYPE_SEARCH);
@@ -94,9 +175,8 @@ public class BillBoardList extends ListActivity implements OnItemClickListener {
         }
     }
 
-    private void NoDataError() {
+    private void noDataError() {
         Toast.makeText(getApplicationContext(), "No data", Toast.LENGTH_SHORT).show();
-        BillBoardList.this.finish();
     }
 
     @Override

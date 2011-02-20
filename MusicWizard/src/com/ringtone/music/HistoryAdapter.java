@@ -68,11 +68,11 @@ public class HistoryAdapter {
 		mOpenHelper = new SearchDBHelper(ctx, "history.db");
 	};
 	
-	public void close() {
+	public synchronized void close() {
 		mOpenHelper.close();
 	}
 	
-	public Cursor getHistoryByType(String keyword, int type){
+	public synchronized Cursor getHistoryByType(String keyword, int type){
 		if (keyword != null) {
 			keyword = keyword.toLowerCase();
 			keyword = keyword.replace("'", "''");
@@ -85,14 +85,14 @@ public class HistoryAdapter {
 				null, "count DESC");
 	}
 	
-	public Cursor getHistoryByType(int type){
+	public synchronized Cursor getHistoryByType(int type){
 		String selection = "type = " + type;
 		SQLiteDatabase db = mOpenHelper.getReadableDatabase();
 		return db.query(TABLE_HISTORY, PROJECTION_KEY, selection, null, null,
 				null, "count DESC");
 	}
 	
-	public void insertHistory(String keyword, int type){
+	public synchronized void insertHistory(String keyword, int type){
 		String newKeyword;
 		if (keyword != null) {
 			keyword = keyword.toLowerCase();
@@ -114,9 +114,13 @@ public class HistoryAdapter {
 		} else {
 			db.execSQL("UPDATE " + TABLE_HISTORY + " SET count=count+1 WHERE " + selection);
 		}
+		
+		if (c != null) {
+			c.close();
+		}
 	}
 	
-	public void clearAll() {
+	public synchronized void clearAll() {
 		SQLiteDatabase db = mOpenHelper.getWritableDatabase();
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
 		db.execSQL(SQL_CREATE_TABLE);

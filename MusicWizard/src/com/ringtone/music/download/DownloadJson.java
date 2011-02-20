@@ -35,6 +35,7 @@ public class DownloadJson {
         if (newDownload) {
             data = download(url);
         }
+        
         if (data != null) {
             try {
                 JSONObject obj;

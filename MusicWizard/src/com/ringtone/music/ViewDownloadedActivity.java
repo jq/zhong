@@ -13,13 +13,10 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,8 +47,6 @@ public class ViewDownloadedActivity extends ListActivity {
 	private TextView mMessage;
 	
 	private static File BASE_DIR = new File("/sdcard/music_wizard/mp3");
-	
-	private MediaScannerHelper mScanner = new MediaScannerHelper();
 	
 	public static void listFiles() {
 		if (sTask != null)

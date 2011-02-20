@@ -148,8 +148,6 @@ public class RingdroidEditActivity extends Activity implements
 	private long mWaveformTouchStartMsec;
 	private float mDensity;
 
-    private boolean mGuiLoaded = false;
-
 	private static final int kMarkerLeftInset = 46;
 	private static final int kMarkerRightInset = 48;
 	private static final int kMarkerTopOffset = 10;
@@ -404,7 +402,8 @@ public class RingdroidEditActivity extends Activity implements
 			}
 			return true;
 		case CMD_RESET:
-            if (!mGuiLoaded) {
+            if (mWaveformView == null ||
+            	!mWaveformView.isInitialized()) {
                 return true;
             }
 
@@ -667,8 +666,6 @@ public class RingdroidEditActivity extends Activity implements
 		mEndMarker.setFocusableInTouchMode(true);
 
 		updateDisplay();
-
-        mGuiLoaded = true;
 	}
 
 	private void loadFromFile() {
@@ -1633,6 +1630,8 @@ public class RingdroidEditActivity extends Activity implements
 
 	private OnClickListener mZoomInListener = new OnClickListener() {
 		public void onClick(View sender) {
+			if (!mWaveformView.isInitialized())
+				return;
 			mWaveformView.zoomIn();
 			mStartPos = mWaveformView.getStart();
 			mEndPos = mWaveformView.getEnd();
@@ -1646,6 +1645,8 @@ public class RingdroidEditActivity extends Activity implements
 
 	private OnClickListener mZoomOutListener = new OnClickListener() {
 		public void onClick(View sender) {
+			if (!mWaveformView.isInitialized())
+				return;
 			mWaveformView.zoomOut();
 			mStartPos = mWaveformView.getStart();
 			mEndPos = mWaveformView.getEnd();
