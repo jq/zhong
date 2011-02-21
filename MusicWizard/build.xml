@@ -222,6 +222,43 @@
                 		<fileset refid="main.jars"/>
                 	</classpath>
 			</javac>
+      
+      <!--
+        	<jar basedir="temp/bin" destfile="temp.jar"/> 
+        	<java jar="${apk.tools}\proguard\lib\proguard.jar" fork="true" failonerror="true">
+        		<jvmarg value="-Dmaximum.inlined.code.length=32"/>  
+        		        <arg value="-injars temp.jar"/>  
+        		        <arg value="-outjars optimized.jar"/>  
+        		        <arg value="-libraryjars ${android-home}/platforms/android-7/android.jar"/> 
+        				<arg value="-libraryjars lib"/> 
+        		        <arg value="-optimizationpasses 5"/>  
+        				<arg value="-dontusemixedcaseclassnames"/>  
+        				<arg value="-dontskipnonpubliclibraryclasses"/>
+        				<arg value="-dontpreverify"/>
+        				<arg value="-verbose"/>
+        				<arg value="-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*"/>
+        		
+        		        <arg value="-keep public class * extends android.app.Activity"/>  
+        				<arg value="-keep public class * extends android.app.Application"/>
+        				<arg value="-keep public class * extends android.app.Service"/>
+        		        <arg value="-keep public class * extends android.content.ContentProvider"/> 
+        				<arg value="-keep public class com.android.vending.licensing.ILicensingService"/> 
+        		
+        				<arg value="-keepclasseswithmembernames  class * { native &lt;methods&gt;; }"/>
+        				<arg value="-keepclasseswithmembernames class * { public &lt;init&gt;(android.content.Context, android.util.AttributeSet); }"/>
+        				<arg value="-keepclasseswithmembernames class * { public &lt;init&gt;(android.content.Context, android.util.AttributeSet, int);}"/>
+        				<arg value="-keepclassmembers enum * { public static **[] values(); public static ** valueOf(java.lang.String);} "/>
+        				<arg value="-keep class * implements android.os.Parcelable { public static final android.os.Parcelable$Creator *; } "/>
+
+        	</java>
+        	
+        	<delete file="temp.jar"/>
+        	<delete dir="temp/bin"/>  
+        	    <mkdir dir="temp/bin"/>  
+        	    <unzip src="optimized.jar" dest="temp/bin"/>  
+        	    <delete file="optimized.jar"/> 
+    -->
+        	
         </target>
 
         <target name="dex" description="Convert the .class files into .dex files.">
