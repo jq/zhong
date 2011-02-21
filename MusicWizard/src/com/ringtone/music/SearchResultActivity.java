@@ -80,6 +80,9 @@ public class SearchResultActivity extends ListActivity {
 	private ProgressDialog mStreaming;
 	private static String sStreamingTitle;
 	
+    private int mLastListPosCourse = -1;
+    private int mLastListPosFine = -1;
+	
 	private static volatile MediaPlayer sPlayer;
 	private static Thread sPreviewThread;
 	private ServiceConnection mConnection = new ServiceConnection() {
@@ -190,6 +193,20 @@ public class SearchResultActivity extends ListActivity {
 		}
 		return null;
 	}
+	
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+        ListView lv = getListView();
+        if (lv != null) {
+            mLastListPosCourse = lv.getFirstVisiblePosition();
+            View cv = lv.getChildAt(0);
+            if (cv != null) {
+                mLastListPosFine = cv.getTop();
+            }
+        }
+	}
 
     
 	@Override
@@ -257,6 +274,12 @@ public class SearchResultActivity extends ListActivity {
 		if (sPlayer != null) {
 			showDialog(DIALOG_MUSIC_STREAMING);
 		}
+		
+        // restore previous position
+        if (mLastListPosCourse >= 0) {
+            getListView().setSelectionFromTop(mLastListPosCourse, mLastListPosFine);
+            mLastListPosCourse = -1;
+        }
 	}
 
 	public void notifyDataSetInvalidated() {
