@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="SpawnRingdroid" default="package-apks" xmlns:android="antlib:com.googlecode.autoandroid.ant">
+<project name="SpawnRingdroid" default="package-apks"
+  xmlns:android="antlib:com.googlecode.autoandroid.ant">
 
   <!-- Requires ant 1.7 or better -->
 
   <property environment="env" />
-  <property name="apk.sdk.home" value="${env.ANDROID_SDK}" />
-  <property name="apk.tools" value="${apk.sdk.home}/tools/" />
-  <property name="platform.tools" value="${apk.sdk.home}/platform-tools/" />
+  <property name="sdk.dir" value="${env.ANDROID_SDK}" />
+  <property name="apk.tools" value="${sdk.dir}/tools/" />
+  <property name="platform.tools" value="${sdk.dir}/platform-tools/" />
 
   <taskdef uri="antlib:com.googlecode.autoandroid.ant" classpath="fixed-android-ant.jar"/>
 
@@ -333,11 +334,10 @@
       <flattenmapper />
     </signjar>
 
-
-
     <sleep  seconds="2"/>
 
   </target>
+
   <target name="package-apks" depends="clean-apks, init-all" description="Package applications.">
 
     <antcall target="package-apk">
