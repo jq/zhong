@@ -12,10 +12,10 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -47,6 +47,8 @@ public class SogouMusicSearcher implements IMusicSearcher {
 	
 	private volatile Handler mHandler = new Handler();
 	private static int sNumQueries = 0;
+	
+	private WebView mWeb = null;
 	
 	public SogouMusicSearcher() {
 	}
@@ -108,8 +110,8 @@ public class SogouMusicSearcher implements IMusicSearcher {
 		Signal mSignal;
 		HtmlData mData;
 		public MyJavaScriptInterface(Signal s, HtmlData data) {
-			this.mSignal = s;
-			this.mData = data;
+			mSignal = s;
+			mData = data;
 		}
 		
 	    @SuppressWarnings("unused")  
@@ -118,6 +120,10 @@ public class SogouMusicSearcher implements IMusicSearcher {
 	    	mSignal.ready = true;
 	    	synchronized(mSignal) {
 	    		mSignal.notify();
+	    	}
+	    	if (mWeb != null) {
+		    	mWeb.destroy();
+		    	mWeb = null;
 	    	}
 	    }  
 	}  
@@ -136,13 +142,20 @@ public class SogouMusicSearcher implements IMusicSearcher {
 		mHandler.post(new Runnable() {
 			@Override
 			public void run() {
-				WebView web = new WebView(context);
-				web.getSettings().setJavaScriptEnabled(true);
-			    web.getSettings().setLoadsImagesAutomatically(false);
-		        web.getSettings().setBlockNetworkImage(true);
-				web.addJavascriptInterface(new MyJavaScriptInterface(s, data), "HTMLOUT");
-				web.setWebViewClient(new FetchSearchPage());
-				web.loadUrl(url);
+				if (mWeb != null) {
+					mWeb.stopLoading();
+					mWeb.destroy();
+				}
+				mWeb = new WebView(context);
+				
+				WebSettings settings = mWeb.getSettings();
+				settings.setJavaScriptEnabled(true);
+			    settings.setLoadsImagesAutomatically(false);
+		        settings.setBlockNetworkImage(true);
+				mWeb.addJavascriptInterface(
+						new MyJavaScriptInterface(s, data), "HTMLOUT");
+				mWeb.setWebViewClient(new FetchSearchPage());
+				mWeb.loadUrl(url);
 			}
 		});
 		
