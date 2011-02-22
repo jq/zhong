@@ -67,35 +67,35 @@ public class SogouMusicSearcher implements IMusicSearcher {
 	}
 	
 	
-	private ArrayList<MusicInfo> getMusicInfoListFromHtml(String html) throws UnsupportedEncodingException {
-			Utils.D("+++++++++++++++");
-			Utils.D(html);
-			Utils.D("+++++++++++++++");
-			
-			ArrayList<MusicInfo> musicList = new ArrayList<MusicInfo>();
-			Matcher matcherRow = PATTERN_ROW.matcher(html);
-			while (matcherRow.find()) {
-				Matcher m = PATTERN.matcher(matcherRow.group(1));
-				while (m.find()) {
-					MusicInfo info = new MusicInfo();
-					info.setTitle(StringEscapeUtils.unescapeHtml(m.group(1).trim()));
-					info.setArtist(StringEscapeUtils.unescapeHtml(URLDecoder.decode(m.group(2), "gb2312").trim()));
-					info.setAlbum(StringEscapeUtils.unescapeHtml(m.group(3).trim()));
-					info.addUrl(SOGOU_MP3 + m.group(4).trim());
-					// TODO(zyu): Fix lyrics.
-//					info.setLyricUrl(SOGOU_MP3 + m.group(5).trim());
-					String displayFileSize = m.group(6).trim();
-					if (displayFileSize.equals("未知"))
-						displayFileSize = "Unknown size";
-					info.setDisplayFileSize(displayFileSize);
-					info.setType(m.group(7).trim());
-					
-					musicList.add(info);
-				}
-			}
-			Utils.D("Exit getMusicInfoListFromHtml");
-			return musicList;
-	}
+    private ArrayList<MusicInfo> getMusicInfoListFromHtml(String html) throws UnsupportedEncodingException {
+        Utils.D("+++++++++++++++");
+        Utils.printD(html);
+        Utils.D("+++++++++++++++");
+
+        ArrayList<MusicInfo> musicList = new ArrayList<MusicInfo>();
+        Matcher matcherRow = PATTERN_ROW.matcher(html);
+        while (matcherRow.find()) {
+            Matcher m = PATTERN.matcher(matcherRow.group(1));
+            while (m.find()) {
+                MusicInfo info = new MusicInfo();
+                info.setTitle(StringEscapeUtils.unescapeHtml(m.group(1).trim()));
+                info.setArtist(StringEscapeUtils.unescapeHtml(URLDecoder.decode(m.group(2), "gb2312").trim()));
+                info.setAlbum(StringEscapeUtils.unescapeHtml(m.group(3).trim()));
+                info.addUrl(SOGOU_MP3 + m.group(4).trim());
+                // TODO(zyu): Fix lyrics.
+                //					info.setLyricUrl(SOGOU_MP3 + m.group(5).trim());
+                String displayFileSize = m.group(6).trim();
+                if (displayFileSize.equals("未知"))
+                    displayFileSize = "Unknown size";
+                info.setDisplayFileSize(displayFileSize);
+                info.setType(m.group(7).trim());
+
+                musicList.add(info);
+            }
+        }
+        Utils.D("Exit getMusicInfoListFromHtml");
+        return musicList;
+    }
 	
 	// Used to signal between threads.
 	class Signal {

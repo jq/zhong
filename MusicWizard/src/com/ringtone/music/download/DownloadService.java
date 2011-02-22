@@ -117,11 +117,28 @@ public class DownloadService extends Service {
 			return;
 		}
 		
-		synchronized(mDownloads) {
+		synchronized (mDownloads) {
 			// Check if the request has already been added.
+			// But if the previous download failed. We replace the old one with the new one.
+			DownloadInfo failed = null;
 			for (DownloadInfo d : mDownloads) {
-				if (d.getTarget().equals(info.getTarget()))
-					return;
+				if (d.getTarget().equals(info.getTarget())) {
+					if (d.getStatus() == DownloadInfo.STATUS_FAILED) {
+						failed = d;
+						break;
+					} else {
+						return;
+					}
+				}
+			}
+			
+			if (failed != null) {
+	            int index = mDownloads.indexOf(failed);
+	            if (index != -1) {
+		            mDownloads.remove(index);
+	            } else {
+	            	// What happened?
+	            }
 			}
 			
 			mDownloads.add(info);
@@ -143,7 +160,7 @@ public class DownloadService extends Service {
         if (info == null)
         	return;
         
-        synchronized(mDownloads) {
+        synchronized (mDownloads) {
             int index = mDownloads.indexOf(info);
             if (index == -1) {
             	return;
@@ -157,7 +174,7 @@ public class DownloadService extends Service {
 	public void clearFinished() {
 		ArrayList<DownloadInfo> downloads = new ArrayList<DownloadInfo>();
 		boolean changed = false;
-		synchronized(mDownloads) {
+		synchronized (mDownloads) {
 			for (DownloadInfo d : mDownloads) {
 				if (d.getStatus() != DownloadInfo.STATUS_FINISHED) {
 					downloads.add(d);
@@ -209,7 +226,7 @@ public class DownloadService extends Service {
 				
 				if (connection.getResponseCode() < 200 ||
 					connection.getResponseCode() >= 300) {
-					synchronized(mInfo) {
+					synchronized (mInfo) {
 						mInfo.setStatus(DownloadInfo.STATUS_FAILED);
 					}
 					mInfo.setError("Connection error (" +
