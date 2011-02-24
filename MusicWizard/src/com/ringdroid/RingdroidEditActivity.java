@@ -255,6 +255,12 @@ public class RingdroidEditActivity extends Activity implements
 			mPlayer.stop();
 		}
 		mPlayer = null;
+		
+		if (mProgressDialog != null && mProgressDialog.isShowing()) {
+			mProgressDialog.dismiss();
+		}
+		
+		mProgressDialog = null;
 
 		// if (mRecordingFilename != null) {
 		// try {
@@ -701,8 +707,9 @@ public class RingdroidEditActivity extends Activity implements
 			public boolean reportProgress(double fractionComplete) {
 				long now = System.currentTimeMillis();
 				if (now - mLoadingLastUpdateTime > 100) {
-					mProgressDialog
-							.setProgress((int) (mProgressDialog.getMax() * fractionComplete));
+					if (mProgressDialog != null) {
+						mProgressDialog.setProgress((int) (mProgressDialog.getMax() * fractionComplete));
+					}
 					mLoadingLastUpdateTime = now;
 				}
 				return mLoadingKeepGoing;
@@ -758,7 +765,8 @@ public class RingdroidEditActivity extends Activity implements
 						final String finalErr = err;
 						Runnable runnable = new Runnable() {
 							public void run() {
-                                mProgressDialog.dismiss();
+								if (mProgressDialog != null && mProgressDialog.isShowing())
+	                                mProgressDialog.dismiss();
 								handleFatalError("UnsupportedExtension",
 										finalErr, new Exception());
 							}
@@ -771,7 +779,8 @@ public class RingdroidEditActivity extends Activity implements
 
 					Runnable runnable = new Runnable() {
 						public void run() {
-							mProgressDialog.dismiss();
+							if (mProgressDialog != null && mProgressDialog.isShowing())
+								mProgressDialog.dismiss();
 							mInfo.setText(e.toString());
 							handleFatalError("ReadError", getResources()
 									.getText(R.string.read_error), e);
@@ -784,7 +793,8 @@ public class RingdroidEditActivity extends Activity implements
 
 					@Override
 					public void run() {
-						mProgressDialog.dismiss();
+						if (mProgressDialog != null && mProgressDialog.isShowing())
+							mProgressDialog.dismiss();
 					}
 					
 				});
@@ -1206,7 +1216,8 @@ public class RingdroidEditActivity extends Activity implements
 					};
 					CheapSoundFile.create(outPath, listener);
 				} catch (Exception e) {
-					mProgressDialog.dismiss();
+					if (mProgressDialog != null && mProgressDialog.isShowing())
+						mProgressDialog.dismiss();
 
 					CharSequence errorMessage;
 					if (e.getMessage()!=null && e.getMessage().equals("No space left on device")) {
@@ -1229,8 +1240,16 @@ public class RingdroidEditActivity extends Activity implements
 					mHandler.post(runnable);
 					return;
 				}
+				
+				mHandler.post(new Runnable() {
 
-				mProgressDialog.dismiss();
+					@Override
+					public void run() {
+						if (mProgressDialog != null && mProgressDialog.isShowing())
+							mProgressDialog.dismiss();
+					}
+					
+				});
 
 				Runnable runnable = new Runnable() {
 					public void run() {
