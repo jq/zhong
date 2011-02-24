@@ -21,6 +21,10 @@
     <os family="windows" />  
   </condition> 
 
+  <condition property="zipalign" value="${apk.tools}/zipalign.exe" else="${apk.tools}/zipalign">
+    <os family="windows" />  
+  </condition>
+
   <!-- Dependencies -->
 
   <fileset dir="lib" id="main.jars">
@@ -333,6 +337,14 @@
       </path>
       <flattenmapper />
     </signjar>
+
+    <exec executable="${zipalign}" failonerror="true">
+      <arg value="-v" />
+      <arg value="-f" />
+      <arg value="4" />
+      <arg value="targets/signed/${package_name}.apk" />
+      <arg value="targets/zipaligned/${package_name}.apk" />
+    </exec>
 
     <sleep  seconds="2"/>
 
