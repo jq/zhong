@@ -2,13 +2,13 @@ package com.ringtone.music.download;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -17,12 +17,13 @@ import com.ringtone.music.MediaScannerHelper;
 import com.ringtone.music.Utils;
 
 
+import android.app.Activity;
 import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
-import android.media.MediaScannerConnection;
-import android.media.MediaScannerConnection.MediaScannerConnectionClient;
-import android.net.Uri;
+import android.content.ServiceConnection;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -61,7 +62,7 @@ public class DownloadService extends Service {
         if (observer == null) {
             throw new IllegalArgumentException("The observer is null.");
         }
-        synchronized(mObservers) {
+        synchronized (mObservers) {
             if (mObservers.contains(observer)) {
                 throw new IllegalStateException("Observer " + observer + " is already registered.");
             }
@@ -73,7 +74,7 @@ public class DownloadService extends Service {
         if (observer == null) {
             throw new IllegalArgumentException("The observer is null.");
         }
-        synchronized(mObservers) {
+        synchronized (mObservers) {
             int index = mObservers.indexOf(observer);
             if (index == -1) {
                 throw new IllegalStateException("Observer " + observer + " was not registered.");
@@ -197,6 +198,16 @@ public class DownloadService extends Service {
 		return mBinder;
 	}
 	
+	@Override
+	public boolean onUnbind(Intent intent) {
+        if (mDownloads.size() > 0) {
+        	return false;
+        }
+        
+        stopSelf();
+        return false;
+	}
+	
 	private final IBinder mBinder = new LocalBinder();
 	
 	private class Task implements Runnable {
@@ -207,7 +218,7 @@ public class DownloadService extends Service {
 				return;
 			
 			URL url;
-			synchronized(mInfo) {
+			synchronized (mInfo) {
 				mInfo.setThread(Thread.currentThread());
 				url = new URL(mInfo.getSource());
 			}
@@ -342,4 +353,75 @@ public class DownloadService extends Service {
 			}
 		}
 	}
+	
+	// Some helper routines.
+    public static DownloadService sService = null;
+    private static HashMap<Context, ServiceBinder> sConnectionMap = new HashMap<Context, ServiceBinder>();
+
+    public static class ServiceToken {
+        ContextWrapper mWrappedContext;
+        ServiceToken(ContextWrapper context) {
+            mWrappedContext = context;
+        }
+    }
+
+    public static ServiceToken bindToService(Activity context) {
+        return bindToService(context, null);
+    }
+
+    public static ServiceToken bindToService(Activity context, ServiceConnection callback) {
+        Activity realActivity = context.getParent();
+        if (realActivity == null) {
+            realActivity = context;
+        }
+        ContextWrapper cw = new ContextWrapper(realActivity);
+        cw.startService(new Intent(cw, DownloadService.class));
+        ServiceBinder sb = new ServiceBinder(callback);
+        if (cw.bindService((new Intent()).setClass(cw, DownloadService.class), sb, 0)) {
+            sConnectionMap.put(cw, sb);
+            return new ServiceToken(cw);
+        }
+        Log.e("Music", "Failed to bind to service");
+        return null;
+    }
+
+    public static void unbindFromService(ServiceToken token) {
+        if (token == null) {
+            Log.e("MusicUtils", "Trying to unbind with null token");
+            return;
+        }
+        ContextWrapper cw = token.mWrappedContext;
+        ServiceBinder sb = sConnectionMap.remove(cw);
+        if (sb == null) {
+            Log.e("MusicUtils", "Trying to unbind for unknown Context");
+            return;
+        }
+        cw.unbindService(sb);
+        if (sConnectionMap.isEmpty()) {
+            // presumably there is nobody interested in the service at this point,
+            // so don't hang on to the ServiceConnection
+            sService = null;
+        }
+    }
+
+    private static class ServiceBinder implements ServiceConnection {
+        ServiceConnection mCallback;
+        ServiceBinder(ServiceConnection callback) {
+            mCallback = callback;
+        }
+        
+        public void onServiceConnected(ComponentName className, android.os.IBinder service) {
+			sService = ((DownloadService.LocalBinder) service).getService();
+            if (mCallback != null) {
+                mCallback.onServiceConnected(className, service);
+            }
+        }
+        
+        public void onServiceDisconnected(ComponentName className) {
+            if (mCallback != null) {
+                mCallback.onServiceDisconnected(className);
+            }
+            sService = null;
+        }
+    }
 }

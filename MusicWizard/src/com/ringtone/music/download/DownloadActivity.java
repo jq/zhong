@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.admob.android.ads.AdView;
 import com.ringtone.music.R;
 import com.ringtone.music.Utils;
+import com.ringtone.music.download.DownloadService.ServiceToken;
 
 import android.app.ListActivity;
 import android.content.ComponentName;
@@ -37,7 +38,6 @@ import android.widget.AdapterView.OnItemClickListener;
 public class DownloadActivity extends ListActivity {
 	
 	private ArrayList<DownloadInfo> mData;
-    private DownloadService mDownloadService;
     
 	private static final int MENU_CLEAR = Menu.FIRST;
 	private static final int MENU_PLAY = Menu.FIRST + 1;
@@ -47,6 +47,7 @@ public class DownloadActivity extends ListActivity {
     
     private DownloadListAdapter mAdapter;
     private Handler mHandler = new Handler();
+    private ServiceToken mToken;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,15 +55,15 @@ public class DownloadActivity extends ListActivity {
 	
 		setContentView(R.layout.download);
 		Utils.addAds(this);
-		bindService(new Intent(this, DownloadService.class),
-				mConnection, Context.BIND_AUTO_CREATE);
+		
+        mToken = DownloadService.bindToService(this, mConnection);
 		
 		Button clearFinishedButton = (Button)findViewById(R.id.clear_finished_button);
 		clearFinishedButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (mDownloadService != null) {
-					mDownloadService.clearFinished();
+				if (DownloadService.sService != null) {
+					DownloadService.sService.clearFinished();
 				}
 			}
 		});
@@ -146,8 +147,8 @@ public class DownloadActivity extends ListActivity {
 			mHandler.post(new Runnable() {
 				@Override
 				public void run() {
-					if (mDownloadService != null) {
-						mData = mDownloadService.getDownloadInfos();
+					if (DownloadService.sService != null) {
+						mData = DownloadService.sService.getDownloadInfos();
 						// Utils.D("observer onChange: " + mData.size());
 						mAdapter.notifyDataSetChanged();
 					}
@@ -158,20 +159,19 @@ public class DownloadActivity extends ListActivity {
 	
 	@Override
 	protected void onDestroy() {
+        DownloadService.unbindFromService(mToken);
 		super.onDestroy();
-		if (mDownloadService != null)
-			mDownloadService.unregisterObserver(mObserver);
-		unbindService(mConnection);
 	}
 	
     private ServiceConnection mConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName className, IBinder service) {
-            mDownloadService = ((DownloadService.LocalBinder)service).getService();
-			mDownloadService.registerDownloadObserver(mObserver);
-			mAdapter = new DownloadListAdapter(DownloadActivity.this, R.layout.download_item);
-			setListAdapter(mAdapter);
-			mData = mDownloadService.getDownloadInfos();
-			mAdapter.notifyDataSetChanged();
+        	if (DownloadService.sService != null) {
+				DownloadService.sService.registerDownloadObserver(mObserver);
+				mAdapter = new DownloadListAdapter(DownloadActivity.this, R.layout.download_item);
+				setListAdapter(mAdapter);
+				mData = DownloadService.sService.getDownloadInfos();
+				mAdapter.notifyDataSetChanged();
+        	}
         }
 
         public void onServiceDisconnected(ComponentName className) {
@@ -179,8 +179,10 @@ public class DownloadActivity extends ListActivity {
             // unexpectedly disconnected -- that is, its process crashed.
             // Because it is running in our same process, we should never
             // see this happen.
-            mDownloadService = null;
-        }
+			if (DownloadService.sService != null) {
+				DownloadService.sService.unregisterObserver(mObserver);
+	        }
+	    }
     };
     
     
@@ -207,8 +209,8 @@ public class DownloadActivity extends ListActivity {
 		DownloadInfo d = mData.get(menuInfo.position);
 		switch (item.getItemId()) {
 		case MENU_CLEAR: {
-			if (mDownloadService != null)
-				mDownloadService.removeDownload(d);
+			if (DownloadService.sService != null)
+				DownloadService.sService.removeDownload(d);
 			break;
 		}
 		case MENU_PLAY: {
@@ -224,18 +226,18 @@ public class DownloadActivity extends ListActivity {
 			break;
 		}
 		case MENU_RESUME: {
-			if (mDownloadService != null) {
-				synchronized(d) {
+			if (DownloadService.sService != null) {
+				synchronized (d) {
 					d.setStatus(DownloadInfo.STATUS_PENDING);
 				}
 				mAdapter.notifyDataSetChanged();
-				mDownloadService.resumeDownload(d);
+				DownloadService.sService.resumeDownload(d);
 			}
 			break;
 		}
 		case MENU_DELETE: {
-			if (mDownloadService != null) {
-				mDownloadService.removeDownload(d);
+			if (DownloadService.sService != null) {
+				DownloadService.sService.removeDownload(d);
 				File file = new File(d.getTarget());
 				if (file.exists()) {
 					file.delete();

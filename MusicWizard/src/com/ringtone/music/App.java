@@ -52,10 +52,6 @@ public class App extends Application {
 		    Toast.makeText(this, R.string.create_mp3_dir_error, Toast.LENGTH_LONG).show();
 		    return;
 		}
-		
-		// Start service
-		Intent intent = new Intent(this, DownloadService.class);
-		startService(intent);
     }
 }
 

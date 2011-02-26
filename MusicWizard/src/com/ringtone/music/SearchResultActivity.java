@@ -12,6 +12,7 @@ import com.admob.android.ads.AdView;
 import com.ringtone.music.download.DownloadActivity;
 import com.ringtone.music.download.DownloadInfo;
 import com.ringtone.music.download.DownloadService;
+import com.ringtone.music.download.DownloadService.ServiceToken;
 
 import com.ringtone.music.R;
 
@@ -75,8 +76,6 @@ public class SearchResultActivity extends ListActivity {
 
 	private Mp3ListAdapter mAdapter;
 
-	private DownloadService mDownloadService;
-
 	private ProgressDialog mStreaming;
 	private static String sStreamingTitle;
 	
@@ -85,16 +84,8 @@ public class SearchResultActivity extends ListActivity {
 	
 	private static volatile MediaPlayer sPlayer;
 	private static Thread sPreviewThread;
-	private ServiceConnection mConnection = new ServiceConnection() {
-		public void onServiceConnected(ComponentName className, IBinder service) {
-			mDownloadService = ((DownloadService.LocalBinder) service).getService();
-		}
-
-		public void onServiceDisconnected(ComponentName className) {
-			mDownloadService = null;
-		}
-	};
-
+	
+    private ServiceToken mToken;
     
 	@Override
 	protected void onPrepareDialog(int id, Dialog dialog) {
@@ -197,7 +188,6 @@ public class SearchResultActivity extends ListActivity {
 	
 	@Override
 	protected void onStop() {
-		super.onStop();
         ListView lv = getListView();
         if (lv != null) {
             mLastListPosCourse = lv.getFirstVisiblePosition();
@@ -206,6 +196,7 @@ public class SearchResultActivity extends ListActivity {
                 mLastListPosFine = cv.getTop();
             }
         }
+		super.onStop();
 	}
 
     
@@ -332,9 +323,8 @@ public class SearchResultActivity extends ListActivity {
 
 		setContentView(R.layout.result_list);
 		Utils.addAds(this);
-
-        bindService(new Intent(this, DownloadService.class),
-                mConnection, Context.BIND_AUTO_CREATE);
+		
+        mToken = DownloadService.bindToService(this);
 
 		mSearchMessage = (TextView) findViewById(R.id.search_message);
 		mProgressBar = (ProgressBar) findViewById(R.id.search_progress);
@@ -429,25 +419,27 @@ public class SearchResultActivity extends ListActivity {
 			showDialog(DIALOG_WAITING_FOR_SERVER);
 			new FetchMp3LinkTaskForDownload().execute(mp3);
 		} else {
-            DownloadInfo download = new DownloadInfo(mp3.getDownloadUrl(), MusicInfo.downloadPath(mp3));
-			mDownloadService.insertDownload(download);
-
-            Intent intent = new Intent(SearchResultActivity.this, DownloadActivity.class);
-			startActivity(intent);
+			if (DownloadService.sService != null) {
+	            DownloadInfo download = new DownloadInfo(mp3.getDownloadUrl(), MusicInfo.downloadPath(mp3));
+				DownloadService.sService.insertDownload(download);
+	
+	            Intent intent = new Intent(SearchResultActivity.this, DownloadActivity.class);
+				startActivity(intent);
+			}
 		}
 
 	}
 
 	@Override
 	protected void onDestroy() {
-		super.onDestroy();
 		Utils.D("onDestroy()");
 		if (mProgressDialog != null && mProgressDialog.isShowing()) {
 			mProgressDialog.dismiss();
 		}
 		mProgressDialog = null;
-		unbindService(mConnection);
+        DownloadService.unbindFromService(mToken);
 		sSearchActivity = null;
+		super.onDestroy();
 	}
 
     private class FetchMp3LinkTaskForDownload extends AsyncTask<MusicInfo, Void, MusicInfo> {
@@ -467,11 +459,12 @@ public class SearchResultActivity extends ListActivity {
 				return;
 			}
 
-            DownloadInfo download = new DownloadInfo(mp3.getDownloadUrl(), MusicInfo.downloadPath(mp3));
-			mDownloadService.insertDownload(download);
-
-            Intent intent = new Intent(SearchResultActivity.this, DownloadActivity.class);
-			startActivity(intent);
+			if (DownloadService.sService != null) {
+		        DownloadInfo download = new DownloadInfo(mp3.getDownloadUrl(), MusicInfo.downloadPath(mp3));
+				DownloadService.sService.insertDownload(download);
+		        Intent intent = new Intent(SearchResultActivity.this, DownloadActivity.class);
+				startActivity(intent);
+			}
 			if (mProgressDialog != null && mProgressDialog.isShowing()) {
 				mProgressDialog.dismiss();
 			}
