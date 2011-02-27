@@ -1,411 +1,350 @@
-<?xml version="1.0" encoding="utf-8"?>
-<project name="SpawnRingdroid" default="package-apks"
-  xmlns:android="antlib:com.googlecode.autoandroid.ant">
-
-  <!-- Requires ant 1.7 or better -->
-
-  <property environment="env" />
-  <property name="sdk.dir" value="${env.ANDROID_SDK}" />
-  <property name="apk.tools" value="${sdk.dir}/tools/" />
-  <property name="platform.tools" value="${sdk.dir}/platform-tools/" />
-
-  <taskdef uri="antlib:com.googlecode.autoandroid.ant" classpath="fixed-android-ant.jar"/>
-
-  <android:home/> <!-- Set the detected android-home property to the sdk root. -->
-
-  <condition property="dx" value="${platform.tools}/dx.bat" else="${platform.tools}/dx">  
-    <os family="windows" />  
-  </condition> 
-
-  <condition property="aapt" value="${platform.tools}/aapt.exe" else="${platform.tools}/aapt">  
-    <os family="windows" />  
-  </condition> 
-
-  <condition property="zipalign" value="${apk.tools}/zipalign.exe" else="${apk.tools}/zipalign">
-    <os family="windows" />  
-  </condition>
-
-  <!-- Dependencies -->
-
-  <fileset dir="lib" id="main.jars">
-    <include name="zestadz_android_sdkv1.2.jar"/>
-    <include name="admob-sdk-android.jar"/>
-    <include name="AdWhirlSDK_Android_2.6.2.jar"/>
-    <include name="MMAdView.jar"/>
-  </fileset>
-  <!-- Rules -->
-
-  <target name="clean-apks" description="Delete all of apks in output directory">
-    <delete dir="targets"/>
-  </target>
-
-  <target name="init-all">
-    <mkdir dir="targets/signed"/>
-    <mkdir dir="targets/zipaligned"/>
-  </target>
-
-  <target name="clean" description="Delete the output directories of one cycle.">
-    <delete dir="temp"/>
-  </target>
-
-  <target name="init">
-    <mkdir dir="temp/res/drawable"/>
-    <mkdir dir="temp/res/layout"/>
-    <mkdir dir="temp/res/menu"/>
-    <mkdir dir="temp/res/raw"/>
-    <mkdir dir="temp/res/values"/>
-    <mkdir dir="temp/res/layout-land"/>
-    <mkdir dir="temp/src/com/ringtone/${package_name}"/>
-    <mkdir dir="temp/src/org/apache"/>
-    <mkdir dir="temp/src/com/ringdroid"/>
-  </target>
-
-  <target name="generate-new-res">
-    <copy todir="temp/res/layout-land" filtering="false">
-      <fileset dir="res/layout-land"/>
-    </copy>
-    <copy todir="temp/res/values" filtering="false">
-      <fileset dir="res/values"/>
-    </copy>
-    <copy todir="temp/res/layout" filtering="false">
-      <fileset dir="res/layout"/>
-    </copy>
-    <copy todir="temp/res/raw" filtering="false">
-      <fileset dir="res/raw"/>
-    </copy>
-    <copy todir="temp/res/menu" filtering="false">
-      <fileset dir="res/menu"/>
-    </copy>
-    <copy todir="temp/res/drawable" filtering="false">
-      <fileset dir="res/drawable" excludes="icon.png"/>
-    </copy>
-
-
-    <copyfile dest="temp/res/drawable/icon.png" src="${drawable}"/>
-
-    <!-- 替换包名 -->
-    <replaceregexp byline="true">
-      <regexp pattern="com\.ringtone\.music"/>
-      <substitution expression="com\.ringtone\.${package_name}"/>
-      <fileset dir="temp/res"/>
-    </replaceregexp>
-
-    <!-- 替换应用名 -->
-    <replaceregexp file="temp/res/values/strings.xml" byline="true">
-      <regexp pattern="Ringtone Mp3"/>
-      <substitution expression="${app_name}"/>
-    </replaceregexp>
-
-    <!-- 去除includeInGlobalSearch -->
-    <!--replaceregexp file="temp/res/xml/searchable.xml" byline="true">
-    <regexp pattern="android:includeInGlobalSearch.*($)"/>
-    <substitution expression=""/>
-  </replaceregexp>-->
-
-
-</target>
-
-<target name="generate-new-manifest">
-  <copyfile dest="temp/AndroidManifest.xml" src="AndroidManifest.xml" filtering="false"/>
-
-  <!-- 去除targetSdkVersion -->
-  <!--replaceregexp file="temp/AndroidManifest.xml" byline="true">
-  <regexp pattern="android:targetSdkVersion.{4}"/>
-  <substitution expression=""/>
-</replaceregexp>-->
-
-
-<replaceregexp file="temp/AndroidManifest.xml" byline="true">
-  <regexp pattern="com\.ringtone\.music"/>
-  <substitution expression="com\.ringtone\.${package_name}"/>
-</replaceregexp>
-
-    </target>
-
-    <target name="generate-new-src">
-      <copy todir="temp/src/com/ringtone/${package_name}" encoding="UTF-8" filtering="false">
-        <fileset dir="src/com/ringtone/music"/>
-      </copy>
-
-      <copy todir="temp/src/com/ringdroid" encoding="UTF-8" filtering="false">
-        <fileset dir="src/com/ringdroid"/>
-      </copy>
-
-      <copy todir="temp/src/org/apache" encoding="UTF-8" filtering="false">
-        <fileset dir="src/org/apache"/>
-      </copy>
-
-      <!-- 替换包名 -->
-      <replaceregexp byline="true">
-        <regexp pattern="(^package).*($)"/>
-        <substitution expression="package com\.ringtone\.${package_name};"/>
-        <fileset dir="temp/src/com/ringtone/${package_name}"/>
-      </replaceregexp>
-
-      <replaceregexp byline="true">
-        <regexp pattern="(^package).*($)"/>
-        <substitution expression="package com\.ringtone\.${package_name}\.updater;"/>
-        <fileset dir="temp/src/com/ringtone/${package_name}/updater"/>
-      </replaceregexp>
-
-      <replaceregexp byline="true">
-        <regexp pattern="(^package).*($)"/>
-        <substitution expression="package com\.ringtone\.${package_name}\.download;"/>
-        <fileset dir="temp/src/com/ringtone/${package_name}/download"/>
-      </replaceregexp>
-
-      <replaceregexp byline="true">
-        <regexp pattern="com\.ringtone\.music"/>
-        <substitution expression="com\.ringtone\.${package_name}"/>
-        <fileset dir="temp/src/com/ringtone/${package_name}"/>
-      </replaceregexp>
-
-      <!-- replace the import name in com.ringdroid -->
-      <replaceregexp byline="true">
-        <regexp pattern="com\.ringtone\.music"/>
-        <substitution expression="com\.ringtone\.${package_name}"/>
-        <fileset dir="temp/src/com/ringdroid"/>
-      </replaceregexp>
-
-
-      <!-- 替换feebe.lib包中的所有import包名，注意此处包结构不合理 -->
-      <!--replaceregexp byline="true">
-      <regexp pattern="com\.feebe\.rings"/>
-      <substitution expression="com\.feebe\.${package_name}"/>
-      <fileset dir="temp/src/com/feebe/lib"/>
-    </replaceregexp>-->
-
-
-  </target>
-
-  <target name="generate-new-prj" depends="clean, init">
-    <antcall target="generate-new-res">
-      <param name="package_name" value="${package_name}"/>
-      <param name="drawable" value="${drawable}"/>
-      <param name="app_name" value="${app_name}"/>
-    </antcall>
-
-    <antcall target="generate-new-manifest">
-      <param name="package_name" value="${package_name}"/>
-    </antcall>
-
-    <antcall target="generate-new-src">
-      <param name="package_name" value="${package_name}"/>
-    </antcall>			
-  </target>
-
-  <target name="res-src">
-    <antcall target="generate-new-prj">
-      <param name="package_name" value="${package_name}"/>
-      <param name="drawable" value="${drawable}"/>
-      <param name="app_name" value="${app_name}"/>
-    </antcall>
-
-    <exec executable="${aapt}" failonerror="true">
-      <arg value="package"/>
-      <arg value="-m"/>
-      <arg value="-J"/>
-      <arg file="temp/src"/>
-      <arg value="-M"/>
-      <arg file="temp/AndroidManifest.xml"/>
-      <arg value="-S"/>
-      <arg file="temp/res"/>
-      <arg value="-I"/>
-      <arg file="${android-home}/platforms/android-7/android.jar"/>
-    </exec>
-  </target>
-
-  <target name="compile-main" description="Compile the java source.">
-    <antcall target="res-src">
-      <param name="package_name" value="${package_name}"/>
-      <param name="drawable" value="${drawable}"/>
-      <param name="app_name" value="${app_name}"/>
-    </antcall>
-
-    <mkdir dir="temp/bin"/>
-    <javac encoding="utf-8" target="1.6" debug="false" extdirs=""
-      srcdir="temp/src" destdir="temp/bin"
-      bootclasspath="${android-home}/platforms/android-7/android.jar">
-      <classpath>
-        <fileset refid="main.jars"/>
-      </classpath>
-    </javac>
-
-    <!--
-    <jar basedir="temp/bin" destfile="temp.jar"/> 
-    <java jar="${apk.tools}\proguard\lib\proguard.jar" fork="true" failonerror="true">
-      <jvmarg value="-Dmaximum.inlined.code.length=32"/>  
-      <arg value="-injars temp.jar"/>  
-      <arg value="-outjars optimized.jar"/>  
-      <arg value="-libraryjars ${android-home}/platforms/android-7/android.jar"/> 
-      <arg value="-libraryjars lib"/> 
-      <arg value="-optimizationpasses 5"/>  
-      <arg value="-dontusemixedcaseclassnames"/>  
-      <arg value="-dontskipnonpubliclibraryclasses"/>
-      <arg value="-dontpreverify"/>
-      <arg value="-verbose"/>
-      <arg value="-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*"/>
-
-      <arg value="-keep public class * extends android.app.Activity"/>  
-      <arg value="-keep public class * extends android.app.Application"/>
-      <arg value="-keep public class * extends android.app.Service"/>
-      <arg value="-keep public class * extends android.content.ContentProvider"/> 
-      <arg value="-keep public class com.android.vending.licensing.ILicensingService"/> 
-
-      <arg value="-keepclasseswithmembernames  class * { native &lt;methods&gt;; }"/>
-      <arg value="-keepclasseswithmembernames class * { public &lt;init&gt;(android.content.Context, android.util.AttributeSet); }"/>
-      <arg value="-keepclasseswithmembernames class * { public &lt;init&gt;(android.content.Context, android.util.AttributeSet, int);}"/>
-      <arg value="-keepclassmembers enum * { public static **[] values(); public static ** valueOf(java.lang.String);} "/>
-      <arg value="-keep class * implements android.os.Parcelable { public static final android.os.Parcelable$Creator *; } "/>
-
-    </java>
-
-    <delete file="temp.jar"/>
-    <delete dir="temp/bin"/>  
-    <mkdir dir="temp/bin"/>  
-    <unzip src="optimized.jar" dest="temp/bin"/>  
-    <delete file="optimized.jar"/> 
-    -->
-
-  </target>
-
-  <target name="dex" description="Convert the .class files into .dex files.">
-    <antcall target="compile-main">
-      <param name="package_name" value="${package_name}"/>
-      <param name="drawable" value="${drawable}"/>
-      <param name="app_name" value="${app_name}"/>
-    </antcall>        	
-
-    <property name="classes.dex" location="temp/bin/classes.dex"/>
-
-    <apply executable="${dx}" failonerror="true" parallel="true">
-      <arg value="--dex" />
-      <arg value="--output=${classes.dex}"/>
-      <arg path="temp/bin"/>
-      <fileset refid="main.jars"/>        		
-    </apply>
-
-  </target>
-
-  <target name="package-res" description="Put the project's resources into the output package file.">
-    <antcall target="dex">
-      <param name="package_name" value="${package_name}"/>
-      <param name="drawable" value="${drawable}"/>
-      <param name="app_name" value="${app_name}"/>
-    </antcall>        	
-
-    <exec executable="${aapt}" failonerror="true">
-      <arg value="package"/>
-      <arg value="-f"/>
-      <arg value="-M"/>
-      <arg file="temp/AndroidManifest.xml"/>
-      <arg value="-S"/>
-      <arg file="temp/res"/>
-      <arg value="-I"/>
-      <arg file="${android-home}/platforms/android-7/android.jar"/>
-      <arg value="-F"/>
-      <arg file="temp/bin/resources.ap_"/>
-    </exec>
-  </target>
-
-  <target name="package-apk" description="Package the application and sign it with a debug key.">
-    <antcall target="package-res">
-      <param name="package_name" value="${package_name}"/>
-      <param name="drawable" value="${drawable}"/>
-      <param name="app_name" value="${app_name}"/>
-    </antcall>
-
-    <android:apk-builder>
-      <arg file="targets/${package_name}.apk"/>
-      <arg value="-z"/>
-      <arg file="temp/bin/resources.ap_"/>
-      <arg value="-f"/>
-      <arg file="temp/bin/classes.dex"/>
-      <arg value="-rf"/>
-      <arg file="temp/src"/>
-      <arg value="-rj"/>     
-      <arg file="lib"/>
-      <arg value="-u"/>
-    </android:apk-builder>
-
-    <signjar destDir="targets/signed"
-      alias="androidrss.keystore" keystore="androidrss.keystore"
-      storepass="schsch"
-      preservelastmodified="true">
-      <path>
-        <fileset dir="targets" includes="${package_name}.apk" />
-      </path>
-      <flattenmapper />
-    </signjar>
-
-    <exec executable="${zipalign}" failonerror="true">
-      <arg value="-v" />
-      <arg value="-f" />
-      <arg value="4" />
-      <arg value="targets/signed/${package_name}.apk" />
-      <arg value="targets/zipaligned/${package_name}.apk" />
-    </exec>
-
-    <sleep  seconds="2"/>
-
-  </target>
-
-  <target name="package-apks" depends="clean-apks, init-all" description="Package applications.">
-
-    <antcall target="package-apk">
-      <param name="package_name" value="Music21"/>
-      <param name="drawable" value="app_icons\\player1.png"/>
-      <param name="app_name" value="Music Ringtone"/>
-    </antcall> 
-
-    <antcall target="package-apk">
-      <param name="package_name" value="Music22"/>
-      <param name="drawable" value="app_icons\\player2.png"/>
-      <param name="app_name" value="Music Wizard"/>
-    </antcall> 
-
-    <antcall target="package-apk">
-      <param name="package_name" value="Music23"/>
-      <param name="drawable" value="app_icons\\player3.png"/>
-      <param name="app_name" value="Ringtone Mp3"/>
-    </antcall> 
-
-    <antcall target="package-apk">
-      <param name="package_name" value="Music24"/>
-      <param name="drawable" value="app_icons\\player4.png"/>
-      <param name="app_name" value="Ringtone Music"/>
-    </antcall> 
-
-
-    <antcall target="package-apk">
-      <param name="package_name" value="Music25"/>
-      <param name="drawable" value="app_icons\\player5.png"/>
-      <param name="app_name" value="Mp3 Music"/>
-    </antcall> 
-
-    <antcall target="package-apk">
-      <param name="package_name" value="Music26"/>
-      <param name="drawable" value="app_icons\\icon6.png"/>
-      <param name="app_name" value="Mp3 Ringtone"/>
-    </antcall> 
-
-    <antcall target="package-apk">
-      <param name="package_name" value="Music27"/>
-      <param name="drawable" value="app_icons\\icon7.png"/>
-      <param name="app_name" value="Mp3 Player"/>
-    </antcall> 
-
-    <antcall target="package-apk">
-      <param name="package_name" value="Music28"/>
-      <param name="drawable" value="app_icons\\icon8.png"/>
-      <param name="app_name" value="Music Player"/>
-    </antcall> 
-
-    <antcall target="package-apk">
-      <param name="package_name" value="Music29"/>
-      <param name="drawable" value="app_icons\\icon9.png"/>
-      <param name="app_name" value="Ringtone Player"/>
-    </antcall> 
-
-  </target>
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="musicwizard" default="generate-all-apks" basedir=".">
+
+	<!-- init path value -->
+	<property environment="env" />
+
+	<property name="sdk.dir" value="${env.ANDROID_SDK}" />
+	<property name="java.sdk.home" value="${env.JAVA_SDK_HOME}" />
+	<property name="apk.tools" value="${sdk.dir}/tools/" />
+	<property name="platform.tools" value="${sdk.dir}/platform-tools/" />
+	<property name="android-jar" value="${sdk.dir}/platforms/android-8/android.jar" />
+
+	<!-- init tools path -->
+	<condition property="dx" value="${platform.tools}/dx.bat" else="${platform.tools}/dx">
+		<os family="windows" />
+	</condition>
+	<condition property="aapt" value="${platform.tools}/aapt.exe" else="${platform.tools}/aapt">
+		<os family="windows" />
+	</condition>
+	<condition property="zipalign" value="${apk.tools}/zipalign.exe" else="${apk.tools}/zipalign">
+		<os family="windows" />
+	</condition>
+	<condition property="jarsigner" value="${java.sdk.home}/bin/jarsigner.exe" else="/usr/bin/jarsigner">
+		<os family="windows" />
+	</condition>
+	<condition property="aidl" value="${android.tools}/aidl.exe" else="${android.tools}/aidl">
+		<os family="windows" />
+	</condition>
+	<condition property="adb" value="${apk.tools}/adb.exe" else="${apk.tools}/adb">
+		<os family="windows" />
+	</condition>
+	<condition property="apk-builder" value="${apk.tools}/apkbuilder.bat" else="${apk.tools}/apkbuilder">
+		<os family="windows" />
+	</condition>
+
+	<target name="clean-apks" description="Delete all of apks in output directory">
+		<delete dir="targets" />
+	</target>
+
+	<target name="clean" description="Delete the output directories of one cycle.">
+		<delete dir="temp" />
+	</target>
+
+	<target name="init-all">
+		<mkdir dir="targets/signed" />
+		<mkdir dir="targets/zipaligned" />
+	</target>
+
+	<target name="init">
+		<mkdir dir="temp/res" />
+		<mkdir dir="temp/src/" />
+	</target>
+
+	<target name="generate-new-apk">
+		<!-- generate the new prj. -->
+		<antcall target="generate-new-prj">
+			<param name="package_name" value="${package_name}" />
+			<param name="drawable" value="${drawable}" />
+			<param name="app_name" value="${app_name}" />
+		</antcall>
+
+		<!-- Generate the R.java file for this project's resources. -->
+		<echo>Generating R.java / Manifest.java from the resources...</echo>
+		<exec executable="${aapt}" failonerror="true">
+			<arg value="package" />
+			<arg value="-m" />
+			<arg value="-J" />
+			<arg file="temp/src" />
+			<arg value="-M" />
+			<arg file="temp/AndroidManifest.xml" />
+			<arg value="-S" />
+			<arg file="temp/res" />
+			<arg value="-I" />
+			<arg file="${android-jar}" />
+		</exec>
+
+		<!-- Compile this project's .java files into .class files. -->
+		<mkdir dir="temp/bin" />
+		<javac encoding="gbk" target="1.6" debug="false" extdirs="" srcdir="temp/src" destdir="temp/bin" bootclasspath="${android-jar}">
+			<classpath>
+				<fileset dir="lib" includes="*.jar" />
+			</classpath>
+		</javac>
+
+		<!--
+	    <jar basedir="temp/bin" destfile="temp.jar"/> 
+	    <java jar="${apk.tools}\proguard\lib\proguard.jar" fork="true" failonerror="true">
+	      <jvmarg value="-Dmaximum.inlined.code.length=32"/>  
+	      <arg value="-injars temp.jar"/>  
+	      <arg value="-outjars optimized.jar"/>  
+	      <arg value="-libraryjars ${android-home}/platforms/android-7/android.jar"/> 
+	      <arg value="-libraryjars lib"/> 
+	      <arg value="-optimizationpasses 5"/>  
+	      <arg value="-dontusemixedcaseclassnames"/>  
+	      <arg value="-dontskipnonpubliclibraryclasses"/>
+	      <arg value="-dontpreverify"/>
+	      <arg value="-verbose"/>
+	      <arg value="-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*"/>
+
+	      <arg value="-keep public class * extends android.app.Activity"/>  
+	      <arg value="-keep public class * extends android.app.Application"/>
+	      <arg value="-keep public class * extends android.app.Service"/>
+	      <arg value="-keep public class * extends android.content.ContentProvider"/> 
+	      <arg value="-keep public class com.android.vending.licensing.ILicensingService"/> 
+
+	      <arg value="-keepclasseswithmembernames  class * { native &lt;methods&gt;; }"/>
+	      <arg value="-keepclasseswithmembernames class * { public &lt;init&gt;(android.content.Context, android.util.AttributeSet); }"/>
+	      <arg value="-keepclasseswithmembernames class * { public &lt;init&gt;(android.content.Context, android.util.AttributeSet, int);}"/>
+	      <arg value="-keepclassmembers enum * { public static **[] values(); public static ** valueOf(java.lang.String);} "/>
+	      <arg value="-keep class * implements android.os.Parcelable { public static final android.os.Parcelable$Creator *; } "/>
+
+	    </java>
+
+	    <delete file="temp.jar"/>
+	    <delete dir="temp/bin"/>  
+	    <mkdir dir="temp/bin"/>  
+	    <unzip src="optimized.jar" dest="temp/bin"/>  
+	    <delete file="optimized.jar"/> 
+	    -->
+
+		<!-- Convert this project's .class files into .dex files. -->
+		<property name="classes.dex" location="temp/bin/classes.dex" />
+		<apply executable="${dx}" failonerror="true" parallel="true">
+			<arg value="--dex" />
+			<arg value="--output=${classes.dex}" />
+			<arg path="temp/bin" />
+			<fileset dir="lib" includes="*.jar" />
+		</apply>
+
+		<exec executable="${aapt}" failonerror="true">
+			<arg value="package" />
+			<arg value="-f" />
+			<arg value="-M" />
+			<arg file="temp/AndroidManifest.xml" />
+			<arg value="-S" />
+			<arg file="temp/res" />
+			<arg value="-I" />
+			<arg file="${android-jar}" />
+			<arg value="-F" />
+			<arg file="temp/bin/resources.ap_" />
+		</exec>
+
+		<exec executable="${apk-builder}" failonerror="true">
+			<arg file="targets/${package_name}.apk" />
+			<arg value="-z" />
+			<arg file="temp/bin/resources.ap_" />
+			<arg value="-f" />
+			<arg file="temp/bin/classes.dex" />
+			<arg value="-rf" />
+			<arg file="temp/src" />
+			<arg value="-rj" />
+			<arg file="lib" />
+			<arg value="-u" />
+		</exec>
+
+		<signjar destDir="targets/signed" alias="androidrss.keystore" keystore="androidrss.keystore" storepass="schsch" preservelastmodified="true">
+			<path>
+				<fileset dir="targets" includes="${package_name}.apk" />
+			</path>
+			<flattenmapper />
+		</signjar>
+
+		<exec executable="${jarsigner}" failonerror="true">
+			<arg value="-verbose" />
+			<arg value="-storepass" />
+			<arg value="schsch" />
+			<arg value="-keystore" />
+			<arg value="androidrss.keystore" />
+			<arg value="-signedjar" />
+			<arg value="targets/signed/${package_name}.apk" />
+			<arg value="targets/${package_name}.apk" />
+			<arg value="androidrss.keystore" />
+		</exec>
+
+		<exec executable="${zipalign}" failonerror="true">
+			<arg value="-v" />
+			<arg value="-f" />
+			<arg value="4" />
+			<arg value="targets/signed/${package_name}.apk" />
+			<arg value="targets/zipaligned/${package_name}.apk" />
+		</exec>
+
+		<sleep seconds="2" />
+
+	</target>
+
+	<target name="generate-new-prj" depends="clean, init">
+		<antcall target="generate-new-res">
+			<param name="package_name" value="${package_name}" />
+			<param name="drawable" value="${drawable}" />
+			<param name="app_name" value="${app_name}" />
+		</antcall>
+
+		<antcall target="generate-new-manifest">
+			<param name="package_name" value="${package_name}" />
+		</antcall>
+
+		<antcall target="generate-new-src">
+			<param name="package_name" value="${package_name}" />
+		</antcall>
+	</target>
+
+	<target name="generate-new-res">
+		<copy todir="temp/res/layout-land" filtering="false">
+			<fileset dir="res/layout-land" />
+		</copy>
+		<copy todir="temp/res/values" filtering="false">
+			<fileset dir="res/values" />
+		</copy>
+		<copy todir="temp/res/layout" filtering="false">
+			<fileset dir="res/layout" />
+		</copy>
+		<copy todir="temp/res/raw" filtering="false">
+			<fileset dir="res/raw" />
+		</copy>
+		<copy todir="temp/res/menu" filtering="false">
+			<fileset dir="res/menu" />
+		</copy>
+		<copy todir="temp/res/drawable" filtering="false">
+			<fileset dir="res/drawable" excludes="icon.png" />
+		</copy>
+
+		<copyfile dest="temp/res/drawable/icon.png" src="${drawable}" />
+
+		<replaceregexp byline="true">
+			<regexp pattern="com\.ringtone\.music" />
+			<substitution expression="com\.ringtone\.${package_name}" />
+			<fileset dir="temp/res" />
+		</replaceregexp>
+
+		<replaceregexp file="temp/res/values/strings.xml" byline="true">
+			<regexp pattern="Ringtone Mp3" />
+			<substitution expression="${app_name}" />
+		</replaceregexp>
+	</target>
+
+	<target name="generate-new-manifest">
+		<copyfile dest="temp/AndroidManifest.xml" src="AndroidManifest.xml" filtering="false" />
+
+		<replaceregexp file="temp/AndroidManifest.xml" byline="true">
+			<regexp pattern="com\.ringtone\.music" />
+			<substitution expression="com\.ringtone\.${package_name}" />
+		</replaceregexp>
+	</target>
+
+	<target name="generate-new-src">
+		<copy todir="temp/src/com/ringtone/${package_name}" encoding="UTF-8" filtering="false">
+			<fileset dir="src/com/ringtone/music" />
+		</copy>
+
+		<copy todir="temp/src/com/ringdroid" encoding="UTF-8" filtering="false">
+			<fileset dir="src/com/ringdroid" />
+		</copy>
+
+		<copy todir="temp/src/org/apache" encoding="UTF-8" filtering="false">
+			<fileset dir="src/org/apache" />
+		</copy>
+
+		<replaceregexp byline="true">
+			<regexp pattern="(^package).*($)" />
+			<substitution expression="package com\.ringtone\.${package_name};" />
+			<fileset dir="temp/src/com/ringtone/${package_name}" />
+		</replaceregexp>
+
+		<replaceregexp byline="true">
+			<regexp pattern="(^package).*($)" />
+			<substitution expression="package com\.ringtone\.${package_name}\.updater;" />
+			<fileset dir="temp/src/com/ringtone/${package_name}/updater" />
+		</replaceregexp>
+
+		<replaceregexp byline="true">
+			<regexp pattern="(^package).*($)" />
+			<substitution expression="package com\.ringtone\.${package_name}\.download;" />
+			<fileset dir="temp/src/com/ringtone/${package_name}/download" />
+		</replaceregexp>
+
+		<replaceregexp byline="true">
+			<regexp pattern="com\.ringtone\.music" />
+			<substitution expression="com\.ringtone\.${package_name}" />
+			<fileset dir="temp/src/com/ringtone/${package_name}" />
+		</replaceregexp>
+
+		<replaceregexp byline="true">
+			<regexp pattern="com\.ringtone\.music" />
+			<substitution expression="com\.ringtone\.${package_name}" />
+			<fileset dir="temp/src/com/ringdroid" />
+		</replaceregexp>
+	</target>
+
+	<target name="generate-all-apks" depends="clean-apks, init-all">
+		<echo>android sdk path is ${sdk.dir}</echo>
+		<echo>jdk path is ${java.sdk.home}</echo>
+
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="Music21" />
+			<param name="drawable" value="app_icons\\player1.png" />
+			<param name="app_name" value="Music Ringtone" />
+		</antcall>
+
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="Music22" />
+			<param name="drawable" value="app_icons\\player2.png" />
+			<param name="app_name" value="Music Wizard" />
+		</antcall>
+
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="Music23" />
+			<param name="drawable" value="app_icons\\player3.png" />
+			<param name="app_name" value="Ringtone Mp3" />
+		</antcall>
+
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="Music24" />
+			<param name="drawable" value="app_icons\\player4.png" />
+			<param name="app_name" value="Ringtone Music" />
+		</antcall>
+
+
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="Music25" />
+			<param name="drawable" value="app_icons\\player5.png" />
+			<param name="app_name" value="Mp3 Music" />
+		</antcall>
+
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="Music26" />
+			<param name="drawable" value="app_icons\\icon6.png" />
+			<param name="app_name" value="Mp3 Ringtone" />
+		</antcall>
+
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="Music27" />
+			<param name="drawable" value="app_icons\\icon7.png" />
+			<param name="app_name" value="Mp3 Player" />
+		</antcall>
+
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="Music28" />
+			<param name="drawable" value="app_icons\\icon8.png" />
+			<param name="app_name" value="Music Player" />
+		</antcall>
+
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="Music29" />
+			<param name="drawable" value="app_icons\\icon9.png" />
+			<param name="app_name" value="Ringtone Player" />
+		</antcall>
+	</target>
+
 </project>
