@@ -48,8 +48,7 @@
 
 	<target name="init">
 		<mkdir dir="temp/res" />
-		<mkdir dir="temp/src/com/picdroid/camera/gallery" />
-		<mkdir dir="temp/src/com/picdroid/${package_name}/download" />
+		<mkdir dir="temp/src" />
 	</target>
 
 	<target name="generate-new-apk">

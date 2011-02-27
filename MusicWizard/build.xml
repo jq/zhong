@@ -48,7 +48,7 @@
 
 	<target name="init">
 		<mkdir dir="temp/res" />
-		<mkdir dir="temp/src/" />
+		<mkdir dir="temp/src" />
 	</target>
 
 	<target name="generate-new-apk">
