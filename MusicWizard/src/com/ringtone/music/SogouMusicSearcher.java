@@ -142,10 +142,14 @@ public class SogouMusicSearcher implements IMusicSearcher {
 		mHandler.post(new Runnable() {
 			@Override
 			public void run() {
+                /*
+                 * The following logic seems to cause NullPointerException.
+                 *
 				if (mWeb != null) {
 					mWeb.stopLoading();
 					mWeb.destroy();
 				}
+                */
 				mWeb = new WebView(context);
 				
 				WebSettings settings = mWeb.getSettings();
