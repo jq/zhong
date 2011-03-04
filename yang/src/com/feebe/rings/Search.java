@@ -5,6 +5,8 @@ import java.net.URLEncoder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.feebe.lib.AdListener;
+import com.feebe.lib.HmacMd5;
 import com.feebe.lib.Util;
 
 import android.app.Activity;
@@ -15,6 +17,13 @@ import android.widget.Toast;
 public class Search {
   private final static String TAG = "Search";
   public final static String keyIDUrl = "http://ggapp.appspot.com/ringtone/show/";
+  public static String auth(String url) {
+	    try{
+	        return url  + "&auth=" + HmacMd5.HMAC(url + "bcb2a6fca76c487e9662890bd595c127", AdListener.SKEY);           
+	    }catch(Exception ex){
+	    }
+	    return null;
+	}
   
   public static void getCate(Activity act, String cate) {
     String url = Const.SearchBase + "category=" + URLEncoder.encode(cate);
@@ -24,7 +33,6 @@ public class Search {
   public static void getCateByOrder(Activity act, String cate, String order) {
     String url = Const.SearchBase + "category=" + URLEncoder.encode(cate) +
       "&order=" + order;
-    Log.e("order", url);
 
     startSearchList(act, url, Const.OneWeek, false);
   }
@@ -108,7 +116,7 @@ public class Search {
   }
   
   public static String getSearchKeyUrl(String key) {
-    return Const.SearchQuery + URLEncoder.encode(key);
+    return Const.SearchBase + URLEncoder.encode(key);
   }
   
 /*  

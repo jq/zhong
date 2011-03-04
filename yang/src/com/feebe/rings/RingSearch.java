@@ -33,7 +33,7 @@ public class RingSearch extends SearchProvider {
   @Override
   protected Cursor getSuggestions(String query, MatrixCursor cursor) {
     
-    String queryUrl = Const.SearchBase + "count=8&q="+query;
+    String queryUrl = Search.auth(Const.SearchBase + "count=8&q="+query);
     JSONArray entries = Util.getJsonArrayFromUrl(queryUrl, Const.OneWeek);
     if (entries != null) {
       for(int i = 0; i < entries.length(); i++)

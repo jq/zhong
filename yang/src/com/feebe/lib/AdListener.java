@@ -12,6 +12,7 @@ import com.feebe.rings.R;
 public class AdListener {
   private static final boolean blackscreen = isBlackScreen();
   public static final String key = "6b29d50cab9641aeb3a555d3aa3dfedd";
+  public final static String SKEY = "OKRGCHMZ";
   private static boolean isBlackScreen() {
     // http://since2006.com/blog/google-io2010-android-devices/
     // 6318c8e4e86d4732b08a67a89618f391 366e6bc811204d1a9861b6149f05c22f

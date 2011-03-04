@@ -14,6 +14,7 @@ import com.feebe.lib.AdListener;
 import com.feebe.lib.BaseList;
 import com.feebe.lib.DbAdapter;
 import com.feebe.lib.EndlessUrlArrayAdapter;
+import com.feebe.lib.HmacMd5;
 import com.feebe.lib.ImgThread;
 import com.feebe.lib.UrlArrayAdapter;
 import com.feebe.lib.Util;
@@ -89,7 +90,8 @@ public class SearchList extends ListActivity implements OnItemClickListener {
 				else {
 					currentPage--;
 					mAdapter.clear();
-					mAdapter.reset();
+					//mAdapter.reset();
+					mAdapter.runSyn(mAdapter.getUrl(currentPage), Const.OneWeek);
 					mAdapter.notifyDataSetChanged();
 				}
 			}
@@ -297,7 +299,7 @@ public ListAdapter getAdapter() {
 
     @Override
     protected List getListFromUrl(String url, long expire) {
-      return RingUtil.getJsonArrayFromUrl(url, expire);
+      return RingUtil.getJsonArrayFromUrl(Search.auth(url), expire);
     }
     
     @Override

@@ -1,0 +1,6 @@
+.svn
+.settings
+bin
+gen
+*~
+local.properties
