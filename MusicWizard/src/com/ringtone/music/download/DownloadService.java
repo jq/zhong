@@ -52,6 +52,7 @@ public class DownloadService extends Service {
 		}
 	}
 	
+	
 	@Override
 	public void onCreate() {
 		Log.i(TAG, "Download service started");
