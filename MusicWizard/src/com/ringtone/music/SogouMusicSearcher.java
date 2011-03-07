@@ -132,7 +132,8 @@ public class SogouMusicSearcher implements IMusicSearcher {
 	private class FetchSearchPage extends WebViewClient {
 		@Override
 		public void onPageFinished(WebView view, String url) {
-			 view.loadUrl("javascript:window.HTMLOUT.parseHtml(document.getElementsByTagName('html')[0].innerHTML);"); 
+			super.onPageFinished(view, url);
+		    view.loadUrl("javascript:window.HTMLOUT.parseHtml(document.getElementsByTagName('html')[0].innerHTML);"); 
 		}
 	}
 	
