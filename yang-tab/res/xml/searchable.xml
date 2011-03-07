@@ -9,6 +9,6 @@
     
     android:includeInGlobalSearch="true"
     
-    android:searchSuggestAuthority="rings1"
+    android:searchSuggestAuthority="qqringtone"
     android:searchSuggestIntentAction="android.intent.action.VIEW"
 />

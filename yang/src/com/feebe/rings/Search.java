@@ -5,14 +5,13 @@ import java.net.URLEncoder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.widget.Toast;
+
 import com.feebe.lib.AdListener;
 import com.feebe.lib.HmacMd5;
 import com.feebe.lib.Util;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.util.Log;
-import android.widget.Toast;
 
 public class Search {
   private final static String TAG = "Search";
@@ -34,7 +33,7 @@ public class Search {
     String url = Const.SearchBase + "category=" + URLEncoder.encode(cate) +
       "&order=" + order;
 
-    startSearchList(act, url, Const.OneWeek, false);
+    startSearchList(act, url, Const.OneWeek, false, true);
   }
  
   public static void getArtistRing(Activity act, String artist) {
@@ -65,12 +64,13 @@ public class Search {
     act.startActivity(intent);
   }
   
-  public static void startSearchList(Activity act, String url, long expire, boolean dedup) {
+  public static void startSearchList(Activity act, String url, long expire, boolean dedup, boolean auth) {
     // Log.e("url", url);
     Intent intent = new Intent();
     intent.putExtra(Const.searchurl, url);
     intent.putExtra(Const.expire, expire);
     intent.putExtra(Const.USEDEDUP, dedup);
+    intent.putExtra(Const.AUTH, auth);
     intent.setClass(act, SearchList.class);
     act.startActivity(intent);
    

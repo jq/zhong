@@ -60,6 +60,7 @@ public class SearchList extends ListActivity implements OnItemClickListener {
   private ProgressDialog waitDialog;
   final Handler uiHandler = new Handler();
   private boolean dedup_ = true;
+  private boolean auth = true;
   @Override
   public void onCreate(Bundle savedInstanceState) {
 	  Const.init(this);
@@ -146,6 +147,8 @@ public ListAdapter getAdapter() {
     reloadUrl = getUrlFromIntent(i);
     long expire = i.getLongExtra(Const.expire, 0);
     dedup_ = i.getBooleanExtra(Const.USEDEDUP, true);
+    auth = i.getBooleanExtra(Const.AUTH, true);
+
     mAdapter = new SearchResultAdapter(this, R.layout.searchlist_row);
     if(!Util.inCache(reloadUrl, expire))
       showDialog(PROGRESS_DIALOG);
@@ -299,7 +302,11 @@ public ListAdapter getAdapter() {
 
     @Override
     protected List getListFromUrl(String url, long expire) {
-      return RingUtil.getJsonArrayFromUrl(Search.auth(url), expire);
+    	if(auth) {
+    		return RingUtil.getJsonArrayFromUrl(Search.auth(url), expire);
+    	} else {
+    		return RingUtil.getJsonArrayFromUrl(url, expire);
+    	}
     }
     
     @Override

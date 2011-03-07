@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 public class Const extends com.feebe.lib.Const {
   public static final String USEDEDUP = "dedup";
+  public static final String AUTH = "auth";
 
   public static final String key = "key";
   public static final String mp3 = "mp3";

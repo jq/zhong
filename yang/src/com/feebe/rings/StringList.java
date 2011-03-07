@@ -79,13 +79,13 @@ public class StringList extends BaseList {
     } else if (cate.type == ARTIST_TYPE) {
     	Search.getArtistRing(this, cate.name);
     } else if (cate.type == Latest_TYPE){
-        Search.startSearchList(this, LATEST, 0, false);
+        Search.startSearchList(this, LATEST, 0, false, false);
     } else if (cate.type == TOP_TODAY_TYPE) {
-      Search.startSearchList(this, TOPDOWNLOADTODAY, Const.OneDay, false);
+      Search.startSearchList(this, TOPDOWNLOADTODAY, Const.OneDay, false, false);
     } else if (cate.type == TOP_WEEK_TYPE) {
-      Search.startSearchList(this, TOPDOWNLOADTHISWEEK, Const.OneWeek, false);    
+      Search.startSearchList(this, TOPDOWNLOADTHISWEEK, Const.OneWeek, false, false);    
     } else {
-    	Search.startSearchList(this, TOPDOWNLOADTHISMONTH, Const.OneMonth, false);
+    	Search.startSearchList(this, TOPDOWNLOADTHISMONTH, Const.OneMonth, false, false);
     }
   }
   
