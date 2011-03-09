@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="msearch" default="generate-all-apks" basedir=".">
+
+	<!-- init path value -->
+	<property environment="env" />
+
+	<property name="sdk.dir" value="${env.ANDROID_SDK}" />
+	<property name="java.sdk.home" value="${env.JAVA_SDK_HOME}" />
+	<property name="apk.tools" value="${sdk.dir}/tools/" />
+	<property name="platform.tools" value="${sdk.dir}/platform-tools/" />
+	<property name="android-jar" value="${sdk.dir}/platforms/android-8/android.jar" />
+
+	<!-- init tools path -->
+	<condition property="dx" value="${platform.tools}/dx.bat"
+		else="${platform.tools}/dx">
+		<os family="windows" />
+	</condition>
+	<condition property="aapt" value="${platform.tools}/aapt.exe"
+		else="${platform.tools}/aapt">
+		<os family="windows" />
+	</condition>
+	<condition property="zipalign" value="${apk.tools}/zipalign.exe"
+		else="${apk.tools}/zipalign">
+		<os family="windows" />
+	</condition>
+	<condition property="jarsigner" value="${java.sdk.home}/bin/jarsigner.exe"
+		else="/usr/bin/jarsigner">
+		<os family="windows" />
+	</condition>
+	<condition property="aidl" value="${android.tools}/aidl.exe"
+		else="${android.tools}/aidl">
+		<os family="windows" />
+	</condition>
+	<condition property="adb" value="${apk.tools}/adb.exe" else="${apk.tools}/adb">
+		<os family="windows" />
+	</condition>
+	<condition property="apk-builder" value="${apk.tools}/apkbuilder.bat"
+		else="${apk.tools}/apkbuilder">
+		<os family="windows" />
+	</condition>
+	<condition property="android" value="${apk.tools}/android.bat"
+		else="${apk.tools}/android">
+		<os family="windows" />
+	</condition>
+	<condition property="antcmd" value="cmd" else="ant">
+		<os family="windows" />
+	</condition>
+	<condition property="antarg" value="/c ant release" else="release">
+		<os family="windows" />
+	</condition>
+	
+	<!-- clean and init -->
+	<target name="clean-apks" description="Delete all of apks in output directory">
+		<delete dir="targets" />
+		<delete dir="temp" />
+	</target>
+
+	<target name="clean" description="Delete the output directories of one cycle.">
+		<delete dir="temp/msearch" />
+	</target>
+
+	<target name="init-all">
+				
+		<mkdir dir="targets" />
+        <mkdir dir="targets/proguard" />
+        <mkdir dir="targets/release" />
+		<mkdir dir="temp" />
+        
+	</target>
+
+	<target name="init">
+
+	</target>
+
+	<target name="generate-new-apk">
+		<!-- generate the new prj. -->
+		
+		<antcall target="generate-new-prj">
+			<param name="package_name" value="${package_name}" />
+			<param name="drawable" value="${drawable}" />
+			<param name="app_name" value="${app_name}" />
+		</antcall>
+
+		<sleep seconds="2" />
+
+	</target>
+
+	<target name="generate-new-prj" depends="clean, init">
+    
+        <antcall target="generate-new-files">
+			<param name="package_name" value="${package_name}" />
+			<param name="drawable" value="${drawable}" />
+		</antcall>
+        
+        <antcall target="generate-new-src">
+			<param name="package_name" value="${package_name}" />
+		</antcall>
+
+		<antcall target="generate-new-res">
+			<param name="package_name" value="${package_name}" />
+			<param name="app_name" value="${app_name}" />
+		</antcall>
+        
+		<antcall target="generate-new-manifest">
+			<param name="package_name" value="${package_name}" />
+		</antcall>
+
+        <exec dir="temp/msearch" executable="${antcmd}" failonerror="true">
+			<arg line="${antarg}" />
+		</exec>
+        
+        <copyfile dest="targets/release/${package_name}.apk" src="temp/msearch/bin/main-release.apk" />
+        
+        <mkdir dir="targets/proguard/${package_name}" />
+        
+<!--
+        <copy todir="targets/proguard/${package_name}" filtering="false">
+			<fileset dir="temp/msearch/bin/proguard" />
+		</copy>
+-->
+
+	</target>
+    
+    <target name="generate-new-files">
+        
+		<exec executable="${android}" failonerror="true">
+			<arg value="create" />
+			<arg value="project" />
+			<arg value="--name" />
+			<arg value="msearch" />
+			<arg value="--target" />
+			<arg value="8" />
+			<arg value="--path" />
+			<arg value="./temp/msearch" />
+			<arg value="--activity" />
+			<arg value="SearchTab" />
+			<arg value="--package" />
+			<arg value="com.trans.music.search" />
+		</exec>
+		
+		<delete dir="temp/msearch/res" />
+		<delete dir="temp/msearch/src" />
+		<delete file="temp/msearch/AndroidManifest.xml" />
+		
+		<copy todir="temp/msearch/src" encoding="UTF-8" filtering="false">
+			<fileset dir="src" />
+		</copy>
+
+		<delete dir="temp/msearch/src/com/trans/music/search" />
+		<mkdir dir="temp/msearch/src/com/msearch/${package_name}" />
+		
+		<copy todir="temp/msearch/src/com/msearch/${package_name}" encoding="UTF-8" filtering="false">
+			<fileset dir="src/com/trans/music/search" />
+		</copy>
+
+		<copy todir="temp/msearch/res" encoding="UTF-8" filtering="false">
+			<fileset dir="res" />
+		</copy>
+
+		<delete file="temp/msearch/res/drawable/icon.png" />
+        	<copyfile dest="temp/msearch/res/drawable/icon.png" src="app_icon/${drawable}" />
+		
+		<delete file="temp/msearch/build.xml" />
+		<delete file="temp/msearch/default.properties" />
+		<delete file="temp/msearch/build.properties" />
+		<delete file="temp/msearch/proguard.cfg" />
+		
+		<copy todir="temp/msearch" encoding="UTF-8" filtering="false">
+			<fileset dir="buildfile" />
+		</copy>
+		
+		<copyfile dest="temp/msearch/AndroidManifest.xml" src="AndroidManifest.xml" />
+
+		<copy todir="temp/msearch/libs" encoding="UTF-8" filtering="false">
+			<fileset dir="libs" />
+		</copy>
+        
+	</target>
+
+	<target name="generate-new-res">
+		<replaceregexp encoding="UTF-8" byline="true">
+			<regexp pattern="Ringtone Search" />
+			<substitution expression="${app_name}" />
+            <fileset dir="temp/msearch/res">
+                <include name="values/strings.xml" />
+                <include name="values-de/strings.xml" />
+                <include name="values-es/strings.xml" />
+                <include name="values-fr/strings.xml" />
+                <include name="values-ja/strings.xml" />
+                <include name="values-kr/strings.xml" />
+                <include name="values-zh-rCN/strings.xml" />
+            </fileset>
+		</replaceregexp>
+
+		<replaceregexp file="temp/msearch/res/xml/searchable.xml" encoding="UTF-8" byline="true">
+			<regexp pattern="mp3musicsearch1" />
+			<substitution expression="com\.msearch\.${package_name}" />
+		</replaceregexp>
+        
+	</target>
+    
+    <target name="generate-new-library">
+    
+        <!-- 生成library工程ring和facebook -->
+    
+        <exec executable="${android}" failonerror="true">
+			<arg value="create" />
+			<arg value="lib-project" />
+			<arg value="--name" />
+			<arg value="ring" />
+			<arg value="--target" />
+			<arg value="8" />
+			<arg value="--path" />
+			<arg value="./temp/ring" />
+			<arg value="--package" />
+			<arg value="com.ringdroid" />
+		</exec>
+				
+		<delete dir="temp/ring/res" />
+		<delete dir="temp/ring/src" />
+		<delete file="temp/ring/AndroidManifest.xml" />
+		
+		<copy todir="temp/ring/res" encoding="UTF-8" filtering="false">
+			<fileset dir="../ring/res" />
+		</copy>
+		
+		<copy todir="temp/ring/src" encoding="UTF-8" filtering="false">
+			<fileset dir="../ring/src" />
+		</copy>
+		
+		<copy todir="temp/ring" encoding="UTF-8" filtering="false">
+			<fileset file="../ring/AndroidManifest.xml" />
+		</copy>
+
+    </target>
+
+	<target name="generate-new-manifest">
+		<replaceregexp file="temp/msearch/AndroidManifest.xml" encoding="UTF-8" byline="true">
+			<regexp pattern="com\.jokes\.search" />
+			<substitution expression="com\.msearch\.${package_name}" />
+		</replaceregexp>
+		
+		<replaceregexp file="temp/msearch/AndroidManifest.xml" encoding="UTF-8" byline="true">
+			<regexp pattern="mp3musicsearch1" />
+			<substitution expression="com\.msearch\.${package_name}" />
+		</replaceregexp>
+
+		<replaceregexp file="temp/msearch/AndroidManifest.xml" encoding="UTF-8" byline="true">
+			<regexp pattern="com\.trans\.music\.search" />
+			<substitution expression="com\.msearch\.${package_name}" />
+		</replaceregexp>
+
+	</target>
+
+	<target name="generate-new-src">
+		<replaceregexp encoding="UTF-8" byline="true">
+			<regexp pattern="(^package).*($)" />
+			<substitution expression="package com\.msearch\.${package_name};" />
+			<fileset dir="temp/msearch/src/com/msearch/${package_name}" />
+		</replaceregexp>
+
+		<replaceregexp encoding="UTF-8" byline="true">
+			<regexp pattern="com\.jokes\.search" />
+			<substitution expression="com\.msearch\.${package_name}" />
+			<fileset dir="temp/msearch/src/com" />
+		</replaceregexp>
+		
+				<replaceregexp encoding="UTF-8" byline="true">
+			<regexp pattern="com\.trans\.music\.search" />
+			<substitution expression="com\.msearch\.${package_name}" />
+			<fileset dir="temp/msearch/src/com" />
+		</replaceregexp>
+	</target>
+
+	<target name="generate-all-apks" depends="clean-apks, init-all, generate-new-library">
+    
+		<echo>android sdk path is ${sdk.dir}</echo>
+		<echo>jdk path is ${java.sdk.home}</echo>
+
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="rings0" />
+			<param name="drawable" value="0.png" />
+			<param name="app_name" value="Music Ringtone" />
+		</antcall>
+        
+        <antcall target="generate-new-apk">
+			<param name="package_name" value="rings1" />
+			<param name="drawable" value="1.png" />
+			<param name="app_name" value="Ringtone Music" />
+		</antcall>
+        
+        <antcall target="generate-new-apk">
+			<param name="package_name" value="rings2" />
+			<param name="drawable" value="2.png" />
+			<param name="app_name" value="Ringtones" />
+		</antcall>
+        
+        <antcall target="generate-new-apk">
+			<param name="package_name" value="rings3" />
+			<param name="drawable" value="3.png" />
+			<param name="app_name" value="Ringtone Center" />
+		</antcall>
+
+        <antcall target="generate-new-apk">
+			<param name="package_name" value="rings4" />
+			<param name="drawable" value="4.png" />
+			<param name="app_name" value="Ringtone Searcher" />
+		</antcall>
+        
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="rings5" />
+			<param name="drawable" value="5.png" />
+			<param name="app_name" value="Ringtone" />
+		</antcall>
+        
+        <antcall target="generate-new-apk">
+			<param name="package_name" value="rings6" />
+			<param name="drawable" value="6.png" />
+			<param name="app_name" value="Fine Ringtones" />
+		</antcall>
+        
+        <antcall target="generate-new-apk">
+			<param name="package_name" value="rings7" />
+			<param name="drawable" value="7.png" />
+			<param name="app_name" value="Good Ringtones" />
+		</antcall>
+        
+        <antcall target="generate-new-apk">
+			<param name="package_name" value="rings8" />
+			<param name="drawable" value="8.png" />
+			<param name="app_name" value="Great Ringtones" />
+		</antcall>
+
+        <antcall target="generate-new-apk">
+			<param name="package_name" value="rings9" />
+			<param name="drawable" value="9.png" />
+			<param name="app_name" value="Ringtones Center" />
+		</antcall>
+
+	</target>
+
+</project>
