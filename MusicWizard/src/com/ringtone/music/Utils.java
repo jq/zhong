@@ -164,7 +164,8 @@ public class Utils {
           w = LayoutParams.WRAP_CONTENT;
       }
       
-      AdWhirlLayout adWhirlLayout = new AdWhirlLayout(act, "e383f83acfec4f34b591486a93c4da96");
+      // e383f83acfec4f34b591486a93c4da96 be replaced 20110319
+      AdWhirlLayout adWhirlLayout = new AdWhirlLayout(act, "5dc75f18387548e5afb4ac56bc1e3116");
       LayoutParams adWhirlLayoutParams = new LayoutParams(LayoutParams.FILL_PARENT, w);
       LinearLayout layout = (LinearLayout) act.findViewById(R.id.layout_ad);
       layout.addView(adWhirlLayout, adWhirlLayoutParams);
