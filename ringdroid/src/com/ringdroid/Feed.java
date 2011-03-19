@@ -54,7 +54,9 @@ public class Feed {
 	    } else {
 	      w = LayoutParams.WRAP_CONTENT;
 	    }
-        AdWhirlLayout adWhirlLayout = new AdWhirlLayout(activity, "c2910c3b4b5241a48f4341ec3b2a968e");
+
+        // c2910c3b4b5241a48f4341ec3b2a968e before 20110319
+        AdWhirlLayout adWhirlLayout = new AdWhirlLayout(activity, "ec0b4544486c45f4ad975cb6da07ff3a");
         LayoutParams adWhirlLayoutParams = new LayoutParams(LayoutParams.FILL_PARENT, w);
         ViewGroup layout = (ViewGroup) activity.findViewById(R.id.ads_view);
         layout.addView(adWhirlLayout, adWhirlLayoutParams);

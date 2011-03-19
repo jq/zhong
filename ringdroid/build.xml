@@ -13,9 +13,10 @@
 
         <fileset dir="lib" id="main.jars">
         	<include name="admob-sdk-android.jar"/>
-        	<include name="AdWhirlSDK_Android_2.6.0.jar"/>
+        	<include name="mdotm-sdk-android.jar"/>
+        	<include name="AdWhirlSDK_Android_2.6.3.jar"/>
+        	<include name="zestadz_android_sdkv1.2.jar"/>
         	<include name="MMAdView.jar"/>
-        	<include name="qwandroidsdk.jar"/>
         </fileset>
         <!-- Rules -->
 
@@ -297,50 +298,50 @@
     	<target name="package-apks" depends="clean-apks, init-all" description="Package applications.">
     		
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Ringdroid1"/>
+    		    <param name="package_name" value="aringcut1"/>
     		    <param name="drawable" value="app_icons\\1.png"/>
     			<param name="app_name" value="ringtone"/>
     		</antcall> 
 
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Ringdroid2"/>
+    		    <param name="package_name" value="aringcut2"/>
     		    <param name="drawable" value="app_icons\\2.png"/>
     			<param name="app_name" value="editor ringtone"/>
     		</antcall> 
 
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Ringdroid3"/>
+    		    <param name="package_name" value="aringcut3"/>
     		    <param name="drawable" value="app_icons\\3.png"/>
     			<param name="app_name" value="cut ringtone"/>
     		</antcall> 
 
 			<antcall target="package-apk">
-    		    <param name="package_name" value="Ringdroid4"/>
+    		    <param name="package_name" value="aringcut4"/>
     		    <param name="drawable" value="app_icons\\4.png"/>
 				<param name="app_name" value="design ringtone"/>
     		</antcall> 
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Ringdroid5"/>
+    		    <param name="package_name" value="aringcut5"/>
     		    <param name="drawable" value="app_icons\\5.png"/>
     			<param name="app_name" value="junk my ringtone"/>
     		</antcall> 
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Ringdroid6"/>
+    		    <param name="package_name" value="aringcut6"/>
     		    <param name="drawable" value="app_icons\\6.png"/>
     			<param name="app_name" value="ringtones"/>
     		</antcall> 
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Ringdroid7"/>
+    		    <param name="package_name" value="aringcut7"/>
     		    <param name="drawable" value="app_icons\\7.png"/>
     			<param name="app_name" value="editor ringtones"/>
     		</antcall> 
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Ringdroid8"/>
+    		    <param name="package_name" value="aringcut8"/>
     		    <param name="drawable" value="app_icons\\8.png"/>
     			<param name="app_name" value="cut ringtones"/>
     		</antcall> 
     		<antcall target="package-apk">
-    		    <param name="package_name" value="Ringdroid9"/>
+    		    <param name="package_name" value="aringcut9"/>
     		    <param name="drawable" value="app_icons\\9.png"/>
     			<param name="app_name" value="maker ringtones"/>
     		</antcall> 
