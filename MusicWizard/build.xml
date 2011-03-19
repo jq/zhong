@@ -292,59 +292,60 @@
 		<echo>jdk path is ${java.sdk.home}</echo>
 
 		<antcall target="generate-new-apk">
-			<param name="package_name" value="Music21" />
+			<param name="package_name" value="amusic1" />
 			<param name="drawable" value="app_icons\\player1.png" />
 			<param name="app_name" value="Music Ringtone" />
 		</antcall>
 
 		<antcall target="generate-new-apk">
-			<param name="package_name" value="Music22" />
+			<param name="package_name" value="amusic2" />
 			<param name="drawable" value="app_icons\\player2.png" />
 			<param name="app_name" value="Music Wizard" />
 		</antcall>
 
 		<antcall target="generate-new-apk">
-			<param name="package_name" value="Music23" />
+			<param name="package_name" value="amusic3" />
 			<param name="drawable" value="app_icons\\player3.png" />
 			<param name="app_name" value="Ringtone Mp3" />
 		</antcall>
 
 		<antcall target="generate-new-apk">
-			<param name="package_name" value="Music24" />
+			<param name="package_name" value="amusic4" />
 			<param name="drawable" value="app_icons\\player4.png" />
 			<param name="app_name" value="Ringtone Music" />
 		</antcall>
 
 
 		<antcall target="generate-new-apk">
-			<param name="package_name" value="Music25" />
+			<param name="package_name" value="amusic5" />
 			<param name="drawable" value="app_icons\\player5.png" />
 			<param name="app_name" value="Mp3 Music" />
 		</antcall>
 
 		<antcall target="generate-new-apk">
-			<param name="package_name" value="Music26" />
+			<param name="package_name" value="amusic6" />
 			<param name="drawable" value="app_icons\\icon6.png" />
 			<param name="app_name" value="Mp3 Ringtone" />
 		</antcall>
 
 		<antcall target="generate-new-apk">
-			<param name="package_name" value="Music27" />
+			<param name="package_name" value="amusic7" />
 			<param name="drawable" value="app_icons\\icon7.png" />
 			<param name="app_name" value="Mp3 Player" />
 		</antcall>
 
 		<antcall target="generate-new-apk">
-			<param name="package_name" value="Music28" />
+			<param name="package_name" value="amusic8" />
 			<param name="drawable" value="app_icons\\icon8.png" />
 			<param name="app_name" value="Music Player" />
 		</antcall>
 
 		<antcall target="generate-new-apk">
-			<param name="package_name" value="Music29" />
+			<param name="package_name" value="amusic9" />
 			<param name="drawable" value="app_icons\\icon9.png" />
 			<param name="app_name" value="Ringtone Player" />
 		</antcall>
+
 	</target>
 
 </project>
