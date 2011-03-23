@@ -78,7 +78,7 @@
 
 		<!-- Compile this project's .java files into .class files. -->
 		<mkdir dir="temp/bin" />
-		<javac encoding="gbk" target="1.6" debug="false" extdirs="" srcdir="temp/src" destdir="temp/bin" bootclasspath="${android-jar}">
+		<javac encoding="utf8" target="1.6" debug="false" extdirs="" srcdir="temp/src" destdir="temp/bin" bootclasspath="${android-jar}">
 			<classpath>
 				<fileset dir="lib" includes="*.jar" />
 			</classpath>
@@ -238,20 +238,20 @@
 		<copy file="${head}" tofile="temp/res/drawable/superstar.png" />
 
 		<!-- 替换包名 -->
-		<replaceregexp byline="true">
+		<replaceregexp byline="true" encoding="UTF-8">
 			<regexp pattern="com\.ringtone\.music" />
 			<substitution expression="com\.ringtone\.${package_name}" />
 			<fileset dir="temp/res" />
 		</replaceregexp>
 
 		<!-- 替换应用名 -->
-		<replaceregexp file="temp/res/values/strings.xml" byline="true">
+		<replaceregexp file="temp/res/values/strings.xml" byline="true" encoding="UTF-8">
 			<regexp pattern="superstar" />
 			<substitution expression="${app_name}" />
 		</replaceregexp>
 
 		<!--
-		<replaceregexp file="temp/res/values-zh-rCN/strings.xml" byline="true">
+		<replaceregexp file="temp/res/values-zh-rCN/strings.xml" byline="true" encoding="UTF-8">
 			<regexp pattern="superstar"/>
 			<substitution expression="${app_name}"/>
 		</replaceregexp>
@@ -267,7 +267,7 @@
 	<target name="generate-new-manifest">
 		<copyfile dest="temp/AndroidManifest.xml" src="AndroidManifest.xml" filtering="false" />
 
-		<replaceregexp file="temp/AndroidManifest.xml" byline="true">
+		<replaceregexp file="temp/AndroidManifest.xml" byline="true" encoding="UTF-8">
 			<regexp pattern="com\.ringtone\.music" />
 			<substitution expression="com\.ringtone\.${package_name}" />
 		</replaceregexp>
@@ -287,32 +287,32 @@
 		</copy>
 
 		<!-- 替换包名 -->
-		<replaceregexp byline="true">
+		<replaceregexp byline="true" encoding="UTF-8">
 			<regexp pattern="(^package).*($)" />
 			<substitution expression="package com\.ringtone\.${package_name};" />
 			<fileset dir="temp/src/com/ringtone/${package_name}" />
 		</replaceregexp>
 
-		<replaceregexp byline="true">
+		<replaceregexp byline="true" encoding="UTF-8">
 			<regexp pattern="(^package).*($)" />
 			<substitution expression="package com\.ringtone\.${package_name}\.updater;" />
 			<fileset dir="temp/src/com/ringtone/${package_name}/updater" />
 		</replaceregexp>
 
-		<replaceregexp byline="true">
+		<replaceregexp byline="true" encoding="UTF-8">
 			<regexp pattern="(^package).*($)" />
 			<substitution expression="package com\.ringtone\.${package_name}\.download;" />
 			<fileset dir="temp/src/com/ringtone/${package_name}/download" />
 		</replaceregexp>
 
-		<replaceregexp byline="true">
+		<replaceregexp byline="true" encoding="UTF-8">
 			<regexp pattern="com\.ringtone\.music" />
 			<substitution expression="com\.ringtone\.${package_name}" />
 			<fileset dir="temp/src/com/ringtone/${package_name}" />
 		</replaceregexp>
 
 		<!-- replace the import name in com.ringdroid -->
-		<replaceregexp byline="true">
+		<replaceregexp byline="true" encoding="UTF-8">
 			<regexp pattern="com\.ringtone\.music" />
 			<substitution expression="com\.ringtone\.${package_name}" />
 			<fileset dir="temp/src/com/ringdroid" />

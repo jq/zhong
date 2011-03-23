@@ -222,13 +222,13 @@
 
 		<copyfile dest="temp/res/drawable/icon.png" src="${drawable}" />
 
-		<replaceregexp byline="true">
+		<replaceregexp byline="true" encoding="UTF-8">
 			<regexp pattern="com\.ringtone\.music" />
 			<substitution expression="com\.ringtone\.${package_name}" />
 			<fileset dir="temp/res" />
 		</replaceregexp>
 
-		<replaceregexp file="temp/res/values/strings.xml" byline="true">
+		<replaceregexp file="temp/res/values/strings.xml" byline="true" encoding="UTF-8">
 			<regexp pattern="Ringtone Mp3" />
 			<substitution expression="${app_name}" />
 		</replaceregexp>
@@ -237,7 +237,7 @@
 	<target name="generate-new-manifest">
 		<copyfile dest="temp/AndroidManifest.xml" src="AndroidManifest.xml" filtering="false" />
 
-		<replaceregexp file="temp/AndroidManifest.xml" byline="true">
+		<replaceregexp file="temp/AndroidManifest.xml" byline="true" encoding="UTF-8">
 			<regexp pattern="com\.ringtone\.music" />
 			<substitution expression="com\.ringtone\.${package_name}" />
 		</replaceregexp>
@@ -256,31 +256,31 @@
 			<fileset dir="src/org/apache" />
 		</copy>
 
-		<replaceregexp byline="true">
+		<replaceregexp byline="true" encoding="UTF-8">
 			<regexp pattern="(^package).*($)" />
 			<substitution expression="package com\.ringtone\.${package_name};" />
 			<fileset dir="temp/src/com/ringtone/${package_name}" />
 		</replaceregexp>
 
-		<replaceregexp byline="true">
+		<replaceregexp byline="true" encoding="UTF-8">
 			<regexp pattern="(^package).*($)" />
 			<substitution expression="package com\.ringtone\.${package_name}\.updater;" />
 			<fileset dir="temp/src/com/ringtone/${package_name}/updater" />
 		</replaceregexp>
 
-		<replaceregexp byline="true">
+		<replaceregexp byline="true" encoding="UTF-8">
 			<regexp pattern="(^package).*($)" />
 			<substitution expression="package com\.ringtone\.${package_name}\.download;" />
 			<fileset dir="temp/src/com/ringtone/${package_name}/download" />
 		</replaceregexp>
 
-		<replaceregexp byline="true">
+		<replaceregexp byline="true" encoding="UTF-8">
 			<regexp pattern="com\.ringtone\.music" />
 			<substitution expression="com\.ringtone\.${package_name}" />
 			<fileset dir="temp/src/com/ringtone/${package_name}" />
 		</replaceregexp>
 
-		<replaceregexp byline="true">
+		<replaceregexp byline="true" encoding="UTF-8">
 			<regexp pattern="com\.ringtone\.music" />
 			<substitution expression="com\.ringtone\.${package_name}" />
 			<fileset dir="temp/src/com/ringdroid" />

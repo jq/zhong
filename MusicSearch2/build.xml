@@ -278,61 +278,61 @@
 		<echo>jdk path is ${java.sdk.home}</echo>
 
 		<antcall target="generate-new-apk">
-			<param name="package_name" value="rings0" />
+			<param name="package_name" value="rings10" />
 			<param name="drawable" value="0.png" />
 			<param name="app_name" value="Music Ringtone" />
 		</antcall>
         
         <antcall target="generate-new-apk">
-			<param name="package_name" value="rings1" />
+			<param name="package_name" value="rings11" />
 			<param name="drawable" value="1.png" />
 			<param name="app_name" value="Ringtone Music" />
 		</antcall>
         
         <antcall target="generate-new-apk">
-			<param name="package_name" value="rings2" />
+			<param name="package_name" value="rings12" />
 			<param name="drawable" value="2.png" />
 			<param name="app_name" value="Ringtones" />
 		</antcall>
         
         <antcall target="generate-new-apk">
-			<param name="package_name" value="rings3" />
+			<param name="package_name" value="rings13" />
 			<param name="drawable" value="3.png" />
 			<param name="app_name" value="Ringtone Center" />
 		</antcall>
 
         <antcall target="generate-new-apk">
-			<param name="package_name" value="rings4" />
+			<param name="package_name" value="rings14" />
 			<param name="drawable" value="4.png" />
 			<param name="app_name" value="Ringtone Searcher" />
 		</antcall>
         
 		<antcall target="generate-new-apk">
-			<param name="package_name" value="rings5" />
+			<param name="package_name" value="rings15" />
 			<param name="drawable" value="5.png" />
 			<param name="app_name" value="Ringtone" />
 		</antcall>
         
         <antcall target="generate-new-apk">
-			<param name="package_name" value="rings6" />
+			<param name="package_name" value="rings16" />
 			<param name="drawable" value="6.png" />
 			<param name="app_name" value="Fine Ringtones" />
 		</antcall>
         
         <antcall target="generate-new-apk">
-			<param name="package_name" value="rings7" />
+			<param name="package_name" value="rings17" />
 			<param name="drawable" value="7.png" />
 			<param name="app_name" value="Good Ringtones" />
 		</antcall>
         
         <antcall target="generate-new-apk">
-			<param name="package_name" value="rings8" />
+			<param name="package_name" value="rings18" />
 			<param name="drawable" value="8.png" />
 			<param name="app_name" value="Great Ringtones" />
 		</antcall>
 
         <antcall target="generate-new-apk">
-			<param name="package_name" value="rings9" />
+			<param name="package_name" value="rings19" />
 			<param name="drawable" value="9.png" />
 			<param name="app_name" value="Ringtones Center" />
 		</antcall>
