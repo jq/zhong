@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       android:installLocation="auto"
-      package="com.fatima.life2"
+      package="com.fatima.ringcenter"
       android:versionCode="58"
       android:versionName="2.6.3">
     <application
