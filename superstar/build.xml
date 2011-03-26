@@ -505,7 +505,75 @@
 			<param name="head" value="app_icons\\usher_small.png" />
 			<param name="app_name" value="Usher" />
 		</antcall>
-
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="cneilyoung" />
+			<param name="file_name" value="neilyoung" />
+			<param name="drawable" value="app_icons\\neilyoung_large.png" />
+			<param name="head" value="app_icons\\neilyoung_small.png" />
+			<param name="app_name" value="Neil Young" />
+		</antcall>
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="cpaulmccartney" />
+			<param name="file_name" value="paulmccartney" />
+			<param name="drawable" value="app_icons\\paulmccartney_large.png" />
+			<param name="head" value="app_icons\paulmccartney_small.png" />
+			<param name="app_name" value="Paul McCartney" />
+		</antcall>
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="ctheblackkeys" />
+			<param name="file_name" value="theblackkeys" />
+			<param name="drawable" value="app_icons\\theblackkeys_large.png" />
+			<param name="head" value="app_icons\\theblackkeys_small.png" />
+			<param name="app_name" value="The Black Keys" />
+		</antcall>
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="ctrain" />
+			<param name="file_name" value="train" />
+			<param name="drawable" value="app_icons\\train_large.png" />
+			<param name="head" value="app_icons\\train_small.png" />
+			<param name="app_name" value="Train" />
+		</antcall>
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="darcadefire" />
+			<param name="file_name" value="arcadefire" />
+			<param name="drawable" value="app_icons\\arcadefire_large.png" />
+			<param name="head" value="app_icons\\arcadefire_small.png" />
+			<param name="app_name" value="Arcade Fire" />
+		</antcall>
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="dfantasia" />
+			<param name="file_name" value="fantasia" />
+			<param name="drawable" value="app_icons\\fantasia_large.png" />
+			<param name="head" value="app_icons\\fantasia_small.png" />
+			<param name="app_name" value="Fantasia" />
+		</antcall>
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="dherbiehancock" />
+			<param name="file_name" value="herbiehancock" />
+			<param name="drawable" value="app_icons\\herbiehancock_large.png" />
+			<param name="head" value="app_icons\\herbiehancock_small.png" />
+			<param name="app_name" value="Herbie Hancock" />
+		</antcall>
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="dladyantebellum" />
+			<param name="file_name" value="ladyantebellum" />
+			<param name="drawable" value="app_icons\\ladyantebellum_large.png" />
+			<param name="head" value="app_icons\\ladyantebellum_small.png" />
+			<param name="app_name" value="Lady Antebellum" />
+		</antcall>
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="dmichaelbuble" />
+			<param name="file_name" value="michaelbuble" />
+			<param name="drawable" value="app_icons\\michaelbuble_large.png" />
+			<param name="head" value="app_icons\\michaelbuble_small.png" />
+			<param name="app_name" value="Michael Buble" />
+		</antcall>
+		<antcall target="generate-new-apk">
+			<param name="package_name" value="dmuse" />
+			<param name="file_name" value="muse" />
+			<param name="drawable" value="app_icons\\muse_large.png" />
+			<param name="head" value="app_icons\\muse_small.png" />
+			<param name="app_name" value="Muse" />
+		</antcall>
 	</target>
-
 </project>
