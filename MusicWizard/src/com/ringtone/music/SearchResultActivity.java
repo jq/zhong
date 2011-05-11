@@ -8,7 +8,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import com.admob.android.ads.AdView;
 import com.ringtone.music.download.DownloadActivity;
 import com.ringtone.music.download.DownloadInfo;
 import com.ringtone.music.download.DownloadService;

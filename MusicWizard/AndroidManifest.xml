@@ -70,9 +70,14 @@
                     android:configChanges="keyboardHidden|orientation|keyboard" >
         </activity>
         
+	<!--
 	<activity android:name="com.admob.android.ads.AdMobActivity"
 					android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
 					android:configChanges="orientation|keyboard|keyboardHidden"/>
+					-->
+					
+		<activity android:name="com.google.ads.AdActivity"
+					android:configChanges="keyboard|keyboardHidden|orientation"/>
 					
 	<!-- Activity for choosing a contact to assign a ringtone to. -->
         <activity android:name="com.ringdroid.ChooseContactActivity"

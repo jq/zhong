@@ -3,7 +3,6 @@ package com.ringtone.music.download;
 import java.io.File;
 import java.util.ArrayList;
 
-import com.admob.android.ads.AdView;
 import com.ringtone.music.R;
 import com.ringtone.music.Utils;
 import com.ringtone.music.download.DownloadService.ServiceToken;

@@ -55,6 +55,7 @@
 		<!-- generate the new prj. -->
 		<antcall target="generate-new-prj">
 			<param name="package_name" value="${package_name}" />
+			<param name="second_name" value="${second_name}" />
 			<param name="drawable" value="${drawable}" />
 			<param name="app_name" value="${app_name}" />
 		</antcall>
@@ -187,16 +188,19 @@
 	<target name="generate-new-prj" depends="clean, init">
 		<antcall target="generate-new-res">
 			<param name="package_name" value="${package_name}" />
+			<param name="second_name" value="${second_name}" />
 			<param name="drawable" value="${drawable}" />
 			<param name="app_name" value="${app_name}" />
 		</antcall>
 
 		<antcall target="generate-new-manifest">
 			<param name="package_name" value="${package_name}" />
+			<param name="second_name" value="${second_name}" />
 		</antcall>
 
 		<antcall target="generate-new-src">
 			<param name="package_name" value="${package_name}" />
+			<param name="second_name" value="${second_name}" />
 		</antcall>
 	</target>
 
@@ -224,7 +228,7 @@
 
 		<replaceregexp byline="true" encoding="UTF-8">
 			<regexp pattern="com\.ringtone\.music" />
-			<substitution expression="com\.ringtone\.${package_name}" />
+			<substitution expression="com\.${second_name}\.${package_name}" />
 			<fileset dir="temp/res" />
 		</replaceregexp>
 
@@ -239,12 +243,12 @@
 
 		<replaceregexp file="temp/AndroidManifest.xml" byline="true" encoding="UTF-8">
 			<regexp pattern="com\.ringtone\.music" />
-			<substitution expression="com\.ringtone\.${package_name}" />
+			<substitution expression="com\.${second_name}\.${package_name}" />
 		</replaceregexp>
 	</target>
 
 	<target name="generate-new-src">
-		<copy todir="temp/src/com/ringtone/${package_name}" encoding="UTF-8" filtering="false">
+		<copy todir="temp/src/com/${second_name}/${package_name}" encoding="UTF-8" filtering="false">
 			<fileset dir="src/com/ringtone/music" />
 		</copy>
 
@@ -258,31 +262,31 @@
 
 		<replaceregexp byline="true" encoding="UTF-8">
 			<regexp pattern="(^package).*($)" />
-			<substitution expression="package com\.ringtone\.${package_name};" />
-			<fileset dir="temp/src/com/ringtone/${package_name}" />
+			<substitution expression="package com\.${second_name}\.${package_name};" />
+			<fileset dir="temp/src/com/${second_name}/${package_name}" />
 		</replaceregexp>
 
 		<replaceregexp byline="true" encoding="UTF-8">
 			<regexp pattern="(^package).*($)" />
-			<substitution expression="package com\.ringtone\.${package_name}\.updater;" />
-			<fileset dir="temp/src/com/ringtone/${package_name}/updater" />
+			<substitution expression="package com\.${second_name}\.${package_name}\.updater;" />
+			<fileset dir="temp/src/com/${second_name}/${package_name}/updater" />
 		</replaceregexp>
 
 		<replaceregexp byline="true" encoding="UTF-8">
 			<regexp pattern="(^package).*($)" />
-			<substitution expression="package com\.ringtone\.${package_name}\.download;" />
-			<fileset dir="temp/src/com/ringtone/${package_name}/download" />
+			<substitution expression="package com\.${second_name}\.${package_name}\.download;" />
+			<fileset dir="temp/src/com/${second_name}/${package_name}/download" />
 		</replaceregexp>
 
 		<replaceregexp byline="true" encoding="UTF-8">
 			<regexp pattern="com\.ringtone\.music" />
-			<substitution expression="com\.ringtone\.${package_name}" />
-			<fileset dir="temp/src/com/ringtone/${package_name}" />
+			<substitution expression="com\.${second_name}\.${package_name}" />
+			<fileset dir="temp/src/com/${second_name}/${package_name}" />
 		</replaceregexp>
 
 		<replaceregexp byline="true" encoding="UTF-8">
 			<regexp pattern="com\.ringtone\.music" />
-			<substitution expression="com\.ringtone\.${package_name}" />
+			<substitution expression="com\.${second_name}\.${package_name}" />
 			<fileset dir="temp/src/com/ringdroid" />
 		</replaceregexp>
 	</target>
@@ -292,58 +296,10 @@
 		<echo>jdk path is ${java.sdk.home}</echo>
 
 		<antcall target="generate-new-apk">
-			<param name="package_name" value="amusic1" />
-			<param name="drawable" value="app_icons\\player1.png" />
-			<param name="app_name" value="Music Ringtone" />
-		</antcall>
-
-		<antcall target="generate-new-apk">
-			<param name="package_name" value="amusic2" />
+			<param name="package_name" value="langlang" />
+			<param name="second_name" value="magicpad" />
 			<param name="drawable" value="app_icons\\player2.png" />
-			<param name="app_name" value="Music Wizard" />
-		</antcall>
-
-		<antcall target="generate-new-apk">
-			<param name="package_name" value="amusic3" />
-			<param name="drawable" value="app_icons\\player3.png" />
-			<param name="app_name" value="Ringtone Mp3" />
-		</antcall>
-
-		<antcall target="generate-new-apk">
-			<param name="package_name" value="amusic4" />
-			<param name="drawable" value="app_icons\\player4.png" />
-			<param name="app_name" value="Ringtone Music" />
-		</antcall>
-
-
-		<antcall target="generate-new-apk">
-			<param name="package_name" value="amusic5" />
-			<param name="drawable" value="app_icons\\player5.png" />
-			<param name="app_name" value="Mp3 Music" />
-		</antcall>
-
-		<antcall target="generate-new-apk">
-			<param name="package_name" value="amusic6" />
-			<param name="drawable" value="app_icons\\icon6.png" />
-			<param name="app_name" value="Mp3 Ringtone" />
-		</antcall>
-
-		<antcall target="generate-new-apk">
-			<param name="package_name" value="amusic7" />
-			<param name="drawable" value="app_icons\\icon7.png" />
-			<param name="app_name" value="Mp3 Player" />
-		</antcall>
-
-		<antcall target="generate-new-apk">
-			<param name="package_name" value="amusic8" />
-			<param name="drawable" value="app_icons\\icon8.png" />
-			<param name="app_name" value="Music Player" />
-		</antcall>
-
-		<antcall target="generate-new-apk">
-			<param name="package_name" value="amusic9" />
-			<param name="drawable" value="app_icons\\icon9.png" />
-			<param name="app_name" value="Ringtone Player" />
+			<param name="app_name" value="Magic Mp3" />
 		</antcall>
 
 	</target>

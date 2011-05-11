@@ -38,7 +38,7 @@
      		   android:background="@android:drawable/list_selector_background"
      		   android:layout_width="fill_parent"
      		   android:layout_height="wrap_content"
-     		   android:text="Billboard"
+     		   android:text="Hot"
      		   android:layout_margin="6.0dip"
      		   />
 
